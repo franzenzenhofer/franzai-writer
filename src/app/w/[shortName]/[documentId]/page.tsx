@@ -1,4 +1,4 @@
-import { getWorkflowById } from "@/lib/workflow-loader";
+import { getWorkflowById, getWorkflowByShortName } from "@/lib/workflow-loader";
 import { notFound, redirect } from "next/navigation";
 import type { WizardDocument, WizardInstance, StageState } from "@/types";
 import Link from "next/link";
@@ -12,10 +12,10 @@ export default async function WizardPage({
   params,
   searchParams 
 }: { 
-  params: Promise<{ pageId: string }>;
+  params: Promise<{ shortName: string; documentId: string }>;
   searchParams: Promise<{ new?: string }>;
 }) {
-  const { pageId } = await params;
+  const { shortName, documentId } = await params;
   const { new: newWorkflowId } = await searchParams;
   
   let wizardInstance: WizardInstance | undefined;
@@ -29,9 +29,14 @@ export default async function WizardPage({
       notFound();
     }
 
+    // Verify the shortName matches the workflow
+    if (workflow.shortName !== shortName) {
+      notFound();
+    }
+
     dynamicTitle = `New ${workflow.name}`;
     const newDoc: WizardDocument = {
-      id: pageId, // Use the pageId as document ID
+      id: documentId, // Use the documentId as document ID
       title: dynamicTitle,
       workflowId: workflow.id,
       status: "draft",
@@ -54,6 +59,7 @@ export default async function WizardPage({
         completedAt: undefined,
         groundingInfo: undefined,
         isStale: false,
+        staleDismissed: false,
         depsAreMet: stage.dependencies && stage.dependencies.length > 0 ? false : true,
         shouldAutoRun: stage.autoRun && (!stage.dependencies || stage.dependencies.length === 0),
         isEditingOutput: false,
@@ -70,28 +76,34 @@ export default async function WizardPage({
       globalThis.document.title = `${dynamicTitle} - ${siteConfig.name}`;
     }
   } else {
-    // Try to load existing document by pageId (which is the document ID)
+    // Get workflow by short name
+    const workflow = getWorkflowByShortName(shortName);
+    
+    if (!workflow) {
+      notFound();
+    }
+
+    // Try to load existing document by documentId
     try {
-      const result = await getDocument(pageId);
+      const result = await getDocument(documentId);
       
       if (result) {
         const { document, stageStates } = result;
-        const workflow = getWorkflowById(document.workflowId);
         
-        if (workflow) {
-          wizardInstance = {
-            document,
-            workflow,
-            stageStates,
-          };
-          dynamicTitle = document.title;
-          
-          if (typeof globalThis.document !== 'undefined') {
-            globalThis.document.title = `${dynamicTitle} - ${siteConfig.name}`;
-          }
-        } else {
-          // Workflow not found for document
-          wizardInstance = undefined;
+        // Verify this document belongs to the correct workflow
+        if (document.workflowId !== workflow.id) {
+          notFound();
+        }
+        
+        wizardInstance = {
+          document,
+          workflow,
+          stageStates,
+        };
+        dynamicTitle = document.title;
+        
+        if (typeof globalThis.document !== 'undefined') {
+          globalThis.document.title = `${dynamicTitle} - ${siteConfig.name}`;
         }
       } else {
         // Document not found

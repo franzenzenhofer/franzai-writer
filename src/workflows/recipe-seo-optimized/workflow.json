@@ -1,6 +1,6 @@
-
 {
   "id": "recipe-seo-optimized",
+  "shortName": "recipe",
   "name": "SEO Optimized Cooking Recipe",
   "description": "Create a detailed, SEO-friendly cooking recipe with AI assistance.",
   "config": {

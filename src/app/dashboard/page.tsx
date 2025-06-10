@@ -36,12 +36,17 @@ function DocumentCard({
   onDelete: (documentId: string) => void;
 }) {
   const [isDeleting, setIsDeleting] = useState(false);
+  const workflow = allWorkflows.find(w => w.id === document.workflowId);
 
   const handleDelete = async () => {
     setIsDeleting(true);
     await onDelete(document.id);
     setIsDeleting(false);
   };
+
+  const documentUrl = workflow?.shortName 
+    ? `/w/${workflow.shortName}/${document.id}` 
+    : `/w/${document.id}`;
 
   return (
     <Card className="flex flex-col hover:shadow-lg transition-shadow duration-200">
@@ -66,7 +71,7 @@ function DocumentCard({
       </CardContent>
       <CardFooter className="flex justify-between items-center">
         <Button variant="outline" size="sm" asChild>
-          <Link href={`/w/${document.id}`}>
+          <Link href={documentUrl}>
             <Edit className="mr-2 h-4 w-4" />
             Continue
           </Link>
@@ -113,7 +118,7 @@ function WorkflowSelectionCard({ workflow }: { workflow: Workflow }) {
         </Button>
         <Button asChild size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
           <Link 
-            href={`/w/new/${workflow.id}`}
+            href={workflow.shortName ? `/w/${workflow.shortName}/new` : `/w/new/${workflow.id}`}
             id={`workflow-start-${workflow.id}`}
             data-testid={`workflow-start-${workflow.id}`}
           >

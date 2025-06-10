@@ -1,4 +1,3 @@
-
 import type { Workflow } from "@/types";
 
 // Import workflow JSON files directly
@@ -18,4 +17,8 @@ export const allWorkflows: Workflow[] = [
 
 export function getWorkflowById(id: string): Workflow | undefined {
   return allWorkflows.find(wf => wf.id === id);
+}
+
+export function getWorkflowByShortName(shortName: string): Workflow | undefined {
+  return allWorkflows.find(wf => wf.shortName === shortName);
 }

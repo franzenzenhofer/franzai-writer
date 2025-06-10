@@ -1,4 +1,3 @@
-
 export type NavItem = {
   title: string;
   href?: string;
@@ -46,6 +45,7 @@ export interface WorkflowConfig {
 }
 export interface Workflow {
   id: string;
+  shortName?: string;
   name: string;
   description: string;
   stages: Stage[];

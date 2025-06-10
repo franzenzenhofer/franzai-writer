@@ -109,7 +109,7 @@ export default async function WorkflowDetailsPage({ params }: { params: Promise<
 
        <div className="text-center">
         <Button size="lg" asChild>
-          <Link href={`/w/new/${workflow.id}`}>
+          <Link href={workflow.shortName ? `/w/${workflow.shortName}/new` : `/w/new/${workflow.id}`}>
             Start using {workflow.name}
           </Link>
         </Button>

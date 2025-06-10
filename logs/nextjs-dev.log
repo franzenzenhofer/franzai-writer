@@ -1254,3 +1254,210 @@ Error loading document: [Error [FirebaseError]: Failed to get document because t
  GET /w/new/targeted-page-seo-optimized-v3 200 in 104ms
  GET /w/mbqm664jwpft76n?new=targeted-page-seo-optimized-v3 200 in 46ms
  GET /w/mbqm664jwpft76n?new=targeted-page-seo-optimized-v3 200 in 34ms
+ ○ Compiling / ...
+ ✓ Compiled / in 676ms
+ GET / 200 in 709ms
+ GET /dashboard 200 in 48ms
+ GET /w/new/targeted-page-seo-optimized-v3 200 in 45ms
+ GET /w/mbqma3r8w68dsss?new=targeted-page-seo-optimized-v3 200 in 37ms
+ GET /w/mbqma3r8w68dsss?new=targeted-page-seo-optimized-v3 200 in 28ms
+ ✓ Compiled in 5ms
+ ✓ Compiled /w/[pageId] in 29ms
+ GET /w/mbqma3r8w68dsss?new=targeted-page-seo-optimized-v3 200 in 200ms
+ GET /w/mbqma3r8w68dsss?new=targeted-page-seo-optimized-v3 200 in 33ms
+ ✓ Compiled /w/[pageId] in 22ms
+ GET /w/mbqma3r8w68dsss?new=targeted-page-seo-optimized-v3 200 in 190ms
+ GET /w/mbqma3r8w68dsss?new=targeted-page-seo-optimized-v3 200 in 62ms
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'shortName').
+    at Array.forEach (<anonymous>)
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'shortName').
+    at Array.forEach (<anonymous>)
+ ⨯ unhandledRejection: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'shortName').
+    at Array.forEach (<anonymous>)
+ ⨯ unhandledRejection:  Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'shortName').
+    at Array.forEach (<anonymous>)
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'shortName').
+    at Array.forEach (<anonymous>)
+ ✓ Compiled /w/[pageId] in 26ms
+ GET /w/mbqma3r8w68dsss?new=targeted-page-seo-optimized-v3 200 in 198ms
+ GET /w/mbqma3r8w68dsss?new=targeted-page-seo-optimized-v3 200 in 57ms
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'shortName').
+    at Array.forEach (<anonymous>)
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'shortName').
+    at Array.forEach (<anonymous>)
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'shortName').
+    at Array.forEach (<anonymous>)
+ ⨯ unhandledRejection: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'shortName').
+    at Array.forEach (<anonymous>)
+ ⨯ unhandledRejection:  Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'shortName').
+    at Array.forEach (<anonymous>)
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'shortName').
+    at Array.forEach (<anonymous>)
+ ✓ Compiled /w/[pageId] in 16ms
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'shortName').
+    at Array.forEach (<anonymous>)
+ GET /w/mbqma3r8w68dsss?new=targeted-page-seo-optimized-v3 200 in 210ms
+ ✓ Compiled in 43ms
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'shortName').
+    at Array.forEach (<anonymous>)
+ ✓ Compiled in 52ms
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'shortName').
+    at Array.forEach (<anonymous>)
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'shortName').
+    at Array.forEach (<anonymous>)
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'shortName').
+    at Array.forEach (<anonymous>)
+ GET /dashboard 200 in 132ms
+Debugger listening on ws://127.0.0.1:9230/81b766c8-4f54-41c3-a48f-8eee213f7dba
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'shortName').
+    at Array.forEach (<anonymous>)
+Debugger listening on ws://127.0.0.1:9229/62363dc6-5364-45ac-a42c-48953b753d18
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 993,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/32486166-01de-46a1-b6f3-c1c613b611ba
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'shortName').
+    at Array.forEach (<anonymous>)
+Debugger listening on ws://127.0.0.1:9229/e06031c4-40e0-4d4b-9314-23f195d101bb
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 986,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25hDebugger listening on ws://127.0.0.1:9230/9c5eb199-514b-4d12-a5a9-49cae63a4339
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 629ms
+ ○ Compiling /dashboard ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled /dashboard in 1526ms
+ GET /dashboard 200 in 1817ms
+ ○ Compiling /w/[shortName]/new ...
+ ✓ Compiled /w/[shortName]/new in 898ms
+ GET /w/article/new 307 in 1165ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+ ✓ Compiled /w/[shortName]/[documentId] in 2.4s
+ GET /w/article/mbqn411ywvjhp61?new=targeted-page-seo-optimized-v3 200 in 3201ms
+ GET /w/recipe/new 307 in 53ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 693ms
+ GET /login 200 in 721ms
+ ✓ Compiled /favicon.ico in 228ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 463ms
+ GET /login 200 in 76ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 256ms
+ GET /dashboard 200 in 48ms
+ GET /w/article/new 200 in 44ms
+ GET /w/article/mbqnfo3gwktw1ol?new=targeted-page-seo-optimized-v3 200 in 38ms
+ GET /w/article/mbqnfo3gwktw1ol?new=targeted-page-seo-optimized-v3 200 in 71ms
+ GET /dashboard 200 in 137ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 219ms
+ GET /w/article/new 200 in 42ms
+ GET /w/article/mbqnfvrjwxi3rx4?new=targeted-page-seo-optimized-v3 200 in 46ms
+ GET /w/article/mbqnfvrjwxi3rx4?new=targeted-page-seo-optimized-v3 200 in 51ms
+[2025-06-10T15:01:53.300Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x3adf441d error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+[2025-06-10T15:01:53.301Z]  @firebase/firestore: Firestore (11.9.0): Could not reach Cloud Firestore backend. Connection failed 1 times. Most recent error: FirebaseError: [code=permission-denied]: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+This typically indicates that your device does not have a healthy Internet connection at the moment. The client will operate in offline mode until it is able to successfully connect to the backend.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/article/mbqnfvrjwxi3rx4 200 in 385ms
+ GET /w/article/mbqnfvrjwxi3rx4?new=targeted-page-seo-optimized-v3 200 in 77ms
+ GET /dashboard 200 in 42ms
+ GET /w/article/new 200 in 41ms
+ GET /w/article/mbqng3mewzlnlbb?new=targeted-page-seo-optimized-v3 200 in 36ms
+ GET /w/article/mbqng3mewzlnlbb?new=targeted-page-seo-optimized-v3 200 in 27ms

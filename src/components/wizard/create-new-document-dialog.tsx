@@ -27,8 +27,10 @@ export function CreateNewDocumentDialog() {
     }
   }, [selectedWorkflowId]);
 
-
-  const linkHref = selectedWorkflowId ? `/w/new/${selectedWorkflowId}` : "/dashboard"; 
+  const selectedWorkflow = availableWorkflows.find(w => w.id === selectedWorkflowId);
+  const linkHref = selectedWorkflow 
+    ? (selectedWorkflow.shortName ? `/w/${selectedWorkflow.shortName}/new` : `/w/new/${selectedWorkflow.id}`)
+    : "/dashboard"; 
   const canProceed = !!selectedWorkflowId;
 
   return (
