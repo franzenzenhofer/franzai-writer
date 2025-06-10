@@ -9,7 +9,7 @@ import { StageInputArea } from "./stage-input-area";
 import { StageOutputArea } from "./stage-output-area";
 import { CheckCircle2, AlertCircle, Zap, RotateCcw, Loader2, SkipForward, Edit } from "lucide-react";
 import { cn } from "@/lib/utils";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 interface StageCardProps {
   stage: Stage;
@@ -38,6 +38,13 @@ export function StageCard({
   
   const [isEditing, setIsEditing] = useState(stageState.status !== 'completed' && stage.inputType !== 'none');
   const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    // If the stage status changes (e.g., reset from WizardShell due to dependency update),
+    // ensure editing mode is re-evaluated.
+    setIsEditing(stageState.status !== 'completed' && stage.inputType !== 'none');
+  }, [stageState.status, stage.inputType]);
+
 
   // Called by StageInputArea's form submission (for form inputType)
   // Or by the main "Run AI" button if it needs to trigger form submission.
@@ -109,7 +116,6 @@ export function StageCard({
             {statusIcon && <span className="mr-2">{statusIcon}</span>}
             {stage.title}
             {stageState.isStale && stageState.status === 'completed' && <Badge variant="outline" className="ml-2 bg-amber-100 text-amber-700 border-amber-400">Stale</Badge>}
-            {stageState.shouldShowUpdateBadge && <Badge variant="outline" className="ml-2">Update Recommended</Badge>}
           </CardTitle>
           <CardDescription>{stage.description}</CardDescription>
           {stage.isOptional && <Badge variant="outline" className="mt-1 text-xs">Optional</Badge>}
@@ -196,4 +202,3 @@ export function StageCard({
     </Card>
   );
 }
-

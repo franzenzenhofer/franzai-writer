@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import React, { useState, useEffect, useCallback } from 'react';
@@ -64,20 +63,17 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       }
 
       const shouldAutoRun = stage.autoRun && depsMet && currentState.status === 'idle';
-      const shouldShowUpdateBadge = isStale && currentState.status === 'completed'; // Only show update badge if completed and stale
 
       if (
         currentState.depsAreMet !== depsMet ||
         currentState.isStale !== isStale ||
-        currentState.shouldAutoRun !== shouldAutoRun ||
-        currentState.shouldShowUpdateBadge !== shouldShowUpdateBadge
+        currentState.shouldAutoRun !== shouldAutoRun
       ) {
         newStageStates[stage.id] = {
           ...currentState,
           depsAreMet: depsMet,
           isStale: isStale,
           shouldAutoRun: shouldAutoRun,
-          shouldShowUpdateBadge: shouldShowUpdateBadge,
         };
         changed = true;
       }
@@ -215,7 +211,6 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         groundingInfo: result.groundingInfo,
         completedAt: new Date().toISOString(),
         isStale: false, // Mark as not stale after successful run
-        shouldShowUpdateBadge: false,
       });
       toast({ title: "AI Stage Completed", description: `AI processing for "${stage.title}" finished.` });
 

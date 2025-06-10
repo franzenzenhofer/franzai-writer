@@ -62,7 +62,6 @@ export interface StageState {
   isStale?: boolean;
   depsAreMet?: boolean;
   shouldAutoRun?: boolean;
-  shouldShowUpdateBadge?: boolean;
 }
 
 export interface WizardDocument {
