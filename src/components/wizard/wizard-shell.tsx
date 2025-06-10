@@ -7,11 +7,13 @@ import { StageCard } from './stage-card';
 import { Button } from '@/components/ui/button';
 import { runAiStage } from '@/app/actions/aiActions'; 
 import { useToast } from '@/hooks/use-toast';
-import { AlertTriangle, Check, Info, Lightbulb, DownloadCloud, FileWarning } from 'lucide-react';
+import { AlertTriangle, Check, Info, Lightbulb, DownloadCloud, FileWarning, Save } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
 import { FinalDocumentDialog } from './final-document-dialog';
 import { siteConfig } from '@/config/site';
+import { useDocumentPersistence } from '@/hooks/use-document-persistence';
+import { Badge } from '@/components/ui/badge';
 
 interface WizardShellProps {
   initialInstance: WizardInstance;
@@ -25,6 +27,22 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   const [isFinalizeDialogOpen, setIsFinalizeDialogOpen] = useState(false);
   const [finalDocumentContent, setFinalDocumentContent] = useState("");
   const [hasFinalizedOnce, setHasFinalizedOnce] = useState(false);
+
+  // Document persistence
+  const updateInstanceForPersistence = useCallback((updates: Partial<WizardInstance>) => {
+    setInstance(prev => ({ ...prev, ...updates }));
+  }, []);
+
+  const { 
+    isSaving, 
+    lastSaved, 
+    saveError, 
+    documentId,
+    saveDocument 
+  } = useDocumentPersistence({
+    instance,
+    updateInstance: updateInstanceForPersistence,
+  });
 
 
   const updateStageState = useCallback((stageId: string, updates: Partial<StageState>) => {
@@ -303,14 +321,42 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
 
   return (
     <div className="max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold font-headline mb-2">{pageTitle}</h1>
+      <h1 
+        className="text-3xl font-bold font-headline mb-2"
+        data-testid="wizard-page-title"
+      >
+        {pageTitle}
+      </h1>
       <p className="text-muted-foreground mb-1">Workflow: {instance.workflow.name}</p>
       <div className="mb-6">
         <div className="flex justify-between text-sm text-muted-foreground mb-1">
             <span>Progress</span>
             <span>{completedStagesCount} / {totalStages} Stages</span>
         </div>
-        <Progress value={progressPercentage} className="w-full h-3" />
+        <Progress 
+          value={progressPercentage} 
+          className="w-full h-3"
+          data-testid="wizard-progress-bar"
+        />
+        <div className="flex items-center justify-end mt-2 gap-2">
+          {isSaving && (
+            <Badge variant="secondary" className="text-xs">
+              <Save className="w-3 h-3 mr-1 animate-pulse" />
+              Saving...
+            </Badge>
+          )}
+          {!isSaving && lastSaved && (
+            <Badge variant="outline" className="text-xs text-muted-foreground">
+              Last saved {lastSaved.toLocaleTimeString()}
+            </Badge>
+          )}
+          {saveError && (
+            <Badge variant="destructive" className="text-xs">
+              <AlertTriangle className="w-3 h-3 mr-1" />
+              Save failed
+            </Badge>
+          )}
+        </div>
       </div>
 
       {isWizardCompleted && (
@@ -368,6 +414,8 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
           disabled={!isWizardCompleted}
           onClick={handleFinalizeDocument}
           className="bg-accent hover:bg-accent/90 text-accent-foreground"
+          id="finalize-document-button"
+          data-testid="finalize-document-button"
         >
           <DownloadCloud className="mr-2 h-5 w-5" />
           {hasFinalizedOnce ? "View/Export Document" : "Finalize Document"}
