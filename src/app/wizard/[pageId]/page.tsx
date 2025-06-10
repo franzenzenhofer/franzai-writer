@@ -8,6 +8,7 @@ import { AlertCircle, FileText, ArrowRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { Card, CardHeader, CardTitle, CardDescription, CardFooter, CardContent } from "@/components/ui/card";
 import { WizardPageContent } from "./wizard-page-content";
+import { getDocument } from "@/lib/documents";
 
 export default async function WizardPage({ params }: { params: Promise<{ pageId: string }> }) {
   const { pageId } = await params;
@@ -109,8 +110,33 @@ export default async function WizardPage({ params }: { params: Promise<{ pageId:
     }
 
   } else {
-    // Logic for fetching existing documents would go here if persistence was implemented.
-    wizardInstance = undefined; 
+    // Load existing document
+    try {
+      const result = await getDocument(pageId);
+      
+      if (result) {
+        const { document, stageStates } = result;
+        const workflow = getWorkflowById(document.workflowId);
+        
+        if (workflow) {
+          wizardInstance = {
+            document,
+            workflow,
+            stageStates,
+          };
+          dynamicTitle = document.title;
+        } else {
+          // Workflow not found for document
+          wizardInstance = undefined;
+        }
+      } else {
+        // Document not found
+        wizardInstance = undefined;
+      }
+    } catch (error) {
+      console.error('Error loading document:', error);
+      wizardInstance = undefined;
+    }
   }
 
 
