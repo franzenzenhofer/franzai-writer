@@ -45,7 +45,7 @@ export const targetedPageSeoOptimizedV3: Workflow = {
       title: "Content Angle Identification",
       description: "Based on your topic and audience, the AI will suggest unique content angles.",
       inputType: "none", // AI generated
-      promptTemplate: "Given the topic '{{topic-definition.output}}' and target audience described as {{audience-analysis.output}}, suggest 3 unique content angles. Competitor research context: {{competitor-research.output}}",
+      promptTemplate: "Given the topic '{{topic-definition.output}}' and target audience described as {{audience-analysis.output}}, suggest 3 unique content angles. Competitor research context: {{competitor-research.output}}. Format your response as a JSON object with a single key 'angles', which is an array of 3 strings representing the content angles.",
       model: "gemini-2.0-flash",
       temperature: 0.7,
       outputType: "json", // Expecting { angles: ["angle1", "angle2", "angle3"] }
@@ -60,7 +60,7 @@ export const targetedPageSeoOptimizedV3: Workflow = {
       formFields: [
         { name: "chosenAngle", label: "Select Content Angle", type: "select", options: [], placeholder: "Select one of the generated angles" } // Options populated from content-angle output
       ],
-      promptTemplate: "Generate 5 SEO-friendly page titles for a page about '{{topic-definition.output}}' with the content angle: '{{page-title-generation.userInput.chosenAngle}}'.",
+      promptTemplate: "Generate 5 SEO-friendly page titles for a page about '{{topic-definition.output}}' with the content angle: '{{page-title-generation.userInput.chosenAngle}}'. Format your response as a JSON object with a single key 'titles', which is an array of 5 strings representing the page titles.",
       model: "gemini-2.0-flash",
       temperature: 0.8,
       outputType: "json", // Expecting { titles: ["title1", ...] }
@@ -169,36 +169,32 @@ export const getMockWizardInstance = (documentId: string): WizardInstance | unde
     initialStageStates[stage.id] = {
       stageId: stage.id,
       status: "idle",
-      // Populate with some mock data for testing if needed
+      userInput: stage.formFields ? Object.fromEntries(stage.formFields.map(f => [f.name, f.defaultValue ?? (f.type === 'checkbox' ? false : '')])) : undefined,
     };
   });
   
-  // Example of pre-filled data for doc-1
+  // Example of pre-filled data for doc-1's user inputs, but NOT AI outputs
   if (doc.id === "doc-1") {
     initialStageStates["topic-definition"] = {
       stageId: "topic-definition",
       userInput: "Sustainable Urban Gardening",
-      output: "Sustainable Urban Gardening",
+      output: "Sustainable Urban Gardening", // This is user input echoed as output for non-AI stage
       status: "completed",
-      completedAt: new Date().toISOString(),
+      completedAt: new Date(Date.now() - 200000).toISOString(),
     };
-     // Simulate that audience analysis was also completed for doc-1
     initialStageStates["audience-analysis"] = {
         stageId: "audience-analysis",
         userInput: { demographics: "Urban dwellers, 25-45, small spaces", interests: "Sustainability, fresh food, home decor", knowledgeLevel: "beginner" },
-        output: { demographics: "Urban dwellers, 25-45, small spaces", interests: "Sustainability, fresh food, home decor", knowledgeLevel: "beginner" },
+        output: { demographics: "Urban dwellers, 25-45, small spaces", interests: "Sustainability, fresh food, home decor", knowledgeLevel: "beginner" }, // User input echoed
         status: "completed",
-        completedAt: new Date(Date.now() - 100000).toISOString(), // completed slightly after topic
+        completedAt: new Date(Date.now() - 100000).toISOString(),
     };
-    // Simulate content-angle ran and produced output
-    initialStageStates["content-angle"] = {
+    // content-angle is AI driven, so it starts as 'idle' or 'pending deps'
+    // Remove any pre-filled 'output' for AI stages like content-angle
+     initialStageStates["content-angle"] = {
         stageId: "content-angle",
-        userInput: undefined, // no direct user input
-        output: { angles: ["Vertical Gardening for Tiny Balconies", "DIY Composting in Apartments", "Window Sill Herb Gardens"] },
-        status: "completed",
-        completedAt: new Date(Date.now() - 90000).toISOString(),
+        status: "idle", // Will auto-run if dependencies are met
     };
-
   }
 
 

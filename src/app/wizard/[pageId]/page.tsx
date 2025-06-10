@@ -1,21 +1,12 @@
+
 import { WizardShell } from "@/components/wizard/wizard-shell";
-import { getMockWizardInstance, mockWorkflows, mockDocuments } from "@/lib/mock-data";
+import { getMockWizardInstance, mockWorkflows } from "@/lib/mock-data";
 import { notFound } from "next/navigation";
-import type { WizardDocument } from "@/types";
+import type { WizardDocument, WizardInstance, StageState, Workflow } from "@/types";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, Wand2 } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { CreateNewDocumentDialog } from "@/components/wizard/create-new-document-dialog";
 
 
 // This component will be server-side to fetch initial data.
@@ -24,73 +15,74 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 export default function WizardPage({ params }: { params: { pageId: string } }) {
   
   if (params.pageId === "new") {
-    // This is a simplified "Create New Document" flow.
-    // In a real app, this would likely be a form POST or a separate page.
-    // For now, we'll show a dialog to select a workflow and then redirect.
-    // This is not ideal for SSR but demonstrates the concept for now.
-    // Proper way: A form that POSTs to a server action, creates the doc, then redirects.
-
     return (
       <div className="flex flex-col items-center justify-center text-center py-12">
         <Wand2 className="w-16 h-16 text-primary mb-6" />
         <h1 className="text-3xl font-bold font-headline mb-4">Create New Document</h1>
         <p className="text-muted-foreground mb-6">Select a workflow to begin your masterpiece.</p>
-        <Dialog defaultOpen>
-          <DialogTrigger asChild>
-             {/* This button is hidden because defaultOpen is true, dialog appears automatically */}
-            <Button className="hidden">Select Workflow</Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle className="font-headline">Choose a Workflow</DialogTitle>
-              <DialogDescription>
-                Select the type of document you want to create.
-              </DialogDescription>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="workflow-select" className="text-right col-span-1">
-                  Workflow
-                </Label>
-                {/* 
-                  This select ideally would be part of a form that, upon submission,
-                  creates a new document and redirects. For now, we'll use a link.
-                  A real implementation would use a server action.
-                */}
-                <Select defaultValue={mockWorkflows[0].id}>
-                  <SelectTrigger id="workflow-select" className="col-span-3">
-                    <SelectValue placeholder="Select a workflow" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {mockWorkflows.map(wf => (
-                      <SelectItem key={wf.id} value={wf.id}>{wf.name}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            <DialogFooter>
-              {/* This button should dynamically link to a newly created document based on selection */}
-              <Button type="submit" asChild>
-                {/* Simulating document creation and redirect. In real app, this would be more complex */}
-                <Link href={`/wizard/${mockDocuments[0].id}`}>Start with Selected Workflow</Link>
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+        <CreateNewDocumentDialog />
          <p className="text-xs text-muted-foreground mt-8">
-            Note: The 'Create New' flow is simplified. In a full app, selecting a workflow would create a new document instance.
-            <br /> For now, selecting a workflow above will take you to a pre-existing document {'('}"{mockDocuments[0].title}"{')'} using that workflow type for demonstration.
+            Selecting a workflow will start a new document instance.
         </p>
       </div>
     );
   }
 
+  let wizardInstance: WizardInstance | undefined;
 
-  const wizardInstance = getMockWizardInstance(params.pageId);
+  if (params.pageId.startsWith("_new_")) {
+    const workflowId = params.pageId.substring("_new_".length);
+    const workflow = mockWorkflows.find(w => w.id === workflowId);
+
+    if (!workflow) {
+      notFound(); // Or a more specific error page
+    }
+
+    const newDoc: WizardDocument = {
+      id: `temp-${Date.now()}`, // Temporary ID, not persisted
+      title: `New ${workflow.name}`, // Initial title
+      workflowId: workflow.id,
+      status: "draft",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      userId: "user-123", // Placeholder, replace with actual user ID in a real app
+    };
+
+    const initialStageStates: Record<string, StageState> = {};
+    workflow.stages.forEach(stage => {
+      initialStageStates[stage.id] = {
+        stageId: stage.id,
+        status: "idle",
+        userInput: stage.formFields 
+          ? Object.fromEntries(stage.formFields.map(f => [f.name, f.defaultValue ?? (f.type === 'checkbox' ? false : '')])) 
+          : stage.inputType === 'context' ? { manual: "", dropped: "" } // Initialize context inputs
+          : undefined,
+        output: undefined,
+        error: undefined,
+        completedAt: undefined,
+        groundingInfo: undefined,
+        isStale: false,
+        depsAreMet: stage.dependencies && stage.dependencies.length > 0 ? false : true, // Initial check
+        shouldAutoRun: stage.autoRun && (!stage.dependencies || stage.dependencies.length === 0),
+        shouldShowUpdateBadge: false,
+      };
+    });
+
+    wizardInstance = {
+      document: newDoc,
+      workflow,
+      stageStates: initialStageStates,
+    };
+     if (typeof document !== 'undefined') { // Check for browser environment for dynamic title updates
+      document.title = `${newDoc.title} - WizardCraft AI`;
+    }
+
+  } else {
+    wizardInstance = getMockWizardInstance(params.pageId);
+  }
+
 
   if (!wizardInstance) {
-    // If not "new" and not found, show a more specific message or redirect
     return (
       <div className="flex flex-col items-center justify-center text-center py-12">
           <AlertCircle className="w-16 h-16 text-destructive mb-6" />
@@ -105,12 +97,12 @@ export default function WizardPage({ params }: { params: { pageId: string } }) {
     );
   }
   
-  // Set initial document title for SSR
-  // Client component WizardShell will handle dynamic updates
-  if (typeof document !== 'undefined') { // Check for browser environment
+  // Set initial document title for SSR from instance if not already set by _new_ flow
+  if (typeof document !== 'undefined' && !params.pageId.startsWith("_new_")) {
       document.title = `${wizardInstance.document.title} - WizardCraft AI`;
   }
 
 
   return <WizardShell initialInstance={wizardInstance} />;
 }
+
