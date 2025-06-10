@@ -1,25 +1,26 @@
 
 "use client";
 
-import type { Stage, StageState } from "@/types";
+import type { Stage, StageState, Workflow } from "@/types";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { StageInputArea, type StageInputAreaRef } from "./stage-input-area";
 import { StageOutputArea } from "./stage-output-area";
-import { CheckCircle2, AlertCircle, Zap, RotateCcw, Loader2, SkipForward, Edit, Save, Check, ArrowRight } from "lucide-react";
+import { CheckCircle2, AlertCircle, Zap, RotateCcw, Loader2, SkipForward, Edit, Save, Check, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import React, { useState, useRef, useEffect } from "react";
 
 interface StageCardProps {
   stage: Stage;
+  workflow: Workflow; // Added to get stage titles for dependency messages
   stageState: StageState;
   isCurrentStage: boolean;
   onRunStage: (stageId: string, userInput?: any) => void;
-  onInputChange: (stageId: string, fieldName: string, value: any) => void;
-  onFormSubmit: (stageId: string, data: any) => void; 
+  onInputChange: (stageId: string, fieldName: string, value: any) => void; // Still needed for non-form simple inputs
+  onFormSubmit: (stageId: string, data: any) => void; // Will be called by StageCard before onRunStage for forms
   onSkipStage?: (stageId: string) => void;
-  onEditInputRequest: (stageId: string) => void; // Renamed from onEditInput
+  onEditInputRequest: (stageId: string) => void;
   onOutputEdit: (stageId: string, newOutput: any) => void;
   onSetEditingOutput: (stageId: string, isEditing: boolean) => void;
   allStageStates: Record<string, StageState>;
@@ -27,6 +28,7 @@ interface StageCardProps {
 
 export function StageCard({
   stage,
+  workflow,
   stageState,
   isCurrentStage,
   onRunStage,
@@ -45,7 +47,6 @@ export function StageCard({
   const stageInputAreaRef = useRef<StageInputAreaRef>(null);
 
   useEffect(() => {
-    // Sync isEditingInput with stageState status, e.g., if reset externally
     const shouldBeEditing = (stageState.status !== 'completed' && stageState.status !== 'skipped') && stage.inputType !== 'none';
     if (isEditingInput !== shouldBeEditing) {
       setIsEditingInput(shouldBeEditing);
@@ -54,25 +55,27 @@ export function StageCard({
 
 
   const handlePrimaryAction = () => {
-    if (stage.inputType === 'form' && isEditingInput && stageInputAreaRef.current) {
-      // For forms being edited, the StageInputArea's internal "Save Input" button should be used first.
-      // Then, this primary action button on StageCard will "Run AI" or "Process".
-      // We assume form data is up-to-date in stageState.userInput via onFormSubmit.
-      onRunStage(stage.id, stageState.userInput);
-    } else if (stage.inputType !== 'form' && isEditingInput) { // For textarea/context being edited
-      onRunStage(stage.id, stageState.userInput);
-    } else if (stage.inputType === 'none' || stageState.status === 'completed' || stageState.status === 'error') {
-       // For 'none' type, or if re-running a completed/errored stage
+    if (stage.inputType === 'form' && stageInputAreaRef.current) {
+      // Trigger form submission within StageInputArea, which will call onFormSubmit,
+      // which in turn updates stageState.userInput. Then proceed to run the stage.
+      stageInputAreaRef.current.triggerSubmit(); 
+      // Note: onRunStage will use the updated stageState.userInput from the store/context
+      // We might need a slight delay or a callback mechanism if onFormSubmit is async and
+      // onRunStage relies on its immediate completion. For now, assuming onFormSubmit updates state synchronously.
+      // A more robust way: onFormSubmit in WizardShell could directly call onRunStage after updating.
+      // For now, let's assume WizardShell's onFormSubmit updates userInput, then StageCard's onRunStage reads it.
+       onRunStage(stage.id, stageState.userInput); // This will use the userInput set by onFormSubmit
+    } else {
       onRunStage(stage.id, stageState.userInput);
     }
-    setIsEditingInput(false); // Typically, after running, input editing is done.
-    onSetEditingOutput(stage.id, false); // Ensure output editing is also off.
+    setIsEditingInput(false); 
+    onSetEditingOutput(stage.id, false);
   };
 
   const handleEditInputClick = () => {
     setIsEditingInput(true);
-    onEditInputRequest(stage.id); // This typically resets stage status to 'idle' or similar in WizardShell
-    onSetEditingOutput(stage.id, false); // Turn off output editing if input is being edited
+    onEditInputRequest(stage.id); 
+    onSetEditingOutput(stage.id, false);
   };
 
   const handleEditOutputClick = () => {
@@ -80,14 +83,11 @@ export function StageCard({
   };
 
   const handleSaveOutputEdits = () => {
-    // The actual saving of output is handled by onOutputEdit via StageOutputArea's onChange.
-    // This button just confirms and exits editing mode.
     onSetEditingOutput(stage.id, false);
   };
   
   const handleAcceptAndContinue = () => {
-    onSetEditingOutput(stage.id, false); // Ensure edits are 'committed' by exiting edit mode
-    // Logic to scroll to next stage or highlight can be added in WizardShell if needed
+    onSetEditingOutput(stage.id, false); 
     console.log(`Stage ${stage.id} output accepted.`);
   };
 
@@ -96,52 +96,79 @@ export function StageCard({
   const showPrimaryActionButton = 
     (isEditingInput && stage.inputType !== 'none') || 
     (stage.inputType === 'none' && (stageState.status === 'idle' || stageState.status === 'error')) ||
-    (stageState.status === 'completed' && stage.promptTemplate && !stageState.isEditingOutput); // AI Redo case via primary button
+    (stageState.status === 'completed' && stage.promptTemplate && !stageState.isEditingOutput);
 
   const showInputRelatedButtons = stageState.status === 'completed' && stage.inputType !== 'none' && !isEditingInput && !stageState.isEditingOutput;
   const showOutputRelatedButtons = stageState.status === 'completed' && stageState.output !== undefined && !isEditingInput;
 
 
   let statusIcon = null;
-  let statusColor = "";
+  let cardClasses = "mb-6 transition-all duration-300";
 
   switch (stageState.status) {
     case "completed":
       statusIcon = <CheckCircle2 className="text-green-500" />;
-      statusColor = "border-green-500";
+      cardClasses = cn(cardClasses, "border-green-500");
       break;
     case "running":
       statusIcon = <Loader2 className="animate-spin text-primary" />;
-      statusColor = "border-primary";
+      cardClasses = cn(cardClasses, "border-primary");
       break;
     case "error":
       statusIcon = <AlertCircle className="text-destructive" />;
-      statusColor = "border-destructive";
+      cardClasses = cn(cardClasses, "border-destructive");
       break;
     case "skipped":
       statusIcon = <SkipForward className="text-muted-foreground" />;
-      statusColor = "border-muted";
+      cardClasses = cn(cardClasses, "border-muted");
       break;
     default: // idle
-      if (isCurrentStage) statusColor = "border-accent shadow-lg";
-      else statusColor = "border-border";
+      if (stageState.depsAreMet === false) {
+        cardClasses = cn(cardClasses, "opacity-70 bg-muted/30");
+      } else if (isCurrentStage) {
+        cardClasses = cn(cardClasses, "border-accent shadow-lg");
+      } else {
+        cardClasses = cn(cardClasses, "border-border");
+      }
   }
+  if (isCurrentStage && stageState.depsAreMet !== false) cardClasses = cn(cardClasses, "shadow-accent/30 shadow-xl ring-2 ring-accent");
+
+
+  const getDependencyMessage = () => {
+    if (stageState.depsAreMet === false && stage.dependencies && stage.dependencies.length > 0) {
+      const incompleteDeps = stage.dependencies
+        .filter(depId => allStageStates[depId]?.status !== 'completed' && allStageStates[depId]?.status !== 'skipped')
+        .map(depId => workflow.stages.find(s => s.id === depId)?.title || depId);
+      
+      if (incompleteDeps.length > 0) {
+        return `Waiting for: ${incompleteDeps.join(', ')}`;
+      }
+    }
+    return null;
+  };
+  const dependencyMessage = getDependencyMessage();
 
   return (
-    <Card id={`stage-${stage.id}`} className={cn("mb-6 transition-all duration-300", statusColor, isCurrentStage ? "shadow-accent/30 shadow-xl" : "")}>
-      <CardHeader className="flex flex-row justify-between items-start pb-4">
+    <Card id={`stage-${stage.id}`} className={cardClasses}>
+      {dependencyMessage && (
+        <div className="px-6 pt-4 pb-2 text-center">
+          <Badge variant="secondary" className="text-sm whitespace-normal">
+            <Clock className="mr-2 h-4 w-4 text-muted-foreground" />
+            {dependencyMessage}
+          </Badge>
+        </div>
+      )}
+      <CardHeader className="flex flex-row justify-between items-start pb-4 pt-2">
         <div>
           <CardTitle className="font-headline text-xl flex items-center">
-            {statusIcon && <span className="mr-2">{statusIcon}</span>}
+            {statusIcon && !dependencyMessage && <span className="mr-2">{statusIcon}</span>}
             {stage.title}
             {stageState.isStale && stageState.status === 'completed' && <Badge variant="outline" className="ml-2 bg-amber-100 text-amber-700 border-amber-400">Stale</Badge>}
           </CardTitle>
           <CardDescription>{stage.description}</CardDescription>
           {stage.isOptional && <Badge variant="outline" className="mt-1 text-xs">Optional</Badge>}
         </div>
-        {stageState.depsAreMet === false && stageState.status === 'idle' && (
-          <Badge variant="secondary">Waiting for dependencies</Badge>
-        )}
+        {/* Removed the old dependency badge from here */}
       </CardHeader>
       <CardContent className="space-y-4">
         {isEditingInput && stage.inputType !== 'none' && stageState.status !== 'running' && (
@@ -158,7 +185,7 @@ export function StageCard({
           </div>
         )}
 
-        {stage.inputType === 'none' && stageState.status === 'idle' && (
+        {stage.inputType === 'none' && stageState.status === 'idle' && !dependencyMessage && (
              <p className="text-sm text-muted-foreground">This stage is processed by AI. Click "Run AI" to generate content.</p>
         )}
 
@@ -170,7 +197,6 @@ export function StageCard({
                 stageState={stageState} 
                 isEditingOutput={!!stageState.isEditingOutput}
                 onOutputChange={(newOutput) => onOutputEdit(stage.id, newOutput)}
-                onSaveEdits={handleSaveOutputEdits}
             />
           </div>
         )}
@@ -180,23 +206,21 @@ export function StageCard({
         )}
       </CardContent>
       <CardFooter className="flex justify-end gap-2 items-center flex-wrap">
-        {stage.isOptional && stageState.status === "idle" && onSkipStage && (
+        {stage.isOptional && stageState.status === "idle" && onSkipStage && !dependencyMessage && (
           <Button variant="ghost" size="sm" onClick={() => onSkipStage(stage.id)}>
             <SkipForward className="mr-2 h-4 w-4" /> Skip Stage
           </Button>
         )}
 
-        {/* Input-related buttons */}
-        {showInputRelatedButtons && (
+        {showInputRelatedButtons && !dependencyMessage && (
           <Button variant="outline" size="sm" onClick={handleEditInputClick}>
             <Edit className="mr-2 h-4 w-4" /> Edit Input
           </Button>
         )}
 
-        {/* Output-related buttons - shown when output exists and not editing input */}
-        {showOutputRelatedButtons && !stageState.isEditingOutput && (
+        {showOutputRelatedButtons && !stageState.isEditingOutput && !dependencyMessage && (
           <>
-            {stage.promptTemplate && ( /* AI Redo only if it's an AI stage */
+            {stage.promptTemplate && ( 
               <Button variant="outline" size="sm" onClick={() => onRunStage(stage.id, stageState.userInput)}>
                 <RotateCcw className="mr-2 h-4 w-4" /> AI Redo
               </Button>
@@ -209,14 +233,13 @@ export function StageCard({
             </Button>
           </>
         )}
-        {showOutputRelatedButtons && stageState.isEditingOutput && (
+        {showOutputRelatedButtons && stageState.isEditingOutput && !dependencyMessage && (
              <Button variant="default" size="sm" onClick={handleSaveOutputEdits}>
                 <Save className="mr-2 h-4 w-4" /> Save Output Edits
             </Button>
         )}
         
-        {/* Primary Action Button (Run AI / Process Stage) */}
-        {showPrimaryActionButton && !stageState.isEditingOutput && (
+        {showPrimaryActionButton && !stageState.isEditingOutput && !dependencyMessage && (
           <Button 
             size="sm" 
             onClick={handlePrimaryAction} 

@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { SmartDropzone } from "./smart-dropzone";
 import { TokenCounter } from "./token-counter";
 import { useForm, Controller, type SubmitHandler } from "react-hook-form";
-import { Button } from "@/components/ui/button";
+// Button removed as it's no longer used for explicit save here
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -15,13 +15,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Form, FormControl, FormDescription, FormField as ShadFormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Save } from "lucide-react";
+// Save icon removed as button is removed
 
 export interface StageInputAreaProps {
   stage: Stage;
   stageState: StageState;
   onInputChange: (stageId: string, fieldName: string, value: any) => void;
-  onFormSubmit: (stageId: string, data: any) => void; // This is effectively 'onSaveAndRun' for forms
+  onFormSubmit: (stageId: string, data: any) => void; 
   allStageStates: Record<string, StageState>;
 }
 
@@ -83,6 +83,10 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
       }
       return {};
     }, [stage.inputType, stage.formFields, stageState.userInput]),
+    // Update form values when stageState.userInput changes from parent due to other actions (e.g. reset)
+    // This also ensures that direct changes to form fields call onFormSubmit to update the central state.
+    // mode: "onChange" or "onBlur" could be used if we want to push updates more frequently.
+    // For now, onFormSubmit is called when the StageCard's primary button is clicked.
   });
   
   useEffect(() => {
@@ -96,8 +100,15 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
     }
   }, [stageState.userInput, stage.formFields, stage.inputType, form]);
 
+  // This handler is now primarily for onFormSubmit from StageCard
+  const RHFSubmitHandler: SubmitHandler<z.infer<typeof formSchema>> = (data) => {
+    onFormSubmit(stage.id, data); 
+  };
+
   useImperativeHandle(ref, () => ({
     triggerSubmit: () => {
+      // This function will be called by StageCard to get the latest form data
+      // and call onFormSubmit before running the AI or processing.
       form.handleSubmit(RHFSubmitHandler)();
     }
   }));
@@ -115,10 +126,6 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
   const handleContextDroppedText = (text: string) => {
     setContextDroppedInput(text);
     onInputChange(stage.id, "userInput", { manual: contextManualInput, dropped: text });
-  };
-
-  const RHFSubmitHandler: SubmitHandler<z.infer<typeof formSchema>> = (data) => {
-    onFormSubmit(stage.id, data); 
   };
 
   const getSelectOptions = (field: FormField): FormFieldOption[] => {
@@ -192,31 +199,51 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
       if (!stage.formFields) return <p>Form fields not configured for this stage.</p>;
       return (
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(RHFSubmitHandler)} className="space-y-6">
+          <form 
+            // The form submission is now triggered by StageCard via ref.triggerSubmit()
+            // which calls form.handleSubmit(RHFSubmitHandler)
+            className="space-y-6"
+            onSubmit={(e) => e.preventDefault()} // Prevent default browser submission
+          >
             {stage.formFields.map((field) => (
               <ShadFormField
                 key={field.name}
                 control={form.control}
                 name={field.name as any} 
                 render={({ field: controllerField }) => {
+                  // When the controller field value changes, we directly call onFormSubmit
+                  // to update the central WizardShell state. This makes the "Save Input" button redundant.
+                  const onChangeHandler = (value: any) => {
+                    controllerField.onChange(value); // Update react-hook-form internal state
+                    // Update the central state in WizardShell immediately
+                    // This assumes form.getValues() gives the complete, most up-to-date form state.
+                    onFormSubmit(stage.id, { ...form.getValues(), [controllerField.name]: value });
+                  };
+
                   const finalValue = controllerField.value ?? field.defaultValue ?? (field.type === 'checkbox' ? false : '');
+                  
                   return (
                   <FormItem>
                     <FormLabel>{field.label}</FormLabel>
                     <FormControl>
                       {field.type === "textarea" ? (
-                        <Textarea placeholder={field.placeholder} {...controllerField} value={finalValue as string} className="bg-background"/>
+                        <Textarea 
+                          placeholder={field.placeholder} 
+                          {...controllerField} 
+                          onChange={(e) => onChangeHandler(e.target.value)}
+                          value={finalValue as string} 
+                          className="bg-background"/>
                       ) : field.type === "checkbox" ? (
                         <div className="flex items-center space-x-2">
                            <Checkbox 
                             checked={finalValue as boolean} 
-                            onCheckedChange={controllerField.onChange}
+                            onCheckedChange={(checked) => onChangeHandler(checked)}
                            />
                            <Label htmlFor={field.name} className="text-sm font-normal">{field.placeholder || field.label}</Label>
                         </div>
                       ) : field.type === "select" ? (
                         <Select 
-                          onValueChange={controllerField.onChange} 
+                          onValueChange={(value) => onChangeHandler(value)} 
                           value={finalValue || ""} 
                           defaultValue={field.defaultValue as string || ""}
                         >
@@ -232,7 +259,13 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
                           </SelectContent>
                         </Select>
                       ) : (
-                        <Input type={field.type} placeholder={field.placeholder} {...controllerField} value={finalValue as string} className="bg-background"/>
+                        <Input 
+                          type={field.type} 
+                          placeholder={field.placeholder} 
+                          {...controllerField} 
+                          onChange={(e) => onChangeHandler(e.target.value)}
+                          value={finalValue as string} 
+                          className="bg-background"/>
                       )}
                     </FormControl>
                     {field.placeholder && field.type !== 'checkbox' && <FormDescription>{/* Add description if needed */}</FormDescription>}
@@ -241,9 +274,7 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
                 )}}
               />
             ))}
-             <Button type="submit" variant="outline" size="sm">
-                <Save className="mr-2 h-4 w-4" /> Save Input
-            </Button>
+             {/* Removed explicit "Save Input" button. StageCard's primary button handles processing. */}
           </form>
         </Form>
       );
@@ -255,4 +286,3 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
 });
 
 StageInputArea.displayName = "StageInputArea";
-    

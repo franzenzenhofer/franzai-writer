@@ -7,8 +7,7 @@ import { MarkdownRenderer } from "@/components/markdown-renderer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Info } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Save } from "lucide-react";
+// Button and Save icon removed as they are now handled by StageCard
 import React from 'react';
 
 
@@ -17,11 +16,14 @@ interface StageOutputAreaProps {
   stageState: StageState;
   isEditingOutput: boolean;
   onOutputChange?: (newOutput: any) => void;
-  onSaveEdits?: () => void;
+  // onSaveEdits prop is removed as StageCard now handles the "Save Output Edits" button
 }
 
-export function StageOutputArea({ stage, stageState, isEditingOutput, onOutputChange, onSaveEdits }: StageOutputAreaProps) {
+export function StageOutputArea({ stage, stageState, isEditingOutput, onOutputChange }: StageOutputAreaProps) {
   if (stageState.status !== "completed" || stageState.output === undefined || stageState.output === null) {
+    if (stageState.status === "running") {
+      return <p className="text-sm text-muted-foreground">AI is generating output...</p>;
+    }
     return <p className="text-sm text-muted-foreground">No output yet for this stage.</p>;
   }
 
@@ -37,8 +39,7 @@ export function StageOutputArea({ stage, stageState, isEditingOutput, onOutputCh
         const parsedJson = JSON.parse(event.target.value);
         onOutputChange(parsedJson);
       } catch (e) {
-        // Potentially handle invalid JSON input feedback here, or let validation handle it
-        onOutputChange(event.target.value); // Pass raw string if not parsable yet
+        onOutputChange(event.target.value); 
       }
     }
   };
@@ -85,16 +86,10 @@ export function StageOutputArea({ stage, stageState, isEditingOutput, onOutputCh
 
   return (
     <div className="space-y-4">
-      <div className="p-4 border rounded-md bg-background shadow-sm">
+      <div className="p-4 border rounded-md bg-background shadow-sm min-h-[100px]">
         {renderOutput()}
       </div>
-      {isEditingOutput && onSaveEdits && (
-        <div className="flex justify-end">
-          <Button onClick={onSaveEdits} size="sm">
-            <Save className="mr-2 h-4 w-4" /> Save Edits
-          </Button>
-        </div>
-      )}
+      {/* Save Edits button is now managed by StageCard */}
       {stageState.groundingInfo && !isEditingOutput && (
         <Card className="bg-muted/50">
           <CardHeader className="pb-2">
@@ -103,7 +98,7 @@ export function StageOutputArea({ stage, stageState, isEditingOutput, onOutputCh
               Grounding Information
             </CardTitle>
             <CardDescription className="text-xs">
-              Context or sources used by the AI for this output.
+              Context or sources used by the AI for this output. (Placeholder)
             </CardDescription>
           </CardHeader>
           <CardContent>

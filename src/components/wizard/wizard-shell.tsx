@@ -36,16 +36,21 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
           ...updates,
         },
       };
-      return { ...prevInstance, stageStates: newStageStates };
+      // After updating state, re-evaluate dependencies
+      const evaluatedStageStates = evaluateDependenciesLogic(newStageStates, prevInstance.workflow.stages);
+      return { ...prevInstance, stageStates: evaluatedStageStates };
     });
-  }, []);
+  }, []); // Removed evaluateDependencies from here, it's called internally by updateStageState
 
-  const evaluateDependencies = useCallback(() => {
-    const newStageStates = { ...instance.stageStates };
+  // Extracted logic for easier use
+  const evaluateDependenciesLogic = (currentStageStates: Record<string, StageState>, stages: Stage[]): Record<string, StageState> => {
+    const newStageStates = { ...currentStageStates };
     let changed = false;
 
-    instance.workflow.stages.forEach(stage => {
+    stages.forEach(stage => {
       const currentState = newStageStates[stage.id];
+      if (!currentState) return; // Should not happen if initialized correctly
+
       let depsMet = true;
       if (stage.dependencies && stage.dependencies.length > 0) {
         depsMet = stage.dependencies.every(depId => 
@@ -58,13 +63,9 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         const stageCompletedAt = currentState.completedAt ? new Date(currentState.completedAt).getTime() : 0;
         isStale = stage.dependencies.some(depId => {
           const depCompletedAt = newStageStates[depId]?.completedAt ? new Date(newStageStates[depId].completedAt).getTime() : 0;
-          // If a dependency was completed *after* this stage, or if a dependency is itself stale, this stage is stale.
           return depCompletedAt > stageCompletedAt || newStageStates[depId]?.isStale === true;
         });
       }
-       // If a stage itself was just edited (e.g. input changed or output edited), it might not be "stale" in terms of deps,
-      // but its own content might need re-evaluation by subsequent stages.
-      // For now, isStale primarily tracks dependency staleness.
 
       const shouldAutoRun = stage.autoRun && depsMet && currentState.status === 'idle' && !currentState.isEditingOutput;
 
@@ -82,16 +83,16 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         changed = true;
       }
     });
-
-    if (changed) {
-      setInstance(prev => ({ ...prev, stageStates: newStageStates }));
-    }
-  }, [instance.stageStates, instance.workflow.stages]);
-
-
+    return changed ? newStageStates : currentStageStates; // Return original if no change to avoid re-render
+  };
+  
+  // Effect for initial and subsequent dependency evaluations
   useEffect(() => {
-    evaluateDependencies();
-  }, [instance.stageStates, evaluateDependencies]);
+    setInstance(prevInstance => ({
+      ...prevInstance,
+      stageStates: evaluateDependenciesLogic(prevInstance.stageStates, prevInstance.workflow.stages)
+    }));
+  }, []); // Runs once on mount, subsequent calls via updateStageState
 
 
   useEffect(() => {
@@ -114,14 +115,18 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
             newTitle = titleStageState.output;
         } 
         else if (titleStageId === "page-title-generation" && typeof titleStageState.output === 'object' && titleStageState.output !== null && Array.isArray(titleStageState.output.titles) && titleStageState.output.titles.length > 0) {
+            // For page-title-generation, if 'chosenTitle' exists in outline-creation's userInput, use that.
             const outlineStageUserInput = instance.stageStates['outline-creation']?.userInput;
-            if (outlineStageUserInput && outlineStageUserInput.chosenTitle) {
+            if (outlineStageUserInput && typeof outlineStageUserInput === 'object' && outlineStageUserInput.chosenTitle) {
                  newTitle = outlineStageUserInput.chosenTitle;
             } else {
                 newTitle = titleStageState.output.titles[0]; 
             }
-        } 
-        else if (typeof titleStageState.output === 'object' && titleStageState.output !== null && titleStageState.output.title) {
+        }
+         else if (titleStageId === "dish-name" && typeof titleStageState.output === 'string') { // For Recipe Workflow
+            newTitle = titleStageState.output;
+        }
+        else if (typeof titleStageState.output === 'object' && titleStageState.output !== null && titleStageState.output.title) { // Generic title from object
              newTitle = titleStageState.output.title;
         }
         
@@ -141,16 +146,24 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
 
 
   const handleInputChange = (stageId: string, fieldName: string, value: any) => {
+    // This is primarily for simple input types like 'textarea' or 'context' now.
+    // Form inputs are handled by onFormSubmit.
     if (fieldName === 'userInput') {
          updateStageState(stageId, { userInput: value, status: 'idle', output: undefined, completedAt: undefined, isStale: true });
     }
-    evaluateDependencies();
   };
 
   const handleFormSubmit = (stageId: string, data: any) => {
-    updateStageState(stageId, { userInput: data, status: 'idle', output: undefined, completedAt: undefined, isStale: true });
-    toast({ title: "Input Saved", description: `Input for stage "${instance.workflow.stages.find(s=>s.id===stageId)?.title}" has been saved.`});
-    evaluateDependencies();
+    // This function is called from StageInputArea when form field values change.
+    // It updates the central state with the latest form data.
+    updateStageState(stageId, { 
+        userInput: data, 
+        status: 'idle', // Keep as idle, don't clear output yet, user might just be editing
+        // output: undefined, // Clearing output here might be too aggressive if user is just tweaking form
+        // completedAt: undefined, 
+        isStale: true // Mark as stale because input changed
+    });
+    // toast({ title: "Input Updated", description: `Input for stage "${instance.workflow.stages.find(s=>s.id===stageId)?.title}" is being updated.`});
   };
 
   const handleRunStage = async (stageId: string, currentInput?: any) => {
@@ -158,6 +171,10 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     if (!stage) return;
 
     const currentStageState = instance.stageStates[stageId];
+    // Use the most up-to-date userInput from the state for the current stage
+    const stageInputForRun = currentStageState.userInput ?? currentInput;
+
+
     if (currentStageState.depsAreMet === false && stage.dependencies && stage.dependencies.length > 0) {
       toast({ title: "Dependencies Not Met", description: `Please complete previous stages before running "${stage.title}".`, variant: "default" });
       return;
@@ -165,27 +182,29 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
 
     updateStageState(stageId, { status: "running", error: undefined, isEditingOutput: false });
     
-    // Ensure all upstream dependencies are re-evaluated for their latest output
     const contextVars: Record<string, any> = {};
     instance.workflow.stages.forEach(s => {
         const sState = instance.stageStates[s.id];
-        if (s.id === stageId) { // For the current stage, use the provided currentInput or its existing userInput
-            contextVars[s.id] = { userInput: currentInput ?? sState.userInput, output: sState.output };
+        if (s.id === stageId) { 
+            contextVars[s.id] = { userInput: stageInputForRun, output: sState.output };
         } else if (sState?.status === 'completed' || sState?.status === 'skipped') {
             contextVars[s.id] = { userInput: sState.userInput, output: sState.output };
         }
     });
 
 
-    if (!stage.promptTemplate) { // Non-AI stage
+    if (!stage.promptTemplate) { 
       updateStageState(stageId, { 
         status: "completed", 
-        output: stage.inputType === 'form' ? currentInput : (stage.inputType === 'textarea' || stage.inputType === 'context' ? currentInput : undefined),
+        output: stage.inputType === 'form' 
+            ? stageInputForRun // Output is the submitted form data itself
+            : (stage.inputType === 'textarea' || stage.inputType === 'context' 
+                ? stageInputForRun // Output is the text/context input
+                : undefined),
         completedAt: new Date().toISOString(),
         isStale: false,
       });
       toast({ title: "Stage Processed", description: `Stage "${stage.title}" marked as complete.` });
-      evaluateDependencies();
       return;
     }
     
@@ -195,7 +214,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         model: stage.model || "gemini-2.0-flash",
         temperature: stage.temperature || 0.7,
         contextVars: contextVars,
-        currentStageInput: currentInput ?? instance.stageStates[stageId].userInput, 
+        currentStageInput: stageInputForRun, 
         stageOutputType: stage.outputType
       });
 
@@ -217,20 +236,16 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       updateStageState(stageId, { status: "error", error: error.message || "AI processing failed." });
       toast({ title: "AI Stage Error", description: error.message || "An error occurred.", variant: "destructive" });
     }
-    evaluateDependencies();
   };
 
   const handleSkipStage = (stageId: string) => {
     updateStageState(stageId, { status: "skipped", completedAt: new Date().toISOString(), output: undefined, userInput: undefined, isEditingOutput: false });
     toast({ title: "Stage Skipped", description: `Stage "${instance.workflow.stages.find(s=>s.id===stageId)?.title}" was skipped.` });
-    evaluateDependencies();
   };
   
   const handleEditInputRequest = (stageId: string) => {
-    // When input is edited, previous output is invalidated.
     updateStageState(stageId, { status: "idle", output: undefined, completedAt: undefined, isEditingOutput: false });
     toast({ title: "Editing Input", description: `Input for stage "${instance.workflow.stages.find(s=>s.id===stageId)?.title}" is now editable. Previous output cleared.` });
-    evaluateDependencies();
   };
 
   const handleSetEditingOutput = (stageId: string, isEditing: boolean) => {
@@ -239,8 +254,6 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
 
   const handleOutputEdit = (stageId: string, newOutput: any) => {
     updateStageState(stageId, { output: newOutput, completedAt: new Date().toISOString(), isStale: false });
-    // Note: Marking isStale as false assumes manual edit is the desired final state for this stage.
-    // Subsequent dependent stages might become stale due to this change, handled by evaluateDependencies.
   };
   
   const completedStagesCount = instance.workflow.stages.filter(
@@ -257,8 +270,8 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       return state && state.status !== 'completed' && state.status !== 'skipped' && state.depsAreMet !== false;
     }
   ) || instance.workflow.stages.find(s => instance.stageStates[s.id]?.depsAreMet === false) 
-    || instance.workflow.stages.find(s => instance.stageStates[s.id]?.status === 'completed' && instance.stageStates[s.id]?.isStale === true) // Focus stale stage
-    || instance.workflow.stages[instance.workflow.stages.length - 1]; // Fallback to last stage
+    || instance.workflow.stages.find(s => instance.stageStates[s.id]?.status === 'completed' && instance.stageStates[s.id]?.isStale === true)
+    || instance.workflow.stages[instance.workflow.stages.length - 1]; 
 
   const currentStageId = currentFocusStage?.id || instance.workflow.stages[0].id;
 
@@ -334,6 +347,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         <StageCard
           key={stage.id}
           stage={stage}
+          workflow={instance.workflow}
           stageState={instance.stageStates[stage.id] || { stageId: stage.id, status: 'idle', depsAreMet: !(stage.dependencies && stage.dependencies.length > 0), isEditingOutput: false }}
           isCurrentStage={stage.id === currentStageId && !isWizardCompleted}
           onRunStage={handleRunStage}
