@@ -4,7 +4,8 @@
   "name": "SEO Optimized Cooking Recipe",
   "description": "Create a detailed, SEO-friendly cooking recipe with AI assistance.",
   "config": {
-    "setTitleFromStageOutput": "dish-name"
+    "setTitleFromStageOutput": "dish-name",
+    "finalOutputStageId": "full-recipe-compilation"
   },
   "stages": [
     {
@@ -18,7 +19,7 @@
     },
     {
       "id": "cuisine-type",
-      "title": "Cuisine Type & Main Ingredients",
+      "title": "Cuisine Type &amp; Main Ingredients",
       "description": "E.g., Italian, Vegan, Chicken and Broccoli, etc.",
       "inputType": "textarea",
       "outputType": "text",
@@ -56,13 +57,13 @@
       "formFields": [
         { "name": "tone", "label": "Recipe Tone", "type": "select", 
           "options": [
-            { "value": "Quick & Easy", "label": "Quick & Easy" },
+            { "value": "Quick &amp; Easy", "label": "Quick &amp; Easy" },
             { "value": "Family Friendly", "label": "Family Friendly" },
-            { "value": "Gourmet & Detailed", "label": "Gourmet & Detailed" },
-            { "value": "Healthy & Light", "label": "Healthy & Light" },
+            { "value": "Gourmet &amp; Detailed", "label": "Gourmet &amp; Detailed" },
+            { "value": "Healthy &amp; Light", "label": "Healthy &amp; Light" },
             { "value": "Budget Friendly", "label": "Budget Friendly" }
           ],
-          "defaultValue": "Quick & Easy",
+          "defaultValue": "Quick &amp; Easy",
           "placeholder": "Select a tone"
         }
       ],
@@ -114,7 +115,7 @@
       "title": "Generate Full Recipe",
       "description": "AI will compile the complete recipe using all provided information.",
       "inputType": "none",
-      "promptTemplate": "Compile a full recipe blog post in Markdown format for '{{dish-name.output}}'.\n\nUse the following components:\n1.  **Title**: Use '{{dish-name.output}}' as the main H1 title.\n2.  **Introduction**:\n{{recipe-description-generation.output}}\n3.  **Preparation & Cook Time, Servings**:\n    *   Prep Time: {{preparation-details.output.prepTime}}\n    *   Cook Time: {{preparation-details.output.cookTime}}\n    *   Servings: {{preparation-details.output.servings}}\n4.  **Ingredients**: List the ingredients clearly. Format them as a Markdown list, based on this input:\n{{ingredients-input.output}}\n5.  **Instructions**: Provide clear, step-by-step instructions. Format them as a Markdown numbered list, based on this input:\n{{instructions-input.output}}\n6.  **SEO Keywords (for context, do not list explicitly unless natural):**\n{{seo-keywords-recipe.output.keywords}}\n7.  **Recipe Tone (for context):** {{recipe-tone-selection.userInput.tone}}\n8.  **Target Audience (for context):** {{target-audience-recipe.output.audienceDescription}}, Dietary: {{target-audience-recipe.output.dietaryRestrictions}}\n\nStructure the output as a complete Markdown document. Start with the H1 title. \nEnsure ingredients are formatted as a bulleted list (e.g., * 1 cup flour) and instructions as a numbered list (e.g., 1. Mix flour...). \nDo not include any preamble like \"Here is the recipe:\". Output only the Markdown content for the recipe post.",
+      "promptTemplate": "Compile a full recipe blog post in Markdown format for '{{dish-name.output}}'.\n\nUse the following components:\n1.  **Title**: Use '{{dish-name.output}}' as the main H1 title.\n2.  **Introduction**:\n{{recipe-description-generation.output}}\n3.  **Preparation &amp; Cook Time, Servings**:\n    *   Prep Time: {{preparation-details.output.prepTime}}\n    *   Cook Time: {{preparation-details.output.cookTime}}\n    *   Servings: {{preparation-details.output.servings}}\n4.  **Ingredients**: List the ingredients clearly. Format them as a Markdown list, based on this input:\n{{ingredients-input.output}}\n5.  **Instructions**: Provide clear, step-by-step instructions. Format them as a Markdown numbered list, based on this input:\n{{instructions-input.output}}\n6.  **SEO Keywords (for context, do not list explicitly unless natural):**\n{{seo-keywords-recipe.output.keywords}}\n7.  **Recipe Tone (for context):** {{recipe-tone-selection.userInput.tone}}\n8.  **Target Audience (for context):** {{target-audience-recipe.output.audienceDescription}}, Dietary: {{target-audience-recipe.output.dietaryRestrictions}}\n\nStructure the output as a complete Markdown document. Start with the H1 title. \nEnsure ingredients are formatted as a bulleted list (e.g., * 1 cup flour) and instructions as a numbered list (e.g., 1. Mix flour...). \nDo not include any preamble like \"Here is the recipe:\". Output only the Markdown content for the recipe post.",
       "model": "gemini-2.0-flash",
       "temperature": 0.7,
       "outputType": "markdown",

@@ -1,23 +1,54 @@
 
-
 import { WizardShell } from "@/components/wizard/wizard-shell";
-import { getWorkflowById } from "@/lib/workflow-loader"; // Updated import
+import { getWorkflowById, allWorkflows } from "@/lib/workflow-loader";
 import { notFound } from "next/navigation";
 import type { WizardDocument, WizardInstance, StageState, Workflow } from "@/types";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { AlertCircle } from "lucide-react";
-import { CreateNewDocumentDialog } from "@/components/wizard/create-new-document-dialog";
+import { AlertCircle, FileText, ArrowRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
-
+import { Card, CardHeader, CardTitle, CardDescription, CardFooter, CardContent } from "@/components/ui/card";
 
 export default function WizardPage({ params }: { params: { pageId: string } }) {
   
   if (params.pageId === "new") {
     return (
-      <div className="flex flex-col items-center justify-center text-center py-12">
-        <CreateNewDocumentDialog />
-         <p className="text-xs text-muted-foreground mt-8">
+      <div className="space-y-8">
+        <div className="text-center">
+            <h1 className="text-3xl font-bold font-headline">Create New Document</h1>
+            <p className="text-muted-foreground">Select a workflow to get started.</p>
+        </div>
+        {allWorkflows.length === 0 ? (
+            <div className="text-center py-12 border-2 border-dashed rounded-lg">
+                <AlertCircle className="mx-auto h-12 w-12 text-muted-foreground" />
+                <h3 className="mt-2 text-xl font-semibold font-headline">No Workflows Available</h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                    Contact an administrator to add workflows.
+                </p>
+            </div>
+        ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {allWorkflows.map(workflow => (
+                    <Card key={workflow.id} className="flex flex-col">
+                        <CardHeader>
+                            <CardTitle className="font-headline">{workflow.name}</CardTitle>
+                            <CardDescription className="h-20 text-ellipsis overflow-hidden">{workflow.description}</CardDescription>
+                        </CardHeader>
+                        <CardContent className="flex-grow">
+                            {/* Placeholder for potential workflow tags or icons */}
+                        </CardContent>
+                        <CardFooter>
+                            <Button asChild className="w-full">
+                                <Link href={`/wizard/_new_${workflow.id}`}>
+                                    Select Workflow <ArrowRight className="ml-2 h-4 w-4" />
+                                </Link>
+                            </Button>
+                        </CardFooter>
+                    </Card>
+                ))}
+            </div>
+        )}
+         <p className="text-xs text-muted-foreground mt-8 text-center">
             Or go back to <Link href="/dashboard" className="underline hover:text-primary">Dashboard</Link>.
         </p>
       </div>
@@ -29,7 +60,7 @@ export default function WizardPage({ params }: { params: { pageId: string } }) {
 
   if (params.pageId.startsWith("_new_")) {
     const workflowId = params.pageId.substring("_new_".length);
-    const workflow = getWorkflowById(workflowId); // Use new loader function
+    const workflow = getWorkflowById(workflowId); 
 
     if (!workflow) {
       notFound();
@@ -62,7 +93,7 @@ export default function WizardPage({ params }: { params: { pageId: string } }) {
         isStale: false,
         depsAreMet: stage.dependencies && stage.dependencies.length > 0 ? false : true,
         shouldAutoRun: stage.autoRun && (!stage.dependencies || stage.dependencies.length === 0),
-        shouldShowUpdateBadge: false,
+        isEditingOutput: false,
       };
     });
 
@@ -78,7 +109,6 @@ export default function WizardPage({ params }: { params: { pageId: string } }) {
 
   } else {
     // Logic for fetching existing documents would go here if persistence was implemented.
-    // For now, any other pageId will result in "not found".
     wizardInstance = undefined; 
   }
 
@@ -107,3 +137,4 @@ export default function WizardPage({ params }: { params: { pageId: string } }) {
 
   return <WizardShell initialInstance={wizardInstance} />;
 }
+

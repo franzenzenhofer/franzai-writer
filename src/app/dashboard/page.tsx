@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { mockWorkflows } from "@/lib/mock-data"; // Keep mockWorkflows for workflow definitions
+import { allWorkflows as mockWorkflows } from "@/lib/workflow-loader"; // Keep mockWorkflows for workflow definitions
 import type { WizardDocument } from "@/types";
 import { PlusCircle, FileText, Edit3, Trash2, Copy } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -83,3 +83,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+

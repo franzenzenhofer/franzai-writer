@@ -30,18 +30,19 @@ export interface Stage {
   description: string;
   inputType: StageInputType;
   formFields?: FormField[]; // Only if inputType is 'form'
-  promptTemplate?: string; // Template for AI prompt (will contain the actual prompt string)
-  model?: string; // AI model to use (e.g., 'gemini-2.0-flash')
-  temperature?: number; // Temperature for AI model
+  promptTemplate?: string; 
+  model?: string; 
+  temperature?: number; 
   outputType: "text" | "json" | "markdown";
-  dependencies?: string[]; // IDs of stages that must be completed first
-  autoRun?: boolean; // Whether to run automatically when dependencies are met
-  groundingRequested?: boolean; // If grounding info should be requested
-  isOptional?: boolean; // If the stage can be skipped
+  dependencies?: string[]; 
+  autoRun?: boolean; 
+  groundingRequested?: boolean; 
+  isOptional?: boolean; 
 }
 
 export interface WorkflowConfig {
-  setTitleFromStageOutput?: string; // Stage ID whose output sets the document title
+  setTitleFromStageOutput?: string; 
+  finalOutputStageId?: string; // ID of the stage that produces the final document for export
 }
 export interface Workflow {
   id: string;
@@ -53,15 +54,16 @@ export interface Workflow {
 
 export interface StageState {
   stageId: string;
-  userInput?: any; // Could be string for textarea/context, or object for form
-  output?: any; // string, object (JSON), or string (Markdown)
+  userInput?: any; 
+  output?: any; 
   status: "idle" | "running" | "completed" | "error" | "skipped";
   error?: string;
-  completedAt?: string; // ISO date string
-  groundingInfo?: any; // Grounding information from AI
+  completedAt?: string; 
+  groundingInfo?: any; 
   isStale?: boolean;
   depsAreMet?: boolean;
   shouldAutoRun?: boolean;
+  isEditingOutput?: boolean; // New flag for UI state: is the output area in edit mode?
 }
 
 export interface WizardDocument {
@@ -69,21 +71,21 @@ export interface WizardDocument {
   title: string;
   workflowId: string;
   status: "draft" | "in-progress" | "completed";
-  createdAt: string; // ISO date string
-  updatedAt: string; // ISO date string
-  userId: string; // Placeholder for user association
+  createdAt: string; 
+  updatedAt: string; 
+  userId: string; 
 }
 
 export interface WizardInstance {
   document: WizardDocument;
   workflow: Workflow;
-  stageStates: Record<string, StageState>; // Keyed by stageId
-  currentStageId?: string; // Optional: current active stage
+  stageStates: Record<string, StageState>; 
+  currentStageId?: string; 
 }
 
 export interface AiStageExecutionParams {
   promptTemplate: string;
   model: string;
   temperature: number;
-  contextVars?: Record<string, any>; // Variables to interpolate into promptTemplate
+  contextVars?: Record<string, any>; 
 }

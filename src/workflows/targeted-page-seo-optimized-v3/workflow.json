@@ -4,7 +4,8 @@
   "name": "Targeted Page SEO Optimized V3",
   "description": "Create a comprehensive, SEO-optimized page targeting a specific keyword.",
   "config": {
-    "setTitleFromStageOutput": "page-title-generation"
+    "setTitleFromStageOutput": "page-title-generation",
+    "finalOutputStageId": "full-draft-generation"
   },
   "stages": [
     {
@@ -23,7 +24,7 @@
       "inputType": "form",
       "formFields": [
         { "name": "demographics", "label": "Key Demographics", "type": "textarea", "placeholder": "e.g., Age, location, profession" },
-        { "name": "interests", "label": "Interests & Pain Points", "type": "textarea", "placeholder": "e.g., Interested in X, struggles with Y" },
+        { "name": "interests", "label": "Interests &amp; Pain Points", "type": "textarea", "placeholder": "e.g., Interested in X, struggles with Y" },
         { "name": "knowledgeLevel", "label": "Knowledge Level", "type": "select", "options": [{ "value": "beginner", "label": "Beginner" }, { "value": "intermediate", "label": "Intermediate" }, { "value": "expert", "label": "Expert" }], "defaultValue": "intermediate" }
       ],
       "outputType": "json",
@@ -47,7 +48,7 @@
       "model": "gemini-2.0-flash",
       "temperature": 0.7,
       "outputType": "json",
-      "dependencies": ["topic-definition", "audience-analysis"],
+      "dependencies": ["topic-definition", "audience-analysis", "competitor-research"],
       "autoRun": true
     },
     {
@@ -62,7 +63,7 @@
       "model": "gemini-2.0-flash",
       "temperature": 0.8,
       "outputType": "json",
-      "dependencies": ["content-angle"]
+      "dependencies": ["content-angle", "topic-definition"]
     },
     {
       "id": "outline-creation",
@@ -76,7 +77,7 @@
       "model": "gemini-2.0-flash",
       "temperature": 0.6,
       "outputType": "markdown",
-      "dependencies": ["page-title-generation", "audience-analysis"]
+      "dependencies": ["page-title-generation", "audience-analysis", "topic-definition"]
     },
     {
       "id": "full-draft-generation",
@@ -87,7 +88,7 @@
       "model": "gemini-2.0-flash",
       "temperature": 0.7,
       "outputType": "markdown",
-      "dependencies": ["outline-creation"],
+      "dependencies": ["outline-creation", "topic-definition", "audience-analysis"],
       "autoRun": false
     }
   ]
