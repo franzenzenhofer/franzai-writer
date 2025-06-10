@@ -1,76 +1,37 @@
-
-import { getWorkflowById, allWorkflows } from "@/lib/workflow-loader";
-import { notFound } from "next/navigation";
-import type { WizardDocument, WizardInstance, StageState, Workflow } from "@/types";
+import { getWorkflowById } from "@/lib/workflow-loader";
+import { notFound, redirect } from "next/navigation";
+import type { WizardDocument, WizardInstance, StageState } from "@/types";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { AlertCircle, FileText, ArrowRight } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 import { siteConfig } from "@/config/site";
-import { Card, CardHeader, CardTitle, CardDescription, CardFooter, CardContent } from "@/components/ui/card";
 import { WizardPageContent } from "./wizard-page-content";
 import { getDocument } from "@/lib/documents";
 
-export default async function WizardPage({ params }: { params: Promise<{ pageId: string }> }) {
+export default async function WizardPage({ 
+  params,
+  searchParams 
+}: { 
+  params: Promise<{ pageId: string }>;
+  searchParams: Promise<{ new?: string }>;
+}) {
   const { pageId } = await params;
+  const { new: newWorkflowId } = await searchParams;
   
-  if (pageId === "new") {
-    return (
-      <div className="space-y-8">
-        <div className="text-center">
-            <h1 className="text-3xl font-bold font-headline">Create New Document</h1>
-            <p className="text-muted-foreground">Select a workflow to get started.</p>
-        </div>
-        {allWorkflows.length === 0 ? (
-            <div className="text-center py-12 border-2 border-dashed rounded-lg">
-                <AlertCircle className="mx-auto h-12 w-12 text-muted-foreground" />
-                <h3 className="mt-2 text-xl font-semibold font-headline">No Workflows Available</h3>
-                <p className="mt-1 text-sm text-muted-foreground">
-                    Contact an administrator to add workflows.
-                </p>
-            </div>
-        ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {allWorkflows.map(workflow => (
-                    <Card key={workflow.id} className="flex flex-col">
-                        <CardHeader>
-                            <CardTitle className="font-headline">{workflow.name}</CardTitle>
-                            <CardDescription className="h-20 text-ellipsis overflow-hidden">{workflow.description}</CardDescription>
-                        </CardHeader>
-                        <CardContent className="flex-grow">
-                            {/* Placeholder for potential workflow tags or icons */}
-                        </CardContent>
-                        <CardFooter>
-                            <Button asChild className="w-full">
-                                <Link href={`/wizard/_new_${workflow.id}`}>
-                                    Select Workflow <ArrowRight className="ml-2 h-4 w-4" />
-                                </Link>
-                            </Button>
-                        </CardFooter>
-                    </Card>
-                ))}
-            </div>
-        )}
-         <p className="text-xs text-muted-foreground mt-8 text-center">
-            Or go back to <Link href="/dashboard" className="underline hover:text-primary">Dashboard</Link>.
-        </p>
-      </div>
-    );
-  }
-
   let wizardInstance: WizardInstance | undefined;
   let dynamicTitle = "New Document"; 
 
-  if (pageId.startsWith("_new_")) {
-    const workflowId = pageId.substring("_new_".length);
-    const workflow = getWorkflowById(workflowId); 
-
+  // Handle new document creation via query parameter
+  if (newWorkflowId) {
+    const workflow = getWorkflowById(newWorkflowId);
+    
     if (!workflow) {
       notFound();
     }
 
     dynamicTitle = `New ${workflow.name}`;
     const newDoc: WizardDocument = {
-      id: `temp-${Date.now()}`, 
+      id: pageId, // Use the pageId as document ID
       title: dynamicTitle,
       workflowId: workflow.id,
       status: "draft",
@@ -105,12 +66,11 @@ export default async function WizardPage({ params }: { params: Promise<{ pageId:
       stageStates: initialStageStates,
     };
     
-    if (typeof document !== 'undefined') { 
-      document.title = `${dynamicTitle} - ${siteConfig.name}`;
+    if (typeof globalThis.document !== 'undefined') { 
+      globalThis.document.title = `${dynamicTitle} - ${siteConfig.name}`;
     }
-
   } else {
-    // Load existing document
+    // Try to load existing document by pageId (which is the document ID)
     try {
       const result = await getDocument(pageId);
       
@@ -125,6 +85,10 @@ export default async function WizardPage({ params }: { params: Promise<{ pageId:
             stageStates,
           };
           dynamicTitle = document.title;
+          
+          if (typeof globalThis.document !== 'undefined') {
+            globalThis.document.title = `${dynamicTitle} - ${siteConfig.name}`;
+          }
         } else {
           // Workflow not found for document
           wizardInstance = undefined;
@@ -138,7 +102,6 @@ export default async function WizardPage({ params }: { params: Promise<{ pageId:
       wizardInstance = undefined;
     }
   }
-
 
   if (!wizardInstance) {
     return (
@@ -157,11 +120,6 @@ export default async function WizardPage({ params }: { params: Promise<{ pageId:
       </div>
     );
   }
-  
-  if (typeof document !== 'undefined' && !pageId.startsWith("_new_")) {
-      document.title = `${wizardInstance.document.title} - ${siteConfig.name}`;
-  }
 
   return <WizardPageContent initialInstance={wizardInstance} />;
-}
-
+} 

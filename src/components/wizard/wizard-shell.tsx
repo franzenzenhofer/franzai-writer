@@ -97,6 +97,8 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
           depsAreMet: depsMet,
           isStale: isStale,
           shouldAutoRun: shouldAutoRun,
+          // Reset staleDismissed when stage is no longer stale
+          staleDismissed: isStale ? currentState.staleDismissed : false,
         };
         changed = true;
       }
@@ -235,7 +237,13 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
           const nextStageId = instance.workflow.stages[nextStageIndex].id;
           const nextStageElement = document.getElementById(`stage-${nextStageId}`);
           if (nextStageElement) {
-            nextStageElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Calculate position accounting for sticky header
+            const elementTop = nextStageElement.getBoundingClientRect().top + window.pageYOffset;
+            const headerOffset = 120; // Account for sticky header height + some padding
+            window.scrollTo({
+              top: elementTop - headerOffset,
+              behavior: 'smooth'
+            });
           }
         }
       }, 500);
@@ -282,7 +290,13 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
           const nextStageId = instance.workflow.stages[nextStageIndex].id;
           const nextStageElement = document.getElementById(`stage-${nextStageId}`);
           if (nextStageElement) {
-            nextStageElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Calculate position accounting for sticky header
+            const elementTop = nextStageElement.getBoundingClientRect().top + window.pageYOffset;
+            const headerOffset = 120; // Account for sticky header height + some padding
+            window.scrollTo({
+              top: elementTop - headerOffset,
+              behavior: 'smooth'
+            });
           }
         }
       }, 500);
@@ -317,6 +331,11 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   const handleOutputEdit = (stageId: string, newOutput: any) => {
     updateStageState(stageId, { output: newOutput, completedAt: new Date().toISOString(), isStale: false });
   };
+
+  const handleDismissStaleWarning = (stageId: string) => {
+    updateStageState(stageId, { staleDismissed: true });
+    toast({ title: "Warning Dismissed", description: `Update recommendation for "${instance.workflow.stages.find(s=>s.id===stageId)?.title}" has been dismissed.` });
+  };
   
   const completedStagesCount = instance.workflow.stages.filter(
     stage => instance.stageStates[stage.id]?.status === 'completed' || instance.stageStates[stage.id]?.status === 'skipped'
@@ -332,7 +351,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       return state && state.status !== 'completed' && state.status !== 'skipped' && state.depsAreMet !== false;
     }
   ) || instance.workflow.stages.find(s => instance.stageStates[s.id]?.depsAreMet === false) 
-    || instance.workflow.stages.find(s => instance.stageStates[s.id]?.status === 'completed' && instance.stageStates[s.id]?.isStale === true)
+    || instance.workflow.stages.find(s => instance.stageStates[s.id]?.status === 'completed' && instance.stageStates[s.id]?.isStale === true && !instance.stageStates[s.id]?.staleDismissed)
     || instance.workflow.stages[instance.workflow.stages.length - 1]; 
 
   const currentStageId = currentFocusStage?.id || instance.workflow.stages[0].id;
@@ -422,10 +441,10 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
           </AlertDescription>
         </Alert>
       )}
-      {!isWizardCompleted && instance.stageStates[currentStageId]?.isStale === true && instance.stageStates[currentStageId]?.status === 'completed' && (
+      {!isWizardCompleted && instance.stageStates[currentStageId]?.isStale === true && instance.stageStates[currentStageId]?.status === 'completed' && !instance.stageStates[currentStageId]?.staleDismissed && (
          <Alert variant="default" className="mb-6 bg-amber-50 border-amber-300 dark:bg-amber-900/30 dark:border-amber-700">
           <FileWarning className="h-5 w-5 text-amber-600 dark:text-amber-400" />
-          <AlertTitle className="text-amber-700 dark:text-amber-300 font-headline">Output May Be Stale</AlertTitle>
+          <AlertTitle className="text-amber-700 dark:text-amber-300 font-headline">Update Recommended</AlertTitle>
           <AlertDescription className="text-amber-600 dark:text-amber-500">
             The input or dependencies for stage &apos;{instance.workflow.stages.find(s => s.id === currentStageId)?.title}&apos; have changed. You may want to re-run or review its output.
           </AlertDescription>
@@ -447,6 +466,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
           onEditInputRequest={handleEditInputRequest}
           onOutputEdit={handleOutputEdit}
           onSetEditingOutput={handleSetEditingOutput}
+          onDismissStaleWarning={handleDismissStaleWarning}
           allStageStates={instance.stageStates}
         />
       ))}

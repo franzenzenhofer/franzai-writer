@@ -405,3 +405,852 @@ Executing AI stage with input: {
  ✓ Compiled in 56ms
  ✓ Compiled in 69ms
  ✓ Compiled in 101ms
+ ✓ Compiled in 87ms
+ ✓ Compiled in 67ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 588ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 229ms
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.0-flash',
+  temperature: 0.6,
+  stageOutputType: 'json'
+}
+Prompt variable '{{topic-definition.output}}' not found in context. Replacing with empty string.
+Prompt variable '{{competitor-research.userInput.dropped}}' not found in context. Replacing with empty string.
+Prompt variable '{{competitor-research.userInput.manual}}' not found in context. Replacing with empty string.
+[runAiStage] Filled prompt length: 486
+Executing AI stage with input: {
+  "promptTemplate": "Given the topic '' and target audience described as {\n  \"demographics\": \"\",\n  \"interests\": \"\",\n  \"knowledgeLevel\": \"intermediate\"\n}, suggest 3 unique content angles. Consider the following competitor research context if provided: ' '. Format your response as a JSON object with a single key 'angles', which is an array of 3 strings representing the content angles. Ensure the output is valid JSON. Example: {\"angles\": [\"Angle 1: Focus on X\", \"Angle 2: Explore Y\", \"Angle 3: Compare Z\"]}",
+  "model": "googleai/gemini-2.0-flash",
+  "temperature": 0.6
+}
+[AI Stage] Starting execution with input: {
+  promptTemplate: "Given the topic '' and target audience described as {\n" +
+    '  "demographics": "",\n' +
+    '  "interests": "",\n' +
+    '  "knowledgeLevel": "intermediate"\n' +
+    `}, suggest 3 unique content angles. Consider the following competitor research context if provided: ' '. Format your response as a JSON object with a single key 'angles', which is an array of 3 strings representing the content angles. Ensure the output is valid JSON. Example: {"angles": ["Angle 1: Focus on X", "Angle 2: Explore Y", "Angle 3: Compare Z"]}`,
+  model: 'googleai/gemini-2.0-flash',
+  temperature: 0.6
+}
+[AI Stage] Execution successful
+[runAiStage] Success, content type: object
+ POST /wizard/_new_targeted-page-seo-optimized-v3 200 in 1508ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 147ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 230ms
+ ✓ Compiled in 55ms
+ ✓ Compiled in 57ms
+ ✓ Compiled /wizard/[pageId] in 42ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 362ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 268ms
+ ✓ Compiled in 69ms
+ ✓ Compiled in 101ms
+ ✓ Compiled in 97ms
+ ✓ Compiled in 97ms
+ ✓ Compiled in 99ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 562ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 122ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 229ms
+ ✓ Compiled in 24ms
+ ✓ Compiled /wizard/[pageId] in 48ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 386ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 242ms
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ ⨯ unhandledRejection: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ ⨯ unhandledRejection:  Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ ✓ Compiled /wizard/[pageId] in 15ms
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 328ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 272ms
+ ✓ Compiled /wizard/[pageId] in 15ms
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 344ms
+ ✓ Compiled /wizard/[pageId] in 15ms
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 315ms
+ ○ Compiling /_not-found/page ...
+ ✓ Compiled /_not-found/page in 749ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbql1w97wleu03x 404 in 766ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbql1w97wleu03x 404 in 188ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbql1w97wleu03x 404 in 32ms
+ ✓ Compiled in 76ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbql1w97wleu03x 404 in 52ms
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ ⨯ unhandledRejection: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ ⨯ unhandledRejection:  Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbql1w97wleu03x 404 in 115ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 238ms
+ ○ Compiling / ...
+ ✓ Compiled / in 640ms
+ GET / 200 in 672ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 691ms
+ GET /login 200 in 715ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 672ms
+ GET /dashboard 200 in 705ms
+ GET /dashboard 200 in 40ms
+ ✓ Compiled /wizard/[pageId] in 32ms
+(node:28437) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGTERM listeners added to [process]. MaxListeners is 10. Use emitter.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 371ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbql3f7vwaocije 404 in 32ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbql3f7vwaocije 404 in 23ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbql3f7vwaocije 404 in 96ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbql3f7vwaocije 404 in 81ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 236ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbql3f7vwaocije 404 in 91ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 237ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbql3f7vwaocije 404 in 64ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbql3f7vwaocije 404 in 47ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 130ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 102ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbql3f7vwaocije 404 in 56ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 91ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbql3f7vwaocije 404 in 153ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbql3f7vwaocije 404 in 56ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 221ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 61ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbql3f7vwaocije 404 in 60ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 233ms
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Shutting down all Genkit servers...
+Shutting down all Genkit servers...
+Shutting down all Genkit servers...
+Shutting down all Genkit servers...
+Shutting down all Genkit servers...
+Shutting down all Genkit servers...
+Shutting down all Genkit servers...
+Shutting down all Genkit servers...
+Shutting down all Genkit servers...
+Debugger listening on ws://127.0.0.1:9229/44702d59-ab96-4e3b-abfb-97ee27fbb632
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 1001312,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/73cc024e-1dde-460f-b224-169cad88d610
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Debugger listening on ws://127.0.0.1:9229/47a84c3d-6600-49ae-99c4-45d1ccc22066
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 1653,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+
+> nextn@0.1.0 dev
+> next dev --turbopack -p 9002 2>&1 | tee -a logs/nextjs-dev.log
+
+Debugger listening on ws://127.0.0.1:9230/ba0a409f-88e9-4fc6-9ca3-08a210a07509
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger listening on ws://127.0.0.1:9230/ba0a409f-88e9-4fc6-9ca3-08a210a07509
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Debugger listening on ws://127.0.0.1:9229/59034e29-8540-4d91-bdf2-0b7b901b1b5a
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger listening on ws://127.0.0.1:9229/59034e29-8540-4d91-bdf2-0b7b901b1b5a
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 935,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 935,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+[?25h
+Debugger listening on ws://127.0.0.1:9230/3d8976e0-775e-4dd7-8983-f05ddb20f851
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Debugger listening on ws://127.0.0.1:9229/53eba241-5d98-4249-9765-7136e83b01c8
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 864,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/7529f10e-26fa-4929-bad0-a2c8da85923b
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 591ms
+ ○ Compiling /wizard/new ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled /wizard/new in 1453ms
+ GET /wizard/new 200 in 1755ms
+ ○ Compiling /wizard/[workflowType]/[documentId] ...
+ ✓ Compiled /wizard/[workflowType]/[documentId] in 2.6s
+ GET /wizard/_new_targeted-page-seo-optimized-v3/test123 200 in 3375ms
+ ○ Compiling / ...
+ ✓ Compiled / in 680ms
+ GET / 200 in 707ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 765ms
+ GET /login 200 in 783ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 675ms
+ GET /dashboard 200 in 708ms
+ GET /dashboard 200 in 24ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbqlaxlew4qgxd3 200 in 52ms
+[2025-06-10T14:02:06.018Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x55ee46f3 error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+[2025-06-10T14:02:06.020Z]  @firebase/firestore: Firestore (11.9.0): Could not reach Cloud Firestore backend. Connection failed 1 times. Most recent error: FirebaseError: [code=permission-denied]: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+This typically indicates that your device does not have a healthy Internet connection at the moment. The client will operate in offline mode until it is able to successfully connect to the backend.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /wizard/targeted-page-seo-optimized-v3/test123 200 in 1517ms
+ GET /dashboard 200 in 77ms
+ GET /dashboard 200 in 112ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbqlhex2w9d9gvq 200 in 130ms
+ ✓ Compiled in 38ms
+ ○ Compiling /w/new/[workflowId] ...
+ ✓ Compiled /w/new/[workflowId] in 668ms
+ GET /w/new/targeted-page-seo-optimized-v3 307 in 1053ms
+ GET /w/new/targeted-page-seo-optimized-v3 307 in 53ms
+ ○ Compiling /w/[pageId] ...
+ ✓ Compiled /w/[pageId] in 1489ms
+ GET /w/mbqlk4zpwlvidnt?new=targeted-page-seo-optimized-v3 200 in 2056ms
+ ✓ Compiled /wizard/new in 9ms
+ GET /wizard/new 200 in 347ms
+ GET /dashboard 200 in 197ms
+ ○ Compiling /_not-found/page ...
+ ✓ Compiled /_not-found/page in 718ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbqlhn5fwlwk1oz 404 in 735ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbqlhn5fwlwk1oz 404 in 46ms
+ GET /dashboard 200 in 100ms
+ GET /dashboard 200 in 134ms
+ ✓ Compiled /favicon.ico in 199ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 439ms
+ GET /w/new/targeted-page-seo-optimized-v3 200 in 54ms
+ GET /w/mbqlmr77wwwnxs8?new=targeted-page-seo-optimized-v3 200 in 290ms
+ GET /w/mbqlmr77wwwnxs8?new=targeted-page-seo-optimized-v3 200 in 91ms
+[2025-06-10T14:11:58.532Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x248d882a error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+[2025-06-10T14:11:58.535Z]  @firebase/firestore: Firestore (11.9.0): Could not reach Cloud Firestore backend. Connection failed 1 times. Most recent error: FirebaseError: [code=permission-denied]: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+This typically indicates that your device does not have a healthy Internet connection at the moment. The client will operate in offline mode until it is able to successfully connect to the backend.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/mbqlmr77wwwnxs8 200 in 1344ms
+ GET /w/mbqlmr77wwwnxs8?new=targeted-page-seo-optimized-v3 200 in 183ms
+ GET /w/mbqlmr77wwwnxs8?new=targeted-page-seo-optimized-v3 200 in 28ms
+ ✓ Compiled in 199ms
+ ✓ Compiled /w/[pageId] in 39ms
+[2025-06-10T14:13:18.241Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x717a1932 error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+[2025-06-10T14:13:18.244Z]  @firebase/firestore: Firestore (11.9.0): Could not reach Cloud Firestore backend. Connection failed 1 times. Most recent error: FirebaseError: [code=permission-denied]: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+This typically indicates that your device does not have a healthy Internet connection at the moment. The client will operate in offline mode until it is able to successfully connect to the backend.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/mbqlmr77wwwnxs8?new=targeted-page-seo-optimized-v3 200 in 1613ms
+ ✓ Compiled /w/new/[workflowId] in 26ms
+Failed to create document: [Error [FirebaseError]: Function setDoc() called with invalid data. Unsupported field value: undefined (found in field stageStates.`topic-definition`.userInput in document documents/C7kxdvn8FeL4QK7oK8Um)] {
+  code: 'invalid-argument',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/new/targeted-page-seo-optimized-v3 307 in 339ms
+[2025-06-10T14:13:24.297Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x717a1933 error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/mbqlpmklwh13d46 200 in 160ms
+Failed to create document: [Error [FirebaseError]: Function setDoc() called with invalid data. Unsupported field value: undefined (found in field stageStates.`topic-definition`.userInput in document documents/13vniemaMoiFOzLfmyTs)] {
+  code: 'invalid-argument',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ HEAD /w/new/targeted-page-seo-optimized-v3 307 in 59ms
+[2025-06-10T14:13:38.695Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x717a1934 error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/mbqlpshnwuhylx0 200 in 128ms
+ GET /dashboard 200 in 135ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbqlaxlew4qgxd3 404 in 47ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbqlaxlew4qgxd3 404 in 60ms
+ GET /dashboard 200 in 49ms
+Failed to create document: [Error [FirebaseError]: Function setDoc() called with invalid data. Unsupported field value: undefined (found in field stageStates.`topic-definition`.userInput in document documents/pzOswx702d9DoAXemZYv)] {
+  code: 'invalid-argument',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/new/targeted-page-seo-optimized-v3 200 in 40ms
+[2025-06-10T14:14:22.519Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x717a1935 error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/mbqlqvmhw08z4tl 200 in 67ms
+ GET /w/mbqlqvmhw08z4tl 200 in 106ms
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ ⨯ unhandledRejection: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ ⨯ unhandledRejection:  Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ⨯ Failed to start server
+Error: listen EADDRINUSE: address already in use :::9002
+    at <unknown> (Error: listen EADDRINUSE: address already in use :::9002)
+    at new Promise (<anonymous>) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 9002
+}
+Debugger listening on ws://127.0.0.1:9229/ef601482-1ba4-473d-91bb-e6973e5a6abe
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 313,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+ GET /dashboard 200 in 239ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 248ms
+Failed to create document: [Error [FirebaseError]: Function setDoc() called with invalid data. Unsupported field value: undefined (found in field stageStates.`topic-definition`.userInput in document documents/UXE7BF8h1HWbv27RsY6u)] {
+  code: 'invalid-argument',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/new/targeted-page-seo-optimized-v3 200 in 127ms
+[2025-06-10T14:15:45.640Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x67b02c54 error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+[2025-06-10T14:15:45.641Z]  @firebase/firestore: Firestore (11.9.0): Could not reach Cloud Firestore backend. Connection failed 1 times. Most recent error: FirebaseError: [code=permission-denied]: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+This typically indicates that your device does not have a healthy Internet connection at the moment. The client will operate in offline mode until it is able to successfully connect to the backend.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/mbqlsng4wczh6dr 200 in 224ms
+ GET /w/mbqlsng4wczh6dr 200 in 507ms
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ⨯ Failed to start server
+Error: listen EADDRINUSE: address already in use :::9002
+    at <unknown> (Error: listen EADDRINUSE: address already in use :::9002)
+    at new Promise (<anonymous>) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 9002
+}
+Debugger listening on ws://127.0.0.1:9229/84ab6167-6b3a-4401-b7a6-1b96029a945d
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 317,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/b6616eac-45f8-4fc6-abf9-134f96c2358f
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Debugger listening on ws://127.0.0.1:9229/3af6119e-001d-4f30-80c1-03ca6799f918
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 1722,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/c4e5d3c4-70d0-4626-9874-7969e710d4ec
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 606ms
+ ○ Compiling /w/[pageId] ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled /w/[pageId] in 3.2s
+[2025-06-10T14:19:48.212Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x4adca257 error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+[2025-06-10T14:19:48.214Z]  @firebase/firestore: Firestore (11.9.0): Could not reach Cloud Firestore backend. Connection failed 1 times. Most recent error: FirebaseError: [code=permission-denied]: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+This typically indicates that your device does not have a healthy Internet connection at the moment. The client will operate in offline mode until it is able to successfully connect to the backend.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/mbqlsng4wczh6dr 200 in 5260ms
+ ✓ Compiled /favicon.ico in 258ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 519ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 806ms
+ GET /dashboard 200 in 834ms
+ ○ Compiling /w/new/[workflowId] ...
+ ✓ Compiled /w/new/[workflowId] in 808ms
+Failed to create document: [Error [FirebaseError]: Function setDoc() called with invalid data. Unsupported field value: undefined (found in field stageStates.`topic-definition`.output in document documents/bYUImbnZqJCl0XcdLJMQ)] {
+  code: 'invalid-argument',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/new/targeted-page-seo-optimized-v3 200 in 1127ms
+[2025-06-10T14:19:53.515Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x4adca258 error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/mbqlxz0iwdnpnbw 200 in 83ms
+ GET /w/mbqlxz0iwdnpnbw 200 in 113ms
+ ✓ Compiled in 53ms
+[2025-06-10T14:20:38.925Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x4adca259 error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/mbqlxz0iwdnpnbw 200 in 106ms
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ ⨯ unhandledRejection: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ ⨯ unhandledRejection:  Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+[2025-06-10T14:21:37.486Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x13c83762 error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+[2025-06-10T14:21:37.486Z]  @firebase/firestore: Firestore (11.9.0): Could not reach Cloud Firestore backend. Connection failed 1 times. Most recent error: FirebaseError: [code=permission-denied]: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+This typically indicates that your device does not have a healthy Internet connection at the moment. The client will operate in offline mode until it is able to successfully connect to the backend.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/mbqlxz0iwdnpnbw 200 in 1030ms
+ GET /w/mbqlxz0iwdnpnbw 200 in 837ms
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ ✓ Compiled in 86ms
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ ⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('pageId' !== 'workflowType').
+    at Array.forEach (<anonymous>)
+ ✓ Compiled in 45ms
+ ✓ Compiled in 41ms
+Debugger listening on ws://127.0.0.1:9230/6462282b-bb89-4868-b00a-4df2ee2a1b69
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 614ms
+ ○ Compiling /dashboard ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled /dashboard in 1452ms
+ GET /dashboard 200 in 1740ms
+ ○ Compiling /w/[pageId] ...
+ ✓ Compiled /w/[pageId] in 2.3s
+[2025-06-10T14:24:14.441Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x85c11af4 error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+[2025-06-10T14:24:14.444Z]  @firebase/firestore: Firestore (11.9.0): Could not reach Cloud Firestore backend. Connection failed 1 times. Most recent error: FirebaseError: [code=permission-denied]: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+This typically indicates that your device does not have a healthy Internet connection at the moment. The client will operate in offline mode until it is able to successfully connect to the backend.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/mbqlxz0iwdnpnbw 200 in 4185ms
+ ○ Compiling /w/new/[workflowId] ...
+ ✓ Compiled /w/new/[workflowId] in 772ms
+Failed to create document: [Error [FirebaseError]: Function setDoc() called with invalid data. Unsupported field value: undefined (found in field stageStates.`topic-definition`.output in document documents/tm2NFN5SAoxNz1lSwPOj)] {
+  code: 'invalid-argument',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ HEAD /w/new/targeted-page-seo-optimized-v3 307 in 1132ms
+ ○ Compiling /wizard/[workflowType]/[documentId] ...
+ ✓ Compiled /wizard/[workflowType]/[documentId] in 832ms
+ ⨯ ./src/app/wizard/[workflowType]/[documentId]/page.tsx:8:1
+Module not found: Can't resolve './wizard-page-content'
+[0m [90m  6 |[39m [36mimport[39m { [33mAlertCircle[39m } [36mfrom[39m [32m"lucide-react"[39m[33m;[39m[0m
+[0m [90m  7 |[39m [36mimport[39m { siteConfig } [36mfrom[39m [32m"@/config/site"[39m[33m;[39m[0m
+[0m[31m[1m>[22m[39m[90m  8 |[39m [36mimport[39m { [33mWizardPageContent[39m } [36mfrom[39m [32m"./wizard-page-content"[39m[33m;[39m[0m
+[0m [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m  9 |[39m [36mimport[39m { getDocument } [36mfrom[39m [32m"@/lib/documents"[39m[33m;[39m[0m
+[0m [90m 10 |[39m[0m
+[0m [90m 11 |[39m [36mexport[39m [36mdefault[39m [36masync[39m [36mfunction[39m [33mNewWizardPage[39m({ [0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 500ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3/mbqm4sw4wf49ygd 500 in 1426ms
+ ✓ Compiled in 171ms
+ ✓ Compiled in 651ms
+ ✓ Compiled /w/[pageId] in 31ms
+[2025-06-10T14:26:12.562Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x2c301c44 error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+[2025-06-10T14:26:12.563Z]  @firebase/firestore: Firestore (11.9.0): Could not reach Cloud Firestore backend. Connection failed 1 times. Most recent error: FirebaseError: [code=permission-denied]: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+This typically indicates that your device does not have a healthy Internet connection at the moment. The client will operate in offline mode until it is able to successfully connect to the backend.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/mbqlxz0iwdnpnbw 200 in 632ms
+ ✓ Compiled /favicon.ico in 259ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 511ms
+ GET /dashboard 200 in 58ms
+ ✓ Compiled /w/new/[workflowId] in 25ms
+ GET /w/new/targeted-page-seo-optimized-v3 200 in 104ms
+ GET /w/mbqm664jwpft76n?new=targeted-page-seo-optimized-v3 200 in 46ms
+ GET /w/mbqm664jwpft76n?new=targeted-page-seo-optimized-v3 200 in 34ms

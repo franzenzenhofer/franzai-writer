@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
@@ -67,7 +66,7 @@ function DocumentCard({
       </CardContent>
       <CardFooter className="flex justify-between items-center">
         <Button variant="outline" size="sm" asChild>
-          <Link href={`/wizard/${document.id}`}>
+          <Link href={`/w/${document.id}`}>
             <Edit className="mr-2 h-4 w-4" />
             Continue
           </Link>
@@ -114,7 +113,7 @@ function WorkflowSelectionCard({ workflow }: { workflow: Workflow }) {
         </Button>
         <Button asChild size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
           <Link 
-            href={`/wizard/_new_${workflow.id}`}
+            href={`/w/new/${workflow.id}`}
             id={`workflow-start-${workflow.id}`}
             data-testid={`workflow-start-${workflow.id}`}
           >

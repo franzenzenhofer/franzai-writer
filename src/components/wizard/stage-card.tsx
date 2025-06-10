@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { StageInputArea, type StageInputAreaRef } from "./stage-input-area";
 import { StageOutputArea } from "./stage-output-area";
-import { CheckCircle2, AlertCircle, Zap, RotateCcw, Loader2, SkipForward, Edit, Save, Check, Clock } from "lucide-react";
+import { CheckCircle2, AlertCircle, Zap, RotateCcw, Loader2, SkipForward, Edit, Save, Check, Clock, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import React, { useState, useRef, useEffect } from "react";
 
@@ -23,6 +23,7 @@ interface StageCardProps {
   onEditInputRequest: (stageId: string) => void;
   onOutputEdit: (stageId: string, newOutput: any) => void;
   onSetEditingOutput: (stageId: string, isEditing: boolean) => void;
+  onDismissStaleWarning: (stageId: string) => void; // New handler for dismissing stale warning
   allStageStates: Record<string, StageState>;
 }
 
@@ -38,6 +39,7 @@ export function StageCard({
   onEditInputRequest,
   onOutputEdit,
   onSetEditingOutput,
+  onDismissStaleWarning,
   allStageStates,
 }: StageCardProps) {
   
@@ -165,7 +167,21 @@ export function StageCard({
           <CardTitle className="font-headline text-xl flex items-center">
             {statusIcon && !dependencyMessage && <span className="mr-2">{statusIcon}</span>}
             {stage.title}
-            {stageState.isStale && stageState.status === 'completed' && <Badge variant="outline" className="ml-2 bg-amber-100 text-amber-700 border-amber-400">Stale</Badge>}
+            {stageState.isStale && stageState.status === 'completed' && !stageState.staleDismissed && (
+              <Badge variant="outline" className="ml-2 bg-amber-100 text-amber-700 border-amber-400 flex items-center gap-1">
+                Update recommended
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDismissStaleWarning(stage.id);
+                  }}
+                  className="ml-1 hover:bg-amber-200 rounded-sm p-0.5 transition-colors"
+                  title="Dismiss this warning"
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              </Badge>
+            )}
           </CardTitle>
           <CardDescription>{stage.description}</CardDescription>
           {stage.isOptional && <Badge variant="outline" className="mt-1 text-xs">Optional</Badge>}

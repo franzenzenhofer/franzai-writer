@@ -61,6 +61,7 @@ export interface StageState {
   completedAt?: string; 
   groundingInfo?: any; 
   isStale?: boolean;
+  staleDismissed?: boolean; // Track if stale warning was dismissed
   depsAreMet?: boolean;
   shouldAutoRun?: boolean;
   isEditingOutput?: boolean; 

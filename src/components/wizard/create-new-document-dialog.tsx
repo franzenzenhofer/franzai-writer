@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -29,7 +28,7 @@ export function CreateNewDocumentDialog() {
   }, [selectedWorkflowId]);
 
 
-  const linkHref = selectedWorkflowId ? `/wizard/_new_${selectedWorkflowId}` : "/dashboard"; 
+  const linkHref = selectedWorkflowId ? `/w/new/${selectedWorkflowId}` : "/dashboard"; 
   const canProceed = !!selectedWorkflowId;
 
   return (

@@ -1,4 +1,3 @@
-
 import { getWorkflowById } from "@/lib/workflow-loader";
 import { notFound } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,8 +6,9 @@ import Link from "next/link";
 import { ArrowLeft, Settings, ListTree, Sparkles } from "lucide-react";
 import { WorkflowOverviewClient } from "@/components/workflow/workflow-overview-client";
 
-export default function WorkflowDetailsPage({ params }: { params: { workflowId: string } }) {
-  const workflow = getWorkflowById(params.workflowId);
+export default async function WorkflowDetailsPage({ params }: { params: Promise<{ workflowId: string }> }) {
+  const { workflowId } = await params;
+  const workflow = getWorkflowById(workflowId);
 
   if (!workflow) {
     notFound();
@@ -109,7 +109,7 @@ export default function WorkflowDetailsPage({ params }: { params: { workflowId: 
 
        <div className="text-center">
         <Button size="lg" asChild>
-          <Link href={`/wizard/_new_${workflow.id}`}>
+          <Link href={`/w/new/${workflow.id}`}>
             Start using {workflow.name}
           </Link>
         </Button>
