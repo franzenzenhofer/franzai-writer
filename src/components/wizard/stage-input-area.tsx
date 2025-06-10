@@ -1,11 +1,12 @@
+
 "use client";
 
-import * as React from "react";
+import React, { useState, useEffect, useMemo, type ChangeEvent } from "react";
 import type { Stage, FormField, StageState, FormFieldOption } from "@/types";
 import { Textarea } from "@/components/ui/textarea";
 import { SmartDropzone } from "./smart-dropzone";
 import { TokenCounter } from "./token-counter";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useForm, Controller, type SubmitHandler } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,7 +15,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Form, FormControl, FormDescription, FormField as ShadFormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useEffect, useMemo } from "react";
 
 interface StageInputAreaProps {
   stage: Stage;
@@ -25,10 +25,10 @@ interface StageInputAreaProps {
 }
 
 export function StageInputArea({ stage, stageState, onInputChange, onFormSubmit, allStageStates }: StageInputAreaProps) {
-  const [contextManualInput, setContextManualInput] = React.useState(
+  const [contextManualInput, setContextManualInput] = useState(
     typeof stageState.userInput?.manual === 'string' ? stageState.userInput.manual : ""
   );
-  const [contextDroppedInput, setContextDroppedInput] = React.useState(
+  const [contextDroppedInput, setContextDroppedInput] = useState(
      typeof stageState.userInput?.dropped === 'string' ? stageState.userInput.dropped : ""
   );
 
@@ -88,11 +88,11 @@ export function StageInputArea({ stage, stageState, onInputChange, onFormSubmit,
   }, [stageState.userInput, stage.formFields, stage.inputType, form]);
 
 
-  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     onInputChange(stage.id, "userInput", e.target.value);
   };
 
-  const handleContextManualChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleContextManualChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = e.target.value;
     setContextManualInput(newValue);
     onInputChange(stage.id, "userInput", { manual: newValue, dropped: contextDroppedInput });
@@ -110,10 +110,7 @@ export function StageInputArea({ stage, stageState, onInputChange, onFormSubmit,
   const getSelectOptions = (field: FormField): FormFieldOption[] => {
     if (field.options && field.options.length > 0) return field.options;
 
-    // Dynamically populate options from previous stage output
-    // Example: if stage 'content-angle' produces { angles: ["a", "b"] }
-    // and this form field is configured to use it.
-    const dependencyStageId = stage.dependencies?.[0]; // Simplistic: assumes first dependency
+    const dependencyStageId = stage.dependencies?.[0]; 
     if (dependencyStageId) {
         const depState = allStageStates[dependencyStageId];
         if (depState?.status === 'completed' && depState.output) {
@@ -182,7 +179,7 @@ export function StageInputArea({ stage, stageState, onInputChange, onFormSubmit,
               <ShadFormField
                 key={field.name}
                 control={form.control}
-                name={field.name as any} /* Type assertion needed due to dynamic schema */
+                name={field.name as any} 
                 render={({ field: controllerField }) => {
                   const finalValue = controllerField.value ?? field.defaultValue ?? (field.type === 'checkbox' ? false : '');
                   return (
@@ -232,3 +229,5 @@ export function StageInputArea({ stage, stageState, onInputChange, onFormSubmit,
       return <p>Unknown input type: {stage.inputType}</p>;
   }
 }
+
+    
