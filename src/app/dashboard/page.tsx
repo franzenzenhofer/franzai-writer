@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { allWorkflows } from "@/lib/workflow-loader";
 import type { WizardDocument, Workflow } from "@/types";
-import { FileText, ArrowRight, AlertCircle, PlusCircle } from "lucide-react";
+import { FileText, ArrowRight, AlertCircle, PlusCircle, Info } from "lucide-react";
 
 // This function remains as documents are not persisted yet.
 function getWorkflowName(workflowId: string) {
@@ -12,54 +12,26 @@ function getWorkflowName(workflowId: string) {
   return workflow ? workflow.name : "Unknown Workflow";
 }
 
-// DocumentCard can remain for future use when documents are persisted
-// For now, it won't be rendered if documents array is empty.
-// import { Badge } from "@/components/ui/badge";
-// import { Edit3, Trash2, Copy } from "lucide-react";
-// function DocumentCard({ document }: { document: WizardDocument }) {
-//   return (
-//     <Card className="flex flex-col">
-//       <CardHeader>
-//         <CardTitle className="font-headline text-lg">{document.title}</CardTitle>
-//         <CardDescription className="text-xs">
-//           Type: {getWorkflowName(document.workflowId)} <br />
-//           Last updated: {new Date(document.updatedAt).toLocaleDateString()}
-//         </CardDescription>
-//       </CardHeader>
-//       <CardContent className="flex-grow">
-//         <Badge variant={document.status === "completed" ? "default" : "secondary"}>
-//           {document.status.charAt(0).toUpperCase() + document.status.slice(1)}
-//         </Badge>
-//       </CardContent>
-//       <CardFooter className="flex justify-end gap-2">
-//         <Button variant="outline" size="sm" asChild>
-//           <Link href={`/wizard/${document.id}`}>
-//             <Edit3 className="mr-1 h-4 w-4" /> View/Edit
-//           </Link>
-//         </Button>
-//         <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
-//           <Copy className="mr-1 h-4 w-4" /> Duplicate
-//         </Button>
-//         <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive/80">
-//           <Trash2 className="mr-1 h-4 w-4" /> Delete
-//         </Button>
-//       </CardFooter>
-//     </Card>
-//   );
-// }
-
 function WorkflowSelectionCard({ workflow }: { workflow: Workflow }) {
   return (
     <Card className="flex flex-col hover:shadow-lg transition-shadow duration-200">
       <CardHeader>
         <CardTitle className="font-headline text-xl">{workflow.name}</CardTitle>
-        <CardDescription className="h-20 text-ellipsis overflow-hidden">{workflow.description}</CardDescription>
+        <CardDescription className="h-16 text-ellipsis overflow-hidden text-sm"> {/* Reduced height */}
+          {workflow.description}
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex-grow">
         {/* Placeholder for potential workflow tags or icons */}
       </CardContent>
-      <CardFooter>
-        <Button asChild className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+      <CardFooter className="flex justify-between items-center"> {/* Changed to flex justify-between */}
+        <Button variant="outline" size="sm" asChild>
+          <Link href={`/workflow-details/${workflow.id}`}>
+            <Info className="mr-2 h-4 w-4" />
+            Details
+          </Link>
+        </Button>
+        <Button asChild size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
           <Link href={`/wizard/_new_${workflow.id}`}>
             Start <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
@@ -77,8 +49,6 @@ export default function DashboardPage() {
       <div>
         <div className="mb-8 flex items-center justify-between">
           <h1 className="text-4xl font-bold font-headline text-foreground">Start a new document</h1>
-           {/* The "Create New Document" button in site-header links to /wizard/new which shows similar workflow selection */}
-           {/* So, removing the redundant button from here for a cleaner look. */}
         </div>
 
         {allWorkflows.length === 0 ? (
@@ -110,20 +80,11 @@ export default function DashboardPage() {
             <p className="mt-1 text-sm text-muted-foreground">
               (Note: Document persistence is not yet implemented in this prototype.)
             </p>
-            <div className="mt-6">
-                <Button variant="outline" asChild>
-                    <Link href="/wizard/new">
-                        <PlusCircle className="mr-2 h-5 w-5" /> Create a new document
-                    </Link>
-                </Button>
-            </div>
+            {/* Removed the "Create a new document" button from here */}
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* This part will be populated when document persistence is added */}
-            {/* {documents.map((doc) => (
-              <DocumentCard key={doc.id} document={doc} />
-            ))} */}
           </div>
         )}
       </div>
