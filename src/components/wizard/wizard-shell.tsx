@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect, useCallback } from 'react';
@@ -6,9 +7,10 @@ import { StageCard } from './stage-card';
 import { Button } from '@/components/ui/button';
 import { runAiStage } from '@/app/actions/aiActions'; // Server action
 import { useToast } from '@/hooks/use-toast';
-import { AlertTriangle, Check, Info, Lightbulb } from 'lucide-react';
+import { AlertTriangle, Check, Info, Lightbulb, DownloadCloud } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
+import { FinalDocumentDialog } from './final-document-dialog'; // New Import
 
 interface WizardShellProps {
   initialInstance: WizardInstance;
@@ -18,6 +20,12 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   const [instance, setInstance] = useState<WizardInstance>(initialInstance);
   const { toast } = useToast();
   const [pageTitle, setPageTitle] = useState(initialInstance.document.title);
+
+  // Final Document Dialog State
+  const [isFinalizeDialogOpen, setIsFinalizeDialogOpen] = useState(false);
+  const [finalDocumentContent, setFinalDocumentContent] = useState("");
+  const [hasFinalizedOnce, setHasFinalizedOnce] = useState(false);
+
 
   const updateStageState = useCallback((stageId: string, updates: Partial<StageState>) => {
     setInstance(prevInstance => {
@@ -92,30 +100,34 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         handleRunStage(stage.id, stageState.userInput);
       }
     });
-  }, [instance.stageStates, instance.workflow.stages]); // Re-run if stageStates or its shouldAutoRun flags change
+  }, [instance.stageStates, instance.workflow.stages]);
 
 
-  // Update document title if configured
   useEffect(() => {
     const titleStageId = instance.workflow.config?.setTitleFromStageOutput;
     if (titleStageId) {
       const titleStageState = instance.stageStates[titleStageId];
       if (titleStageState?.status === 'completed' && titleStageState.output) {
-        // Assuming output is an object with a 'titles' array or a simple string
         let newTitle = "";
         if (typeof titleStageState.output === 'string') {
             newTitle = titleStageState.output;
         } else if (Array.isArray(titleStageState.output.titles) && titleStageState.output.titles.length > 0) {
-            newTitle = titleStageState.output.titles[0]; // Take the first title
+            const chosenTitleField = instance.workflow.stages.find(s => s.id === 'outline-creation')?.formFields?.find(f => f.name === 'chosenTitle');
+            const outlineStageUserInput = instance.stageStates['outline-creation']?.userInput;
+            if (chosenTitleField && outlineStageUserInput && outlineStageUserInput[chosenTitleField.name]) {
+                 newTitle = outlineStageUserInput[chosenTitleField.name];
+            } else {
+                newTitle = titleStageState.output.titles[0]; // Fallback to first generated title
+            }
         } else if (titleStageState.output.title) {
              newTitle = titleStageState.output.title;
         }
         
-        if (newTitle && newTitle.length > 0 && newTitle.length < 100) { // Basic validation
+        if (newTitle && newTitle.length > 0 && newTitle.length < 100) {
             setPageTitle(newTitle);
-            document.title = `${newTitle} - WizardCraft AI`;
-            // Persist this to the backend eventually
-            // For now, update local instance document
+            if (typeof document !== 'undefined') {
+                document.title = `${newTitle} - WizardCraft AI`;
+            }
             setInstance(prev => ({
                 ...prev,
                 document: { ...prev.document, title: newTitle }
@@ -123,17 +135,14 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         }
       }
     }
-  }, [instance.stageStates, instance.workflow.config?.setTitleFromStageOutput]);
+  }, [instance.stageStates, instance.workflow.config?.setTitleFromStageOutput, instance.workflow.stages]);
 
 
   const handleInputChange = (stageId: string, fieldName: string, value: any) => {
-    // fieldName is 'userInput' for simple inputs, or specific field for forms
     if (fieldName === 'userInput') {
-         updateStageState(stageId, { userInput: value, status: 'idle' }); // Reset status to idle if input changes
-    } else {
-        // This case is for form fields, handled by onFormSubmit
+         updateStageState(stageId, { userInput: value, status: 'idle' });
     }
-    evaluateDependencies(); // Re-evaluate dependencies on input change
+    evaluateDependencies();
   };
 
   const handleFormSubmit = (stageId: string, data: any) => {
@@ -148,10 +157,10 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
 
     updateStageState(stageId, { status: "running", error: undefined });
 
-    if (!stage.promptTemplate) { // Stage without AI call, e.g., manual input
+    if (!stage.promptTemplate) {
       updateStageState(stageId, { 
         status: "completed", 
-        output: stage.inputType === 'none' ? undefined : currentInput, // For 'none' input, output might be undefined or handled differently
+        output: stage.inputType === 'none' ? undefined : currentInput,
         completedAt: new Date().toISOString() 
       });
       toast({ title: "Stage Completed", description: `Stage "${stage.title}" marked as complete.` });
@@ -159,28 +168,24 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       return;
     }
     
-    // Collect context variables
     const contextVars: Record<string, any> = {};
     instance.workflow.stages.forEach(s => {
-        if (instance.stageStates[s.id]?.status === 'completed') {
-            contextVars[s.id] = instance.stageStates[s.id]; // Pass full stage state
+        if (instance.stageStates[s.id]?.status === 'completed' || instance.stageStates[s.id]?.status === 'skipped') {
+            contextVars[s.id] = instance.stageStates[s.id];
         }
     });
-    // Add current stage's own input to context if needed by prompt.
-    // Example: If prompt is "{{topic-definition.output}} and also current form input {{this.formInputName}}"
-    // This needs more sophisticated templating. For now, pass userInput of current stage.
     if (currentInput) {
-        contextVars[stage.id] = { ...instance.stageStates[stage.id], userInput: currentInput, output: currentInput }; // Make current input available
+        contextVars[stage.id] = { ...instance.stageStates[stage.id], userInput: currentInput, output: currentInput };
     }
 
 
     try {
       const result = await runAiStage({
         promptTemplate: stage.promptTemplate,
-        model: stage.model || "gemini-2.0-flash", // Default model
-        temperature: stage.temperature || 0.7, // Default temperature
+        model: stage.model || "gemini-2.0-flash",
+        temperature: stage.temperature || 0.7,
         contextVars: contextVars,
-        currentStageInput: currentInput, // Pass current stage's input separately
+        currentStageInput: currentInput,
         stageOutputType: stage.outputType
       });
 
@@ -191,7 +196,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       updateStageState(stageId, {
         status: "completed",
         output: result.content,
-        groundingInfo: result.groundingInfo, // If any
+        groundingInfo: result.groundingInfo,
         completedAt: new Date().toISOString(),
       });
       toast({ title: "AI Stage Completed", description: `AI processing for "${stage.title}" finished.` });
@@ -211,11 +216,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   };
   
   const handleEditInput = (stageId: string) => {
-    // Logic to allow editing input for a completed stage.
-    // This might involve resetting its status or just allowing input modification.
-    // For now, we'll reset the status to idle to allow re-running.
-    // The StageCard component will set its internal `isEditing` state.
-    updateStageState(stageId, { status: "idle" }); // Or a specific 'editing' status if needed
+    updateStageState(stageId, { status: "idle" });
     toast({ title: "Editing Input", description: `You can now edit the input for stage "${instance.workflow.stages.find(s=>s.id===stageId)?.title}".` });
     evaluateDependencies();
   };
@@ -228,11 +229,25 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
 
   const isWizardCompleted = completedStagesCount === totalStages;
 
-
-  // Determine current active stage for highlighting (simplistic: first non-completed/skipped)
   const currentStageId = instance.workflow.stages.find(
     s => instance.stageStates[s.id]?.status !== 'completed' && instance.stageStates[s.id]?.status !== 'skipped'
   )?.id || instance.workflow.stages[instance.workflow.stages.length - 1].id;
+
+  const handleFinalizeDocument = () => {
+    if (!isWizardCompleted) {
+      toast({ title: "Wizard Not Complete", description: "Please complete all stages before finalizing.", variant: "default"});
+      return;
+    }
+    const finalStageId = instance.workflow.stages.find(s => s.id === "full-draft-generation")?.id; // Or determine final stage ID differently
+    if (finalStageId && instance.stageStates[finalStageId]?.status === 'completed') {
+      const content = instance.stageStates[finalStageId]?.output as string || "No content generated.";
+      setFinalDocumentContent(content);
+      setIsFinalizeDialogOpen(true);
+      setHasFinalizedOnce(true);
+    } else {
+      toast({ title: "Final Content Not Ready", description: "The final content generation stage is not yet complete.", variant: "default"});
+    }
+  };
 
 
   return (
@@ -252,7 +267,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
           <Check className="h-5 w-5 text-green-600 dark:text-green-400" />
           <AlertTitle className="text-green-700 dark:text-green-300 font-headline">Wizard Completed!</AlertTitle>
           <AlertDescription className="text-green-600 dark:text-green-500">
-            All stages have been completed. You can review the outputs or edit any stage.
+            All stages have been completed. You can now view and export your document.
           </AlertDescription>
         </Alert>
       )}
@@ -262,7 +277,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
           <Info className="h-5 w-5 text-blue-600 dark:text-blue-400" />
           <AlertTitle className="text-blue-700 dark:text-blue-300 font-headline">Next Steps</AlertTitle>
           <AlertDescription className="text-blue-600 dark:text-blue-500">
-            Please complete the preceding stages to unlock this one. Dependencies are not yet met for '{instance.workflow.stages.find(s => s.id === currentStageId)?.title}'.
+            Please complete the preceding stages to unlock '{instance.workflow.stages.find(s => s.id === currentStageId)?.title}'.
           </AlertDescription>
         </Alert>
       )}
@@ -284,10 +299,24 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       ))}
 
       <div className="mt-8 flex justify-end">
-        <Button variant="default" size="lg" disabled={!isWizardCompleted}>
-          Finalize Document (Placeholder)
+        <Button 
+          variant="default" 
+          size="lg" 
+          disabled={!isWizardCompleted}
+          onClick={handleFinalizeDocument}
+        >
+          <DownloadCloud className="mr-2 h-5 w-5" />
+          {hasFinalizedOnce ? "View/Export Document" : "Finalize Document"}
         </Button>
       </div>
+
+      <FinalDocumentDialog
+        open={isFinalizeDialogOpen}
+        onOpenChange={setIsFinalizeDialogOpen}
+        markdownContent={finalDocumentContent}
+        documentTitle={instance.document.title}
+      />
     </div>
   );
 }
+

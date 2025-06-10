@@ -1,6 +1,7 @@
 
+
 import { WizardShell } from "@/components/wizard/wizard-shell";
-import { getMockWizardInstance, mockWorkflows } from "@/lib/mock-data";
+import { mockWorkflows } from "@/lib/mock-data"; // Keep mockWorkflows for workflow definitions
 import { notFound } from "next/navigation";
 import type { WizardDocument, WizardInstance, StageState, Workflow } from "@/types";
 import Link from "next/link";
@@ -9,43 +10,41 @@ import { AlertCircle, Wand2 } from "lucide-react";
 import { CreateNewDocumentDialog } from "@/components/wizard/create-new-document-dialog";
 
 
-// This component will be server-side to fetch initial data.
-// WizardShell will be the client component handling interactions.
-
 export default function WizardPage({ params }: { params: { pageId: string } }) {
   
   if (params.pageId === "new") {
+    // The CreateNewDocumentDialog is now self-contained and handles opening.
+    // This page acts as a trigger for the dialog.
     return (
       <div className="flex flex-col items-center justify-center text-center py-12">
-        <Wand2 className="w-16 h-16 text-primary mb-6" />
-        <h1 className="text-3xl font-bold font-headline mb-4">Create New Document</h1>
-        <p className="text-muted-foreground mb-6">Select a workflow to begin your masterpiece.</p>
         <CreateNewDocumentDialog />
          <p className="text-xs text-muted-foreground mt-8">
-            Selecting a workflow will start a new document instance.
+            Or go back to <Link href="/dashboard" className="underline hover:text-primary">Dashboard</Link>.
         </p>
       </div>
     );
   }
 
   let wizardInstance: WizardInstance | undefined;
+  let dynamicTitle = "New Document"; // Default title
 
   if (params.pageId.startsWith("_new_")) {
     const workflowId = params.pageId.substring("_new_".length);
     const workflow = mockWorkflows.find(w => w.id === workflowId);
 
     if (!workflow) {
-      notFound(); // Or a more specific error page
+      notFound();
     }
 
+    dynamicTitle = `New ${workflow.name}`;
     const newDoc: WizardDocument = {
-      id: `temp-${Date.now()}`, // Temporary ID, not persisted
-      title: `New ${workflow.name}`, // Initial title
+      id: `temp-${Date.now()}`, 
+      title: dynamicTitle,
       workflowId: workflow.id,
       status: "draft",
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
-      userId: "user-123", // Placeholder, replace with actual user ID in a real app
+      userId: "user-123", 
     };
 
     const initialStageStates: Record<string, StageState> = {};
@@ -55,14 +54,14 @@ export default function WizardPage({ params }: { params: { pageId: string } }) {
         status: "idle",
         userInput: stage.formFields 
           ? Object.fromEntries(stage.formFields.map(f => [f.name, f.defaultValue ?? (f.type === 'checkbox' ? false : '')])) 
-          : stage.inputType === 'context' ? { manual: "", dropped: "" } // Initialize context inputs
+          : stage.inputType === 'context' ? { manual: "", dropped: "" } 
           : undefined,
         output: undefined,
         error: undefined,
         completedAt: undefined,
         groundingInfo: undefined,
         isStale: false,
-        depsAreMet: stage.dependencies && stage.dependencies.length > 0 ? false : true, // Initial check
+        depsAreMet: stage.dependencies && stage.dependencies.length > 0 ? false : true,
         shouldAutoRun: stage.autoRun && (!stage.dependencies || stage.dependencies.length === 0),
         shouldShowUpdateBadge: false,
       };
@@ -73,12 +72,16 @@ export default function WizardPage({ params }: { params: { pageId: string } }) {
       workflow,
       stageStates: initialStageStates,
     };
-     if (typeof document !== 'undefined') { // Check for browser environment for dynamic title updates
-      document.title = `${newDoc.title} - WizardCraft AI`;
+    
+    // Set document title dynamically for new instances
+    if (typeof document !== 'undefined') { 
+      document.title = `${dynamicTitle} - WizardCraft AI`;
     }
 
   } else {
-    wizardInstance = getMockWizardInstance(params.pageId);
+    // Logic for fetching existing documents would go here if persistence was implemented
+    // For now, any other pageId will result in "not found" as getMockWizardInstance returns undefined.
+    wizardInstance = undefined; // getMockWizardInstance(params.pageId);
   }
 
 
@@ -97,7 +100,7 @@ export default function WizardPage({ params }: { params: { pageId: string } }) {
     );
   }
   
-  // Set initial document title for SSR from instance if not already set by _new_ flow
+  // Set initial document title from instance if not a _new_ flow (which sets it above)
   if (typeof document !== 'undefined' && !params.pageId.startsWith("_new_")) {
       document.title = `${wizardInstance.document.title} - WizardCraft AI`;
   }
@@ -105,4 +108,3 @@ export default function WizardPage({ params }: { params: { pageId: string } }) {
 
   return <WizardShell initialInstance={wizardInstance} />;
 }
-
