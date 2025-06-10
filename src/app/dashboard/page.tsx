@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { allWorkflows } from "@/lib/workflow-loader";
 import type { WizardDocument, Workflow } from "@/types";
-import { FileText, ArrowRight, AlertCircle, PlusCircle, Info } from "lucide-react";
-import { useAuth } from "@/components/layout/app-providers"; // Keep useAuth if other parts of dashboard might use it later
+import { FileText, ArrowRight, AlertCircle, PlusCircle, Info, LogIn, User } from "lucide-react"; // Added LogIn and User
+import { useAuth } from "@/components/layout/app-providers";
 
 // This function remains as documents are not persisted yet.
 function getWorkflowName(workflowId: string) {
@@ -45,13 +45,7 @@ function WorkflowSelectionCard({ workflow }: { workflow: Workflow }) {
 }
 
 export default function DashboardPage() {
-  const { user, loading } = useAuth(); // user and loading can still be used for UI cues if needed
-
-  // Removed client-side redirect:
-  // if (!loading && !user) {
-  //   window.location.replace('/login');
-  // }
-
+  const { user, loading } = useAuth(); 
   const documents: WizardDocument[] = []; // Initialize with an empty array as documents are not persisted
 
   return (
@@ -80,7 +74,27 @@ export default function DashboardPage() {
 
       <div>
         <h2 className="text-3xl font-bold font-headline mb-6 text-foreground">Recent documents</h2>
-        {documents.length === 0 ? (
+        {!loading && !user ? (
+          <Card className="text-center py-10 bg-card shadow-md rounded-lg">
+            <CardHeader className="items-center">
+              <User className="text-primary h-12 w-12 mb-2" />
+              <CardTitle className="mt-2 text-2xl font-semibold font-headline">
+                Ready to Save Your Work?
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-muted-foreground px-4">
+                Log in or sign up to keep track of your documents and access them anytime, anywhere.
+              </p>
+              <Button asChild size="lg" className="w-full max-w-xs mx-auto">
+                <Link href="/login">
+                  <LogIn className="mr-2 h-5 w-5" />
+                  Login / Sign Up
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+        ) : documents.length === 0 ? (
           <div className="text-center py-16 border-2 border-dashed rounded-lg border-border bg-card">
             <FileText className="mx-auto h-16 w-16 text-muted-foreground" />
             <h3 className="mt-4 text-2xl font-semibold font-headline">No documents yet</h3>
@@ -90,7 +104,6 @@ export default function DashboardPage() {
             <p className="mt-1 text-sm text-muted-foreground">
               (Note: Document persistence is not yet implemented in this prototype.)
             </p>
-            {/* Removed the "Create a new document" button from here */}
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
