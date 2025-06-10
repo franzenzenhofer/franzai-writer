@@ -1,3 +1,4 @@
+
 "use client";
 
 import type { Stage, StageState } from "@/types";
@@ -8,7 +9,7 @@ import { StageInputArea } from "./stage-input-area";
 import { StageOutputArea } from "./stage-output-area";
 import { CheckCircle2, AlertCircle, Zap, RotateCcw, Loader2, SkipForward, Edit } from "lucide-react";
 import { cn } from "@/lib/utils";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 interface StageCardProps {
   stage: Stage;
@@ -16,7 +17,8 @@ interface StageCardProps {
   isCurrentStage: boolean; // Is this the stage the user is actively working on?
   onRunStage: (stageId: string, userInput?: any) => void;
   onInputChange: (stageId: string, fieldName: string, value: any) => void;
-  onFormSubmit: (stageId: string, data: any) => void; // Specifically for form inputs
+  // onFormSubmit from WizardShell, used to update stageState.userInput
+  onFormSubmit: (stageId: string, data: any) => void; 
   onSkipStage?: (stageId: string) => void;
   onEditInput: (stageId: string) => void;
   allStageStates: Record<string, StageState>;
@@ -28,43 +30,49 @@ export function StageCard({
   isCurrentStage,
   onRunStage,
   onInputChange,
-  onFormSubmit,
+  onFormSubmit, // This is WizardShell's handleFormSubmit
   onSkipStage,
   onEditInput,
   allStageStates,
 }: StageCardProps) {
   
   const [isEditing, setIsEditing] = useState(stageState.status !== 'completed' && stage.inputType !== 'none');
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleRun = () => {
-    if (stage.inputType === 'form') {
-      // For forms, "Run" implies submitting the current form data
-      // The actual form submission is handled by StageInputArea's submit button, which calls onFormSubmit
-      // Then, the parent component should call onRunStage with the submitted form data
-      // This button might be more of a "Proceed with this input" or might be removed if form has its own submit.
-      // For now, let's assume onFormSubmit sets the input, then onRunStage uses it.
-      // A bit complex, might need refactor. For now, this button triggers run with existing state.
-      onRunStage(stage.id, stageState.userInput);
-    } else {
-      onRunStage(stage.id, stageState.userInput);
-    }
+  // Called by StageInputArea's form submission (for form inputType)
+  // Or by the main "Run AI" button if it needs to trigger form submission.
+  const handleSaveAndRunForm = (formData: any) => {
+    onFormSubmit(stage.id, formData); // Update parent state (WizardShell) with new userInput
+    onRunStage(stage.id, formData);   // Run AI with the new formData
     setIsEditing(false);
+  };
+
+  const handlePrimaryAction = () => {
+    if (stage.inputType === 'form' && formRef.current && isEditing) {
+      // Programmatically submit the form inside StageInputArea.
+      // Its onSubmit handler will call handleSaveAndRunForm.
+      formRef.current.requestSubmit(); 
+    } else if (stage.inputType !== 'form') { // For non-form types like textarea or context (if they have a run button) or "none"
+      onRunStage(stage.id, stageState.userInput);
+      setIsEditing(false); // For "none" type, or if textarea/context input is considered "submitted"
+    }
+    // setIsEditing(false) is handled by handleSaveAndRunForm for forms,
+    // or directly above for non-forms.
   };
 
   const handleEdit = () => {
     setIsEditing(true);
-    onEditInput(stage.id);
+    onEditInput(stage.id); // This typically resets stage status to 'idle' in WizardShell
   };
   
-  const handleSaveAndRun = (formData: any) => {
-    onFormSubmit(stage.id, formData); // This updates stageState.userInput
-    onRunStage(stage.id, formData); // Then run with the new data
-    setIsEditing(false);
-  };
-
-
-  const canRun = stageState.status === "idle" || stageState.status === "error" || (stageState.status === "completed" && stage.inputType !== 'none');
-  const showRunButton = stage.inputType !== "none" && isEditing;
+  const canRunOrSave = stageState.status === "idle" || stageState.status === "error" || (stageState.status === "completed" && stage.inputType !== 'none' && isEditing);
+  // The main button visibility logic
+  // Show if:
+  // 1. Input type is 'none' (AI only, button says "Run AI")
+  // 2. Input type is form and isEditing (button submits form, says "Run AI" or "Save & Continue")
+  // 3. Input type is textarea/context and isEditing (button runs with current input)
+  const showPrimaryActionButton = stage.inputType === 'none' || isEditing;
+  
   const showAiRedoButton = stageState.status === "completed" && stage.promptTemplate;
   const showEditButton = stageState.status === "completed" && stage.inputType !== "none" && !isEditing;
   
@@ -111,14 +119,19 @@ export function StageCard({
         )}
       </CardHeader>
       <CardContent className="space-y-4">
-        {(isEditing || stage.inputType === 'none') && stage.inputType !== 'none' && stageState.status !== 'running' && (
+        {/* Show input area if stage is not 'none' type AND (isEditing OR inputType is 'none' but it's the initial state for autoRun) */}
+        {/* Simplified: Show if isEditing is true (for manual input types) OR if inputType is 'none' (no input area, but might show message) */}
+        {(isEditing || stage.inputType === 'none') && stageState.status !== 'running' && (
           <div>
-            <h4 className="text-sm font-medium mb-2 text-muted-foreground">Input:</h4>
+            {stage.inputType !== 'none' && <h4 className="text-sm font-medium mb-2 text-muted-foreground">Input:</h4>}
             <StageInputArea
+              ref={stage.inputType === 'form' ? formRef : null} // Only pass ref for forms
               stage={stage}
               stageState={stageState}
               onInputChange={onInputChange}
-              onFormSubmit={stage.inputType === 'form' ? handleSaveAndRun : onFormSubmit}
+              // For forms, StageInputArea's submit button calls this, which is handleSaveAndRunForm.
+              // For other types, this prop might not be used by StageInputArea's internal buttons.
+              onFormSubmit={handleSaveAndRunForm} 
               allStageStates={allStageStates}
             />
           </div>
@@ -146,11 +159,12 @@ export function StageCard({
             <Edit className="mr-2 h-4 w-4" /> Edit Input
           </Button>
         )}
-        {showRunButton && (
+        {/* Primary Action Button (Run AI / Save & Continue / Submit Form) */}
+        {showPrimaryActionButton && (
           <Button 
             size="sm" 
-            onClick={handleRun} 
-            disabled={stageState.status === "running" || stageState.depsAreMet === false}
+            onClick={handlePrimaryAction} 
+            disabled={stageState.status === "running" || stageState.depsAreMet === false || !canRunOrSave}
             className="bg-accent hover:bg-accent/90 text-accent-foreground"
           >
             {stageState.status === "running" ? (
@@ -158,11 +172,23 @@ export function StageCard({
             ) : (
               <Zap className="mr-2 h-4 w-4" />
             )}
-            {stage.promptTemplate ? "Run AI" : "Save & Continue"}
+            {/* Adjust button text based on context */}
+            {stage.promptTemplate ? "Run AI" : (stage.inputType === 'form' ? "Save & Process Form" : "Save & Continue")}
           </Button>
         )}
         {showAiRedoButton && (
-           <Button variant="outline" size="sm" onClick={() => { setIsEditing(true); onRunStage(stage.id, stageState.userInput); }}>
+           <Button variant="outline" size="sm" onClick={() => { 
+             if (stage.inputType === 'form') {
+               // For forms, "Redo" implies re-running AI with existing (saved) form input.
+               // We don't need to set isEditing to true unless we want to allow input changes before redo.
+               // For simplicity, AI Redo uses current saved input.
+             } else {
+               // For non-forms, if input can be "edited" before redo, set isEditing.
+               // However, "AI Redo" usually means re-run with same input.
+               // setIsEditing(true); // Uncomment if direct edit before redo is desired for non-forms
+             }
+             onRunStage(stage.id, stageState.userInput); 
+            }}>
             <RotateCcw className="mr-2 h-4 w-4" /> AI Redo
           </Button>
         )}
@@ -170,3 +196,4 @@ export function StageCard({
     </Card>
   );
 }
+

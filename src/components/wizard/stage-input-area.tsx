@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useState, useEffect, useMemo, type ChangeEvent } from "react";
+import React, { useState, useEffect, useMemo, type ChangeEvent, forwardRef, useImperativeHandle } from "react";
 import type { Stage, FormField, StageState, FormFieldOption } from "@/types";
 import { Textarea } from "@/components/ui/textarea";
 import { SmartDropzone } from "./smart-dropzone";
@@ -16,15 +16,16 @@ import { Form, FormControl, FormDescription, FormField as ShadFormField, FormIte
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
-interface StageInputAreaProps {
+export interface StageInputAreaProps {
   stage: Stage;
   stageState: StageState;
   onInputChange: (stageId: string, fieldName: string, value: any) => void;
-  onFormSubmit: (stageId: string, data: any) => void;
+  onFormSubmit: (stageId: string, data: any) => void; // This is effectively 'onSaveAndRun' for forms
   allStageStates: Record<string, StageState>;
 }
 
-export function StageInputArea({ stage, stageState, onInputChange, onFormSubmit, allStageStates }: StageInputAreaProps) {
+export const StageInputArea = forwardRef<HTMLFormElement, StageInputAreaProps>(
+  ({ stage, stageState, onInputChange, onFormSubmit, allStageStates }, ref) => {
   const [contextManualInput, setContextManualInput] = useState(
     typeof stageState.userInput?.manual === 'string' ? stageState.userInput.manual : ""
   );
@@ -56,6 +57,9 @@ export function StageInputArea({ stage, stageState, onInputChange, onFormSubmit,
       if (field.validation?.optional) {
         fieldSchema = fieldSchema.optional();
       }
+      if (!field.validation?.required && field.type !== 'checkbox') { // Checkboxes handle default false, others might be truly optional
+        fieldSchema = fieldSchema.optional().or(z.literal('')); // Allow empty string if not explicitly required
+      }
       shape[field.name] = fieldSchema;
     });
     return z.object(shape);
@@ -79,11 +83,11 @@ export function StageInputArea({ stage, stageState, onInputChange, onFormSubmit,
   useEffect(() => {
     if (stage.inputType === 'form' && stage.formFields) {
       const currentValues = stageState.userInput || {};
-      const defaultValues: Record<string, any> = {};
+      const defaultValuesToReset: Record<string, any> = {};
       stage.formFields.forEach(field => {
-         defaultValues[field.name] = currentValues[field.name] ?? field.defaultValue ?? (field.type === 'checkbox' ? false : '');
+         defaultValuesToReset[field.name] = currentValues[field.name] ?? field.defaultValue ?? (field.type === 'checkbox' ? false : '');
       });
-      form.reset(defaultValues);
+      form.reset(defaultValuesToReset);
     }
   }, [stageState.userInput, stage.formFields, stage.inputType, form]);
 
@@ -103,26 +107,38 @@ export function StageInputArea({ stage, stageState, onInputChange, onFormSubmit,
     onInputChange(stage.id, "userInput", { manual: contextManualInput, dropped: text });
   };
 
-  const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = (data) => {
-    onFormSubmit(stage.id, data);
+  // This onSubmit is called when the form inside StageInputArea is submitted.
+  // The onFormSubmit prop here is actually `handleSaveAndRun` from StageCard for form types.
+  const RHFSubmitHandler: SubmitHandler<z.infer<typeof formSchema>> = (data) => {
+    onFormSubmit(stage.id, data); // This will call StageCard's handleSaveAndRun
   };
 
   const getSelectOptions = (field: FormField): FormFieldOption[] => {
     if (field.options && field.options.length > 0) return field.options;
 
-    const dependencyStageId = stage.dependencies?.[0]; 
+    // Attempt to find options from dependency output
+    // This logic might need to be more flexible or configuration-driven
+    const dependencyStageId = stage.dependencies?.find(depId => {
+        const depState = allStageStates[depId];
+        // Check if this dependency is likely to provide the options
+        // For example, if content-angle output is used by page-title-generation's 'chosenAngle' field
+        if (field.name === 'chosenAngle' && depId === 'content-angle') return true;
+        if (field.name === 'chosenTitle' && depId === 'page-title-generation') return true;
+        return false;
+    });
+
     if (dependencyStageId) {
         const depState = allStageStates[dependencyStageId];
         if (depState?.status === 'completed' && depState.output) {
-            if(field.name === 'chosenAngle' && depState.output.angles) {
+            if(field.name === 'chosenAngle' && Array.isArray(depState.output.angles)) {
                  return depState.output.angles.map((angle: string) => ({ value: angle, label: angle }));
             }
-            if(field.name === 'chosenTitle' && depState.output.titles) {
+            if(field.name === 'chosenTitle' && Array.isArray(depState.output.titles)) {
                  return depState.output.titles.map((title: string) => ({ value: title, label: title }));
             }
         }
     }
-    return [];
+    return field.options || []; // Fallback to pre-defined options or empty
   };
 
 
@@ -174,7 +190,7 @@ export function StageInputArea({ stage, stageState, onInputChange, onFormSubmit,
       if (!stage.formFields) return <p>Form fields not configured for this stage.</p>;
       return (
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form ref={ref} onSubmit={form.handleSubmit(RHFSubmitHandler)} className="space-y-6">
             {stage.formFields.map((field) => (
               <ShadFormField
                 key={field.name}
@@ -197,7 +213,11 @@ export function StageInputArea({ stage, stageState, onInputChange, onFormSubmit,
                            <Label htmlFor={field.name} className="text-sm font-normal">{field.placeholder || field.label}</Label>
                         </div>
                       ) : field.type === "select" ? (
-                        <Select onValueChange={controllerField.onChange} defaultValue={finalValue as string}>
+                        <Select 
+                          onValueChange={controllerField.onChange} 
+                          value={controllerField.value || ""} // Ensure value is controlled
+                          defaultValue={field.defaultValue as string || ""}
+                        >
                           <SelectTrigger className="bg-background">
                             <SelectValue placeholder={field.placeholder || "Select an option"} />
                           </SelectTrigger>
@@ -219,7 +239,8 @@ export function StageInputArea({ stage, stageState, onInputChange, onFormSubmit,
                 )}}
               />
             ))}
-            <Button type="submit" variant="outline">Save Input</Button>
+            {/* This button triggers the form submission, which in turn calls handleSaveAndRun from StageCard */}
+            <Button type="submit" variant="outline">Save Input & Run AI</Button>
           </form>
         </Form>
       );
@@ -228,6 +249,7 @@ export function StageInputArea({ stage, stageState, onInputChange, onFormSubmit,
     default:
       return <p>Unknown input type: {stage.inputType}</p>;
   }
-}
+});
 
+StageInputArea.displayName = "StageInputArea";
     
