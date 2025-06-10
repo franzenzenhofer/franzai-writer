@@ -1,7 +1,9 @@
+
 'use server';
 
 /**
- * @fileOverview Implements AI-powered content generation through prompt templates.
+ * @fileOverview Implements AI-powered content generation through prompt templates,
+ * allowing for stage-specific model and temperature settings.
  *
  * - aiStageExecution - A function that handles the AI-powered content generation.
  * - AiStageExecutionInput - The input type for the aiStageExecution function.
@@ -15,35 +17,48 @@ const AiStageExecutionInputSchema = z.object({
   promptTemplate: z
     .string()
     .describe('The template used to generate the prompt for the AI model.'),
-  model: z.string().describe('The AI model to use for content generation.'),
-  temperature: z.number().describe('The temperature to use for content generation.'),
+  model: z.string().optional().describe('The AI model to use for content generation. If undefined, Genkit default is used.'),
+  temperature: z.number().optional().describe('The temperature to use for content generation. If undefined, model default is used.'),
 });
 export type AiStageExecutionInput = z.infer<typeof AiStageExecutionInputSchema>;
 
-const AiStageExecutionOutputSchema = z.object({
+const AiStageOutputSchema = z.object({
   content: z.string().describe('The AI-generated content.'),
 });
-export type AiStageExecutionOutput = z.infer<typeof AiStageExecutionOutputSchema>;
+export type AiStageExecutionOutput = z.infer<typeof AiStageOutputSchema>;
 
 export async function aiStageExecution(input: AiStageExecutionInput): Promise<AiStageExecutionOutput> {
   return aiStageExecutionFlow(input);
 }
 
-const prompt = ai.definePrompt({
-  name: 'aiStageExecutionPrompt',
-  input: {schema: AiStageExecutionInputSchema},
-  output: {schema: AiStageExecutionOutputSchema},
-  prompt: `{{promptTemplate}}`,
-});
-
 const aiStageExecutionFlow = ai.defineFlow(
   {
     name: 'aiStageExecutionFlow',
     inputSchema: AiStageExecutionInputSchema,
-    outputSchema: AiStageExecutionOutputSchema,
+    outputSchema: AiStageOutputSchema,
   },
-  async input => {
-    const {output} = await prompt(input);
-    return output!;
+  async (input) => {
+    const generateOptions: {
+        prompt: string;
+        model?: string;
+        config?: { temperature?: number };
+    } = {
+        prompt: input.promptTemplate,
+    };
+
+    if (input.model) {
+        generateOptions.model = input.model;
+    }
+    if (input.temperature !== undefined) {
+        generateOptions.config = { ...generateOptions.config, temperature: input.temperature };
+    }
+
+    const response = await ai.generate(generateOptions);
+    
+    const content = response.text;
+    if (content === undefined) {
+      throw new Error('AI generation returned no content.');
+    }
+    return { content };
   }
 );

@@ -31,8 +31,8 @@ export interface Stage {
   inputType: StageInputType;
   formFields?: FormField[]; // Only if inputType is 'form'
   promptTemplate?: string; 
-  model?: string; 
-  temperature?: number; 
+  model?: string; // Optional: Specific AI model for this stage
+  temperature?: number; // Optional: Specific temperature for this stage
   outputType: "text" | "json" | "markdown";
   dependencies?: string[]; 
   autoRun?: boolean; 
@@ -63,7 +63,7 @@ export interface StageState {
   isStale?: boolean;
   depsAreMet?: boolean;
   shouldAutoRun?: boolean;
-  isEditingOutput?: boolean; // New flag for UI state: is the output area in edit mode?
+  isEditingOutput?: boolean; 
 }
 
 export interface WizardDocument {
@@ -85,7 +85,8 @@ export interface WizardInstance {
 
 export interface AiStageExecutionParams {
   promptTemplate: string;
-  model: string;
-  temperature: number;
+  model: string; // model will be resolved before passing to AiStageExecutionInput
+  temperature: number; // temperature will be resolved before passing
   contextVars?: Record<string, any>; 
 }
+

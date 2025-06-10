@@ -24,7 +24,7 @@
       "inputType": "form",
       "formFields": [
         { "name": "demographics", "label": "Key Demographics", "type": "textarea", "placeholder": "e.g., Age, location, profession" },
-        { "name": "interests", "label": "Interests &amp; Pain Points", "type": "textarea", "placeholder": "e.g., Interested in X, struggles with Y" },
+        { "name": "interests", "label": "Interests & Pain Points", "type": "textarea", "placeholder": "e.g., Interested in X, struggles with Y" },
         { "name": "knowledgeLevel", "label": "Knowledge Level", "type": "select", "options": [{ "value": "beginner", "label": "Beginner" }, { "value": "intermediate", "label": "Intermediate" }, { "value": "expert", "label": "Expert" }], "defaultValue": "intermediate" }
       ],
       "outputType": "json",
@@ -44,9 +44,9 @@
       "title": "Content Angle Identification",
       "description": "Based on your topic and audience, the AI will suggest unique content angles.",
       "inputType": "none",
-      "promptTemplate": "Given the topic '{{topic-definition.output}}' and target audience described as {{audience-analysis.output}}, suggest 3 unique content angles.\nConsider the following competitor research context if provided: '{{competitor-research.output}}'.\nFormat your response as a JSON object with a single key 'angles', which is an array of 3 strings representing the content angles.\nEnsure the output is valid JSON. Example: {\"angles\": [\"Angle 1: Focus on X\", \"Angle 2: Explore Y\", \"Angle 3: Compare Z\"]}",
-      "model": "gemini-2.0-flash",
-      "temperature": 0.7,
+      "promptTemplate": "Given the topic '{{topic-definition.output}}' and target audience described as {{audience-analysis.userInput}}, suggest 3 unique content angles. Consider the following competitor research context if provided: '{{competitor-research.userInput.dropped}} {{competitor-research.userInput.manual}}'. Format your response as a JSON object with a single key 'angles', which is an array of 3 strings representing the content angles. Ensure the output is valid JSON. Example: {\"angles\": [\"Angle 1: Focus on X\", \"Angle 2: Explore Y\", \"Angle 3: Compare Z\"]}",
+      "model": "googleai/gemini-2.0-flash", 
+      "temperature": 0.6,
       "outputType": "json",
       "dependencies": ["topic-definition", "audience-analysis", "competitor-research"],
       "autoRun": true
@@ -60,8 +60,7 @@
         { "name": "chosenAngle", "label": "Select Content Angle", "type": "select", "options": [], "placeholder": "Select one of the generated angles" }
       ],
       "promptTemplate": "Generate 5 SEO-friendly page titles for a page about '{{topic-definition.output}}' with the content angle: '{{page-title-generation.userInput.chosenAngle}}'.\nFormat your response as a JSON object with a single key 'titles', which is an array of 5 strings representing the page titles.\nEnsure the output is valid JSON. Example: {\"titles\": [\"Ultimate Guide to X\", \"Top 5 Ways to Y\", \"X vs Z: Which is Better?\"]}",
-      "model": "gemini-2.0-flash",
-      "temperature": 0.8,
+      "temperature": 0.9, 
       "outputType": "json",
       "dependencies": ["content-angle", "topic-definition"]
     },
@@ -73,9 +72,8 @@
       "formFields": [
         { "name": "chosenTitle", "label": "Select Page Title", "type": "select", "options": [], "placeholder": "Select one of the generated titles" }
       ],
-      "promptTemplate": "Create a detailed content outline in Markdown format for an article titled '{{outline-creation.userInput.chosenTitle}}' about '{{topic-definition.output}}'.\nThe target audience is {{audience-analysis.output}}.\nThe outline should include main headings (H2) and sub-headings (H3 or H4) as appropriate.\nExample:\n## Introduction\n### What is X?\n### Why is X important?\n## Key Benefit 1\n### Detail A\n### Detail B\n## Conclusion",
-      "model": "gemini-2.0-flash",
-      "temperature": 0.6,
+      "promptTemplate": "Create a detailed content outline in Markdown format for an article titled '{{outline-creation.userInput.chosenTitle}}' about '{{topic-definition.output}}'.\nThe target audience is {{audience-analysis.userInput}}.\nThe outline should include main headings (H2) and sub-headings (H3 or H4) as appropriate.\nExample:\n## Introduction\n### What is X?\n### Why is X important?\n## Key Benefit 1\n### Detail A\n### Detail B\n## Conclusion",
+      "model": "googleai/gemini-2.0-flash",
       "outputType": "markdown",
       "dependencies": ["page-title-generation", "audience-analysis", "topic-definition"]
     },
@@ -84,9 +82,7 @@
       "title": "Generate Full Draft",
       "description": "AI will write the full draft based on the outline and title.",
       "inputType": "none",
-      "promptTemplate": "Write a comprehensive, SEO-optimized article draft in Markdown format.\nThe article is based on the title '{{outline-creation.userInput.chosenTitle}}' and the following outline:\n{{outline-creation.output}}\n\nKey Topic: {{topic-definition.output}}\nTarget Audience: {{audience-analysis.output}}\n\nEnsure the article is informative, engaging, and well-structured according to the provided outline. Use appropriate Markdown formatting for headings, lists, bold text, etc.\nAim for a professional and authoritative tone, suitable for the target audience.\nInclude a clear introduction and conclusion.\nWhere appropriate, naturally incorporate keywords related to '{{topic-definition.output}}'.\nDo not include any preamble like \"Here is the article draft:\". Output only the Markdown content of the article itself.",
-      "model": "gemini-2.0-flash",
-      "temperature": 0.7,
+      "promptTemplate": "Write a comprehensive, SEO-optimized article draft in Markdown format.\nThe article is based on the title '{{outline-creation.userInput.chosenTitle}}' and the following outline:\n{{outline-creation.output}}\n\nKey Topic: {{topic-definition.output}}\nTarget Audience: {{audience-analysis.userInput}}\n\nEnsure the article is informative, engaging, and well-structured according to the provided outline. Use appropriate Markdown formatting for headings, lists, bold text, etc.\nAim for a professional and authoritative tone, suitable for the target audience.\nInclude a clear introduction and conclusion.\nWhere appropriate, naturally incorporate keywords related to '{{topic-definition.output}}'.\nDo not include any preamble like \"Here is the article draft:\". Output only the Markdown content of the article itself.",
       "outputType": "markdown",
       "dependencies": ["outline-creation", "topic-definition", "audience-analysis"],
       "autoRun": false
