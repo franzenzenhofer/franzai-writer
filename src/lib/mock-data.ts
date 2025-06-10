@@ -1,3 +1,4 @@
+
 import type { Workflow, WizardDocument, WizardInstance, StageState } from "@/types";
 
 export const targetedPageSeoOptimizedV3: Workflow = {
@@ -59,7 +60,7 @@ export const targetedPageSeoOptimizedV3: Workflow = {
       formFields: [
         { name: "chosenAngle", label: "Select Content Angle", type: "select", options: [], placeholder: "Select one of the generated angles" } // Options populated from content-angle output
       ],
-      promptTemplate: "Generate 5 SEO-friendly page titles for a page about '{{topic-definition.output}}' with the content angle: '{{chosenAngle}}'.",
+      promptTemplate: "Generate 5 SEO-friendly page titles for a page about '{{topic-definition.output}}' with the content angle: '{{page-title-generation.userInput.chosenAngle}}'.",
       model: "gemini-2.0-flash",
       temperature: 0.8,
       outputType: "json", // Expecting { titles: ["title1", ...] }
@@ -73,7 +74,7 @@ export const targetedPageSeoOptimizedV3: Workflow = {
        formFields: [
         { name: "chosenTitle", label: "Select Page Title", type: "select", options: [], placeholder: "Select one of the generated titles" } // Options populated from page-title-generation output
       ],
-      promptTemplate: "Create a detailed content outline for an article titled '{{chosenTitle}}' about '{{topic-definition.output}}'. The target audience is {{audience-analysis.output}}.",
+      promptTemplate: "Create a detailed content outline for an article titled '{{outline-creation.userInput.chosenTitle}}' about '{{topic-definition.output}}'. The target audience is {{audience-analysis.output}}.",
       model: "gemini-2.0-flash",
       temperature: 0.6,
       outputType: "markdown",
@@ -84,7 +85,7 @@ export const targetedPageSeoOptimizedV3: Workflow = {
       title: "Generate Full Draft",
       description: "AI will write the full draft based on the outline and title.",
       inputType: "none",
-      promptTemplate: "Write a full article draft based on the title '{{page-title-generation.formFields.chosenTitle.value}}' and the following outline: \n{{outline-creation.output}} \n\nTopic: {{topic-definition.output}}\nAudience: {{audience-analysis.output}}.",
+      promptTemplate: "Write a full article draft based on the title '{{outline-creation.userInput.chosenTitle}}' and the following outline: \n{{outline-creation.output}} \n\nTopic: {{topic-definition.output}}\nAudience: {{audience-analysis.output}}.",
       model: "gemini-2.0-flash", // Or a more powerful model for longer content
       temperature: 0.7,
       outputType: "markdown",
@@ -181,6 +182,23 @@ export const getMockWizardInstance = (documentId: string): WizardInstance | unde
       status: "completed",
       completedAt: new Date().toISOString(),
     };
+     // Simulate that audience analysis was also completed for doc-1
+    initialStageStates["audience-analysis"] = {
+        stageId: "audience-analysis",
+        userInput: { demographics: "Urban dwellers, 25-45, small spaces", interests: "Sustainability, fresh food, home decor", knowledgeLevel: "beginner" },
+        output: { demographics: "Urban dwellers, 25-45, small spaces", interests: "Sustainability, fresh food, home decor", knowledgeLevel: "beginner" },
+        status: "completed",
+        completedAt: new Date(Date.now() - 100000).toISOString(), // completed slightly after topic
+    };
+    // Simulate content-angle ran and produced output
+    initialStageStates["content-angle"] = {
+        stageId: "content-angle",
+        userInput: undefined, // no direct user input
+        output: { angles: ["Vertical Gardening for Tiny Balconies", "DIY Composting in Apartments", "Window Sill Herb Gardens"] },
+        status: "completed",
+        completedAt: new Date(Date.now() - 90000).toISOString(),
+    };
+
   }
 
 
@@ -190,3 +208,4 @@ export const getMockWizardInstance = (documentId: string): WizardInstance | unde
     stageStates: initialStageStates,
   };
 };
+
