@@ -1461,3 +1461,309 @@ Error loading document: [Error [FirebaseError]: Failed to get document because t
  GET /w/article/new 200 in 41ms
  GET /w/article/mbqng3mewzlnlbb?new=targeted-page-seo-optimized-v3 200 in 36ms
  GET /w/article/mbqng3mewzlnlbb?new=targeted-page-seo-optimized-v3 200 in 27ms
+ GET /w/article/mbqng3mewzlnlbb?new=targeted-page-seo-optimized-v3 200 in 29ms
+ ✓ Compiled in 67ms
+ ✓ Compiled /w/[shortName]/[documentId] in 16ms
+[2025-06-10T15:06:54.519Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x378270df error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+[2025-06-10T15:06:54.519Z]  @firebase/firestore: Firestore (11.9.0): Could not reach Cloud Firestore backend. Connection failed 1 times. Most recent error: FirebaseError: [code=permission-denied]: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+This typically indicates that your device does not have a healthy Internet connection at the moment. The client will operate in offline mode until it is able to successfully connect to the backend.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/article/mbqng3mewzlnlbb?new=targeted-page-seo-optimized-v3 200 in 521ms
+ ✓ Compiled /w/[shortName]/new in 8ms
+ GET /w/article/new 307 in 261ms
+[2025-06-10T15:07:09.406Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x378270e0 error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/article/mbqnmk8dwkf19eu 200 in 164ms
+ GET /w/recipe/new 307 in 65ms
+[2025-06-10T15:07:36.865Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x6d46beb0 error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+[2025-06-10T15:07:36.866Z]  @firebase/firestore: Firestore (11.9.0): Could not reach Cloud Firestore backend. Connection failed 1 times. Most recent error: FirebaseError: [code=permission-denied]: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+This typically indicates that your device does not have a healthy Internet connection at the moment. The client will operate in offline mode until it is able to successfully connect to the backend.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/article/mbqng3mewzlnlbb?new=targeted-page-seo-optimized-v3 200 in 884ms
+ GET /w/article/mbqng3mewzlnlbb?new=targeted-page-seo-optimized-v3 200 in 1228ms
+ GET /w/article/new 307 in 135ms
+ GET /w/recipe/new 307 in 70ms
+ GET /dashboard 200 in 150ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 258ms
+ GET /w/article/new 200 in 52ms
+[2025-06-10T15:14:16.442Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x6d46beb1 error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/article/mbqnvwowwqjk97p 200 in 111ms
+ GET /w/article/mbqnvwowwqjk97p 200 in 145ms
+[2025-06-10T15:16:25.005Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x8f6b7bcf error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+[2025-06-10T15:16:25.006Z]  @firebase/firestore: Firestore (11.9.0): Could not reach Cloud Firestore backend. Connection failed 1 times. Most recent error: FirebaseError: [code=permission-denied]: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+This typically indicates that your device does not have a healthy Internet connection at the moment. The client will operate in offline mode until it is able to successfully connect to the backend.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/article/mbqnvwowwqjk97p 200 in 1055ms
+ GET /w/article/mbqnvwowwqjk97p 200 in 719ms
+ ✓ Compiled /w/[shortName]/[documentId] in 15ms
+[2025-06-10T15:16:49.745Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x26eea4b5 error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+[2025-06-10T15:16:49.746Z]  @firebase/firestore: Firestore (11.9.0): Could not reach Cloud Firestore backend. Connection failed 1 times. Most recent error: FirebaseError: [code=permission-denied]: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+This typically indicates that your device does not have a healthy Internet connection at the moment. The client will operate in offline mode until it is able to successfully connect to the backend.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/article/mbqnvwowwqjk97p 200 in 587ms
+Debugger listening on ws://127.0.0.1:9230/546cacaa-5c94-4a3f-a653-12191a3148eb
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 725ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled /w/[shortName]/[documentId] in 3.3s
+[2025-06-10T15:18:20.656Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x623af4e4 error. Code: 5 Message: 5 NOT_FOUND: 
+[2025-06-10T15:18:20.658Z]  @firebase/firestore: Firestore (11.9.0): Could not reach Cloud Firestore backend. Connection failed 1 times. Most recent error: FirebaseError: [code=not-found]: 5 NOT_FOUND: 
+This typically indicates that your device does not have a healthy Internet connection at the moment. The client will operate in offline mode until it is able to successfully connect to the backend.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/article/mbqnvwowwqjk97p 200 in 4496ms
+ ✓ Compiled /favicon.ico in 272ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 519ms
+ ○ Compiling / ...
+ ✓ Compiled / in 697ms
+ GET / 200 in 725ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 714ms
+ GET /login 200 in 731ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 727ms
+ GET /dashboard 200 in 769ms
+ GET /dashboard 200 in 64ms
+ ○ Compiling /w/[shortName]/new ...
+ ✓ Compiled /w/[shortName]/new in 661ms
+ GET /w/article/new 200 in 898ms
+[2025-06-10T15:18:31.653Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x623af4e5 error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ GET /w/article/mbqo1dn5whizmzt 200 in 70ms
+ GET /w/article/mbqo1dn5whizmzt 200 in 104ms
+ GET /dashboard 200 in 77ms
+ GET /w/article/new 307 in 55ms
+ ✓ Compiled /w/[shortName]/[documentId] in 15ms
+[2025-06-10T15:20:01.153Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x585e37cf error. Code: 5 Message: 5 NOT_FOUND: 
+[2025-06-10T15:20:01.154Z]  @firebase/firestore: Firestore (11.9.0): Could not reach Cloud Firestore backend. Connection failed 1 times. Most recent error: FirebaseError: [code=not-found]: 5 NOT_FOUND: 
+This typically indicates that your device does not have a healthy Internet connection at the moment. The client will operate in offline mode until it is able to successfully connect to the backend.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ ⨯ Error: Database connection failed. Please check your Firestore configuration.
+    at WizardPage (src/app/w/[shortName]/[documentId]/page.tsx:107:14)
+  105 |       }
+  106 |       if (error.message.includes('unavailable') || error.message.includes('offline')) {
+> 107 |         throw new Error('Database connection failed. Please check your Firestore configuration.');
+      |              ^
+  108 |       }
+  109 |     }
+  110 |      {
+  digest: '4020196141'
+}
+ GET /w/article/mbqo1dn5whizmzt 200 in 440ms
+ ✓ Compiled /w/[shortName]/[documentId] in 40ms
+[2025-06-10T15:20:09.880Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x4b2c0a2f error. Code: 7 Message: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+[2025-06-10T15:20:09.880Z]  @firebase/firestore: Firestore (11.9.0): Could not reach Cloud Firestore backend. Connection failed 1 times. Most recent error: FirebaseError: [code=permission-denied]: 7 PERMISSION_DENIED: Cloud Firestore API has not been used in project franzai-writer before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/firestore.googleapis.com/overview?project=franzai-writer then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+This typically indicates that your device does not have a healthy Internet connection at the moment. The client will operate in offline mode until it is able to successfully connect to the backend.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ ⨯ Error: Database connection failed. Please check your Firestore configuration.
+    at WizardPage (src/app/w/[shortName]/[documentId]/page.tsx:107:14)
+  105 |       }
+  106 |       if (error.message.includes('unavailable') || error.message.includes('offline')) {
+> 107 |         throw new Error('Database connection failed. Please check your Firestore configuration.');
+      |              ^
+  108 |       }
+  109 |     }
+  110 |      {
+  digest: '3526517796'
+}
+ GET /w/article/mbqo1dn5whizmzt 200 in 420ms
+ ✓ Compiled /w/[shortName]/[documentId] in 22ms
+[2025-06-10T15:20:28.455Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x6c8bf89e error. Code: 5 Message: 5 NOT_FOUND: 
+[2025-06-10T15:20:28.456Z]  @firebase/firestore: Firestore (11.9.0): Could not reach Cloud Firestore backend. Connection failed 1 times. Most recent error: FirebaseError: [code=not-found]: 5 NOT_FOUND: 
+This typically indicates that your device does not have a healthy Internet connection at the moment. The client will operate in offline mode until it is able to successfully connect to the backend.
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ ⨯ Error: Database connection failed. Please check your Firestore configuration.
+    at WizardPage (src/app/w/[shortName]/[documentId]/page.tsx:107:14)
+  105 |       }
+  106 |       if (error.message.includes('unavailable') || error.message.includes('offline')) {
+> 107 |         throw new Error('Database connection failed. Please check your Firestore configuration.');
+      |              ^
+  108 |       }
+  109 |     }
+  110 |      {
+  digest: '2329970337'
+}
+ GET /w/article/mbqo1dn5whizmzt 200 in 422ms
+[2025-06-10T15:20:34.493Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x6c8bf89f error. Code: 5 Message: 5 NOT_FOUND: 
+Error loading document: [Error [FirebaseError]: Failed to get document because the client is offline.] {
+  code: 'unavailable',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ ⨯ Error: Database connection failed. Please check your Firestore configuration.
+    at WizardPage (src/app/w/[shortName]/[documentId]/page.tsx:107:14)
+  105 |       }
+  106 |       if (error.message.includes('unavailable') || error.message.includes('offline')) {
+> 107 |         throw new Error('Database connection failed. Please check your Firestore configuration.');
+      |              ^
+  108 |       }
+  109 |     }
+  110 |      {
+  digest: '2329970337'
+}
+ GET /w/article/mbqo1dn5whizmzt 500 in 213ms
+ GET /w/article/new 307 in 151ms
+ GET /w/article/new 307 in 68ms
+Error loading document: [Error [FirebaseError]: Missing or insufficient permissions.] {
+  code: 'permission-denied',
+  customData: undefined,
+  toString: [Function (anonymous)]
+}
+ ⨯ Error: Failed to load or create document
+    at WizardPage (src/app/w/[shortName]/[documentId]/page.tsx:112:10)
+  110 |     
+  111 |     // For any other errors, throw a generic error that will result in 500
+> 112 |     throw new Error('Failed to load or create document');
+      |          ^
+  113 |   }
+  114 |
+  115 |   return <WizardPageContent initialInstance={wizardInstance} />; {
+  digest: '2519706086'
+}
+ GET /w/article/mbqo71s2w4kledk 500 in 240ms
+ GET /w/article/new 307 in 63ms
+ GET /w/article/mbqo8cpgwc4j42l 200 in 291ms
+ GET /w/recipe/new 307 in 62ms
+ GET /w/article/mbqo1dn5whizmzt 200 in 312ms
+ GET /dashboard 200 in 48ms
+ GET /w/recipe/new 200 in 43ms
+ GET /w/recipe/mbqofwu1w5f75o4 200 in 133ms
+ GET /w/recipe/mbqofwu1w5f75o4 200 in 98ms
+ GET /w/recipe/mbqofwu1w5f75o4 200 in 167ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 224ms
+ GET /dashboard 200 in 44ms
+ GET /dashboard 200 in 111ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 220ms
+ GET /dashboard 200 in 25ms
+ ✓ Compiled in 43ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 229ms
+ ✓ Compiled in 18ms
+ GET /dashboard 200 in 104ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 223ms
+ ✓ Compiled in 31ms
+ GET /dashboard 200 in 76ms
+ ✓ Compiled in 11ms
+ GET /dashboard 200 in 69ms
+ ✓ Compiled in 12ms
+ GET /dashboard 200 in 99ms

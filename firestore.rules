@@ -2,22 +2,31 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Allow users to read/write their own data
-    match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+    // DEVELOPMENT RULES - Allow public access for testing
+    // TODO: Implement proper authentication in production
+    
+    // Allow public read/write access to all documents during development
+    match /{document=**} {
+      allow read, write: if true;
     }
     
-    // Allow users to read/write their own documents
-    match /documents/{documentId} {
-      allow read, write: if request.auth != null && 
-        request.auth.uid == resource.data.userId;
-      allow create: if request.auth != null && 
-        request.auth.uid == request.resource.data.userId;
-    }
+    // COMMENTED OUT: Production rules (uncomment when authentication is implemented)
+    // // Allow users to read/write their own data
+    // match /users/{userId} {
+    //   allow read, write: if request.auth != null && request.auth.uid == userId;
+    // }
     
-    // Allow users to read/write their own workflows
-    match /userWorkflows/{userId}/workflows/{workflowId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
+    // // Allow users to read/write their own documents
+    // match /documents/{documentId} {
+    //   allow read, write: if request.auth != null && 
+    //     request.auth.uid == resource.data.userId;
+    //   allow create: if request.auth != null && 
+    //     request.auth.uid == request.resource.data.userId;
+    // }
+    
+    // // Allow users to read/write their own workflows
+    // match /userWorkflows/{userId}/workflows/{workflowId} {
+    //   allow read, write: if request.auth != null && request.auth.uid == userId;
+    // }
   }
 }

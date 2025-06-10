@@ -19,6 +19,6 @@ export default async function NewDocumentPage({
   // Generate a unique document ID
   const documentId = generateUniqueId();
   
-  // Redirect to the document page with new document query parameter
-  redirect(`/w/${shortName}/${documentId}?new=${workflow.id}`);
+  // Redirect to the clean document URL without query parameter
+  redirect(`/w/${shortName}/${documentId}`);
 } 

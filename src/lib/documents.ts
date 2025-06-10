@@ -26,8 +26,31 @@ export interface FirestoreDocument {
   stageStates: Record<string, StageState>;
   metadata?: {
     wordCount?: number;
-    lastEditedStage?: string;
+    lastEditedStage?: string | null;
   };
+}
+
+// Utility function to clean undefined values from objects (Firestore doesn't accept undefined)
+function cleanUndefinedValues(obj: any): any {
+  if (obj === null || obj === undefined) {
+    return null;
+  }
+  
+  if (Array.isArray(obj)) {
+    return obj.map(cleanUndefinedValues);
+  }
+  
+  if (typeof obj === 'object') {
+    const cleaned: any = {};
+    for (const [key, value] of Object.entries(obj)) {
+      if (value !== undefined) {
+        cleaned[key] = cleanUndefinedValues(value);
+      }
+    }
+    return cleaned;
+  }
+  
+  return obj;
 }
 
 // Convert Firestore document to WizardDocument
@@ -59,14 +82,14 @@ export async function createDocument(
     status: 'draft',
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
-    stageStates: initialStageStates,
+    stageStates: cleanUndefinedValues(initialStageStates),
     metadata: {
       wordCount: 0,
-      lastEditedStage: undefined,
+      lastEditedStage: null,
     },
   };
 
-  await setDoc(docRef, newDocument);
+  await setDoc(docRef, cleanUndefinedValues(newDocument));
   return docRef.id;
 }
 
@@ -84,10 +107,12 @@ export async function updateDocument(
   }>
 ): Promise<void> {
   const docRef = doc(db, 'documents', documentId);
-  await updateDoc(docRef, {
+  const cleanedUpdates = cleanUndefinedValues({
     ...updates,
     updatedAt: serverTimestamp(),
   });
+  
+  await updateDoc(docRef, cleanedUpdates);
 }
 
 // Update a single stage state
@@ -97,8 +122,10 @@ export async function updateStageState(
   stageState: StageState
 ): Promise<void> {
   const docRef = doc(db, 'documents', documentId);
+  const cleanedStageState = cleanUndefinedValues(stageState);
+  
   await updateDoc(docRef, {
-    [`stageStates.${stageId}`]: stageState,
+    [`stageStates.${stageId}`]: cleanedStageState,
     updatedAt: serverTimestamp(),
     'metadata.lastEditedStage': stageId,
   });
