@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
-import { BrainCircuit, Zap } from "lucide-react";
+import { BrainCircuit, PlayCircle, Zap } from "lucide-react";
 import Link from "next/link";
 
 export default function HomePage() {
@@ -14,12 +14,20 @@ export default function HomePage() {
       <p className="text-xl text-muted-foreground max-w-2xl mb-8">
         {siteConfig.description} Craft compelling documents effortlessly with our AI-powered, multi-step wizard.
       </p>
-      <Button size="lg" asChild className="bg-accent hover:bg-accent/90 text-accent-foreground">
-        <Link href="/dashboard">
-          <Zap className="mr-2 h-5 w-5" />
-          Get Started
-        </Link>
-      </Button>
+      <div className="flex flex-col sm:flex-row gap-4">
+        <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
+          <Link href="/dashboard">
+            <Zap className="mr-2 h-5 w-5" />
+            Get Started
+          </Link>
+        </Button>
+        <Button size="lg" variant="outline" asChild>
+          <Link href="/dashboard">
+            <PlayCircle className="mr-2 h-5 w-5" />
+            Try Demo
+          </Link>
+        </Button>
+      </div>
       <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl">
         <div className="flex flex-col items-center p-6 border rounded-lg shadow-sm bg-card">
           <h3 className="text-xl font-semibold font-headline mb-2">Intuitive Wizard</h3>

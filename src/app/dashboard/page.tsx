@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { allWorkflows } from "@/lib/workflow-loader";
 import type { WizardDocument, Workflow } from "@/types";
 import { FileText, ArrowRight, AlertCircle, PlusCircle, Info } from "lucide-react";
-import { useAuth } from "@/components/layout/app-providers";
+import { useAuth } from "@/components/layout/app-providers"; // Keep useAuth if other parts of dashboard might use it later
 
 // This function remains as documents are not persisted yet.
 function getWorkflowName(workflowId: string) {
@@ -45,13 +45,13 @@ function WorkflowSelectionCard({ workflow }: { workflow: Workflow }) {
 }
 
 export default function DashboardPage() {
-  const { user, loading } = useAuth();
+  const { user, loading } = useAuth(); // user and loading can still be used for UI cues if needed
 
-  // If not loading and no user, redirect to login
-  if (!loading && !user) {
-    // Using client-side redirect for now, consider server-side for better UX
-    window.location.replace('/login');
-  }
+  // Removed client-side redirect:
+  // if (!loading && !user) {
+  //   window.location.replace('/login');
+  // }
+
   const documents: WizardDocument[] = []; // Initialize with an empty array as documents are not persisted
 
   return (
