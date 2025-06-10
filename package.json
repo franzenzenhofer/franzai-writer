@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack -p 9002",
+    "dev": "next dev --turbopack -p 9002 2>&1 | tee -a logs/nextjs-dev.log",
+    "dev:debug": "NODE_OPTIONS='--inspect' next dev --turbopack -p 9002",
+    "dev:verbose": "DEBUG='*' next dev --turbopack -p 9002 2>&1 | tee -a logs/nextjs-verbose.log",
     "genkit:dev": "genkit start -- tsx src/ai/dev.ts",
     "genkit:watch": "genkit start -- tsx --watch src/ai/dev.ts",
     "build": "next build",
@@ -12,7 +14,9 @@
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "test:e2e:debug": "playwright test --debug"
+    "test:e2e:debug": "playwright test --debug",
+    "logs:tail": "tail -f logs/nextjs-dev.log",
+    "logs:errors": "grep ERROR logs/nextjs-dev.log || echo 'No errors found'"
   },
   "dependencies": {
     "@genkit-ai/googleai": "^1.8.0",
