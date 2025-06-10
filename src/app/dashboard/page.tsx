@@ -1,18 +1,92 @@
 
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { allWorkflows } from "@/lib/workflow-loader";
 import type { WizardDocument, Workflow } from "@/types";
-import { FileText, ArrowRight, AlertCircle, PlusCircle, Info, LogIn, User } from "lucide-react"; // Added LogIn and User
+import { FileText, ArrowRight, AlertCircle, PlusCircle, Info, LogIn, User, Loader2, Trash2, Edit } from "lucide-react";
 import { useAuth } from "@/components/layout/app-providers";
+import { listUserDocuments, deleteDocument } from "@/lib/documents";
+import { useToast } from "@/hooks/use-toast";
+import { 
+  AlertDialog, 
+  AlertDialogAction, 
+  AlertDialogCancel, 
+  AlertDialogContent, 
+  AlertDialogDescription, 
+  AlertDialogFooter, 
+  AlertDialogHeader, 
+  AlertDialogTitle 
+} from "@/components/ui/alert-dialog";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Badge } from "@/components/ui/badge";
 
-// This function remains as documents are not persisted yet.
 function getWorkflowName(workflowId: string) {
   const workflow = allWorkflows.find(w => w.id === workflowId);
   return workflow ? workflow.name : "Unknown Workflow";
+}
+
+function DocumentCard({ 
+  document, 
+  onDelete 
+}: { 
+  document: WizardDocument; 
+  onDelete: (documentId: string) => void;
+}) {
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDelete = async () => {
+    setIsDeleting(true);
+    await onDelete(document.id);
+    setIsDeleting(false);
+  };
+
+  return (
+    <Card className="flex flex-col hover:shadow-lg transition-shadow duration-200">
+      <CardHeader>
+        <CardTitle className="font-headline text-xl line-clamp-2">{document.title}</CardTitle>
+        <CardDescription className="text-sm">
+          <span className="block">{getWorkflowName(document.workflowId)}</span>
+          <span className="block text-xs text-muted-foreground mt-1">
+            Updated {new Date(document.updatedAt).toLocaleDateString()}
+          </span>
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="flex-grow">
+        <div className="flex items-center gap-2">
+          <Badge 
+            variant={document.status === 'completed' ? 'default' : 'secondary'}
+            className="text-xs"
+          >
+            {document.status}
+          </Badge>
+        </div>
+      </CardContent>
+      <CardFooter className="flex justify-between items-center">
+        <Button variant="outline" size="sm" asChild>
+          <Link href={`/wizard/${document.id}`}>
+            <Edit className="mr-2 h-4 w-4" />
+            Continue
+          </Link>
+        </Button>
+        <Button 
+          variant="ghost" 
+          size="sm"
+          onClick={handleDelete}
+          disabled={isDeleting}
+        >
+          {isDeleting ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <Trash2 className="h-4 w-4 text-destructive" />
+          )}
+        </Button>
+      </CardFooter>
+    </Card>
+  );
 }
 
 function WorkflowSelectionCard({ workflow }: { workflow: Workflow }) {
@@ -29,13 +103,21 @@ function WorkflowSelectionCard({ workflow }: { workflow: Workflow }) {
       </CardContent>
       <CardFooter className="flex justify-between items-center"> {/* Changed to flex justify-between */}
         <Button variant="outline" size="sm" asChild>
-          <Link href={`/workflow-details/${workflow.id}`}>
+          <Link 
+            href={`/workflow-details/${workflow.id}`}
+            id={`workflow-details-${workflow.id}`}
+            data-testid={`workflow-details-${workflow.id}`}
+          >
             <Info className="mr-2 h-4 w-4" />
             Details
           </Link>
         </Button>
         <Button asChild size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-          <Link href={`/wizard/_new_${workflow.id}`}>
+          <Link 
+            href={`/wizard/_new_${workflow.id}`}
+            id={`workflow-start-${workflow.id}`}
+            data-testid={`workflow-start-${workflow.id}`}
+          >
             Start <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </Button>
@@ -45,8 +127,67 @@ function WorkflowSelectionCard({ workflow }: { workflow: Workflow }) {
 }
 
 export default function DashboardPage() {
-  const { user, loading } = useAuth(); 
-  const documents: WizardDocument[] = []; // Initialize with an empty array as documents are not persisted
+  const { user, loading: authLoading } = useAuth(); 
+  const { toast } = useToast();
+  const [documents, setDocuments] = useState<WizardDocument[]>([]);
+  const [documentsLoading, setDocumentsLoading] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [documentToDelete, setDocumentToDelete] = useState<string | null>(null);
+
+  // Load user documents when authenticated
+  useEffect(() => {
+    if (user && !authLoading) {
+      loadDocuments();
+    }
+  }, [user, authLoading]);
+
+  const loadDocuments = async () => {
+    if (!user) return;
+    
+    setDocumentsLoading(true);
+    try {
+      const userDocs = await listUserDocuments(user.uid);
+      setDocuments(userDocs);
+    } catch (error) {
+      console.error('Error loading documents:', error);
+      toast({
+        title: 'Error loading documents',
+        description: 'Unable to load your documents. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setDocumentsLoading(false);
+    }
+  };
+
+  const handleDeleteDocument = async (documentId: string) => {
+    setDocumentToDelete(documentId);
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!documentToDelete) return;
+
+    try {
+      await deleteDocument(documentToDelete);
+      toast({
+        title: 'Document deleted',
+        description: 'Your document has been deleted successfully.',
+      });
+      // Reload documents
+      await loadDocuments();
+    } catch (error) {
+      console.error('Error deleting document:', error);
+      toast({
+        title: 'Delete failed',
+        description: 'Unable to delete the document. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setDeleteDialogOpen(false);
+      setDocumentToDelete(null);
+    }
+  };
 
   return (
     <div className="space-y-12">
@@ -74,7 +215,7 @@ export default function DashboardPage() {
 
       <div>
         <h2 className="text-3xl font-bold font-headline mb-6 text-foreground">Recent documents</h2>
-        {!loading && !user ? (
+        {!authLoading && !user ? (
           <Card className="text-center py-10 bg-card shadow-md rounded-lg">
             <CardHeader className="items-center">
               <User className="text-primary h-12 w-12 mb-2" />
@@ -87,30 +228,64 @@ export default function DashboardPage() {
                 Log in or sign up to keep track of your documents and access them anytime, anywhere.
               </p>
               <Button asChild size="lg" className="w-full max-w-xs mx-auto">
-                <Link href="/login">
+                <Link 
+                  href="/login"
+                  id="dashboard-login-button"
+                  data-testid="dashboard-login-button"
+                >
                   <LogIn className="mr-2 h-5 w-5" />
                   Login / Sign Up
                 </Link>
               </Button>
             </CardContent>
           </Card>
+        ) : documentsLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3].map((i) => (
+              <Card key={i} className="space-y-3 p-6">
+                <Skeleton className="h-6 w-3/4" />
+                <Skeleton className="h-4 w-1/2" />
+                <Skeleton className="h-8 w-full" />
+              </Card>
+            ))}
+          </div>
         ) : documents.length === 0 ? (
           <div className="text-center py-16 border-2 border-dashed rounded-lg border-border bg-card">
             <FileText className="mx-auto h-16 w-16 text-muted-foreground" />
             <h3 className="mt-4 text-2xl font-semibold font-headline">No documents yet</h3>
             <p className="mt-2 text-base text-muted-foreground">
-              Once you create documents, they'll appear here.
-            </p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              (Note: Document persistence is not yet implemented in this prototype.)
+              Start creating documents and they'll appear here.
             </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* This part will be populated when document persistence is added */}
+            {documents.map((doc) => (
+              <DocumentCard
+                key={doc.id}
+                document={doc}
+                onDelete={handleDeleteDocument}
+              />
+            ))}
           </div>
         )}
       </div>
+      
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete document?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete your document.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDelete} className="bg-destructive text-destructive-foreground">
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
