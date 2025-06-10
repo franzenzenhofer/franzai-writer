@@ -45,6 +45,77 @@ export function StageOutputArea({ stage, stageState, isEditingOutput, onOutputCh
   };
 
 
+  // Helper function to render form-based JSON output in a user-friendly way
+  const renderFormOutput = (jsonData: any) => {
+    if (!stage.formFields || !jsonData || typeof jsonData !== 'object') {
+      return <JsonRenderer data={jsonData} />;
+    }
+
+    return (
+      <div className="space-y-4">
+        {stage.formFields.map((field) => {
+          const value = jsonData[field.name];
+          
+          return (
+            <div key={field.name} className="space-y-2">
+              <label className="text-sm font-medium text-muted-foreground">
+                {field.label}
+              </label>
+              <div className="p-3 border rounded-md bg-muted/50 text-sm">
+                {field.type === 'select' && field.options ? (
+                  // For select fields, show the label instead of the value
+                  field.options.find(opt => opt.value === value)?.label || value || 'Not selected'
+                ) : (
+                  value || 'Not provided'
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
+  // Helper function to render context-based input in a user-friendly way
+  const renderContextOutput = (contextData: any) => {
+    if (!contextData || typeof contextData !== 'object') {
+      return <p className="whitespace-pre-wrap font-body">{String(contextData || 'No content provided')}</p>;
+    }
+
+    const { dropped = '', manual = '' } = contextData;
+    const hasDropped = dropped && dropped.trim();
+    const hasManual = manual && manual.trim();
+
+    if (!hasDropped && !hasManual) {
+      return <p className="text-muted-foreground text-sm">No content provided</p>;
+    }
+
+    return (
+      <div className="space-y-4">
+        {hasManual && (
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-muted-foreground">
+              Manual Context Input
+            </label>
+            <div className="p-3 border rounded-md bg-muted/50 text-sm whitespace-pre-wrap">
+              {manual}
+            </div>
+          </div>
+        )}
+        {hasDropped && (
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-muted-foreground">
+              Uploaded File Content
+            </label>
+            <div className="p-3 border rounded-md bg-muted/50 text-sm whitespace-pre-wrap">
+              {dropped}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   const renderOutput = () => {
     if (isEditingOutput && onOutputChange) {
       switch (stage.outputType) {
@@ -73,8 +144,16 @@ export function StageOutputArea({ stage, stageState, isEditingOutput, onOutputCh
     } else {
       switch (stage.outputType) {
         case "text":
+          // Check if this is a context-based stage (like Smart Dropzone)
+          if (stage.inputType === 'context') {
+            return renderContextOutput(stageState.output);
+          }
           return <p className="whitespace-pre-wrap font-body">{String(stageState.output)}</p>;
         case "json":
+          // Check if this is a form-based stage with formFields
+          if (stage.inputType === 'form' && stage.formFields) {
+            return renderFormOutput(stageState.output);
+          }
           return <JsonRenderer data={stageState.output} />;
         case "markdown":
           return <MarkdownRenderer content={String(stageState.output)} />;

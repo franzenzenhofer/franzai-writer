@@ -186,12 +186,15 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   };
 
   const handleRunStage = useCallback(async (stageId: string, currentInput?: any) => {
+    console.log('[handleRunStage] Called with:', { stageId, currentInput });
     const stage = instance.workflow.stages.find(s => s.id === stageId);
     if (!stage) return;
 
     const currentStageState = instance.stageStates[stageId];
+    console.log('[handleRunStage] Current stage state:', currentStageState);
     // Use the most up-to-date userInput from the state for the current stage
     const stageInputForRun = currentStageState.userInput ?? currentInput;
+    console.log('[handleRunStage] Stage input for run:', stageInputForRun);
 
 
     if (currentStageState.depsAreMet === false && stage.dependencies && stage.dependencies.length > 0) {
@@ -224,10 +227,32 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         isStale: false,
       });
       toast({ title: "Stage Processed", description: `Stage "${stage.title}" marked as complete.` });
+      
+      // Auto-scroll to next stage after a brief delay
+      setTimeout(() => {
+        const nextStageIndex = instance.workflow.stages.findIndex(s => s.id === stageId) + 1;
+        if (nextStageIndex < instance.workflow.stages.length) {
+          const nextStageId = instance.workflow.stages[nextStageIndex].id;
+          const nextStageElement = document.getElementById(`stage-${nextStageId}`);
+          if (nextStageElement) {
+            nextStageElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      }, 500);
+      
       return;
     }
     
     try {
+      console.log('[handleRunStage] About to call runAiStage with:', {
+        hasPromptTemplate: !!stage.promptTemplate,
+        model: stage.model || "googleai/gemini-2.0-flash-exp",
+        temperature: stage.temperature || 0.7,
+        contextVarsKeys: Object.keys(contextVars),
+        currentStageInput: stageInputForRun,
+        stageOutputType: stage.outputType
+      });
+      
       const result = await runAiStage({
         promptTemplate: stage.promptTemplate,
         model: stage.model || "googleai/gemini-2.0-flash-exp",
@@ -249,9 +274,27 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         isStale: false, 
       });
       toast({ title: "AI Stage Completed", description: `AI processing for "${stage.title}" finished.` });
+      
+      // Auto-scroll to next stage after a brief delay
+      setTimeout(() => {
+        const nextStageIndex = instance.workflow.stages.findIndex(s => s.id === stageId) + 1;
+        if (nextStageIndex < instance.workflow.stages.length) {
+          const nextStageId = instance.workflow.stages[nextStageIndex].id;
+          const nextStageElement = document.getElementById(`stage-${nextStageId}`);
+          if (nextStageElement) {
+            nextStageElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      }, 500);
 
     } catch (error: any) {
       console.error("Error running AI stage:", error);
+      console.error("Error details:", {
+        message: error.message,
+        stack: error.stack,
+        stageId,
+        promptTemplate: stage.promptTemplate
+      });
       updateStageState(stageId, { status: "error", error: error.message || "AI processing failed." });
       toast({ title: "AI Stage Error", description: error.message || "An error occurred.", variant: "destructive" });
     }

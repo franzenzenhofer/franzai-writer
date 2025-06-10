@@ -28,7 +28,15 @@ const AiStageOutputSchema = z.object({
 export type AiStageExecutionOutput = z.infer<typeof AiStageOutputSchema>;
 
 export async function aiStageExecution(input: AiStageExecutionInput): Promise<AiStageExecutionOutput> {
-  return aiStageExecutionFlow(input);
+  try {
+    console.log('[AI Stage] Starting execution with input:', input);
+    const result = await aiStageExecutionFlow(input);
+    console.log('[AI Stage] Execution successful');
+    return result;
+  } catch (error) {
+    console.error('[AI Stage] Execution failed:', error);
+    throw error;
+  }
 }
 
 const aiStageExecutionFlow = ai.defineFlow(

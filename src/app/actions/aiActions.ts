@@ -54,7 +54,22 @@ function substitutePromptVars(template: string, context: Record<string, any>): s
 
 export async function runAiStage(params: RunAiStageParams): Promise<AiActionResult> {
   try {
+    console.log("[runAiStage] Starting with params:", {
+      hasPromptTemplate: !!params.promptTemplate,
+      model: params.model,
+      temperature: params.temperature,
+      stageOutputType: params.stageOutputType
+    });
+
     const filledPrompt = substitutePromptVars(params.promptTemplate, params.contextVars);
+    console.log("[runAiStage] Filled prompt length:", filledPrompt.length);
+
+    // Check if we have a valid API key
+    const apiKey = process.env.GOOGLE_GENAI_API_KEY;
+    if (!apiKey) {
+      console.error("[runAiStage] Missing GOOGLE_GENAI_API_KEY environment variable");
+      return { content: null, error: "AI service not configured. Please check API keys." };
+    }
 
     // Pass model and temperature directly (can be undefined)
     // The aiStageExecutionFlow will handle using Genkit defaults if they are undefined.
@@ -79,9 +94,11 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
         }
     }
 
+    console.log("[runAiStage] Success, content type:", typeof parsedContent);
     return { content: parsedContent };
   } catch (error: any) {
     console.error("AI Stage Execution Error:", error);
+    console.error("Error stack:", error.stack);
     return { content: null, error: error.message || "An unknown error occurred during AI processing." };
   }
 }

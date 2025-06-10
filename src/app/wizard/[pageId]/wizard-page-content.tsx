@@ -39,10 +39,13 @@ function WizardErrorFallback({ error, reset }: { error: Error | null; reset: () 
 
 export function WizardPageContent({ initialInstance }: WizardPageContentProps) {
   const { user } = useAuth();
+  const isDemoMode = process.env.NEXT_PUBLIC_DEMO_MODE === 'true';
 
-  // Update the userId to use the authenticated user's ID
+  // Update the userId to use the authenticated user's ID or demo user
   if (user && initialInstance.document.userId === "user-123") {
     initialInstance.document.userId = user.uid;
+  } else if (isDemoMode && initialInstance.document.userId === "user-123") {
+    initialInstance.document.userId = "demo-user";
   }
 
   return (

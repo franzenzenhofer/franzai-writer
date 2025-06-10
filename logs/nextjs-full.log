@@ -71,3 +71,162 @@ Starting inspector on 127.0.0.1:9230 failed: address already in use
  GET /favicon.ico?favicon.56766c03.ico 200 in 225ms
  GET / 200 in 126ms
  GET /favicon.ico?favicon.56766c03.ico 200 in 238ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 714ms
+ GET /dashboard 200 in 737ms
+ ○ Compiling /wizard/[pageId] ...
+ ✓ Compiled /wizard/[pageId] in 2.3s
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 3065ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 727ms
+ GET /login 200 in 746ms
+ GET /login 200 in 15ms
+ GET / 200 in 42ms
+ GET /dashboard 200 in 94ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 221ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 40ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 252ms
+ GET /login 200 in 27ms
+ GET /login 200 in 26ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 218ms
+ ○ Compiling /signup ...
+ ✓ Compiled /signup in 657ms
+ GET /signup 200 in 672ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 218ms
+   Reload env: .env.local
+ GET /signup 200 in 529ms
+ GET / 200 in 531ms
+ GET /signup 200 in 48ms
+ GET / 200 in 48ms
+ ✓ Compiled in 124ms
+ GET /signup 200 in 36ms
+ GET / 200 in 39ms
+ ✓ Compiled in 128ms
+ GET /dashboard 200 in 212ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 243ms
+ ✓ Compiled /wizard/[pageId] in 13ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 318ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 219ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 373ms
+ ✓ Compiled /wizard/[pageId] in 16ms
+ GET / 200 in 343ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 345ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 228ms
+ ✓ Compiled /wizard/[pageId] in 35ms
+ GET / 200 in 61ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 413ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 322ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 231ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 218ms
+ GET / 200 in 392ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 392ms
+ GET / 200 in 59ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 60ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 266ms
+ ✓ Compiled /api/test-env in 232ms
+ GET /api/test-env 200 in 252ms
+ GET /favicon.ico 200 in 215ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 314ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 236ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 216ms
+ GET /api/test-env 200 in 20ms
+ GET /favicon.ico 200 in 221ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 341ms
+ GET / 200 in 343ms
+ GET / 200 in 62ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 60ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 243ms
+ ○ Compiling /api/test-ai ...
+ ✓ Compiled /api/test-ai in 1134ms
+[TEST-AI] Starting test...
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.0-flash-exp',
+  temperature: 0.7,
+  stageOutputType: 'text'
+}
+[runAiStage] Filled prompt length: 15
+Executing AI stage with input: {
+  "promptTemplate": "Say hello world",
+  "model": "googleai/gemini-2.0-flash-exp",
+  "temperature": 0.7
+}
+[AI Stage] Starting execution with input: {
+  promptTemplate: 'Say hello world',
+  model: 'googleai/gemini-2.0-flash-exp',
+  temperature: 0.7
+}
+[AI Stage] Execution successful
+[runAiStage] Success, content type: string
+[TEST-AI] Result: { content: 'Hello, world!\n' }
+ GET /api/test-ai 200 in 2097ms
+ GET /favicon.ico 200 in 218ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 266ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 244ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 227ms
+ ✓ Compiled in 48ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 479ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 229ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 221ms
+ ✓ Compiled in 66ms
+ ✓ Compiled in 64ms
+ ✓ Compiled in 60ms
+ GET /dashboard 200 in 437ms
+ GET /dashboard 200 in 439ms
+ GET /dashboard 200 in 509ms
+ GET /dashboard 200 in 351ms
+ GET /dashboard 200 in 354ms
+(node:24238) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGTERM listeners added to [process]. MaxListeners is 10. Use emitter.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 685ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 182ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 197ms
+ GET /dashboard 200 in 82ms
+ GET /favicon.ico 200 in 162ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 93ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 241ms
+ GET /dashboard 200 in 92ms
+ GET /dashboard 200 in 104ms
+ GET /favicon.ico 200 in 52ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 231ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 66ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 251ms
+ GET /dashboard 200 in 117ms
+ GET /dashboard 200 in 111ms
+ GET /favicon.ico 200 in 51ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 234ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 34ms
+ GET /dashboard 200 in 62ms
+ GET /dashboard 200 in 84ms
+ GET /dashboard 200 in 129ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 144ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 223ms
+ GET /dashboard 200 in 297ms
+ GET /dashboard 200 in 104ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 43ms
+ GET /dashboard 200 in 93ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 41ms
+ GET /dashboard 200 in 109ms
+ GET /dashboard 200 in 99ms
+ GET /dashboard 200 in 111ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 58ms
+ GET /dashboard 200 in 150ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 60ms
+ GET /dashboard 200 in 67ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 44ms
+ GET /dashboard 200 in 74ms
+ GET /dashboard 200 in 114ms
+ GET /dashboard 200 in 146ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 57ms
+ GET /dashboard 200 in 93ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 60ms
+ GET / 200 in 97ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 231ms
+ GET /login 200 in 49ms
+ GET /dashboard 200 in 59ms
+ GET /wizard/_new_targeted-page-seo-optimized-v3 200 in 64ms
+ ✓ Compiled in 99ms
+ ✓ Compiled in 131ms
+ ✓ Compiled in 122ms
+ ✓ Compiled in 71ms
+ ✓ Compiled in 77ms

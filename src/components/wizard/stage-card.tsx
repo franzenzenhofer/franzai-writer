@@ -59,12 +59,10 @@ export function StageCard({
       // Trigger form submission within StageInputArea, which will call onFormSubmit,
       // which in turn updates stageState.userInput. Then proceed to run the stage.
       stageInputAreaRef.current.triggerSubmit(); 
-      // Note: onRunStage will use the updated stageState.userInput from the store/context
-      // We might need a slight delay or a callback mechanism if onFormSubmit is async and
-      // onRunStage relies on its immediate completion. For now, assuming onFormSubmit updates state synchronously.
-      // A more robust way: onFormSubmit in WizardShell could directly call onRunStage after updating.
-      // For now, let's assume WizardShell's onFormSubmit updates userInput, then StageCard's onRunStage reads it.
-       onRunStage(stage.id, stageState.userInput); // This will use the userInput set by onFormSubmit
+      // Use setTimeout to ensure state updates have propagated
+      setTimeout(() => {
+        onRunStage(stage.id);
+      }, 100);
     } else {
       onRunStage(stage.id, stageState.userInput);
     }
@@ -177,7 +175,6 @@ export function StageCard({
       <CardContent className="space-y-4">
         {isEditingInput && stage.inputType !== 'none' && stageState.status !== 'running' && (
           <div>
-            <h4 className="text-sm font-medium mb-2 text-muted-foreground">Input:</h4>
             <StageInputArea
               ref={stageInputAreaRef}
               stage={stage}
@@ -213,7 +210,6 @@ export function StageCard({
         
         {(stageState.status === "completed" || stageState.status === 'error') && stageState.output !== undefined && (
            <div>
-            <h4 className="text-sm font-medium mb-2 text-muted-foreground">Output:</h4>
             <StageOutputArea 
                 stage={stage} 
                 stageState={stageState} 
@@ -240,7 +236,8 @@ export function StageCard({
           </Button>
         )}
 
-        {showInputRelatedButtons && !dependencyMessage && (
+        {/* For AI stages, show Edit Input button */}
+        {stage.promptTemplate && showInputRelatedButtons && !dependencyMessage && (
           <Button 
             variant="outline" 
             size="sm" 
@@ -252,19 +249,31 @@ export function StageCard({
           </Button>
         )}
 
-        {showOutputRelatedButtons && !stageState.isEditingOutput && !dependencyMessage && (
+        {/* For non-AI stages, show only one Edit button after completion */}
+        {!stage.promptTemplate && stageState.status === 'completed' && !isEditingInput && !stageState.isEditingOutput && !dependencyMessage && (
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={handleEditInputClick}
+            id={`edit-${stage.id}`}
+            data-testid={`edit-${stage.id}`}
+          >
+            <Edit className="mr-2 h-4 w-4" /> Edit
+          </Button>
+        )}
+
+        {/* For AI stages, show output-related buttons */}
+        {stage.promptTemplate && showOutputRelatedButtons && !stageState.isEditingOutput && !dependencyMessage && (
           <>
-            {stage.promptTemplate && ( 
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={() => onRunStage(stage.id, stageState.userInput)}
-                id={`ai-redo-${stage.id}`}
-                data-testid={`ai-redo-${stage.id}`}
-              >
-                <RotateCcw className="mr-2 h-4 w-4" /> AI Redo
-              </Button>
-            )}
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => onRunStage(stage.id, stageState.userInput)}
+              id={`ai-redo-${stage.id}`}
+              data-testid={`ai-redo-${stage.id}`}
+            >
+              <RotateCcw className="mr-2 h-4 w-4" /> AI Redo
+            </Button>
             <Button 
               variant="outline" 
               size="sm" 
@@ -311,7 +320,7 @@ export function StageCard({
             ) : (
               <Zap className="mr-2 h-4 w-4" />
             )}
-            {stage.promptTemplate ? "Run AI" : "Process Stage"}
+            {stage.promptTemplate ? "Run AI" : "Continue"}
           </Button>
         )}
       </CardFooter>

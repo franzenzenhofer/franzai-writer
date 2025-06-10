@@ -13,9 +13,10 @@ interface AuthGuardProps {
 export function AuthGuard({ children, fallbackPath = '/login' }: AuthGuardProps) {
   const { user, loading } = useAuth();
   const router = useRouter();
+  const isDemoMode = process.env.NEXT_PUBLIC_DEMO_MODE === 'true';
 
   useEffect(() => {
-    if (!loading && !user) {
+    if (!loading && !user && !isDemoMode) {
       router.push(fallbackPath);
     }
   }, [user, loading, router, fallbackPath]);
@@ -28,7 +29,7 @@ export function AuthGuard({ children, fallbackPath = '/login' }: AuthGuardProps)
     );
   }
 
-  if (!user) {
+  if (!user && !isDemoMode) {
     return null;
   }
 
