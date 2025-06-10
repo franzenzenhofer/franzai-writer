@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
-import { BrainCircuit, PlayCircle, Zap } from "lucide-react";
+import { BrainCircuit, PlayCircle, LogIn } from "lucide-react"; // Changed Zap to LogIn
 import Link from "next/link";
 
 export default function HomePage() {
@@ -16,9 +16,9 @@ export default function HomePage() {
       </p>
       <div className="flex flex-col sm:flex-row gap-4">
         <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
-          <Link href="/dashboard">
-            <Zap className="mr-2 h-5 w-5" />
-            Get Started
+          <Link href="/login"> {/* Changed href to /login */}
+            <LogIn className="mr-2 h-5 w-5" /> {/* Changed icon */}
+            Login / Get Started {/* Changed text */}
           </Link>
         </Button>
         <Button size="lg" variant="outline" asChild>
