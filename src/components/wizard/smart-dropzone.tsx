@@ -17,7 +17,7 @@ export function SmartDropzone({ onTextExtracted, className, label = "Drag 'n' dr
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const extractTextFromFile = async (file: File): Promise<string> => {
+  const extractTextFromFile = useCallback(async (file: File): Promise<string> => {
     const extension = file.name.split(".").pop()?.toLowerCase();
     const reader = new FileReader();
 
@@ -57,7 +57,7 @@ export function SmartDropzone({ onTextExtracted, className, label = "Drag 'n' dr
       reader.onerror = () => reject("Failed to read file.");
       reader.readAsText(file);
     });
-  };
+  }, [toast]);
 
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
@@ -85,7 +85,7 @@ export function SmartDropzone({ onTextExtracted, className, label = "Drag 'n' dr
         });
       }
     },
-    [onTextExtracted, toast]
+    [onTextExtracted, toast, extractTextFromFile]
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({

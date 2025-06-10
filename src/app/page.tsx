@@ -16,13 +16,21 @@ export default function HomePage() {
       </p>
       <div className="flex flex-col sm:flex-row gap-4">
         <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
-          <Link href="/login"> {/* Changed href to /login */}
-            <LogIn className="mr-2 h-5 w-5" /> {/* Changed icon */}
-            Login / Get Started {/* Changed text */}
+          <Link 
+            href="/login"
+            id="home-login-button"
+            data-testid="home-login-button"
+          >
+            <LogIn className="mr-2 h-5 w-5" />
+            Login / Get Started
           </Link>
         </Button>
         <Button size="lg" variant="outline" asChild>
-          <Link href="/dashboard">
+          <Link 
+            href="/dashboard"
+            id="home-demo-button"
+            data-testid="home-demo-button"
+          >
             <PlayCircle className="mr-2 h-5 w-5" />
             Try Demo
           </Link>

@@ -120,7 +120,8 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         handleRunStage(stage.id, stageState.userInput);
       }
     });
-  }, [instance.stageStates]); 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [instance.stageStates, instance.workflow.stages]); 
 
 
   useEffect(() => {
@@ -184,7 +185,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     // toast({ title: "Input Updated", description: `Input for stage "${instance.workflow.stages.find(s=>s.id===stageId)?.title}" is being updated.`});
   };
 
-  const handleRunStage = async (stageId: string, currentInput?: any) => {
+  const handleRunStage = useCallback(async (stageId: string, currentInput?: any) => {
     const stage = instance.workflow.stages.find(s => s.id === stageId);
     if (!stage) return;
 
@@ -229,7 +230,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     try {
       const result = await runAiStage({
         promptTemplate: stage.promptTemplate,
-        model: stage.model || "gemini-2.0-flash",
+        model: stage.model || "googleai/gemini-2.0-flash-exp",
         temperature: stage.temperature || 0.7,
         contextVars: contextVars,
         currentStageInput: stageInputForRun, 
@@ -254,7 +255,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       updateStageState(stageId, { status: "error", error: error.message || "AI processing failed." });
       toast({ title: "AI Stage Error", description: error.message || "An error occurred.", variant: "destructive" });
     }
-  };
+  }, [instance.workflow.stages, instance.stageStates, updateStageState, toast]);
 
   const handleSkipStage = (stageId: string) => {
     updateStageState(stageId, { status: "skipped", completedAt: new Date().toISOString(), output: undefined, userInput: undefined, isEditingOutput: false });
@@ -320,14 +321,14 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
 
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h1 
-        className="text-3xl font-bold font-headline mb-2"
+        className="text-2xl md:text-3xl font-bold font-headline mb-2"
         data-testid="wizard-page-title"
       >
         {pageTitle}
       </h1>
-      <p className="text-muted-foreground mb-1">Workflow: {instance.workflow.name}</p>
+      <p className="text-sm md:text-base text-muted-foreground mb-1">Workflow: {instance.workflow.name}</p>
       <div className="mb-6">
         <div className="flex justify-between text-sm text-muted-foreground mb-1">
             <span>Progress</span>
@@ -374,7 +375,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
           <Info className="h-5 w-5 text-blue-600 dark:text-blue-400" />
           <AlertTitle className="text-blue-700 dark:text-blue-300 font-headline">Next Steps</AlertTitle>
           <AlertDescription className="text-blue-600 dark:text-blue-500">
-            Please complete the preceding stages to unlock '{instance.workflow.stages.find(s => s.id === currentStageId)?.title}'.
+            Please complete the preceding stages to unlock &apos;{instance.workflow.stages.find(s => s.id === currentStageId)?.title}&apos;.
           </AlertDescription>
         </Alert>
       )}
@@ -383,7 +384,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
           <FileWarning className="h-5 w-5 text-amber-600 dark:text-amber-400" />
           <AlertTitle className="text-amber-700 dark:text-amber-300 font-headline">Output May Be Stale</AlertTitle>
           <AlertDescription className="text-amber-600 dark:text-amber-500">
-            The input or dependencies for stage '{instance.workflow.stages.find(s => s.id === currentStageId)?.title}' have changed. You may want to re-run or review its output.
+            The input or dependencies for stage &apos;{instance.workflow.stages.find(s => s.id === currentStageId)?.title}&apos; have changed. You may want to re-run or review its output.
           </AlertDescription>
         </Alert>
       )}
@@ -407,13 +408,13 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         />
       ))}
 
-      <div className="mt-8 flex justify-end">
+      <div className="mt-8 flex justify-center md:justify-end">
         <Button 
           variant="default" 
           size="lg" 
           disabled={!isWizardCompleted}
           onClick={handleFinalizeDocument}
-          className="bg-accent hover:bg-accent/90 text-accent-foreground"
+          className="bg-accent hover:bg-accent/90 text-accent-foreground w-full md:w-auto"
           id="finalize-document-button"
           data-testid="finalize-document-button"
         >

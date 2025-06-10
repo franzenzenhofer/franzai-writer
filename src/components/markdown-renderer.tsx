@@ -18,9 +18,11 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
         h1: ({node, ...props}) => <h1 className="font-headline" {...props} />,
         h2: ({node, ...props}) => <h2 className="font-headline" {...props} />,
         h3: ({node, ...props}) => <h3 className="font-headline" {...props} />,
-        code: ({node, inline, className, children, ...props}) => {
+        code: ({className, children, ...props}: any) => {
           const match = /language-(\w+)/.exec(className || '')
-          return !inline && match ? (
+          const isInlineCode = !props.node?.parent || props.node.parent.type !== 'pre'
+          
+          return !isInlineCode && match ? (
             <pre className={cn(className, "font-code bg-muted p-4 rounded-md overflow-x-auto")} {...props}>
               <code>{String(children).replace(/\n$/, '')}</code>
             </pre>

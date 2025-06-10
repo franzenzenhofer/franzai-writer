@@ -149,7 +149,11 @@ export function StageCard({
   const dependencyMessage = getDependencyMessage();
 
   return (
-    <Card id={`stage-${stage.id}`} className={cardClasses}>
+    <Card 
+      id={`stage-${stage.id}`} 
+      data-testid={`stage-card-${stage.id}`}
+      className={cardClasses}
+    >
       {dependencyMessage && (
         <div className="px-6 pt-4 pb-2 text-center">
           <Badge variant="secondary" className="text-sm whitespace-normal">
@@ -186,10 +190,28 @@ export function StageCard({
         )}
 
         {stage.inputType === 'none' && stageState.status === 'idle' && !dependencyMessage && (
-             <p className="text-sm text-muted-foreground">This stage is processed by AI. Click "Run AI" to generate content.</p>
+             <p className="text-sm text-muted-foreground">This stage is processed by AI. Click &quot;Run AI&quot; to generate content.</p>
         )}
 
-        {(stageState.status === "completed" || stageState.status === 'error' || stageState.status === 'running') && stageState.output !== undefined && (
+        {stageState.status === "running" && (
+          <div className="space-y-3">
+            <h4 className="text-sm font-medium mb-2 text-muted-foreground">Generating...</h4>
+            <div className="bg-muted/30 rounded-lg p-4 space-y-3">
+              <div className="flex items-center gap-3">
+                <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                <span className="text-sm text-muted-foreground">AI is processing your request...</span>
+              </div>
+              <div className="space-y-2">
+                <div className="h-2 bg-muted rounded-full overflow-hidden">
+                  <div className="h-full bg-primary/50 rounded-full animate-pulse" style={{ width: '60%' }} />
+                </div>
+                <p className="text-xs text-muted-foreground">This may take a few moments</p>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {(stageState.status === "completed" || stageState.status === 'error') && stageState.output !== undefined && (
            <div>
             <h4 className="text-sm font-medium mb-2 text-muted-foreground">Output:</h4>
             <StageOutputArea 
@@ -207,13 +229,25 @@ export function StageCard({
       </CardContent>
       <CardFooter className="flex justify-end gap-2 items-center flex-wrap">
         {stage.isOptional && stageState.status === "idle" && onSkipStage && !dependencyMessage && (
-          <Button variant="ghost" size="sm" onClick={() => onSkipStage(stage.id)}>
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={() => onSkipStage(stage.id)}
+            id={`skip-stage-${stage.id}`}
+            data-testid={`skip-stage-${stage.id}`}
+          >
             <SkipForward className="mr-2 h-4 w-4" /> Skip Stage
           </Button>
         )}
 
         {showInputRelatedButtons && !dependencyMessage && (
-          <Button variant="outline" size="sm" onClick={handleEditInputClick}>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={handleEditInputClick}
+            id={`edit-input-${stage.id}`}
+            data-testid={`edit-input-${stage.id}`}
+          >
             <Edit className="mr-2 h-4 w-4" /> Edit Input
           </Button>
         )}
@@ -221,20 +255,44 @@ export function StageCard({
         {showOutputRelatedButtons && !stageState.isEditingOutput && !dependencyMessage && (
           <>
             {stage.promptTemplate && ( 
-              <Button variant="outline" size="sm" onClick={() => onRunStage(stage.id, stageState.userInput)}>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={() => onRunStage(stage.id, stageState.userInput)}
+                id={`ai-redo-${stage.id}`}
+                data-testid={`ai-redo-${stage.id}`}
+              >
                 <RotateCcw className="mr-2 h-4 w-4" /> AI Redo
               </Button>
             )}
-            <Button variant="outline" size="sm" onClick={handleEditOutputClick}>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handleEditOutputClick}
+              id={`edit-output-${stage.id}`}
+              data-testid={`edit-output-${stage.id}`}
+            >
               <Edit className="mr-2 h-4 w-4" /> Edit Output
             </Button>
-            <Button variant="default" size="sm" onClick={handleAcceptAndContinue}>
+            <Button 
+              variant="default" 
+              size="sm" 
+              onClick={handleAcceptAndContinue}
+              id={`accept-continue-${stage.id}`}
+              data-testid={`accept-continue-${stage.id}`}
+            >
               <Check className="mr-2 h-4 w-4" /> Accept &amp; Continue
             </Button>
           </>
         )}
         {showOutputRelatedButtons && stageState.isEditingOutput && !dependencyMessage && (
-             <Button variant="default" size="sm" onClick={handleSaveOutputEdits}>
+             <Button 
+               variant="default" 
+               size="sm" 
+               onClick={handleSaveOutputEdits}
+               id={`save-output-${stage.id}`}
+               data-testid={`save-output-${stage.id}`}
+             >
                 <Save className="mr-2 h-4 w-4" /> Save Output Edits
             </Button>
         )}
@@ -245,6 +303,8 @@ export function StageCard({
             onClick={handlePrimaryAction} 
             disabled={!canRun || stageState.status === "running"}
             className="bg-accent hover:bg-accent/90 text-accent-foreground"
+            id={`process-stage-${stage.id}`}
+            data-testid={`process-stage-${stage.id}`}
           >
             {stageState.status === "running" ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

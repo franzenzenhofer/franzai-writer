@@ -75,7 +75,7 @@ export async function updateDocument(
   documentId: string,
   updates: Partial<{
     title: string;
-    status: 'draft' | 'completed';
+    status: 'draft' | 'in-progress' | 'completed';
     stageStates: Record<string, StageState>;
     metadata: {
       wordCount?: number;

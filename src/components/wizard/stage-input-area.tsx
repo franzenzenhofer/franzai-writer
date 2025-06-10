@@ -209,7 +209,7 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
               <ShadFormField
                 key={field.name}
                 control={form.control}
-                name={field.name as any} 
+                name={field.name as keyof z.infer<typeof formSchema>} 
                 render={({ field: controllerField }) => {
                   // When the controller field value changes, we directly call onFormSubmit
                   // to update the central WizardShell state. This makes the "Save Input" button redundant.

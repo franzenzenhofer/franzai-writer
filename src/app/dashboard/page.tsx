@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -134,14 +134,7 @@ export default function DashboardPage() {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [documentToDelete, setDocumentToDelete] = useState<string | null>(null);
 
-  // Load user documents when authenticated
-  useEffect(() => {
-    if (user && !authLoading) {
-      loadDocuments();
-    }
-  }, [user, authLoading]);
-
-  const loadDocuments = async () => {
+  const loadDocuments = useCallback(async () => {
     if (!user) return;
     
     setDocumentsLoading(true);
@@ -158,7 +151,14 @@ export default function DashboardPage() {
     } finally {
       setDocumentsLoading(false);
     }
-  };
+  }, [user, toast]);
+
+  // Load user documents when authenticated
+  useEffect(() => {
+    if (user && !authLoading) {
+      loadDocuments();
+    }
+  }, [user, authLoading, loadDocuments]);
 
   const handleDeleteDocument = async (documentId: string) => {
     setDocumentToDelete(documentId);
@@ -205,7 +205,7 @@ export default function DashboardPage() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {allWorkflows.map(workflow => (
               <WorkflowSelectionCard key={workflow.id} workflow={workflow} />
             ))}
@@ -240,7 +240,7 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
         ) : documentsLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {[1, 2, 3].map((i) => (
               <Card key={i} className="space-y-3 p-6">
                 <Skeleton className="h-6 w-3/4" />
@@ -254,11 +254,11 @@ export default function DashboardPage() {
             <FileText className="mx-auto h-16 w-16 text-muted-foreground" />
             <h3 className="mt-4 text-2xl font-semibold font-headline">No documents yet</h3>
             <p className="mt-2 text-base text-muted-foreground">
-              Start creating documents and they'll appear here.
+              Start creating documents and they&apos;ll appear here.
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {documents.map((doc) => (
               <DocumentCard
                 key={doc.id}
