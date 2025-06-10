@@ -1,7 +1,8 @@
+
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "WizardCraft AI",
+  name: "Franz AI Writer",
   description:
     "Generate documents using an AI-powered, multi-step wizard.",
   mainNav: [
@@ -11,6 +12,6 @@ export const siteConfig = {
     },
   ],
   links: {
-    github: "https://github.com/your-repo/wizardcraft-ai", // Replace with actual link
+    github: "https://github.com/your-repo/franz-ai-writer", // Updated placeholder
   },
 };

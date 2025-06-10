@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
@@ -7,7 +8,7 @@ import { AppProviders } from '@/components/layout/app-providers';
 
 
 export const metadata: Metadata = {
-  title: 'WizardCraft AI',
+  title: 'Franz AI Writer',
   description: 'Generate documents using an AI-powered, multi-step wizard.',
 };
 

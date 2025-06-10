@@ -1,4 +1,5 @@
 
+
 import { WizardShell } from "@/components/wizard/wizard-shell";
 import { getWorkflowById } from "@/lib/workflow-loader"; // Updated import
 import { notFound } from "next/navigation";
@@ -7,6 +8,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { AlertCircle } from "lucide-react";
 import { CreateNewDocumentDialog } from "@/components/wizard/create-new-document-dialog";
+import { siteConfig } from "@/config/site";
 
 
 export default function WizardPage({ params }: { params: { pageId: string } }) {
@@ -71,7 +73,7 @@ export default function WizardPage({ params }: { params: { pageId: string } }) {
     };
     
     if (typeof document !== 'undefined') { 
-      document.title = `${dynamicTitle} - WizardCraft AI`;
+      document.title = `${dynamicTitle} - ${siteConfig.name}`;
     }
 
   } else {
@@ -100,7 +102,7 @@ export default function WizardPage({ params }: { params: { pageId: string } }) {
   }
   
   if (typeof document !== 'undefined' && !params.pageId.startsWith("_new_")) {
-      document.title = `${wizardInstance.document.title} - WizardCraft AI`;
+      document.title = `${wizardInstance.document.title} - ${siteConfig.name}`;
   }
 
   return <WizardShell initialInstance={wizardInstance} />;

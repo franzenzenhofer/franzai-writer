@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import React, { useState, useEffect, useCallback } from 'react';
@@ -11,6 +12,7 @@ import { AlertTriangle, Check, Info, Lightbulb, DownloadCloud } from 'lucide-rea
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
 import { FinalDocumentDialog } from './final-document-dialog';
+import { siteConfig } from '@/config/site';
 
 interface WizardShellProps {
   initialInstance: WizardInstance;
@@ -131,7 +133,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         if (newTitle && newTitle.length > 0 && newTitle.length < 150) { // Increased length limit
             setPageTitle(newTitle);
             if (typeof document !== 'undefined') {
-                document.title = `${newTitle} - WizardCraft AI`;
+                document.title = `${newTitle} - ${siteConfig.name}`;
             }
             setInstance(prev => ({
                 ...prev,
@@ -160,7 +162,8 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     const stage = instance.workflow.stages.find(s => s.id === stageId);
     if (!stage) return;
 
-    if (stageState.depsAreMet === false) {
+    const currentStageState = instance.stageStates[stageId];
+    if (currentStageState.depsAreMet === false) {
       toast({ title: "Dependencies Not Met", description: `Please complete previous stages before running "${stage.title}".`, variant: "default" });
       return;
     }
@@ -257,10 +260,10 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       return;
     }
     // Determine the ID of the stage that produces the final document content.
-    // This might need to be configurable per workflow.
-    // For "Targeted Page SEO", it's "full-draft-generation".
-    // For "Recipe SEO", it's "full-recipe-compilation".
-    let finalContentStageId = "full-draft-generation"; // Default
+    let finalContentStageId = instance.workflow.stages[instance.workflow.stages.length -1].id; // Default to last stage
+    if (instance.workflow.id === "targeted-page-seo-optimized-v3") {
+      finalContentStageId = "full-draft-generation";
+    }
     if (instance.workflow.id === "recipe-seo-optimized") {
       finalContentStageId = "full-recipe-compilation";
     }

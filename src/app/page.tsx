@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { BrainCircuit, Zap } from "lucide-react";
@@ -26,7 +27,7 @@ export default function HomePage() {
         </div>
         <div className="flex flex-col items-center p-6 border rounded-lg shadow-sm bg-card">
           <h3 className="text-xl font-semibold font-headline mb-2">Powerful AI</h3>
-          <p className="text-sm text-muted-foreground">Leverage OpenAI and Gemini models for drafting, analysis, and refinement.</p>
+          <p className="text-sm text-muted-foreground">Leverage Gemini models for drafting, analysis, and refinement.</p>
         </div>
         <div className="flex flex-col items-center p-6 border rounded-lg shadow-sm bg-card">
           <h3 className="text-xl font-semibold font-headline mb-2">Seamless Experience</h3>
