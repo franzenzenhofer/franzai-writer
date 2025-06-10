@@ -4,34 +4,34 @@
 
 @layer base {
   :root {
-    --background: 210 20% 95%; /* Light Blue */
-    --foreground: 210 20% 15%; /* Dark Blue-Gray */
+    --background: 210 17% 97%; /* Very light gray, Google Docs page feel */
+    --foreground: 220 10% 25%; /* Dark gray for text */
 
-    --muted: 210 20% 85%;
-    --muted-foreground: 210 20% 45%;
+    --muted: 210 20% 88%;
+    --muted-foreground: 220 10% 45%;
 
-    --popover: 210 20% 98%;
-    --popover-foreground: 210 20% 15%;
+    --popover: 0 0% 100%; /* White popovers */
+    --popover-foreground: 220 10% 20%;
 
-    --card: 210 20% 98%;
-    --card-foreground: 210 20% 15%;
+    --card: 0 0% 100%; /* White cards */
+    --card-foreground: 220 10% 20%;
 
-    --border: 210 15% 88%;
-    --input: 210 15% 88%;
+    --border: 210 15% 85%; /* Subtle border */
+    --input: 210 15% 90%; /* Input field background */
 
-    --primary: 210 60% 50%; /* Moderate Blue */
+    --primary: 217 82% 52%; /* Google Blue */
     --primary-foreground: 0 0% 100%; /* White */
 
-    --secondary: 210 30% 80%;
-    --secondary-foreground: 210 60% 30%;
+    --secondary: 210 20% 92%; /* Light gray for secondary elements */
+    --secondary-foreground: 217 82% 40%; /* Darker blue text on secondary */
 
-    --accent: 180 70% 40%; /* Cyan */
-    --accent-foreground: 0 0% 100%; /* White */
+    --accent: 217 82% 90%; /* Lighter primary blue for hover/accent */
+    --accent-foreground: 217 82% 30%; /* Darker blue text for on-accent */
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --ring: 210 60% 50%;
+    --ring: 217 82% 52%; /* Ring focus color same as primary */
 
     --radius: 0.5rem;
 
@@ -41,45 +41,46 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
 
-    --sidebar-background: 210 20% 92%;
-    --sidebar-foreground: 210 20% 25%;
-    --sidebar-primary: 210 60% 50%;
+    --sidebar-background: 210 20% 95%; /* Keep sidebar slightly distinct or align with new theme */
+    --sidebar-foreground: 220 10% 25%;
+    --sidebar-primary: 217 82% 52%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 180 70% 40%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 210 15% 85%;
-    --sidebar-ring: 210 60% 50%;
+    --sidebar-accent: 217 82% 90%;
+    --sidebar-accent-foreground: 217 82% 30%;
+    --sidebar-border: 210 15% 88%;
+    --sidebar-ring: 217 82% 52%;
   }
 
   .dark {
-    --background: 210 20% 10%; /* Dark Blue-Gray */
-    --foreground: 210 20% 95%; /* Light Blue-Gray */
+    /* Dark theme adjustments for Google Docs like feel would typically involve darker grays and blues */
+    --background: 220 15% 12%; /* Dark background */
+    --foreground: 210 17% 85%; /* Light text */
 
-    --muted: 210 20% 20%;
-    --muted-foreground: 210 20% 65%;
+    --muted: 220 15% 20%;
+    --muted-foreground: 210 17% 65%;
 
-    --popover: 210 20% 5%;
-    --popover-foreground: 210 20% 95%;
+    --popover: 220 15% 10%;
+    --popover-foreground: 210 17% 85%;
 
-    --card: 210 20% 7%;
-    --card-foreground: 210 20% 95%;
+    --card: 220 15% 15%; /* Darker cards */
+    --card-foreground: 210 17% 85%;
 
-    --border: 210 15% 25%;
-    --input: 210 15% 25%;
+    --border: 220 15% 25%;
+    --input: 220 15% 22%;
 
-    --primary: 210 60% 55%; /* Brighter Blue */
-    --primary-foreground: 0 0% 100%; /* White */
+    --primary: 217 75% 60%; /* Slightly brighter Google Blue for dark mode */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 30% 30%;
-    --secondary-foreground: 210 20% 85%;
+    --secondary: 220 15% 25%;
+    --secondary-foreground: 210 17% 75%;
 
-    --accent: 180 70% 50%; /* Brighter Cyan */
-    --accent-foreground: 210 100% 5%; /* Dark text for contrast */
+    --accent: 217 75% 30%; /* Darker accent for dark mode */
+    --accent-foreground: 210 17% 85%;
 
     --destructive: 0 63% 40%;
     --destructive-foreground: 0 0% 100%;
 
-    --ring: 210 60% 55%;
+    --ring: 217 75% 60%;
 
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
@@ -87,14 +88,14 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
 
-    --sidebar-background: 210 20% 12%;
-    --sidebar-foreground: 210 20% 88%;
-    --sidebar-primary: 210 60% 55%;
+    --sidebar-background: 220 15% 14%;
+    --sidebar-foreground: 210 17% 80%;
+    --sidebar-primary: 217 75% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 180 70% 50%;
-    --sidebar-accent-foreground: 210 100% 5%;
-    --sidebar-border: 210 15% 28%;
-    --sidebar-ring: 210 60% 55%;
+    --sidebar-accent: 217 75% 30%;
+    --sidebar-accent-foreground: 210 17% 85%;
+    --sidebar-border: 220 15% 28%;
+    --sidebar-ring: 217 75% 60%;
   }
 }
 
