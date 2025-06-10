@@ -45,7 +45,7 @@ export const targetedPageSeoOptimizedV3: Workflow = {
       title: "Content Angle Identification",
       description: "Based on your topic and audience, the AI will suggest unique content angles.",
       inputType: "none", // AI generated
-      promptTemplate: "Given the topic '{{topic-definition.output}}' and target audience described as {{audience-analysis.output}}, suggest 3 unique content angles. Competitor research context: {{competitor-research.output}}. Format your response as a JSON object with a single key 'angles', which is an array of 3 strings representing the content angles.",
+      promptTemplate: "Given the topic '{{topic-definition.output}}' and target audience described as {{audience-analysis.output}}, suggest 3 unique content angles. Competitor research context: {{competitor-research.output}}. Format your response as a JSON object with a single key 'angles', which is an array of 3 strings representing the content angles. Ensure the output is valid JSON.",
       model: "gemini-2.0-flash",
       temperature: 0.7,
       outputType: "json", // Expecting { angles: ["angle1", "angle2", "angle3"] }
@@ -60,7 +60,7 @@ export const targetedPageSeoOptimizedV3: Workflow = {
       formFields: [
         { name: "chosenAngle", label: "Select Content Angle", type: "select", options: [], placeholder: "Select one of the generated angles" } // Options populated from content-angle output
       ],
-      promptTemplate: "Generate 5 SEO-friendly page titles for a page about '{{topic-definition.output}}' with the content angle: '{{page-title-generation.userInput.chosenAngle}}'. Format your response as a JSON object with a single key 'titles', which is an array of 5 strings representing the page titles.",
+      promptTemplate: "Generate 5 SEO-friendly page titles for a page about '{{topic-definition.output}}' with the content angle: '{{page-title-generation.userInput.chosenAngle}}'. Format your response as a JSON object with a single key 'titles', which is an array of 5 strings representing the page titles. Ensure the output is valid JSON.",
       model: "gemini-2.0-flash",
       temperature: 0.8,
       outputType: "json", // Expecting { titles: ["title1", ...] }
@@ -126,82 +126,12 @@ export const mockWorkflows: Workflow[] = [
   }
 ];
 
-export const mockDocuments: WizardDocument[] = [
-  {
-    id: "doc-1",
-    title: "My First AI Document",
-    workflowId: "targeted-page-seo-optimized-v3",
-    status: "in-progress",
-    createdAt: new Date(Date.now() - 86400000 * 2).toISOString(), // 2 days ago
-    updatedAt: new Date(Date.now() - 3600000).toISOString(), // 1 hour ago
-    userId: "user-123",
-  },
-  {
-    id: "doc-2",
-    title: "Quick Blog Post Idea",
-    workflowId: "simple-blog-post",
-    status: "draft",
-    createdAt: new Date(Date.now() - 86400000).toISOString(), // 1 day ago
-    updatedAt: new Date(Date.now() - 7200000).toISOString(), // 2 hours ago
-    userId: "user-123",
-  },
-  {
-    id: "doc-3",
-    title: "Exploring Advanced SEO",
-    workflowId: "targeted-page-seo-optimized-v3",
-    status: "completed",
-    createdAt: new Date(Date.now() - 86400000 * 5).toISOString(), // 5 days ago
-    updatedAt: new Date(Date.now() - 86400000 * 3).toISOString(), // 3 days ago
-    userId: "user-123",
-  },
-];
-
+// mockDocuments array has been removed as per user request.
 
 export const getMockWizardInstance = (documentId: string): WizardInstance | undefined => {
-  const doc = mockDocuments.find(d => d.id === documentId);
-  if (!doc) return undefined;
-
-  const workflow = mockWorkflows.find(w => w.id === doc.workflowId);
-  if (!workflow) return undefined;
-
-  const initialStageStates: Record<string, StageState> = {};
-  workflow.stages.forEach(stage => {
-    initialStageStates[stage.id] = {
-      stageId: stage.id,
-      status: "idle",
-      userInput: stage.formFields ? Object.fromEntries(stage.formFields.map(f => [f.name, f.defaultValue ?? (f.type === 'checkbox' ? false : '')])) : undefined,
-    };
-  });
-  
-  // Example of pre-filled data for doc-1's user inputs, but NOT AI outputs
-  if (doc.id === "doc-1") {
-    initialStageStates["topic-definition"] = {
-      stageId: "topic-definition",
-      userInput: "Sustainable Urban Gardening",
-      output: "Sustainable Urban Gardening", // This is user input echoed as output for non-AI stage
-      status: "completed",
-      completedAt: new Date(Date.now() - 200000).toISOString(),
-    };
-    initialStageStates["audience-analysis"] = {
-        stageId: "audience-analysis",
-        userInput: { demographics: "Urban dwellers, 25-45, small spaces", interests: "Sustainability, fresh food, home decor", knowledgeLevel: "beginner" },
-        output: { demographics: "Urban dwellers, 25-45, small spaces", interests: "Sustainability, fresh food, home decor", knowledgeLevel: "beginner" }, // User input echoed
-        status: "completed",
-        completedAt: new Date(Date.now() - 100000).toISOString(),
-    };
-    // content-angle is AI driven, so it starts as 'idle' or 'pending deps'
-    // Remove any pre-filled 'output' for AI stages like content-angle
-     initialStageStates["content-angle"] = {
-        stageId: "content-angle",
-        status: "idle", // Will auto-run if dependencies are met
-    };
-  }
-
-
-  return {
-    document: doc,
-    workflow,
-    stageStates: initialStageStates,
-  };
+  // Since mockDocuments is removed, this function can no longer find any pre-existing mock documents.
+  // It's kept for structural purposes if a real data source is connected later,
+  // but for now, it will always return undefined for specific document IDs.
+  // The logic for creating a NEW instance (`_new_` prefixed IDs) is handled directly in the [pageId]/page.tsx.
+  return undefined;
 };
-

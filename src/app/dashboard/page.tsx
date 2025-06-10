@@ -1,7 +1,8 @@
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { mockDocuments, mockWorkflows } from "@/lib/mock-data"; // Assuming mock data for now
+import { mockWorkflows } from "@/lib/mock-data"; // Keep mockWorkflows for workflow definitions
 import type { WizardDocument } from "@/types";
 import { PlusCircle, FileText, Edit3, Trash2, Copy } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -44,15 +45,14 @@ function DocumentCard({ document }: { document: WizardDocument }) {
 }
 
 export default function DashboardPage() {
-  const documents = mockDocuments; // Replace with actual data fetching
+  const documents: WizardDocument[] = []; // Initialize with an empty array as mockDocuments is removed
 
   return (
     <div className="space-y-8">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold font-headline">Dashboard</h1>
-        {/* This button would ideally open a modal or navigate to a creation page */}
         <Button asChild> 
-          <Link href="/wizard/new"> {/* Assuming /wizard/new initiates document creation */}
+          <Link href="/wizard/new">
             <PlusCircle className="mr-2 h-5 w-5" /> Create New Document
           </Link>
         </Button>
