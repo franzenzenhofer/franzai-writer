@@ -1,6 +1,7 @@
 "use client";
 
-import type { Stage, FormField, StageState } from "@/types";
+import * as React from "react";
+import type { Stage, FormField, StageState, FormFieldOption } from "@/types";
 import { Textarea } from "@/components/ui/textarea";
 import { SmartDropzone } from "./smart-dropzone";
 import { TokenCounter } from "./token-counter";
