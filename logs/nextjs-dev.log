@@ -1767,3 +1767,75 @@ Error loading document: [Error [FirebaseError]: Missing or insufficient permissi
  GET /dashboard 200 in 69ms
  ✓ Compiled in 12ms
  GET /dashboard 200 in 99ms
+Debugger listening on ws://127.0.0.1:9230/8bee84e0-1f2f-4d97-8805-19308af5820b
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 700ms
+ ○ Compiling /dashboard ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled /dashboard in 1508ms
+ GET /dashboard 200 in 1800ms
+ ✓ Compiled /favicon.ico in 206ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 462ms
+ ○ Compiling /w/[shortName]/new ...
+ ✓ Compiled /w/[shortName]/new in 653ms
+ GET /w/article/new 200 in 889ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+ ✓ Compiled /w/[shortName]/[documentId] in 2.3s
+ GET /w/article/mbqola8awm1a279 200 in 3370ms
+ GET /w/article/mbqola8awm1a279 200 in 325ms
