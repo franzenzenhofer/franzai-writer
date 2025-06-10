@@ -1,5 +1,4 @@
 
-import { WizardShell } from "@/components/wizard/wizard-shell";
 import { getWorkflowById, allWorkflows } from "@/lib/workflow-loader";
 import { notFound } from "next/navigation";
 import type { WizardDocument, WizardInstance, StageState, Workflow } from "@/types";
@@ -8,10 +7,12 @@ import { Button } from "@/components/ui/button";
 import { AlertCircle, FileText, ArrowRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { Card, CardHeader, CardTitle, CardDescription, CardFooter, CardContent } from "@/components/ui/card";
+import { WizardPageContent } from "./wizard-page-content";
 
-export default function WizardPage({ params }: { params: { pageId: string } }) {
+export default async function WizardPage({ params }: { params: Promise<{ pageId: string }> }) {
+  const { pageId } = await params;
   
-  if (params.pageId === "new") {
+  if (pageId === "new") {
     return (
       <div className="space-y-8">
         <div className="text-center">
@@ -58,8 +59,8 @@ export default function WizardPage({ params }: { params: { pageId: string } }) {
   let wizardInstance: WizardInstance | undefined;
   let dynamicTitle = "New Document"; 
 
-  if (params.pageId.startsWith("_new_")) {
-    const workflowId = params.pageId.substring("_new_".length);
+  if (pageId.startsWith("_new_")) {
+    const workflowId = pageId.substring("_new_".length);
     const workflow = getWorkflowById(workflowId); 
 
     if (!workflow) {
@@ -131,10 +132,10 @@ export default function WizardPage({ params }: { params: { pageId: string } }) {
     );
   }
   
-  if (typeof document !== 'undefined' && !params.pageId.startsWith("_new_")) {
+  if (typeof document !== 'undefined' && !pageId.startsWith("_new_")) {
       document.title = `${wizardInstance.document.title} - ${siteConfig.name}`;
   }
 
-  return <WizardShell initialInstance={wizardInstance} />;
+  return <WizardPageContent initialInstance={wizardInstance} />;
 }
 
