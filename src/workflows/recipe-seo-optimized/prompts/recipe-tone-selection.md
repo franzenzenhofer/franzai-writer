@@ -1,0 +1,1 @@
+This stage is for user input (recipe tone selection) via a form and does not use an AI prompt.

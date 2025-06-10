@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,18 +14,26 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { mockWorkflows } from "@/lib/mock-data"; // Assuming mockWorkflows is fine to list available workflows
+import { mockWorkflows } from "@/lib/mock-data"; // This now loads from workflow-loader
 
 export function CreateNewDocumentDialog() {
-  const [selectedWorkflowId, setSelectedWorkflowId] = useState<string>(mockWorkflows[0]?.id || "");
+  const [availableWorkflows, setAvailableWorkflows] = useState<typeof mockWorkflows>([]);
+  const [selectedWorkflowId, setSelectedWorkflowId] = useState<string>("");
 
-  // Fallback if mockWorkflows is empty or selectedWorkflowId is not set initially
+  useEffect(() => {
+    // mockWorkflows is now sourced from workflow-loader.ts
+    setAvailableWorkflows(mockWorkflows);
+    if (mockWorkflows.length > 0 && !selectedWorkflowId) {
+      setSelectedWorkflowId(mockWorkflows[0].id);
+    }
+  }, [selectedWorkflowId]);
+
+
   const linkHref = selectedWorkflowId ? `/wizard/_new_${selectedWorkflowId}` : "/dashboard"; 
   const canProceed = !!selectedWorkflowId;
 
   return (
     <Dialog defaultOpen>
-      {/* DialogTrigger is not needed here as defaultOpen is true */}
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="font-headline">Choose a Workflow</DialogTitle>
@@ -41,13 +49,13 @@ export function CreateNewDocumentDialog() {
             <Select 
               value={selectedWorkflowId} 
               onValueChange={setSelectedWorkflowId}
-              disabled={mockWorkflows.length === 0}
+              disabled={availableWorkflows.length === 0}
             >
               <SelectTrigger id="workflow-select" className="col-span-3">
                 <SelectValue placeholder="Select a workflow" />
               </SelectTrigger>
               <SelectContent>
-                {mockWorkflows.map(wf => (
+                {availableWorkflows.map(wf => (
                   <SelectItem key={wf.id} value={wf.id}>{wf.name}</SelectItem>
                 ))}
               </SelectContent>
@@ -59,7 +67,7 @@ export function CreateNewDocumentDialog() {
             <Link href={linkHref}>Start with Selected Workflow</Link>
           </Button>
         </DialogFooter>
-        {!canProceed && mockWorkflows.length === 0 && (
+        {!canProceed && availableWorkflows.length === 0 && (
             <p className="text-xs text-destructive text-center col-span-full">No workflows available to create a document.</p>
         )}
       </DialogContent>

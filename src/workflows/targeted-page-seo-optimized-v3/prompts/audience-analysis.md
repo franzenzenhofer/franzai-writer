@@ -1,0 +1,1 @@
+This stage involves user input via a form and does not directly use this file for an AI prompt template. The form data is used by other AI stages.

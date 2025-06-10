@@ -10,7 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import { AlertTriangle, Check, Info, Lightbulb, DownloadCloud } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
-import { FinalDocumentDialog } from './final-document-dialog'; // New Import
+import { FinalDocumentDialog } from './final-document-dialog';
 
 interface WizardShellProps {
   initialInstance: WizardInstance;
@@ -21,7 +21,6 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   const { toast } = useToast();
   const [pageTitle, setPageTitle] = useState(initialInstance.document.title);
 
-  // Final Document Dialog State
   const [isFinalizeDialogOpen, setIsFinalizeDialogOpen] = useState(false);
   const [finalDocumentContent, setFinalDocumentContent] = useState("");
   const [hasFinalizedOnce, setHasFinalizedOnce] = useState(false);
@@ -63,7 +62,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       }
 
       const shouldAutoRun = stage.autoRun && depsMet && currentState.status === 'idle';
-      const shouldShowUpdateBadge = isStale; // Simplified logic
+      const shouldShowUpdateBadge = isStale && currentState.status === 'completed'; // Only show update badge if completed and stale
 
       if (
         currentState.depsAreMet !== depsMet ||
@@ -96,11 +95,12 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   useEffect(() => {
     instance.workflow.stages.forEach(stage => {
       const stageState = instance.stageStates[stage.id];
-      if (stageState.shouldAutoRun && stageState.status === 'idle') {
+      if (stageState.shouldAutoRun && stageState.status === 'idle' && stageState.depsAreMet) {
         handleRunStage(stage.id, stageState.userInput);
       }
     });
-  }, [instance.stageStates, instance.workflow.stages]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [instance.stageStates]); // Dependencies intentionally limited to instance.stageStates
 
 
   useEffect(() => {
@@ -109,21 +109,26 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       const titleStageState = instance.stageStates[titleStageId];
       if (titleStageState?.status === 'completed' && titleStageState.output) {
         let newTitle = "";
+        // Handle direct string output (e.g., from dish-name)
         if (typeof titleStageState.output === 'string') {
             newTitle = titleStageState.output;
-        } else if (Array.isArray(titleStageState.output.titles) && titleStageState.output.titles.length > 0) {
-            const chosenTitleField = instance.workflow.stages.find(s => s.id === 'outline-creation')?.formFields?.find(f => f.name === 'chosenTitle');
+        } 
+        // Handle output from page-title-generation (object with a 'titles' array)
+        else if (titleStageId === "page-title-generation" && typeof titleStageState.output === 'object' && titleStageState.output !== null && Array.isArray(titleStageState.output.titles) && titleStageState.output.titles.length > 0) {
+            // Check if a title was chosen in a subsequent form (e.g., outline-creation)
             const outlineStageUserInput = instance.stageStates['outline-creation']?.userInput;
-            if (chosenTitleField && outlineStageUserInput && outlineStageUserInput[chosenTitleField.name]) {
-                 newTitle = outlineStageUserInput[chosenTitleField.name];
+            if (outlineStageUserInput && outlineStageUserInput.chosenTitle) {
+                 newTitle = outlineStageUserInput.chosenTitle;
             } else {
                 newTitle = titleStageState.output.titles[0]; // Fallback to first generated title
             }
-        } else if (titleStageState.output.title) {
+        } 
+        // Generic fallback for object with a 'title' property
+        else if (typeof titleStageState.output === 'object' && titleStageState.output !== null && titleStageState.output.title) {
              newTitle = titleStageState.output.title;
         }
         
-        if (newTitle && newTitle.length > 0 && newTitle.length < 100) {
+        if (newTitle && newTitle.length > 0 && newTitle.length < 150) { // Increased length limit
             setPageTitle(newTitle);
             if (typeof document !== 'undefined') {
                 document.title = `${newTitle} - WizardCraft AI`;
@@ -155,25 +160,33 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     const stage = instance.workflow.stages.find(s => s.id === stageId);
     if (!stage) return;
 
+    if (stageState.depsAreMet === false) {
+      toast({ title: "Dependencies Not Met", description: `Please complete previous stages before running "${stage.title}".`, variant: "default" });
+      return;
+    }
+
     updateStageState(stageId, { status: "running", error: undefined });
 
     if (!stage.promptTemplate) {
       updateStageState(stageId, { 
         status: "completed", 
-        output: stage.inputType === 'none' ? undefined : currentInput,
+        output: stage.inputType === 'none' ? undefined : currentInput, // For form/textarea, output is the input
         completedAt: new Date().toISOString() 
       });
-      toast({ title: "Stage Completed", description: `Stage "${stage.title}" marked as complete.` });
+      toast({ title: "Stage Completed", description: `Stage "${stage.title}" marked as complete (no AI processing).` });
       evaluateDependencies();
       return;
     }
     
     const contextVars: Record<string, any> = {};
     instance.workflow.stages.forEach(s => {
-        if (instance.stageStates[s.id]?.status === 'completed' || instance.stageStates[s.id]?.status === 'skipped') {
-            contextVars[s.id] = instance.stageStates[s.id];
+        const sState = instance.stageStates[s.id];
+        if (sState?.status === 'completed' || sState?.status === 'skipped') {
+            // Make sure to pass both userInput and output for context
+            contextVars[s.id] = { userInput: sState.userInput, output: sState.output };
         }
     });
+    // Ensure current stage's input is also available if it's being processed
     if (currentInput) {
         contextVars[stage.id] = { ...instance.stageStates[stage.id], userInput: currentInput, output: currentInput };
     }
@@ -185,7 +198,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         model: stage.model || "gemini-2.0-flash",
         temperature: stage.temperature || 0.7,
         contextVars: contextVars,
-        currentStageInput: currentInput,
+        currentStageInput: currentInput, 
         stageOutputType: stage.outputType
       });
 
@@ -198,6 +211,8 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         output: result.content,
         groundingInfo: result.groundingInfo,
         completedAt: new Date().toISOString(),
+        isStale: false, // Mark as not stale after successful run
+        shouldShowUpdateBadge: false,
       });
       toast({ title: "AI Stage Completed", description: `AI processing for "${stage.title}" finished.` });
 
@@ -216,7 +231,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   };
   
   const handleEditInput = (stageId: string) => {
-    updateStageState(stageId, { status: "idle" });
+    updateStageState(stageId, { status: "idle" }); // Reset to idle to allow editing and re-running
     toast({ title: "Editing Input", description: `You can now edit the input for stage "${instance.workflow.stages.find(s=>s.id===stageId)?.title}".` });
     evaluateDependencies();
   };
@@ -229,18 +244,29 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
 
   const isWizardCompleted = completedStagesCount === totalStages;
 
-  const currentStageId = instance.workflow.stages.find(
-    s => instance.stageStates[s.id]?.status !== 'completed' && instance.stageStates[s.id]?.status !== 'skipped'
-  )?.id || instance.workflow.stages[instance.workflow.stages.length - 1].id;
+  const currentStage = instance.workflow.stages.find(
+    s => instance.stageStates[s.id]?.status !== 'completed' && instance.stageStates[s.id]?.status !== 'skipped' && instance.stageStates[s.id]?.depsAreMet !== false
+  );
+  const currentStageId = currentStage?.id || instance.workflow.stages.find(s => instance.stageStates[s.id]?.depsAreMet === false)?.id || instance.workflow.stages[instance.workflow.stages.length - 1].id;
+  const stageState = instance.stageStates[currentStageId];
+
 
   const handleFinalizeDocument = () => {
     if (!isWizardCompleted) {
       toast({ title: "Wizard Not Complete", description: "Please complete all stages before finalizing.", variant: "default"});
       return;
     }
-    const finalStageId = instance.workflow.stages.find(s => s.id === "full-draft-generation")?.id; // Or determine final stage ID differently
-    if (finalStageId && instance.stageStates[finalStageId]?.status === 'completed') {
-      const content = instance.stageStates[finalStageId]?.output as string || "No content generated.";
+    // Determine the ID of the stage that produces the final document content.
+    // This might need to be configurable per workflow.
+    // For "Targeted Page SEO", it's "full-draft-generation".
+    // For "Recipe SEO", it's "full-recipe-compilation".
+    let finalContentStageId = "full-draft-generation"; // Default
+    if (instance.workflow.id === "recipe-seo-optimized") {
+      finalContentStageId = "full-recipe-compilation";
+    }
+    
+    if (instance.stageStates[finalContentStageId]?.status === 'completed') {
+      const content = instance.stageStates[finalContentStageId]?.output as string || "No content generated.";
       setFinalDocumentContent(content);
       setIsFinalizeDialogOpen(true);
       setHasFinalizedOnce(true);
@@ -272,7 +298,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         </Alert>
       )}
 
-      {!isWizardCompleted && instance.stageStates[currentStageId]?.depsAreMet === false && (
+      {!isWizardCompleted && stageState?.depsAreMet === false && (
          <Alert variant="default" className="mb-6 bg-blue-50 border-blue-300 dark:bg-blue-900/30 dark:border-blue-700">
           <Info className="h-5 w-5 text-blue-600 dark:text-blue-400" />
           <AlertTitle className="text-blue-700 dark:text-blue-300 font-headline">Next Steps</AlertTitle>
@@ -287,7 +313,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         <StageCard
           key={stage.id}
           stage={stage}
-          stageState={instance.stageStates[stage.id] || { stageId: stage.id, status: 'idle' }}
+          stageState={instance.stageStates[stage.id] || { stageId: stage.id, status: 'idle', depsAreMet: !(stage.dependencies && stage.dependencies.length > 0) }}
           isCurrentStage={stage.id === currentStageId && !isWizardCompleted}
           onRunStage={handleRunStage}
           onInputChange={handleInputChange}
@@ -304,6 +330,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
           size="lg" 
           disabled={!isWizardCompleted}
           onClick={handleFinalizeDocument}
+          className="bg-accent hover:bg-accent/90 text-accent-foreground"
         >
           <DownloadCloud className="mr-2 h-5 w-5" />
           {hasFinalizedOnce ? "View/Export Document" : "Finalize Document"}
@@ -319,4 +346,3 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     </div>
   );
 }
-

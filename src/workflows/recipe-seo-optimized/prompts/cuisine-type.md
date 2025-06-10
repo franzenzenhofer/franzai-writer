@@ -1,0 +1,1 @@
+This stage is for user input (cuisine type/main ingredients) and does not use an AI prompt.

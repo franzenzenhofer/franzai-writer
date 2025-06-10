@@ -1,0 +1,1 @@
+This stage is for user input (ingredients list) and does not use an AI prompt.

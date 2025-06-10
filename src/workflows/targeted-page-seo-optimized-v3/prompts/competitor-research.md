@@ -1,0 +1,1 @@
+This stage involves user input (manual text or file drop) and does not directly use this file for an AI prompt template. The input is used by other AI stages.

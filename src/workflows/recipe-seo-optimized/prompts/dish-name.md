@@ -1,0 +1,1 @@
+This stage is for user input (dish name) and does not use an AI prompt.

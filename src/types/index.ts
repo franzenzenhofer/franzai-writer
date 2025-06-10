@@ -1,3 +1,4 @@
+
 export type NavItem = {
   title: string;
   href?: string;
@@ -29,14 +30,13 @@ export interface Stage {
   description: string;
   inputType: StageInputType;
   formFields?: FormField[]; // Only if inputType is 'form'
-  promptTemplate?: string; // Template for AI prompt
+  promptTemplate?: string; // Template for AI prompt (will contain the actual prompt string)
   model?: string; // AI model to use (e.g., 'gemini-2.0-flash')
   temperature?: number; // Temperature for AI model
   outputType: "text" | "json" | "markdown";
   dependencies?: string[]; // IDs of stages that must be completed first
   autoRun?: boolean; // Whether to run automatically when dependencies are met
   groundingRequested?: boolean; // If grounding info should be requested
-  outputFormat?: "json" | "text"; // Expected AI output format for processing
   isOptional?: boolean; // If the stage can be skipped
 }
 

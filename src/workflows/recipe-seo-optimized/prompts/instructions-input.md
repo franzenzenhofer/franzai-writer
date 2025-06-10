@@ -1,0 +1,1 @@
+This stage is for user input (cooking instructions) and does not use an AI prompt.

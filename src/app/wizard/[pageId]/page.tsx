@@ -1,20 +1,17 @@
 
-
 import { WizardShell } from "@/components/wizard/wizard-shell";
-import { mockWorkflows } from "@/lib/mock-data"; // Keep mockWorkflows for workflow definitions
+import { getWorkflowById } from "@/lib/workflow-loader"; // Updated import
 import { notFound } from "next/navigation";
 import type { WizardDocument, WizardInstance, StageState, Workflow } from "@/types";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { AlertCircle, Wand2 } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 import { CreateNewDocumentDialog } from "@/components/wizard/create-new-document-dialog";
 
 
 export default function WizardPage({ params }: { params: { pageId: string } }) {
   
   if (params.pageId === "new") {
-    // The CreateNewDocumentDialog is now self-contained and handles opening.
-    // This page acts as a trigger for the dialog.
     return (
       <div className="flex flex-col items-center justify-center text-center py-12">
         <CreateNewDocumentDialog />
@@ -26,11 +23,11 @@ export default function WizardPage({ params }: { params: { pageId: string } }) {
   }
 
   let wizardInstance: WizardInstance | undefined;
-  let dynamicTitle = "New Document"; // Default title
+  let dynamicTitle = "New Document"; 
 
   if (params.pageId.startsWith("_new_")) {
     const workflowId = params.pageId.substring("_new_".length);
-    const workflow = mockWorkflows.find(w => w.id === workflowId);
+    const workflow = getWorkflowById(workflowId); // Use new loader function
 
     if (!workflow) {
       notFound();
@@ -73,15 +70,14 @@ export default function WizardPage({ params }: { params: { pageId: string } }) {
       stageStates: initialStageStates,
     };
     
-    // Set document title dynamically for new instances
     if (typeof document !== 'undefined') { 
       document.title = `${dynamicTitle} - WizardCraft AI`;
     }
 
   } else {
-    // Logic for fetching existing documents would go here if persistence was implemented
-    // For now, any other pageId will result in "not found" as getMockWizardInstance returns undefined.
-    wizardInstance = undefined; // getMockWizardInstance(params.pageId);
+    // Logic for fetching existing documents would go here if persistence was implemented.
+    // For now, any other pageId will result in "not found".
+    wizardInstance = undefined; 
   }
 
 
@@ -96,15 +92,16 @@ export default function WizardPage({ params }: { params: { pageId: string } }) {
           <Button asChild variant="outline">
             <Link href="/dashboard">Go to Dashboard</Link>
           </Button>
+          <Button asChild variant="link" className="mt-2">
+            <Link href="/wizard/new">Or create a new document</Link>
+          </Button>
       </div>
     );
   }
   
-  // Set initial document title from instance if not a _new_ flow (which sets it above)
   if (typeof document !== 'undefined' && !params.pageId.startsWith("_new_")) {
       document.title = `${wizardInstance.document.title} - WizardCraft AI`;
   }
-
 
   return <WizardShell initialInstance={wizardInstance} />;
 }

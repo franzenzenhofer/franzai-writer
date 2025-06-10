@@ -1,0 +1,1 @@
+This stage does not use an AI prompt. User provides direct input.
