@@ -8254,3 +8254,174 @@ Executing AI stage with input: {
  GET /dashboard 200 in 60ms
  GET /dashboard 200 in 56ms
  GET / 200 in 67ms
+ GET /dashboard 200 in 40ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'poem' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'poem',
+  workflowId: 'poem-generator',
+  workflowName: 'Poem Generator'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'poem',
+  documentId: 'mbs4xtniwqp77le',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749657565278_lvmh379ac',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749657565278_lvmh379ac',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 183
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'U2hhphBW7t365vYChinn',
+  path: 'documents/U2hhphBW7t365vYChinn'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'U2hhphBW7t365vYChinn',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'U2hhphBW7t365vYChinn' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'U2hhphBW7t365vYChinn' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'U2hhphBW7t365vYChinn',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'U2hhphBW7t365vYChinn' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'U2hhphBW7t365vYChinn',
+  error: undefined,
+  originalId: 'mbs4xtniwqp77le'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbs4xtniwqp77le',
+  createdId: 'U2hhphBW7t365vYChinn',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/poem/U2hhphBW7t365vYChinn' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/poem/new 200 in 271ms
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'U2hhphBW7t365vYChinn' }
+[WizardPage] Loading existing document: U2hhphBW7t365vYChinn
+[DocumentPersistence] Loading document { documentId: 'U2hhphBW7t365vYChinn' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'U2hhphBW7t365vYChinn' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'U2hhphBW7t365vYChinn' }
+[WizardPage] Loading existing document: U2hhphBW7t365vYChinn
+[DocumentPersistence] Loading document { documentId: 'U2hhphBW7t365vYChinn' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'U2hhphBW7t365vYChinn' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'U2hhphBW7t365vYChinn' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'U2hhphBW7t365vYChinn',
+  title: 'New Poem Generator',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'U2hhphBW7t365vYChinn',
+  title: 'New Poem Generator',
+  stageCount: 0,
+  validatedStageIds: []
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'U2hhphBW7t365vYChinn' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'U2hhphBW7t365vYChinn',
+  title: 'New Poem Generator',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'U2hhphBW7t365vYChinn',
+  title: 'New Poem Generator',
+  stageCount: 0,
+  validatedStageIds: []
+}
+ GET /w/poem/U2hhphBW7t365vYChinn 200 in 202ms
+ GET /w/poem/U2hhphBW7t365vYChinn 200 in 150ms
+ ✓ Compiled in 73ms
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'U2hhphBW7t365vYChinn' }
+[WizardPage] Loading existing document: U2hhphBW7t365vYChinn
+[DocumentPersistence] Loading document { documentId: 'U2hhphBW7t365vYChinn' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'U2hhphBW7t365vYChinn' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'U2hhphBW7t365vYChinn' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'U2hhphBW7t365vYChinn',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'html-briefing',
+    'poem-topic',
+    'generate-poem-with-title',
+    'generate-html-preview'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'U2hhphBW7t365vYChinn',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'html-briefing',
+    'poem-topic',
+    'generate-poem-with-title',
+    'generate-html-preview'
+  ]
+}
+ GET /w/poem/U2hhphBW7t365vYChinn 200 in 659ms

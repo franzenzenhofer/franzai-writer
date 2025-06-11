@@ -13,9 +13,9 @@ export function FranzAILogo({ className, size = "md" }: FranzAILogoProps) {
   };
 
   return (
-    <div className={cn("flex items-center gap-1", className)}>
+    <div className={cn("flex items-center gap-1.5", className)}>
       <div className={cn(
-        "relative font-bold font-headline tracking-tight",
+        "font-bold font-headline tracking-tight",
         sizeClasses[size]
       )}>
         <span className="text-blue-600">Franz</span>
@@ -26,6 +26,13 @@ export function FranzAILogo({ className, size = "md" }: FranzAILogoProps) {
         size === "sm" && "w-1.5 h-1.5",
         size === "lg" && "w-3 h-3"
       )} />
+      <div className={cn(
+        "font-bold font-headline tracking-tight",
+        sizeClasses[size],
+        "text-gray-700"
+      )}>
+        Writer
+      </div>
     </div>
   );
 }
