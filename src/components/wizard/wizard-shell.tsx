@@ -265,21 +265,32 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         promptTemplate: stage.promptTemplate,
         model: stage.model || "googleai/gemini-2.0-flash-exp",
         temperature: stage.temperature || 0.7,
+        thinkingSettings: stage.thinkingSettings,
+        toolNames: stage.toolNames,
+        systemInstructions: stage.systemInstructions, // Pass systemInstructions
+        chatHistory: currentStageState.chatHistory, // Pass current chatHistory
         contextVars: contextVars,
-        currentStageInput: stageInputForRun, 
-        stageOutputType: stage.outputType
+        currentStageInput: stageInputForRun,
+        stageOutputType: stage.outputType,
       });
 
       if (result.error) {
-        throw new Error(result.error);
+        // Preserve chat history on error, but clear current stream
+        updateStageState(stageId, { status: "error", error: result.error, currentStreamOutput: "" });
+        toast({ title: "AI Stage Error", description: result.error, variant: "destructive" });
+        return; // Stop further processing on error
       }
       
       updateStageState(stageId, {
         status: "completed",
-        output: result.content,
+        output: result.content, // Final accumulated content
         groundingInfo: result.groundingInfo,
+        thinkingSteps: result.thinkingSteps,
+        outputImages: result.outputImages,
+        chatHistory: result.updatedChatHistory, // Store updated chat history
+        currentStreamOutput: "", // Clear stream output
         completedAt: new Date().toISOString(),
-        isStale: false, 
+        isStale: false,
       });
       toast({ title: "AI Stage Completed", description: `AI processing for "${stage.title}" finished.` });
       

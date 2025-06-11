@@ -334,9 +334,9 @@ export function StageCard({
             {stageState.status === "running" ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
-              <Zap className="mr-2 h-4 w-4" />
+              stage.chatEnabled ? <Send className="mr-2 h-4 w-4" /> : <Zap className="mr-2 h-4 w-4" />
             )}
-            {stage.promptTemplate ? "Run AI" : "Continue"}
+            {stage.chatEnabled ? "Send" : (stage.promptTemplate ? "Run AI" : "Continue")}
           </Button>
         )}
       </CardFooter>

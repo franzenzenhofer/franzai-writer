@@ -36,7 +36,14 @@ export interface Stage {
   dependencies?: string[]; 
   autoRun?: boolean; 
   groundingRequested?: boolean; 
-  isOptional?: boolean; 
+  isOptional?: boolean;
+  thinkingSettings?: {
+    enabled?: boolean;
+    // budget?: number; // Conceptual for now
+  };
+  toolNames?: string[];
+  systemInstructions?: string;
+  chatEnabled?: boolean;
 }
 
 export interface WorkflowConfig {
@@ -64,7 +71,15 @@ export interface StageState {
   staleDismissed?: boolean; // Track if stale warning was dismissed
   depsAreMet?: boolean;
   shouldAutoRun?: boolean;
-  isEditingOutput?: boolean; 
+  isEditingOutput?: boolean;
+  thinkingSteps?: import('@/ai/flows/ai-stage-execution').ThinkingStep[];
+  chatHistory?: Array<{role: 'user' | 'model' | 'system', parts: any[]}>;
+  currentStreamOutput?: string; // For displaying live streaming text
+  outputImages?: Array<{
+    name?: string;
+    base64Data: string;
+    mimeType: string;
+  }>;
 }
 
 export interface WizardDocument {

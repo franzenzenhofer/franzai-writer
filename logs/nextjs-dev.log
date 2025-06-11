@@ -1839,3 +1839,14 @@ Starting inspector on 127.0.0.1:9230 failed: address already in use
  ✓ Compiled /w/[shortName]/[documentId] in 2.3s
  GET /w/article/mbqola8awm1a279 200 in 3370ms
  GET /w/article/mbqola8awm1a279 200 in 325ms
+   [1m[38;2;173;127;168m▲ Next.js 15.3.3[39m[22m (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.0.2:9002
+
+ [32m[1m✓[22m[39m Starting...
+[35m[1mAttention[22m[39m: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+[36mhttps://nextjs.org/telemetry[39m
+
+ [32m[1m✓[22m[39m Ready in 1805ms

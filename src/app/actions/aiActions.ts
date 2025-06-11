@@ -7,8 +7,12 @@ import type { StageState, Stage } from "@/types";
 
 interface RunAiStageParams {
   promptTemplate: string;
-  model?: string; // Now optional, comes from stage.model
-  temperature?: number; // Now optional, comes from stage.temperature
+  model?: string;
+  temperature?: number;
+  thinkingSettings?: Stage['thinkingSettings'];
+  toolNames?: Stage['toolNames'];
+  systemInstructions?: Stage['systemInstructions']; // Add this
+  chatHistory?: StageState['chatHistory']; // Add this
   contextVars: Record<string, StageState | { userInput: any, output: any }>; 
   currentStageInput?: any; 
   stageOutputType: Stage['outputType'];
@@ -77,28 +81,80 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
       promptTemplate: filledPrompt,
       model: params.model, 
       temperature: params.temperature,
+      thinkingSettings: params.thinkingSettings,
+      toolNames: params.toolNames,
+      fileInputs: [],
+      systemInstructions: params.systemInstructions, // Pass it through
+      chatHistory: params.chatHistory, // Pass it through
     };
+
+    // Add imageData if present in currentStageInput (for image inputType)
+    if (params.currentStageInput &&
+        params.currentStageInput.fileName && // Common field for image data structure
+        params.currentStageInput.mimeType &&
+        params.currentStageInput.data) { // 'data' implies base64 image data
+      aiInput.imageData = {
+        fileName: params.currentStageInput.fileName,
+        mimeType: params.currentStageInput.mimeType,
+        data: params.currentStageInput.data,
+      };
+      console.log("[runAiStage] Image data included for AI execution.");
+    }
+
+    // Add fileInputs if present in currentStageInput (for document inputType using Files API)
+    // This assumes currentStageInput for a document uploaded via Files API will have fileUri and documentType (as mimeType)
+    if (params.currentStageInput &&
+        params.currentStageInput.fileUri &&
+        params.currentStageInput.documentType) {
+      aiInput.fileInputs = [{
+        uri: params.currentStageInput.fileUri,
+        mimeType: params.currentStageInput.documentType
+      }];
+      console.log("[runAiStage] File URI included for AI execution:", params.currentStageInput.fileUri);
+    } else if (params.currentStageInput && params.currentStageInput.fileContent) {
+      // If it's a .txt file with direct fileContent, it's already embedded in the promptTemplate by substitutePromptVars.
+      // No separate fileInput part is needed for this case.
+      console.log("[runAiStage] Text file content is embedded in prompt template.");
+    }
 
     console.log("Executing AI stage with input:", JSON.stringify(aiInput, null, 2));
 
     const result = await aiStageExecution(aiInput);
     
     let parsedContent = result.content;
+    const thinkingSteps = result.thinkingSteps;
+    const outputImages = result.outputImages;
+    const updatedChatHistory = result.updatedChatHistory; // Capture updatedChatHistory
+
     if (params.stageOutputType === 'json') {
         try {
-            const cleanedJsonString = result.content.replace(/^```json\s*|```$/g, '').trim();
+            // Ensure result.content is a string before cleaning
+            const contentString = typeof result.content === 'string' ? result.content : JSON.stringify(result.content);
+            const cleanedJsonString = contentString.replace(/^```json\s*|```$/g, '').trim();
             parsedContent = JSON.parse(cleanedJsonString);
         } catch (e) {
             console.warn("AI output was expected to be JSON but failed to parse. Returning as text.", e);
-            parsedContent = result.content; 
+            parsedContent = result.content; // Or contentString if it was not originally a string
         }
     }
 
     console.log("[runAiStage] Success, content type:", typeof parsedContent);
-    return { content: parsedContent };
+    // Return thinkingSteps and outputImages along with content
+    return {
+        content: parsedContent,
+        ...(thinkingSteps && { thinkingSteps }),
+        ...(outputImages && { outputImages }),
+        ...(updatedChatHistory && { updatedChatHistory }), // Return it
+    };
   } catch (error: any) {
     console.error("AI Stage Execution Error:", error);
     console.error("Error stack:", error.stack);
-    return { content: null, error: error.message || "An unknown error occurred during AI processing." };
+    return {
+        content: null,
+        error: error.message || "An unknown error occurred during AI processing.",
+        thinkingSteps: undefined,
+        outputImages: undefined,
+        updatedChatHistory: params.chatHistory // Return original history on error
+    };
   }
 }

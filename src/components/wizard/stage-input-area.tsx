@@ -37,6 +37,22 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
   const [contextDroppedInput, setContextDroppedInput] = useState(
      typeof stageState.userInput?.dropped === 'string' ? stageState.userInput.dropped : ""
   );
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(
+    typeof stageState.userInput?.imageUrl === 'string' ? stageState.userInput.imageUrl : null
+  );
+  const [selectedDocument, setSelectedDocument] = useState<File | null>(null);
+  const [documentInfo, setDocumentInfo] = useState<string | null>(() => {
+    if (stageState.userInput?.fileUri) {
+      return `Uploaded: ${stageState.userInput.documentName} (URI: ${stageState.userInput.fileUri})`;
+    }
+    if (stageState.userInput?.documentName) {
+      return `Selected: ${stageState.userInput.documentName} (${stageState.userInput.documentType}, ${stageState.userInput.documentSize} bytes)`;
+    }
+    return null;
+  });
+  const [uploadProgress, setUploadProgress] = useState<string | null>(null);
+
 
   const formSchema = useMemo(() => {
     if (stage.inputType !== 'form' || !stage.formFields) return z.object({});
@@ -117,6 +133,110 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
     onInputChange(stage.id, "userInput", e.target.value);
   };
 
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      setSelectedImage(file);
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        setImagePreviewUrl(base64String); // For preview
+        // Pass base64 string for Genkit part
+        // Store the preview URL and the base64 string for submission
+        onInputChange(stage.id, "userInput", {
+          fileName: file.name,
+          mimeType: file.type,
+          data: base64String.split(",")[1], // Extract base64 data
+          imageUrl: base64String // For re-rendering preview if needed
+        });
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setSelectedImage(null);
+      setImagePreviewUrl(null);
+      onInputChange(stage.id, "userInput", null); // Clear image data
+    }
+  };
+
+  const handleDocumentChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      setSelectedDocument(file);
+      setDocumentInfo(`Selected: ${file.name} (${file.type}, ${file.size} bytes)`);
+      setUploadProgress('Preparing to upload...');
+
+      // For .txt files, retain direct content reading as a quick path / fallback
+      if (file.type === "text/plain" || file.name.endsWith(".md")) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const textContent = e.target?.result as string;
+          onInputChange(stage.id, "userInput", {
+            documentName: file.name,
+            documentType: file.type,
+            documentSize: file.size,
+            fileContent: textContent, // For direct use in prompt
+            fileUri: null, // Clear any previous URI
+          });
+          setDocumentInfo(`Text content loaded: ${file.name}`);
+          setUploadProgress(null);
+        };
+        reader.onerror = () => {
+            setUploadProgress(`Error reading text file.`);
+            setDocumentInfo(`Error reading text file: ${file.name}`);
+        }
+        reader.readAsText(file);
+        return; // Skip API upload for .txt/.md for now
+      }
+
+      // For other document types, upload to Files API
+      const formData = new FormData();
+      formData.append('file', file);
+      setUploadProgress(`Uploading ${file.name}...`);
+
+      try {
+        const response = await fetch('/api/files/upload', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || `Upload failed with status ${response.status}`);
+        }
+
+        const result = await response.json();
+        onInputChange(stage.id, "userInput", {
+          documentName: result.fileName,
+          documentType: result.mimeType,
+          fileUri: result.fileUri,
+          documentSize: file.size, // Size from original file object
+          fileContent: null, // Clear any direct content if URI is present
+        });
+        setDocumentInfo(`Uploaded: ${result.fileName} (URI: ${result.fileUri})`);
+        setUploadProgress('Upload successful!');
+      } catch (error: any) {
+        console.error("Upload error:", error);
+        setDocumentInfo(`Upload failed for ${file.name}: ${error.message}`);
+        setUploadProgress(`Upload failed: ${error.message}`);
+        // Clear partial input state on error
+        onInputChange(stage.id, "userInput", {
+            documentName: file.name, // Keep name for context, but no URI
+            documentType: file.type,
+            documentSize: file.size,
+            fileUri: null,
+            fileContent: null,
+            uploadError: error.message,
+        });
+      }
+    } else {
+      setSelectedDocument(null);
+      setDocumentInfo(null);
+      setUploadProgress(null);
+      onInputChange(stage.id, "userInput", null); // Clear document data
+    }
+  };
+
   const handleContextManualChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = e.target.value;
     setContextManualInput(newValue);
@@ -153,7 +273,22 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
 
   switch (stage.inputType) {
     case "textarea":
-      return (
+      if (stage.chatEnabled) {
+        return (
+          <div className="space-y-2">
+            <Textarea
+              placeholder={stage.description || "Enter your message..."}
+              value={typeof stageState.userInput === 'string' ? stageState.userInput : ""} // UserInput is the current message
+              onChange={handleTextareaChange}
+              rows={3} // Shorter for chat messages
+              className="bg-background"
+            />
+            {/* TokenCounter might still be relevant for the current message */}
+            <TokenCounter text={typeof stageState.userInput === 'string' ? stageState.userInput : ""} />
+          </div>
+        );
+      }
+      return ( // Default textarea behavior
         <div className="space-y-2">
           <Textarea
             placeholder={stage.description || "Enter your input here..."}
@@ -280,8 +415,60 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
       );
     case "none":
       return <p className="text-sm text-muted-foreground">This stage is processed automatically by AI. No input required here.</p>;
+    case "image":
+      return (
+        <div className="space-y-4">
+          <Label htmlFor={`${stage.id}-image-input`}>Upload Image</Label>
+          <Input
+            id={`${stage.id}-image-input`}
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="bg-background"
+          />
+          {imagePreviewUrl && (
+            <div className="mt-4">
+              <Label>Image Preview:</Label>
+              <img
+                src={imagePreviewUrl}
+                alt="Selected preview"
+                className="mt-2 rounded-md border max-h-60 w-auto"
+              />
+            </div>
+          )}
+          {/* Consider adding a TokenCounter equivalent for image size or dimensions if useful */}
+        </div>
+      );
     default:
       return <p>Unknown input type: {stage.inputType}</p>;
+    case "document":
+      return (
+        <div className="space-y-4">
+          <Label htmlFor={`${stage.id}-document-input`}>Upload Document</Label>
+          <Input
+            id={`${stage.id}-document-input`}
+            type="file"
+            accept=".pdf,.doc,.docx,.txt,.md"
+            onChange={handleDocumentChange}
+            className="bg-background"
+            disabled={!!uploadProgress && uploadProgress.startsWith('Uploading')}
+          />
+          {uploadProgress && (
+            <p className="text-xs text-muted-foreground mt-1">{uploadProgress}</p>
+          )}
+          {documentInfo && !uploadProgress && ( // Show final doc info if no upload in progress
+             <div className="mt-2 p-2 border rounded bg-muted text-xs text-muted-foreground">
+                <p>{documentInfo}</p>
+             </div>
+          )}
+           {/* Display error from userInput if it exists */}
+          {stageState.userInput?.uploadError && !uploadProgress && (
+            <p className="text-xs text-destructive mt-1">
+              Previous upload attempt failed: {stageState.userInput.uploadError}
+            </p>
+          )}
+        </div>
+      );
   }
 });
 
