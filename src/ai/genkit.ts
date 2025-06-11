@@ -14,5 +14,5 @@ export const ai = genkit({
       allowBuiltInTools: ['codeInterpreter'], // Hypothetical option
     }),
   ],
-  model: 'googleai/gemini-2.0-flash-exp',
+  model: 'googleai/gemini-2.0-flash',
 });

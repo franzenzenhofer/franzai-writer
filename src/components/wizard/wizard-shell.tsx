@@ -258,7 +258,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     try {
       console.log('[handleRunStage] About to call runAiStage with:', {
         hasPromptTemplate: !!stage.promptTemplate,
-        model: stage.model || "googleai/gemini-2.0-flash-exp",
+        model: stage.model || "googleai/gemini-2.0-flash",
         temperature: stage.temperature || 0.7,
         contextVarsKeys: Object.keys(contextVars),
         currentStageInput: stageInputForRun,
@@ -267,7 +267,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       
       const result = await runAiStage({
         promptTemplate: stage.promptTemplate,
-        model: stage.model || "googleai/gemini-2.0-flash-exp",
+        model: stage.model || "googleai/gemini-2.0-flash",
         temperature: stage.temperature || 0.7,
         thinkingSettings: stage.thinkingSettings,
         toolNames: stage.toolNames,
