@@ -1,8 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useAuth } from '@/components/layout/app-providers';
 import { useToast } from '@/hooks/use-toast';
-import { createDocument, updateDocument, getDocument } from '@/lib/documents';
-import { calculateWordCount, findLastEditedStage } from '@/lib/utils'; // Updated import
+import { documentPersistence } from '@/lib/document-persistence';
 import type { WizardInstance, StageState } from '@/types';
 
 interface UseDocumentPersistenceProps {
@@ -32,118 +31,114 @@ export function useDocumentPersistence({
     instance.document.id.startsWith('temp-') ? null : instance.document.id
   );
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const hasInitialSaveRef = useRef(false);
 
   // Save the document
   const saveDocument = useCallback(async () => {
-    if (!user) {
-      setSaveError('User not authenticated');
-      return;
-    }
-
     setIsSaving(true);
     setSaveError(null);
 
     try {
-      let currentDocId = documentId;
+      console.log('[useDocumentPersistence] Starting save...', {
+        documentId,
+        title: instance.document.title,
+        workflowId: instance.workflow.id,
+        hasUser: !!user
+      });
 
-      // Create new document if it doesn't exist
-      if (!currentDocId) {
-        currentDocId = await createDocument(
-          user.uid,
-          instance.document.title,
-          instance.workflow.id,
-          instance.stageStates
-        );
-        setDocumentId(currentDocId);
+      const result = await documentPersistence.saveDocument(
+        documentId,
+        instance.document.title,
+        instance.workflow.id,
+        instance.stageStates,
+        user?.uid
+      );
+
+      if (result.success && result.documentId) {
+        const newDocumentId = result.documentId;
         
-        // Update the instance with the new document ID
-        updateInstance({
-          document: {
-            ...instance.document,
-            id: currentDocId,
-            userId: user.uid,
-          },
-        });
+        // Update local state only if document ID changed (new document created)
+        if (documentId !== newDocumentId) {
+          setDocumentId(newDocumentId);
+          
+          // Update the instance with the new document ID
+          updateInstance({
+            document: {
+              ...instance.document,
+              id: newDocumentId,
+              userId: user?.uid || 'temp_user',
+            },
+          });
 
-        toast({
-          title: 'Document created',
-          description: 'Your document has been saved to the cloud.',
-        });
+          toast({
+            title: 'Document created',
+            description: 'Your document has been saved to the cloud.',
+          });
+        } else {
+          // Silent update for existing documents
+          console.log('[useDocumentPersistence] Document updated successfully');
+        }
+
+        setLastSaved(new Date());
+        hasInitialSaveRef.current = true;
       } else {
-        // Update existing document
-        await updateDocument(currentDocId, {
-          title: instance.document.title,
-          status: instance.document.status,
-          stageStates: instance.stageStates,
-          metadata: {
-            wordCount: calculateWordCount(instance.stageStates),
-            lastEditedStage: findLastEditedStage(instance.stageStates),
-          },
+        throw new Error(result.error || 'Failed to save document');
+      }
+    } catch (error: any) {
+      console.error('[useDocumentPersistence] Save failed:', error);
+      setSaveError(error.message || 'Failed to save document');
+      
+      // Only show toast for critical errors, not for silent autosaves
+      if (!hasInitialSaveRef.current) {
+        toast({
+          title: 'Save failed',
+          description: 'Unable to save your document. Please try again.',
+          variant: 'destructive',
         });
       }
-
-      setLastSaved(new Date());
-    } catch (error) {
-      console.error('Error saving document:', error);
-      setSaveError('Failed to save document');
-      toast({
-        title: 'Save failed',
-        description: 'Unable to save your document. Please try again.',
-        variant: 'destructive',
-      });
     } finally {
       setIsSaving(false);
     }
-  }, [user, documentId, instance, updateInstance, toast]);
+  }, [documentId, instance, updateInstance, user, toast]);
 
   // Load a document
   const loadDocument = useCallback(async (docId: string) => {
-    if (!user) {
-      toast({
-        title: 'Authentication required',
-        description: 'Please log in to load documents.',
-        variant: 'destructive',
-      });
-      return;
-    }
-
     try {
-      const result = await getDocument(docId);
+      console.log('[useDocumentPersistence] Loading document...', { docId });
       
-      if (!result) {
-        toast({
-          title: 'Document not found',
-          description: 'The requested document could not be found.',
-          variant: 'destructive',
-        });
-        return;
-      }
+      const result = await documentPersistence.loadDocument(docId);
+      
+      if (result.success && result.document && result.stageStates) {
+        const { document, stageStates } = result;
+        
+        // Verify ownership for authenticated users
+        if (user && document.userId !== user.uid) {
+          toast({
+            title: 'Access denied',
+            description: 'You do not have permission to view this document.',
+            variant: 'destructive',
+          });
+          return;
+        }
 
-      const { document, stageStates } = result;
-      
-      // Verify ownership
-      if (document.userId !== user.uid) {
-        toast({
-          title: 'Access denied',
-          description: 'You do not have permission to view this document.',
-          variant: 'destructive',
+        // Update the instance with loaded data
+        updateInstance({
+          document,
+          stageStates,
         });
-        return;
+        
+        setDocumentId(docId);
+        hasInitialSaveRef.current = true;
+        
+        toast({
+          title: 'Document loaded',
+          description: 'Your document has been loaded successfully.',
+        });
+      } else {
+        throw new Error(result.error || 'Document not found');
       }
-
-      // Update the instance with loaded data
-      updateInstance({
-        document,
-        stageStates,
-      });
-      
-      setDocumentId(docId);
-      toast({
-        title: 'Document loaded',
-        description: 'Your document has been loaded successfully.',
-      });
-    } catch (error) {
-      console.error('Error loading document:', error);
+    } catch (error: any) {
+      console.error('[useDocumentPersistence] Load failed:', error);
       toast({
         title: 'Load failed',
         description: 'Unable to load the document. Please try again.',
@@ -152,9 +147,12 @@ export function useDocumentPersistence({
     }
   }, [user, updateInstance, toast]);
 
-  // Auto-save on stage state changes
+  // Auto-save on stage state changes - FIXED: Now works for new documents too
   useEffect(() => {
-    if (!user || !documentId) return;
+    // Skip if we haven't made any changes yet
+    if (!hasInitialSaveRef.current && (!documentId && Object.keys(instance.stageStates).length === 0)) {
+      return;
+    }
 
     // Clear existing timeout
     if (saveTimeoutRef.current) {
@@ -163,6 +161,7 @@ export function useDocumentPersistence({
 
     // Set new timeout for auto-save (debounced)
     saveTimeoutRef.current = setTimeout(() => {
+      console.log('[useDocumentPersistence] Auto-save triggered');
       saveDocument();
     }, 2000); // 2 second debounce
 
@@ -171,7 +170,25 @@ export function useDocumentPersistence({
         clearTimeout(saveTimeoutRef.current);
       }
     };
-  }, [instance.stageStates, saveDocument, user, documentId]);
+  }, [instance.stageStates, instance.document.title, saveDocument]);
+
+  // Initial save for new documents when user starts working
+  useEffect(() => {
+    if (!hasInitialSaveRef.current && !documentId) {
+      // Check if user has actually made changes (any stage has input)
+      const hasUserInput = Object.values(instance.stageStates).some(state => 
+        state.userInput && 
+        (typeof state.userInput === 'string' ? state.userInput.trim() : 
+         typeof state.userInput === 'object' ? Object.values(state.userInput).some(val => 
+           typeof val === 'string' ? val.trim() : val) : false)
+      );
+
+      if (hasUserInput) {
+        console.log('[useDocumentPersistence] Triggering initial save due to user input');
+        saveDocument();
+      }
+    }
+  }, [instance.stageStates, documentId, saveDocument]);
 
   return {
     isSaving,

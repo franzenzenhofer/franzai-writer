@@ -8,7 +8,7 @@ import { allWorkflows } from "@/lib/workflow-loader";
 import type { WizardDocument, Workflow } from "@/types";
 import { FileText, ArrowRight, AlertCircle, PlusCircle, Info, LogIn, User, Loader2, Trash2, Edit } from "lucide-react";
 import { useAuth } from "@/components/layout/app-providers";
-import { listUserDocuments, deleteDocument } from "@/lib/documents";
+import { documentPersistence } from '@/lib/document-persistence';
 import { useToast } from "@/hooks/use-toast";
 import { 
   AlertDialog, 
@@ -139,14 +139,14 @@ export default function DashboardPage() {
   const [documentToDelete, setDocumentToDelete] = useState<string | null>(null);
 
   const loadDocuments = useCallback(async () => {
-    if (!user) return;
-    
     setDocumentsLoading(true);
     try {
-      const userDocs = await listUserDocuments(user.uid);
+      console.log('[Dashboard] Loading documents...', { hasUser: !!user });
+      const userDocs = await documentPersistence.listUserDocuments(user?.uid);
       setDocuments(userDocs);
+      console.log('[Dashboard] Documents loaded:', userDocs.length);
     } catch (error) {
-      console.error('Error loading documents:', error);
+      console.error('[Dashboard] Error loading documents:', error);
       toast({
         title: 'Error loading documents',
         description: 'Unable to load your documents. Please try again.',
@@ -157,12 +157,11 @@ export default function DashboardPage() {
     }
   }, [user, toast]);
 
-  // Load user documents when authenticated
+  // Load user documents when authenticated OR in development mode
   useEffect(() => {
-    if (user && !authLoading) {
-      loadDocuments();
-    }
-  }, [user, authLoading, loadDocuments]);
+    // Always load documents (works with temp users in development)
+    loadDocuments();
+  }, [loadDocuments]);
 
   const handleDeleteDocument = async (documentId: string) => {
     setDocumentToDelete(documentId);
@@ -173,15 +172,21 @@ export default function DashboardPage() {
     if (!documentToDelete) return;
 
     try {
-      await deleteDocument(documentToDelete);
-      toast({
-        title: 'Document deleted',
-        description: 'Your document has been deleted successfully.',
-      });
-      // Reload documents
-      await loadDocuments();
+      console.log('[Dashboard] Deleting document:', documentToDelete);
+      const success = await documentPersistence.deleteDocument(documentToDelete);
+      
+      if (success) {
+        toast({
+          title: 'Document deleted',
+          description: 'Your document has been deleted successfully.',
+        });
+        // Reload documents
+        await loadDocuments();
+      } else {
+        throw new Error('Delete operation failed');
+      }
     } catch (error) {
-      console.error('Error deleting document:', error);
+      console.error('[Dashboard] Error deleting document:', error);
       toast({
         title: 'Delete failed',
         description: 'Unable to delete the document. Please try again.',

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { AlertCircle } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { WizardPageContent } from "./wizard-page-content";
-import { getDocument } from "@/lib/documents";
+import { documentPersistence } from '@/lib/document-persistence';
 
 export default async function WizardPage({ 
   params
@@ -22,18 +22,24 @@ export default async function WizardPage({
     notFound();
   }
 
-  let wizardInstance: WizardInstance | undefined;
-  let dynamicTitle = "Document";
+  let wizardInstance: WizardInstance;
+  let dynamicTitle = workflow.name;
 
   // Try to load existing document by documentId
   try {
-    const result = await getDocument(documentId);
+    console.log('[WizardPage] Attempting to load document:', documentId);
     
-    if (result) {
+    const result = await documentPersistence.loadDocument(documentId);
+    
+    if (result.success && result.document && result.stageStates) {
       const { document, stageStates } = result;
       
       // Verify this document belongs to the correct workflow
       if (document.workflowId !== workflow.id) {
+        console.log('[WizardPage] Document workflow mismatch:', {
+          documentWorkflow: document.workflowId,
+          expectedWorkflow: workflow.id
+        });
         notFound();
       }
       
@@ -44,22 +50,27 @@ export default async function WizardPage({
       };
       dynamicTitle = document.title;
       
-      if (typeof globalThis.document !== 'undefined') {
-        globalThis.document.title = `${dynamicTitle} - ${siteConfig.name}`;
-      }
+      console.log('[WizardPage] Document loaded successfully:', {
+        documentId: document.id,
+        title: document.title,
+        stageCount: Object.keys(stageStates).length
+      });
+      
     } else {
       // Document not found - create a new one
+      console.log('[WizardPage] Document not found, creating new:', documentId);
+      
       dynamicTitle = `New ${workflow.name}`;
       const newDoc: WizardDocument = {
         // Prefix with 'temp-' so the persistence layer knows this document
-        // hasn't been saved to Firestore yet and will call createDocument()
+        // hasn't been saved to Firestore yet and will call saveDocument()
         id: `temp-${documentId}`,
         title: dynamicTitle,
         workflowId: workflow.id,
         status: "draft",
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-        userId: "user-123", 
+        userId: "temp_user", // Will be updated by persistence layer
       };
 
       const initialStageStates: Record<string, StageState> = {};
@@ -103,13 +114,9 @@ export default async function WizardPage({
         workflow,
         stageStates: initialStageStates,
       };
-      
-      if (typeof globalThis.document !== 'undefined') { 
-        globalThis.document.title = `${dynamicTitle} - ${siteConfig.name}`;
-      }
     }
   } catch (error) {
-    console.error('Error loading document:', error);
+    console.error('[WizardPage] Error loading document:', error);
     
     // Check for specific Firestore errors and throw appropriate HTTP errors
     if (error instanceof Error) {
