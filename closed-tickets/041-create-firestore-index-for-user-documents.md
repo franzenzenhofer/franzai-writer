@@ -17,14 +17,14 @@ FirebaseError: The query requires an index. You can create it here: https://cons
 
 ## Tasks
 
-- [ ] Click the provided URL to create the index in Firebase Console
-- [ ] Verify the index includes:
+ - [x] Click the provided URL to create the index in Firebase Console
+ - [x] Verify the index includes:
   - Collection: `documents`
   - Fields: `userId` (Ascending), `updatedAt` (Descending)
-- [ ] Wait for index to build (can take a few minutes)
-- [ ] Test the document listing functionality works after index creation
-- [ ] Add this index to `firestore.indexes.json` for version control
-- [ ] Deploy the index configuration using Firebase CLI
+ - [x] Wait for index to build (can take a few minutes)
+ - [x] Test the document listing functionality works after index creation
+- [x] Add this index to `firestore.indexes.json` for version control
+- [x] Deploy the index configuration using Firebase CLI
 
 ## Acceptance Criteria
 
