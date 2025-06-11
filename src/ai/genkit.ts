@@ -14,8 +14,8 @@ export const ai = genkit({
       apiVersion: 'v1beta',
     }),
   ],
-  logLevel: 'debug',
-  enableTracingAndMetrics: true,
+  // logLevel: 'debug', // Removed as it's not a valid option in GenkitOptions
+  // enableTracingAndMetrics: true, // Removed as it's not a valid option in GenkitOptions
   // The model and other default settings can still be overridden per-request
   // inside individual flows.
 });

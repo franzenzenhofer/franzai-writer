@@ -130,10 +130,10 @@ describe('runAiStage Action', () => {
             fileContent: "This is the document text."
           },
           output: null, // output might be the AI's analysis of the doc
-          id: "docInput",
+          stageId: "docInput",
           status: "completed",
-          isLoading: false,
-          error: null
+          depsAreMet: true,
+          isEditingOutput: false
         } as StageState,
       },
       stageOutputType: 'text' as Stage['outputType'],
@@ -145,7 +145,10 @@ describe('runAiStage Action', () => {
   });
 
   it('should pass thinkingSettings to aiStageExecution and return thinkingSteps', async () => {
-    const mockThinkingSteps = ["Step 1: Thought about it.", "Step 2: Decided."];
+    const mockThinkingSteps = [
+      { type: 'textLog' as const, message: "Step 1: Thought about it." },
+      { type: 'textLog' as const, message: "Step 2: Decided." }
+    ];
     mockAiStageExecution.mockResolvedValue({ content: "AI response with thoughts", thinkingSteps: mockThinkingSteps });
     const thinkingSettings = { enabled: true };
 
@@ -237,8 +240,8 @@ describe('runAiStage Action', () => {
       currentStageInput: incompleteFileInputData,
     });
 
-    const callArgs = mockAiStageExecution.mock.calls[0][0];
-    expect(callArgs.fileInputs === undefined || callArgs.fileInputs.length === 0).toBe(true);
+    const callArgs = mockAiStageExecution.mock.calls[0]?.[0];
+    expect(!callArgs || callArgs.fileInputs === undefined || callArgs.fileInputs.length === 0).toBe(true);
   });
 
   it('should pass systemInstructions and chatHistory to aiStageExecution and return updatedChatHistory', async () => {

@@ -1,0 +1,70 @@
+name: Code Quality Checks
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+
+jobs:
+  unused-code-check:
+    name: Check for Unused Code
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+        
+      - name: Run Knip - Unused Code Analysis
+        run: |
+          echo "🔍 Checking for unused code..."
+          npm run lint:unused || true
+          echo "⚠️  Note: Unused code detection is non-blocking"
+        continue-on-error: true
+        
+      - name: Comment on PR with unused code report
+        if: github.event_name == 'pull_request' && failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '⚠️ **Unused Code Detected**\n\nThis PR contains unused code. Please run `npm run lint:unused` locally to see details.\n\n*Note: This check is non-blocking and won\'t prevent merging.*'
+            })
+            
+  code-quality:
+    name: Lint and Type Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+        
+      - name: Run ESLint
+        run: npm run lint
+        
+      - name: Run TypeScript Check
+        run: npm run typecheck
+        
+      - name: Run All Quality Checks
+        run: npm run lint:all

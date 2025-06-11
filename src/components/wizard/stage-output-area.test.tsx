@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { StageOutputArea } from './stage-output-area';
 import type { Stage, StageState } from '@/types';
@@ -28,8 +29,8 @@ const defaultStageState: StageState = {
   stageId: 'test-stage',
   status: 'completed',
   output: 'Default output',
-  error: null,
-  isLoading: false,
+  depsAreMet: true,
+  isEditingOutput: false,
   thinkingSteps: undefined,
 };
 
@@ -158,7 +159,7 @@ describe('StageOutputArea', () => {
             stageId: stageWithThinking.id,
             status: 'completed',
             output: 'Final Answer.',
-            thinkingSteps: thinkingSteps,
+            thinkingSteps: thinkingSteps as any,
           },
           isEditingOutput: true,
         });

@@ -37,7 +37,7 @@ export function DismissibleWarningBadge({ children, onDismiss, className }: {
       {children}
       <Button
         variant="ghost"
-        size="icon-xs" // Assuming a very small size for the icon button
+        size="icon" // Use the standard icon size
         onClick={(e) => {
           e.stopPropagation(); // Prevent any parent click handlers
           onDismiss();

@@ -1,39 +1,31 @@
 import { NextResponse } from 'next/server';
-import { db } from '@/lib/firebase';
-import { collection, addDoc, getDocs, doc, getDoc, setDoc } from 'firebase/firestore';
+import { firestoreAdapter } from '@/lib/firestore-adapter';
 
 export async function GET() {
   try {
-    console.log('Testing Firestore connection...');
+    console.log('Testing Firestore connection via adapter...');
     
-    // Test 1: Check Firestore database reference
-    const firestoreRef = db;
-    console.log('Firestore DB reference:', firestoreRef ? 'exists' : 'null');
+    // Test 1: Get all documents using the adapter
+    const documents = await firestoreAdapter.getAllDocuments('documents');
     
-    // Test 2: Try to list documents from the documents collection
-    console.log('Attempting to list documents...');
-    const documentsRef = collection(db, 'documents');
-    const querySnapshot = await getDocs(documentsRef);
-    
-    const documents: any[] = [];
-    querySnapshot.forEach((doc) => {
-      documents.push({
-        id: doc.id,
-        data: doc.data()
-      });
-    });
-    
-    // Test 3: Get Firebase project info
+    // Test 2: Get Firebase project info
     const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
     const apiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY?.substring(0, 10) + '...';
     
     return NextResponse.json({
       success: true,
-      message: 'Firestore connection successful',
+      message: 'Firestore connection successful via adapter',
       tests: {
-        firestoreRef: !!firestoreRef,
+        adapterWorking: true,
         documentCount: documents.length,
-        documents: documents.slice(0, 3), // Only show first 3 for brevity
+        documents: documents.map(doc => ({
+          id: doc.id,
+          title: doc.title,
+          workflowId: doc.workflowId,
+          userId: doc.userId,
+          createdAt: doc.createdAt,
+          status: doc.status
+        })),
         config: {
           projectId,
           apiKeyPrefix: apiKey,
@@ -43,20 +35,14 @@ export async function GET() {
     });
     
   } catch (error: any) {
-    console.error('Firestore test failed:', error);
+    console.error('Firestore adapter test failed:', error);
     
     return NextResponse.json({
       success: false,
       error: {
         message: error.message,
         code: error.code,
-        details: error.details,
-        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
-      },
-      config: {
-        projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-        hasApiKey: !!process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-        hasEmulatorConfig: !!process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATOR
+        details: error.details
       }
     }, { status: 500 });
   }
@@ -64,32 +50,31 @@ export async function GET() {
 
 export async function POST() {
   try {
-    console.log('Testing Firestore write operation...');
+    console.log('Testing Firestore write operation via adapter...');
     
     // Test write operation
     const testDoc = {
-      testField: 'Hello Firestore',
-      timestamp: new Date(),
+      testField: 'Hello Firestore via Adapter',
+      timestamp: new Date().toISOString(),
       testNumber: Math.random()
     };
     
-    const docRef = await addDoc(collection(db, 'test'), testDoc);
-    console.log('Test document created with ID:', docRef.id);
+    const docId = await firestoreAdapter.createDocument('test', testDoc);
+    console.log('Test document created with ID:', docId);
     
     // Read it back
-    const createdDoc = await getDoc(docRef);
-    const readData = createdDoc.exists() ? createdDoc.data() : null;
+    const readData = await firestoreAdapter.getDocument('test', docId);
     
     return NextResponse.json({
       success: true,
-      message: 'Firestore write/read test successful',
-      testDocId: docRef.id,
+      message: 'Firestore write/read test successful via adapter',
+      testDocId: docId,
       writtenData: testDoc,
       readData: readData
     });
     
   } catch (error: any) {
-    console.error('Firestore write test failed:', error);
+    console.error('Firestore adapter write test failed:', error);
     
     return NextResponse.json({
       success: false,

@@ -1,4 +1,3 @@
-
 "use client";
 
 import type { Stage, StageState } from "@/types";
@@ -9,6 +8,7 @@ import { Info } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 // Button and Save icon removed as they are now handled by StageCard
 import React from 'react';
+import { cn } from '@/lib/utils';
 
 
 interface StageOutputAreaProps {

@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, screen, act, fireEvent } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { WizardShell } from './wizard-shell';
 import type { WizardInstance, Stage, StageState } from '@/types';
@@ -20,7 +21,7 @@ jest.mock('./stage-card', () => ({
       <div data-testid={`output-${stage.id}`}>{typeof stageState.output === 'string' ? stageState.output : JSON.stringify(stageState.output)}</div>
       {stageState.thinkingSteps && stageState.thinkingSteps.length > 0 && (
         <div data-testid={`thinking-steps-${stage.id}`}>
-          {stageState.thinkingSteps.join(',')}
+          {stageState.thinkingSteps.map((step: any) => step.message || JSON.stringify(step)).join(',')}
         </div>
       )}
     </div>
@@ -44,14 +45,29 @@ jest.mock('./final-document-dialog', () => ({
 const mockRunAiStage = jest.spyOn(aiActions, 'runAiStage');
 
 const mockStagePlain: Stage = {
-  id: 's1', title: 'Stage 1 Plain', inputType: 'textarea', outputType: 'text', dependencies: []
+  id: 'plain-stage',
+  title: 'Plain Stage',
+  description: 'A plain stage for testing',
+  inputType: 'textarea',
+  outputType: 'text',
+  dependencies: []
 };
 const mockStageAi: Stage = {
-  id: 's2', title: 'Stage 2 AI', inputType: 'none', outputType: 'text', promptTemplate: 'Prompt for {{s1.output}}', dependencies: ['s1']
+  id: 's2',
+  title: 'AI Stage',
+  description: 'An AI stage for testing',
+  inputType: 'none',
+  outputType: 'text',
+  promptTemplate: 'Generate something for {{s1.output}}',
+  dependencies: ['s1']
 };
 const mockStageAiWithThinking: Stage = {
-  id: 's3', title: 'Stage 3 AI Thinking', inputType: 'none', outputType: 'text',
-  promptTemplate: 'Thinking prompt for {{s1.output}}',
+  id: 's2',
+  title: 'AI Stage with Thinking',
+  description: 'An AI stage with thinking for testing',
+  inputType: 'none',
+  outputType: 'text',
+  promptTemplate: 'Generate something for {{s1.output}}',
   dependencies: ['s1'],
   thinkingSettings: { enabled: true }
 };
@@ -75,7 +91,10 @@ describe('WizardShell - Thinking Mode', () => {
   });
 
   it('passes thinkingSettings to runAiStage and stores thinkingSteps', async () => {
-    const thinkingStepsFromAI = ["AI thought about it", "AI decided something"];
+    const thinkingStepsFromAI = [
+      { type: 'textLog' as const, message: "AI thought about it" },
+      { type: 'textLog' as const, message: "AI decided something" }
+    ];
     mockRunAiStage.mockResolvedValue({
       content: 'AI result for s3',
       thinkingSteps: thinkingStepsFromAI
@@ -142,7 +161,7 @@ describe('WizardShell - Thinking Mode', () => {
 
     // Check if thinking steps are displayed (mocked StageCard should show them)
     const thinkingStepsDisplay = screen.getByTestId('thinking-steps-s3');
-    expect(thinkingStepsDisplay).toHaveTextContent(thinkingStepsFromAI.join(','));
+    expect(thinkingStepsDisplay).toHaveTextContent('AI thought about it,AI decided something');
   });
 
 
@@ -221,7 +240,7 @@ describe('WizardShell - Thinking Mode', () => {
         <div data-testid={`stage-card-${stage.id}`}>
           <button data-testid={`run-${stage.id}`} onClick={() => onRunStage(stage.id, stageState.userInput)}>Run {stage.title}</button>
           <div data-testid={`output-${stage.id}`}>{stageState.output as string}</div>
-          {stageState.outputImages && stageState.outputImages.map((img, idx) => (
+          {stageState.outputImages && stageState.outputImages.map((img: any, idx: number) => (
             <img key={idx} data-testid={`img-${stage.id}-${idx}`} src={`data:${img.mimeType};base64,${img.base64Data}`} alt={img.name || ''} />
           ))}
         </div>
@@ -243,8 +262,14 @@ describe('WizardShell - Thinking Mode', () => {
 
   describe('WizardShell - Chat Functionality', () => {
     const mockStageChat: Stage = {
-      id: 'sChat', title: 'Chat Stage', inputType: 'textarea', outputType: 'text',
-      chatEnabled: true, systemInstructions: 'Be a pirate.', dependencies: []
+      id: 'sChat',
+      title: 'Chat Stage',
+      description: 'A chat stage for testing',
+      inputType: 'textarea',
+      outputType: 'text',
+      chatEnabled: true,
+      systemInstructions: 'Be a pirate.',
+      dependencies: []
     };
     const initialChatInstance: WizardInstance = {
       document: { ...initialInstance.document },
@@ -266,8 +291,8 @@ describe('WizardShell - Thinking Mode', () => {
               <div data-testid={`output-${stage.id}`}>{stageState.output as string}</div>
               {stageState.chatHistory && (
                 <div data-testid={`chathistory-${stage.id}`}>
-                  {stageState.chatHistory.map((msg, idx) =>
-                    <div key={idx} data-testid={`msg-${idx}`}>{`${msg.role}: ${msg.parts.map(p=>p.text).join('')}`}</div>
+                  {stageState.chatHistory.map((msg: any, idx: number) =>
+                    <div key={idx} data-testid={`msg-${idx}`}>{`${msg.role}: ${msg.parts.map((p: any)=>p.text).join('')}`}</div>
                   )}
                 </div>
               )}

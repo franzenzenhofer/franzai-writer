@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect, useMemo, type ChangeEvent, forwardRef, useImperativeHandle } from "react";
@@ -16,6 +15,7 @@ import { Form, FormControl, FormDescription, FormField as ShadFormField, FormIte
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 // Save icon removed as button is removed
+import { FileText } from "lucide-react";
 
 export interface StageInputAreaProps {
   stage: Stage;
@@ -272,73 +272,28 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
 
 
   switch (stage.inputType) {
+    case "text":
     case "textarea":
-      if (stage.chatEnabled) {
-        return (
-          <div className="space-y-2">
-            <Textarea
-              placeholder={stage.description || "Enter your message..."}
-              value={typeof stageState.userInput === 'string' ? stageState.userInput : ""} // UserInput is the current message
-              onChange={handleTextareaChange}
-              rows={3} // Shorter for chat messages
-              className="bg-background"
-            />
-            {/* TokenCounter might still be relevant for the current message */}
-            <TokenCounter text={typeof stageState.userInput === 'string' ? stageState.userInput : ""} />
-          </div>
-        );
-      }
-      return ( // Default textarea behavior
+      return (
         <div className="space-y-2">
           <Textarea
             placeholder={stage.description || "Enter your input here..."}
             value={typeof stageState.userInput === 'string' ? stageState.userInput : ""}
             onChange={handleTextareaChange}
-            rows={8}
+            rows={stage.chatEnabled ? 3 : 8}
             className="bg-background"
           />
           <TokenCounter text={typeof stageState.userInput === 'string' ? stageState.userInput : ""} />
         </div>
       );
-    case "context":
-      return (
-        <div className="space-y-4">
-          <div>
-            <Label htmlFor={`${stage.id}-manual-input`}>Manual Context Input</Label>
-            <Textarea
-              id={`${stage.id}-manual-input`}
-              placeholder="Paste relevant text or type your context here..."
-              value={contextManualInput}
-              onChange={handleContextManualChange}
-              rows={6}
-              className="bg-background"
-            />
-            <TokenCounter text={contextManualInput} />
-          </div>
-          <div>
-            <Label>Or Upload File Content (Smart Dropzone)</Label>
-            <SmartDropzone onTextExtracted={handleContextDroppedText} />
-             {contextDroppedInput && (
-              <div className="mt-2">
-                <Label>Dropped Content Preview (first 200 chars):</Label>
-                <p className="text-xs p-2 border rounded bg-muted h-20 overflow-y-auto">
-                    {contextDroppedInput.substring(0,200)}{contextDroppedInput.length > 200 ? '...' : ''}
-                </p>
-                <TokenCounter text={contextDroppedInput} />
-              </div>
-            )}
-          </div>
-        </div>
-      );
+
     case "form":
       if (!stage.formFields) return <p>Form fields not configured for this stage.</p>;
       return (
         <Form {...form}>
           <form 
-            // The form submission is now triggered by StageCard via ref.triggerSubmit()
-            // which calls form.handleSubmit(RHFSubmitHandler)
             className="space-y-6"
-            onSubmit={(e) => e.preventDefault()} // Prevent default browser submission
+            onSubmit={(e) => e.preventDefault()}
           >
             {stage.formFields.map((field) => (
               <ShadFormField
@@ -346,12 +301,8 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
                 control={form.control}
                 name={field.name as keyof z.infer<typeof formSchema>} 
                 render={({ field: controllerField }) => {
-                  // When the controller field value changes, we directly call onFormSubmit
-                  // to update the central WizardShell state. This makes the "Save Input" button redundant.
                   const onChangeHandler = (value: any) => {
-                    controllerField.onChange(value); // Update react-hook-form internal state
-                    // Update the central state in WizardShell immediately
-                    // This assumes form.getValues() gives the complete, most up-to-date form state.
+                    controllerField.onChange(value);
                     onFormSubmit(stage.id, { ...form.getValues(), [controllerField.name]: value });
                   };
 
@@ -409,12 +360,41 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
                 )}}
               />
             ))}
-             {/* Removed explicit "Save Input" button. StageCard's primary button handles processing. */}
           </form>
         </Form>
       );
-    case "none":
-      return <p className="text-sm text-muted-foreground">This stage is processed automatically by AI. No input required here.</p>;
+
+    case "context":
+      return (
+        <div className="space-y-4">
+          <div>
+            <Label htmlFor={`${stage.id}-manual-input`}>Manual Context Input</Label>
+            <Textarea
+              id={`${stage.id}-manual-input`}
+              placeholder="Paste relevant text or type your context here..."
+              value={contextManualInput}
+              onChange={handleContextManualChange}
+              rows={6}
+              className="bg-background"
+            />
+            <TokenCounter text={contextManualInput} />
+          </div>
+          <div>
+            <Label>Or Upload File Content (Smart Dropzone)</Label>
+            <SmartDropzone onTextExtracted={handleContextDroppedText} />
+             {contextDroppedInput && (
+              <div className="mt-2">
+                <Label>Dropped Content Preview (first 200 chars):</Label>
+                <p className="text-xs p-2 border rounded bg-muted h-20 overflow-y-auto">
+                    {contextDroppedInput.substring(0,200)}{contextDroppedInput.length > 200 ? '...' : ''}
+                </p>
+                <TokenCounter text={contextDroppedInput} />
+              </div>
+            )}
+          </div>
+        </div>
+      );
+
     case "image":
       return (
         <div className="space-y-4">
@@ -436,11 +416,9 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
               />
             </div>
           )}
-          {/* Consider adding a TokenCounter equivalent for image size or dimensions if useful */}
         </div>
       );
-    default:
-      return <p>Unknown input type: {stage.inputType}</p>;
+
     case "document":
       return (
         <div className="space-y-4">
@@ -456,17 +434,25 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
           {uploadProgress && (
             <p className="text-xs text-muted-foreground mt-1">{uploadProgress}</p>
           )}
-          {documentInfo && !uploadProgress && ( // Show final doc info if no upload in progress
+          {documentInfo && !uploadProgress && (
              <div className="mt-2 p-2 border rounded bg-muted text-xs text-muted-foreground">
                 <p>{documentInfo}</p>
              </div>
           )}
-           {/* Display error from userInput if it exists */}
-          {stageState.userInput?.uploadError && !uploadProgress && (
+           {stageState.userInput?.uploadError && !uploadProgress && (
             <p className="text-xs text-destructive mt-1">
               Previous upload attempt failed: {stageState.userInput.uploadError}
             </p>
           )}
+        </div>
+      );
+
+    case "none":
+    default:
+      return (
+        <div className="text-center text-muted-foreground py-8">
+          <FileText className="mx-auto h-8 w-8 mb-2" />
+          <p>This stage runs automatically when dependencies are met.</p>
         </div>
       );
   }

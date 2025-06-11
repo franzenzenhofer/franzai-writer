@@ -1,6 +1,5 @@
-
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, doc, getDoc, setDoc } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -16,15 +15,23 @@ import {
 import firebase from 'firebase/compat/app'; // Added for firebase.auth namespace
 import 'firebase/compat/auth'; // Required for firebase.auth.GoogleAuthProvider, etc.
 
-// Your web app's Firebase configuration
+// Firebase configuration - FAIL HARD if not properly configured
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "demo-api-key",
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "demo.firebaseapp.com",
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "demo-project",
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || "demo.appspot.com",
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || "123456789",
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || "demo-app-id"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
+
+// Validate configuration - FAIL HARD if missing
+if (!firebaseConfig.apiKey || firebaseConfig.apiKey === 'demo-api-key') {
+  throw new Error('FATAL: Firebase API key not configured');
+}
+if (!firebaseConfig.projectId || firebaseConfig.projectId === 'demo-project') {
+  throw new Error('FATAL: Firebase project ID not configured');
+}
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -49,7 +56,7 @@ if (process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATOR === 'true' && typeof window !=
   try {
     connectFirestoreEmulator(db, 'localhost', 8080);
   } catch (e) {
-    // Already connected
+    console.log('Firestore emulator already connected');
   }
 }
 
@@ -57,12 +64,10 @@ const signUp = async (email: string, password: string) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
-    // You might want to store additional user data in Firestore here
-    await addDoc(collection(db, "users"), {
-      uid: user.uid,
-      email: user.email,
-      createdAt: new Date(),
-    });
+    
+    // NOTE: User data storage moved to document persistence layer
+    // No direct Firestore operations here
+    
     return user;
   } catch (error) {
     throw error;
@@ -90,17 +95,8 @@ const signInWithGoogle = async () => {
     const result = await signInWithPopup(auth, googleProvider);
     const user = result.user;
     
-    // Check if user exists in Firestore, if not create a new document
-    const userDoc = await getDoc(doc(db, "users", user.uid));
-    if (!userDoc.exists()) {
-      await setDoc(doc(db, "users", user.uid), {
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-        createdAt: new Date(),
-      });
-    }
+    // NOTE: User data storage moved to document persistence layer
+    // No direct Firestore operations here
     
     return user;
   } catch (error) {

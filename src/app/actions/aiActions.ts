@@ -20,7 +20,14 @@ interface RunAiStageParams {
 interface AiActionResult {
   content: any;
   error?: string;
-  groundingInfo?: any; 
+  groundingInfo?: any;
+  thinkingSteps?: import('@/ai/flows/ai-stage-execution').ThinkingStep[];
+  outputImages?: Array<{
+    name?: string;
+    base64Data: string;
+    mimeType: string;
+  }>;
+  updatedChatHistory?: Array<{role: 'user' | 'model' | 'system', parts: any[]}>;
 }
 
 function substitutePromptVars(template: string, context: Record<string, any>): string {

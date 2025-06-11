@@ -138,28 +138,47 @@ export default function DashboardPage() {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [documentToDelete, setDocumentToDelete] = useState<string | null>(null);
 
+  const log = (operation: string, data?: any) => {
+    console.log(`[Dashboard] ${operation}`, data || '');
+  };
+
+  const logError = (operation: string, error: any) => {
+    console.error(`[Dashboard] FAILED: ${operation}`, error);
+  };
+
   const loadDocuments = useCallback(async () => {
     setDocumentsLoading(true);
     try {
-      console.log('[Dashboard] Loading documents...', { hasUser: !!user });
+      log('Loading documents', { hasUser: !!user });
+      
       const userDocs = await documentPersistence.listUserDocuments(user?.uid);
+      
+      if (!Array.isArray(userDocs)) {
+        throw new Error('FATAL: Invalid documents data received');
+      }
+      
       setDocuments(userDocs);
-      console.log('[Dashboard] Documents loaded:', userDocs.length);
-    } catch (error) {
-      console.error('[Dashboard] Error loading documents:', error);
+      log('Documents loaded successfully', { count: userDocs.length });
+      
+    } catch (error: any) {
+      logError('loadDocuments', error);
+      
+      // FAIL HARD - show error to user
       toast({
-        title: 'Error loading documents',
-        description: 'Unable to load your documents. Please try again.',
+        title: 'Failed to load documents',
+        description: error.message || 'Unable to load your documents. Please try again.',
         variant: 'destructive',
       });
+      
+      // Set empty array on failure
+      setDocuments([]);
     } finally {
       setDocumentsLoading(false);
     }
   }, [user, toast]);
 
-  // Load user documents when authenticated OR in development mode
+  // Load documents on mount - FAIL HARD if error
   useEffect(() => {
-    // Always load documents (works with temp users in development)
     loadDocuments();
   }, [loadDocuments]);
 
@@ -169,27 +188,38 @@ export default function DashboardPage() {
   };
 
   const confirmDelete = async () => {
-    if (!documentToDelete) return;
-
-    try {
-      console.log('[Dashboard] Deleting document:', documentToDelete);
-      const success = await documentPersistence.deleteDocument(documentToDelete);
-      
-      if (success) {
-        toast({
-          title: 'Document deleted',
-          description: 'Your document has been deleted successfully.',
-        });
-        // Reload documents
-        await loadDocuments();
-      } else {
-        throw new Error('Delete operation failed');
-      }
-    } catch (error) {
-      console.error('[Dashboard] Error deleting document:', error);
+    if (!documentToDelete?.trim()) {
       toast({
         title: 'Delete failed',
-        description: 'Unable to delete the document. Please try again.',
+        description: 'Invalid document ID',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    try {
+      log('Deleting document', { documentId: documentToDelete });
+      
+      const success = await documentPersistence.deleteDocument(documentToDelete);
+      
+      if (!success) {
+        throw new Error('Delete operation returned false');
+      }
+      
+      toast({
+        title: 'Document deleted',
+        description: 'Your document has been deleted successfully.',
+      });
+      
+      // Reload documents to reflect changes
+      await loadDocuments();
+      
+    } catch (error: any) {
+      logError('confirmDelete', error);
+      
+      toast({
+        title: 'Delete failed',
+        description: error.message || 'Unable to delete the document. Please try again.',
         variant: 'destructive',
       });
     } finally {

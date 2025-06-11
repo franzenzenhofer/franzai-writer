@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
+import { screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { StageInputArea, type StageInputAreaProps } from './stage-input-area';
 import type { Stage, StageState } from '@/types';
@@ -26,12 +27,12 @@ const defaultStageProps: Stage = {
 };
 
 const defaultStageState: StageState = {
-  id: 'test-stage',
-  status: 'pending',
-  userInput: null,
-  output: null,
-  error: null,
-  isLoading: false,
+  stageId: 'test-stage',
+  status: 'idle',
+  userInput: undefined,
+  output: undefined,
+  depsAreMet: true,
+  isEditingOutput: false,
 };
 
 const renderComponent = (props: Partial<StageInputAreaProps> = {}) => {

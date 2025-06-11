@@ -37,7 +37,7 @@ function WizardErrorFallback({ error, reset }: { error: Error | null; reset: () 
   );
 }
 
-export function WizardPageContent({ initialInstance }: WizardPageContentProps) {
+function WizardPageContent({ initialInstance }: WizardPageContentProps) {
   const { user } = useAuth();
   const isDemoMode = process.env.NEXT_PUBLIC_DEMO_MODE === 'true';
 
@@ -56,3 +56,5 @@ export function WizardPageContent({ initialInstance }: WizardPageContentProps) {
     </AuthGuard>
   );
 }
+
+export default WizardPageContent;

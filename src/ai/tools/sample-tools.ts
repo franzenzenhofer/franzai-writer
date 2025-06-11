@@ -1,8 +1,8 @@
-import { defineTool } from '@genkit-ai/ai';
 import { z } from 'zod';
+import { ai } from '../genkit';
 
 // Define a simple calculator tool
-export const simpleCalculatorTool = defineTool(
+export const simpleCalculatorTool = ai.defineTool(
   {
     name: 'simpleCalculator',
     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',

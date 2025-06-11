@@ -33,7 +33,7 @@ describe('aiStageExecution Flow', () => {
     const mockResponse = {
       text: () => 'AI text response',
       // Add other GenerateResponse properties if needed by the code under test
-    } as GenerateResponse;
+    } as unknown as GenerateResponse;
     mockGenerate.mockResolvedValue(mockResponse);
 
     const result = await aiStageExecution(input);
@@ -61,7 +61,7 @@ describe('aiStageExecution Flow', () => {
 
     const mockResponse = {
       text: () => 'AI multimodal response',
-    } as GenerateResponse;
+    } as unknown as GenerateResponse;
     mockGenerate.mockResolvedValue(mockResponse);
 
     const result = await aiStageExecution(input);
@@ -89,7 +89,7 @@ describe('aiStageExecution Flow', () => {
     };
      const mockResponse = {
       text: () => 'AI default response',
-    } as GenerateResponse;
+    } as unknown as GenerateResponse;
     mockGenerate.mockResolvedValue(mockResponse);
 
     await aiStageExecution(input);
@@ -111,7 +111,7 @@ describe('aiStageExecution Flow', () => {
     const input: AiStageExecutionInput = { promptTemplate: 'Test prompt' };
     const mockResponse = {
       text: () => undefined, // Simulate undefined content
-    } as GenerateResponse;
+    } as unknown as GenerateResponse;
     mockGenerate.mockResolvedValue(mockResponse);
 
     await expect(aiStageExecution(input)).rejects.toThrow('AI generation returned no content.');
@@ -165,7 +165,7 @@ describe('aiStageExecution Flow', () => {
       prompt: [{ text: 'Simple prompt.' }],
       // config should either be undefined or not contain enableThinking
     }));
-    const calledConfig = mockGenerate.mock.calls[0][0].config;
+    const calledConfig = (mockGenerate.mock.calls[0][0] as any).config;
     expect(calledConfig === undefined || calledConfig.enableThinking === undefined).toBe(true);
 
     expect(result.content).toBe('Simple answer.');
@@ -233,15 +233,15 @@ describe('aiStageExecution Flow', () => {
 
       expect(mockGenerate).toHaveBeenCalledTimes(2);
       // Check first call to AI (initial prompt, tools passed)
-      expect(mockGenerate.mock.calls[0][0].tools).toBeDefined();
-      expect(mockGenerate.mock.calls[0][0].tools.length).toBe(1);
-      expect(mockGenerate.mock.calls[0][0].tools[0].name).toBe('simpleCalculator');
+      expect((mockGenerate.mock.calls[0][0] as any).tools).toBeDefined();
+      expect((mockGenerate.mock.calls[0][0] as any).tools.length).toBe(1);
+      expect((mockGenerate.mock.calls[0][0] as any).tools[0].name).toBe('simpleCalculator');
 
       // Check that simpleCalculatorTool was called correctly
       expect(mockSimpleCalculatorFn).toHaveBeenCalledWith({ operation: 'add', a: 2, b: 2 });
 
       // Check history for the second AI call (should include tool response)
-      const secondCallHistory = mockGenerate.mock.calls[1][0].history;
+      const secondCallHistory = (mockGenerate.mock.calls[1][0] as any).history;
       expect(secondCallHistory).toEqual(expect.arrayContaining([
         expect.objectContaining({ role: 'user', content: expect.arrayContaining([expect.objectContaining({tool_response: {tool_request_id: 'ref123', output: {result: 4}}})]) }),
       ]));
@@ -277,7 +277,7 @@ describe('aiStageExecution Flow', () => {
       const result = await aiStageExecution(input);
 
       expect(mockSimpleCalculatorFn).toHaveBeenCalledWith({ operation: 'divide', a: 5, b: 0 });
-      const secondCallHistory = mockGenerate.mock.calls[1][0].history;
+      const secondCallHistory = (mockGenerate.mock.calls[1][0] as any).history;
       expect(secondCallHistory).toEqual(expect.arrayContaining([
          expect.objectContaining({ role: 'user', content: expect.arrayContaining([expect.objectContaining({tool_response: {tool_request_id: 'ref123', output: {error: "Cannot divide by zero."}}})]) }),
       ]));
@@ -296,9 +296,9 @@ describe('aiStageExecution Flow', () => {
 
       await aiStageExecution(input);
 
-      expect(mockGenerate.mock.calls[0][0].tools).toBeDefined();
-      expect(mockGenerate.mock.calls[0][0].tools.length).toBe(1);
-      expect(mockGenerate.mock.calls[0][0].tools[0].name).toBe('simpleCalculator');
+      expect((mockGenerate.mock.calls[0][0] as any).tools).toBeDefined();
+      expect((mockGenerate.mock.calls[0][0] as any).tools.length).toBe(1);
+      expect((mockGenerate.mock.calls[0][0] as any).tools[0].name).toBe('simpleCalculator');
     });
 
     it('should handle situation where requested tool is not found/allowed', async () => {
@@ -315,7 +315,7 @@ describe('aiStageExecution Flow', () => {
 
       const result = await aiStageExecution(input);
 
-      const secondCallHistory = mockGenerate.mock.calls[1][0].history;
+      const secondCallHistory = (mockGenerate.mock.calls[1][0] as any).history;
       expect(secondCallHistory).toEqual(expect.arrayContaining([
          expect.objectContaining({ role: 'user', content: expect.arrayContaining([expect.objectContaining({tool_response: {tool_request_id: 'ref123', output: {error: "Tool unknownTool not found or not allowed."}}})]) }),
       ]));
@@ -437,7 +437,7 @@ describe('aiStageExecution Flow', () => {
       await aiStageExecution(input);
 
       expect(mockGenerate).toHaveBeenCalledTimes(1);
-      const history = mockGenerate.mock.calls[0][0].history;
+      const history = (mockGenerate.mock.calls[0][0] as any).history;
       expect(history[0].role).toBe('user');
       expect(history[0].content).toEqual(expect.arrayContaining([
         { text: 'Analyze this document.' },
@@ -498,7 +498,7 @@ describe('aiStageExecution Flow', () => {
       ];
       ((ai as any).stream as jest.Mock).mockResolvedValue(mockStreamChunkIterator(streamChunks));
 
-      const result = await aiStageExecutionFlow(input, mockStreamingCallback);
+      const result = await aiStageExecution(input);
 
       expect((ai as any).stream).toHaveBeenCalledTimes(1);
       const generateOptions = ((ai as any).stream as jest.Mock).mock.calls[0][0];
@@ -553,7 +553,7 @@ describe('aiStageExecution Flow', () => {
         mockCalcTool.fn = jest.fn().mockResolvedValue({ result: 12 });
 
 
-        const result = await aiStageExecutionFlow(input, mockStreamingCallback);
+        const result = await aiStageExecution(input);
 
         expect((ai as any).stream).toHaveBeenCalledTimes(2);
         expect(mockCalcTool.fn).toHaveBeenCalledWith({a:5, b:7});

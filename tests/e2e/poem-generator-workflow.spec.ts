@@ -31,7 +31,7 @@ test.describe('Complete Poem Generator Workflow', () => {
     // Verify poem output is visible
     const poemOutput = page.getByTestId('stage-output-area-markdown');
     await expect(poemOutput).toBeVisible();
-    await expect(poemOutput.locator('p')).toHaveCountGreaterThanOrEqual(1); // Check for at least one paragraph in the poem
+    await expect(poemOutput.locator('p')).toHaveCount(1); // Check for at least one paragraph in the poem
 
     // Finalize document
     await expect(page.getByTestId('finalize-document-button')).toBeEnabled();

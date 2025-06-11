@@ -21,7 +21,7 @@ export interface FormField {
   validation?: Record<string, any>; // react-hook-form validation rules
 }
 
-export type StageInputType = "textarea" | "context" | "form" | "none";
+export type StageInputType = "text" | "textarea" | "context" | "form" | "none" | "image" | "document";
 
 export interface Stage {
   id: string;
