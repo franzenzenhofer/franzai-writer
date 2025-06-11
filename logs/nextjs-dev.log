@@ -7716,3 +7716,238 @@ Executing AI stage with input: {
  POST /w/poem/rSCalQpTIP4UmXFWcgPd 200 in 11457ms
  ✓ Compiled in 66ms
  GET /dashboard 200 in 110ms
+ GET /dashboard 200 in 57ms
+ ○ Compiling /workflow-details/[workflowId] ...
+ ✓ Compiled /workflow-details/[workflowId] in 1317ms
+ GET /workflow-details/poem-generator 200 in 1856ms
+ ⨯ Error [GenkitError]: INVALID_ARGUMENT: Must supply a `model` to `generate()` calls.
+    at async (src/ai/flows/generate-workflow-overview-flow.ts:68:21)
+  66 |   },
+  67 |   async input => {
+> 68 |     const {output} = await prompt(input);
+     |                     ^
+  69 |     return output!;
+  70 |   }
+  71 | ); {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'Must supply a `model` to `generate()` calls.',
+  traceId: 'cac9a2fdbc16d531d53681472475089a',
+  digest: '2294707900'
+}
+ POST /workflow-details/poem-generator 500 in 243ms
+ ⨯ Error [GenkitError]: INVALID_ARGUMENT: Must supply a `model` to `generate()` calls.
+    at async (src/ai/flows/generate-workflow-overview-flow.ts:68:21)
+  66 |   },
+  67 |   async input => {
+> 68 |     const {output} = await prompt(input);
+     |                     ^
+  69 |     return output!;
+  70 |   }
+  71 | ); {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'Must supply a `model` to `generate()` calls.',
+  traceId: 'd403fca2b539554482dc2bc76c0e92b7',
+  digest: '2294707900'
+}
+ GET /favicon.ico?favicon.56766c03.ico 200 in 437ms
+ POST /workflow-details/poem-generator 500 in 179ms
+ ○ Compiling / ...
+ ✓ Compiled / in 816ms
+ GET / 200 in 1024ms
+ GET /dashboard 200 in 147ms
+ GET /workflow-details/poem-generator 200 in 171ms
+ ⨯ Error [GenkitError]: INVALID_ARGUMENT: Must supply a `model` to `generate()` calls.
+    at async (src/ai/flows/generate-workflow-overview-flow.ts:68:21)
+  66 |   },
+  67 |   async input => {
+> 68 |     const {output} = await prompt(input);
+     |                     ^
+  69 |     return output!;
+  70 |   }
+  71 | ); {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'Must supply a `model` to `generate()` calls.',
+  traceId: '91928e38740f62ab9ad770fec81b064d',
+  digest: '2294707900'
+}
+ POST /workflow-details/poem-generator 500 in 190ms
+ ✓ Compiled in 89ms
+ GET /workflow-details/poem-generator 200 in 144ms
+ ⨯ Error [GenkitError]: INVALID_ARGUMENT: Must supply a `model` to `generate()` calls.
+    at async (src/ai/flows/generate-workflow-overview-flow.ts:68:21)
+  66 |   },
+  67 |   async input => {
+> 68 |     const {output} = await prompt(input);
+     |                     ^
+  69 |     return output!;
+  70 |   }
+  71 | ); {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'Must supply a `model` to `generate()` calls.',
+  traceId: '20de1a3b203f8a3793c4492683e4bc60',
+  digest: '2294707900'
+}
+ POST /workflow-details/poem-generator 500 in 213ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 289ms
+ GET /workflow-details/poem-generator 200 in 161ms
+ ⨯ Error [GenkitError]: INVALID_ARGUMENT: Must supply a `model` to `generate()` calls.
+    at async (src/ai/flows/generate-workflow-overview-flow.ts:68:21)
+  66 |   },
+  67 |   async input => {
+> 68 |     const {output} = await prompt(input);
+     |                     ^
+  69 |     return output!;
+  70 |   }
+  71 | ); {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'Must supply a `model` to `generate()` calls.',
+  traceId: '1572d07d54092f2bc59ee3091913eb11',
+  digest: '2294707900'
+}
+ POST /workflow-details/poem-generator 500 in 182ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 363ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled /workflow-details/[workflowId] in 97ms
+ ⨯ ReferenceError: BrainCircuit is not defined
+    at MainNav (src/components/layout/main-nav.tsx:22:9)
+  20 |         data-testid="main-nav-logo"
+  21 |       >
+> 22 |         <BrainCircuit className="h-6 w-6 text-primary" />
+     |         ^
+  23 |         <span className="inline-block font-bold font-headline">{siteConfig.name}</span>
+  24 |       </Link>
+  25 |       {items?.length ? ( {
+  digest: '1670344476'
+}
+ ⨯ ReferenceError: BrainCircuit is not defined
+    at MainNav (src/components/layout/main-nav.tsx:22:9)
+  20 |         data-testid="main-nav-logo"
+  21 |       >
+> 22 |         <BrainCircuit className="h-6 w-6 text-primary" />
+     |         ^
+  23 |         <span className="inline-block font-bold font-headline">{siteConfig.name}</span>
+  24 |       </Link>
+  25 |       {items?.length ? ( {
+  digest: '1670344476'
+}
+ ⨯ ReferenceError: BrainCircuit is not defined
+    at MainNav (src/components/layout/main-nav.tsx:22:9)
+  20 |         data-testid="main-nav-logo"
+  21 |       >
+> 22 |         <BrainCircuit className="h-6 w-6 text-primary" />
+     |         ^
+  23 |         <span className="inline-block font-bold font-headline">{siteConfig.name}</span>
+  24 |       </Link>
+  25 |       {items?.length ? ( {
+  digest: '1670344476'
+}
+ ⨯ ReferenceError: BrainCircuit is not defined
+    at MainNav (src/components/layout/main-nav.tsx:22:9)
+  20 |         data-testid="main-nav-logo"
+  21 |       >
+> 22 |         <BrainCircuit className="h-6 w-6 text-primary" />
+     |         ^
+  23 |         <span className="inline-block font-bold font-headline">{siteConfig.name}</span>
+  24 |       </Link>
+  25 |       {items?.length ? ( {
+  digest: '1670344476'
+}
+ GET /workflow-details/poem-generator 200 in 944ms
+ GET /workflow-details/poem-generator 500 in 628ms
+ GET /favicon.ico 200 in 233ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 609ms
+ ✓ Compiled /workflow-details/[workflowId] in 94ms
+(node:47383) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGTERM listeners added to [process]. MaxListeners is 10. Use emitter.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+ GET /workflow-details/poem-generator 200 in 743ms
+ ⨯ Error [GenkitError]: INVALID_ARGUMENT: Must supply a `model` to `generate()` calls.
+    at async (src/ai/flows/generate-workflow-overview-flow.ts:68:21)
+  66 |   },
+  67 |   async input => {
+> 68 |     const {output} = await prompt(input);
+     |                     ^
+  69 |     return output!;
+  70 |   }
+  71 | ); {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'Must supply a `model` to `generate()` calls.',
+  traceId: 'fc58dade5dae70702a54e31751cb744c',
+  digest: '2294707900'
+}
+ POST /workflow-details/poem-generator 500 in 252ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 442ms
+ ✓ Compiled in 69ms
+ ✓ Compiled /workflow-details/[workflowId] in 8ms
+(node:47383) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGINT listeners added to [process]. MaxListeners is 10. Use emitter.setMaxListeners() to increase limit
+ GET /workflow-details/poem-generator 200 in 447ms
+ GET /workflow-details/poem-generator 200 in 108ms
+ GET /workflow-details/poem-generator 200 in 50ms
+ GET /workflow-details/poem-generator 200 in 42ms
+ GET /workflow-details/poem-generator 200 in 38ms
+ ⨯ Error [GenkitError]: INVALID_ARGUMENT: Must supply a `model` to `generate()` calls.
+    at async (src/ai/flows/generate-workflow-overview-flow.ts:68:21)
+  66 |   },
+  67 |   async input => {
+> 68 |     const {output} = await prompt(input);
+     |                     ^
+  69 |     return output!;
+  70 |   }
+  71 | ); {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'Must supply a `model` to `generate()` calls.',
+  traceId: '89492f306b1c4f8637381baa682d8c68',
+  digest: '2294707900'
+}
+ POST /workflow-details/poem-generator 500 in 237ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 342ms
+ ✓ Compiled /workflow-details/[workflowId] in 16ms
+ ✓ Compiled in 630ms
+ GET /workflow-details/poem-generator 200 in 310ms
+ GET /workflow-details/poem-generator 200 in 710ms
+ ✓ Compiled in 4ms
+ GET /workflow-details/poem-generator 200 in 82ms
+ GET /workflow-details/poem-generator 200 in 151ms
+ ⨯ Error [GenkitError]: INVALID_ARGUMENT: Must supply a `model` to `generate()` calls.
+    at async (src/ai/flows/generate-workflow-overview-flow.ts:68:21)
+  66 |   },
+  67 |   async input => {
+> 68 |     const {output} = await prompt(input);
+     |                     ^
+  69 |     return output!;
+  70 |   }
+  71 | ); {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'Must supply a `model` to `generate()` calls.',
+  traceId: 'd9d218d8b7ce13d7f92a3b2e0303529b',
+  digest: '2294707900'
+}
+ POST /workflow-details/poem-generator 500 in 238ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 323ms

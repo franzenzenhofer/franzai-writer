@@ -26,10 +26,23 @@ export function MobileMenu({ items, isAuthenticated, onSignOut }: MobileMenuProp
       <SheetTrigger asChild>
         <Button
           variant="ghost"
-          className="md:hidden"
+          className="md:hidden h-9 w-9 p-0"
           size="icon"
         >
-          <Menu className="h-5 w-5" />
+          <svg
+            className="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
           <span className="sr-only">Toggle menu</span>
         </Button>
       </SheetTrigger>

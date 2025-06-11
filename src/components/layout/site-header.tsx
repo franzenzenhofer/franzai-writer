@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { MainNav } from "@/components/layout/main-nav";
 import { MobileMenu } from "@/components/layout/mobile-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { FranzAILogo } from "@/components/franzai-logo";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,12 +32,15 @@ export function SiteHeader() {
 
   return (
     <header className="bg-card sticky top-0 z-40 w-full border-b">
-      <div className="container flex h-16 items-center">
-        <MobileMenu 
-          items={siteConfig.mainNav} 
-          isAuthenticated={!!user}
-          onSignOut={handleLogout}
-        />
+      <div className="container flex h-14 items-center px-4 md:px-6">
+        <div className="flex items-center gap-2 md:hidden">
+          <MobileMenu 
+            items={siteConfig.mainNav} 
+            isAuthenticated={!!user}
+            onSignOut={handleLogout}
+          />
+          <FranzAILogo size="sm" />
+        </div>
         <MainNav items={siteConfig.mainNav} className="hidden md:flex" />
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-1">

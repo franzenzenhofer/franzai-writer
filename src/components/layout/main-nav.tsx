@@ -3,7 +3,7 @@ import Link from "next/link";
 import { NavItem } from "@/types";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { BrainCircuit } from "lucide-react"; // Using BrainCircuit as a placeholder logo icon
+import { FranzAILogo } from "@/components/franzai-logo";
 
 interface MainNavProps {
   items?: NavItem[];
@@ -15,12 +15,11 @@ export function MainNav({ items, className }: MainNavProps) {
     <div className={cn("flex gap-6 md:gap-10", className)}>
       <Link 
         href="/" 
-        className="flex items-center space-x-2"
+        className="flex items-center"
         id="main-nav-logo"
         data-testid="main-nav-logo"
       >
-        <BrainCircuit className="h-6 w-6 text-primary" />
-        <span className="inline-block font-bold font-headline">{siteConfig.name}</span>
+        <FranzAILogo size="sm" />
       </Link>
       {items?.length ? (
         <nav className="flex gap-6">
