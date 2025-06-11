@@ -1,7 +1,6 @@
-
 "use server";
 
-import { aiStageExecution, type AiStageExecutionInput } from "@/ai/flows/ai-stage-execution";
+import { aiStageExecutionFlow, type AiStageExecutionInput } from "@/ai/flows/ai-stage-execution";
 import type { StageState, Stage } from "@/types";
 // Removed: import { ai } from '@/ai/genkit'; // No longer needed here for default model/temp
 
@@ -119,7 +118,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
 
     console.log("Executing AI stage with input:", JSON.stringify(aiInput, null, 2));
 
-    const result = await aiStageExecution(aiInput);
+    const result = await aiStageExecutionFlow(aiInput);
     
     let parsedContent = result.content;
     const thinkingSteps = result.thinkingSteps;

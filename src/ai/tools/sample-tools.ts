@@ -1,4 +1,4 @@
-import { defineTool, tool } from 'genkit/tool';
+import { defineTool } from '@genkit-ai/ai';
 import { z } from 'zod';
 
 // Define a simple calculator tool

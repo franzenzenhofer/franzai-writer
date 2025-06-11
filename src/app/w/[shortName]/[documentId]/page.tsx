@@ -51,7 +51,9 @@ export default async function WizardPage({
       // Document not found - create a new one
       dynamicTitle = `New ${workflow.name}`;
       const newDoc: WizardDocument = {
-        id: documentId,
+        // Prefix with 'temp-' so the persistence layer knows this document
+        // hasn't been saved to Firestore yet and will call createDocument()
+        id: `temp-${documentId}`,
         title: dynamicTitle,
         workflowId: workflow.id,
         status: "draft",

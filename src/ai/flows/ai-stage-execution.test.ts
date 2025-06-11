@@ -1,6 +1,6 @@
 import { aiStageExecution, type AiStageExecutionInput } from './ai-stage-execution';
 import { ai } from '@/ai/genkit'; // Mocked below
-import { GenerateResponse } from 'genkit/generate';
+import { GenerateResponse } from '@genkit-ai/ai';
 
 // Mock the entire @/ai/genkit module
 jest.mock('@/ai/genkit', () => ({

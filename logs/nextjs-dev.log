@@ -2052,3 +2052,1797 @@ All exports of the module are statically known (It doesn't have dynamic exports)
  GET /favicon.ico 500 in 25ms
  ✓ Compiled in 5ms
  ✓ Compiled in 6ms
+Debugger listening on ws://127.0.0.1:9230/8a74df97-c067-4df5-bba1-8b700741f30d
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.201:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 587ms
+ ○ Compiling / ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled / in 1552ms
+ GET / 200 in 1843ms
+ GET / 200 in 149ms
+ ✓ Compiled /favicon.ico in 216ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 469ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 780ms
+ GET /login 200 in 800ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 815ms
+ GET /dashboard 200 in 852ms
+ GET /dashboard 200 in 40ms
+ GET /dashboard 200 in 178ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 220ms
+ ○ Compiling /w/[shortName]/new ...
+ ✓ Compiled /w/[shortName]/new in 715ms
+ GET /w/article/new 200 in 1067ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+ ✓ Compiled /w/[shortName]/[documentId] in 2.6s
+ ⨯ ./src/ai/tools/sample-tools.ts:1:1
+Export defineTool doesn't exist in target module
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { defineTool[33m,[39m tool } [36mfrom[39m [32m'genkit/tool'[39m[33m;[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 2 |[39m [36mimport[39m { z } [36mfrom[39m [32m'zod'[39m[33m;[39m[0m
+[0m [90m 3 |[39m[0m
+[0m [90m 4 |[39m [90m// Define a simple calculator tool[39m[0m
+
+The export defineTool was not found in module [project]/node_modules/genkit/lib/tool.mjs [app-rsc] (ecmascript) <exports>.
+Did you mean to import dynamicTool?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 619ms
+ GET /w/article/mbros878wotcpuu 500 in 3398ms
+ ⨯ ./src/ai/tools/sample-tools.ts:1:1
+Export defineTool doesn't exist in target module
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { defineTool[33m,[39m tool } [36mfrom[39m [32m'genkit/tool'[39m[33m;[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 2 |[39m [36mimport[39m { z } [36mfrom[39m [32m'zod'[39m[33m;[39m[0m
+[0m [90m 3 |[39m[0m
+[0m [90m 4 |[39m [90m// Define a simple calculator tool[39m[0m
+
+The export defineTool was not found in module [project]/node_modules/genkit/lib/tool.mjs [app-rsc] (ecmascript) <exports>.
+Did you mean to import dynamicTool?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+
+ GET /w/article/mbros878wotcpuu 500 in 31ms
+ ⨯ ./src/ai/tools/sample-tools.ts:1:1
+Export defineTool doesn't exist in target module
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { defineTool[33m,[39m tool } [36mfrom[39m [32m'genkit/tool'[39m[33m;[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 2 |[39m [36mimport[39m { z } [36mfrom[39m [32m'zod'[39m[33m;[39m[0m
+[0m [90m 3 |[39m[0m
+[0m [90m 4 |[39m [90m// Define a simple calculator tool[39m[0m
+
+The export defineTool was not found in module [project]/node_modules/genkit/lib/tool.mjs [app-rsc] (ecmascript) <exports>.
+Did you mean to import dynamicTool?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+
+ GET /w/article/mbros878wotcpuu 500 in 24ms
+ ✓ Compiled /w/[shortName]/[documentId] in 22ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:847:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:869:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbros878wotcpuu'
+}
+ GET /w/article/mbros878wotcpuu 500 in 523ms
+ ✓ Compiled in 52ms
+ GET /dashboard 200 in 76ms
+ GET /w/article/new 307 in 128ms
+ GET / 200 in 90ms
+ GET /login 200 in 35ms
+ GET /dashboard 200 in 50ms
+ GET /dashboard 200 in 30ms
+ GET /w/article/new 200 in 36ms
+ ✓ Compiled /w/[shortName]/[documentId] in 36ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:847:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:869:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ GET /w/article/mbrp1edow7h6p1j 500 in 320ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:847:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:869:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ GET /w/article/mbrp1edow7h6p1j 500 in 46ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:847:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:869:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ GET /w/article/mbrp1edow7h6p1j 500 in 44ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:847:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:869:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ GET /w/article/mbrp1edow7h6p1j 500 in 82ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:847:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:869:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ GET /w/article/mbrp1edow7h6p1j 500 in 68ms
+Debugger listening on ws://127.0.0.1:9230/7bf48a97-21e1-47e8-ab4d-442dd49f0762
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.201:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 1002ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled /w/[shortName]/[documentId] in 3.9s
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:847:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:869:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:847:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:869:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbros878wotcpuu'
+}
+ ✓ Compiled /_error in 496ms
+ GET /w/article/mbrp1edow7h6p1j 500 in 5038ms
+ GET /w/article/mbros878wotcpuu 500 in 4955ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 701ms
+ GET /dashboard 200 in 930ms
+ ✓ Compiled /w/[shortName]/[documentId] in 25ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:851:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:873:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ GET /w/article/mbrp1edow7h6p1j 500 in 256ms
+ ✓ Compiled /w/[shortName]/[documentId] in 18ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:841:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:863:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ GET /w/article/mbrp1edow7h6p1j 500 in 194ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:841:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:863:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ GET /w/article/mbrp1edow7h6p1j 500 in 75ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:841:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:863:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ GET /w/article/mbrp1edow7h6p1j 500 in 60ms
+ GET /dashboard 200 in 69ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:841:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:863:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ GET /w/article/mbrp1edow7h6p1j 500 in 111ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:841:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:863:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ GET /w/article/mbrp1edow7h6p1j 500 in 50ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:841:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:863:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ GET /w/article/mbrp1edow7h6p1j 500 in 57ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:841:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:863:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ GET /w/article/mbrp1edow7h6p1j 500 in 65ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:841:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:863:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ GET /w/article/mbrp1edow7h6p1j 500 in 41ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:841:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:863:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ GET /w/article/mbrp1edow7h6p1j 500 in 47ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:841:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:863:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ GET /w/article/mbrp1edow7h6p1j 500 in 42ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:841:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:863:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ GET /w/article/mbrp1edow7h6p1j 500 in 51ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:3:0)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:841:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__84f00aee._.js:863:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ GET /w/article/mbrp1edow7h6p1j 500 in 55ms
+ ✓ Compiled /w/[shortName]/[documentId] in 23ms
+ ⨯ TypeError: (0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$genkit$2f$lib$2f$common$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__.configure) is not a function
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:11:28)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__490f7261._.js:767:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__490f7261._.js:789:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+   9 | // the `getStore` undefined error we are fixing.
+  10 |
+> 11 | export const ai = configure({
+     |                            ^
+  12 |   plugins: [
+  13 |     googleAI({
+  14 |       apiVersion: 'v1beta', {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ GET /w/article/mbrp1edow7h6p1j 500 in 267ms
+ ⨯ TypeError: (0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$genkit$2f$lib$2f$common$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__.configure) is not a function
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:11:28)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:4:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__490f7261._.js:767:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__490f7261._.js:789:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+   9 | // the `getStore` undefined error we are fixing.
+  10 |
+> 11 | export const ai = configure({
+     |                            ^
+  12 |   plugins: [
+  13 |     googleAI({
+  14 |       apiVersion: 'v1beta', {
+  page: '/w/article/mbrp1edow7h6p1j'
+}
+ GET /w/article/mbrp1edow7h6p1j 500 in 70ms
+ ✓ Compiled /w/[shortName]/[documentId] in 19ms
+ GET /w/article/mbrp1edow7h6p1j 200 in 1324ms
+ ✓ Compiled /w/[shortName]/[documentId] in 16ms
+ GET /w/article/mbrp1edow7h6p1j 200 in 542ms
+ GET /w/article/mbrp1edow7h6p1j 200 in 312ms
+ ✓ Compiled /favicon.ico in 236ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 478ms
+ ○ Compiling / ...
+ ✓ Compiled / in 713ms
+ GET / 200 in 741ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 722ms
+ GET /login 200 in 739ms
+ GET /dashboard 200 in 54ms
+ GET /dashboard 200 in 27ms
+ ○ Compiling /w/[shortName]/new ...
+ ✓ Compiled /w/[shortName]/new in 663ms
+ GET /w/article/new 200 in 971ms
+ GET /w/article/mbrpijd2w98s8ao 200 in 123ms
+ GET /w/article/mbrpijd2w98s8ao 200 in 81ms
+ GET /dashboard 200 in 48ms
+ ✓ Compiled /dashboard in 83ms
+ ✓ Compiled in 188ms
+ GET /dashboard 200 in 180ms
+ GET /dashboard 200 in 45ms
+ GET /dashboard 200 in 59ms
+ GET /dashboard 200 in 191ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 217ms
+ ✓ Compiled /w/[shortName]/new in 24ms
+ GET /w/poem/new 200 in 83ms
+ ✓ Compiled /w/[shortName]/[documentId] in 44ms
+ GET /w/poem/mbrpjdqfw4bc7g5 200 in 1771ms
+ GET /w/poem/mbrpjdqfw4bc7g5 200 in 1380ms
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.5-flash-preview-05-20',
+  temperature: 0.8,
+  stageOutputType: 'markdown'
+}
+[runAiStage] Filled prompt length: 63
+Executing AI stage with input: {
+  "promptTemplate": "Write a poem about 'love me do\n'.\nMake it about 4 stanzas long.",
+  "model": "googleai/gemini-2.5-flash-preview-05-20",
+  "temperature": 0.8,
+  "fileInputs": []
+}
+[AI Stage] Starting execution with input: {
+  promptTemplate: "Write a poem about 'love me do\n'.\nMake it about 4 stanzas long.",
+  model: 'googleai/gemini-2.5-flash-preview-05-20',
+  temperature: 0.8,
+  thinkingSettings: undefined,
+  toolNames: undefined,
+  fileInputs: [],
+  systemInstructions: undefined,
+  chatHistory: undefined
+}
+[AI Stage] Execution failed: Error: This function should not be called directly if it's meant to be wrapped by ai.defineFlow with a streaming callback. Call the flow instead.
+    at aiStageExecution (src/ai/flows/ai-stage-execution.ts:73:11)
+    at runAiStage (src/app/actions/aiActions.ts:122:42)
+  71 |      // Let's assume the defineFlow wraps the logic within this async function directly.
+  72 |      // This will be clarified when we define the flow.
+> 73 |      throw new Error("This function should not be called directly if it's meant to be wrapped by ai.defineFlow with a streaming callback. Call the flow instead.");
+     |           ^
+  74 |
+  75 |   } catch (error) {
+  76 |     console.error('[AI Stage] Execution failed:', error);
+AI Stage Execution Error: Error: This function should not be called directly if it's meant to be wrapped by ai.defineFlow with a streaming callback. Call the flow instead.
+    at aiStageExecution (src/ai/flows/ai-stage-execution.ts:73:11)
+    at runAiStage (src/app/actions/aiActions.ts:122:42)
+  71 |      // Let's assume the defineFlow wraps the logic within this async function directly.
+  72 |      // This will be clarified when we define the flow.
+> 73 |      throw new Error("This function should not be called directly if it's meant to be wrapped by ai.defineFlow with a streaming callback. Call the flow instead.");
+     |           ^
+  74 |
+  75 |   } catch (error) {
+  76 |     console.error('[AI Stage] Execution failed:', error);
+Error stack: Error: This function should not be called directly if it's meant to be wrapped by ai.defineFlow with a streaming callback. Call the flow instead.
+    at aiStageExecution (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:349:15)
+    at runAiStage (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:704:197)
+    at /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:417:2548
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_hooks:91:14)
+    at /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:417:2513
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async handleAction (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:416:21371)
+    at async renderToHTMLOrFlightImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:422:27153)
+    at async doRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1655:34)
+    at async DevServer.renderToResponseWithComponentsImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1920:28)
+    at async DevServer.renderPageComponent (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2408:24)
+    at async DevServer.renderToResponseImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2445:32)
+    at async DevServer.pipeImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1008:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/next-server.js:305:17)
+    at async DevServer.handleRequestImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:900:17)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:371:20
+    at async Span.traceAsyncFn (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/trace/trace.js:157:20)
+    at async DevServer.handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:368:24)
+    at async invokeRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:237:21)
+    at async handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:428:24)
+    at async requestHandlerImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:452:13)
+    at async Server.requestListener (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/start-server.js:158:13)
+ POST /w/poem/mbrpjdqfw4bc7g5 200 in 372ms
+ ✓ Compiled /w/[shortName]/[documentId] in 18ms
+ GET /w/poem/mbrpjdqfw4bc7g5 200 in 632ms
+ ✓ Compiled /w/[shortName]/[documentId] in 17ms
+ GET /w/poem/mbrpjdqfw4bc7g5 200 in 598ms
+Debugger listening on ws://127.0.0.1:9230/32ea0842-4f3b-4a42-bfb5-8ba3d71ed208
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.201:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 734ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled /w/[shortName]/[documentId] in 4.1s
+ GET /w/article/mbros878wotcpuu 200 in 5385ms
+ GET /w/poem/mbrpjdqfw4bc7g5 200 in 150ms
+ ✓ Compiled /favicon.ico in 268ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 509ms
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.5-flash-preview-05-20',
+  temperature: 0.8,
+  stageOutputType: 'markdown'
+}
+[runAiStage] Filled prompt length: 62
+Executing AI stage with input: {
+  "promptTemplate": "Write a poem about 'love me do'.\nMake it about 4 stanzas long.",
+  "model": "googleai/gemini-2.5-flash-preview-05-20",
+  "temperature": 0.8,
+  "fileInputs": []
+}
+AI Stage Execution Error: TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at <unknown> (.next/server/chunks/ssr/_e289ff2d._.js:25:16)
+    at async (src/ai/flows/ai-stage-execution.ts:69:27)
+    at async runAiStage (src/app/actions/aiActions.ts:121:19)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  traceId: 'f9da66a7a4e05d023d11fec056107f9f'
+}
+Error stack: TypeError: Cannot read properties of undefined (reading 'getStore')
+    at isInRuntimeContext (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1802:32)
+    at defineAction (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1763:9)
+    at defineTool (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_ai_lib_e3351302._.js:2111:44)
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/_758b792a._.js:18:196)
+    at instantiateModule (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[turbopack]_runtime.js:594:23)
+    at getOrInstantiateModuleFromParent (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[turbopack]_runtime.js:653:12)
+    at esmImport (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[turbopack]_runtime.js:132:20)
+    at /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/_e289ff2d._.js:25:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:336:28
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2211:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1768:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1701:33
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1040:20
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1057:28
+    at async runInNewSpan (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1050:12)
+    at async newTrace (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1033:12)
+    at async actionFn.run (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1670:22)
+    at async actionFn (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1649:17)
+    at async runAiStage (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:677:24)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:417:2449
+    at async handleAction (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:416:21371)
+    at async renderToHTMLOrFlightImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:422:27153)
+    at async doRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1655:34)
+    at async DevServer.renderToResponseWithComponentsImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1920:28)
+    at async DevServer.renderPageComponent (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2408:24)
+    at async DevServer.renderToResponseImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2445:32)
+    at async DevServer.pipeImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1008:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/next-server.js:305:17)
+    at async DevServer.handleRequestImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:900:17)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:371:20
+    at async Span.traceAsyncFn (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/trace/trace.js:157:20)
+    at async DevServer.handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:368:24)
+    at async invokeRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:237:21)
+    at async handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:428:24)
+    at async requestHandlerImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:452:13)
+    at async Server.requestListener (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/start-server.js:158:13)
+ POST /w/poem/mbrpjdqfw4bc7g5 200 in 299ms
+ ✓ Compiled /w/[shortName]/[documentId] in 22ms
+ ⨯ TypeError: (0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$genkit$2d$ai$2f$core$2f$lib$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$exports$3e$__.configureGenkit) is not a function
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:5:34)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:3:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:740:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:762:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  3 |
+  4 | // Configure Genkit once at application startup with the correct import
+> 5 | export const ai = configureGenkit({
+    |                                  ^
+  6 |   plugins: [
+  7 |     googleAI({
+  8 |       apiVersion: 'v1beta', {
+  page: '/w/poem/mbrpjdqfw4bc7g5'
+}
+ ⨯ TypeError: (0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$genkit$2d$ai$2f$core$2f$lib$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$exports$3e$__.configureGenkit) is not a function
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:5:34)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:3:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:740:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:762:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  3 |
+  4 | // Configure Genkit once at application startup with the correct import
+> 5 | export const ai = configureGenkit({
+    |                                  ^
+  6 |   plugins: [
+  7 |     googleAI({
+  8 |       apiVersion: 'v1beta', {
+  page: '/w/article/mbros878wotcpuu'
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 547ms
+ GET /w/article/mbros878wotcpuu 500 in 942ms
+ GET /w/poem/mbrpjdqfw4bc7g5 500 in 959ms
+ ⨯ TypeError: (0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$genkit$2d$ai$2f$core$2f$lib$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$exports$3e$__.configureGenkit) is not a function
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:5:34)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:3:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:740:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:762:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  3 |
+  4 | // Configure Genkit once at application startup with the correct import
+> 5 | export const ai = configureGenkit({
+    |                                  ^
+  6 |   plugins: [
+  7 |     googleAI({
+  8 |       apiVersion: 'v1beta', {
+  page: '/w/poem/mbrpjdqfw4bc7g5'
+}
+ ⨯ TypeError: (0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$genkit$2d$ai$2f$core$2f$lib$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$exports$3e$__.configureGenkit) is not a function
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:5:34)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:3:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:740:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:762:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  3 |
+  4 | // Configure Genkit once at application startup with the correct import
+> 5 | export const ai = configureGenkit({
+    |                                  ^
+  6 |   plugins: [
+  7 |     googleAI({
+  8 |       apiVersion: 'v1beta', {
+  page: '/w/article/mbros878wotcpuu'
+}
+ GET /w/article/mbros878wotcpuu 500 in 107ms
+ GET /w/poem/mbrpjdqfw4bc7g5 500 in 108ms
+ ✓ Compiled /w/[shortName]/[documentId] in 23ms
+ ⨯ TypeError: (0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$genkit$2d$ai$2f$core$2f$lib$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$exports$3e$__.configureGenkit) is not a function
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:5:34)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:3:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:740:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:762:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  3 |
+  4 | // Configure Genkit once at application startup with the correct import
+> 5 | export const ai = configureGenkit({
+    |                                  ^
+  6 |   plugins: [
+  7 |     googleAI({
+  8 |       apiVersion: 'v1beta', {
+  page: '/w/poem/mbrpjdqfw4bc7g5'
+}
+ GET /w/poem/mbrpjdqfw4bc7g5 500 in 395ms
+ ✓ Compiled /w/[shortName]/[documentId] in 26ms
+ ⨯ TypeError: (0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$genkit$2d$ai$2f$core$2f$lib$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$exports$3e$__.configureGenkit) is not a function
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:5:34)
+    at [project]/src/ai/flows/ai-stage-execution.ts [app-rsc] (ecmascript) (src/ai/flows/ai-stage-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:3:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:499:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:521:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  3 |
+  4 | // Configure Genkit once at application startup with the correct import
+> 5 | export const ai = configureGenkit({
+    |                                  ^
+  6 |   plugins: [
+  7 |     googleAI({
+  8 |       apiVersion: 'v1beta', {
+  page: '/w/poem/mbrpjdqfw4bc7g5'
+}
+ GET /w/poem/mbrpjdqfw4bc7g5 500 in 306ms
+ ✓ Compiled /w/[shortName]/[documentId] in 25ms
+ ⨯ TypeError: (0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$genkit$2d$ai$2f$core$2f$lib$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$exports$3e$__.configureGenkit) is not a function
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:5:34)
+    at [project]/src/ai/flows/simple-ai-execution.ts [app-rsc] (ecmascript) (src/ai/flows/simple-ai-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:3:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__5f0fb6de._.js:458:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__5f0fb6de._.js:480:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  3 |
+  4 | // Configure Genkit once at application startup with the correct import
+> 5 | export const ai = configureGenkit({
+    |                                  ^
+  6 |   plugins: [
+  7 |     googleAI({
+  8 |       apiVersion: 'v1beta', {
+  page: '/w/poem/mbrpjdqfw4bc7g5'
+}
+ GET /w/poem/mbrpjdqfw4bc7g5 500 in 308ms
+Debugger listening on ws://127.0.0.1:9230/c17dc5a8-9d99-41bc-b1d5-adbdc0f00921
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.201:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 909ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled /w/[shortName]/[documentId] in 4.3s
+ ⨯ TypeError: (0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$genkit$2d$ai$2f$core$2f$lib$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$exports$3e$__.configureGenkit) is not a function
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:5:34)
+    at [project]/src/ai/flows/simple-ai-execution.ts [app-rsc] (ecmascript) (src/ai/flows/simple-ai-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:3:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__5f0fb6de._.js:458:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__5f0fb6de._.js:480:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  3 |
+  4 | // Configure Genkit once at application startup with the correct import
+> 5 | export const ai = configureGenkit({
+    |                                  ^
+  6 |   plugins: [
+  7 |     googleAI({
+  8 |       apiVersion: 'v1beta', {
+  page: '/w/poem/mbrpjdqfw4bc7g5'
+}
+ ⨯ TypeError: (0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$genkit$2d$ai$2f$core$2f$lib$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$exports$3e$__.configureGenkit) is not a function
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:5:34)
+    at [project]/src/ai/flows/simple-ai-execution.ts [app-rsc] (ecmascript) (src/ai/flows/simple-ai-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:3:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__5f0fb6de._.js:458:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__5f0fb6de._.js:480:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  3 |
+  4 | // Configure Genkit once at application startup with the correct import
+> 5 | export const ai = configureGenkit({
+    |                                  ^
+  6 |   plugins: [
+  7 |     googleAI({
+  8 |       apiVersion: 'v1beta', {
+  page: '/w/article/mbros878wotcpuu'
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 588ms
+ GET /w/article/mbros878wotcpuu 500 in 5455ms
+ GET /w/poem/mbrpjdqfw4bc7g5 500 in 5454ms
+ ○ Compiling / ...
+ ✓ Compiled / in 811ms
+ GET / 200 in 1039ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 723ms
+ GET /login 200 in 746ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 710ms
+ GET /dashboard 200 in 742ms
+ GET /dashboard 200 in 36ms
+ ○ Compiling /w/[shortName]/new ...
+ ✓ Compiled /w/[shortName]/new in 680ms
+ GET /w/poem/new 200 in 997ms
+ ⨯ TypeError: (0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$genkit$2d$ai$2f$core$2f$lib$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$exports$3e$__.configureGenkit) is not a function
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:5:34)
+    at [project]/src/ai/flows/simple-ai-execution.ts [app-rsc] (ecmascript) (src/ai/flows/simple-ai-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:3:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__5f0fb6de._.js:458:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__5f0fb6de._.js:480:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  3 |
+  4 | // Configure Genkit once at application startup with the correct import
+> 5 | export const ai = configureGenkit({
+    |                                  ^
+  6 |   plugins: [
+  7 |     googleAI({
+  8 |       apiVersion: 'v1beta', {
+  page: '/w/poem/mbrpw6bewchpuwq'
+}
+ GET /w/poem/mbrpw6bewchpuwq 500 in 77ms
+ ⨯ TypeError: (0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$genkit$2d$ai$2f$core$2f$lib$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$exports$3e$__.configureGenkit) is not a function
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:5:34)
+    at [project]/src/ai/flows/simple-ai-execution.ts [app-rsc] (ecmascript) (src/ai/flows/simple-ai-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:3:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__5f0fb6de._.js:458:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__5f0fb6de._.js:480:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  3 |
+  4 | // Configure Genkit once at application startup with the correct import
+> 5 | export const ai = configureGenkit({
+    |                                  ^
+  6 |   plugins: [
+  7 |     googleAI({
+  8 |       apiVersion: 'v1beta', {
+  page: '/w/poem/mbrpw6bewchpuwq'
+}
+ GET /w/poem/mbrpw6bewchpuwq 500 in 40ms
+ ⨯ TypeError: (0 , __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$genkit$2d$ai$2f$core$2f$lib$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$exports$3e$__.configureGenkit) is not a function
+    at [project]/src/ai/genkit.ts [app-rsc] (ecmascript) (src/ai/genkit.ts:5:34)
+    at [project]/src/ai/flows/simple-ai-execution.ts [app-rsc] (ecmascript) (src/ai/flows/simple-ai-execution.ts:3:0)
+    at [project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript) (src/app/actions/aiActions.ts:3:0)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) <module evaluation> (.next/server/chunks/ssr/[root-of-the-server]__5f0fb6de._.js:458:160)
+    at [project]/.next-internal/server/app/w/[shortName]/[documentId]/page/actions.js { ACTIONS_MODULE0 => "[project]/src/app/actions/aiActions.ts [app-rsc] (ecmascript)" } [app-rsc] (server actions loader, ecmascript) (.next/server/chunks/ssr/[root-of-the-server]__5f0fb6de._.js:480:417)
+    at Object.<anonymous> (.next/server/app/w/[shortName]/[documentId]/page.js:36:9)
+  3 |
+  4 | // Configure Genkit once at application startup with the correct import
+> 5 | export const ai = configureGenkit({
+    |                                  ^
+  6 |   plugins: [
+  7 |     googleAI({
+  8 |       apiVersion: 'v1beta', {
+  page: '/w/poem/mbrpw6bewchpuwq'
+}
+ GET /w/poem/mbrpw6bewchpuwq 500 in 49ms
+ ✓ Compiled in 772ms
+ ✓ Compiled /w/[shortName]/[documentId] in 68ms
+ GET /w/poem/mbrpw6bewchpuwq 200 in 2289ms
+ GET /w/poem/mbrpw6bewchpuwq 200 in 198ms
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.5-flash-preview-05-20',
+  temperature: 0.8,
+  stageOutputType: 'markdown'
+}
+[runAiStage] Filled prompt length: 56
+Executing AI stage with input: {
+  "promptTemplate": "Write a poem about 'test'.\nMake it about 4 stanzas long.",
+  "model": "googleai/gemini-2.5-flash-preview-05-20",
+  "temperature": 0.8,
+  "fileInputs": []
+}
+AI Stage Execution Error: TypeError: Cannot read properties of undefined (reading 'getStore')
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:6:2)
+    at <unknown> (.next/server/chunks/ssr/_e289ff2d._.js:25:16)
+    at async (src/ai/flows/ai-stage-execution.ts:69:27)
+    at async runAiStage (src/app/actions/aiActions.ts:121:19)
+  4 | // Define a simple calculator tool
+  5 | export const simpleCalculatorTool = defineTool(
+> 6 |   {
+    |  ^
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+  9 |     inputSchema: z.object({ {
+  traceId: '2db7d8f2ea754bb9b32cdce930da8ad3'
+}
+Error stack: TypeError: Cannot read properties of undefined (reading 'getStore')
+    at isInRuntimeContext (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1802:32)
+    at defineAction (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1763:9)
+    at defineTool (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_ai_lib_e3351302._.js:2111:44)
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/_758b792a._.js:18:196)
+    at instantiateModule (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[turbopack]_runtime.js:594:23)
+    at getOrInstantiateModuleFromParent (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[turbopack]_runtime.js:653:12)
+    at esmImport (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[turbopack]_runtime.js:132:20)
+    at /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/_e289ff2d._.js:25:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:336:28
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2211:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1768:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1701:33
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1040:20
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1057:28
+    at async runInNewSpan (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1050:12)
+    at async newTrace (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1033:12)
+    at async actionFn.run (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1670:22)
+    at async actionFn (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1649:17)
+    at async runAiStage (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:677:24)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:417:2449
+    at async handleAction (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:416:21371)
+    at async renderToHTMLOrFlightImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:422:27153)
+    at async doRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1655:34)
+    at async DevServer.renderToResponseWithComponentsImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1920:28)
+    at async DevServer.renderPageComponent (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2408:24)
+    at async DevServer.renderToResponseImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2445:32)
+    at async DevServer.pipeImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1008:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/next-server.js:305:17)
+    at async DevServer.handleRequestImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:900:17)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:371:20
+    at async Span.traceAsyncFn (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/trace/trace.js:157:20)
+    at async DevServer.handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:368:24)
+    at async invokeRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:237:21)
+    at async handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:428:24)
+    at async requestHandlerImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:452:13)
+    at async Server.requestListener (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/start-server.js:158:13)
+ POST /w/poem/mbrpw6bewchpuwq 200 in 261ms
+ ✓ Compiled /w/[shortName]/[documentId] in 33ms
+ GET /w/poem/mbrpw6bewchpuwq 200 in 597ms
+Debugger listening on ws://127.0.0.1:9230/1c9ca681-ee59-4bb5-80e9-7aaa3e4a4f1f
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.201:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 966ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled /w/[shortName]/[documentId] in 4.7s
+ GET /w/poem/mbrpjdqfw4bc7g5 200 in 6122ms
+ GET /w/article/mbros878wotcpuu 200 in 6129ms
+ GET /w/poem/mbrpw6bewchpuwq 200 in 3520ms
+ ✓ Compiled /favicon.ico in 382ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 629ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 221ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 222ms
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.5-flash-preview-05-20',
+  temperature: 0.8,
+  stageOutputType: 'markdown'
+}
+[runAiStage] Filled prompt length: 56
+Executing AI stage with input: {
+  "promptTemplate": "Write a poem about 'test'.\nMake it about 4 stanzas long.",
+  "model": "googleai/gemini-2.5-flash-preview-05-20",
+  "temperature": 0.8,
+  "fileInputs": []
+}
+[AI Stage Flow] Streaming with options: {
+  "history": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "Write a poem about 'test'.\nMake it about 4 stanzas long."
+        }
+      ]
+    }
+  ],
+  "model": "googleai/gemini-2.5-flash-preview-05-20",
+  "config": {
+    "temperature": 0.8
+  }
+}
+AI Stage Execution Error: TypeError: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$ai$2f$genkit$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__.ai.stream is not a function
+    at <unknown> (src/ai/flows/ai-stage-execution.ts:105:28)
+    at async runAiStage (src/app/actions/aiActions.ts:121:19)
+  103 |
+  104 |     console.log(`[AI Stage Flow] Streaming with options:`, JSON.stringify(generateOptions, null, 2));
+> 105 |     const stream = await ai.stream(generateOptions);
+      |                            ^
+  106 |
+  107 |     for await (const chunk of stream) {
+  108 |         if (chunk.content) { {
+  traceId: '26bf21e0ae79452a0c4f05091624df68'
+}
+Error stack: TypeError: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$ai$2f$genkit$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__.ai.stream is not a function
+    at /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:400:148
+    at /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2216:20
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_hooks:91:14)
+    at /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2211:40
+    at /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1768:62
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_hooks:91:14)
+    at AsyncStore.run (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2150:31)
+    at runInActionRuntimeContext (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1805:32)
+    at /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1768:22
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1701:33
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1040:20
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1057:28
+    at async runInNewSpan (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1050:12)
+    at async newTrace (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1033:12)
+    at async actionFn.run (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1670:22)
+    at async actionFn (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1649:17)
+    at async runAiStage (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:548:24)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:417:2449
+    at async handleAction (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:416:21371)
+    at async renderToHTMLOrFlightImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:422:27153)
+    at async doRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1655:34)
+    at async DevServer.renderToResponseWithComponentsImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1920:28)
+    at async DevServer.renderPageComponent (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2408:24)
+    at async DevServer.renderToResponseImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2445:32)
+    at async DevServer.pipeImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1008:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/next-server.js:305:17)
+    at async DevServer.handleRequestImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:900:17)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:371:20
+    at async Span.traceAsyncFn (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/trace/trace.js:157:20)
+    at async DevServer.handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:368:24)
+    at async invokeRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:237:21)
+    at async handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:428:24)
+    at async requestHandlerImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:452:13)
+    at async Server.requestListener (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/start-server.js:158:13)
+ POST /w/poem/mbrpw6bewchpuwq 200 in 287ms
+ ✓ Compiled /w/[shortName]/[documentId] in 21ms
+ GET /w/poem/mbrpw6bewchpuwq 200 in 725ms
+ GET /w/poem/mbrpjdqfw4bc7g5 200 in 691ms
+ GET /w/article/mbros878wotcpuu 200 in 693ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 245ms
+ GET /w/poem/mbrpw6bewchpuwq 200 in 328ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 229ms
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.5-flash-preview-05-20',
+  temperature: 0.8,
+  stageOutputType: 'markdown'
+}
+[runAiStage] Filled prompt length: 56
+Executing AI stage with input: {
+  "promptTemplate": "Write a poem about 'test'.\nMake it about 4 stanzas long.",
+  "model": "googleai/gemini-2.5-flash-preview-05-20",
+  "temperature": 0.8,
+  "fileInputs": []
+}
+[AI Stage Flow] Generating with options: {
+  "prompt": "Write a poem about 'test'.\nMake it about 4 stanzas long.",
+  "model": "googleai/gemini-2.5-flash-preview-05-20",
+  "config": {
+    "temperature": 0.8
+  }
+}
+[AI Stage Flow] Generation failed: TypeError: registry.lookupValue is not a function
+    at async (src/ai/flows/ai-stage-execution.ts:107:25)
+    at async runAiStage (src/app/actions/aiActions.ts:121:19)
+  105 |     
+  106 |     try {
+> 107 |         const response = await generate(generateOptions);
+      |                         ^
+  108 |         accumulatedContent = response.text || '';
+  109 |         
+  110 |         // Add the final model response to history
+AI Stage Execution Error: TypeError: registry.lookupValue is not a function
+    at async (src/ai/flows/ai-stage-execution.ts:107:25)
+    at async runAiStage (src/app/actions/aiActions.ts:121:19)
+  105 |     
+  106 |     try {
+> 107 |         const response = await generate(generateOptions);
+      |                         ^
+  108 |         accumulatedContent = response.text || '';
+  109 |         
+  110 |         // Add the final model response to history {
+  traceId: 'e1ceaf460ba18f0f74772f3cb7206591'
+}
+Error stack: TypeError: registry.lookupValue is not a function
+    at resolveModel (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_ai_lib_ae4606a0._.js:1891:32)
+    at toGenerateActionOptions (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_ai_lib_ae4606a0._.js:4286:63)
+    at generate (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_ai_lib_ae4606a0._.js:4255:26)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:404:26
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2211:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1768:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1701:33
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1040:20
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1057:28
+    at async runInNewSpan (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1050:12)
+    at async newTrace (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1033:12)
+    at async actionFn.run (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1670:22)
+    at async actionFn (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1649:17)
+    at async runAiStage (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__bda746ac._.js:549:24)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:417:2449
+    at async handleAction (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:416:21371)
+    at async renderToHTMLOrFlightImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:422:27153)
+    at async doRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1655:34)
+    at async DevServer.renderToResponseWithComponentsImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1920:28)
+    at async DevServer.renderPageComponent (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2408:24)
+    at async DevServer.renderToResponseImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2445:32)
+    at async DevServer.pipeImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1008:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/next-server.js:305:17)
+    at async DevServer.handleRequestImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:900:17)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:371:20
+    at async Span.traceAsyncFn (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/trace/trace.js:157:20)
+    at async DevServer.handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:368:24)
+    at async invokeRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:237:21)
+    at async handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:428:24)
+    at async requestHandlerImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:452:13)
+    at async Server.requestListener (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/start-server.js:158:13)
+ POST /w/poem/mbrpw6bewchpuwq 200 in 391ms
+ ✓ Compiled /w/[shortName]/[documentId] in 19ms
+ GET /w/poem/mbrpw6bewchpuwq 200 in 632ms
+ GET /w/poem/mbrpjdqfw4bc7g5 200 in 624ms
+ GET /w/article/mbros878wotcpuu 200 in 624ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 241ms
+ GET /w/poem/mbrpw6bewchpuwq 200 in 229ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 225ms
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.5-flash-preview-05-20',
+  temperature: 0.8,
+  stageOutputType: 'markdown'
+}
+[runAiStage] Filled prompt length: 56
+Executing AI stage with input: {
+  "promptTemplate": "Write a poem about 'test'.\nMake it about 4 stanzas long.",
+  "model": "googleai/gemini-2.5-flash-preview-05-20",
+  "temperature": 0.8,
+  "fileInputs": []
+}
+[AI Stage Flow] Generating with options: {
+  "prompt": "Write a poem about 'test'.\nMake it about 4 stanzas long.",
+  "model": "googleai/gemini-2.5-flash-preview-05-20",
+  "config": {
+    "temperature": 0.8
+  }
+}
+[runAiStage] Success, content type: string
+ POST /w/poem/mbrpw6bewchpuwq 200 in 7752ms
+ GET /w/poem/mbrpw6bewchpuwq 200 in 289ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 228ms
+ GET /w/poem/mbrpjdqfw4bc7g5 200 in 635ms
+ GET /w/article/mbros878wotcpuu 200 in 636ms
+ GET /w/poem/mbrpjdqfw4bc7g5 200 in 152ms
+ GET /w/poem/mbrpw6bewchpuwq 200 in 140ms
+ GET /w/article/mbros878wotcpuu 200 in 138ms
+ GET /w/poem/mbrpw6bewchpuwq 200 in 641ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 270ms
+ GET /w/poem/mbrpw6bewchpuwq 200 in 634ms
+ GET /w/poem/mbrpw6bewchpuwq 200 in 239ms
+ GET /w/article/mbros878wotcpuu 200 in 634ms
+ GET /w/poem/mbrpjdqfw4bc7g5 200 in 634ms
+ GET /w/article/mbros878wotcpuu 200 in 234ms
+ GET /w/poem/mbrpjdqfw4bc7g5 200 in 239ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 304ms
+ ✓ Compiled in 115ms
+ ✓ Compiled /w/[shortName]/[documentId] in 62ms
+ GET /w/poem/mbrpw6bewchpuwq 200 in 664ms
+ GET /w/poem/mbrpjdqfw4bc7g5 200 in 628ms
+ GET /w/article/mbros878wotcpuu 200 in 627ms
+ ✓ Compiled in 51ms
+ ✓ Compiled /w/[shortName]/[documentId] in 57ms
+ GET /w/poem/mbrpw6bewchpuwq 200 in 606ms
+ GET /w/poem/mbrpjdqfw4bc7g5 200 in 607ms
+ GET /w/article/mbros878wotcpuu 200 in 608ms
+ ✓ Compiled /w/[shortName]/[documentId] in 28ms
+ GET /w/poem/mbrpw6bewchpuwq 200 in 609ms
+ GET /w/poem/mbrpjdqfw4bc7g5 200 in 611ms
+ GET /w/article/mbros878wotcpuu 200 in 611ms
+ ✓ Compiled in 34ms
+ ✓ Compiled /w/[shortName]/[documentId] in 58ms
+(node:11946) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGTERM listeners added to [process]. MaxListeners is 10. Use emitter.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+ GET /w/article/mbros878wotcpuu 200 in 645ms
+ GET /w/poem/mbrpw6bewchpuwq 200 in 645ms
+ GET /w/poem/mbrpjdqfw4bc7g5 200 in 644ms
+ ✓ Compiled in 173ms
+ ✓ Compiled /w/[shortName]/[documentId] in 23ms
+(node:11946) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGINT listeners added to [process]. MaxListeners is 10. Use emitter.setMaxListeners() to increase limit
+ GET /w/article/mbros878wotcpuu 200 in 673ms
+ GET /w/poem/mbrpw6bewchpuwq 200 in 677ms
+ GET /w/poem/mbrpjdqfw4bc7g5 200 in 678ms
+ ✓ Compiled in 250ms
+ ✓ Compiled /w/[shortName]/[documentId] in 65ms
+Getting document: mbrpjdqfw4bc7g5
+Getting document: mbrpw6bewchpuwq
+Getting document: mbros878wotcpuu
+Document not found: mbrpjdqfw4bc7g5
+Document not found: mbrpw6bewchpuwq
+Document not found: mbros878wotcpuu
+ GET /w/poem/mbrpjdqfw4bc7g5 200 in 689ms
+ GET /w/article/mbros878wotcpuu 200 in 688ms
+ GET /w/poem/mbrpw6bewchpuwq 200 in 688ms
+Debugger listening on ws://127.0.0.1:9230/8e7a034c-328a-406a-bae9-2d93abaab8a9
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.201:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 846ms
+Debugger listening on ws://127.0.0.1:9230/604b1e09-f77c-408d-b97d-e173f21daaa8
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.201:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 640ms
+ ✓ Compiled /api/firebase-config in 437ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.xq03qxq8ynd'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.xq03qxq8ynd'
+}
+ ✓ Compiled /_error in 409ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.yoo7uk9toi9'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.yoo7uk9toi9'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.xq03qxq8ynd'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.xq03qxq8ynd'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.jiztcqujqg'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.jiztcqujqg'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.5dqyxz5ceem'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.5dqyxz5ceem'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.efw7k24ls84'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.efw7k24ls84'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.66oi9zeaf9'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.66oi9zeaf9'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.efw7k24ls84'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.efw7k24ls84'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.eo5c0nzgqia'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.eo5c0nzgqia'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.r152uf72fi'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.r152uf72fi'
+}
+ ○ Compiling /api/debug-firestore ...
+ ✓ Compiled /api/debug-firestore in 545ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.648vc3opdm'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.648vc3opdm'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.ub46aeo6he'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.ub46aeo6he'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.648vc3opdm'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.648vc3opdm'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.f2nq2ef707p'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.f2nq2ef707p'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.lgu0gqn4lkg'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.lgu0gqn4lkg'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.03urzy3ccwpo'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.03urzy3ccwpo'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.56j44ocoryq'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.56j44ocoryq'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.03urzy3ccwpo'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.03urzy3ccwpo'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.4s7lggz1b5a'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.4s7lggz1b5a'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.q5cswz1prfd'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.q5cswz1prfd'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.zlwj0plhnt9'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.zlwj0plhnt9'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.j3hc61ccpvs'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.j3hc61ccpvs'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.zlwj0plhnt9'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.zlwj0plhnt9'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.seh9pbesv2a'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.seh9pbesv2a'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.zf28admel9'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.zf28admel9'
+}

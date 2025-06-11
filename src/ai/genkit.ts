@@ -1,18 +1,21 @@
-import {genkit} from 'genkit';
-import {googleAI} from '@genkit-ai/googleai';
-import { allTools } from './tools/sample-tools'; // Import the tools
+import { genkit } from 'genkit';
+import { googleAI } from '@genkit-ai/googleai';
+
+// Configure Genkit once at application startup.  Tools are registered lazily by
+// each flow (see ai-stage-execution.ts) after this configure() call has
+// initialised the Genkit runtime store, so we intentionally do NOT import any
+// user-defined tools here – importing them before configure() would trigger
+// `defineTool()` while the runtime context is still un-initialised and lead to
+// the `getStore` undefined error we are fixing.
 
 export const ai = genkit({
   plugins: [
     googleAI({
-      tools: allTools, // Custom tools
-      // Attempt to enable the code interpreter tool.
-      // The actual option name might differ, e.g., `enableCodeInterpreter: true`
-      // or it might be enabled by default if the model supports it and no specific
-      // tool filtering is applied at the request level.
-      // Some platforms might require listing it as an allowed built-in tool.
-      allowBuiltInTools: ['codeInterpreter'], // Hypothetical option
+      apiVersion: 'v1beta',
     }),
   ],
-  model: 'googleai/gemini-2.5-flash-preview-05-20',
+  logLevel: 'debug',
+  enableTracingAndMetrics: true,
+  // The model and other default settings can still be overridden per-request
+  // inside individual flows.
 });

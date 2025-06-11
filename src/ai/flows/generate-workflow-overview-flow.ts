@@ -1,4 +1,3 @@
-
 'use server';
 /**
  * @fileOverview Generates an overview of a given workflow.
@@ -9,7 +8,7 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import {z} from 'zod';
 
 const StageInfoSchema = z.object({
   title: z.string().describe('The title of the stage.'),
