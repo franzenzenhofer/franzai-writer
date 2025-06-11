@@ -1,0 +1,33 @@
+{
+  "id": "poem-generator",
+  "shortName": "poem",
+  "name": "Poem Generator",
+  "description": "Create a poem with AI assistance.",
+  "config": {
+    "setTitleFromStageOutput": "poem-topic",
+    "finalOutputStageId": "generate-poem"
+  },
+  "stages": [
+    {
+      "id": "poem-topic",
+      "title": "Poem Topic",
+      "description": "What is the topic of your poem?",
+      "inputType": "textarea",
+      "outputType": "text",
+      "dependencies": [],
+      "autoRun": false
+    },
+    {
+      "id": "generate-poem",
+      "title": "Generate Poem",
+      "description": "AI will generate a poem based on your topic.",
+      "inputType": "none",
+      "promptTemplate": "Write a poem about '{{poem-topic.output}}'.\nMake it about 4 stanzas long.",
+      "model": "googleai/gemini-2.0-flash",
+      "temperature": 0.8,
+      "outputType": "markdown",
+      "dependencies": ["poem-topic"],
+      "autoRun": true
+    }
+  ]
+}
