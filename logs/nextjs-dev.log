@@ -7973,3 +7973,42 @@ Executing AI stage with input: {
 }
  POST /workflow-details/poem-generator 500 in 200ms
  GET /favicon.ico?favicon.56766c03.ico 200 in 304ms
+ ✓ Compiled /workflow-details/[workflowId] in 15ms
+ GET /workflow-details/poem-generator 200 in 515ms
+ ⨯ Error [GenkitError]: INVALID_ARGUMENT: Must supply a `model` to `generate()` calls.
+    at async (src/ai/flows/generate-workflow-overview-flow.ts:68:21)
+  66 |   },
+  67 |   async input => {
+> 68 |     const {output} = await prompt(input);
+     |                     ^
+  69 |     return output!;
+  70 |   }
+  71 | ); {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'Must supply a `model` to `generate()` calls.',
+  traceId: '4b42a4a895f6b681d4d14214324b88e6',
+  digest: '311042010'
+}
+ POST /workflow-details/poem-generator 500 in 239ms
+ ⨯ Error [GenkitError]: INVALID_ARGUMENT: Must supply a `model` to `generate()` calls.
+    at async (src/ai/flows/generate-workflow-overview-flow.ts:68:21)
+  66 |   },
+  67 |   async input => {
+> 68 |     const {output} = await prompt(input);
+     |                     ^
+  69 |     return output!;
+  70 |   }
+  71 | ); {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'Must supply a `model` to `generate()` calls.',
+  traceId: 'f748b235142ca41debd54811b838988f',
+  digest: '311042010'
+}
+ GET /favicon.ico?favicon.56766c03.ico 200 in 426ms
+ POST /workflow-details/poem-generator 500 in 165ms

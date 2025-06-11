@@ -3,8 +3,9 @@ import { notFound } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowLeft, Settings, ListTree, Sparkles } from "lucide-react";
+import { ArrowLeft, Settings, GitBranch, Sparkles, ArrowRight, Cpu, Thermometer } from "lucide-react";
 import { WorkflowOverviewClient } from "@/components/workflow/workflow-overview-client";
+import { Badge } from "@/components/ui/badge";
 
 export default async function WorkflowDetailsPage({ params }: { params: Promise<{ workflowId: string }> }) {
   const { workflowId } = await params;
@@ -17,104 +18,141 @@ export default async function WorkflowDetailsPage({ params }: { params: Promise<
   const uniqueModels = Array.from(new Set(workflow.stages.filter(s => s.model).map(s => s.model)));
   const stagesWithTemp = workflow.stages.filter(s => s.temperature !== undefined);
 
-
   return (
-    <div className="container mx-auto py-8 px-4">
-      <Button variant="outline" size="sm" asChild className="mb-6">
+    <div className="container max-w-5xl mx-auto px-4 py-6 md:py-8">
+      <Button variant="ghost" size="sm" asChild className="mb-6 -ml-2">
         <Link href="/dashboard">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Dashboard
         </Link>
       </Button>
 
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle className="font-headline text-3xl">{workflow.name}</CardTitle>
-          <CardDescription className="text-lg">{workflow.description}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-8">
-            <div>
-              <h3 className="font-semibold text-xl mb-3 font-headline flex items-center">
-                <Settings className="mr-2 h-5 w-5 text-primary" />
-                Workflow Configuration
-              </h3>
-              {uniqueModels.length > 0 ? (
-                <>
-                  <p className="text-sm font-medium">AI Models Used:</p>
-                  <ul className="list-disc pl-6 text-sm text-muted-foreground space-y-1 mt-1">
-                    {uniqueModels.map(model => <li key={model as string}>{model || "Default Model"}</li>)}
-                  </ul>
-                </>
-              ) : (
-                <p className="text-sm text-muted-foreground">Default AI model is used for all applicable stages.</p>
-              )}
-              {stagesWithTemp.length > 0 && (
-                <>
-                  <p className="text-sm font-medium mt-3">Custom Temperature Settings:</p>
-                  <ul className="list-disc pl-6 text-sm text-muted-foreground space-y-1 mt-1">
-                    {stagesWithTemp.map(stage => (
-                      <li key={stage.id}>{stage.title}: Temperature {stage.temperature}</li>
-                    ))}
-                  </ul>
-                </>
-              )}
-              {(uniqueModels.length === 0 && stagesWithTemp.length === 0) && (
-                 <p className="text-sm text-muted-foreground mt-1">This workflow uses default AI configurations for model and temperature.</p>
-              )}
-            </div>
+      <div className="space-y-6">
+        {/* Header */}
+        <div>
+          <h1 className="text-3xl md:text-4xl font-bold font-headline mb-2">{workflow.name}</h1>
+          <p className="text-lg text-muted-foreground">{workflow.description}</p>
+        </div>
 
-            <div>
-              <h3 className="font-semibold text-xl mb-3 font-headline flex items-center">
-                <ListTree className="mr-2 h-5 w-5 text-primary" />
-                Stage Dependencies
-              </h3>
-              {workflow.stages.length > 0 ? (
-                <div className="space-y-3">
-                  {workflow.stages.map(stage => (
-                    <div key={stage.id} className="p-3 border rounded-md bg-card shadow-sm">
-                      <h4 className="font-semibold text-md text-foreground">{stage.title}</h4>
-                      {stage.dependencies && stage.dependencies.length > 0 ? (
-                        <div className="text-xs mt-1">
-                          <span className="text-muted-foreground">Depends on: </span>
-                          <span className="text-foreground">
-                            {stage.dependencies.map(depId => {
-                              const depStage = workflow.stages.find(s => s.id === depId);
-                              return depStage ? depStage.title : depId;
-                            }).join(', ')}
-                          </span>
-                        </div>
-                      ) : (
-                        <p className="text-xs mt-1 text-muted-foreground">No direct dependencies</p>
+        {/* Configuration Card */}
+        <Card>
+          <CardHeader className="pb-4">
+            <CardTitle className="text-lg font-semibold flex items-center gap-2">
+              <Settings className="h-5 w-5 text-blue-600" />
+              AI Configuration
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Models */}
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-sm font-medium">
+                  <Cpu className="h-4 w-4 text-muted-foreground" />
+                  <span>AI Models</span>
+                </div>
+                {uniqueModels.length > 0 ? (
+                  <div className="space-y-1">
+                    {uniqueModels.map(model => (
+                      <Badge key={model as string} variant="secondary" className="text-xs">
+                        {model || "Default Model"}
+                      </Badge>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground">Using default model</p>
+                )}
+              </div>
+
+              {/* Temperature */}
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-sm font-medium">
+                  <Thermometer className="h-4 w-4 text-muted-foreground" />
+                  <span>Temperature Settings</span>
+                </div>
+                {stagesWithTemp.length > 0 ? (
+                  <div className="space-y-1">
+                    {stagesWithTemp.map(stage => (
+                      <div key={stage.id} className="text-sm text-muted-foreground">
+                        {stage.title}: <span className="font-mono">{stage.temperature}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground">Using default temperature</p>
+                )}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Stage Flow */}
+        <Card>
+          <CardHeader className="pb-4">
+            <CardTitle className="text-lg font-semibold flex items-center gap-2">
+              <GitBranch className="h-5 w-5 text-blue-600" />
+              Workflow Stages
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              {workflow.stages.map((stage, index) => (
+                <div key={stage.id} className="flex items-center gap-3">
+                  {/* Stage Number */}
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-medium">
+                    {index + 1}
+                  </div>
+                  
+                  {/* Stage Info */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <h4 className="font-medium text-sm truncate">{stage.title}</h4>
+                      {stage.isOptional && (
+                        <Badge variant="outline" className="text-xs">Optional</Badge>
                       )}
                     </div>
-                  ))}
+                    {stage.dependencies && stage.dependencies.length > 0 && (
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Requires: {stage.dependencies.map(depId => {
+                          const depStage = workflow.stages.find(s => s.id === depId);
+                          return depStage ? depStage.title : depId;
+                        }).join(', ')}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Arrow (except for last item) */}
+                  {index < workflow.stages.length - 1 && (
+                    <ArrowRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  )}
                 </div>
-              ) : (
-                <p className="text-sm text-muted-foreground">No stages defined in this workflow.</p>
-              )}
+              ))}
             </div>
-            
-            <div>
-              <h3 className="font-semibold text-xl mb-2 font-headline flex items-center">
-                <Sparkles className="mr-2 h-5 w-5 text-primary" />
-                AI-Generated Overview
-              </h3>
-               <WorkflowOverviewClient workflow={workflow} />
-            </div>
+          </CardContent>
+        </Card>
 
-          </div>
-        </CardContent>
-      </Card>
+        {/* AI Overview */}
+        <Card>
+          <CardHeader className="pb-4">
+            <CardTitle className="text-lg font-semibold flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-blue-600" />
+              AI Analysis
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <WorkflowOverviewClient workflow={workflow} />
+          </CardContent>
+        </Card>
 
-       <div className="text-center">
-        <Button size="lg" asChild>
-          <Link href={workflow.shortName ? `/w/${workflow.shortName}/new` : `/w/new/${workflow.id}`}>
-            Start using {workflow.name}
-          </Link>
-        </Button>
+        {/* CTA */}
+        <div className="flex justify-center pt-4">
+          <Button size="lg" asChild className="bg-blue-600 hover:bg-blue-700 text-white">
+            <Link href={workflow.shortName ? `/w/${workflow.shortName}/new` : `/w/new/${workflow.id}`}>
+              Start {workflow.name}
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
+        </div>
       </div>
     </div>
   );
 }
-
