@@ -38,7 +38,7 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
   if (!isClient) {
     return (
       <div className="space-y-4">
-        <div className="relative p-4 border rounded-md bg-background shadow-sm min-h-[100px]">
+        <div className="relative">
           <p className="text-sm text-muted-foreground">Loading...</p>
         </div>
       </div>
@@ -213,16 +213,16 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
     });
 
     return (
-      <div className="space-y-6">
+      <div className="space-y-4">
         {sortedFields.map((field) => {
           const value = jsonData[field.key];
           
           return (
-            <div key={field.key} className="space-y-3">
-              <label className="text-base font-medium text-foreground">
+            <div key={field.key} className="space-y-2">
+              <label className="text-sm font-medium">
                 {field.label}
               </label>
-              <div className="p-4 border rounded-md bg-muted/30 text-base leading-relaxed">
+              <div className="text-base">
                 {field.type === 'textarea' ? (
                   <div className="whitespace-pre-wrap font-body">{value || 'Not provided'}</div>
                 ) : (
@@ -257,13 +257,13 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
     });
 
     return (
-      <div className="space-y-6">
+      <div className="space-y-4">
         {sortedFields.map((field) => {
           const value = jsonData[field.key] || '';
           
           return (
-            <div key={field.key} className="space-y-3">
-              <label className="text-base font-medium text-foreground">
+            <div key={field.key} className="space-y-2">
+              <label className="text-sm font-medium">
                 {field.label}
               </label>
               {field.type === 'textarea' ? (
@@ -271,14 +271,14 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
                   value={String(value)}
                   onChange={(e) => handleJsonFieldChange(field.key, e.target.value)}
                   rows={6}
-                  className="font-body text-base bg-background leading-relaxed"
+                  className="text-base"
                   placeholder={`Enter ${field.label.toLowerCase()}...`}
                 />
               ) : (
                 <Input
                   value={String(value)}
                   onChange={(e) => handleJsonFieldChange(field.key, e.target.value)}
-                  className="font-body text-base"
+                  className="text-base"
                   placeholder={`Enter ${field.label.toLowerCase()}...`}
                 />
               )}
@@ -411,7 +411,7 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
 
   return (
     <div className="space-y-4">
-      <div className="relative p-4 border rounded-md bg-background shadow-sm min-h-[100px]">
+      <div className="relative">
         {renderOutput()}
         {/* Copy button for copyable stages */}
         {stage.copyable && 
@@ -420,7 +420,7 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
           <Button
             size="sm"
             variant="ghost"
-            className="absolute top-2 right-2 h-8 w-8 p-0"
+            className="absolute top-0 right-0 h-8 w-8 p-0"
             onClick={handleCopy}
           >
             {copied ? (

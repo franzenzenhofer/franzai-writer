@@ -56,7 +56,8 @@
       "autoRun": true,
       "tokenEstimate": 500,
       "aiRedoEnabled": true,
-      "showThinking": false
+      "showThinking": false,
+      "copyable": true
     },
     {
       "id": "html-briefing",

@@ -7557,3 +7557,89 @@ Executing AI stage with input: {
   ]
 }
  GET /w/poem/rSCalQpTIP4UmXFWcgPd 200 in 144ms
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.5-flash-preview-05-20',
+  temperature: 0.3,
+  stageOutputType: 'html'
+}
+Prompt variable '{{html-briefing.output}}' not found in context. Replacing with empty string.
+[runAiStage] Filled prompt length: 1461
+Executing AI stage with input: {
+  "promptTemplate": "Convert this poem into beautiful HTML with proper formatting and styling:\n\nTitle: The Crucible of Knowing test \nPoem:\nA silent sheet, a ticking clock,\nA question poised, a mental lock.\nThe 'test' arrives, a whispered word,\nA challenge met, or truth unheard.\nIt gathers fears, it sparks a hope,\nWithin its bounds, we blindly grope.\n\nThrough midnight oil, and hurried glance,\nWe chase the answers, take a chance.\nThe mind reviews, the memory strains,\nEach fact recalled, where effort gains.\nA tremor builds, a rising tide,\nWhere knowledge meets what we must hide.\n\nThen pen descends, a silent plea,\nTo summon forth what ought to be.\nEach chosen word, each calculated line,\nA tiny step across the great design.\nThe world shrinks down to paper white,\nAnd thoughts contend with fading light.\n\nThen silence falls, the task is done,\nA battle fought, a race half-run.\nThe 'test' departs, its score unseen,\nBut deeper truths have intervened.\nFor win or lose, the lesson stays,\nA clearer path through future days.\n\nSpecial instructions: \n\nIMPORTANT: Output ONLY the clean HTML content without any markdown code blocks, backticks, or explanatory text. Do not include ```html or ``` markers. Just return the pure HTML that can be directly rendered.\n\nCreate clean, semantic HTML with inline CSS for styling. Make it visually appealing and readable. Use proper HTML structure with headings, paragraphs, and styling for a poem presentation. Include the title as an H1 heading.",
+  "model": "googleai/gemini-2.5-flash-preview-05-20",
+  "temperature": 0.3,
+  "fileInputs": []
+}
+[AI Stage Flow] Generating with options: {
+  "prompt": "Convert this poem into beautiful HTML with proper formatting and styling:\n\nTitle: The Crucible of Knowing test \nPoem:\nA silent sheet, a ticking clock,\nA question poised, a mental lock.\nThe 'test' arrives, a whispered word,\nA challenge met, or truth unheard.\nIt gathers fears, it sparks a hope,\nWithin its bounds, we blindly grope.\n\nThrough midnight oil, and hurried glance,\nWe chase the answers, take a chance.\nThe mind reviews, the memory strains,\nEach fact recalled, where effort gains.\nA tremor builds, a rising tide,\nWhere knowledge meets what we must hide.\n\nThen pen descends, a silent plea,\nTo summon forth what ought to be.\nEach chosen word, each calculated line,\nA tiny step across the great design.\nThe world shrinks down to paper white,\nAnd thoughts contend with fading light.\n\nThen silence falls, the task is done,\nA battle fought, a race half-run.\nThe 'test' departs, its score unseen,\nBut deeper truths have intervened.\nFor win or lose, the lesson stays,\nA clearer path through future days.\n\nSpecial instructions: \n\nIMPORTANT: Output ONLY the clean HTML content without any markdown code blocks, backticks, or explanatory text. Do not include ```html or ``` markers. Just return the pure HTML that can be directly rendered.\n\nCreate clean, semantic HTML with inline CSS for styling. Make it visually appealing and readable. Use proper HTML structure with headings, paragraphs, and styling for a poem presentation. Include the title as an H1 heading.",
+  "model": "googleai/gemini-2.5-flash-preview-05-20",
+  "config": {
+    "temperature": 0.3
+  }
+}
+[runAiStage] Success, content type: string
+ POST /w/poem/rSCalQpTIP4UmXFWcgPd 200 in 13276ms
+ ✓ Compiled in 65ms
+ ✓ Compiled in 63ms
+ ✓ Compiled in 71ms
+ ✓ Compiled in 62ms
+ ✓ Compiled in 101ms
+ ✓ Compiled /w/[shortName]/[documentId] in 22ms
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'rSCalQpTIP4UmXFWcgPd' }
+[WizardPage] Loading existing document: rSCalQpTIP4UmXFWcgPd
+[DocumentPersistence] Loading document { documentId: 'rSCalQpTIP4UmXFWcgPd' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'rSCalQpTIP4UmXFWcgPd' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'rSCalQpTIP4UmXFWcgPd' }
+[WizardPage] Loading existing document: rSCalQpTIP4UmXFWcgPd
+[DocumentPersistence] Loading document { documentId: 'rSCalQpTIP4UmXFWcgPd' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'rSCalQpTIP4UmXFWcgPd' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'rSCalQpTIP4UmXFWcgPd' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'rSCalQpTIP4UmXFWcgPd',
+  title: 'The Crucible of Knowing test',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'poem-topic',
+    'html-briefing',
+    'generate-html-preview',
+    'generate-poem-with-title'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'rSCalQpTIP4UmXFWcgPd',
+  title: 'The Crucible of Knowing test',
+  stageCount: 4,
+  validatedStageIds: [
+    'poem-topic',
+    'html-briefing',
+    'generate-html-preview',
+    'generate-poem-with-title'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'rSCalQpTIP4UmXFWcgPd' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'rSCalQpTIP4UmXFWcgPd',
+  title: 'The Crucible of Knowing test',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'poem-topic',
+    'html-briefing',
+    'generate-html-preview',
+    'generate-poem-with-title'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'rSCalQpTIP4UmXFWcgPd',
+  title: 'The Crucible of Knowing test',
+  stageCount: 4,
+  validatedStageIds: [
+    'poem-topic',
+    'html-briefing',
+    'generate-html-preview',
+    'generate-poem-with-title'
+  ]
+}
+ GET /w/poem/rSCalQpTIP4UmXFWcgPd 200 in 559ms
+ GET /w/poem/rSCalQpTIP4UmXFWcgPd 200 in 295ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 228ms
