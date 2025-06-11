@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { mockWorkflows } from "@/lib/mock-data"; // This now loads from workflow-loader
+import { allWorkflows as mockWorkflows } from "@/lib/workflow-loader"; // This now loads from workflow-loader
 
 export function CreateNewDocumentDialog() {
   const [availableWorkflows, setAvailableWorkflows] = useState<typeof mockWorkflows>([]);
