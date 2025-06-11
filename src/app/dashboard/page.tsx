@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { allWorkflows } from "@/lib/workflow-loader";
 import type { WizardDocument, Workflow } from "@/types";
-import { FileText, ArrowRight, AlertCircle, PlusCircle, Info, LogIn, User, Loader2, Trash2, Edit } from "lucide-react";
+import { FileText, ArrowRight, AlertCircle, PlusCircle, Info, LogIn, User, Loader2, Trash2, Edit, Clock, ChevronRight } from "lucide-react";
 import { useAuth } from "@/components/layout/app-providers";
 import { documentPersistence } from '@/lib/document-persistence';
 import { useToast } from "@/hooks/use-toast";
@@ -22,112 +22,12 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 
 function getWorkflowName(workflowId: string) {
   const workflow = allWorkflows.find(w => w.id === workflowId);
   return workflow ? workflow.name : "Unknown Workflow";
-}
-
-function DocumentCard({ 
-  document, 
-  onDelete 
-}: { 
-  document: WizardDocument; 
-  onDelete: (documentId: string) => void;
-}) {
-  const [isDeleting, setIsDeleting] = useState(false);
-  const workflow = allWorkflows.find(w => w.id === document.workflowId);
-
-  const handleDelete = async () => {
-    setIsDeleting(true);
-    await onDelete(document.id);
-    setIsDeleting(false);
-  };
-
-  const documentUrl = workflow?.shortName 
-    ? `/w/${workflow.shortName}/${document.id}` 
-    : `/w/${document.id}`;
-
-  return (
-    <Card className="flex flex-col hover:shadow-lg transition-shadow duration-200">
-      <CardHeader>
-        <CardTitle className="font-headline text-xl line-clamp-2">{document.title}</CardTitle>
-        <CardDescription className="text-sm">
-          <span className="block">{getWorkflowName(document.workflowId)}</span>
-          <span className="block text-xs text-muted-foreground mt-1">
-            Updated {new Date(document.updatedAt).toLocaleDateString()}
-          </span>
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="flex-grow">
-        <div className="flex items-center gap-2">
-          <Badge 
-            variant={document.status === 'completed' ? 'default' : 'secondary'}
-            className="text-xs"
-          >
-            {document.status}
-          </Badge>
-        </div>
-      </CardContent>
-      <CardFooter className="flex justify-between items-center">
-        <Button variant="outline" size="sm" asChild>
-          <Link href={documentUrl}>
-            <Edit className="mr-2 h-4 w-4" />
-            Continue
-          </Link>
-        </Button>
-        <Button 
-          variant="ghost" 
-          size="sm"
-          onClick={handleDelete}
-          disabled={isDeleting}
-        >
-          {isDeleting ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            <Trash2 className="h-4 w-4 text-destructive" />
-          )}
-        </Button>
-      </CardFooter>
-    </Card>
-  );
-}
-
-function WorkflowSelectionCard({ workflow }: { workflow: Workflow }) {
-  return (
-    <Card className="flex flex-col hover:shadow-lg transition-shadow duration-200">
-      <CardHeader>
-        <CardTitle className="font-headline text-xl">{workflow.name}</CardTitle>
-        <CardDescription className="h-16 text-ellipsis overflow-hidden text-sm"> {/* Reduced height */}
-          {workflow.description}
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="flex-grow">
-        {/* Placeholder for potential workflow tags or icons */}
-      </CardContent>
-      <CardFooter className="flex justify-between items-center"> {/* Changed to flex justify-between */}
-        <Button variant="outline" size="sm" asChild>
-          <Link 
-            href={`/workflow-details/${workflow.id}`}
-            id={`workflow-details-${workflow.id}`}
-            data-testid={`workflow-details-${workflow.id}`}
-          >
-            <Info className="mr-2 h-4 w-4" />
-            Details
-          </Link>
-        </Button>
-        <Button asChild size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-          <Link 
-            href={workflow.shortName ? `/w/${workflow.shortName}/new` : `/w/new/${workflow.id}`}
-            id={`workflow-start-${workflow.id}`}
-            data-testid={`workflow-start-${workflow.id}`}
-          >
-            Start <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
-        </Button>
-      </CardFooter>
-    </Card>
-  );
 }
 
 export default function DashboardPage() {
@@ -229,82 +129,204 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="space-y-12">
+    <div className="container max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8 space-y-8">
+      {/* Workflow Selection - Compact Table */}
       <div>
-        <div className="mb-8 flex items-center justify-between">
-          <h1 className="text-4xl font-bold font-headline text-foreground">Start a new document</h1>
-        </div>
+        <h1 className="text-2xl md:text-3xl font-bold font-headline mb-4">Start a new document</h1>
 
         {allWorkflows.length === 0 ? (
-          <div className="text-center py-12 border-2 border-dashed rounded-lg border-border bg-card">
-            <AlertCircle className="mx-auto h-12 w-12 text-muted-foreground" />
-            <h3 className="mt-2 text-xl font-semibold font-headline">No Workflows Available</h3>
+          <div className="text-center py-8 border rounded-lg bg-muted/50">
+            <AlertCircle className="mx-auto h-10 w-10 text-muted-foreground" />
+            <h3 className="mt-2 text-lg font-semibold">No Workflows Available</h3>
             <p className="mt-1 text-sm text-muted-foreground">
               It looks like no workflows are set up yet. Contact an administrator.
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {allWorkflows.map(workflow => (
-              <WorkflowSelectionCard key={workflow.id} workflow={workflow} />
-            ))}
+          <div className="border rounded-lg overflow-hidden">
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-muted/50">
+                  <TableHead className="font-medium">Workflow</TableHead>
+                  <TableHead className="hidden sm:table-cell font-medium">Description</TableHead>
+                  <TableHead className="text-right font-medium">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {allWorkflows.map((workflow, index) => (
+                  <TableRow 
+                    key={workflow.id} 
+                    className={cn(
+                      "hover:bg-muted/50 transition-colors",
+                      index !== allWorkflows.length - 1 && "border-b"
+                    )}
+                  >
+                    <TableCell className="font-medium">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-blue-600" />
+                        {workflow.name}
+                      </div>
+                    </TableCell>
+                    <TableCell className="hidden sm:table-cell text-sm text-muted-foreground">
+                      {workflow.description}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className="hidden sm:inline-flex"
+                        >
+                          <Link 
+                            href={`/workflow-details/${workflow.id}`}
+                            id={`workflow-details-${workflow.id}`}
+                            data-testid={`workflow-details-${workflow.id}`}
+                          >
+                            <Info className="h-4 w-4" />
+                          </Link>
+                        </Button>
+                        <Button 
+                          asChild 
+                          size="sm"
+                          className="bg-primary text-primary-foreground hover:bg-primary/90"
+                        >
+                          <Link 
+                            href={workflow.shortName ? `/w/${workflow.shortName}/new` : `/w/new/${workflow.id}`}
+                            id={`workflow-start-${workflow.id}`}
+                            data-testid={`workflow-start-${workflow.id}`}
+                          >
+                            Start
+                            <ChevronRight className="ml-1 h-4 w-4" />
+                          </Link>
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
         )}
       </div>
 
+      {/* Recent Documents - Compact Table */}
       <div>
-        <h2 className="text-3xl font-bold font-headline mb-6 text-foreground">Recent documents</h2>
+        <h2 className="text-xl md:text-2xl font-bold font-headline mb-4">Recent documents</h2>
         {!authLoading && !user ? (
-          <Card className="text-center py-10 bg-card shadow-md rounded-lg">
-            <CardHeader className="items-center">
-              <User className="text-primary h-12 w-12 mb-2" />
-              <CardTitle className="mt-2 text-2xl font-semibold font-headline">
-                Ready to Save Your Work?
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-muted-foreground px-4">
-                Log in or sign up to keep track of your documents and access them anytime, anywhere.
-              </p>
-              <Button asChild size="lg" className="w-full max-w-xs mx-auto">
+          <Card className="py-8">
+            <CardContent className="text-center space-y-4">
+              <User className="mx-auto h-10 w-10 text-muted-foreground" />
+              <div>
+                <h3 className="text-lg font-semibold">Ready to Save Your Work?</h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Log in or sign up to keep track of your documents.
+                </p>
+              </div>
+              <Button asChild size="sm" className="mx-auto">
                 <Link 
                   href="/login"
                   id="dashboard-login-button"
                   data-testid="dashboard-login-button"
                 >
-                  <LogIn className="mr-2 h-5 w-5" />
+                  <LogIn className="mr-2 h-4 w-4" />
                   Login / Sign Up
                 </Link>
               </Button>
             </CardContent>
           </Card>
         ) : documentsLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {[1, 2, 3].map((i) => (
-              <Card key={i} className="space-y-3 p-6">
-                <Skeleton className="h-6 w-3/4" />
-                <Skeleton className="h-4 w-1/2" />
-                <Skeleton className="h-8 w-full" />
-              </Card>
-            ))}
+          <div className="border rounded-lg overflow-hidden">
+            <Table>
+              <TableBody>
+                {[1, 2, 3].map((i) => (
+                  <TableRow key={i}>
+                    <TableCell><Skeleton className="h-5 w-48" /></TableCell>
+                    <TableCell><Skeleton className="h-5 w-32" /></TableCell>
+                    <TableCell><Skeleton className="h-5 w-24" /></TableCell>
+                    <TableCell><Skeleton className="h-8 w-20 ml-auto" /></TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
         ) : documents.length === 0 ? (
-          <div className="text-center py-16 border-2 border-dashed rounded-lg border-border bg-card">
-            <FileText className="mx-auto h-16 w-16 text-muted-foreground" />
-            <h3 className="mt-4 text-2xl font-semibold font-headline">No documents yet</h3>
-            <p className="mt-2 text-base text-muted-foreground">
-              Start creating documents and they&apos;ll appear here.
+          <div className="text-center py-8 border rounded-lg bg-muted/50">
+            <FileText className="mx-auto h-10 w-10 text-muted-foreground" />
+            <h3 className="mt-2 text-lg font-semibold">No documents yet</h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Start creating documents and they'll appear here.
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {documents.map((doc) => (
-              <DocumentCard
-                key={doc.id}
-                document={doc}
-                onDelete={handleDeleteDocument}
-              />
-            ))}
+          <div className="border rounded-lg overflow-hidden">
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-muted/50">
+                  <TableHead className="font-medium">Title</TableHead>
+                  <TableHead className="hidden sm:table-cell font-medium">Workflow</TableHead>
+                  <TableHead className="hidden md:table-cell font-medium">Status</TableHead>
+                  <TableHead className="hidden lg:table-cell font-medium">Updated</TableHead>
+                  <TableHead className="text-right font-medium">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {documents.map((doc, index) => {
+                  const workflow = allWorkflows.find(w => w.id === doc.workflowId);
+                  const documentUrl = workflow?.shortName 
+                    ? `/w/${workflow.shortName}/${doc.id}` 
+                    : `/w/${doc.id}`;
+
+                  return (
+                    <TableRow 
+                      key={doc.id}
+                      className={cn(
+                        "hover:bg-muted/50 transition-colors",
+                        index !== documents.length - 1 && "border-b"
+                      )}
+                    >
+                      <TableCell className="font-medium max-w-[300px]">
+                        <div className="truncate">{doc.title}</div>
+                      </TableCell>
+                      <TableCell className="hidden sm:table-cell text-sm text-muted-foreground">
+                        {getWorkflowName(doc.workflowId)}
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        <Badge 
+                          variant={doc.status === 'completed' ? 'default' : 'secondary'}
+                          className="text-xs"
+                        >
+                          {doc.status}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="hidden lg:table-cell text-sm text-muted-foreground">
+                        <div className="flex items-center gap-1">
+                          <Clock className="h-3 w-3" />
+                          {new Date(doc.updatedAt).toLocaleDateString()}
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex items-center justify-end gap-1">
+                          <Button variant="ghost" size="sm" asChild>
+                            <Link href={documentUrl}>
+                              <Edit className="h-4 w-4" />
+                              <span className="hidden sm:inline ml-1">Continue</span>
+                            </Link>
+                          </Button>
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => handleDeleteDocument(doc.id)}
+                          >
+                            <Trash2 className="h-4 w-4 text-destructive" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
           </div>
         )}
       </div>
