@@ -28,6 +28,19 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   const [finalDocumentContent, setFinalDocumentContent] = useState("");
   const [hasFinalizedOnce, setHasFinalizedOnce] = useState(false);
 
+  // Auto-scroll utility
+  const scrollToStageById = useCallback((stageId: string) => {
+    const stageElement = document.getElementById(`stage-${stageId}`);
+    if (stageElement) {
+      const elementTop = stageElement.getBoundingClientRect().top + window.pageYOffset;
+      const headerOffset = 120; // Account for sticky header height + some padding
+      window.scrollTo({
+        top: elementTop - headerOffset,
+        behavior: 'smooth'
+      });
+    }
+  }, []);
+
   // Document persistence
   const updateInstanceForPersistence = useCallback((updates: Partial<WizardInstance>) => {
     setInstance(prev => ({ ...prev, ...updates }));
@@ -235,16 +248,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         const nextStageIndex = instance.workflow.stages.findIndex(s => s.id === stageId) + 1;
         if (nextStageIndex < instance.workflow.stages.length) {
           const nextStageId = instance.workflow.stages[nextStageIndex].id;
-          const nextStageElement = document.getElementById(`stage-${nextStageId}`);
-          if (nextStageElement) {
-            // Calculate position accounting for sticky header
-            const elementTop = nextStageElement.getBoundingClientRect().top + window.pageYOffset;
-            const headerOffset = 120; // Account for sticky header height + some padding
-            window.scrollTo({
-              top: elementTop - headerOffset,
-              behavior: 'smooth'
-            });
-          }
+          scrollToStageById(nextStageId);
         }
       }, 500);
       
@@ -288,16 +292,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         const nextStageIndex = instance.workflow.stages.findIndex(s => s.id === stageId) + 1;
         if (nextStageIndex < instance.workflow.stages.length) {
           const nextStageId = instance.workflow.stages[nextStageIndex].id;
-          const nextStageElement = document.getElementById(`stage-${nextStageId}`);
-          if (nextStageElement) {
-            // Calculate position accounting for sticky header
-            const elementTop = nextStageElement.getBoundingClientRect().top + window.pageYOffset;
-            const headerOffset = 120; // Account for sticky header height + some padding
-            window.scrollTo({
-              top: elementTop - headerOffset,
-              behavior: 'smooth'
-            });
-          }
+          scrollToStageById(nextStageId);
         }
       }, 500);
 

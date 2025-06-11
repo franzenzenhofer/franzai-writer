@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useAuth } from '@/components/layout/app-providers';
 import { useToast } from '@/hooks/use-toast';
-import { createDocument, updateDocument, updateStageState, getDocument } from '@/lib/documents';
+import { createDocument, updateDocument, getDocument } from '@/lib/documents';
+import { calculateWordCount, findLastEditedStage } from '@/lib/utils'; // Updated import
 import type { WizardInstance, StageState } from '@/types';
 
 interface UseDocumentPersistenceProps {
@@ -180,35 +181,4 @@ export function useDocumentPersistence({
     saveDocument,
     loadDocument,
   };
-}
-
-// Helper function to calculate word count from stage outputs
-function calculateWordCount(stageStates: Record<string, StageState>): number {
-  let totalWords = 0;
-  
-  Object.values(stageStates).forEach(state => {
-    if (state.output && typeof state.output === 'string') {
-      totalWords += state.output.split(/\s+/).filter(word => word.length > 0).length;
-    }
-  });
-  
-  return totalWords;
-}
-
-// Helper function to find the last edited stage
-function findLastEditedStage(stageStates: Record<string, StageState>): string | undefined {
-  let lastStage: string | undefined;
-  let lastTime = 0;
-  
-  Object.entries(stageStates).forEach(([stageId, state]) => {
-    if (state.completedAt) {
-      const completedTime = new Date(state.completedAt).getTime();
-      if (completedTime > lastTime) {
-        lastTime = completedTime;
-        lastStage = stageId;
-      }
-    }
-  });
-  
-  return lastStage;
 }
