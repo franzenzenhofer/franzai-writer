@@ -87,7 +87,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
       promptTemplate: filledPrompt,
       model: params.model, 
       temperature: params.temperature,
-      thinkingSettings: params.thinkingSettings,
+      thinkingSettings: params.thinkingSettings ? { enabled: params.thinkingSettings.enabled || false } : undefined,
       toolNames: params.toolNames,
       fileInputs: [],
       systemInstructions: params.systemInstructions, // Pass it through

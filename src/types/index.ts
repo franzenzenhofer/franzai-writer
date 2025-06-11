@@ -21,6 +21,13 @@ export interface FormField {
   validation?: Record<string, any>; // react-hook-form validation rules
 }
 
+export interface JsonField {
+  key: string;
+  label: string;
+  type: "text" | "textarea";
+  displayOrder?: number;
+}
+
 export type StageInputType = "text" | "textarea" | "context" | "form" | "none" | "image" | "document";
 
 export interface Stage {
@@ -29,14 +36,22 @@ export interface Stage {
   description: string;
   inputType: StageInputType;
   formFields?: FormField[]; // Only if inputType is 'form'
+  jsonFields?: JsonField[]; // Only if outputType is 'json' - defines how to render JSON fields
   promptTemplate?: string; 
   model?: string; // Optional: Specific AI model for this stage
   temperature?: number; // Optional: Specific temperature for this stage
-  outputType: "text" | "json" | "markdown";
+  outputType: "text" | "json" | "markdown" | "html";
   dependencies?: string[]; 
   autoRun?: boolean; 
+  autorunDependsOn?: string[]; // Optional: Separate dependencies for autorun behavior
   groundingRequested?: boolean; 
   isOptional?: boolean;
+  tokenEstimate?: number; // Estimated token count for this stage
+  autoRunConditions?: {
+    requiresAll?: string[];
+    requiresAny?: string[];
+    customLogic?: string;
+  };
   thinkingSettings?: {
     enabled?: boolean;
     // budget?: number; // Conceptual for now
@@ -44,11 +59,25 @@ export interface Stage {
   toolNames?: string[];
   systemInstructions?: string;
   chatEnabled?: boolean;
+  aiRedoEnabled?: boolean; // Enable AI REDO functionality for this stage
+  editEnabled?: boolean; // Enable Edit button for this stage (defaults based on stage type)
+  showThinking?: boolean; // Show thinking process for this stage (defaults to false)
+  copyable?: boolean; // Enable copy button for text/markdown output (defaults to false)
 }
 
 export interface WorkflowConfig {
   setTitleFromStageOutput?: string; 
   finalOutputStageId?: string; // ID of the stage that produces the final document for export
+  showThinking?: boolean; // Global setting to show thinking process (defaults to false)
+  autoScroll?: {
+    enabled: boolean;
+    scrollToAutorun: boolean;
+    scrollToManual: boolean;
+  };
+  progressAnimation?: {
+    dynamicSpeed: boolean;
+    singleCycle: boolean;
+  };
 }
 export interface Workflow {
   id: string;
@@ -63,7 +92,7 @@ export interface StageState {
   stageId: string;
   userInput?: any; 
   output?: any; 
-  status: "idle" | "running" | "completed" | "error" | "skipped";
+  status: "idle" | "running" | "completed" | "error";
   error?: string;
   completedAt?: string; 
   groundingInfo?: any; 

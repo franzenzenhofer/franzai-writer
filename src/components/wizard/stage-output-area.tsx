@@ -1,24 +1,99 @@
 "use client";
 
-import type { Stage, StageState } from "@/types";
+import type { Stage, StageState, Workflow } from "@/types";
 import { JsonRenderer } from "@/components/json-renderer";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Info } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Info, Copy, Check } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { WysiwygEditor } from "./wysiwyg-editor";
+import { HtmlPreview } from "./html-preview";
 // Button and Save icon removed as they are now handled by StageCard
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
+import { useToast } from "@/hooks/use-toast";
 
 
 interface StageOutputAreaProps {
   stage: Stage;
   stageState: StageState;
+  workflow: Workflow;
   isEditingOutput: boolean;
   onOutputChange?: (newOutput: any) => void;
 }
 
-export function StageOutputArea({ stage, stageState, isEditingOutput, onOutputChange }: StageOutputAreaProps) {
+export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, onOutputChange }: StageOutputAreaProps) {
+  const { toast } = useToast();
+  const [copied, setCopied] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  
+  // Prevent hydration issues by checking if we're on the client
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+  
+  // Don't render anything during SSR/hydration to prevent stacking
+  if (!isClient) {
+    return (
+      <div className="space-y-4">
+        <div className="relative p-4 border rounded-md bg-background shadow-sm min-h-[100px]">
+          <p className="text-sm text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+  
+  // Determine if thinking should be shown based on stage and workflow configuration
+  const shouldShowThinking = () => {
+    // Stage-level setting takes precedence
+    if (stage.showThinking !== undefined) {
+      return stage.showThinking;
+    }
+    // Fall back to workflow-level setting
+    if (workflow.config?.showThinking !== undefined) {
+      return workflow.config.showThinking;
+    }
+    // Default to false
+    return false;
+  };
+
+  const handleCopy = async () => {
+    if (stageState.output) {
+      try {
+        let textToCopy = '';
+        
+        // Handle different output types
+        if (stage.outputType === 'json' && typeof stageState.output === 'object') {
+          // For poem generator, copy just the poem content
+          if (stage.id === 'generate-poem-with-title' && stageState.output.poem) {
+            textToCopy = stageState.output.poem;
+          } else {
+            // For other JSON outputs, stringify it
+            textToCopy = JSON.stringify(stageState.output, null, 2);
+          }
+        } else {
+          // For text/markdown, copy as is
+          textToCopy = String(stageState.output);
+        }
+        
+        await navigator.clipboard.writeText(textToCopy);
+        setCopied(true);
+        toast({
+          title: "Copied!",
+          description: "Content copied to clipboard",
+        });
+        setTimeout(() => setCopied(false), 2000);
+      } catch (err) {
+        toast({
+          title: "Copy failed",
+          description: "Unable to copy to clipboard",
+          variant: "destructive",
+        });
+      }
+    }
+  };
 
   // If chat is enabled, the primary display is the chat history.
   // The final "output" field might be used for a summary or not at all for chat.
@@ -83,6 +158,15 @@ export function StageOutputArea({ stage, stageState, isEditingOutput, onOutputCh
     }
   };
 
+  const handleJsonFieldChange = (fieldKey: string, value: string) => {
+    if (onOutputChange && typeof stageState.output === 'object') {
+      const updatedOutput = {
+        ...stageState.output,
+        [fieldKey]: value
+      };
+      onOutputChange(updatedOutput);
+    }
+  };
 
   // Helper function to render form-based JSON output in a user-friendly way
   const renderFormOutput = (jsonData: any) => {
@@ -108,6 +192,96 @@ export function StageOutputArea({ stage, stageState, isEditingOutput, onOutputCh
                   value || 'Not provided'
                 )}
               </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
+  // Helper function to render JSON output with jsonFields configuration
+  const renderJsonFieldsOutput = (jsonData: any) => {
+    if (!stage.jsonFields || !jsonData || typeof jsonData !== 'object') {
+      return <JsonRenderer data={jsonData} />;
+    }
+
+    // Sort fields by displayOrder if provided
+    const sortedFields = [...stage.jsonFields].sort((a, b) => {
+      const orderA = a.displayOrder ?? 999;
+      const orderB = b.displayOrder ?? 999;
+      return orderA - orderB;
+    });
+
+    return (
+      <div className="space-y-6">
+        {sortedFields.map((field) => {
+          const value = jsonData[field.key];
+          
+          return (
+            <div key={field.key} className="space-y-3">
+              <label className="text-base font-medium text-foreground">
+                {field.label}
+              </label>
+              <div className="p-4 border rounded-md bg-muted/30 text-base leading-relaxed">
+                {field.type === 'textarea' ? (
+                  <div className="whitespace-pre-wrap font-body">{value || 'Not provided'}</div>
+                ) : (
+                  <div className="font-body">{value || 'Not provided'}</div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
+  // Helper function to render EDITABLE JSON fields
+  const renderEditableJsonFieldsOutput = (jsonData: any) => {
+    if (!stage.jsonFields || !jsonData || typeof jsonData !== 'object') {
+      return (
+        <Textarea
+          value={typeof jsonData === 'string' ? jsonData : JSON.stringify(jsonData, null, 2)}
+          onChange={handleJsonChange}
+          rows={10}
+          className="font-mono text-sm bg-background"
+        />
+      );
+    }
+
+    // Sort fields by displayOrder if provided
+    const sortedFields = [...stage.jsonFields].sort((a, b) => {
+      const orderA = a.displayOrder ?? 999;
+      const orderB = b.displayOrder ?? 999;
+      return orderA - orderB;
+    });
+
+    return (
+      <div className="space-y-6">
+        {sortedFields.map((field) => {
+          const value = jsonData[field.key] || '';
+          
+          return (
+            <div key={field.key} className="space-y-3">
+              <label className="text-base font-medium text-foreground">
+                {field.label}
+              </label>
+              {field.type === 'textarea' ? (
+                <Textarea
+                  value={String(value)}
+                  onChange={(e) => handleJsonFieldChange(field.key, e.target.value)}
+                  rows={6}
+                  className="font-body text-base bg-background leading-relaxed"
+                  placeholder={`Enter ${field.label.toLowerCase()}...`}
+                />
+              ) : (
+                <Input
+                  value={String(value)}
+                  onChange={(e) => handleJsonFieldChange(field.key, e.target.value)}
+                  className="font-body text-base"
+                  placeholder={`Enter ${field.label.toLowerCase()}...`}
+                />
+              )}
             </div>
           );
         })}
@@ -169,12 +343,38 @@ export function StageOutputArea({ stage, stageState, isEditingOutput, onOutputCh
             />
           );
         case "json":
+          console.log('[StageOutputArea] JSON case triggered', {
+            stageId: stage.id,
+            hasJsonFields: !!(stage.jsonFields && stage.jsonFields.length > 0),
+            jsonFields: stage.jsonFields,
+            outputType: stage.outputType,
+            hasOutput: !!stageState.output
+          });
+          
+          // Check if this is a form-based stage with formFields
+          if (stage.inputType === 'form' && stage.formFields) {
+            console.log('[StageOutputArea] Using renderFormOutput');
+            return renderFormOutput(stageState.output);
+          }
+          // Check if jsonFields is configured for structured editing
+          if (stage.jsonFields && stage.jsonFields.length > 0) {
+            console.log('[StageOutputArea] Using renderEditableJsonFieldsOutput');
+            return renderEditableJsonFieldsOutput(stageState.output);
+          }
+          // Fallback to raw JSON editing
           return (
             <Textarea
               value={typeof stageState.output === 'string' ? stageState.output : JSON.stringify(stageState.output, null, 2)}
               onChange={handleJsonChange}
               rows={10}
               className="font-mono text-sm bg-background"
+            />
+          );
+        case "html":
+          return (
+            <WysiwygEditor
+              content={String(stageState.output)}
+              onChange={onOutputChange}
             />
           );
         default:
@@ -193,9 +393,16 @@ export function StageOutputArea({ stage, stageState, isEditingOutput, onOutputCh
           if (stage.inputType === 'form' && stage.formFields) {
             return renderFormOutput(stageState.output);
           }
+          // Check if jsonFields is configured for structured display
+          if (stage.jsonFields && stage.jsonFields.length > 0) {
+            return renderJsonFieldsOutput(stageState.output);
+          }
+          // Fallback to raw JSON display
           return <JsonRenderer data={stageState.output} />;
         case "markdown":
           return <MarkdownRenderer content={String(stageState.output)} />;
+        case "html":
+          return <HtmlPreview content={String(stageState.output)} removeBorder={true} />;
         default:
           return <p>Unknown output type: {stage.outputType}</p>;
       }
@@ -204,8 +411,25 @@ export function StageOutputArea({ stage, stageState, isEditingOutput, onOutputCh
 
   return (
     <div className="space-y-4">
-      <div className="p-4 border rounded-md bg-background shadow-sm min-h-[100px]">
+      <div className="relative p-4 border rounded-md bg-background shadow-sm min-h-[100px]">
         {renderOutput()}
+        {/* Copy button for copyable stages */}
+        {stage.copyable && 
+         stageState.output && 
+         !isEditingOutput && (
+          <Button
+            size="sm"
+            variant="ghost"
+            className="absolute top-2 right-2 h-8 w-8 p-0"
+            onClick={handleCopy}
+          >
+            {copied ? (
+              <Check className="h-4 w-4 text-green-500" />
+            ) : (
+              <Copy className="h-4 w-4" />
+            )}
+          </Button>
+        )}
       </div>
       {/* Save Edits button is now managed by StageCard */}
       {stageState.groundingInfo && !isEditingOutput && (
@@ -224,7 +448,7 @@ export function StageOutputArea({ stage, stageState, isEditingOutput, onOutputCh
           </CardContent>
         </Card>
       )}
-      {stageState.thinkingSteps && stageState.thinkingSteps.length > 0 && !isEditingOutput && (
+      {stageState.thinkingSteps && stageState.thinkingSteps.length > 0 && !isEditingOutput && shouldShowThinking() && (
         <Card className="bg-muted/50 mt-4">
           <CardHeader className="pb-2">
             <CardTitle className="text-base font-headline flex items-center">

@@ -1,4 +1,3 @@
-
 "use client";
 
 import type { Stage, StageState, Workflow } from "@/types";
@@ -7,21 +6,23 @@ import { Button } from "@/components/ui/button"; // Keep for the primary action 
 import { Badge } from "@/components/ui/badge"; // Keep for non-dismissible badges
 import { StageInputArea, type StageInputAreaRef } from "./stage-input-area";
 import { StageOutputArea } from "./stage-output-area";
-import { CheckCircle2, AlertCircle, Zap, RotateCcw, Loader2, SkipForward, Edit, Save, Check, Clock, X, Send } from "lucide-react"; // X is for DismissibleWarningBadge, others for StageActionButton or status
+import { CheckCircle2, AlertCircle, ArrowRight, RotateCcw, Loader2, Edit, Save, Check, Clock, X, Send } from "lucide-react"; // X is for DismissibleWarningBadge, others for StageActionButton or status
 import { cn } from "@/lib/utils";
 import React, { useState, useRef, useEffect } from "react";
 import { DismissibleWarningBadge } from "./dismissible-warning-badge";
 import { StageActionButton } from "./StageActionButton";
+import { AiRedoSection } from "./ai-redo-section";
+import { DynamicProgressBar } from "./dynamic-progress-bar";
 
 interface StageCardProps {
   stage: Stage;
   workflow: Workflow; // Added to get stage titles for dependency messages
   stageState: StageState;
   isCurrentStage: boolean;
-  onRunStage: (stageId: string, userInput?: any) => void;
+  onRunStage: (stageId: string, userInput?: any, aiRedoNotes?: string) => void;
   onInputChange: (stageId: string, fieldName: string, value: any) => void; // Still needed for non-form simple inputs
   onFormSubmit: (stageId: string, data: any) => void; // Will be called by StageCard before onRunStage for forms
-  onSkipStage?: (stageId: string) => void;
+
   onEditInputRequest: (stageId: string) => void;
   onOutputEdit: (stageId: string, newOutput: any) => void;
   onSetEditingOutput: (stageId: string, isEditing: boolean) => void;
@@ -37,7 +38,7 @@ export function StageCard({
   onRunStage,
   onInputChange,
   onFormSubmit,
-  onSkipStage,
+
   onEditInputRequest,
   onOutputEdit,
   onSetEditingOutput,
@@ -46,12 +47,12 @@ export function StageCard({
 }: StageCardProps) {
   
   const [isEditingInput, setIsEditingInput] = useState(
-    (stageState.status !== 'completed' && stageState.status !== 'skipped') && stage.inputType !== 'none'
+    stageState.status !== 'completed' && stage.inputType !== 'none'
   );
   const stageInputAreaRef = useRef<StageInputAreaRef>(null);
 
   useEffect(() => {
-    const shouldBeEditing = (stageState.status !== 'completed' && stageState.status !== 'skipped') && stage.inputType !== 'none';
+    const shouldBeEditing = stageState.status !== 'completed' && stage.inputType !== 'none';
     if (isEditingInput !== shouldBeEditing) {
       setIsEditingInput(shouldBeEditing);
     }
@@ -93,15 +94,61 @@ export function StageCard({
     console.log(`Stage ${stage.id} output accepted.`);
   };
 
+  const handleAiRedo = (notes?: string) => {
+    onRunStage(stage.id, stageState.userInput, notes);
+  };
+
+  const getDependencyMessage = () => {
+    if (stageState.depsAreMet === false && stage.dependencies && stage.dependencies.length > 0) {
+      const incompleteDeps = stage.dependencies
+        .filter(depId => allStageStates[depId]?.status !== 'completed')
+        .map(depId => workflow.stages.find(s => s.id === depId)?.title || depId);
+      
+      if (incompleteDeps.length > 0) {
+        return `Waiting for: ${incompleteDeps.join(', ')}`;
+      }
+    }
+    return null;
+  };
+  const dependencyMessage = getDependencyMessage();
+
   const canRun = stageState.depsAreMet !== false && (stageState.status === "idle" || stageState.status === "error" || (stageState.status === "completed" && stage.promptTemplate != null));
   
+  // Button display logic based on stage type
+  const isAutoRunAiStage = stage.promptTemplate && stage.autoRun && stage.inputType === 'none';
+  const isManualAiStage = stage.promptTemplate && (!stage.autoRun || stage.inputType !== 'none');
+  const isNonAiStage = !stage.promptTemplate;
+  
+  // Primary Action Button (Run AI / Continue): For manual stages and active autorun stages
   const showPrimaryActionButton = 
     (isEditingInput && stage.inputType !== 'none') || 
-    (stage.inputType === 'none' && (stageState.status === 'idle' || stageState.status === 'error')) ||
-    (stageState.status === 'completed' && stage.promptTemplate && !stageState.isEditingOutput);
+    (isManualAiStage && (stageState.status === 'idle' || stageState.status === 'error')) ||
+    (isAutoRunAiStage && stageState.depsAreMet && (stageState.status === 'idle' || stageState.status === 'error'));
 
-  const showInputRelatedButtons = stageState.status === 'completed' && stage.inputType !== 'none' && !isEditingInput && !stageState.isEditingOutput;
-  const showOutputRelatedButtons = stageState.status === 'completed' && stageState.output !== undefined && !isEditingInput;
+  // Determine if Edit button should be enabled based on configuration or sensible defaults
+  const getEditEnabled = () => {
+    if (stage.editEnabled !== undefined) return stage.editEnabled;
+    // Sensible defaults:
+    // - AI stages: can edit output (true)
+    // - Non-AI stages with input: can edit input (true)  
+    // - Stages with no input/output: no edit needed (false)
+    if (stage.promptTemplate) return true; // AI stages default to editable
+    if (stage.inputType !== 'none') return true; // Input stages default to editable
+    return false; // No input/output stages default to non-editable
+  };
+  
+  const editEnabled = getEditEnabled();
+  
+  // Edit Button: For stages with inputs after completion OR AI stages with output
+  const showEditButton = editEnabled && stageState.status === 'completed' && !isEditingInput && !stageState.isEditingOutput && (
+    (stage.inputType !== 'none') || // Has input to edit
+    (stage.promptTemplate && stageState.output !== undefined) // AI stage with output to edit
+  );
+  
+  // Accept Continue: Only for manual AI stages that need user confirmation
+  const showAcceptContinueButton = stageState.status === 'completed' && stageState.output !== undefined && !isEditingInput && isManualAiStage;
+
+
 
 
   let statusIcon = null;
@@ -120,10 +167,7 @@ export function StageCard({
       statusIcon = <AlertCircle className="text-destructive" />;
       cardClasses = cn(cardClasses, "border-destructive");
       break;
-    case "skipped":
-      statusIcon = <SkipForward className="text-muted-foreground" />;
-      cardClasses = cn(cardClasses, "border-muted");
-      break;
+
     default: // idle
       if (stageState.depsAreMet === false) {
         cardClasses = cn(cardClasses, "opacity-70 bg-muted/30");
@@ -134,21 +178,6 @@ export function StageCard({
       }
   }
   if (isCurrentStage && stageState.depsAreMet !== false) cardClasses = cn(cardClasses, "shadow-accent/30 shadow-xl ring-2 ring-accent");
-
-
-  const getDependencyMessage = () => {
-    if (stageState.depsAreMet === false && stage.dependencies && stage.dependencies.length > 0) {
-      const incompleteDeps = stage.dependencies
-        .filter(depId => allStageStates[depId]?.status !== 'completed' && allStageStates[depId]?.status !== 'skipped')
-        .map(depId => workflow.stages.find(s => s.id === depId)?.title || depId);
-      
-      if (incompleteDeps.length > 0) {
-        return `Waiting for: ${incompleteDeps.join(', ')}`;
-      }
-    }
-    return null;
-  };
-  const dependencyMessage = getDependencyMessage();
 
   return (
     <Card 
@@ -169,9 +198,11 @@ export function StageCard({
           <CardTitle className="font-headline text-xl flex items-center">
             {statusIcon && !dependencyMessage && <span className="mr-2">{statusIcon}</span>}
             {stage.title}
+            {stage.isOptional && <Badge variant="outline" className="ml-2 text-xs">Optional</Badge>}
             {stageState.isStale && stageState.status === 'completed' && !stageState.staleDismissed && (
               <DismissibleWarningBadge
                 onDismiss={() => onDismissStaleWarning(stage.id)}
+                onClick={() => handleAiRedo()}
                 className="ml-2"
               >
                 Update recommended
@@ -179,7 +210,6 @@ export function StageCard({
             )}
           </CardTitle>
           <CardDescription>{stage.description}</CardDescription>
-          {stage.isOptional && <Badge variant="outline" className="mt-1 text-xs">Optional</Badge>}
         </div>
         {/* Removed the old dependency badge from here */}
       </CardHeader>
@@ -197,24 +227,19 @@ export function StageCard({
           </div>
         )}
 
-        {stage.inputType === 'none' && stageState.status === 'idle' && !dependencyMessage && (
+        {isAutoRunAiStage && stageState.status === 'idle' && !dependencyMessage && (
+             <p className="text-sm text-muted-foreground">This stage runs automatically when dependencies are complete.</p>
+        )}
+        
+        {isManualAiStage && stage.inputType === 'none' && stageState.status === 'idle' && !dependencyMessage && (
              <p className="text-sm text-muted-foreground">This stage is processed by AI. Click &quot;Run AI&quot; to generate content.</p>
         )}
 
         {stageState.status === "running" && (
           <div className="space-y-3">
             <h4 className="text-sm font-medium mb-2 text-muted-foreground">Generating...</h4>
-            <div className="bg-muted/30 rounded-lg p-4 space-y-3">
-              <div className="flex items-center gap-3">
-                <Loader2 className="h-5 w-5 animate-spin text-primary" />
-                <span className="text-sm text-muted-foreground">AI is processing your request...</span>
-              </div>
-              <div className="space-y-2">
-                <div className="h-2 bg-muted rounded-full overflow-hidden">
-                  <div className="h-full bg-primary/50 rounded-full animate-pulse" style={{ width: '60%' }} />
-                </div>
-                <p className="text-xs text-muted-foreground">This may take a few moments</p>
-              </div>
+            <div className="bg-muted/30 rounded-lg p-4">
+              <DynamicProgressBar isRunning={true} />
             </div>
           </div>
         )}
@@ -224,6 +249,7 @@ export function StageCard({
             <StageOutputArea 
                 stage={stage} 
                 stageState={stageState} 
+                workflow={workflow}
                 isEditingOutput={!!stageState.isEditingOutput}
                 onOutputChange={(newOutput) => onOutputEdit(stage.id, newOutput)}
             />
@@ -234,37 +260,26 @@ export function StageCard({
           <p className="text-destructive text-sm">{stageState.error}</p>
         )}
       </CardContent>
+      
+      {/* AI REDO Section - positioned between content and footer */}
+      {stage.aiRedoEnabled && stageState.status === 'completed' && stageState.output !== undefined && (
+        <AiRedoSection
+          stageId={stage.id}
+          enabled={true}
+          isRunning={false}
+          onAiRedo={handleAiRedo}
+          className="mx-6 mb-4"
+        />
+      )}
+      
       <CardFooter className="flex justify-end gap-2 items-center flex-wrap">
-        {stage.isOptional && stageState.status === "idle" && onSkipStage && !dependencyMessage && (
-          <StageActionButton
-            variant="ghost"
-            onClick={() => onSkipStage(stage.id)}
-            id={`skip-stage-${stage.id}`}
-            datatestid={`skip-stage-${stage.id}`}
-            icon={SkipForward}
-          >
-            Skip Stage
-          </StageActionButton>
-        )}
 
-        {/* For AI stages, show Edit Input button */}
-        {stage.promptTemplate && showInputRelatedButtons && !dependencyMessage && (
+
+        {/* Edit Button: Unified edit functionality */}
+        {showEditButton && !dependencyMessage && (
           <StageActionButton
             variant="outline"
-            onClick={handleEditInputClick}
-            id={`edit-input-${stage.id}`}
-            datatestid={`edit-input-${stage.id}`}
-            icon={Edit}
-          >
-            Edit Input
-          </StageActionButton>
-        )}
-
-        {/* For non-AI stages, show only one Edit button after completion */}
-        {!stage.promptTemplate && stageState.status === 'completed' && !isEditingInput && !stageState.isEditingOutput && !dependencyMessage && (
-          <StageActionButton
-            variant="outline"
-            onClick={handleEditInputClick}
+            onClick={stage.promptTemplate && stageState.output ? handleEditOutputClick : handleEditInputClick}
             id={`edit-${stage.id}`}
             datatestid={`edit-${stage.id}`}
             icon={Edit}
@@ -273,47 +288,29 @@ export function StageCard({
           </StageActionButton>
         )}
 
-        {/* For AI stages, show output-related buttons */}
-        {stage.promptTemplate && showOutputRelatedButtons && !stageState.isEditingOutput && !dependencyMessage && (
-          <>
-            <StageActionButton
-              variant="outline"
-              onClick={() => onRunStage(stage.id, stageState.userInput)}
-              id={`ai-redo-${stage.id}`}
-              datatestid={`ai-redo-${stage.id}`}
-              icon={RotateCcw}
-            >
-              AI Redo
-            </StageActionButton>
-            <StageActionButton
-              variant="outline"
-              onClick={handleEditOutputClick}
-              id={`edit-output-${stage.id}`}
-              datatestid={`edit-output-${stage.id}`}
-              icon={Edit}
-            >
-              Edit Output
-            </StageActionButton>
-            <StageActionButton
-              variant="default"
-              onClick={handleAcceptAndContinue}
-              id={`accept-continue-${stage.id}`}
-              datatestid={`accept-continue-${stage.id}`}
-              icon={Check}
-            >
-              Accept &amp; Continue
-            </StageActionButton>
-          </>
+        {/* Accept Continue: Only for manual AI stages */}
+        {showAcceptContinueButton && !stageState.isEditingOutput && !dependencyMessage && (
+          <StageActionButton
+            variant="default"
+            onClick={handleAcceptAndContinue}
+            id={`accept-continue-${stage.id}`}
+            datatestid={`accept-continue-${stage.id}`}
+            icon={Check}
+          >
+            Accept &amp; Continue
+          </StageActionButton>
         )}
-        {showOutputRelatedButtons && stageState.isEditingOutput && !dependencyMessage && (
+        
+        {/* Save Edits: When editing */}
+        {editEnabled && stageState.isEditingOutput && !dependencyMessage && (
           <StageActionButton
             variant="default"
             onClick={handleSaveOutputEdits}
-            id={`save-output-${stage.id}`}
-            datatestid={`save-output-${stage.id}`}
+            id={`save-edits-${stage.id}`}
+            datatestid={`save-edits-${stage.id}`}
             icon={Save}
           >
-            Save Output Edits
+            Save Edits
           </StageActionButton>
         )}
         
@@ -327,11 +324,7 @@ export function StageCard({
             id={`process-stage-${stage.id}`}
             data-testid={`process-stage-${stage.id}`}
           >
-            {stageState.status === "running" ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              stage.chatEnabled ? <Send className="mr-2 h-4 w-4" /> : <Zap className="mr-2 h-4 w-4" />
-            )}
+            {stage.chatEnabled ? <Send className="mr-2 h-4 w-4" /> : <ArrowRight className="mr-2 h-4 w-4" />}
             {stageState.status === "running" ? "Processing..." : (stage.chatEnabled ? "Send" : (stage.promptTemplate ? "Run AI" : "Continue"))}
           </Button>
         )}

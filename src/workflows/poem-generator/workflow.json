@@ -4,8 +4,18 @@
   "name": "Poem Generator",
   "description": "Create a poem with AI assistance.",
   "config": {
-    "setTitleFromStageOutput": "poem-topic",
-    "finalOutputStageId": "generate-poem"
+    "setTitleFromStageOutput": "generate-poem-with-title",
+    "finalOutputStageId": "generate-html-preview",
+    "showThinking": false,
+    "autoScroll": {
+      "enabled": true,
+      "scrollToAutorun": true,
+      "scrollToManual": false
+    },
+    "progressAnimation": {
+      "dynamicSpeed": true,
+      "singleCycle": true
+    }
   },
   "stages": [
     {
@@ -15,19 +25,66 @@
       "inputType": "textarea",
       "outputType": "text",
       "dependencies": [],
-      "autoRun": false
+      "autoRun": false,
+      "tokenEstimate": 50,
+      "showThinking": false
     },
     {
-      "id": "generate-poem",
-      "title": "Generate Poem",
-      "description": "AI will generate a poem based on your topic.",
+      "id": "generate-poem-with-title",
+      "title": "Generate Poem & Title",
+      "description": "AI will generate a poem and title based on your topic.",
       "inputType": "none",
-      "promptTemplate": "Write a poem about '{{poem-topic.output}}'.\nMake it about 4 stanzas long.",
+      "promptTemplate": "Write a poem about '{{poem-topic.output}}'.\nMake it about 4 stanzas long.\n\nAlso create a compelling title for this poem.\n\nFormat your response as a JSON object with two keys:\n- 'title': A creative, engaging title for the poem (this will be used as the document title)\n- 'poem': The full poem content\n\nExample:\n{\n  \"title\": \"Whispers of the Morning\",\n  \"poem\": \"Lines of the poem here...\"\n}\n\nEnsure the output is valid JSON.",
       "model": "googleai/gemini-2.5-flash-preview-05-20",
       "temperature": 0.8,
-      "outputType": "markdown",
+      "outputType": "json",
+      "jsonFields": [
+        {
+          "key": "title",
+          "label": "Poem Title",
+          "type": "text",
+          "displayOrder": 1
+        },
+        {
+          "key": "poem",
+          "label": "Poem Content", 
+          "type": "textarea",
+          "displayOrder": 2
+        }
+      ],
       "dependencies": ["poem-topic"],
-      "autoRun": true
+      "autoRun": true,
+      "tokenEstimate": 500,
+      "aiRedoEnabled": true,
+      "showThinking": false
+    },
+    {
+      "id": "html-briefing",
+      "title": "HTML Briefing",
+      "description": "Special instructions for HTML formatting (optional)",
+      "inputType": "textarea",
+      "outputType": "text",
+      "dependencies": ["generate-poem-with-title"],
+      "autoRun": false,
+      "isOptional": true,
+      "tokenEstimate": 100,
+      "showThinking": false
+    },
+    {
+      "id": "generate-html-preview",
+      "title": "Generate HTML Preview",
+      "description": "AI will convert your poem into beautiful HTML based on your briefing.",
+      "inputType": "none",
+      "promptTemplate": "Convert this poem into beautiful HTML with proper formatting and styling:\n\nTitle: {{generate-poem-with-title.output.title}}\nPoem:\n{{generate-poem-with-title.output.poem}}\n\nSpecial instructions: {{html-briefing.output}}\n\nIMPORTANT: Output ONLY the clean HTML content without any markdown code blocks, backticks, or explanatory text. Do not include ```html or ``` markers. Just return the pure HTML that can be directly rendered.\n\nCreate clean, semantic HTML with inline CSS for styling. Make it visually appealing and readable. Use proper HTML structure with headings, paragraphs, and styling for a poem presentation. Include the title as an H1 heading.",
+      "model": "googleai/gemini-2.5-flash-preview-05-20",
+      "temperature": 0.3,
+      "outputType": "html",
+      "dependencies": ["generate-poem-with-title"],
+      "autorunDependsOn": ["generate-poem-with-title", "html-briefing"],
+      "autoRun": true,
+      "tokenEstimate": 800,
+      "aiRedoEnabled": true,
+      "showThinking": false
     }
   ]
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 interface TokenCounterProps {
   text: string;
@@ -13,15 +13,15 @@ const estimateTokens = (text: string): number => {
 };
 
 export function TokenCounter({ text }: TokenCounterProps) {
-  const [tokenCount, setTokenCount] = useState(0);
-
-  useEffect(() => {
-    setTokenCount(estimateTokens(text));
-  }, [text]);
+  const tokenCount = estimateTokens(text);
+  
+  if (tokenCount === 0) {
+    return <div className="text-xs text-muted-foreground mt-1">&nbsp;</div>;
+  }
 
   return (
     <div className="text-xs text-muted-foreground mt-1">
-      Estimated Tokens: ~{tokenCount}
+      ~{tokenCount} tokens
     </div>
   );
 }

@@ -35,6 +35,35 @@ function initializeStageStates(workflow: Workflow): Record<string, StageState> {
   return stageStates;
 }
 
+/**
+ * Validate that all loaded stage states match current workflow stage IDs
+ * FAIL HARD - reject documents with outdated/mismatched stage IDs
+ */
+function validateStageStatesMatchWorkflow(
+  workflow: Workflow, 
+  loadedStageStates: Record<string, StageState>
+): { isValid: boolean; mismatchedIds: string[]; validIds: string[] } {
+  const currentStageIds = new Set(workflow.stages.map(s => s.id));
+  const loadedStageIds = Object.keys(loadedStageStates);
+  
+  const validIds: string[] = [];
+  const mismatchedIds: string[] = [];
+  
+  loadedStageIds.forEach(loadedId => {
+    if (currentStageIds.has(loadedId)) {
+      validIds.push(loadedId);
+    } else {
+      mismatchedIds.push(loadedId);
+    }
+  });
+  
+  return {
+    isValid: mismatchedIds.length === 0,
+    mismatchedIds,
+    validIds
+  };
+}
+
 export default async function WizardPage({ 
   params
 }: { 
@@ -92,15 +121,38 @@ export default async function WizardPage({
       notFound();
     }
 
+    // FAIL HARD - Validate stage IDs match current workflow
+    const validation = validateStageStatesMatchWorkflow(workflow, loadResult.stageStates);
+    
+    if (!validation.isValid) {
+      console.error('[WizardPage] FATAL: Document stage IDs do not match current workflow', {
+        documentId,
+        workflowId: workflow.id,
+        currentStageIds: workflow.stages.map(s => s.id),
+        loadedStageIds: Object.keys(loadResult.stageStates),
+        mismatchedIds: validation.mismatchedIds,
+        validIds: validation.validIds
+      });
+      
+      // FAIL HARD - No legacy support, reject incompatible documents
+      notFound();
+    }
+
     console.log('[WizardPage] Document loaded successfully:', {
       documentId: loadResult.document.id,
       title: loadResult.document.title,
-      stageCount: Object.keys(loadResult.stageStates).length
+      stageCount: Object.keys(loadResult.stageStates).length,
+      validatedStageIds: validation.validIds
     });
     
-    // Ensure all stages have proper state objects, merge with loaded states
+    // Only use validated stage states that match current workflow
     const initializedStageStates = initializeStageStates(workflow);
-    const mergedStageStates = { ...initializedStageStates, ...loadResult.stageStates };
+    const mergedStageStates: Record<string, StageState> = { ...initializedStageStates };
+    
+    // Only merge stage states that passed validation
+    validation.validIds.forEach(stageId => {
+      mergedStageStates[stageId] = loadResult.stageStates[stageId];
+    });
     
     wizardInstance = {
       workflow,

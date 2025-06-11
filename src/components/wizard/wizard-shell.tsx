@@ -73,7 +73,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     });
   }, []); // Removed evaluateDependencies from here, it's called internally by updateStageState
 
-  // Extracted logic for easier use
+  // Enhanced dependency evaluation logic with support for autoRunConditions
   const evaluateDependenciesLogic = (currentStageStates: Record<string, StageState>, stages: Stage[]): Record<string, StageState> => {
     const newStageStates = { ...currentStageStates };
     let changed = false;
@@ -82,23 +82,81 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       const currentState = newStageStates[stage.id];
       if (!currentState) return; // Should not happen if initialized correctly
 
+      // Evaluate basic dependencies
       let depsMet = true;
       if (stage.dependencies && stage.dependencies.length > 0) {
         depsMet = stage.dependencies.every(depId => 
-          newStageStates[depId]?.status === 'completed' || newStageStates[depId]?.status === 'skipped'
+          newStageStates[depId]?.status === 'completed'
         );
+      }
+
+      // Evaluate autorun conditions (more complex dependency logic)
+      let autoRunConditionsMet = true;
+      if (stage.autoRunConditions) {
+        if (stage.autoRunConditions.requiresAll) {
+          autoRunConditionsMet = stage.autoRunConditions.requiresAll.every(depId => 
+            newStageStates[depId]?.status === 'completed'
+          );
+        }
+        if (autoRunConditionsMet && stage.autoRunConditions.requiresAny) {
+          autoRunConditionsMet = stage.autoRunConditions.requiresAny.some(depId => 
+            newStageStates[depId]?.status === 'completed'
+          );
+        }
       }
       
       let isStale = false;
-      if (currentState.status === 'completed' && stage.dependencies && stage.dependencies.length > 0) {
+      if (currentState.status === 'completed') {
         const stageCompletedAt = currentState.completedAt ? new Date(currentState.completedAt).getTime() : 0;
-        isStale = stage.dependencies.some(depId => {
-          const depCompletedAt = newStageStates[depId]?.completedAt ? new Date(newStageStates[depId].completedAt).getTime() : 0;
-          return depCompletedAt > stageCompletedAt || newStageStates[depId]?.isStale === true;
-        });
+        
+        // Check staleness based on basic dependencies
+        if (stage.dependencies && stage.dependencies.length > 0) {
+          isStale = stage.dependencies.some(depId => {
+            const depCompletedAt = newStageStates[depId]?.completedAt ? new Date(newStageStates[depId].completedAt).getTime() : 0;
+            return depCompletedAt > stageCompletedAt || newStageStates[depId]?.isStale === true;
+          });
+        }
+        
+        // Also check staleness based on autorun conditions
+        if (!isStale && stage.autoRunConditions?.requiresAll) {
+          isStale = stage.autoRunConditions.requiresAll.some(depId => {
+            const depCompletedAt = newStageStates[depId]?.completedAt ? new Date(newStageStates[depId].completedAt).getTime() : 0;
+            return depCompletedAt > stageCompletedAt || newStageStates[depId]?.isStale === true;
+          });
+        }
+        
+        // Also check staleness based on autorun dependencies
+        if (!isStale && stage.autorunDependsOn && stage.autorunDependsOn.length > 0) {
+          isStale = stage.autorunDependsOn.some(depId => {
+            const depCompletedAt = newStageStates[depId]?.completedAt ? new Date(newStageStates[depId].completedAt).getTime() : 0;
+            return depCompletedAt > stageCompletedAt || newStageStates[depId]?.isStale === true;
+          });
+        }
       }
 
-      const shouldAutoRun = stage.autoRun && depsMet && currentState.status === 'idle' && !currentState.isEditingOutput;
+      // Evaluate autorun dependencies (separate from activation dependencies)
+      let autorunDepsMet = true;
+      if (stage.autorunDependsOn && stage.autorunDependsOn.length > 0) {
+        // Use explicit autorun dependencies
+        autorunDepsMet = stage.autorunDependsOn.every(depId => 
+          newStageStates[depId]?.status === 'completed'
+        );
+      } else {
+        // Fall back to regular dependencies (backward compatibility)
+        autorunDepsMet = depsMet;
+      }
+
+      // Determine if stage should auto-run
+      let shouldAutoRun = false;
+      if (stage.autoRun && currentState.status === 'idle' && !currentState.isEditingOutput) {
+        if (stage.autoRunConditions) {
+          // Use complex autorun conditions AND autorun dependencies
+          shouldAutoRun = depsMet && autoRunConditionsMet && autorunDepsMet;
+        } else {
+          // Use simple dependency logic - stage must be active (depsMet) AND autorun deps met
+          shouldAutoRun = depsMet && autorunDepsMet;
+        }
+      }
 
       if (
         currentState.depsAreMet !== depsMet ||
@@ -201,7 +259,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     // toast({ title: "Input Updated", description: `Input for stage "${instance.workflow.stages.find(s=>s.id===stageId)?.title}" is being updated.`});
   };
 
-  const handleRunStage = useCallback(async (stageId: string, currentInput?: any) => {
+  const handleRunStage = useCallback(async (stageId: string, currentInput?: any, aiRedoNotes?: string) => {
     console.log('[handleRunStage] Called with:', { stageId, currentInput });
     const stage = instance.workflow.stages.find(s => s.id === stageId);
     if (!stage) return;
@@ -225,7 +283,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         const sState = instance.stageStates[s.id];
         if (s.id === stageId) { 
             contextVars[s.id] = { userInput: stageInputForRun, output: sState.output };
-        } else if (sState?.status === 'completed' || sState?.status === 'skipped') {
+        } else if (sState?.status === 'completed') {
             contextVars[s.id] = { userInput: sState.userInput, output: sState.output };
         }
     });
@@ -244,30 +302,47 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       });
       toast({ title: "Stage Processed", description: `Stage "${stage.title}" marked as complete.` });
       
-      // Auto-scroll to next stage after a brief delay
-      setTimeout(() => {
-        const nextStageIndex = instance.workflow.stages.findIndex(s => s.id === stageId) + 1;
-        if (nextStageIndex < instance.workflow.stages.length) {
-          const nextStageId = instance.workflow.stages[nextStageIndex].id;
-          scrollToStageById(nextStageId);
-        }
-      }, 500);
+      // Auto-scroll to next stage after a brief delay (configurable)
+      const autoScrollConfig = instance.workflow.config?.autoScroll;
+      if (autoScrollConfig?.enabled !== false) { // Default to enabled if not configured
+        setTimeout(() => {
+          const nextStageIndex = instance.workflow.stages.findIndex(s => s.id === stageId) + 1;
+          if (nextStageIndex < instance.workflow.stages.length) {
+            const nextStage = instance.workflow.stages[nextStageIndex];
+            const shouldScroll = nextStage.autoRun ? 
+              (autoScrollConfig?.scrollToAutorun !== false) : // Default to true for autorun
+              (autoScrollConfig?.scrollToManual === true); // Default to false for manual
+            
+            if (shouldScroll) {
+              scrollToStageById(nextStage.id);
+            }
+          }
+        }, 500);
+      }
       
       return;
     }
     
     try {
+      // Enhance prompt template with AI REDO notes if provided
+      let enhancedPromptTemplate = stage.promptTemplate;
+      if (aiRedoNotes && stage.promptTemplate) {
+        enhancedPromptTemplate = `${stage.promptTemplate}\n\nAdditional instructions: ${aiRedoNotes}`;
+        console.log('[handleRunStage] Enhanced prompt with AI REDO notes:', aiRedoNotes);
+      }
+
       console.log('[handleRunStage] About to call runAiStage with:', {
-        hasPromptTemplate: !!stage.promptTemplate,
+        hasPromptTemplate: !!enhancedPromptTemplate,
         model: stage.model || "googleai/gemini-2.5-flash-preview-05-20",
         temperature: stage.temperature || 0.7,
         contextVarsKeys: Object.keys(contextVars),
         currentStageInput: stageInputForRun,
-        stageOutputType: stage.outputType
+        stageOutputType: stage.outputType,
+        hasAiRedoNotes: !!aiRedoNotes
       });
       
       const result = await runAiStage({
-        promptTemplate: stage.promptTemplate,
+        promptTemplate: enhancedPromptTemplate,
         model: stage.model || "googleai/gemini-2.5-flash-preview-05-20",
         temperature: stage.temperature || 0.7,
         thinkingSettings: stage.thinkingSettings,
@@ -299,14 +374,23 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       });
       toast({ title: "AI Stage Completed", description: `AI processing for "${stage.title}" finished.` });
       
-      // Auto-scroll to next stage after a brief delay
-      setTimeout(() => {
-        const nextStageIndex = instance.workflow.stages.findIndex(s => s.id === stageId) + 1;
-        if (nextStageIndex < instance.workflow.stages.length) {
-          const nextStageId = instance.workflow.stages[nextStageIndex].id;
-          scrollToStageById(nextStageId);
-        }
-      }, 500);
+      // Auto-scroll to next stage after a brief delay (configurable)
+      const autoScrollConfig = instance.workflow.config?.autoScroll;
+      if (autoScrollConfig?.enabled !== false) { // Default to enabled if not configured
+        setTimeout(() => {
+          const nextStageIndex = instance.workflow.stages.findIndex(s => s.id === stageId) + 1;
+          if (nextStageIndex < instance.workflow.stages.length) {
+            const nextStage = instance.workflow.stages[nextStageIndex];
+            const shouldScroll = nextStage.autoRun ? 
+              (autoScrollConfig?.scrollToAutorun !== false) : // Default to true for autorun
+              (autoScrollConfig?.scrollToManual === true); // Default to false for manual
+            
+            if (shouldScroll) {
+              scrollToStageById(nextStage.id);
+            }
+          }
+        }, 500);
+      }
 
     } catch (error: any) {
       console.error("Error running AI stage:", error);
@@ -321,10 +405,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     }
   }, [instance.workflow.stages, instance.stageStates, updateStageState, toast]);
 
-  const handleSkipStage = (stageId: string) => {
-    updateStageState(stageId, { status: "skipped", completedAt: new Date().toISOString(), output: undefined, userInput: undefined, isEditingOutput: false });
-    toast({ title: "Stage Skipped", description: `Stage "${instance.workflow.stages.find(s=>s.id===stageId)?.title}" was skipped.` });
-  };
+
   
   const handleEditInputRequest = (stageId: string) => {
     updateStageState(stageId, { status: "idle", output: undefined, completedAt: undefined, isEditingOutput: false });
@@ -345,7 +426,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   };
   
   const completedStagesCount = instance.workflow.stages.filter(
-    stage => instance.stageStates[stage.id]?.status === 'completed' || instance.stageStates[stage.id]?.status === 'skipped'
+    stage => instance.stageStates[stage.id]?.status === 'completed'
   ).length;
   const totalStages = instance.workflow.stages.length;
   const progressPercentage = totalStages > 0 ? (completedStagesCount / totalStages) * 100 : 0;
@@ -355,7 +436,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   const currentFocusStage = instance.workflow.stages.find(
     s => {
       const state = instance.stageStates[s.id];
-      return state && state.status !== 'completed' && state.status !== 'skipped' && state.depsAreMet !== false;
+      return state && state.status !== 'completed' && state.depsAreMet !== false;
     }
   ) || instance.workflow.stages.find(s => instance.stageStates[s.id]?.depsAreMet === false) 
     || instance.workflow.stages.find(s => instance.stageStates[s.id]?.status === 'completed' && instance.stageStates[s.id]?.isStale === true && !instance.stageStates[s.id]?.staleDismissed)
@@ -486,7 +567,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
           onRunStage={handleRunStage}
           onInputChange={handleInputChange}
           onFormSubmit={handleFormSubmit}
-          onSkipStage={stage.isOptional ? handleSkipStage : undefined}
+          
           onEditInputRequest={handleEditInputRequest}
           onOutputEdit={handleOutputEdit}
           onSetEditingOutput={handleSetEditingOutput}

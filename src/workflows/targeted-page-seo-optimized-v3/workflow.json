@@ -5,7 +5,8 @@
   "description": "Create a comprehensive, SEO-optimized page targeting a specific keyword.",
   "config": {
     "setTitleFromStageOutput": "page-title-generation",
-    "finalOutputStageId": "full-draft-generation"
+    "finalOutputStageId": "full-draft-generation",
+    "showThinking": false
   },
   "stages": [
     {
@@ -15,7 +16,8 @@
       "inputType": "textarea",
       "outputType": "text",
       "dependencies": [],
-      "autoRun": false
+      "autoRun": false,
+      "showThinking": false
     },
     {
       "id": "audience-analysis",
@@ -28,7 +30,8 @@
         { "name": "knowledgeLevel", "label": "Knowledge Level", "type": "select", "options": [{ "value": "beginner", "label": "Beginner" }, { "value": "intermediate", "label": "Intermediate" }, { "value": "expert", "label": "Expert" }], "defaultValue": "intermediate" }
       ],
       "outputType": "json",
-      "dependencies": ["topic-definition"]
+      "dependencies": ["topic-definition"],
+      "showThinking": false
     },
     {
       "id": "competitor-research",
@@ -37,7 +40,8 @@
       "inputType": "context",
       "outputType": "text",
       "dependencies": ["topic-definition"],
-      "isOptional": true
+      "isOptional": true,
+      "showThinking": false
     },
     {
       "id": "content-angle",
@@ -49,7 +53,8 @@
       "temperature": 0.6,
       "outputType": "json",
       "dependencies": ["topic-definition", "audience-analysis", "competitor-research"],
-      "autoRun": true
+      "autoRun": true,
+      "showThinking": false
     },
     {
       "id": "page-title-generation",
@@ -62,7 +67,8 @@
       "promptTemplate": "Generate 5 SEO-friendly page titles for a page about '{{topic-definition.output}}' with the content angle: '{{page-title-generation.userInput.chosenAngle}}'.\nFormat your response as a JSON object with a single key 'titles', which is an array of 5 strings representing the page titles.\nEnsure the output is valid JSON. Example: {\"titles\": [\"Ultimate Guide to X\", \"Top 5 Ways to Y\", \"X vs Z: Which is Better?\"]}",
       "temperature": 0.9, 
       "outputType": "json",
-      "dependencies": ["content-angle", "topic-definition"]
+      "dependencies": ["content-angle", "topic-definition"],
+      "showThinking": false
     },
     {
       "id": "outline-creation",
@@ -75,7 +81,8 @@
       "promptTemplate": "Create a detailed content outline in Markdown format for an article titled '{{outline-creation.userInput.chosenTitle}}' about '{{topic-definition.output}}'.\nThe target audience is {{audience-analysis.userInput}}.\nThe outline should include main headings (H2) and sub-headings (H3 or H4) as appropriate.\nExample:\n## Introduction\n### What is X?\n### Why is X important?\n## Key Benefit 1\n### Detail A\n### Detail B\n## Conclusion",
       "model": "googleai/gemini-2.5-flash-preview-05-20",
       "outputType": "markdown",
-      "dependencies": ["page-title-generation", "audience-analysis", "topic-definition"]
+      "dependencies": ["page-title-generation", "audience-analysis", "topic-definition"],
+      "showThinking": false
     },
     {
       "id": "full-draft-generation",
@@ -85,7 +92,8 @@
       "promptTemplate": "Write a comprehensive, SEO-optimized article draft in Markdown format.\nThe article is based on the title '{{outline-creation.userInput.chosenTitle}}' and the following outline:\n{{outline-creation.output}}\n\nKey Topic: {{topic-definition.output}}\nTarget Audience: {{audience-analysis.userInput}}\n\nEnsure the article is informative, engaging, and well-structured according to the provided outline. Use appropriate Markdown formatting for headings, lists, bold text, etc.\nAim for a professional and authoritative tone, suitable for the target audience.\nInclude a clear introduction and conclusion.\nWhere appropriate, naturally incorporate keywords related to '{{topic-definition.output}}'.\nDo not include any preamble like \"Here is the article draft:\". Output only the Markdown content of the article itself.",
       "outputType": "markdown",
       "dependencies": ["outline-creation", "topic-definition", "audience-analysis"],
-      "autoRun": false
+      "autoRun": false,
+      "showThinking": false
     }
   ]
 }

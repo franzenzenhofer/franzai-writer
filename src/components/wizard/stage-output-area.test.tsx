@@ -34,10 +34,11 @@ const defaultStageState: StageState = {
   thinkingSteps: undefined,
 };
 
-const renderComponent = (props: Partial<{ stage: Stage; stageState: StageState; isEditingOutput: boolean; onOutputChange: jest.Mock<any,any,any>}> = {}) => {
+const renderComponent = (props: Partial<{ stage: Stage; stageState: StageState; workflow: any; isEditingOutput: boolean; onOutputChange: jest.Mock<any,any,any>}> = {}) => {
   const combinedProps = {
     stage: defaultStageProps,
     stageState: defaultStageState,
+    workflow: { id: 'test-workflow', name: 'Test Workflow', description: 'Test', stages: [defaultStageProps], config: { showThinking: false } },
     isEditingOutput: false,
     onOutputChange: mockOnOutputChange,
     ...props,

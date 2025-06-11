@@ -5,7 +5,8 @@
   "description": "Create a detailed, SEO-friendly cooking recipe with AI assistance.",
   "config": {
     "setTitleFromStageOutput": "dish-name",
-    "finalOutputStageId": "full-recipe-compilation"
+    "finalOutputStageId": "full-recipe-compilation",
+    "showThinking": false
   },
   "stages": [
     {
@@ -15,7 +16,8 @@
       "inputType": "textarea",
       "outputType": "text",
       "dependencies": [],
-      "autoRun": false
+      "autoRun": false,
+      "showThinking": false
     },
     {
       "id": "image-analysis",
@@ -26,7 +28,8 @@
       "dependencies": ["dish-name"],
       "promptTemplate": "Analyze the provided image of '{{dish-name.output}}'. Describe the dish's appearance, visible ingredients, and overall presentation. If possible, identify key components and their arrangement. Output as a JSON object with a key 'imageDescription' (string) and 'identifiedObjects' (array of strings).",
       "model": "googleai/gemini-2.5-flash-preview-05-20",
-      "autoRun": false
+      "autoRun": false,
+      "showThinking": false
     },
     {
       "id": "document-analysis",
@@ -37,7 +40,8 @@
       "dependencies": ["dish-name"],
       "promptTemplate": "The user has uploaded a document named '{{document-analysis.userInput.documentName}}' (MIME type: {{document-analysis.userInput.documentType}}) related to '{{dish-name.output}}'. Please analyze this document (available via the provided file URI) and extract key information such as ingredients, instructions, or nutritional facts. Summarize your findings. Output as a JSON object with keys 'extractedTextSummary' (string) and 'detailedAnalysis' (string).",
       "model": "googleai/gemini-2.5-flash-preview-05-20",
-      "autoRun": false
+      "autoRun": false,
+      "showThinking": false
     },
     {
       "id": "cuisine-type",
@@ -45,7 +49,8 @@
       "description": "E.g., Italian, Vegan, Chicken and Broccoli, etc.",
       "inputType": "textarea",
       "outputType": "text",
-      "dependencies": ["dish-name", "image-analysis", "document-analysis"]
+      "dependencies": ["dish-name", "image-analysis", "document-analysis"],
+      "showThinking": false
     },
     {
       "id": "target-audience-recipe",
@@ -57,7 +62,8 @@
         { "name": "dietaryRestrictions", "label": "Specific Dietary Notes", "type": "textarea", "placeholder": "e.g., Nut-free, dairy-free option available" }
       ],
       "outputType": "json",
-      "dependencies": ["dish-name"]
+      "dependencies": ["dish-name"],
+      "showThinking": false
     },
     {
       "id": "seo-keywords-recipe",
@@ -73,7 +79,8 @@
       "thinkingSettings": {
         "enabled": true
       },
-      "toolNames": ["simpleCalculator"]
+      "toolNames": ["simpleCalculator"],
+      "showThinking": false
     },
     {
       "id": "recipe-tone-selection",
@@ -94,7 +101,8 @@
         }
       ],
       "outputType": "json",
-      "dependencies": ["dish-name"]
+      "dependencies": ["dish-name"],
+      "showThinking": false
     },
     {
       "id": "recipe-description-generation",
@@ -105,7 +113,8 @@
       "temperature": 0.8,
       "outputType": "markdown",
       "dependencies": ["dish-name", "cuisine-type", "target-audience-recipe", "seo-keywords-recipe", "recipe-tone-selection", "image-analysis", "document-analysis"],
-      "autoRun": true
+      "autoRun": true,
+      "showThinking": false
     },
     {
       "id": "ingredients-input",
@@ -113,7 +122,8 @@
       "description": "List all ingredients, one per line. E.g., '1 cup flour', '2 large eggs'.",
       "inputType": "textarea",
       "outputType": "text",
-      "dependencies": ["dish-name"]
+      "dependencies": ["dish-name"],
+      "showThinking": false
     },
     {
       "id": "instructions-input",
@@ -121,7 +131,8 @@
       "description": "Provide clear, step-by-step cooking instructions, one step per line.",
       "inputType": "textarea",
       "outputType": "text",
-      "dependencies": ["ingredients-input"]
+      "dependencies": ["ingredients-input"],
+      "showThinking": false
     },
     {
       "id": "preparation-details",
@@ -133,7 +144,8 @@
       "temperature": 0.5,
       "outputType": "json",
       "dependencies": ["dish-name", "ingredients-input", "instructions-input"],
-      "autoRun": true
+      "autoRun": true,
+      "showThinking": false
     },
     {
       "id": "full-recipe-compilation",
@@ -154,7 +166,8 @@
         "image-analysis",
         "document-analysis"
       ],
-      "autoRun": false
+      "autoRun": false,
+      "showThinking": false
     },
     {
       "id": "code-execution-test",
@@ -169,7 +182,8 @@
       },
       "toolNames": ["codeInterpreter"],
       "chatEnabled": true,
-      "systemInstructions": "You are a helpful AI assistant. When asked to execute code, provide a brief explanation of what the code does before showing the execution results. If the code generates an image, mention it in your text response."
+      "systemInstructions": "You are a helpful AI assistant. When asked to execute code, provide a brief explanation of what the code does before showing the execution results. If the code generates an image, mention it in your text response.",
+      "showThinking": false
     }
   ]
 }
