@@ -8012,3 +8012,54 @@ Executing AI stage with input: {
 }
  GET /favicon.ico?favicon.56766c03.ico 200 in 426ms
  POST /workflow-details/poem-generator 500 in 165ms
+ ✓ Compiled in 218ms
+ ✓ Compiled /workflow-details/[workflowId] in 8ms
+ GET /workflow-details/poem-generator 200 in 472ms
+ GET /workflow-details/poem-generator 200 in 59ms
+ GET /workflow-details/poem-generator 200 in 57ms
+ GET /workflow-details/poem-generator 200 in 54ms
+ GET /workflow-details/poem-generator 200 in 56ms
+ GET /workflow-details/poem-generator 200 in 50ms
+ ⨯ Error [GenkitError]: INVALID_ARGUMENT: Must supply a `model` to `generate()` calls.
+    at async (src/ai/flows/generate-workflow-overview-flow.ts:68:21)
+  66 |   },
+  67 |   async input => {
+> 68 |     const {output} = await prompt(input);
+     |                     ^
+  69 |     return output!;
+  70 |   }
+  71 | ); {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'Must supply a `model` to `generate()` calls.',
+  traceId: '0cc63ba4203c9f61a38bcb1eb2b13062',
+  digest: '311042010'
+}
+ POST /workflow-details/poem-generator 500 in 277ms
+ ✓ Compiled /workflow-details/[workflowId] in 17ms
+ GET /workflow-details/poem-generator 200 in 277ms
+ GET /workflow-details/poem-generator 200 in 69ms
+ GET /workflow-details/poem-generator 200 in 68ms
+ GET /workflow-details/poem-generator 200 in 64ms
+ GET /workflow-details/poem-generator 200 in 71ms
+ GET /workflow-details/poem-generator 200 in 74ms
+ ⨯ Error [GenkitError]: INVALID_ARGUMENT: Must supply a `model` to `generate()` calls.
+    at async (src/ai/flows/generate-workflow-overview-flow.ts:68:21)
+  66 |   },
+  67 |   async input => {
+> 68 |     const {output} = await prompt(input);
+     |                     ^
+  69 |     return output!;
+  70 |   }
+  71 | ); {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'Must supply a `model` to `generate()` calls.',
+  traceId: '9b99d268fa566014a20a6187cfdbc92f',
+  digest: '311042010'
+}
+ POST /workflow-details/poem-generator 500 in 274ms

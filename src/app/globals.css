@@ -107,4 +107,30 @@
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+  
+  /* Google Docs-like focus states */
+  input:focus,
+  textarea:focus {
+    @apply outline-none ring-2 ring-blue-500 ring-offset-1;
+  }
+  
+  /* Clean button transitions */
+  button {
+    @apply transition-all duration-150;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Clean card shadows */
+  .card {
+    @apply shadow-sm hover:shadow-md transition-shadow;
+  }
+  
+  /* Typography improvements */
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight;
+  }
 }

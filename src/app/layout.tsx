@@ -29,7 +29,7 @@ export default function RootLayout({
       <body className="font-body antialiased min-h-screen bg-background text-foreground flex flex-col">
         <AppProviders>
           <SiteHeader />
-          <main className="flex-grow container mx-auto px-4 py-8">
+          <main className="flex-grow">
             {children}
           </main>
           <SiteFooter />
