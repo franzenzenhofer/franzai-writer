@@ -1850,3 +1850,205 @@ You can learn more, including how to opt-out if you'd not like to participate in
 [36mhttps://nextjs.org/telemetry[39m
 
  [32m[1m✓[22m[39m Ready in 1805ms
+Debugger listening on ws://127.0.0.1:9230/e76adab2-27fa-490d-b141-63bc96341be1
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.201:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 703ms
+ ○ Compiling / ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled / in 1583ms
+ GET / 200 in 1864ms
+ ○ Compiling /login ...
+ ✓ Compiled /login in 689ms
+ GET /login 200 in 708ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 674ms
+ ⨯ ./src/workflows/recipe-seo-optimized/workflow.json
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/src/workflows/recipe-seo-optimized/workflow.json (json)
+
+Caused by:
+- Unable to make a module from invalid JSON: key must be a string at line 39 column 50
+
+Debug info:
+- An error occurred while generating the chunk item [project]/src/workflows/recipe-seo-optimized/workflow.json (json)
+- Execution of <JsonChunkItem as EcmascriptChunkItem>::content failed
+- Unable to make a module from invalid JSON: key must be a string at line 39 column 50
+    at stages[2].?
+      35 |       "inputType": "document",
+      36 |       "outputType": "json",
+      37 |       "dependencies": ["dish-name"],
+      38 |       "promptTemplate": "The user has uploaded a document named '{{document-analysis.userInput.doc...utput as a JSON object with keys 'extractedTextSummary' (string) and 'detailedAnalysis' (string).",
+         |                                                  v
+      39 +       "model": "googleai/gemini-1.5-pro-latest", // Model that's more likely to handle File URIs
+         |                                                  ^
+      40 |       "autoRun": false
+      41 |     },
+      42 |     {
+      43 |       "id": "cuisine-type",
+
+
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 506ms
+ GET /dashboard 500 in 1293ms
+ ⨯ ./src/workflows/recipe-seo-optimized/workflow.json
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/src/workflows/recipe-seo-optimized/workflow.json (json)
+
+Caused by:
+- Unable to make a module from invalid JSON: key must be a string at line 39 column 50
+
+Debug info:
+- An error occurred while generating the chunk item [project]/src/workflows/recipe-seo-optimized/workflow.json (json)
+- Execution of <JsonChunkItem as EcmascriptChunkItem>::content failed
+- Unable to make a module from invalid JSON: key must be a string at line 39 column 50
+    at stages[2].?
+      35 |       "inputType": "document",
+      36 |       "outputType": "json",
+      37 |       "dependencies": ["dish-name"],
+      38 |       "promptTemplate": "The user has uploaded a document named '{{document-analysis.userInput.doc...utput as a JSON object with keys 'extractedTextSummary' (string) and 'detailedAnalysis' (string).",
+         |                                                  v
+      39 +       "model": "googleai/gemini-1.5-pro-latest", // Model that's more likely to handle File URIs
+         |                                                  ^
+      40 |       "autoRun": false
+      41 |     },
+      42 |     {
+      43 |       "id": "cuisine-type",
+
+
+ GET /dashboard 500 in 24ms
+ ⨯ ./src/workflows/recipe-seo-optimized/workflow.json
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/src/workflows/recipe-seo-optimized/workflow.json (json)
+
+Caused by:
+- Unable to make a module from invalid JSON: key must be a string at line 39 column 50
+
+Debug info:
+- An error occurred while generating the chunk item [project]/src/workflows/recipe-seo-optimized/workflow.json (json)
+- Execution of <JsonChunkItem as EcmascriptChunkItem>::content failed
+- Unable to make a module from invalid JSON: key must be a string at line 39 column 50
+    at stages[2].?
+      35 |       "inputType": "document",
+      36 |       "outputType": "json",
+      37 |       "dependencies": ["dish-name"],
+      38 |       "promptTemplate": "The user has uploaded a document named '{{document-analysis.userInput.doc...utput as a JSON object with keys 'extractedTextSummary' (string) and 'detailedAnalysis' (string).",
+         |                                                  v
+      39 +       "model": "googleai/gemini-1.5-pro-latest", // Model that's more likely to handle File URIs
+         |                                                  ^
+      40 |       "autoRun": false
+      41 |     },
+      42 |     {
+      43 |       "id": "cuisine-type",
+
+
+ GET /dashboard 500 in 18ms
+ ✓ Compiled /favicon.ico in 229ms
+ GET /favicon.ico 500 in 239ms
+ GET /dashboard 200 in 288ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 272ms
+ ○ Compiling /w/[shortName]/new ...
+ ✓ Compiled /w/[shortName]/new in 679ms
+ GET /w/article/new 200 in 947ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+ ✓ Compiled /w/[shortName]/[documentId] in 2.5s
+ ⨯ ./src/ai/tools/sample-tools.ts:1:1
+Export defineTool doesn't exist in target module
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { defineTool[33m,[39m tool } [36mfrom[39m [32m'genkit/tool'[39m[33m;[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 2 |[39m [36mimport[39m { z } [36mfrom[39m [32m'zod'[39m[33m;[39m[0m
+[0m [90m 3 |[39m[0m
+[0m [90m 4 |[39m [90m// Define a simple calculator tool[39m[0m
+
+The export defineTool was not found in module [project]/node_modules/genkit/lib/tool.mjs [app-rsc] (ecmascript) <exports>.
+Did you mean to import dynamicTool?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+
+ GET /w/article/mbrn6dr3wntpkcy 500 in 2490ms
+ ⨯ ./src/ai/tools/sample-tools.ts:1:1
+Export defineTool doesn't exist in target module
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { defineTool[33m,[39m tool } [36mfrom[39m [32m'genkit/tool'[39m[33m;[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 2 |[39m [36mimport[39m { z } [36mfrom[39m [32m'zod'[39m[33m;[39m[0m
+[0m [90m 3 |[39m[0m
+[0m [90m 4 |[39m [90m// Define a simple calculator tool[39m[0m
+
+The export defineTool was not found in module [project]/node_modules/genkit/lib/tool.mjs [app-rsc] (ecmascript) <exports>.
+Did you mean to import dynamicTool?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+
+ GET /w/article/mbrn6dr3wntpkcy 500 in 14ms
+ ⨯ ./src/ai/tools/sample-tools.ts:1:1
+Export defineTool doesn't exist in target module
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { defineTool[33m,[39m tool } [36mfrom[39m [32m'genkit/tool'[39m[33m;[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 2 |[39m [36mimport[39m { z } [36mfrom[39m [32m'zod'[39m[33m;[39m[0m
+[0m [90m 3 |[39m[0m
+[0m [90m 4 |[39m [90m// Define a simple calculator tool[39m[0m
+
+The export defineTool was not found in module [project]/node_modules/genkit/lib/tool.mjs [app-rsc] (ecmascript) <exports>.
+Did you mean to import dynamicTool?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+
+ GET /w/article/mbrn6dr3wntpkcy 500 in 26ms
+ GET /favicon.ico 500 in 25ms
+ ✓ Compiled in 5ms
+ ✓ Compiled in 6ms

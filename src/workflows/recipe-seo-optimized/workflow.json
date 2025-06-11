@@ -25,7 +25,7 @@
       "outputType": "json",
       "dependencies": ["dish-name"],
       "promptTemplate": "Analyze the provided image of '{{dish-name.output}}'. Describe the dish's appearance, visible ingredients, and overall presentation. If possible, identify key components and their arrangement. Output as a JSON object with a key 'imageDescription' (string) and 'identifiedObjects' (array of strings).",
-      "model": "googleai/gemini-2.0-flash",
+      "model": "googleai/gemini-2.5-flash-preview-05-20",
       "autoRun": false
     },
     {
@@ -36,7 +36,7 @@
       "outputType": "json",
       "dependencies": ["dish-name"],
       "promptTemplate": "The user has uploaded a document named '{{document-analysis.userInput.documentName}}' (MIME type: {{document-analysis.userInput.documentType}}) related to '{{dish-name.output}}'. Please analyze this document (available via the provided file URI) and extract key information such as ingredients, instructions, or nutritional facts. Summarize your findings. Output as a JSON object with keys 'extractedTextSummary' (string) and 'detailedAnalysis' (string).",
-      "model": "googleai/gemini-1.5-pro-latest",
+      "model": "googleai/gemini-2.5-flash-preview-05-20",
       "autoRun": false
     },
     {
@@ -65,7 +65,7 @@
       "description": "AI will suggest relevant SEO keywords for your recipe.",
       "inputType": "none",
       "promptTemplate": "Based on the dish named '{{dish-name.output}}' of cuisine type '{{cuisine-type.output}}', suggest 5-7 relevant SEO keywords for a recipe blog post.\nFormat your response as a JSON object with a single key 'keywords', which is an array of strings.\nExample: {\"keywords\": [\"easy chicken stir fry recipe\", \"quick weeknight dinner\", \"healthy stir fry sauce\"]}",
-      "model": "googleai/gemini-2.0-flash",
+      "model": "googleai/gemini-2.5-flash-preview-05-20",
       "temperature": 0.7,
       "outputType": "json",
       "dependencies": ["dish-name", "cuisine-type"],
@@ -129,7 +129,7 @@
       "description": "AI will estimate prep time, cook time, and servings.",
       "inputType": "none",
       "promptTemplate": "Based on the following ingredients and instructions for '{{dish-name.output}}':\nIngredients:\n{{ingredients-input.output}}\n\nInstructions:\n{{instructions-input.output}}\n\nEstimate the preparation time, cooking time, and number of servings.\nFormat your response as a JSON object with keys 'prepTime', 'cookTime', and 'servings'.\nExample: {\"prepTime\": \"15 minutes\", \"cookTime\": \"30 minutes\", \"servings\": \"4 people\"}\nEnsure the output is valid JSON.",
-      "model": "googleai/gemini-2.0-flash",
+      "model": "googleai/gemini-2.5-flash-preview-05-20",
       "temperature": 0.5,
       "outputType": "json",
       "dependencies": ["dish-name", "ingredients-input", "instructions-input"],
@@ -162,7 +162,7 @@
       "description": "Enter Python code for the AI to execute. For example, 'print(\"Hello World\")' or 'import matplotlib.pyplot as plt; plt.plot([0,1],[0,1]); plt.show()'. Note: Image output display is experimental.",
       "inputType": "textarea",
       "outputType": "text",
-      "model": "googleai/gemini-pro",
+      "model": "googleai/gemini-2.5-flash-preview-05-20",
       "promptTemplate": "Please execute the following Python code:\n```python\n{{userInput}}\n```\nIf the code generates a plot or image, please make sure to output it.",
       "thinkingSettings": {
         "enabled": true

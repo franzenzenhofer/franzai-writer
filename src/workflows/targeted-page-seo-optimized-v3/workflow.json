@@ -45,7 +45,7 @@
       "description": "Based on your topic and audience, the AI will suggest unique content angles.",
       "inputType": "none",
       "promptTemplate": "Given the topic '{{topic-definition.output}}' and target audience described as {{audience-analysis.userInput}}, suggest 3 unique content angles. Consider the following competitor research context if provided: '{{competitor-research.userInput.dropped}} {{competitor-research.userInput.manual}}'. Format your response as a JSON object with a single key 'angles', which is an array of 3 strings representing the content angles. Ensure the output is valid JSON. Example: {\"angles\": [\"Angle 1: Focus on X\", \"Angle 2: Explore Y\", \"Angle 3: Compare Z\"]}",
-      "model": "googleai/gemini-2.0-flash", 
+      "model": "googleai/gemini-2.5-flash-preview-05-20", 
       "temperature": 0.6,
       "outputType": "json",
       "dependencies": ["topic-definition", "audience-analysis", "competitor-research"],
@@ -73,7 +73,7 @@
         { "name": "chosenTitle", "label": "Select Page Title", "type": "select", "options": [], "placeholder": "Select one of the generated titles" }
       ],
       "promptTemplate": "Create a detailed content outline in Markdown format for an article titled '{{outline-creation.userInput.chosenTitle}}' about '{{topic-definition.output}}'.\nThe target audience is {{audience-analysis.userInput}}.\nThe outline should include main headings (H2) and sub-headings (H3 or H4) as appropriate.\nExample:\n## Introduction\n### What is X?\n### Why is X important?\n## Key Benefit 1\n### Detail A\n### Detail B\n## Conclusion",
-      "model": "googleai/gemini-2.0-flash",
+      "model": "googleai/gemini-2.5-flash-preview-05-20",
       "outputType": "markdown",
       "dependencies": ["page-title-generation", "audience-analysis", "topic-definition"]
     },

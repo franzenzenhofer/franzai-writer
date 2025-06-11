@@ -23,7 +23,7 @@
       "description": "AI will generate a poem based on your topic.",
       "inputType": "none",
       "promptTemplate": "Write a poem about '{{poem-topic.output}}'.\nMake it about 4 stanzas long.",
-      "model": "googleai/gemini-2.0-flash",
+      "model": "googleai/gemini-2.5-flash-preview-05-20",
       "temperature": 0.8,
       "outputType": "markdown",
       "dependencies": ["poem-topic"],
