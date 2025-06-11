@@ -100,36 +100,55 @@ class DocumentPersistenceManager {
     userId?: string
   ): Promise<SaveDocumentResult> {
     try {
-      this.log('Starting document save', {
+      console.log('[DocumentPersistence] STEP 1: Starting document save operation', {
         documentId,
         title,
         workflowId,
         stageStatesKeys: Object.keys(stageStates),
-        hasUserId: !!userId
+        stageStatesCount: Object.keys(stageStates).length,
+        hasUserId: !!userId,
+        isNewDocument: documentId === null
       });
 
       // Validate required fields
       if (!title?.trim()) {
+        console.error('[DocumentPersistence] STEP 2: VALIDATION FAILED - Missing title');
         throw new Error('FATAL: Document title is required');
       }
       if (!workflowId?.trim()) {
+        console.error('[DocumentPersistence] STEP 2: VALIDATION FAILED - Missing workflowId');
         throw new Error('FATAL: Workflow ID is required');
       }
       if (!stageStates || typeof stageStates !== 'object') {
+        console.error('[DocumentPersistence] STEP 2: VALIDATION FAILED - Invalid stageStates', { 
+          stageStates, 
+          type: typeof stageStates 
+        });
         throw new Error('FATAL: Stage states must be a valid object');
       }
 
+      console.log('[DocumentPersistence] STEP 2: Validation passed');
+
       const effectiveUserId = userId || this.generateUserId();
-      this.log('Using user ID', { userId: effectiveUserId });
+      console.log('[DocumentPersistence] STEP 3: Determined user ID', { 
+        originalUserId: userId,
+        effectiveUserId,
+        wasGenerated: !userId
+      });
 
       // Clean stage states to ensure Firestore compatibility
+      console.log('[DocumentPersistence] STEP 4: Cleaning stage states for Firestore');
       const cleanedStageStates = this.cleanStageStates(stageStates);
-      this.log('Stage states cleaned', {
+      console.log('[DocumentPersistence] STEP 5: Stage states cleaned', {
         originalKeys: Object.keys(stageStates),
-        cleanedKeys: Object.keys(cleanedStageStates)
+        originalCount: Object.keys(stageStates).length,
+        cleanedKeys: Object.keys(cleanedStageStates),
+        cleanedCount: Object.keys(cleanedStageStates).length
       });
 
       if (!documentId) {
+        console.log('[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)');
+        
         // CREATE new document
         const documentData = {
           userId: effectiveUserId,
@@ -137,14 +156,30 @@ class DocumentPersistenceManager {
           workflowId: workflowId.trim(),
           status: 'draft' as const,
           stageStates: cleanedStageStates,
-          metadata: {
+          metadata: this.cleanUndefinedValues({
             wordCount: this.calculateWordCount(stageStates),
             lastEditedStage: this.findLastEditedStage(stageStates),
             stageCount: Object.keys(stageStates).length
-          }
+          })
         };
 
+        console.log('[DocumentPersistence] STEP 7: Prepared document data for creation', {
+          userId: documentData.userId,
+          title: documentData.title,
+          workflowId: documentData.workflowId,
+          status: documentData.status,
+          stageStatesCount: Object.keys(documentData.stageStates).length,
+          metadata: documentData.metadata
+        });
+
+        console.log('[DocumentPersistence] STEP 8: Calling Firestore adapter to create document');
         const createdId = await firestoreAdapter.createDocument(this.COLLECTION_NAME, documentData);
+        
+        console.log('[DocumentPersistence] STEP 9: Document creation completed successfully', { 
+          createdDocumentId: createdId,
+          collectionName: this.COLLECTION_NAME
+        });
+
         this.log('Document created successfully', { documentId: createdId });
 
         return {
@@ -152,16 +187,70 @@ class DocumentPersistenceManager {
           documentId: createdId
         };
       } else {
-        // UPDATE existing document
+        console.log('[DocumentPersistence] STEP 6: Updating EXISTING document', { documentId });
+        
+        // UPDATE existing document - but first verify it exists
+        try {
+          const existingDoc = await firestoreAdapter.getDocument(this.COLLECTION_NAME, documentId);
+          if (!existingDoc) {
+            this.log('Document not found for update, creating new instead', { documentId });
+            // Document doesn't exist, create it instead
+            const documentData = {
+              userId: effectiveUserId,
+              title: title.trim(),
+              workflowId: workflowId.trim(),
+              status: 'draft' as const,
+              stageStates: cleanedStageStates,
+              metadata: this.cleanUndefinedValues({
+                wordCount: this.calculateWordCount(stageStates),
+                lastEditedStage: this.findLastEditedStage(stageStates),
+                stageCount: Object.keys(stageStates).length
+              })
+            };
+
+            const createdId = await firestoreAdapter.createDocument(this.COLLECTION_NAME, documentData);
+            this.log('Document created instead of updated', { originalId: documentId, createdId });
+
+            return {
+              success: true,
+              documentId: createdId
+            };
+          }
+        } catch (verifyError: any) {
+          this.log('Error verifying document existence, creating new instead', { documentId, error: verifyError.message });
+          // If we can't verify existence, create new document
+          const documentData = {
+            userId: effectiveUserId,
+            title: title.trim(),
+            workflowId: workflowId.trim(),
+            status: 'draft' as const,
+            stageStates: cleanedStageStates,
+            metadata: this.cleanUndefinedValues({
+              wordCount: this.calculateWordCount(stageStates),
+              lastEditedStage: this.findLastEditedStage(stageStates),
+              stageCount: Object.keys(stageStates).length
+            })
+          };
+
+          const createdId = await firestoreAdapter.createDocument(this.COLLECTION_NAME, documentData);
+          this.log('Document created after verification failure', { originalId: documentId, createdId });
+
+          return {
+            success: true,
+            documentId: createdId
+          };
+        }
+
+        // Document exists, proceed with update
         const updates = {
           title: title.trim(),
           status: 'draft' as const,
           stageStates: cleanedStageStates,
-          metadata: {
+          metadata: this.cleanUndefinedValues({
             wordCount: this.calculateWordCount(stageStates),
             lastEditedStage: this.findLastEditedStage(stageStates),
             stageCount: Object.keys(stageStates).length
-          }
+          })
         };
 
         await firestoreAdapter.updateDocument(this.COLLECTION_NAME, documentId, updates);
@@ -173,6 +262,15 @@ class DocumentPersistenceManager {
         };
       }
     } catch (error: any) {
+      console.error('[DocumentPersistence] STEP ERROR: Save operation failed', {
+        error: error.message,
+        errorType: error.constructor.name,
+        documentId,
+        title,
+        workflowId,
+        stack: error.stack
+      });
+      
       this.logError('saveDocument', error);
       return {
         success: false,

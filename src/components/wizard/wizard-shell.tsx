@@ -131,7 +131,8 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   useEffect(() => {
     instance.workflow.stages.forEach(stage => {
       const stageState = instance.stageStates[stage.id];
-      if (stageState.shouldAutoRun && stageState.status === 'idle' && stageState.depsAreMet && !stageState.isEditingOutput) {
+      // Defensive check: ensure stageState exists before accessing its properties
+      if (stageState && stageState.shouldAutoRun && stageState.status === 'idle' && stageState.depsAreMet && !stageState.isEditingOutput) {
         handleRunStage(stage.id, stageState.userInput);
       }
     });
@@ -463,7 +464,24 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
           key={stage.id}
           stage={stage}
           workflow={instance.workflow}
-          stageState={instance.stageStates[stage.id] || { stageId: stage.id, status: 'idle', depsAreMet: !(stage.dependencies && stage.dependencies.length > 0), isEditingOutput: false }}
+          stageState={instance.stageStates[stage.id] || { 
+            stageId: stage.id, 
+            status: 'idle', 
+            depsAreMet: !(stage.dependencies && stage.dependencies.length > 0), 
+            isEditingOutput: false,
+            shouldAutoRun: false,
+            isStale: false,
+            staleDismissed: false,
+            userInput: undefined,
+            output: undefined,
+            error: undefined,
+            completedAt: undefined,
+            groundingInfo: undefined,
+            thinkingSteps: undefined,
+            chatHistory: undefined,
+            currentStreamOutput: undefined,
+            outputImages: undefined
+          }}
           isCurrentStage={stage.id === currentStageId && !isWizardCompleted}
           onRunStage={handleRunStage}
           onInputChange={handleInputChange}

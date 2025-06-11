@@ -18,19 +18,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // Run unused code analysis as part of build (non-blocking)
-  webpack: (config, { isServer, dev }) => {
-    // Only run in production builds
-    if (!dev && isServer) {
-      const { execSync } = require('child_process');
-      try {
-        console.log('🔍 Checking for unused code...');
-        execSync('npx knip', { stdio: 'inherit' });
-      } catch (error) {
-        console.warn('⚠️  Unused code detected - see output above (non-blocking)');
-      }
-    }
-    return config;
+  // Turbopack configuration (stable in Next.js 15.3+)
+  turbopack: {
+    resolveAlias: {
+      // Fix Zod v3 import issues
+      'zod/v3': 'zod',
+      './v3/index.js': 'zod',
+    },
   },
 };
 

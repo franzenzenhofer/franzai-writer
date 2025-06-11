@@ -27,9 +27,14 @@ export function useDocumentPersistence({
   const [isSaving, setIsSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
-  const [documentId, setDocumentId] = useState<string | null>(
-    instance.document.id.startsWith('temp-') ? null : instance.document.id
-  );
+  const [documentId, setDocumentId] = useState<string | null>(() => {
+    // Only treat as existing document if it starts with a valid Firestore ID pattern
+    // and this instance was successfully loaded from Firestore
+    const isValidFirestoreId = !instance.document.id.startsWith('temp-') && 
+                              instance.document.id !== 'new' &&
+                              instance.document.userId !== 'temp_user'; // temp_user indicates fallback creation
+    return isValidFirestoreId ? instance.document.id : null;
+  });
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const hasInitialSaveRef = useRef(false);
 

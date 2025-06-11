@@ -50,13 +50,25 @@ export class FirestoreAdapter {
   }
 
   /**
-   * Create a new document with auto-generated ID
+   * Create a document with auto-generated ID
    */
   async createDocument(collectionName: string, data: any): Promise<string> {
-    this.log('Creating document', { collection: collectionName });
+    console.log('[FirestoreAdapter] STEP 1: Starting document creation', { 
+      collection: collectionName,
+      dataKeys: Object.keys(data),
+      dataSize: JSON.stringify(data).length
+    });
     
     try {
-      const docRef = doc(collection(db, collectionName));
+      const collectionRef = collection(db, collectionName);
+      const docRef = doc(collectionRef);
+      
+      console.log('[FirestoreAdapter] STEP 2: Generated document reference', { 
+        collection: collectionName, 
+        id: docRef.id,
+        path: docRef.path
+      });
+      
       const documentData = {
         ...data,
         id: docRef.id,
@@ -64,10 +76,32 @@ export class FirestoreAdapter {
         updatedAt: serverTimestamp()
       };
       
+      console.log('[FirestoreAdapter] STEP 3: Prepared document data', { 
+        collection: collectionName, 
+        id: docRef.id,
+        finalDataKeys: Object.keys(documentData),
+        hasStageStates: !!documentData.stageStates,
+        stageStatesKeys: documentData.stageStates ? Object.keys(documentData.stageStates) : []
+      });
+      
+      console.log('[FirestoreAdapter] STEP 4: Calling setDoc on Firestore');
       await setDoc(docRef, documentData);
+      
+      console.log('[FirestoreAdapter] STEP 5: Document created successfully in Firestore', { 
+        collection: collectionName, 
+        id: docRef.id 
+      });
+      
       this.log('Document created', { collection: collectionName, id: docRef.id });
       return docRef.id;
     } catch (error) {
+      console.error('[FirestoreAdapter] STEP ERROR: Document creation failed', {
+        collection: collectionName,
+        error: error,
+        errorMessage: error instanceof Error ? error.message : String(error),
+        errorStack: error instanceof Error ? error.stack : undefined
+      });
+      
       this.logError(`createDocument in ${collectionName}`, error);
       throw new Error(`FATAL: Failed to create document in ${collectionName}: ${error}`);
     }

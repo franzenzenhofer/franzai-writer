@@ -2,8 +2,38 @@ import { notFound } from 'next/navigation';
 import { getWorkflowByShortName } from '@/lib/workflow-loader';
 import { documentPersistence } from '@/lib/document-persistence';
 import WizardPageContent from './wizard-page-content';
-import type { WizardDocument, WizardInstance, StageState } from '@/types';
-import { siteConfig } from '@/config/site';
+import type { WizardDocument, WizardInstance, StageState, Workflow } from '@/types';
+
+/**
+ * Initialize proper StageState objects for each stage in the workflow
+ * This ensures that every stage has a valid StageState object with all required properties
+ */
+function initializeStageStates(workflow: Workflow): Record<string, StageState> {
+  const stageStates: Record<string, StageState> = {};
+  
+  workflow.stages.forEach(stage => {
+    stageStates[stage.id] = {
+      stageId: stage.id,
+      status: 'idle',
+      depsAreMet: !(stage.dependencies && stage.dependencies.length > 0), // true if no dependencies
+      isEditingOutput: false,
+      shouldAutoRun: false, // Will be properly calculated by evaluateDependenciesLogic
+      isStale: false,
+      staleDismissed: false,
+      userInput: undefined,
+      output: undefined,
+      error: undefined,
+      completedAt: undefined,
+      groundingInfo: undefined,
+      thinkingSteps: undefined,
+      chatHistory: undefined,
+      currentStreamOutput: undefined,
+      outputImages: undefined
+    };
+  });
+  
+  return stageStates;
+}
 
 export default async function WizardPage({ 
   params
@@ -22,54 +52,10 @@ export default async function WizardPage({
   }
 
   let wizardInstance: WizardInstance;
-  let dynamicTitle = workflow.name;
 
-  // Try to load existing document by documentId
-  if (documentId && !documentId.startsWith('temp-') && documentId !== 'new') {
-    console.log('[WizardPage] Attempting to load document:', documentId);
-    
-    try {
-      const loadResult = await documentPersistence.loadDocument(documentId);
-      
-      if (loadResult.success && loadResult.document && loadResult.stageStates) {
-        console.log('[WizardPage] Document loaded successfully:', {
-          documentId: loadResult.document.id,
-          title: loadResult.document.title,
-          stageCount: Object.keys(loadResult.stageStates).length
-        });
-        
-        dynamicTitle = loadResult.document.title;
-        
-        wizardInstance = {
-          workflow,
-          document: loadResult.document,
-          stageStates: loadResult.stageStates,
-        };
-      } else {
-        console.log('[WizardPage] Document not found, creating new:', documentId);
-        throw new Error('Document not found');
-      }
-    } catch (error: any) {
-      console.error('[WizardPage] Failed to load document:', { documentId, error: error.message });
-      
-      // Create new instance with the requested documentId
-      wizardInstance = {
-        workflow,
-        document: {
-          id: documentId,
-          title: `New ${workflow.name}`,
-          workflowId: workflow.id,
-          status: 'draft',
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-          userId: 'temp_user',
-        },
-        stageStates: {},
-      };
-    }
-  } else {
-    // Create new document instance
-    console.log('[WizardPage] Creating new document instance');
+  // Handle special cases: temp documents or explicit "new"
+  if (documentId === 'new' || documentId.startsWith('temp-')) {
+    console.log('[WizardPage] Creating temporary document instance', { documentId });
     
     const tempId = documentId === 'new' ? `temp-${Date.now()}` : documentId;
     
@@ -84,7 +70,42 @@ export default async function WizardPage({
         updatedAt: new Date().toISOString(),
         userId: 'temp_user',
       },
-      stageStates: {},
+      stageStates: initializeStageStates(workflow),
+    };
+  } else {
+    // Load existing document from Firestore
+    // Document MUST exist since new/page.tsx creates it before redirecting
+    console.log('[WizardPage] Loading existing document:', documentId);
+    
+    const loadResult = await documentPersistence.loadDocument(documentId);
+    
+    if (!loadResult.success || !loadResult.document || !loadResult.stageStates) {
+      console.error('[WizardPage] Document load failed:', { 
+        documentId, 
+        error: loadResult.error || 'Document or stage states missing',
+        hasDocument: !!loadResult.document,
+        hasStageStates: !!loadResult.stageStates
+      });
+      
+      // This should rarely happen now since new/page.tsx creates documents
+      // If it does happen, it might be a deleted document or permission issue
+      notFound();
+    }
+
+    console.log('[WizardPage] Document loaded successfully:', {
+      documentId: loadResult.document.id,
+      title: loadResult.document.title,
+      stageCount: Object.keys(loadResult.stageStates).length
+    });
+    
+    // Ensure all stages have proper state objects, merge with loaded states
+    const initializedStageStates = initializeStageStates(workflow);
+    const mergedStageStates = { ...initializedStageStates, ...loadResult.stageStates };
+    
+    wizardInstance = {
+      workflow,
+      document: loadResult.document,
+      stageStates: mergedStageStates,
     };
   }
 
