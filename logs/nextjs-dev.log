@@ -7952,3 +7952,24 @@ Executing AI stage with input: {
  POST /workflow-details/poem-generator 500 in 238ms
  GET /favicon.ico?favicon.56766c03.ico 200 in 323ms
  ✓ Compiled in 89ms
+ ✓ Compiled in 64ms
+ GET /workflow-details/poem-generator 200 in 54ms
+ ⨯ Error [GenkitError]: INVALID_ARGUMENT: Must supply a `model` to `generate()` calls.
+    at async (src/ai/flows/generate-workflow-overview-flow.ts:68:21)
+  66 |   },
+  67 |   async input => {
+> 68 |     const {output} = await prompt(input);
+     |                     ^
+  69 |     return output!;
+  70 |   }
+  71 | ); {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'Must supply a `model` to `generate()` calls.',
+  traceId: '0cc43b88678d8a693e8b54ab4122da30',
+  digest: '2294707900'
+}
+ POST /workflow-details/poem-generator 500 in 200ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 304ms
