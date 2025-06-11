@@ -72,7 +72,6 @@ The core feature is a JSON-based workflow system where each workflow:
 - Firebase App Hosting deployment configured in `apphosting.yaml`
 - TypeScript and ESLint errors are ignored during build (see `next.config.ts`)
 - The project uses a blue-based design system with Space Grotesk for headlines
-- Mock data is available in `src/lib/mock-data.ts` for development without Firebase
 
 ## Ticket Management System
 
