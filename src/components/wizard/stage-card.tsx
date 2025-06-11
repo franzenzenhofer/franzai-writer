@@ -3,13 +3,15 @@
 
 import type { Stage, StageState, Workflow } from "@/types";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button"; // Keep for the primary action button
+import { Badge } from "@/components/ui/badge"; // Keep for non-dismissible badges
 import { StageInputArea, type StageInputAreaRef } from "./stage-input-area";
 import { StageOutputArea } from "./stage-output-area";
-import { CheckCircle2, AlertCircle, Zap, RotateCcw, Loader2, SkipForward, Edit, Save, Check, Clock, X } from "lucide-react";
+import { CheckCircle2, AlertCircle, Zap, RotateCcw, Loader2, SkipForward, Edit, Save, Check, Clock, X } from "lucide-react"; // X is for DismissibleWarningBadge, others for StageActionButton or status
 import { cn } from "@/lib/utils";
 import React, { useState, useRef, useEffect } from "react";
+import { DismissibleWarningBadge } from "./dismissible-warning-badge";
+import { StageActionButton } from "./StageActionButton";
 
 interface StageCardProps {
   stage: Stage;
@@ -168,19 +170,12 @@ export function StageCard({
             {statusIcon && !dependencyMessage && <span className="mr-2">{statusIcon}</span>}
             {stage.title}
             {stageState.isStale && stageState.status === 'completed' && !stageState.staleDismissed && (
-              <Badge variant="outline" className="ml-2 bg-amber-100 text-amber-700 border-amber-400 flex items-center gap-1">
+              <DismissibleWarningBadge
+                onDismiss={() => onDismissStaleWarning(stage.id)}
+                className="ml-2"
+              >
                 Update recommended
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onDismissStaleWarning(stage.id);
-                  }}
-                  className="ml-1 hover:bg-amber-200 rounded-sm p-0.5 transition-colors"
-                  title="Dismiss this warning"
-                >
-                  <X className="h-3 w-3" />
-                </button>
-              </Badge>
+              </DismissibleWarningBadge>
             )}
           </CardTitle>
           <CardDescription>{stage.description}</CardDescription>
@@ -241,93 +236,94 @@ export function StageCard({
       </CardContent>
       <CardFooter className="flex justify-end gap-2 items-center flex-wrap">
         {stage.isOptional && stageState.status === "idle" && onSkipStage && !dependencyMessage && (
-          <Button 
-            variant="ghost" 
-            size="sm" 
+          <StageActionButton
+            variant="ghost"
             onClick={() => onSkipStage(stage.id)}
             id={`skip-stage-${stage.id}`}
-            data-testid={`skip-stage-${stage.id}`}
+            datatestid={`skip-stage-${stage.id}`}
+            icon={SkipForward}
           >
-            <SkipForward className="mr-2 h-4 w-4" /> Skip Stage
-          </Button>
+            Skip Stage
+          </StageActionButton>
         )}
 
         {/* For AI stages, show Edit Input button */}
         {stage.promptTemplate && showInputRelatedButtons && !dependencyMessage && (
-          <Button 
-            variant="outline" 
-            size="sm" 
+          <StageActionButton
+            variant="outline"
             onClick={handleEditInputClick}
             id={`edit-input-${stage.id}`}
-            data-testid={`edit-input-${stage.id}`}
+            datatestid={`edit-input-${stage.id}`}
+            icon={Edit}
           >
-            <Edit className="mr-2 h-4 w-4" /> Edit Input
-          </Button>
+            Edit Input
+          </StageActionButton>
         )}
 
         {/* For non-AI stages, show only one Edit button after completion */}
         {!stage.promptTemplate && stageState.status === 'completed' && !isEditingInput && !stageState.isEditingOutput && !dependencyMessage && (
-          <Button 
-            variant="outline" 
-            size="sm" 
+          <StageActionButton
+            variant="outline"
             onClick={handleEditInputClick}
             id={`edit-${stage.id}`}
-            data-testid={`edit-${stage.id}`}
+            datatestid={`edit-${stage.id}`}
+            icon={Edit}
           >
-            <Edit className="mr-2 h-4 w-4" /> Edit
-          </Button>
+            Edit
+          </StageActionButton>
         )}
 
         {/* For AI stages, show output-related buttons */}
         {stage.promptTemplate && showOutputRelatedButtons && !stageState.isEditingOutput && !dependencyMessage && (
           <>
-            <Button 
-              variant="outline" 
-              size="sm" 
+            <StageActionButton
+              variant="outline"
               onClick={() => onRunStage(stage.id, stageState.userInput)}
               id={`ai-redo-${stage.id}`}
-              data-testid={`ai-redo-${stage.id}`}
+              datatestid={`ai-redo-${stage.id}`}
+              icon={RotateCcw}
             >
-              <RotateCcw className="mr-2 h-4 w-4" /> AI Redo
-            </Button>
-            <Button 
-              variant="outline" 
-              size="sm" 
+              AI Redo
+            </StageActionButton>
+            <StageActionButton
+              variant="outline"
               onClick={handleEditOutputClick}
               id={`edit-output-${stage.id}`}
-              data-testid={`edit-output-${stage.id}`}
+              datatestid={`edit-output-${stage.id}`}
+              icon={Edit}
             >
-              <Edit className="mr-2 h-4 w-4" /> Edit Output
-            </Button>
-            <Button 
-              variant="default" 
-              size="sm" 
+              Edit Output
+            </StageActionButton>
+            <StageActionButton
+              variant="default"
               onClick={handleAcceptAndContinue}
               id={`accept-continue-${stage.id}`}
-              data-testid={`accept-continue-${stage.id}`}
+              datatestid={`accept-continue-${stage.id}`}
+              icon={Check}
             >
-              <Check className="mr-2 h-4 w-4" /> Accept &amp; Continue
-            </Button>
+              Accept &amp; Continue
+            </StageActionButton>
           </>
         )}
         {showOutputRelatedButtons && stageState.isEditingOutput && !dependencyMessage && (
-             <Button 
-               variant="default" 
-               size="sm" 
-               onClick={handleSaveOutputEdits}
-               id={`save-output-${stage.id}`}
-               data-testid={`save-output-${stage.id}`}
-             >
-                <Save className="mr-2 h-4 w-4" /> Save Output Edits
-            </Button>
+          <StageActionButton
+            variant="default"
+            onClick={handleSaveOutputEdits}
+            id={`save-output-${stage.id}`}
+            datatestid={`save-output-${stage.id}`}
+            icon={Save}
+          >
+            Save Output Edits
+          </StageActionButton>
         )}
         
+        {/* Primary Action Button: Kept as direct Button due to complex icon/text logic and custom styling */}
         {showPrimaryActionButton && !stageState.isEditingOutput && !dependencyMessage && (
           <Button 
             size="sm" 
             onClick={handlePrimaryAction} 
             disabled={!canRun || stageState.status === "running"}
-            className="bg-accent hover:bg-accent/90 text-accent-foreground"
+            className="bg-accent hover:bg-accent/90 text-accent-foreground" // Unique styling
             id={`process-stage-${stage.id}`}
             data-testid={`process-stage-${stage.id}`}
           >
@@ -336,7 +332,7 @@ export function StageCard({
             ) : (
               <Zap className="mr-2 h-4 w-4" />
             )}
-            {stage.promptTemplate ? "Run AI" : "Continue"}
+            {stage.promptTemplate ? (stageState.status === "running" ? "Processing..." : "Run AI") : (stageState.status === "running" ? "Processing..." : "Continue")}
           </Button>
         )}
       </CardFooter>
