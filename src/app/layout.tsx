@@ -29,7 +29,7 @@ export default function RootLayout({
       <body className="font-body antialiased min-h-screen bg-background text-foreground flex flex-col">
         <AppProviders>
           <SiteHeader />
-          <main className="flex-grow">
+          <main className="flex-grow pb-16">
             {children}
           </main>
           <SiteFooter />

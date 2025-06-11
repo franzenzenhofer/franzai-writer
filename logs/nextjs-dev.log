@@ -8425,3 +8425,303 @@ Executing AI stage with input: {
   ]
 }
  GET /w/poem/U2hhphBW7t365vYChinn 200 in 659ms
+ ✓ Compiled / in 30ms
+ GET / 200 in 135ms
+ ✓ Compiled / in 17ms
+ GET / 200 in 122ms
+ GET / 200 in 50ms
+ GET / 200 in 54ms
+ GET / 200 in 42ms
+ GET / 200 in 46ms
+ GET / 200 in 44ms
+ ✓ Compiled /dashboard in 19ms
+ GET /dashboard 200 in 70ms
+ ✓ Compiled /w/[shortName]/new in 19ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'article' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'article',
+  workflowId: 'targeted-page-seo-optimized-v3',
+  workflowName: 'Targeted Page SEO Optimized V3'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'article',
+  documentId: 'mbs509fswy87dmg',
+  workflowId: 'targeted-page-seo-optimized-v3'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Targeted Page SEO Optimized V3',
+  workflowId: 'targeted-page-seo-optimized-v3',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749657679048_oy4i0a78v',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749657679048_oy4i0a78v',
+  title: 'New Targeted Page SEO Optimized V3',
+  workflowId: 'targeted-page-seo-optimized-v3',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 215
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: '54XnAmTyRX1IwG6rkbAI',
+  path: 'documents/54XnAmTyRX1IwG6rkbAI'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: '54XnAmTyRX1IwG6rkbAI',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: '54XnAmTyRX1IwG6rkbAI' }
+[FirestoreAdapter] Document created { collection: 'documents', id: '54XnAmTyRX1IwG6rkbAI' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: '54XnAmTyRX1IwG6rkbAI',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: '54XnAmTyRX1IwG6rkbAI' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: '54XnAmTyRX1IwG6rkbAI',
+  error: undefined,
+  originalId: 'mbs509fswy87dmg'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbs509fswy87dmg',
+  createdId: '54XnAmTyRX1IwG6rkbAI',
+  workflowId: 'targeted-page-seo-optimized-v3'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/article/54XnAmTyRX1IwG6rkbAI' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/article/new 200 in 270ms
+ ✓ Compiled /w/[shortName]/[documentId] in 14ms
+[WizardPage] Starting page load { shortName: 'article', documentId: '54XnAmTyRX1IwG6rkbAI' }
+[WizardPage] Loading existing document: 54XnAmTyRX1IwG6rkbAI
+[DocumentPersistence] Loading document { documentId: '54XnAmTyRX1IwG6rkbAI' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: '54XnAmTyRX1IwG6rkbAI' }
+[WizardPage] Starting page load { shortName: 'article', documentId: '54XnAmTyRX1IwG6rkbAI' }
+[WizardPage] Loading existing document: 54XnAmTyRX1IwG6rkbAI
+[DocumentPersistence] Loading document { documentId: '54XnAmTyRX1IwG6rkbAI' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: '54XnAmTyRX1IwG6rkbAI' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: '54XnAmTyRX1IwG6rkbAI' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: '54XnAmTyRX1IwG6rkbAI',
+  title: 'New Targeted Page SEO Optimized V3',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: '54XnAmTyRX1IwG6rkbAI',
+  title: 'New Targeted Page SEO Optimized V3',
+  stageCount: 0,
+  validatedStageIds: []
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: '54XnAmTyRX1IwG6rkbAI' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: '54XnAmTyRX1IwG6rkbAI',
+  title: 'New Targeted Page SEO Optimized V3',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: '54XnAmTyRX1IwG6rkbAI',
+  title: 'New Targeted Page SEO Optimized V3',
+  stageCount: 0,
+  validatedStageIds: []
+}
+ GET /w/article/54XnAmTyRX1IwG6rkbAI 200 in 147ms
+ GET /w/article/54XnAmTyRX1IwG6rkbAI 200 in 100ms
+ GET / 200 in 69ms
+ GET /dashboard 200 in 61ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'article' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'article',
+  workflowId: 'targeted-page-seo-optimized-v3',
+  workflowName: 'Targeted Page SEO Optimized V3'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'article',
+  documentId: 'mbs50zwow8x3z8r',
+  workflowId: 'targeted-page-seo-optimized-v3'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Targeted Page SEO Optimized V3',
+  workflowId: 'targeted-page-seo-optimized-v3',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749657713352_m0bxexn8t',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749657713352_m0bxexn8t',
+  title: 'New Targeted Page SEO Optimized V3',
+  workflowId: 'targeted-page-seo-optimized-v3',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 215
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'vexWS8kefZnVCULQJ1SR',
+  path: 'documents/vexWS8kefZnVCULQJ1SR'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'vexWS8kefZnVCULQJ1SR',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'vexWS8kefZnVCULQJ1SR' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'vexWS8kefZnVCULQJ1SR' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'vexWS8kefZnVCULQJ1SR',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'vexWS8kefZnVCULQJ1SR' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'vexWS8kefZnVCULQJ1SR',
+  error: undefined,
+  originalId: 'mbs50zwow8x3z8r'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbs50zwow8x3z8r',
+  createdId: 'vexWS8kefZnVCULQJ1SR',
+  workflowId: 'targeted-page-seo-optimized-v3'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/article/vexWS8kefZnVCULQJ1SR' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/article/new 200 in 156ms
+[WizardPage] Starting page load { shortName: 'article', documentId: 'vexWS8kefZnVCULQJ1SR' }
+[WizardPage] Loading existing document: vexWS8kefZnVCULQJ1SR
+[DocumentPersistence] Loading document { documentId: 'vexWS8kefZnVCULQJ1SR' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'vexWS8kefZnVCULQJ1SR' }
+[WizardPage] Starting page load { shortName: 'article', documentId: 'vexWS8kefZnVCULQJ1SR' }
+[WizardPage] Loading existing document: vexWS8kefZnVCULQJ1SR
+[DocumentPersistence] Loading document { documentId: 'vexWS8kefZnVCULQJ1SR' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'vexWS8kefZnVCULQJ1SR' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'vexWS8kefZnVCULQJ1SR' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'vexWS8kefZnVCULQJ1SR',
+  title: 'New Targeted Page SEO Optimized V3',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'vexWS8kefZnVCULQJ1SR',
+  title: 'New Targeted Page SEO Optimized V3',
+  stageCount: 0,
+  validatedStageIds: []
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'vexWS8kefZnVCULQJ1SR' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'vexWS8kefZnVCULQJ1SR',
+  title: 'New Targeted Page SEO Optimized V3',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'vexWS8kefZnVCULQJ1SR',
+  title: 'New Targeted Page SEO Optimized V3',
+  stageCount: 0,
+  validatedStageIds: []
+}
+ GET /w/article/vexWS8kefZnVCULQJ1SR 200 in 139ms
+ GET /w/article/vexWS8kefZnVCULQJ1SR 200 in 93ms
+ GET / 200 in 61ms
+ GET / 200 in 59ms
+ GET /dashboard 200 in 60ms
