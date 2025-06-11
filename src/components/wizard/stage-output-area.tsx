@@ -66,11 +66,27 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
         
         // Handle different output types
         if (stage.outputType === 'json' && typeof stageState.output === 'object') {
-          // For poem generator, copy just the poem content
-          if (stage.id === 'generate-poem-with-title' && stageState.output.poem) {
-            textToCopy = stageState.output.poem;
+          // If jsonFields is configured, convert to markdown format
+          if (stage.jsonFields && stage.jsonFields.length > 0) {
+            // Sort fields by displayOrder
+            const sortedFields = [...stage.jsonFields].sort((a, b) => {
+              const orderA = a.displayOrder ?? 999;
+              const orderB = b.displayOrder ?? 999;
+              return orderA - orderB;
+            });
+            
+            // Build text output with values only
+            const textParts = sortedFields
+              .map(field => {
+                const value = stageState.output[field.key];
+                return value || null;
+              })
+              .filter(Boolean);
+            
+            // Join with double newlines for readability
+            textToCopy = textParts.join('\n\n');
           } else {
-            // For other JSON outputs, stringify it
+            // For other JSON outputs without jsonFields, stringify it
             textToCopy = JSON.stringify(stageState.output, null, 2);
           }
         } else {

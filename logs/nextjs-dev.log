@@ -7643,3 +7643,75 @@ Executing AI stage with input: {
  GET /w/poem/rSCalQpTIP4UmXFWcgPd 200 in 559ms
  GET /w/poem/rSCalQpTIP4UmXFWcgPd 200 in 295ms
  GET /favicon.ico?favicon.56766c03.ico 200 in 228ms
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'rSCalQpTIP4UmXFWcgPd' }
+[WizardPage] Loading existing document: rSCalQpTIP4UmXFWcgPd
+[DocumentPersistence] Loading document { documentId: 'rSCalQpTIP4UmXFWcgPd' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'rSCalQpTIP4UmXFWcgPd' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'rSCalQpTIP4UmXFWcgPd' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'rSCalQpTIP4UmXFWcgPd',
+  title: 'The Crucible of Knowing test',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'poem-topic',
+    'html-briefing',
+    'generate-html-preview',
+    'generate-poem-with-title'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'rSCalQpTIP4UmXFWcgPd',
+  title: 'The Crucible of Knowing test',
+  stageCount: 4,
+  validatedStageIds: [
+    'poem-topic',
+    'html-briefing',
+    'generate-html-preview',
+    'generate-poem-with-title'
+  ]
+}
+ GET /w/poem/rSCalQpTIP4UmXFWcgPd 200 in 275ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 226ms
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.5-flash-preview-05-20',
+  temperature: 0.3,
+  stageOutputType: 'html'
+}
+Prompt variable '{{html-briefing.output}}' not found in context. Replacing with empty string.
+[runAiStage] Filled prompt length: 1471
+Executing AI stage with input: {
+  "promptTemplate": "Convert this poem into beautiful HTML with proper formatting and styling:\n\nTitle: The Crucible of Knowing test \nPoem:\nA silent sheet, a ticking clock,\nA question poised, a mental lock.\nThe 'test' arrives, a whispered word,\nA challenge met, or truth unheard.\nIt gathers fears, it sparks a hope, asgdsgdsg\nWithin its bounds, we blindly grope.\n\nThrough midnight oil, and hurried glance,\nWe chase the answers, take a chance.\nThe mind reviews, the memory strains,\nEach fact recalled, where effort gains.\nA tremor builds, a rising tide,\nWhere knowledge meets what we must hide.\n\nThen pen descends, a silent plea,\nTo summon forth what ought to be.\nEach chosen word, each calculated line,\nA tiny step across the great design.\nThe world shrinks down to paper white,\nAnd thoughts contend with fading light.\n\nThen silence falls, the task is done,\nA battle fought, a race half-run.\nThe 'test' departs, its score unseen,\nBut deeper truths have intervened.\nFor win or lose, the lesson stays,\nA clearer path through future days.\n\nSpecial instructions: \n\nIMPORTANT: Output ONLY the clean HTML content without any markdown code blocks, backticks, or explanatory text. Do not include ```html or ``` markers. Just return the pure HTML that can be directly rendered.\n\nCreate clean, semantic HTML with inline CSS for styling. Make it visually appealing and readable. Use proper HTML structure with headings, paragraphs, and styling for a poem presentation. Include the title as an H1 heading.",
+  "model": "googleai/gemini-2.5-flash-preview-05-20",
+  "temperature": 0.3,
+  "fileInputs": [],
+  "chatHistory": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "Convert this poem into beautiful HTML with proper formatting and styling:\n\nTitle: The Crucible of Knowing test \nPoem:\nA silent sheet, a ticking clock,\nA question poised, a mental lock.\nThe 'test' arrives, a whispered word,\nA challenge met, or truth unheard.\nIt gathers fears, it sparks a hope,\nWithin its bounds, we blindly grope.\n\nThrough midnight oil, and hurried glance,\nWe chase the answers, take a chance.\nThe mind reviews, the memory strains,\nEach fact recalled, where effort gains.\nA tremor builds, a rising tide,\nWhere knowledge meets what we must hide.\n\nThen pen descends, a silent plea,\nTo summon forth what ought to be.\nEach chosen word, each calculated line,\nA tiny step across the great design.\nThe world shrinks down to paper white,\nAnd thoughts contend with fading light.\n\nThen silence falls, the task is done,\nA battle fought, a race half-run.\nThe 'test' departs, its score unseen,\nBut deeper truths have intervened.\nFor win or lose, the lesson stays,\nA clearer path through future days.\n\nSpecial instructions: \n\nIMPORTANT: Output ONLY the clean HTML content without any markdown code blocks, backticks, or explanatory text. Do not include ```html or ``` markers. Just return the pure HTML that can be directly rendered.\n\nCreate clean, semantic HTML with inline CSS for styling. Make it visually appealing and readable. Use proper HTML structure with headings, paragraphs, and styling for a poem presentation. Include the title as an H1 heading."
+        }
+      ]
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          "text": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>The Crucible of Knowing test</title>\n</head>\n<body style=\"font-family: 'Georgia', serif; line-height: 1.6; background-color: #f8f8f8; color: #333; margin: 0; padding: 20px;\">\n    <div style=\"max-width: 700px; margin: 40px auto; padding: 30px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);\">\n        <h1 style=\"text-align: center; color: #6a4020; margin-bottom: 30px; font-size: 2.6em; letter-spacing: 1.5px; text-shadow: 1px 1px 2px rgba(0,0,0,0.05);\">The Crucible of Knowing test</h1>\n\n        <p style=\"margin-bottom: 25px; text-align: center; font-size: 1.15em; line-height: 1.8;\">\n            A silent sheet, a ticking clock,<br>\n            A question poised, a mental lock.<br>\n            The 'test' arrives, a whispered word,<br>\n            A challenge met, or truth unheard.<br>\n            It gathers fears, it sparks a hope,<br>\n            Within its bounds, we blindly grope.\n        </p>\n\n        <p style=\"margin-bottom: 25px; text-align: center; font-size: 1.15em; line-height: 1.8;\">\n            Through midnight oil, and hurried glance,<br>\n            We chase the answers, take a chance.<br>\n            The mind reviews, the memory strains,<br>\n            Each fact recalled, where effort gains.<br>\n            A tremor builds, a rising tide,<br>\n            Where knowledge meets what we must hide.\n        </p>\n\n        <p style=\"margin-bottom: 25px; text-align: center; font-size: 1.15em; line-height: 1.8;\">\n            Then pen descends, a silent plea,<br>\n            To summon forth what ought to be.<br>\n            Each chosen word, each calculated line,<br>\n            A tiny step across the great design.<br>\n            The world shrinks down to paper white,<br>\n            And thoughts contend with fading light.\n        </p>\n\n        <p style=\"text-align: center; font-size: 1.15em; line-height: 1.8;\">\n            Then silence falls, the task is done,<br>\n            A battle fought, a race half-run.<br>\n            The 'test' departs, its score unseen,<br>\n            But deeper truths have intervened.<br>\n            For win or lose, the lesson stays,<br>\n            A clearer path through future days.\n        </p>\n    </div>\n</body>\n</html>"
+        }
+      ]
+    }
+  ]
+}
+[AI Stage Flow] Generating with options: {
+  "prompt": "Convert this poem into beautiful HTML with proper formatting and styling:\n\nTitle: The Crucible of Knowing test \nPoem:\nA silent sheet, a ticking clock,\nA question poised, a mental lock.\nThe 'test' arrives, a whispered word,\nA challenge met, or truth unheard.\nIt gathers fears, it sparks a hope, asgdsgdsg\nWithin its bounds, we blindly grope.\n\nThrough midnight oil, and hurried glance,\nWe chase the answers, take a chance.\nThe mind reviews, the memory strains,\nEach fact recalled, where effort gains.\nA tremor builds, a rising tide,\nWhere knowledge meets what we must hide.\n\nThen pen descends, a silent plea,\nTo summon forth what ought to be.\nEach chosen word, each calculated line,\nA tiny step across the great design.\nThe world shrinks down to paper white,\nAnd thoughts contend with fading light.\n\nThen silence falls, the task is done,\nA battle fought, a race half-run.\nThe 'test' departs, its score unseen,\nBut deeper truths have intervened.\nFor win or lose, the lesson stays,\nA clearer path through future days.\n\nSpecial instructions: \n\nIMPORTANT: Output ONLY the clean HTML content without any markdown code blocks, backticks, or explanatory text. Do not include ```html or ``` markers. Just return the pure HTML that can be directly rendered.\n\nCreate clean, semantic HTML with inline CSS for styling. Make it visually appealing and readable. Use proper HTML structure with headings, paragraphs, and styling for a poem presentation. Include the title as an H1 heading.",
+  "model": "googleai/gemini-2.5-flash-preview-05-20",
+  "config": {
+    "temperature": 0.3
+  }
+}
+ ✓ Compiled in 61ms
+[runAiStage] Success, content type: string
+ POST /w/poem/rSCalQpTIP4UmXFWcgPd 200 in 11457ms
+ ✓ Compiled in 66ms

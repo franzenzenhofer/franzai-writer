@@ -113,6 +113,7 @@ Each workflow is defined in a `workflow.json` file that specifies the stages, th
 - **isOptional**: Whether the stage is optional (default: false)
 - **tokenEstimate**: Estimated tokens for progress tracking
 - **formFields**: Array of form field definitions (only for inputType: "form")
+- **jsonFields**: Array of field definitions for structured JSON display (only for outputType: "json")
 - **toolNames**: Array of AI tools/functions to enable (e.g., "codeInterpreter")
 - **systemInstructions**: System-level instructions for the AI
 - **chatEnabled**: Enable chat interface for this stage (default: false)
@@ -221,6 +222,23 @@ Available variables:
   }
 }
 ```
+
+## JsonField Object (for json output type)
+
+```json
+{
+  "key": "field-key",
+  "label": "Display Label",
+  "type": "text|textarea",
+  "displayOrder": 1
+}
+```
+
+### JsonField Properties
+- **key**: The JSON property key to display
+- **label**: Human-readable label for the field
+- **type**: How to display the field (text for single line, textarea for multiline)
+- **displayOrder**: Optional numeric order for display (lower numbers first)
 
 ## Best Practices
 
@@ -351,6 +369,31 @@ The `copyable` field adds a copy button to stage outputs:
 
 **Behavior**:
 - A copy button appears in the top-right corner of the output area
-- For JSON outputs with specific structure (like poem generator), it can copy just the relevant content
-- Works with text, markdown, and json output types
+- For JSON outputs with `jsonFields` configured:
+  - Copies only the field values (not keys or labels)
+  - Respects the `displayOrder` of fields
+  - Joins values with double newlines for readability
+- For JSON outputs without `jsonFields`: copies raw JSON
+- For text/markdown: copies content as-is
 - Shows a checkmark and toast notification when copied successfully
+
+### Example with jsonFields:
+
+```json
+{
+  "id": "generate-content",
+  "outputType": "json",
+  "copyable": true,
+  "jsonFields": [
+    { "key": "title", "label": "Title", "type": "text", "displayOrder": 1 },
+    { "key": "body", "label": "Content", "type": "textarea", "displayOrder": 2 }
+  ]
+}
+```
+
+When copied, this would output:
+```
+The Article Title
+
+The full article content goes here...
+```
