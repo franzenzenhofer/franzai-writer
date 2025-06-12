@@ -8725,3 +8725,1694 @@ Executing AI stage with input: {
  GET / 200 in 61ms
  GET / 200 in 59ms
  GET /dashboard 200 in 60ms
+Debugger listening on ws://127.0.0.1:9230/c59811e0-0166-424f-ae4b-0c59161b961a
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.103:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 851ms
+Debugger listening on ws://127.0.0.1:9230/906fe775-6c64-49b5-b481-8a495889c3c8
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.103:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 844ms
+ ○ Compiling /dashboard ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled /dashboard in 3.3s
+ GET /dashboard 200 in 3467ms
+ ○ Compiling /w/[shortName]/new ...
+ ✓ Compiled /w/[shortName]/new in 1330ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'poem' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'poem',
+  workflowId: 'poem-generator',
+  workflowName: 'Poem Generator'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'poem',
+  documentId: 'mbtzelrqwcwlni9',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749769202871_do6oryj2r',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749769202871_do6oryj2r',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 183
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'E3fhOeqIsnXP8lmCJ1Ej',
+  path: 'documents/E3fhOeqIsnXP8lmCJ1Ej'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'E3fhOeqIsnXP8lmCJ1Ej',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'E3fhOeqIsnXP8lmCJ1Ej' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'E3fhOeqIsnXP8lmCJ1Ej' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'E3fhOeqIsnXP8lmCJ1Ej',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'E3fhOeqIsnXP8lmCJ1Ej' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'E3fhOeqIsnXP8lmCJ1Ej',
+  error: undefined,
+  originalId: 'mbtzelrqwcwlni9'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbtzelrqwcwlni9',
+  createdId: 'E3fhOeqIsnXP8lmCJ1Ej',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/poem/E3fhOeqIsnXP8lmCJ1Ej' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/poem/new 200 in 2480ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+ GET / 200 in 1331ms
+ GET /dashboard 200 in 57ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'poem' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'poem',
+  workflowId: 'poem-generator',
+  workflowName: 'Poem Generator'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'poem',
+  documentId: 'mbtzff4hw0fd5a4',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749769240913_fkiznitlo',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749769240913_fkiznitlo',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 183
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'eiRBy6w5Xgcm17mygXue',
+  path: 'documents/eiRBy6w5Xgcm17mygXue'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'eiRBy6w5Xgcm17mygXue',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'eiRBy6w5Xgcm17mygXue' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'eiRBy6w5Xgcm17mygXue' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'eiRBy6w5Xgcm17mygXue',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'eiRBy6w5Xgcm17mygXue' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'eiRBy6w5Xgcm17mygXue',
+  error: undefined,
+  originalId: 'mbtzff4hw0fd5a4'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbtzff4hw0fd5a4',
+  createdId: 'eiRBy6w5Xgcm17mygXue',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/poem/eiRBy6w5Xgcm17mygXue' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/poem/new 200 in 165ms
+Debugger listening on ws://127.0.0.1:9230/57222061-906b-43e2-ad57-e79f430da3ba
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.103:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 879ms
+ ○ Compiling /dashboard ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled /dashboard in 2.3s
+ GET /dashboard 200 in 179ms
+ ✓ Compiled /favicon.ico in 325ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 591ms
+ ○ Compiling /w/[shortName]/new ...
+ ✓ Compiled /w/[shortName]/new in 1337ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'poem' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'poem',
+  workflowId: 'poem-generator',
+  workflowName: 'Poem Generator'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'poem',
+  documentId: 'mbtzgzglw3v0096',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749769313926_geca6evie',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749769313926_geca6evie',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 183
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'vHXr3VLGsMBuspWiKECw',
+  path: 'documents/vHXr3VLGsMBuspWiKECw'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'vHXr3VLGsMBuspWiKECw',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'vHXr3VLGsMBuspWiKECw' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'vHXr3VLGsMBuspWiKECw' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'vHXr3VLGsMBuspWiKECw',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'vHXr3VLGsMBuspWiKECw' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'vHXr3VLGsMBuspWiKECw',
+  error: undefined,
+  originalId: 'mbtzgzglw3v0096'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbtzgzglw3v0096',
+  createdId: 'vHXr3VLGsMBuspWiKECw',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/poem/vHXr3VLGsMBuspWiKECw' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/poem/new 200 in 2303ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'poem' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'poem',
+  workflowId: 'poem-generator',
+  workflowName: 'Poem Generator'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'poem',
+  documentId: 'mbtzh5m1wjtjfqa',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749769321897_borsxp8os',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749769321897_borsxp8os',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 183
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'bWQ1InDCSN92sKTToNef',
+  path: 'documents/bWQ1InDCSN92sKTToNef'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'bWQ1InDCSN92sKTToNef',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'bWQ1InDCSN92sKTToNef' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'bWQ1InDCSN92sKTToNef' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'bWQ1InDCSN92sKTToNef',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'bWQ1InDCSN92sKTToNef' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'bWQ1InDCSN92sKTToNef',
+  error: undefined,
+  originalId: 'mbtzh5m1wjtjfqa'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbtzh5m1wjtjfqa',
+  createdId: 'bWQ1InDCSN92sKTToNef',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/poem/bWQ1InDCSN92sKTToNef' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ HEAD /w/poem/new 307 in 172ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'poem' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'poem',
+  workflowId: 'poem-generator',
+  workflowName: 'Poem Generator'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'poem',
+  documentId: 'mbtzhcrhwi4qzuc',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749769331165_23gnvik9s',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749769331165_23gnvik9s',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 183
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'PiOYbjbxv9wMSWti3br6',
+  path: 'documents/PiOYbjbxv9wMSWti3br6'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'PiOYbjbxv9wMSWti3br6',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'PiOYbjbxv9wMSWti3br6' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'PiOYbjbxv9wMSWti3br6' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'PiOYbjbxv9wMSWti3br6',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'PiOYbjbxv9wMSWti3br6' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'PiOYbjbxv9wMSWti3br6',
+  error: undefined,
+  originalId: 'mbtzhcrhwi4qzuc'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbtzhcrhwi4qzuc',
+  createdId: 'PiOYbjbxv9wMSWti3br6',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/poem/PiOYbjbxv9wMSWti3br6' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/poem/new 307 in 184ms
+Debugger listening on ws://127.0.0.1:9229/0a6ba554-d616-4d7d-a3ab-eac07704465d
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 189927,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/66105d2e-5bb0-418f-a97a-0e68e79a5d52
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.103:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 843ms
+Debugger listening on ws://127.0.0.1:9230/7787bc02-9e74-4f19-b2a5-fbe836a63470
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.103:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 833ms
+ ○ Compiling / ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled / in 3s
+ GET / 200 in 3443ms
+ ✓ Compiled /favicon.ico in 314ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 578ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 969ms
+ GET /dashboard 200 in 1005ms
+ ○ Compiling /w/[shortName]/new ...
+ ✓ Compiled /w/[shortName]/new in 1333ms
+ GET / 200 in 77ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'poem' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'poem',
+  workflowId: 'poem-generator',
+  workflowName: 'Poem Generator'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'poem',
+  documentId: 'mbtzm7aiw3km8m3',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749769557354_b0xm2ou7a',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749769557354_b0xm2ou7a',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 183
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'en6k0vPIE18FB52M4J3d',
+  path: 'documents/en6k0vPIE18FB52M4J3d'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'en6k0vPIE18FB52M4J3d',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'en6k0vPIE18FB52M4J3d' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'en6k0vPIE18FB52M4J3d' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'en6k0vPIE18FB52M4J3d',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'en6k0vPIE18FB52M4J3d' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'en6k0vPIE18FB52M4J3d',
+  error: undefined,
+  originalId: 'mbtzm7aiw3km8m3'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbtzm7aiw3km8m3',
+  createdId: 'en6k0vPIE18FB52M4J3d',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/poem/en6k0vPIE18FB52M4J3d' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/poem/new 200 in 2299ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'poem' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'poem',
+  workflowId: 'poem-generator',
+  workflowName: 'Poem Generator'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'poem',
+  documentId: 'mbtzmcrnwv7zkpb',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749769564451_l5smhdfo7',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749769564451_l5smhdfo7',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 183
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'bE63Ou1h7jDPt7S0sKou',
+  path: 'documents/bE63Ou1h7jDPt7S0sKou'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'bE63Ou1h7jDPt7S0sKou',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'bE63Ou1h7jDPt7S0sKou' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'bE63Ou1h7jDPt7S0sKou' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'bE63Ou1h7jDPt7S0sKou',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'bE63Ou1h7jDPt7S0sKou' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'bE63Ou1h7jDPt7S0sKou',
+  error: undefined,
+  originalId: 'mbtzmcrnwv7zkpb'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbtzmcrnwv7zkpb',
+  createdId: 'bE63Ou1h7jDPt7S0sKou',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/poem/bE63Ou1h7jDPt7S0sKou' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/poem/new 307 in 181ms
+ GET /dashboard 200 in 173ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'poem' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'poem',
+  workflowId: 'poem-generator',
+  workflowName: 'Poem Generator'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'poem',
+  documentId: 'mbtzowyjwn7ll2z',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749769683931_y7sfgj3j0',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749769683931_y7sfgj3j0',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 183
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: '7yJ12XsTbVnHgHarPqIE',
+  path: 'documents/7yJ12XsTbVnHgHarPqIE'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: '7yJ12XsTbVnHgHarPqIE',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: '7yJ12XsTbVnHgHarPqIE' }
+[FirestoreAdapter] Document created { collection: 'documents', id: '7yJ12XsTbVnHgHarPqIE' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: '7yJ12XsTbVnHgHarPqIE',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: '7yJ12XsTbVnHgHarPqIE' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: '7yJ12XsTbVnHgHarPqIE',
+  error: undefined,
+  originalId: 'mbtzowyjwn7ll2z'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbtzowyjwn7ll2z',
+  createdId: '7yJ12XsTbVnHgHarPqIE',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/poem/7yJ12XsTbVnHgHarPqIE' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/poem/new 200 in 293ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 1874ms
+ ⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+Debugger listening on ws://127.0.0.1:9230/0504b29e-33e5-48e8-945b-3060c4be9742
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.103:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+Slow filesystem detected. If /Users/franzenzenhofer/dev/franzai-writer/.next is a network drive, consider moving it to a local folder. If you have an antivirus enabled, consider excluding your project directory.
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 4.3s
+ ○ Compiling /w/[shortName]/[documentId] ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+Debugger listening on ws://127.0.0.1:9229/2427e49c-ffd6-4f73-9f23-facb949d5855
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 365068,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/d95cb605-3ae3-4598-a4d9-039f68bcbbfb
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.103:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 884ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+Debugger listening on ws://127.0.0.1:9230/afaa4348-7e56-4ae1-9084-29319591e79a
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.103:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 851ms
+Debugger listening on ws://127.0.0.1:9230/cf3a18e9-165c-4661-94fb-842d0342dd3a
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.103:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 907ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+Debugger listening on ws://127.0.0.1:9230/c08781ac-5b2a-4037-a5a2-6e9138c95c13
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.103:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 843ms
+ ○ Compiling / ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled / in 3.7s
+ GET / 200 in 4474ms
+ ○ Compiling /_not-found/page ...
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 3093ms
+ ✓ Compiled /_not-found/page in 4.6s
+ GET /dashboard 200 in 1751ms
+ ○ Compiling /w/[shortName]/new ...
+ ✓ Compiled /w/[shortName]/new in 1554ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'poem' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'poem',
+  workflowId: 'poem-generator',
+  workflowName: 'Poem Generator'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'poem',
+  documentId: 'mbtzx88wwwfbw0m',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749770071809_xfi46qu4p',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749770071809_xfi46qu4p',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 183
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'xHe1tDFsj6EtGFDuhKyA',
+  path: 'documents/xHe1tDFsj6EtGFDuhKyA'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'xHe1tDFsj6EtGFDuhKyA',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'xHe1tDFsj6EtGFDuhKyA' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'xHe1tDFsj6EtGFDuhKyA' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'xHe1tDFsj6EtGFDuhKyA',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'xHe1tDFsj6EtGFDuhKyA' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'xHe1tDFsj6EtGFDuhKyA',
+  error: undefined,
+  originalId: 'mbtzx88wwwfbw0m'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbtzx88wwwfbw0m',
+  createdId: 'xHe1tDFsj6EtGFDuhKyA',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/poem/xHe1tDFsj6EtGFDuhKyA' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/poem/new 200 in 2626ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+Debugger listening on ws://127.0.0.1:9229/cb8e2ffa-4f10-4db7-ae2b-c90afe02413e
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 58611,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.103:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 825ms

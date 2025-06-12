@@ -4,6 +4,9 @@ import { documentPersistence } from '@/lib/document-persistence';
 import WizardPageContent from './wizard-page-content';
 import type { WizardDocument, WizardInstance, StageState, Workflow } from '@/types';
 
+// Force dynamic rendering since this page loads documents from Firestore
+export const dynamic = 'force-dynamic';
+
 /**
  * Initialize proper StageState objects for each stage in the workflow
  * This ensures that every stage has a valid StageState object with all required properties
@@ -151,7 +154,9 @@ export default async function WizardPage({
     
     // Only merge stage states that passed validation
     validation.validIds.forEach(stageId => {
-      mergedStageStates[stageId] = loadResult.stageStates[stageId];
+      if (loadResult.stageStates) {
+        mergedStageStates[stageId] = loadResult.stageStates[stageId];
+      }
     });
     
     wizardInstance = {

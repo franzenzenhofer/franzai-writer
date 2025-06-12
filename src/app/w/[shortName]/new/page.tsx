@@ -3,6 +3,9 @@ import { notFound, redirect } from "next/navigation";
 import { generateUniqueId } from "@/lib/utils";
 import { documentPersistence } from "@/lib/document-persistence";
 
+// Force dynamic rendering since this page creates documents
+export const dynamic = 'force-dynamic';
+
 export default async function NewDocumentPage({ 
   params 
 }: { 
