@@ -34895,3 +34895,6 @@ Starting inspector on 127.0.0.1:9230 failed: address already in use
 }
 [FIREBASE INIT] Emulator mode enabled
 [FIREBASE INIT] Running on server, skipping emulator connection
+[TEST-SIMPLE] GET request received at: 2025-06-13T18:28:50.847Z
+ GET /api/test-simple 200 in 216ms
+ POST /api/ai/stream 200 in 1075ms
