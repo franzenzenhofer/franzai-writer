@@ -112,14 +112,22 @@ export class AIStageExecution {
     input: StageInput,
     context: StageContext
   ): string {
-    let prompt = stage.prompt || '';
+    let prompt = stage.prompt || stage.promptTemplate || '';
 
     // Replace placeholders
-    if (stage.includeContext && context) {
+    if (context) {
       Object.entries(context).forEach(([key, value]) => {
         const placeholder = `{{${key}}}`;
         if (typeof value === 'string') {
           prompt = prompt.replace(new RegExp(placeholder, 'g'), value);
+        } else if (typeof value === 'object' && value !== null) {
+          // Handle nested context values
+          if ('output' in value && typeof value.output === 'string') {
+            prompt = prompt.replace(new RegExp(placeholder + '.output', 'g'), value.output);
+          }
+          if ('userInput' in value && typeof value.userInput === 'string') {
+            prompt = prompt.replace(new RegExp(placeholder + '.userInput', 'g'), value.userInput);
+          }
         }
       });
     }
