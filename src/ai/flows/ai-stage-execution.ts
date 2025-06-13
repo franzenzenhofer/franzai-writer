@@ -104,6 +104,8 @@ export const aiStageExecutionFlow = ai.defineFlow(
       hasGrounding: !!(groundingSettings?.googleSearch?.enabled || groundingSettings?.urlContext?.enabled),
       hasThinking: thinkingSettings?.enabled,
       isStreaming: streamingSettings?.enabled,
+      promptTemplate: promptTemplate ? `${promptTemplate.substring(0, 100)}...` : 'EMPTY',
+      chatHistory: chatHistory ? `${chatHistory.length} messages` : 'none'
     });
 
     // Initialize response tracking
@@ -118,8 +120,19 @@ export const aiStageExecutionFlow = ai.defineFlow(
     let availableTools: any[] = [];
     if (toolNames && toolNames.length > 0) {
       try {
-        const { allTools } = await import('@/ai/tools/sample-tools');
-        availableTools = allTools.filter(tool => toolNames.includes(tool.name));
+        // Import tool definitions (not actual tools)
+        const { toolDefinitions } = await import('@/ai/tools/tool-definitions');
+        
+        // Filter and prepare tools for Gemini
+        const requestedTools = toolDefinitions.filter(def => toolNames.includes(def.name));
+        
+        // Convert to format expected by Gemini
+        availableTools = requestedTools.map(def => ({
+          name: def.name,
+          description: def.description,
+          // Include the function for execution
+          fn: def.fn
+        }));
         
         // Add code interpreter if requested
         if (toolNames.includes('codeInterpreter')) {
@@ -131,9 +144,9 @@ export const aiStageExecutionFlow = ai.defineFlow(
           });
         }
         
-        console.log(`[AI Stage Flow Enhanced] Loaded ${availableTools.length} tools:`, availableTools.map(t => t.name));
+        console.log(`[AI Stage Flow Enhanced] Prepared ${availableTools.length} tools:`, availableTools.map(t => t.name));
       } catch (error) {
-        console.error('[AI Stage Flow Enhanced] Failed to load tools:', error);
+        console.error('[AI Stage Flow Enhanced] Failed to prepare tools:', error);
       }
     }
 
@@ -177,6 +190,13 @@ export const aiStageExecutionFlow = ai.defineFlow(
     if (currentPromptMessageParts.length > 0) {
       callHistory.push({ role: 'user', parts: currentPromptMessageParts });
     }
+    
+    console.log('[AI Stage Flow Enhanced] Chat history built:', {
+      hasExistingHistory: !!chatHistory,
+      currentPromptParts: currentPromptMessageParts.length,
+      callHistoryLength: callHistory.length,
+      promptTemplateLength: promptTemplate?.length || 0
+    });
 
     // Handle system instructions
     if (systemInstructions) {
@@ -231,14 +251,25 @@ export const aiStageExecutionFlow = ai.defineFlow(
     }
 
     // Use streaming or regular generation
-    if (streamingSettings?.enabled || callHistory.length > 0) {
-      // Use streaming for chat or when explicitly enabled
+    const shouldUseStreaming = streamingSettings?.enabled || callHistory.length > 0 || availableTools.length > 0;
+    
+    console.log('[AI Stage Flow Enhanced] Generation path decision:', {
+      shouldUseStreaming,
+      streamingEnabled: streamingSettings?.enabled,
+      hasHistory: callHistory.length > 0,
+      hasTools: availableTools.length > 0
+    });
+    
+    if (shouldUseStreaming) {
+      // Use streaming for chat, tools, or when explicitly enabled
       return await executeWithStreaming(
         generateOptions,
         callHistory,
         availableTools,
         currentThinkingSteps,
-        streamingCallback
+        streamingCallback,
+        promptTemplate,
+        input
       );
     } else {
       // Use simple generation for single-turn requests
@@ -284,7 +315,9 @@ async function executeWithStreaming(
   callHistory: any[],
   availableTools: any[],
   thinkingSteps: ThinkingStep[],
-  streamingCallback?: any
+  streamingCallback?: any,
+  promptTemplate?: string,
+  originalInput?: AiStageExecutionInput
 ): Promise<AiStageOutputSchema> {
   let accumulatedContent = "";
   let finalOutputImages: any[] = [];
@@ -301,9 +334,32 @@ async function executeWithStreaming(
 
     generateOptions.history = callHistory;
     
-    console.log(`[AI Stage Flow Enhanced] Streaming loop ${currentLoop}`);
+    console.log(`[AI Stage Flow Enhanced] Streaming loop ${currentLoop}`, {
+      historyLength: callHistory.length,
+      hasPrompt: !!generateOptions.prompt,
+      hasHistory: !!generateOptions.history,
+      firstMessage: callHistory[0] ? { role: callHistory[0].role, partsCount: callHistory[0].parts?.length } : 'none'
+    });
+    
+    console.log('[AI Stage Flow Enhanced] generateOptions before streaming:', JSON.stringify({
+      model: generateOptions.model,
+      hasHistory: !!generateOptions.history,
+      hasPrompt: !!generateOptions.prompt,
+      hasTools: !!generateOptions.tools,
+      toolsCount: generateOptions.tools?.length || 0,
+      config: generateOptions.config
+    }, null, 2));
     
     try {
+      // For non-chat single turn requests, use prompt instead of history
+      const isNewConversation = !originalInput?.chatHistory;
+      if (isNewConversation && callHistory.length === 1 && callHistory[0].parts.length === 1 && callHistory[0].parts[0].text) {
+        // Convert single-turn history to prompt format
+        generateOptions.prompt = callHistory[0].parts[0].text;
+        delete generateOptions.history;
+        console.log('[AI Stage Flow Enhanced] Converted to prompt-based generation');
+      }
+      
       // Check if ai.stream exists, otherwise fall back to generate
       const stream = ai.stream ? 
         await ai.stream(generateOptions) : 

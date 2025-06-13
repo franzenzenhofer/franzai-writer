@@ -12659,3 +12659,3995 @@ For help, see: https://nodejs.org/en/docs/inspector
     "invocationCount": 0
   }
 }
+Debugger listening on ws://127.0.0.1:9230/32a01dad-b7bb-4b03-8486-5d86fc8679c7
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 706ms
+ ○ Compiling / ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled / in 1546ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T10:59:03.990Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET / 200 in 1989ms
+ GET / 200 in 1994ms
+ GET / 200 in 1991ms
+ GET / 200 in 1994ms
+ ○ Compiling /w/[shortName]/new ...
+ ✓ Compiled /w/[shortName]/new in 1068ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T10:59:06.825Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T10:59:07.129Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'gemini-test' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'gemini-test',
+  workflowId: 'gemini-tools-test',
+  workflowName: 'Gemini AI Tools Test'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'gemini-test',
+  documentId: 'mbup3c4mwvm6ih8',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749812347174_1c3y094jz',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749812347174_1c3y094jz',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 192
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'NYqPbBDYE01Hs47ChI1j',
+  path: 'documents/NYqPbBDYE01Hs47ChI1j'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'NYqPbBDYE01Hs47ChI1j',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'gemini-test' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'gemini-test',
+  workflowId: 'gemini-tools-test',
+  workflowName: 'Gemini AI Tools Test'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'gemini-test',
+  documentId: 'mbup3c5gwbyhfqf',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749812347204_7ov0hh6zd',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749812347204_7ov0hh6zd',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 192
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'B2dDeKZwqIKVM7DwiqGU',
+  path: 'documents/B2dDeKZwqIKVM7DwiqGU'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'B2dDeKZwqIKVM7DwiqGU',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'gemini-test' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'gemini-test',
+  workflowId: 'gemini-tools-test',
+  workflowName: 'Gemini AI Tools Test'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'gemini-test',
+  documentId: 'mbup3c5hwib02gh',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749812347205_sdp3ji014',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749812347205_sdp3ji014',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 192
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: '41fjnXZb0reJHqDOzdu2',
+  path: 'documents/41fjnXZb0reJHqDOzdu2'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: '41fjnXZb0reJHqDOzdu2',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'gemini-test' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'gemini-test',
+  workflowId: 'gemini-tools-test',
+  workflowName: 'Gemini AI Tools Test'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'gemini-test',
+  documentId: 'mbup3c5iw3e35iv',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749812347206_7608b9f2a',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749812347206_7608b9f2a',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 192
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'e2HFQTi8whwnWi09pDWf',
+  path: 'documents/e2HFQTi8whwnWi09pDWf'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'e2HFQTi8whwnWi09pDWf',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'NYqPbBDYE01Hs47ChI1j' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'NYqPbBDYE01Hs47ChI1j' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'NYqPbBDYE01Hs47ChI1j',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'NYqPbBDYE01Hs47ChI1j' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'NYqPbBDYE01Hs47ChI1j',
+  error: undefined,
+  originalId: 'mbup3c4mwvm6ih8'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbup3c4mwvm6ih8',
+  createdId: 'NYqPbBDYE01Hs47ChI1j',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/gemini-test/NYqPbBDYE01Hs47ChI1j' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'B2dDeKZwqIKVM7DwiqGU' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'B2dDeKZwqIKVM7DwiqGU' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'B2dDeKZwqIKVM7DwiqGU',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'B2dDeKZwqIKVM7DwiqGU' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'B2dDeKZwqIKVM7DwiqGU',
+  error: undefined,
+  originalId: 'mbup3c5gwbyhfqf'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbup3c5gwbyhfqf',
+  createdId: 'B2dDeKZwqIKVM7DwiqGU',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/gemini-test/B2dDeKZwqIKVM7DwiqGU' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/gemini-test/new 307 in 2553ms
+ GET /w/gemini-test/new 307 in 2552ms
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: '41fjnXZb0reJHqDOzdu2' }
+[FirestoreAdapter] Document created { collection: 'documents', id: '41fjnXZb0reJHqDOzdu2' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: '41fjnXZb0reJHqDOzdu2',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: '41fjnXZb0reJHqDOzdu2' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: '41fjnXZb0reJHqDOzdu2',
+  error: undefined,
+  originalId: 'mbup3c5hwib02gh'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbup3c5hwib02gh',
+  createdId: '41fjnXZb0reJHqDOzdu2',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/gemini-test/41fjnXZb0reJHqDOzdu2' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/gemini-test/new 307 in 2577ms
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'e2HFQTi8whwnWi09pDWf' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'e2HFQTi8whwnWi09pDWf' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'e2HFQTi8whwnWi09pDWf',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'e2HFQTi8whwnWi09pDWf' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'e2HFQTi8whwnWi09pDWf',
+  error: undefined,
+  originalId: 'mbup3c5iw3e35iv'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbup3c5iw3e35iv',
+  createdId: 'e2HFQTi8whwnWi09pDWf',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/gemini-test/e2HFQTi8whwnWi09pDWf' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/gemini-test/new 307 in 2599ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+ ✓ Compiled /w/[shortName]/[documentId] in 2.8s
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T10:59:11.280Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T10:59:11.733Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T10:59:11.769Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'NYqPbBDYE01Hs47ChI1j' }
+[WizardPage] Loading existing document: NYqPbBDYE01Hs47ChI1j
+[DocumentPersistence] Loading document { documentId: 'NYqPbBDYE01Hs47ChI1j' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'NYqPbBDYE01Hs47ChI1j' }
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'e2HFQTi8whwnWi09pDWf' }
+[WizardPage] Loading existing document: e2HFQTi8whwnWi09pDWf
+[DocumentPersistence] Loading document { documentId: 'e2HFQTi8whwnWi09pDWf' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'e2HFQTi8whwnWi09pDWf' }
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: '41fjnXZb0reJHqDOzdu2' }
+[WizardPage] Loading existing document: 41fjnXZb0reJHqDOzdu2
+[DocumentPersistence] Loading document { documentId: '41fjnXZb0reJHqDOzdu2' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: '41fjnXZb0reJHqDOzdu2' }
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'B2dDeKZwqIKVM7DwiqGU' }
+[WizardPage] Loading existing document: B2dDeKZwqIKVM7DwiqGU
+[DocumentPersistence] Loading document { documentId: 'B2dDeKZwqIKVM7DwiqGU' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'B2dDeKZwqIKVM7DwiqGU' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'NYqPbBDYE01Hs47ChI1j' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'NYqPbBDYE01Hs47ChI1j',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'NYqPbBDYE01Hs47ChI1j',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'e2HFQTi8whwnWi09pDWf' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'e2HFQTi8whwnWi09pDWf',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'e2HFQTi8whwnWi09pDWf',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: '41fjnXZb0reJHqDOzdu2' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: '41fjnXZb0reJHqDOzdu2',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: '41fjnXZb0reJHqDOzdu2',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'B2dDeKZwqIKVM7DwiqGU' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'B2dDeKZwqIKVM7DwiqGU',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'B2dDeKZwqIKVM7DwiqGU',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+ GET /w/gemini-test/NYqPbBDYE01Hs47ChI1j 200 in 4174ms
+ GET /w/gemini-test/e2HFQTi8whwnWi09pDWf 200 in 4101ms
+ GET /w/gemini-test/41fjnXZb0reJHqDOzdu2 200 in 4129ms
+ GET /w/gemini-test/B2dDeKZwqIKVM7DwiqGU 200 in 4157ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'gemini-test' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'gemini-test',
+  workflowId: 'gemini-tools-test',
+  workflowName: 'Gemini AI Tools Test'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'gemini-test',
+  documentId: 'mbup5qemw7l3pi4',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749812458990_kzx28056i',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749812458990_kzx28056i',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 192
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: '5BHYr774Ji5Rdn9AxuYv',
+  path: 'documents/5BHYr774Ji5Rdn9AxuYv'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: '5BHYr774Ji5Rdn9AxuYv',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:00:59.237Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: '5BHYr774Ji5Rdn9AxuYv' }
+[FirestoreAdapter] Document created { collection: 'documents', id: '5BHYr774Ji5Rdn9AxuYv' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: '5BHYr774Ji5Rdn9AxuYv',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: '5BHYr774Ji5Rdn9AxuYv' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: '5BHYr774Ji5Rdn9AxuYv',
+  error: undefined,
+  originalId: 'mbup5qemw7l3pi4'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbup5qemw7l3pi4',
+  createdId: '5BHYr774Ji5Rdn9AxuYv',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/gemini-test/5BHYr774Ji5Rdn9AxuYv' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/gemini-test/new 307 in 325ms
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: '5BHYr774Ji5Rdn9AxuYv' }
+[WizardPage] Loading existing document: 5BHYr774Ji5Rdn9AxuYv
+[DocumentPersistence] Loading document { documentId: '5BHYr774Ji5Rdn9AxuYv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: '5BHYr774Ji5Rdn9AxuYv' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: '5BHYr774Ji5Rdn9AxuYv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: '5BHYr774Ji5Rdn9AxuYv',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: '5BHYr774Ji5Rdn9AxuYv',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+ GET /w/gemini-test/5BHYr774Ji5Rdn9AxuYv 200 in 199ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:00:59.693Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:00:59.743Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ ✓ Compiled /favicon.ico in 211ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 462ms
+ GET / 200 in 426ms
+ GET / 200 in 448ms
+ GET / 200 in 452ms
+ GET / 200 in 457ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'gemini-test' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'gemini-test',
+  workflowId: 'gemini-tools-test',
+  workflowName: 'Gemini AI Tools Test'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'gemini-test',
+  documentId: 'mbupa3opweunize',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749812662825_wuninpjho',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749812662825_wuninpjho',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 192
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'jYneGN3XNXSHTkCNGPwu',
+  path: 'documents/jYneGN3XNXSHTkCNGPwu'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'jYneGN3XNXSHTkCNGPwu',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'gemini-test' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'gemini-test',
+  workflowId: 'gemini-tools-test',
+  workflowName: 'Gemini AI Tools Test'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'gemini-test',
+  documentId: 'mbupa3pnw5t9scg',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749812662860_co2pdc1ac',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749812662860_co2pdc1ac',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 192
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'tVsUxj6OuaY27TNSWqxU',
+  path: 'documents/tVsUxj6OuaY27TNSWqxU'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'tVsUxj6OuaY27TNSWqxU',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'gemini-test' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'gemini-test',
+  workflowId: 'gemini-tools-test',
+  workflowName: 'Gemini AI Tools Test'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'gemini-test',
+  documentId: 'mbupa3qow0g36lr',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749812662896_w7iuge9it',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749812662896_w7iuge9it',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 192
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'ce8EAfTH0bXQJBBWzt3G',
+  path: 'documents/ce8EAfTH0bXQJBBWzt3G'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'ce8EAfTH0bXQJBBWzt3G',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'gemini-test' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'gemini-test',
+  workflowId: 'gemini-tools-test',
+  workflowName: 'Gemini AI Tools Test'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'gemini-test',
+  documentId: 'mbupa3riwc8n51d',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749812662926_6uewaimav',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749812662926_6uewaimav',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 192
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: '5H6FgHnSS7vZBEpbaJ54',
+  path: 'documents/5H6FgHnSS7vZBEpbaJ54'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: '5H6FgHnSS7vZBEpbaJ54',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'jYneGN3XNXSHTkCNGPwu' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'jYneGN3XNXSHTkCNGPwu' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'jYneGN3XNXSHTkCNGPwu',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'jYneGN3XNXSHTkCNGPwu' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'jYneGN3XNXSHTkCNGPwu',
+  error: undefined,
+  originalId: 'mbupa3opweunize'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbupa3opweunize',
+  createdId: 'jYneGN3XNXSHTkCNGPwu',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/gemini-test/jYneGN3XNXSHTkCNGPwu' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'tVsUxj6OuaY27TNSWqxU' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'tVsUxj6OuaY27TNSWqxU' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'tVsUxj6OuaY27TNSWqxU',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'tVsUxj6OuaY27TNSWqxU' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'tVsUxj6OuaY27TNSWqxU',
+  error: undefined,
+  originalId: 'mbupa3pnw5t9scg'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbupa3pnw5t9scg',
+  createdId: 'tVsUxj6OuaY27TNSWqxU',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/gemini-test/tVsUxj6OuaY27TNSWqxU' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'ce8EAfTH0bXQJBBWzt3G' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'ce8EAfTH0bXQJBBWzt3G' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'ce8EAfTH0bXQJBBWzt3G',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'ce8EAfTH0bXQJBBWzt3G' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'ce8EAfTH0bXQJBBWzt3G',
+  error: undefined,
+  originalId: 'mbupa3qow0g36lr'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbupa3qow0g36lr',
+  createdId: 'ce8EAfTH0bXQJBBWzt3G',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/gemini-test/ce8EAfTH0bXQJBBWzt3G' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/gemini-test/new 307 in 362ms
+ GET /w/gemini-test/new 307 in 362ms
+ GET /w/gemini-test/new 307 in 361ms
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: '5H6FgHnSS7vZBEpbaJ54' }
+[FirestoreAdapter] Document created { collection: 'documents', id: '5H6FgHnSS7vZBEpbaJ54' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: '5H6FgHnSS7vZBEpbaJ54',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: '5H6FgHnSS7vZBEpbaJ54' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: '5H6FgHnSS7vZBEpbaJ54',
+  error: undefined,
+  originalId: 'mbupa3riwc8n51d'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbupa3riwc8n51d',
+  createdId: '5H6FgHnSS7vZBEpbaJ54',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/gemini-test/5H6FgHnSS7vZBEpbaJ54' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:04:23.166Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /w/gemini-test/new 307 in 386ms
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'jYneGN3XNXSHTkCNGPwu' }
+[WizardPage] Loading existing document: jYneGN3XNXSHTkCNGPwu
+[DocumentPersistence] Loading document { documentId: 'jYneGN3XNXSHTkCNGPwu' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'jYneGN3XNXSHTkCNGPwu' }
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'ce8EAfTH0bXQJBBWzt3G' }
+[WizardPage] Loading existing document: ce8EAfTH0bXQJBBWzt3G
+[DocumentPersistence] Loading document { documentId: 'ce8EAfTH0bXQJBBWzt3G' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ce8EAfTH0bXQJBBWzt3G' }
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'tVsUxj6OuaY27TNSWqxU' }
+[WizardPage] Loading existing document: tVsUxj6OuaY27TNSWqxU
+[DocumentPersistence] Loading document { documentId: 'tVsUxj6OuaY27TNSWqxU' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'tVsUxj6OuaY27TNSWqxU' }
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: '5H6FgHnSS7vZBEpbaJ54' }
+[WizardPage] Loading existing document: 5H6FgHnSS7vZBEpbaJ54
+[DocumentPersistence] Loading document { documentId: '5H6FgHnSS7vZBEpbaJ54' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: '5H6FgHnSS7vZBEpbaJ54' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'jYneGN3XNXSHTkCNGPwu' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'jYneGN3XNXSHTkCNGPwu',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'jYneGN3XNXSHTkCNGPwu',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ce8EAfTH0bXQJBBWzt3G' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'ce8EAfTH0bXQJBBWzt3G',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'ce8EAfTH0bXQJBBWzt3G',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'tVsUxj6OuaY27TNSWqxU' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'tVsUxj6OuaY27TNSWqxU',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'tVsUxj6OuaY27TNSWqxU',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: '5H6FgHnSS7vZBEpbaJ54' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: '5H6FgHnSS7vZBEpbaJ54',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: '5H6FgHnSS7vZBEpbaJ54',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+ GET /w/gemini-test/ce8EAfTH0bXQJBBWzt3G 200 in 343ms
+ GET /w/gemini-test/jYneGN3XNXSHTkCNGPwu 200 in 346ms
+ GET /w/gemini-test/tVsUxj6OuaY27TNSWqxU 200 in 347ms
+ GET /w/gemini-test/5H6FgHnSS7vZBEpbaJ54 200 in 382ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:04:24.166Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:04:24.200Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET / 200 in 48ms
+ ✓ Compiled /api/test-documents in 476ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:06:26.915Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+Testing document persistence...
+[DocumentPersistence] Listing documents for user { userId: 'server_user_1749812786917_vxeaatocq' }
+[FirestoreAdapter] Querying documents {
+  collection: 'documents',
+  where: {
+    field: 'userId',
+    operator: '==',
+    value: 'server_user_1749812786917_vxeaatocq'
+  },
+  orderBy: { field: 'updatedAt', direction: 'desc' },
+  limit: undefined
+}
+[2025-06-13T11:14:28.268Z]  @firebase/firestore: Firestore (11.9.0): Could not reach Cloud Firestore backend. Backend didn't respond within 10 seconds.
+This typically indicates that your device does not have a healthy Internet connection at the moment. The client will operate in offline mode until it is able to successfully connect to the backend.
+[FirestoreAdapter] Query completed { collection: 'documents', count: 0 }
+[DocumentPersistence] Documents listed successfully { userId: 'server_user_1749812786917_vxeaatocq', count: 0 }
+ GET /api/test-documents 200 in 481917ms
+ ✓ Compiled /api/fetch-url in 208ms
+[fetch-url] Fetching content from: https://example.com
+ POST /api/fetch-url 200 in 256ms
+[2025-06-13T11:14:29.954Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x6c68d7e5 error. Code: 14 Message: 14 UNAVAILABLE: Name resolution failed for target dns:firestore.googleapis.com
+Testing document persistence...
+[DocumentPersistence] Listing documents for user { userId: 'server_user_1749813277578_110w8ukju' }
+[FirestoreAdapter] Querying documents {
+  collection: 'documents',
+  where: {
+    field: 'userId',
+    operator: '==',
+    value: 'server_user_1749813277578_110w8ukju'
+  },
+  orderBy: { field: 'updatedAt', direction: 'desc' },
+  limit: undefined
+}
+[2025-06-13T11:14:37.579Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Listen' stream 0x6c68d7e6 error. Code: 14 Message: 14 UNAVAILABLE: Name resolution failed for target dns:firestore.googleapis.com
+[FirestoreAdapter] Query completed { collection: 'documents', count: 0 }
+[DocumentPersistence] Documents listed successfully { userId: 'server_user_1749813277578_110w8ukju', count: 0 }
+ GET /api/test-documents 200 in 17ms
+Testing document persistence...
+[DocumentPersistence] Listing documents for user { userId: 'server_user_1749813281567_h967vg2or' }
+[FirestoreAdapter] Querying documents {
+  collection: 'documents',
+  where: {
+    field: 'userId',
+    operator: '==',
+    value: 'server_user_1749813281567_h967vg2or'
+  },
+  orderBy: { field: 'updatedAt', direction: 'desc' },
+  limit: undefined
+}
+[FirestoreAdapter] Query completed { collection: 'documents', count: 0 }
+[DocumentPersistence] Documents listed successfully { userId: 'server_user_1749813281567_h967vg2or', count: 0 }
+ GET /api/test-documents 200 in 191ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 729ms
+ GET /dashboard 200 in 826ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 230ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'gemini-test' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'gemini-test',
+  workflowId: 'gemini-tools-test',
+  workflowName: 'Gemini AI Tools Test'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'gemini-test',
+  documentId: 'mbupnuqgwmbp1n6',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749813304409_nv9q137w7',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749813304409_nv9q137w7',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 192
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'd1kQmU0cqIRgiXu5mmYa',
+  path: 'documents/d1kQmU0cqIRgiXu5mmYa'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'd1kQmU0cqIRgiXu5mmYa',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[2025-06-13T11:15:04.444Z]  @firebase/firestore: Firestore (11.9.0): GrpcConnection RPC 'Write' stream 0x7ce59037 error. Code: 14 Message: 14 UNAVAILABLE: read ECONNRESET
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:15:04.684Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'd1kQmU0cqIRgiXu5mmYa' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'd1kQmU0cqIRgiXu5mmYa' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'd1kQmU0cqIRgiXu5mmYa',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'd1kQmU0cqIRgiXu5mmYa' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'd1kQmU0cqIRgiXu5mmYa',
+  error: undefined,
+  originalId: 'mbupnuqgwmbp1n6'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbupnuqgwmbp1n6',
+  createdId: 'd1kQmU0cqIRgiXu5mmYa',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/gemini-test/d1kQmU0cqIRgiXu5mmYa' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/gemini-test/new 200 in 464ms
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'd1kQmU0cqIRgiXu5mmYa' }
+[WizardPage] Loading existing document: d1kQmU0cqIRgiXu5mmYa
+[DocumentPersistence] Loading document { documentId: 'd1kQmU0cqIRgiXu5mmYa' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'd1kQmU0cqIRgiXu5mmYa' }
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'd1kQmU0cqIRgiXu5mmYa' }
+[WizardPage] Loading existing document: d1kQmU0cqIRgiXu5mmYa
+[DocumentPersistence] Loading document { documentId: 'd1kQmU0cqIRgiXu5mmYa' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'd1kQmU0cqIRgiXu5mmYa' }
+ GET /favicon.ico?favicon.56766c03.ico 200 in 232ms
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'd1kQmU0cqIRgiXu5mmYa' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'd1kQmU0cqIRgiXu5mmYa',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'd1kQmU0cqIRgiXu5mmYa',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'd1kQmU0cqIRgiXu5mmYa' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'd1kQmU0cqIRgiXu5mmYa',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'd1kQmU0cqIRgiXu5mmYa',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+ GET /w/gemini-test/d1kQmU0cqIRgiXu5mmYa 200 in 249ms
+ GET /w/gemini-test/d1kQmU0cqIRgiXu5mmYa 200 in 217ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:15:05.321Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:15:05.351Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /favicon.ico?favicon.56766c03.ico 200 in 225ms
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.0-flash-exp',
+  temperature: 0.7,
+  stageOutputType: 'text'
+}
+Prompt variable '{{userInput}}' not found in context. Replacing with empty string.
+[runAiStage] Filled prompt length: 101
+Executing AI stage with input: {
+  "promptTemplate": "Using Google Search grounding, answer this question: \n\nProvide sources and citations for your answer.",
+  "model": "googleai/gemini-2.0-flash-exp",
+  "temperature": 0.7,
+  "fileInputs": []
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'googleai/gemini-2.0-flash-exp',
+  hasTools: false,
+  hasGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined
+}
+[AI Stage Flow Enhanced] Streaming loop 1
+[AI Stage Flow Enhanced] Stream error: Error [GenkitError]: INVALID_ARGUMENT: at least one message is required in generate request
+    at async executeWithStreaming (src/ai/flows/ai-stage-execution.ts:310:29)
+    at async (src/ai/flows/ai-stage-execution.ts:236:13)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  308 |       const stream = ai.stream ? 
+  309 |         await ai.stream(generateOptions) : 
+> 310 |         await simulateStream(await ai.generate(generateOptions));
+      |                             ^
+  311 |       
+  312 |       let hadToolRequestInTurn = false;
+  313 | {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'at least one message is required in generate request'
+}
+AI Stage Execution Error: Error [GenkitError]: INVALID_ARGUMENT: at least one message is required in generate request
+    at async executeWithStreaming (src/ai/flows/ai-stage-execution.ts:310:29)
+    at async (src/ai/flows/ai-stage-execution.ts:236:13)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  308 |       const stream = ai.stream ? 
+  309 |         await ai.stream(generateOptions) : 
+> 310 |         await simulateStream(await ai.generate(generateOptions));
+      |                             ^
+  311 |       
+  312 |       let hadToolRequestInTurn = false;
+  313 | {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'at least one message is required in generate request',
+  traceId: '504e58c4f861aa0d1f38076e054a6bc4'
+}
+Error stack: GenkitError: INVALID_ARGUMENT: at least one message is required in generate request
+    at messagesFromOptions (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_ai_lib_e3351302._.js:4240:15)
+    at toGenerateActionOptions (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_ai_lib_e3351302._.js:4288:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async generate (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_ai_lib_e3351302._.js:4255:20)
+    at async executeWithStreaming (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:591:334)
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:550:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2211:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1768:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1701:33
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1040:20
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1057:28
+    at async runInNewSpan (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1050:12)
+    at async newTrace (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1033:12)
+    at async actionFn.run (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1670:22)
+    at async actionFn (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1649:17)
+    at async runAiStage (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:869:24)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:417:2449
+    at async handleAction (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:416:21371)
+    at async renderToHTMLOrFlightImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:422:27153)
+    at async doRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1655:34)
+    at async DevServer.renderToResponseWithComponentsImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1920:28)
+    at async DevServer.renderPageComponent (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2408:24)
+    at async DevServer.renderToResponseImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2445:32)
+    at async DevServer.pipeImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1008:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/next-server.js:305:17)
+    at async DevServer.handleRequestImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:900:17)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:371:20
+    at async Span.traceAsyncFn (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/trace/trace.js:157:20)
+    at async DevServer.handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:368:24)
+    at async invokeRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:237:21)
+    at async handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:428:24)
+    at async requestHandlerImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:452:13)
+    at async Server.requestListener (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/start-server.js:158:13)
+ POST /w/gemini-test/d1kQmU0cqIRgiXu5mmYa 200 in 407ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:19:30.851Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:19:30.882Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.0-flash-exp',
+  temperature: 0.7,
+  stageOutputType: 'text'
+}
+Prompt variable '{{userInput}}' not found in context. Replacing with empty string.
+[runAiStage] Filled prompt length: 70
+Executing AI stage with input: {
+  "promptTemplate": "\n\nUse the calculator tool to solve any mathematical operations needed.",
+  "model": "googleai/gemini-2.0-flash-exp",
+  "temperature": 0.7,
+  "toolNames": [
+    "simpleCalculator"
+  ],
+  "fileInputs": []
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'googleai/gemini-2.0-flash-exp',
+  hasTools: true,
+  hasGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined
+}
+[AI Stage Flow Enhanced] Failed to load tools: Error: Cannot define new actions at runtime.
+See: https://github.com/firebase/genkit/blob/main/docs/errors/no_new_actions_at_runtime.md
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:5:39)
+    at <unknown> (.next/server/chunks/ssr/_7596b54d._.js:25:16)
+    at async (src/ai/flows/ai-stage-execution.ts:121:29)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  3 |
+  4 | // Define a simple calculator tool
+> 5 | export const simpleCalculatorTool = ai.defineTool(
+    |                                       ^
+  6 |   {
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+[AI Stage Flow Enhanced] Streaming loop 1
+[AI Stage Flow Enhanced] Stream error: Error [GenkitError]: INVALID_ARGUMENT: at least one message is required in generate request
+    at async executeWithStreaming (src/ai/flows/ai-stage-execution.ts:310:29)
+    at async (src/ai/flows/ai-stage-execution.ts:236:13)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  308 |       const stream = ai.stream ? 
+  309 |         await ai.stream(generateOptions) : 
+> 310 |         await simulateStream(await ai.generate(generateOptions));
+      |                             ^
+  311 |       
+  312 |       let hadToolRequestInTurn = false;
+  313 | {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'at least one message is required in generate request'
+}
+AI Stage Execution Error: Error [GenkitError]: INVALID_ARGUMENT: at least one message is required in generate request
+    at async executeWithStreaming (src/ai/flows/ai-stage-execution.ts:310:29)
+    at async (src/ai/flows/ai-stage-execution.ts:236:13)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  308 |       const stream = ai.stream ? 
+  309 |         await ai.stream(generateOptions) : 
+> 310 |         await simulateStream(await ai.generate(generateOptions));
+      |                             ^
+  311 |       
+  312 |       let hadToolRequestInTurn = false;
+  313 | {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'at least one message is required in generate request',
+  traceId: 'cdef12566bdbeeb51d9921778a5a3ff8'
+}
+Error stack: GenkitError: INVALID_ARGUMENT: at least one message is required in generate request
+    at messagesFromOptions (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_ai_lib_e3351302._.js:4240:15)
+    at toGenerateActionOptions (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_ai_lib_e3351302._.js:4288:22)
+    at async generate (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_ai_lib_e3351302._.js:4255:20)
+    at async executeWithStreaming (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:591:334)
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:550:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2211:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1768:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1701:33
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1040:20
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1057:28
+    at async runInNewSpan (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1050:12)
+    at async newTrace (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1033:12)
+    at async actionFn.run (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1670:22)
+    at async actionFn (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1649:17)
+    at async runAiStage (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:869:24)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:417:2449
+    at async handleAction (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:416:21371)
+    at async renderToHTMLOrFlightImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:422:27153)
+    at async doRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1655:34)
+    at async DevServer.renderToResponseWithComponentsImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1920:28)
+    at async DevServer.renderPageComponent (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2408:24)
+    at async DevServer.renderToResponseImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2445:32)
+    at async DevServer.pipeImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1008:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/next-server.js:305:17)
+    at async DevServer.handleRequestImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:900:17)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:371:20
+    at async Span.traceAsyncFn (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/trace/trace.js:157:20)
+    at async DevServer.handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:368:24)
+    at async invokeRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:237:21)
+    at async handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:428:24)
+    at async requestHandlerImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:452:13)
+    at async Server.requestListener (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/start-server.js:158:13)
+ POST /w/gemini-test/d1kQmU0cqIRgiXu5mmYa 200 in 465ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:20:44.391Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:20:44.425Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ ✓ Compiled /w/[shortName]/[documentId] in 21ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:22:55.876Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:22:55.904Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'd1kQmU0cqIRgiXu5mmYa' }
+[WizardPage] Loading existing document: d1kQmU0cqIRgiXu5mmYa
+[DocumentPersistence] Loading document { documentId: 'd1kQmU0cqIRgiXu5mmYa' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'd1kQmU0cqIRgiXu5mmYa' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'd1kQmU0cqIRgiXu5mmYa' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'd1kQmU0cqIRgiXu5mmYa',
+  title: 'Gemini Integration Manual Test - All Features',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'image-understanding-test',
+    'chat-mode-test',
+    'function-calling-calculator',
+    'code-execution-python',
+    'thinking-mode-test',
+    'grounding-url-context',
+    'document-understanding-test',
+    'combined-features-test',
+    'grounding-google-search',
+    'function-calling-unit-converter',
+    'test-title',
+    'final-summary',
+    'function-calling-weather',
+    'streaming-test'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'd1kQmU0cqIRgiXu5mmYa',
+  title: 'Gemini Integration Manual Test - All Features',
+  stageCount: 14,
+  validatedStageIds: [
+    'image-understanding-test',
+    'chat-mode-test',
+    'function-calling-calculator',
+    'code-execution-python',
+    'thinking-mode-test',
+    'grounding-url-context',
+    'document-understanding-test',
+    'combined-features-test',
+    'grounding-google-search',
+    'function-calling-unit-converter',
+    'test-title',
+    'final-summary',
+    'function-calling-weather',
+    'streaming-test'
+  ]
+}
+ GET /w/gemini-test/d1kQmU0cqIRgiXu5mmYa 200 in 638ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:22:56.321Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:22:56.350Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ ✓ Compiled /w/[shortName]/[documentId] in 19ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:23:08.567Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:23:08.592Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'd1kQmU0cqIRgiXu5mmYa' }
+[WizardPage] Loading existing document: d1kQmU0cqIRgiXu5mmYa
+[DocumentPersistence] Loading document { documentId: 'd1kQmU0cqIRgiXu5mmYa' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'd1kQmU0cqIRgiXu5mmYa' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'd1kQmU0cqIRgiXu5mmYa' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'd1kQmU0cqIRgiXu5mmYa',
+  title: 'Gemini Integration Manual Test - All Features',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'function-calling-unit-converter',
+    'function-calling-calculator',
+    'test-title',
+    'document-understanding-test',
+    'thinking-mode-test',
+    'grounding-google-search',
+    'streaming-test',
+    'function-calling-weather',
+    'image-understanding-test',
+    'grounding-url-context',
+    'chat-mode-test',
+    'combined-features-test',
+    'code-execution-python',
+    'final-summary'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'd1kQmU0cqIRgiXu5mmYa',
+  title: 'Gemini Integration Manual Test - All Features',
+  stageCount: 14,
+  validatedStageIds: [
+    'function-calling-unit-converter',
+    'function-calling-calculator',
+    'test-title',
+    'document-understanding-test',
+    'thinking-mode-test',
+    'grounding-google-search',
+    'streaming-test',
+    'function-calling-weather',
+    'image-understanding-test',
+    'grounding-url-context',
+    'chat-mode-test',
+    'combined-features-test',
+    'code-execution-python',
+    'final-summary'
+  ]
+}
+ GET /w/gemini-test/d1kQmU0cqIRgiXu5mmYa 200 in 533ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:23:09.003Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:23:09.031Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ ✓ Compiled /w/[shortName]/[documentId] in 15ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:23:15.650Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:23:15.674Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'd1kQmU0cqIRgiXu5mmYa' }
+[WizardPage] Loading existing document: d1kQmU0cqIRgiXu5mmYa
+[DocumentPersistence] Loading document { documentId: 'd1kQmU0cqIRgiXu5mmYa' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'd1kQmU0cqIRgiXu5mmYa' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'd1kQmU0cqIRgiXu5mmYa' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'd1kQmU0cqIRgiXu5mmYa',
+  title: 'Gemini Integration Manual Test - All Features',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'streaming-test',
+    'thinking-mode-test',
+    'code-execution-python',
+    'function-calling-unit-converter',
+    'test-title',
+    'final-summary',
+    'function-calling-weather',
+    'combined-features-test',
+    'image-understanding-test',
+    'function-calling-calculator',
+    'grounding-google-search',
+    'document-understanding-test',
+    'grounding-url-context',
+    'chat-mode-test'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'd1kQmU0cqIRgiXu5mmYa',
+  title: 'Gemini Integration Manual Test - All Features',
+  stageCount: 14,
+  validatedStageIds: [
+    'streaming-test',
+    'thinking-mode-test',
+    'code-execution-python',
+    'function-calling-unit-converter',
+    'test-title',
+    'final-summary',
+    'function-calling-weather',
+    'combined-features-test',
+    'image-understanding-test',
+    'function-calling-calculator',
+    'grounding-google-search',
+    'document-understanding-test',
+    'grounding-url-context',
+    'chat-mode-test'
+  ]
+}
+ GET /w/gemini-test/d1kQmU0cqIRgiXu5mmYa 200 in 544ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:23:16.087Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:23:16.117Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ ✓ Compiled /w/[shortName]/[documentId] in 29ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:23:25.114Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:23:25.152Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'd1kQmU0cqIRgiXu5mmYa' }
+[WizardPage] Loading existing document: d1kQmU0cqIRgiXu5mmYa
+[DocumentPersistence] Loading document { documentId: 'd1kQmU0cqIRgiXu5mmYa' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'd1kQmU0cqIRgiXu5mmYa' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'd1kQmU0cqIRgiXu5mmYa' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'd1kQmU0cqIRgiXu5mmYa',
+  title: 'Gemini Integration Manual Test - All Features',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'function-calling-unit-converter',
+    'thinking-mode-test',
+    'chat-mode-test',
+    'function-calling-weather',
+    'function-calling-calculator',
+    'final-summary',
+    'document-understanding-test',
+    'grounding-url-context',
+    'code-execution-python',
+    'combined-features-test',
+    'grounding-google-search',
+    'test-title',
+    'image-understanding-test',
+    'streaming-test'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'd1kQmU0cqIRgiXu5mmYa',
+  title: 'Gemini Integration Manual Test - All Features',
+  stageCount: 14,
+  validatedStageIds: [
+    'function-calling-unit-converter',
+    'thinking-mode-test',
+    'chat-mode-test',
+    'function-calling-weather',
+    'function-calling-calculator',
+    'final-summary',
+    'document-understanding-test',
+    'grounding-url-context',
+    'code-execution-python',
+    'combined-features-test',
+    'grounding-google-search',
+    'test-title',
+    'image-understanding-test',
+    'streaming-test'
+  ]
+}
+ GET /w/gemini-test/d1kQmU0cqIRgiXu5mmYa 200 in 581ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:23:25.561Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:23:25.588Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ ✓ Compiled /w/[shortName]/[documentId] in 15ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:23:35.748Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:23:35.787Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'd1kQmU0cqIRgiXu5mmYa' }
+[WizardPage] Loading existing document: d1kQmU0cqIRgiXu5mmYa
+[DocumentPersistence] Loading document { documentId: 'd1kQmU0cqIRgiXu5mmYa' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'd1kQmU0cqIRgiXu5mmYa' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'd1kQmU0cqIRgiXu5mmYa' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'd1kQmU0cqIRgiXu5mmYa',
+  title: 'Gemini Integration Manual Test - All Features',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'function-calling-weather',
+    'chat-mode-test',
+    'function-calling-unit-converter',
+    'thinking-mode-test',
+    'combined-features-test',
+    'grounding-url-context',
+    'grounding-google-search',
+    'code-execution-python',
+    'final-summary',
+    'document-understanding-test',
+    'image-understanding-test',
+    'streaming-test',
+    'function-calling-calculator',
+    'test-title'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'd1kQmU0cqIRgiXu5mmYa',
+  title: 'Gemini Integration Manual Test - All Features',
+  stageCount: 14,
+  validatedStageIds: [
+    'function-calling-weather',
+    'chat-mode-test',
+    'function-calling-unit-converter',
+    'thinking-mode-test',
+    'combined-features-test',
+    'grounding-url-context',
+    'grounding-google-search',
+    'code-execution-python',
+    'final-summary',
+    'document-understanding-test',
+    'image-understanding-test',
+    'streaming-test',
+    'function-calling-calculator',
+    'test-title'
+  ]
+}
+ GET /w/gemini-test/d1kQmU0cqIRgiXu5mmYa 200 in 568ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:23:36.204Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:23:36.232Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'gemini-test' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'gemini-test',
+  workflowId: 'gemini-tools-test',
+  workflowName: 'Gemini AI Tools Test'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'gemini-test',
+  documentId: 'mbupz7isweh8kmb',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749813834196_gehy1zaor',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749813834196_gehy1zaor',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 192
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'Hnw8dVfnyERyz4kuAIZv',
+  path: 'documents/Hnw8dVfnyERyz4kuAIZv'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'Hnw8dVfnyERyz4kuAIZv',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'Hnw8dVfnyERyz4kuAIZv',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  error: undefined,
+  originalId: 'mbupz7isweh8kmb'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbupz7isweh8kmb',
+  createdId: 'Hnw8dVfnyERyz4kuAIZv',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/gemini-test/Hnw8dVfnyERyz4kuAIZv' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:23:54.451Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /w/gemini-test/new 307 in 300ms
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[WizardPage] Loading existing document: Hnw8dVfnyERyz4kuAIZv
+[DocumentPersistence] Loading document { documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:23:54.615Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+ GET /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 296ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:23:54.999Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:23:55.029Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /favicon.ico?favicon.56766c03.ico 200 in 241ms
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.0-flash-exp',
+  temperature: 0.7,
+  stageOutputType: 'text'
+}
+Prompt variable '{{userInput}}' not found in context. Replacing with empty string.
+[runAiStage] Filled prompt length: 70
+Executing AI stage with input: {
+  "promptTemplate": "\n\nUse the calculator tool to solve any mathematical operations needed.",
+  "model": "googleai/gemini-2.0-flash-exp",
+  "temperature": 0.7,
+  "toolNames": [
+    "simpleCalculator"
+  ],
+  "fileInputs": []
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'googleai/gemini-2.0-flash-exp',
+  hasTools: true,
+  hasGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: '\n\nUse the calculator tool to solve any mathematical operations needed....',
+  chatHistory: 'none'
+}
+[AI Stage Flow Enhanced] Failed to load tools: Error: Cannot define new actions at runtime.
+See: https://github.com/firebase/genkit/blob/main/docs/errors/no_new_actions_at_runtime.md
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:5:39)
+    at <unknown> (.next/server/chunks/ssr/_7596b54d._.js:25:16)
+    at async (src/ai/flows/ai-stage-execution.ts:123:29)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  3 |
+  4 | // Define a simple calculator tool
+> 5 | export const simpleCalculatorTool = ai.defineTool(
+    |                                       ^
+  6 |   {
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+[AI Stage Flow Enhanced] Streaming loop 1
+[AI Stage Flow Enhanced] Stream error: Error [GenkitError]: INVALID_ARGUMENT: at least one message is required in generate request
+    at async executeWithStreaming (src/ai/flows/ai-stage-execution.ts:314:29)
+    at async (src/ai/flows/ai-stage-execution.ts:238:13)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  312 |       const stream = ai.stream ? 
+  313 |         await ai.stream(generateOptions) : 
+> 314 |         await simulateStream(await ai.generate(generateOptions));
+      |                             ^
+  315 |       
+  316 |       let hadToolRequestInTurn = false;
+  317 | {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'at least one message is required in generate request'
+}
+AI Stage Execution Error: Error [GenkitError]: INVALID_ARGUMENT: at least one message is required in generate request
+    at async executeWithStreaming (src/ai/flows/ai-stage-execution.ts:314:29)
+    at async (src/ai/flows/ai-stage-execution.ts:238:13)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  312 |       const stream = ai.stream ? 
+  313 |         await ai.stream(generateOptions) : 
+> 314 |         await simulateStream(await ai.generate(generateOptions));
+      |                             ^
+  315 |       
+  316 |       let hadToolRequestInTurn = false;
+  317 | {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'at least one message is required in generate request',
+  traceId: '2569d28e0424d78d76da3eaff3be1d02'
+}
+Error stack: GenkitError: INVALID_ARGUMENT: at least one message is required in generate request
+    at messagesFromOptions (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_ai_lib_e3351302._.js:4240:15)
+    at toGenerateActionOptions (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_ai_lib_e3351302._.js:4288:22)
+    at async generate (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_ai_lib_e3351302._.js:4255:20)
+    at async executeWithStreaming (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:593:334)
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:552:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2211:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1768:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1701:33
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1040:20
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1057:28
+    at async runInNewSpan (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1050:12)
+    at async newTrace (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1033:12)
+    at async actionFn.run (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1670:22)
+    at async actionFn (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1649:17)
+    at async runAiStage (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:871:24)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:417:2449
+    at async handleAction (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:416:21371)
+    at async renderToHTMLOrFlightImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:422:27153)
+    at async doRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1655:34)
+    at async DevServer.renderToResponseWithComponentsImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1920:28)
+    at async DevServer.renderPageComponent (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2408:24)
+    at async DevServer.renderToResponseImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2445:32)
+    at async DevServer.pipeImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1008:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/next-server.js:305:17)
+    at async DevServer.handleRequestImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:900:17)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:371:20
+    at async Span.traceAsyncFn (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/trace/trace.js:157:20)
+    at async DevServer.handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:368:24)
+    at async invokeRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:237:21)
+    at async handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:428:24)
+    at async requestHandlerImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:452:13)
+    at async Server.requestListener (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/start-server.js:158:13)
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:24:36.230Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:24:36.260Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ POST /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 547ms
+ ✓ Compiled /w/[shortName]/[documentId] in 16ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:25:25.632Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:25:25.658Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[WizardPage] Loading existing document: Hnw8dVfnyERyz4kuAIZv
+[DocumentPersistence] Loading document { documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'thinking-mode-test',
+    'grounding-url-context',
+    'document-understanding-test',
+    'function-calling-weather',
+    'image-understanding-test',
+    'streaming-test',
+    'code-execution-python',
+    'test-title',
+    'grounding-google-search',
+    'function-calling-unit-converter',
+    'final-summary',
+    'function-calling-calculator',
+    'chat-mode-test',
+    'combined-features-test'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageCount: 14,
+  validatedStageIds: [
+    'thinking-mode-test',
+    'grounding-url-context',
+    'document-understanding-test',
+    'function-calling-weather',
+    'image-understanding-test',
+    'streaming-test',
+    'code-execution-python',
+    'test-title',
+    'grounding-google-search',
+    'function-calling-unit-converter',
+    'final-summary',
+    'function-calling-calculator',
+    'chat-mode-test',
+    'combined-features-test'
+  ]
+}
+ GET /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 593ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:25:26.088Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:25:26.118Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /favicon.ico?favicon.56766c03.ico 200 in 219ms
+ ✓ Compiled /w/[shortName]/[documentId] in 18ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:25:35.971Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:25:35.997Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[WizardPage] Loading existing document: Hnw8dVfnyERyz4kuAIZv
+[DocumentPersistence] Loading document { documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'function-calling-weather',
+    'thinking-mode-test',
+    'streaming-test',
+    'test-title',
+    'chat-mode-test',
+    'code-execution-python',
+    'grounding-url-context',
+    'image-understanding-test',
+    'function-calling-calculator',
+    'final-summary',
+    'combined-features-test',
+    'function-calling-unit-converter',
+    'document-understanding-test',
+    'grounding-google-search'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageCount: 14,
+  validatedStageIds: [
+    'function-calling-weather',
+    'thinking-mode-test',
+    'streaming-test',
+    'test-title',
+    'chat-mode-test',
+    'code-execution-python',
+    'grounding-url-context',
+    'image-understanding-test',
+    'function-calling-calculator',
+    'final-summary',
+    'combined-features-test',
+    'function-calling-unit-converter',
+    'document-understanding-test',
+    'grounding-google-search'
+  ]
+}
+ GET /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 571ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:25:36.435Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:25:36.466Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /favicon.ico?favicon.56766c03.ico 200 in 219ms
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.0-flash-exp',
+  temperature: 0.7,
+  stageOutputType: 'text'
+}
+Prompt variable '{{userInput}}' not found in context. Replacing with empty string.
+[runAiStage] Filled prompt length: 70
+Executing AI stage with input: {
+  "promptTemplate": "\n\nUse the calculator tool to solve any mathematical operations needed.",
+  "model": "googleai/gemini-2.0-flash-exp",
+  "temperature": 0.7,
+  "toolNames": [
+    "simpleCalculator"
+  ],
+  "fileInputs": []
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'googleai/gemini-2.0-flash-exp',
+  hasTools: true,
+  hasGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: '\n\nUse the calculator tool to solve any mathematical operations needed....',
+  chatHistory: 'none'
+}
+[AI Stage Flow Enhanced] Failed to load tools: Error: Cannot define new actions at runtime.
+See: https://github.com/firebase/genkit/blob/main/docs/errors/no_new_actions_at_runtime.md
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:5:39)
+    at <unknown> (.next/server/chunks/ssr/_7596b54d._.js:25:16)
+    at async (src/ai/flows/ai-stage-execution.ts:123:29)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  3 |
+  4 | // Define a simple calculator tool
+> 5 | export const simpleCalculatorTool = ai.defineTool(
+    |                                       ^
+  6 |   {
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 70
+}
+[AI Stage Flow Enhanced] Generation path decision: {
+  shouldUseStreaming: true,
+  streamingEnabled: undefined,
+  hasHistory: true,
+  hasTools: false
+}
+[AI Stage Flow Enhanced] Streaming loop 1
+[AI Stage Flow Enhanced] Stream error: Error [GenkitError]: INVALID_ARGUMENT: at least one message is required in generate request
+    at async executeWithStreaming (src/ai/flows/ai-stage-execution.ts:330:29)
+    at async (src/ai/flows/ai-stage-execution.ts:254:13)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  328 |       const stream = ai.stream ? 
+  329 |         await ai.stream(generateOptions) : 
+> 330 |         await simulateStream(await ai.generate(generateOptions));
+      |                             ^
+  331 |       
+  332 |       let hadToolRequestInTurn = false;
+  333 | {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'at least one message is required in generate request'
+}
+AI Stage Execution Error: Error [GenkitError]: INVALID_ARGUMENT: at least one message is required in generate request
+    at async executeWithStreaming (src/ai/flows/ai-stage-execution.ts:330:29)
+    at async (src/ai/flows/ai-stage-execution.ts:254:13)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  328 |       const stream = ai.stream ? 
+  329 |         await ai.stream(generateOptions) : 
+> 330 |         await simulateStream(await ai.generate(generateOptions));
+      |                             ^
+  331 |       
+  332 |       let hadToolRequestInTurn = false;
+  333 | {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'at least one message is required in generate request',
+  traceId: 'd80893cd40b42f6dc1b696b27e957dff'
+}
+Error stack: GenkitError: INVALID_ARGUMENT: at least one message is required in generate request
+    at messagesFromOptions (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_ai_lib_e3351302._.js:4240:15)
+    at toGenerateActionOptions (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_ai_lib_e3351302._.js:4288:22)
+    at async generate (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_ai_lib_e3351302._.js:4255:20)
+    at async executeWithStreaming (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:606:334)
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:565:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2211:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1768:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1701:33
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1040:20
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1057:28
+    at async runInNewSpan (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1050:12)
+    at async newTrace (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1033:12)
+    at async actionFn.run (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1670:22)
+    at async actionFn (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1649:17)
+    at async runAiStage (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:884:24)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:417:2449
+    at async handleAction (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:416:21371)
+    at async renderToHTMLOrFlightImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:422:27153)
+    at async doRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1655:34)
+    at async DevServer.renderToResponseWithComponentsImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1920:28)
+    at async DevServer.renderPageComponent (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2408:24)
+    at async DevServer.renderToResponseImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2445:32)
+    at async DevServer.pipeImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1008:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/next-server.js:305:17)
+    at async DevServer.handleRequestImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:900:17)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:371:20
+    at async Span.traceAsyncFn (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/trace/trace.js:157:20)
+    at async DevServer.handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:368:24)
+    at async invokeRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:237:21)
+    at async handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:428:24)
+    at async requestHandlerImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:452:13)
+    at async Server.requestListener (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/start-server.js:158:13)
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:25:51.642Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:25:51.672Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ POST /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 533ms
+ ✓ Compiled /w/[shortName]/[documentId] in 18ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:26:20.225Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:26:20.251Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+(node:9727) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGTERM listeners added to [process]. MaxListeners is 10. Use emitter.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[WizardPage] Loading existing document: Hnw8dVfnyERyz4kuAIZv
+[DocumentPersistence] Loading document { documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:26:20.678Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:26:20.706Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'final-summary',
+    'code-execution-python',
+    'test-title',
+    'image-understanding-test',
+    'function-calling-weather',
+    'chat-mode-test',
+    'function-calling-calculator',
+    'grounding-url-context',
+    'grounding-google-search',
+    'combined-features-test',
+    'thinking-mode-test',
+    'document-understanding-test',
+    'streaming-test',
+    'function-calling-unit-converter'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageCount: 14,
+  validatedStageIds: [
+    'final-summary',
+    'code-execution-python',
+    'test-title',
+    'image-understanding-test',
+    'function-calling-weather',
+    'chat-mode-test',
+    'function-calling-calculator',
+    'grounding-url-context',
+    'grounding-google-search',
+    'combined-features-test',
+    'thinking-mode-test',
+    'document-understanding-test',
+    'streaming-test',
+    'function-calling-unit-converter'
+  ]
+}
+ GET /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 1164ms
+ ✓ Compiled /w/[shortName]/[documentId] in 13ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:26:29.533Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:26:29.558Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+(node:9727) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGINT listeners added to [process]. MaxListeners is 10. Use emitter.setMaxListeners() to increase limit
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[WizardPage] Loading existing document: Hnw8dVfnyERyz4kuAIZv
+[DocumentPersistence] Loading document { documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'grounding-url-context',
+    'function-calling-unit-converter',
+    'document-understanding-test',
+    'chat-mode-test',
+    'final-summary',
+    'thinking-mode-test',
+    'streaming-test',
+    'grounding-google-search',
+    'function-calling-calculator',
+    'test-title',
+    'image-understanding-test',
+    'function-calling-weather',
+    'combined-features-test',
+    'code-execution-python'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageCount: 14,
+  validatedStageIds: [
+    'grounding-url-context',
+    'function-calling-unit-converter',
+    'document-understanding-test',
+    'chat-mode-test',
+    'final-summary',
+    'thinking-mode-test',
+    'streaming-test',
+    'grounding-google-search',
+    'function-calling-calculator',
+    'test-title',
+    'image-understanding-test',
+    'function-calling-weather',
+    'combined-features-test',
+    'code-execution-python'
+  ]
+}
+ GET /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 565ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:26:29.980Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:26:30.011Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.0-flash-exp',
+  temperature: 0.7,
+  stageOutputType: 'text'
+}
+Prompt variable '{{userInput}}' not found in context. Replacing with empty string.
+[runAiStage] Filled prompt length: 70
+Executing AI stage with input: {
+  "promptTemplate": "\n\nUse the calculator tool to solve any mathematical operations needed.",
+  "model": "googleai/gemini-2.0-flash-exp",
+  "temperature": 0.7,
+  "toolNames": [
+    "simpleCalculator"
+  ],
+  "fileInputs": []
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'googleai/gemini-2.0-flash-exp',
+  hasTools: true,
+  hasGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: '\n\nUse the calculator tool to solve any mathematical operations needed....',
+  chatHistory: 'none'
+}
+[AI Stage Flow Enhanced] Failed to load tools: Error: Cannot define new actions at runtime.
+See: https://github.com/firebase/genkit/blob/main/docs/errors/no_new_actions_at_runtime.md
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:5:39)
+    at <unknown> (.next/server/chunks/ssr/_7596b54d._.js:25:16)
+    at async (src/ai/flows/ai-stage-execution.ts:123:29)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  3 |
+  4 | // Define a simple calculator tool
+> 5 | export const simpleCalculatorTool = ai.defineTool(
+    |                                       ^
+  6 |   {
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 70
+}
+[AI Stage Flow Enhanced] Generation path decision: {
+  shouldUseStreaming: true,
+  streamingEnabled: undefined,
+  hasHistory: true,
+  hasTools: false
+}
+[AI Stage Flow Enhanced] Streaming loop 1 {
+  historyLength: 1,
+  hasPrompt: false,
+  hasHistory: true,
+  firstMessage: { role: 'user', partsCount: 1 }
+}
+[AI Stage Flow Enhanced] generateOptions before streaming: {
+  "model": "googleai/gemini-2.0-flash-exp",
+  "hasHistory": true,
+  "hasPrompt": false,
+  "hasTools": false,
+  "toolsCount": 0,
+  "config": {
+    "temperature": 0.7
+  }
+}
+[AI Stage Flow Enhanced] Stream error: Error [GenkitError]: INVALID_ARGUMENT: at least one message is required in generate request
+    at async executeWithStreaming (src/ai/flows/ai-stage-execution.ts:344:29)
+    at async (src/ai/flows/ai-stage-execution.ts:254:13)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  342 |       const stream = ai.stream ? 
+  343 |         await ai.stream(generateOptions) : 
+> 344 |         await simulateStream(await ai.generate(generateOptions));
+      |                             ^
+  345 |       
+  346 |       let hadToolRequestInTurn = false;
+  347 | {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'at least one message is required in generate request'
+}
+AI Stage Execution Error: Error [GenkitError]: INVALID_ARGUMENT: at least one message is required in generate request
+    at async executeWithStreaming (src/ai/flows/ai-stage-execution.ts:344:29)
+    at async (src/ai/flows/ai-stage-execution.ts:254:13)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  342 |       const stream = ai.stream ? 
+  343 |         await ai.stream(generateOptions) : 
+> 344 |         await simulateStream(await ai.generate(generateOptions));
+      |                             ^
+  345 |       
+  346 |       let hadToolRequestInTurn = false;
+  347 | {
+  source: undefined,
+  status: 'INVALID_ARGUMENT',
+  detail: undefined,
+  code: 400,
+  originalMessage: 'at least one message is required in generate request',
+  traceId: '5ed84dd626cd4f5b66d6103d292ebad2'
+}
+Error stack: GenkitError: INVALID_ARGUMENT: at least one message is required in generate request
+    at messagesFromOptions (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_ai_lib_e3351302._.js:4240:15)
+    at toGenerateActionOptions (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_ai_lib_e3351302._.js:4288:22)
+    at async generate (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_ai_lib_e3351302._.js:4255:20)
+    at async executeWithStreaming (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:622:334)
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:565:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2211:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1768:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1701:33
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1040:20
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1057:28
+    at async runInNewSpan (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1050:12)
+    at async newTrace (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1033:12)
+    at async actionFn.run (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1670:22)
+    at async actionFn (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1649:17)
+    at async runAiStage (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:900:24)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:417:2449
+    at async handleAction (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:416:21371)
+    at async renderToHTMLOrFlightImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:422:27153)
+    at async doRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1655:34)
+    at async DevServer.renderToResponseWithComponentsImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1920:28)
+    at async DevServer.renderPageComponent (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2408:24)
+    at async DevServer.renderToResponseImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2445:32)
+    at async DevServer.pipeImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1008:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/next-server.js:305:17)
+    at async DevServer.handleRequestImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:900:17)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:371:20
+    at async Span.traceAsyncFn (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/trace/trace.js:157:20)
+    at async DevServer.handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:368:24)
+    at async invokeRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:237:21)
+    at async handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:428:24)
+    at async requestHandlerImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:452:13)
+    at async Server.requestListener (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/start-server.js:158:13)
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:26:41.506Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:26:41.536Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ POST /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 550ms
+ ✓ Compiled /w/[shortName]/[documentId] in 19ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:27:23.109Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:27:23.135Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[WizardPage] Loading existing document: Hnw8dVfnyERyz4kuAIZv
+[DocumentPersistence] Loading document { documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'function-calling-weather',
+    'streaming-test',
+    'code-execution-python',
+    'final-summary',
+    'grounding-google-search',
+    'image-understanding-test',
+    'document-understanding-test',
+    'function-calling-calculator',
+    'test-title',
+    'function-calling-unit-converter',
+    'combined-features-test',
+    'chat-mode-test',
+    'thinking-mode-test',
+    'grounding-url-context'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageCount: 14,
+  validatedStageIds: [
+    'function-calling-weather',
+    'streaming-test',
+    'code-execution-python',
+    'final-summary',
+    'grounding-google-search',
+    'image-understanding-test',
+    'document-understanding-test',
+    'function-calling-calculator',
+    'test-title',
+    'function-calling-unit-converter',
+    'combined-features-test',
+    'chat-mode-test',
+    'thinking-mode-test',
+    'grounding-url-context'
+  ]
+}
+ GET /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 583ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:27:23.574Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:27:23.605Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.0-flash-exp',
+  temperature: 0.7,
+  stageOutputType: 'text'
+}
+Prompt variable '{{userInput}}' not found in context. Replacing with empty string.
+[runAiStage] Filled prompt length: 70
+Executing AI stage with input: {
+  "promptTemplate": "\n\nUse the calculator tool to solve any mathematical operations needed.",
+  "model": "googleai/gemini-2.0-flash-exp",
+  "temperature": 0.7,
+  "toolNames": [
+    "simpleCalculator"
+  ],
+  "fileInputs": []
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'googleai/gemini-2.0-flash-exp',
+  hasTools: true,
+  hasGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: '\n\nUse the calculator tool to solve any mathematical operations needed....',
+  chatHistory: 'none'
+}
+[AI Stage Flow Enhanced] Failed to load tools: Error: Cannot define new actions at runtime.
+See: https://github.com/firebase/genkit/blob/main/docs/errors/no_new_actions_at_runtime.md
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:5:39)
+    at <unknown> (.next/server/chunks/ssr/_7596b54d._.js:25:16)
+    at async (src/ai/flows/ai-stage-execution.ts:123:29)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  3 |
+  4 | // Define a simple calculator tool
+> 5 | export const simpleCalculatorTool = ai.defineTool(
+    |                                       ^
+  6 |   {
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 70
+}
+[AI Stage Flow Enhanced] Generation path decision: {
+  shouldUseStreaming: true,
+  streamingEnabled: undefined,
+  hasHistory: true,
+  hasTools: false
+}
+[AI Stage Flow Enhanced] Streaming loop 1 {
+  historyLength: 1,
+  hasPrompt: false,
+  hasHistory: true,
+  firstMessage: { role: 'user', partsCount: 1 }
+}
+[AI Stage Flow Enhanced] generateOptions before streaming: {
+  "model": "googleai/gemini-2.0-flash-exp",
+  "hasHistory": true,
+  "hasPrompt": false,
+  "hasTools": false,
+  "toolsCount": 0,
+  "config": {
+    "temperature": 0.7
+  }
+}
+[AI Stage Flow Enhanced] Stream error: ReferenceError: chatHistory is not defined
+    at executeWithStreaming (src/ai/flows/ai-stage-execution.ts:342:6)
+    at <unknown> (src/ai/flows/ai-stage-execution.ts:254:19)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  340 |     try {
+  341 |       // For non-chat single turn requests, use prompt instead of history
+> 342 |       if (!chatHistory && callHistory.length === 1 && callHistory[0].parts.length === 1 && callHistory[0].parts[0].text) {
+      |      ^
+  343 |         // Convert single-turn history to prompt format
+  344 |         generateOptions.prompt = callHistory[0].parts[0].text;
+  345 |         delete generateOptions.history;
+AI Stage Execution Error: ReferenceError: chatHistory is not defined
+    at executeWithStreaming (src/ai/flows/ai-stage-execution.ts:342:6)
+    at <unknown> (src/ai/flows/ai-stage-execution.ts:254:19)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  340 |     try {
+  341 |       // For non-chat single turn requests, use prompt instead of history
+> 342 |       if (!chatHistory && callHistory.length === 1 && callHistory[0].parts.length === 1 && callHistory[0].parts[0].text) {
+      |      ^
+  343 |         // Convert single-turn history to prompt format
+  344 |         generateOptions.prompt = callHistory[0].parts[0].text;
+  345 |         delete generateOptions.history; {
+  traceId: 'a5f27f5c4fa54ba805b71ddfe0ce8955'
+}
+Error stack: ReferenceError: chatHistory is not defined
+    at executeWithStreaming (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:622:13)
+    at /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:565:22
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2211:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1768:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1701:33
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1040:20
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1057:28
+    at async runInNewSpan (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1050:12)
+    at async newTrace (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1033:12)
+    at async actionFn.run (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1670:22)
+    at async actionFn (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1649:17)
+    at async runAiStage (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:907:24)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:417:2449
+    at async handleAction (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:416:21371)
+    at async renderToHTMLOrFlightImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:422:27153)
+    at async doRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1655:34)
+    at async DevServer.renderToResponseWithComponentsImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1920:28)
+    at async DevServer.renderPageComponent (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2408:24)
+    at async DevServer.renderToResponseImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2445:32)
+    at async DevServer.pipeImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1008:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/next-server.js:305:17)
+    at async DevServer.handleRequestImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:900:17)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:371:20
+    at async Span.traceAsyncFn (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/trace/trace.js:157:20)
+    at async DevServer.handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:368:24)
+    at async invokeRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:237:21)
+    at async handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:428:24)
+    at async requestHandlerImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:452:13)
+    at async Server.requestListener (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/start-server.js:158:13)
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:27:34.285Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:27:34.319Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ POST /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 524ms
+ ✓ Compiled /w/[shortName]/[documentId] in 18ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:28:01.674Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:28:01.702Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[WizardPage] Loading existing document: Hnw8dVfnyERyz4kuAIZv
+[DocumentPersistence] Loading document { documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'thinking-mode-test',
+    'document-understanding-test',
+    'final-summary',
+    'image-understanding-test',
+    'test-title',
+    'streaming-test',
+    'grounding-url-context',
+    'function-calling-unit-converter',
+    'chat-mode-test',
+    'function-calling-calculator',
+    'grounding-google-search',
+    'function-calling-weather',
+    'combined-features-test',
+    'code-execution-python'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageCount: 14,
+  validatedStageIds: [
+    'thinking-mode-test',
+    'document-understanding-test',
+    'final-summary',
+    'image-understanding-test',
+    'test-title',
+    'streaming-test',
+    'grounding-url-context',
+    'function-calling-unit-converter',
+    'chat-mode-test',
+    'function-calling-calculator',
+    'grounding-google-search',
+    'function-calling-weather',
+    'combined-features-test',
+    'code-execution-python'
+  ]
+}
+ GET /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 597ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:28:02.148Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:28:02.176Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.0-flash-exp',
+  temperature: 0.7,
+  stageOutputType: 'text'
+}
+Prompt variable '{{userInput}}' not found in context. Replacing with empty string.
+[runAiStage] Filled prompt length: 70
+Executing AI stage with input: {
+  "promptTemplate": "\n\nUse the calculator tool to solve any mathematical operations needed.",
+  "model": "googleai/gemini-2.0-flash-exp",
+  "temperature": 0.7,
+  "toolNames": [
+    "simpleCalculator"
+  ],
+  "fileInputs": []
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'googleai/gemini-2.0-flash-exp',
+  hasTools: true,
+  hasGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: '\n\nUse the calculator tool to solve any mathematical operations needed....',
+  chatHistory: 'none'
+}
+[AI Stage Flow Enhanced] Failed to load tools: Error: Cannot define new actions at runtime.
+See: https://github.com/firebase/genkit/blob/main/docs/errors/no_new_actions_at_runtime.md
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:5:39)
+    at <unknown> (.next/server/chunks/ssr/_7596b54d._.js:25:16)
+    at async (src/ai/flows/ai-stage-execution.ts:123:29)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  3 |
+  4 | // Define a simple calculator tool
+> 5 | export const simpleCalculatorTool = ai.defineTool(
+    |                                       ^
+  6 |   {
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 70
+}
+[AI Stage Flow Enhanced] Generation path decision: {
+  shouldUseStreaming: true,
+  streamingEnabled: undefined,
+  hasHistory: true,
+  hasTools: false
+}
+[AI Stage Flow Enhanced] Streaming loop 1 {
+  historyLength: 1,
+  hasPrompt: false,
+  hasHistory: true,
+  firstMessage: { role: 'user', partsCount: 1 }
+}
+[AI Stage Flow Enhanced] generateOptions before streaming: {
+  "model": "googleai/gemini-2.0-flash-exp",
+  "hasHistory": true,
+  "hasPrompt": false,
+  "hasTools": false,
+  "toolsCount": 0,
+  "config": {
+    "temperature": 0.7
+  }
+}
+[AI Stage Flow Enhanced] Stream error: ReferenceError: input is not defined
+    at executeWithStreaming (src/ai/flows/ai-stage-execution.ts:342:33)
+    at <unknown> (src/ai/flows/ai-stage-execution.ts:254:19)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  340 |     try {
+  341 |       // For non-chat single turn requests, use prompt instead of history
+> 342 |       const isNewConversation = !input.chatHistory;
+      |                                 ^
+  343 |       if (isNewConversation && callHistory.length === 1 && callHistory[0].parts.length === 1 && callHistory[0].parts[0].text) {
+  344 |         // Convert single-turn history to prompt format
+  345 |         generateOptions.prompt = callHistory[0].parts[0].text;
+AI Stage Execution Error: ReferenceError: input is not defined
+    at executeWithStreaming (src/ai/flows/ai-stage-execution.ts:342:33)
+    at <unknown> (src/ai/flows/ai-stage-execution.ts:254:19)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  340 |     try {
+  341 |       // For non-chat single turn requests, use prompt instead of history
+> 342 |       const isNewConversation = !input.chatHistory;
+      |                                 ^
+  343 |       if (isNewConversation && callHistory.length === 1 && callHistory[0].parts.length === 1 && callHistory[0].parts[0].text) {
+  344 |         // Convert single-turn history to prompt format
+  345 |         generateOptions.prompt = callHistory[0].parts[0].text; {
+  traceId: '93045e02f39caa988c5259d9866fe9f3'
+}
+Error stack: ReferenceError: input is not defined
+    at executeWithStreaming (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:622:39)
+    at /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:565:22
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2211:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1768:16
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1701:33
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1040:20
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1057:28
+    at async runInNewSpan (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1050:12)
+    at async newTrace (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1033:12)
+    at async actionFn.run (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1670:22)
+    at async actionFn (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1649:17)
+    at async runAiStage (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:908:24)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:417:2449
+    at async handleAction (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:416:21371)
+    at async renderToHTMLOrFlightImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:422:27153)
+    at async doRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1655:34)
+    at async DevServer.renderToResponseWithComponentsImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1920:28)
+    at async DevServer.renderPageComponent (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2408:24)
+    at async DevServer.renderToResponseImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2445:32)
+    at async DevServer.pipeImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1008:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/next-server.js:305:17)
+    at async DevServer.handleRequestImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:900:17)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:371:20
+    at async Span.traceAsyncFn (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/trace/trace.js:157:20)
+    at async DevServer.handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:368:24)
+    at async invokeRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:237:21)
+    at async handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:428:24)
+    at async requestHandlerImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:452:13)
+    at async Server.requestListener (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/start-server.js:158:13)
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:28:46.517Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:28:46.552Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ POST /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 582ms
+ ✓ Compiled /w/[shortName]/[documentId] in 20ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:29:17.885Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:29:17.911Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[WizardPage] Loading existing document: Hnw8dVfnyERyz4kuAIZv
+[DocumentPersistence] Loading document { documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'combined-features-test',
+    'function-calling-unit-converter',
+    'final-summary',
+    'grounding-google-search',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'code-execution-python',
+    'document-understanding-test',
+    'function-calling-weather',
+    'grounding-url-context',
+    'test-title'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageCount: 14,
+  validatedStageIds: [
+    'combined-features-test',
+    'function-calling-unit-converter',
+    'final-summary',
+    'grounding-google-search',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'code-execution-python',
+    'document-understanding-test',
+    'function-calling-weather',
+    'grounding-url-context',
+    'test-title'
+  ]
+}
+ GET /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 639ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:29:18.331Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:29:18.359Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ ✓ Compiled /w/[shortName]/[documentId] in 17ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:29:24.895Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:29:24.924Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[WizardPage] Loading existing document: Hnw8dVfnyERyz4kuAIZv
+[DocumentPersistence] Loading document { documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'document-understanding-test',
+    'function-calling-unit-converter',
+    'function-calling-weather',
+    'streaming-test',
+    'image-understanding-test',
+    'grounding-google-search',
+    'code-execution-python',
+    'combined-features-test',
+    'thinking-mode-test',
+    'grounding-url-context',
+    'test-title',
+    'function-calling-calculator',
+    'chat-mode-test',
+    'final-summary'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageCount: 14,
+  validatedStageIds: [
+    'document-understanding-test',
+    'function-calling-unit-converter',
+    'function-calling-weather',
+    'streaming-test',
+    'image-understanding-test',
+    'grounding-google-search',
+    'code-execution-python',
+    'combined-features-test',
+    'thinking-mode-test',
+    'grounding-url-context',
+    'test-title',
+    'function-calling-calculator',
+    'chat-mode-test',
+    'final-summary'
+  ]
+}
+ GET /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 595ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:29:25.344Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:29:25.372Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ ✓ Compiled /w/[shortName]/[documentId] in 16ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:29:34.006Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:29:34.033Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[WizardPage] Loading existing document: Hnw8dVfnyERyz4kuAIZv
+[DocumentPersistence] Loading document { documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'thinking-mode-test',
+    'streaming-test',
+    'grounding-url-context',
+    'chat-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'code-execution-python',
+    'image-understanding-test',
+    'final-summary',
+    'combined-features-test',
+    'grounding-google-search',
+    'function-calling-unit-converter',
+    'test-title',
+    'document-understanding-test'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageCount: 14,
+  validatedStageIds: [
+    'thinking-mode-test',
+    'streaming-test',
+    'grounding-url-context',
+    'chat-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'code-execution-python',
+    'image-understanding-test',
+    'final-summary',
+    'combined-features-test',
+    'grounding-google-search',
+    'function-calling-unit-converter',
+    'test-title',
+    'document-understanding-test'
+  ]
+}
+ GET /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 577ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:29:34.455Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:29:34.486Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.0-flash-exp',
+  temperature: 0.7,
+  stageOutputType: 'text'
+}
+Prompt variable '{{userInput}}' not found in context. Replacing with empty string.
+[runAiStage] Filled prompt length: 70
+Executing AI stage with input: {
+  "promptTemplate": "\n\nUse the calculator tool to solve any mathematical operations needed.",
+  "model": "googleai/gemini-2.0-flash-exp",
+  "temperature": 0.7,
+  "toolNames": [
+    "simpleCalculator"
+  ],
+  "fileInputs": []
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'googleai/gemini-2.0-flash-exp',
+  hasTools: true,
+  hasGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: '\n\nUse the calculator tool to solve any mathematical operations needed....',
+  chatHistory: 'none'
+}
+[AI Stage Flow Enhanced] Failed to load tools: Error: Cannot define new actions at runtime.
+See: https://github.com/firebase/genkit/blob/main/docs/errors/no_new_actions_at_runtime.md
+    at [project]/src/ai/tools/sample-tools.ts [app-rsc] (ecmascript) (src/ai/tools/sample-tools.ts:5:39)
+    at <unknown> (.next/server/chunks/ssr/_7596b54d._.js:25:16)
+    at async (src/ai/flows/ai-stage-execution.ts:123:29)
+    at async runAiStage (src/app/actions/aiActions.ts:128:19)
+  3 |
+  4 | // Define a simple calculator tool
+> 5 | export const simpleCalculatorTool = ai.defineTool(
+    |                                       ^
+  6 |   {
+  7 |     name: 'simpleCalculator',
+  8 |     description: 'Performs basic arithmetic operations: addition, subtraction, multiplication, division.',
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 70
+}
+[AI Stage Flow Enhanced] Generation path decision: {
+  shouldUseStreaming: true,
+  streamingEnabled: undefined,
+  hasHistory: true,
+  hasTools: false
+}
+[AI Stage Flow Enhanced] Streaming loop 1 {
+  historyLength: 1,
+  hasPrompt: false,
+  hasHistory: true,
+  firstMessage: { role: 'user', partsCount: 1 }
+}
+[AI Stage Flow Enhanced] generateOptions before streaming: {
+  "model": "googleai/gemini-2.0-flash-exp",
+  "hasHistory": true,
+  "hasPrompt": false,
+  "hasTools": false,
+  "toolsCount": 0,
+  "config": {
+    "temperature": 0.7
+  }
+}
+[AI Stage Flow Enhanced] Converted to prompt-based generation
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:29:45.175Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:29:45.204Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[runAiStage] Success, content type: string
+ POST /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 1125ms
+ ✓ Compiled /w/[shortName]/[documentId] in 24ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:31:42.380Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:31:42.407Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[WizardPage] Loading existing document: Hnw8dVfnyERyz4kuAIZv
+[DocumentPersistence] Loading document { documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:31:42.839Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:31:42.868Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'function-calling-unit-converter',
+    'combined-features-test',
+    'function-calling-weather',
+    'grounding-google-search',
+    'final-summary',
+    'function-calling-calculator',
+    'chat-mode-test',
+    'streaming-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'test-title',
+    'code-execution-python',
+    'grounding-url-context',
+    'thinking-mode-test'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageCount: 14,
+  validatedStageIds: [
+    'function-calling-unit-converter',
+    'combined-features-test',
+    'function-calling-weather',
+    'grounding-google-search',
+    'final-summary',
+    'function-calling-calculator',
+    'chat-mode-test',
+    'streaming-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'test-title',
+    'code-execution-python',
+    'grounding-url-context',
+    'thinking-mode-test'
+  ]
+}
+ GET /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 1132ms
