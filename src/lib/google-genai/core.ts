@@ -4,7 +4,7 @@
  * Modular design for easy feature extension
  */
 
-import { GoogleGenerativeAI, GenerativeModel, ModelParams } from '@google/generative-ai';
+import { GoogleGenerativeAI, GenerativeModel, ModelParams } from '@google/genai';
 
 export class GoogleGenAICore {
   private static instance: GoogleGenAICore;

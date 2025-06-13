@@ -13,7 +13,7 @@ import type {
   StageOutput,
   StageContext 
 } from '@/types';
-import { SchemaType } from '@google/generative-ai';
+import { SchemaType } from '@google/genai';
 
 export interface ExecutionResult {
   output: StageOutput;

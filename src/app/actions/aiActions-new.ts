@@ -10,6 +10,7 @@ import { executeAIStage, streamAIStage } from "@/ai/flows/ai-stage-execution-new
 
 interface RunAiStageParams {
   workflow?: Workflow; // Make optional for backward compatibility
+  stage?: Stage; // Optional stage object for direct use
   promptTemplate: string;
   model?: string;
   temperature?: number;
@@ -29,6 +30,17 @@ interface AiActionResult {
   content: any;
   error?: string;
   groundingMetadata?: any;
+  groundingInfo?: any; // Legacy grounding info
+  thinkingSteps?: any[];
+  outputImages?: Array<{
+    name?: string;
+    base64Data: string;
+    mimeType: string;
+  }>;
+  updatedChatHistory?: Array<{
+    role: 'user' | 'model' | 'system';
+    parts: any[];
+  }>;
   usage?: {
     promptTokens: number;
     completionTokens: number;

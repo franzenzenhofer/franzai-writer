@@ -266,7 +266,10 @@ export async function aiStageExecutionFlow(
 
     // Add thinking configuration
     if (thinkingSettings?.enabled) {
-      generateOptions.config.thinkingBudget = thinkingSettings.thinkingBudget || 8192;
+      generateOptions.config.thinkingConfig = {
+        includeThoughts: true,
+        thinkingBudget: thinkingSettings.thinkingBudget || 8192
+      };
       currentThinkingSteps.push({ type: 'textLog', message: 'Thinking mode enabled' });
     }
 
@@ -306,19 +309,20 @@ export async function aiStageExecutionFlow(
       }
       
       if (functionCallingMode) {
-        generateOptions.config.functionCallingMode = functionCallingMode;
+        // Store functionCallingMode for later use in direct API
+        (generateOptions as any).functionCallingMode = functionCallingMode;
       }
     }
 
     // Use streaming or regular generation
     const shouldUseStreaming = streamingSettings?.enabled || callHistory.length > 0 || 
-                              generateOptions.tools?.length > 0 || generateOptions.config.tools?.length > 0;
+                              generateOptions.tools?.length > 0;
     
     console.log('[AI Stage Flow Enhanced] Generation path decision:', {
       shouldUseStreaming,
       streamingEnabled: streamingSettings?.enabled,
       hasHistory: callHistory.length > 0,
-      hasTools: (generateOptions.tools?.length || 0) + (generateOptions.config.tools?.length || 0) > 0,
+      hasTools: (generateOptions.tools?.length || 0) > 0,
       googleSearchEnabled: shouldEnableGoogleSearch,
       modelUsed: modelToUse
     });
@@ -703,7 +707,12 @@ async function executeWithDirectGeminiAPI(
         content: finalResult.content,
         thinkingSteps: thinkingSteps.length > 0 ? thinkingSteps : undefined,
         groundingMetadata: finalResult.groundingMetadata,
-        groundingSources: finalResult.groundingSources,
+        groundingSources: finalResult.groundingSources?.map(source => ({
+          type: 'search' as const,
+          title: source.title,
+          url: source.uri,
+          snippet: source.snippet
+        })),
       };
       
     } else {
@@ -717,7 +726,12 @@ async function executeWithDirectGeminiAPI(
         content: result.content,
         thinkingSteps: thinkingSteps.length > 0 ? thinkingSteps : undefined,
         groundingMetadata: result.groundingMetadata,
-        groundingSources: result.groundingSources,
+        groundingSources: result.groundingSources?.map(source => ({
+          type: 'search' as const,
+          title: source.title,
+          url: source.uri,
+          snippet: source.snippet
+        })),
       };
     }
     

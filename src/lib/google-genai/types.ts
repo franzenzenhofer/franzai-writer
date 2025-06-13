@@ -13,7 +13,7 @@ import type {
   GenerationConfig,
   SafetySetting,
   RequestOptions
-} from '@google/generative-ai';
+} from '@google/genai';
 
 // Re-export core types
 export type {

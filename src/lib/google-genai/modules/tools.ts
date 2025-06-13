@@ -4,7 +4,7 @@
  */
 
 import { getGoogleGenAI } from '../core';
-import { FunctionDeclaration, SchemaType, Tool } from '@google/generative-ai';
+import { FunctionDeclaration, SchemaType, Tool } from '@google/genai';
 import type { ModelConfig } from '../types';
 
 export interface ToolDefinition {

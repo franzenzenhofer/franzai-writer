@@ -38,6 +38,7 @@ export interface Stage {
   formFields?: FormField[]; // Only if inputType is 'form'
   jsonFields?: JsonField[]; // Only if outputType is 'json' - defines how to render JSON fields
   promptTemplate?: string; 
+  prompt?: string; // Resolved prompt after template substitution
   model?: string; // Optional: Specific AI model for this stage
   temperature?: number; // Optional: Specific temperature for this stage
   outputType: "text" | "json" | "markdown" | "html";
@@ -57,6 +58,7 @@ export interface Stage {
     thinkingBudget?: number; // Token budget for thinking mode (128-32768)
   };
   toolNames?: string[]; // List of tools available for this stage
+  tools?: any[]; // Tool definitions for this stage
   functionCallingMode?: "AUTO" | "ANY" | "NONE"; // How function calling should work
   systemInstructions?: string;
   chatEnabled?: boolean;
@@ -98,6 +100,9 @@ export interface Stage {
   editEnabled?: boolean; // Enable Edit button for this stage (defaults based on stage type)
   showThinking?: boolean; // Show thinking process for this stage (defaults to false)
   copyable?: boolean; // Enable copy button for text/markdown output (defaults to false)
+  jsonSchema?: any; // JSON schema for structured output
+  maxTokens?: number; // Maximum tokens for output
+  systemInstruction?: string; // Alias for systemInstructions
 }
 
 export interface WorkflowConfig {
@@ -121,6 +126,8 @@ export interface Workflow {
   description: string;
   stages: Stage[];
   config?: WorkflowConfig;
+  defaultModel?: string; // Default model for workflow
+  temperature?: number; // Default temperature for workflow
 }
 
 export interface StageState {
@@ -209,6 +216,17 @@ export interface WizardInstance {
   workflow: Workflow;
   stageStates: Record<string, StageState>; 
   currentStageId?: string; 
+}
+
+export interface StageInput {
+  inputType: StageInputType;
+  userInput?: any;
+  formFields?: FormField[];
+}
+
+export interface StageContext {
+  contextVars: Record<string, any>;
+  stageStates: Record<string, StageState>;
 }
 
 export interface AiStageExecutionParams {

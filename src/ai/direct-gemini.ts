@@ -215,7 +215,7 @@ export async function generateStreamWithDirectGemini(request: DirectGeminiReques
   }
 
   try {
-    const stream = client.models.generateContentStream({
+    const streamPromise = client.models.generateContentStream({
       model: request.model,
       contents,
       config
@@ -226,6 +226,7 @@ export async function generateStreamWithDirectGemini(request: DirectGeminiReques
       let finalGroundingMetadata: DirectGeminiResponse['groundingMetadata'];
       let finalGroundingSources: DirectGeminiResponse['groundingSources'] = [];
 
+      const stream = await streamPromise;
       for await (const chunk of stream) {
         const chunkText = chunk.text || '';
         accumulatedContent += chunkText;

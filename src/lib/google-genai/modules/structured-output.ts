@@ -4,7 +4,7 @@
  */
 
 import { getGoogleGenAI } from '../core';
-import { SchemaType } from '@google/generative-ai';
+import { SchemaType } from '@google/genai';
 import type { ModelConfig } from '../types';
 
 export class StructuredOutputModule {
@@ -26,12 +26,9 @@ export class StructuredOutputModule {
           topK: modelConfig.topK,
           responseMimeType: 'application/json',
           responseSchema: schema
-        }
+        },
+        systemInstruction: modelConfig.systemInstruction
       });
-
-      if (modelConfig.systemInstruction) {
-        model.systemInstruction = modelConfig.systemInstruction;
-      }
 
       const result = await model.generateContent(prompt);
       const response = await result.response;
