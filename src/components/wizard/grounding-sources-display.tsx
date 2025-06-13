@@ -107,7 +107,7 @@ export function GroundingSourcesDisplay({ sources, groundingMetadata }: Groundin
             <div className="space-y-2">
               {groundingMetadata.groundingSupports.map((support, index) => (
                 <div key={index} className="bg-muted/30 rounded p-2">
-                  <p className="text-xs mb-1">"{support.segment.text}"</p>
+                  <p className="text-xs mb-1">&ldquo;{support.segment.text}&rdquo;</p>
                   <div className="flex items-center gap-2">
                     <span className="text-xs text-muted-foreground">Confidence:</span>
                     {support.confidenceScores.map((score, scoreIndex) => (

@@ -43,12 +43,7 @@ export class TextGenerationModule {
       
       return {
         text: result.text || '',
-        usageMetadata: result.usageMetadata ? {
-          promptTokenCount: result.usageMetadata.promptTokens || 0,
-          candidatesTokenCount: result.usageMetadata.candidateTokens || 0,
-          totalTokenCount: result.usageMetadata.totalTokens || 0,
-          thoughtsTokenCount: result.usageMetadata.thoughtsTokens
-        } : undefined,
+        usageMetadata: result.usageMetadata as any, // Type mismatch between @google/genai and our interface
         finishReason: result.candidates?.[0]?.finishReason,
         safetyRatings: result.candidates?.[0]?.safetyRatings,
       };

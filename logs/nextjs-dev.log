@@ -35218,3 +35218,233 @@ Starting inspector on 127.0.0.1:9230 failed: address already in use
 [FIREBASE INIT] Emulator mode enabled
 [FIREBASE INIT] Running on server, skipping emulator connection
 Starting inspector on 127.0.0.1:9230 failed: address already in use
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'poem' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'poem',
+  workflowId: 'poem-generator',
+  workflowName: 'Poem Generator'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'poem',
+  documentId: 'mbv97dsbw465h2a',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749846128267_5nfbh2w69',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749846128267_5nfbh2w69',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 183
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'ZW3ukQWnb055vBmWHkXR',
+  path: 'documents/ZW3ukQWnb055vBmWHkXR'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'ZW3ukQWnb055vBmWHkXR',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'ZW3ukQWnb055vBmWHkXR' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'ZW3ukQWnb055vBmWHkXR' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'ZW3ukQWnb055vBmWHkXR',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'ZW3ukQWnb055vBmWHkXR' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'ZW3ukQWnb055vBmWHkXR',
+  error: undefined,
+  originalId: 'mbv97dsbw465h2a'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbv97dsbw465h2a',
+  createdId: 'ZW3ukQWnb055vBmWHkXR',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/poem/ZW3ukQWnb055vBmWHkXR' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:22:08.591Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /w/poem/new 307 in 396ms
+ GET /dashboard 200 in 57ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 480ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'poem' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'poem',
+  workflowId: 'poem-generator',
+  workflowName: 'Poem Generator'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'poem',
+  documentId: 'mbv97j8hwif5lb7',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749846135330_9ge1rhj0m',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749846135330_9ge1rhj0m',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 183
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'tADbgd83bSCAw1JqnQRL',
+  path: 'documents/tADbgd83bSCAw1JqnQRL'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'tADbgd83bSCAw1JqnQRL',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'tADbgd83bSCAw1JqnQRL' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'tADbgd83bSCAw1JqnQRL' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'tADbgd83bSCAw1JqnQRL',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'tADbgd83bSCAw1JqnQRL' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'tADbgd83bSCAw1JqnQRL',
+  error: undefined,
+  originalId: 'mbv97j8hwif5lb7'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbv97j8hwif5lb7',
+  createdId: 'tADbgd83bSCAw1JqnQRL',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/poem/tADbgd83bSCAw1JqnQRL' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/poem/new 200 in 112ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:22:15.639Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
