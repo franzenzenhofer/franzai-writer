@@ -11084,3 +11084,535 @@ Starting inspector on 127.0.0.1:9230 failed: address already in use
 }
 [NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
  GET /w/poem/new 200 in 155ms
+ GET /dashboard 200 in 22ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'poem' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'poem',
+  workflowId: 'poem-generator',
+  workflowName: 'Poem Generator'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'poem',
+  documentId: 'mbugreujwebwtnu',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749798353900_m23wzo3jb',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749798353900_m23wzo3jb',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 183
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'GBWqzcJU1YBIAEuuXL8v',
+  path: 'documents/GBWqzcJU1YBIAEuuXL8v'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'GBWqzcJU1YBIAEuuXL8v',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'GBWqzcJU1YBIAEuuXL8v' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'GBWqzcJU1YBIAEuuXL8v' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'GBWqzcJU1YBIAEuuXL8v',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'GBWqzcJU1YBIAEuuXL8v' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'GBWqzcJU1YBIAEuuXL8v',
+  error: undefined,
+  originalId: 'mbugreujwebwtnu'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbugreujwebwtnu',
+  createdId: 'GBWqzcJU1YBIAEuuXL8v',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/poem/GBWqzcJU1YBIAEuuXL8v' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/poem/new 200 in 131ms
+Debugger listening on ws://127.0.0.1:9230/b4b7151d-ea2d-4092-a94f-50692453c5df
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 645ms
+ ○ Compiling /workflow-details/[workflowId] ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ GET / 200 in 915ms
+[test-route] GET request received
+ GET /api/test-route 200 in 237ms
+[TestWorkflowPage] STEP 1: Page function called
+[TestWorkflowPage] STEP 2: Params resolved: { workflowId: 'poem-generator' }
+ GET /workflow-test/poem-generator 200 in 1130ms
+Debugger listening on ws://127.0.0.1:9229/bada9785-ed16-4a51-886a-f6951caa1fbe
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 816443,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/a550a673-7964-4d63-9237-f51e8e43697c
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 631ms
+ ○ Compiling / ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled / in 1472ms
+ GET / 200 in 1766ms
+ ○ Compiling /workflow-details/[workflowId] ...
+ ✓ Compiled /workflow-details/[workflowId] in 663ms
+ GET /workflow-details/poem-generator 200 in 899ms
+ GET /workflow-details/targeted-page-seo-optimized-v3 200 in 78ms
+ ✓ Compiled /favicon.ico in 204ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 457ms
+ GET /workflow-details/poem-generator 200 in 101ms
+ ✓ Compiled /workflow-details/[workflowId] in 12ms
+[WorkflowDetailsPage] STEP 1: Page function called
+[WorkflowDetailsPage] STEP 2: Params received: Promise {
+  <pending>,
+  workflowId: 'targeted-page-seo-optimized-v3',
+  [Symbol(async_id_symbol)]: 37946,
+  [Symbol(trigger_async_id_symbol)]: 37945,
+  [Symbol(kResourceStore)]: {
+    isStaticGeneration: false,
+    page: '/workflow-details/[workflowId]/page',
+    fallbackRouteParams: null,
+    route: '/workflow-details/[workflowId]',
+    incrementalCache: IncrementalCache {
+      locks: Map(0) {},
+      hasCustomCacheHandler: false,
+      dev: true,
+      disableForTestmode: false,
+      minimalMode: false,
+      requestHeaders: [Object],
+      requestProtocol: 'http',
+      allowedRevalidateHeaderKeys: undefined,
+      prerenderManifest: [Object],
+      cacheControls: [SharedCacheControls],
+      fetchCacheKeyPrefix: '',
+      cacheHandler: [FileSystemCache]
+    },
+    cacheLifeProfiles: {
+      default: [Object],
+      seconds: [Object],
+      minutes: [Object],
+      hours: [Object],
+      days: [Object],
+      weeks: [Object],
+      max: [Object]
+    },
+    isRevalidate: false,
+    isPrerendering: undefined,
+    fetchCache: undefined,
+    isOnDemandRevalidate: false,
+    isDraftMode: false,
+    requestEndedState: { ended: false },
+    isPrefetchRequest: false,
+    buildId: 'development',
+    reactLoadableManifest: {},
+    assetPrefix: '',
+    afterContext: AfterContext {
+      workUnitStores: Set(0) {},
+      waitUntil: [Function (anonymous)],
+      onClose: [Function: bound onClose],
+      onTaskError: undefined,
+      callbackQueue: [EventEmitter]
+    },
+    dynamicIOEnabled: false,
+    dev: true,
+    previouslyRevalidatedTags: [],
+    refreshTagsByCacheKind: Map(2) { 'default' => [Object], 'remote' => [Object] },
+    fetchMetrics: []
+  },
+  [Symbol(kResourceStore)]: {
+    type: 'request',
+    phase: 'render',
+    implicitTags: { tags: [Array], expirationsByCacheKind: [Map] },
+    url: {
+      pathname: '/workflow-details/targeted-page-seo-optimized-v3',
+      search: '?_rsc=1yzk1'
+    },
+    rootParams: {},
+    headers: [Getter],
+    cookies: [Getter/Setter],
+    mutableCookies: [Getter],
+    userspaceMutableCookies: [Getter],
+    draftMode: [Getter],
+    renderResumeDataCache: null,
+    isHmrRefresh: true,
+    serverComponentsHmrCache: LRUCache {
+      cache: Map(0) {},
+      sizes: Map(0) {},
+      totalSize: 0,
+      maxSize: 52428800,
+      calculateSize: [Function: length]
+    }
+  },
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined
+}
+[WorkflowDetailsPage] STEP 3: WorkflowId extracted: targeted-page-seo-optimized-v3
+[WorkflowDetailsPage] STEP 4: Calling getWorkflowById...
+[WorkflowDetailsPage] STEP 5: Workflow result: Found
+[WorkflowDetailsPage] STEP 1: Page function called
+[WorkflowDetailsPage] STEP 2: Params received: Promise {
+  <pending>,
+  workflowId: 'poem-generator',
+  [Symbol(async_id_symbol)]: 38979,
+  [Symbol(trigger_async_id_symbol)]: 38978,
+  [Symbol(kResourceStore)]: {
+    isStaticGeneration: false,
+    page: '/workflow-details/[workflowId]/page',
+    fallbackRouteParams: null,
+    route: '/workflow-details/[workflowId]',
+    incrementalCache: IncrementalCache {
+      locks: Map(0) {},
+      hasCustomCacheHandler: false,
+      dev: true,
+      disableForTestmode: false,
+      minimalMode: false,
+      requestHeaders: [Object],
+      requestProtocol: 'http',
+      allowedRevalidateHeaderKeys: undefined,
+      prerenderManifest: [Object],
+      cacheControls: [SharedCacheControls],
+      fetchCacheKeyPrefix: '',
+      cacheHandler: [FileSystemCache]
+    },
+    cacheLifeProfiles: {
+      default: [Object],
+      seconds: [Object],
+      minutes: [Object],
+      hours: [Object],
+      days: [Object],
+      weeks: [Object],
+      max: [Object]
+    },
+    isRevalidate: false,
+    isPrerendering: undefined,
+    fetchCache: undefined,
+    isOnDemandRevalidate: false,
+    isDraftMode: false,
+    requestEndedState: { ended: false },
+    isPrefetchRequest: false,
+    buildId: 'development',
+    reactLoadableManifest: {},
+    assetPrefix: '',
+    afterContext: AfterContext {
+      workUnitStores: Set(0) {},
+      waitUntil: [Function (anonymous)],
+      onClose: [Function: bound onClose],
+      onTaskError: undefined,
+      callbackQueue: [EventEmitter]
+    },
+    dynamicIOEnabled: false,
+    dev: true,
+    previouslyRevalidatedTags: [],
+    refreshTagsByCacheKind: Map(2) { 'default' => [Object], 'remote' => [Object] },
+    fetchMetrics: []
+  },
+  [Symbol(kResourceStore)]: {
+    type: 'request',
+    phase: 'render',
+    implicitTags: { tags: [Array], expirationsByCacheKind: [Map] },
+    url: {
+      pathname: '/workflow-details/poem-generator',
+      search: '?_rsc=482u1'
+    },
+    rootParams: {},
+    headers: [Getter],
+    cookies: [Getter/Setter],
+    mutableCookies: [Getter],
+    userspaceMutableCookies: [Getter],
+    draftMode: [Getter],
+    renderResumeDataCache: null,
+    isHmrRefresh: true,
+    serverComponentsHmrCache: LRUCache {
+      cache: Map(0) {},
+      sizes: Map(0) {},
+      totalSize: 0,
+      maxSize: 52428800,
+      calculateSize: [Function: length]
+    }
+  },
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined
+}
+[WorkflowDetailsPage] STEP 3: WorkflowId extracted: poem-generator
+[WorkflowDetailsPage] STEP 4: Calling getWorkflowById...
+[WorkflowDetailsPage] STEP 5: Workflow result: Found
+ GET /workflow-details/targeted-page-seo-optimized-v3 200 in 137ms
+ GET /workflow-details/poem-generator 200 in 137ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 225ms
+[WorkflowDetailsPage] STEP 1: Page function called
+[WorkflowDetailsPage] STEP 2: Params received: Promise {
+  <pending>,
+  workflowId: 'poem-generator',
+  [Symbol(async_id_symbol)]: 45738,
+  [Symbol(trigger_async_id_symbol)]: 45737,
+  [Symbol(kResourceStore)]: {
+    isStaticGeneration: false,
+    page: '/workflow-details/[workflowId]/page',
+    fallbackRouteParams: null,
+    route: '/workflow-details/[workflowId]',
+    incrementalCache: IncrementalCache {
+      locks: Map(0) {},
+      hasCustomCacheHandler: false,
+      dev: true,
+      disableForTestmode: false,
+      minimalMode: false,
+      requestHeaders: [Object],
+      requestProtocol: 'http',
+      allowedRevalidateHeaderKeys: undefined,
+      prerenderManifest: [Object],
+      cacheControls: [SharedCacheControls],
+      fetchCacheKeyPrefix: '',
+      cacheHandler: [FileSystemCache]
+    },
+    cacheLifeProfiles: {
+      default: [Object],
+      seconds: [Object],
+      minutes: [Object],
+      hours: [Object],
+      days: [Object],
+      weeks: [Object],
+      max: [Object]
+    },
+    isRevalidate: false,
+    isPrerendering: undefined,
+    fetchCache: undefined,
+    isOnDemandRevalidate: false,
+    isDraftMode: false,
+    requestEndedState: { ended: false },
+    isPrefetchRequest: false,
+    buildId: 'development',
+    reactLoadableManifest: {},
+    assetPrefix: '',
+    afterContext: AfterContext {
+      workUnitStores: Set(0) {},
+      waitUntil: [Function (anonymous)],
+      onClose: [Function: bound onClose],
+      onTaskError: undefined,
+      callbackQueue: [EventEmitter]
+    },
+    dynamicIOEnabled: false,
+    dev: true,
+    previouslyRevalidatedTags: [],
+    refreshTagsByCacheKind: Map(2) { 'default' => [Object], 'remote' => [Object] },
+    fetchMetrics: []
+  },
+  [Symbol(kResourceStore)]: {
+    type: 'request',
+    phase: 'render',
+    implicitTags: { tags: [Array], expirationsByCacheKind: [Map] },
+    url: { pathname: '/workflow-details/poem-generator', search: '' },
+    rootParams: {},
+    headers: [Getter],
+    cookies: [Getter/Setter],
+    mutableCookies: [Getter],
+    userspaceMutableCookies: [Getter],
+    draftMode: [Getter],
+    renderResumeDataCache: null,
+    isHmrRefresh: false,
+    serverComponentsHmrCache: LRUCache {
+      cache: Map(0) {},
+      sizes: Map(0) {},
+      totalSize: 0,
+      maxSize: 52428800,
+      calculateSize: [Function: length]
+    }
+  },
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined
+}
+[WorkflowDetailsPage] STEP 3: WorkflowId extracted: poem-generator
+[WorkflowDetailsPage] STEP 4: Calling getWorkflowById...
+[WorkflowDetailsPage] STEP 5: Workflow result: Found
+ GET /workflow-details/poem-generator 200 in 209ms
