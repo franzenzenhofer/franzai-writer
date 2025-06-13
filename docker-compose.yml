@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  firebase-emulators:
+    image: firebase-tools:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.firebase
+    ports:
+      - "9099:9099"  # Auth
+      - "8080:8080"  # Firestore
+      - "5000:5000"  # Hosting
+      - "4000:4000"  # Emulator UI
+    volumes:
+      - ./firebase.json:/app/firebase.json
+      - ./firestore.rules:/app/firestore.rules
+      - ./firestore.indexes.json:/app/firestore.indexes.json
+      - ./emulator-data:/app/emulator-data
+    command: firebase emulators:start --import ./emulator-data --export-on-exit
+    environment:
+      - FIREBASE_PROJECT=franzai-writer

@@ -19,7 +19,7 @@ export function AuthGuard({ children, fallbackPath = '/login' }: AuthGuardProps)
     if (!loading && !user && !isDemoMode) {
       router.push(fallbackPath);
     }
-  }, [user, loading, router, fallbackPath]);
+  }, [user, loading, router, fallbackPath, isDemoMode]);
 
   if (loading) {
     return (

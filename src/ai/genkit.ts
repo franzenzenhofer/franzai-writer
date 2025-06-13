@@ -14,9 +14,4 @@ export const ai = genkit({
       apiVersion: 'v1beta',
     }),
   ],
-  // Disable telemetry and tracing to avoid OpenTelemetry issues
-  telemetry: {
-    instrumentation: 'none',
-    logger: 'none'
-  }
 });

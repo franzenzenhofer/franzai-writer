@@ -255,7 +255,7 @@ export default function DashboardPage() {
             <FileText className="mx-auto h-10 w-10 text-muted-foreground" />
             <h3 className="mt-2 text-lg font-semibold">No documents yet</h3>
             <p className="mt-1 text-sm text-muted-foreground">
-              Start creating documents and they'll appear here.
+              Start creating documents and they&apos;ll appear here.
             </p>
           </div>
         ) : (
