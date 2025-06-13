@@ -16651,3 +16651,245 @@ See: https://github.com/firebase/genkit/blob/main/docs/errors/no_new_actions_at_
   ]
 }
  GET /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 1132ms
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.0-flash-exp',
+  temperature: 0.7,
+  stageOutputType: 'text'
+}
+Prompt variable '{{userInput}}' not found in context. Replacing with empty string.
+[runAiStage] Filled prompt length: 45
+Executing AI stage with input: {
+  "promptTemplate": "\n\nProvide a detailed, comprehensive response.",
+  "model": "googleai/gemini-2.0-flash-exp",
+  "temperature": 0.7,
+  "fileInputs": []
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'googleai/gemini-2.0-flash-exp',
+  hasTools: false,
+  hasGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: '\n\nProvide a detailed, comprehensive response....',
+  chatHistory: 'none'
+}
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 45
+}
+[AI Stage Flow Enhanced] Generation path decision: {
+  shouldUseStreaming: true,
+  streamingEnabled: undefined,
+  hasHistory: true,
+  hasTools: false
+}
+[AI Stage Flow Enhanced] Streaming loop 1 {
+  historyLength: 1,
+  hasPrompt: false,
+  hasHistory: true,
+  firstMessage: { role: 'user', partsCount: 1 }
+}
+[AI Stage Flow Enhanced] generateOptions before streaming: {
+  "model": "googleai/gemini-2.0-flash-exp",
+  "hasHistory": true,
+  "hasPrompt": false,
+  "hasTools": false,
+  "toolsCount": 0,
+  "config": {
+    "temperature": 0.7
+  }
+}
+[AI Stage Flow Enhanced] Converted to prompt-based generation
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:35:47.830Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:35:47.859Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[runAiStage] Success, content type: string
+ POST /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 3297ms
+ ✓ Compiled /w/[shortName]/[documentId] in 23ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:38:53.293Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:38:53.312Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[WizardPage] Loading existing document: Hnw8dVfnyERyz4kuAIZv
+[DocumentPersistence] Loading document { documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'code-execution-python',
+    'function-calling-calculator',
+    'streaming-test',
+    'combined-features-test',
+    'grounding-url-context',
+    'test-title',
+    'chat-mode-test',
+    'thinking-mode-test',
+    'final-summary',
+    'grounding-google-search',
+    'function-calling-unit-converter',
+    'document-understanding-test',
+    'function-calling-weather',
+    'image-understanding-test'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageCount: 14,
+  validatedStageIds: [
+    'code-execution-python',
+    'function-calling-calculator',
+    'streaming-test',
+    'combined-features-test',
+    'grounding-url-context',
+    'test-title',
+    'chat-mode-test',
+    'thinking-mode-test',
+    'final-summary',
+    'grounding-google-search',
+    'function-calling-unit-converter',
+    'document-understanding-test',
+    'function-calling-weather',
+    'image-understanding-test'
+  ]
+}
+ GET /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 578ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:38:53.743Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:38:53.773Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ ✓ Compiled /w/[shortName]/[documentId] in 21ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:40:05.622Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:40:05.646Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[WizardPage] Loading existing document: Hnw8dVfnyERyz4kuAIZv
+[DocumentPersistence] Loading document { documentId: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'Hnw8dVfnyERyz4kuAIZv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'chat-mode-test',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'function-calling-calculator',
+    'image-understanding-test',
+    'thinking-mode-test',
+    'streaming-test',
+    'test-title',
+    'grounding-url-context',
+    'final-summary',
+    'grounding-google-search',
+    'combined-features-test',
+    'document-understanding-test'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'Hnw8dVfnyERyz4kuAIZv',
+  title: 'Gemini Test - Debugging Prompt Issues',
+  stageCount: 14,
+  validatedStageIds: [
+    'chat-mode-test',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'function-calling-calculator',
+    'image-understanding-test',
+    'thinking-mode-test',
+    'streaming-test',
+    'test-title',
+    'grounding-url-context',
+    'final-summary',
+    'grounding-google-search',
+    'combined-features-test',
+    'document-understanding-test'
+  ]
+}
+ GET /w/gemini-test/Hnw8dVfnyERyz4kuAIZv 200 in 628ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:40:06.089Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:40:06.120Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection

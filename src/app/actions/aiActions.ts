@@ -71,8 +71,15 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
       stageOutputType: params.stageOutputType
     });
 
-    const filledPrompt = substitutePromptVars(params.promptTemplate, params.contextVars);
+    // Create an enhanced context that includes direct userInput reference
+    const enhancedContext = {
+      ...params.contextVars,
+      userInput: params.currentStageInput // Add direct userInput reference
+    };
+
+    const filledPrompt = substitutePromptVars(params.promptTemplate, enhancedContext);
     console.log("[runAiStage] Filled prompt length:", filledPrompt.length);
+    console.log("[runAiStage] First 200 chars of filled prompt:", filledPrompt.substring(0, 200));
 
     // Check if we have a valid API key
     const apiKey = process.env.GOOGLE_GENAI_API_KEY;
