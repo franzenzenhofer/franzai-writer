@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, act } from '@testing-library/react';
+// @ts-ignore
 import { screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { StageInputArea, type StageInputAreaProps } from './stage-input-area';

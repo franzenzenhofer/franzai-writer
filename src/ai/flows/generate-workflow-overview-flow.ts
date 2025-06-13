@@ -86,7 +86,7 @@ const generateWorkflowOverviewFlow = ai.defineFlow(
     inputSchema: GenerateWorkflowOverviewInputSchema,
     outputSchema: GenerateWorkflowOverviewOutputSchema,
   },
-  async input => {
+  async (input: any) => {
     console.log('[generateWorkflowOverviewFlow] FLOW STEP 1: Flow execution started at', new Date().toISOString());
     console.log('[generateWorkflowOverviewFlow] FLOW STEP 2: Input to flow:', JSON.stringify(input, null, 2));
     

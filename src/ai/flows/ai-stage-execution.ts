@@ -1,6 +1,5 @@
 'use server';
 
-import {ai} from '@/ai/genkit';
 import {z} from 'zod';
 
 // Input Schema including all Gemini features with proper grounding implementation
@@ -108,13 +107,10 @@ const AiStageOutputSchema = z.object({
 export type AiStageOutputSchema = z.infer<typeof AiStageOutputSchema>;
 
 // Enhanced AI stage execution flow with proper Google Search grounding implementation
-export const aiStageExecutionFlow = ai.defineFlow(
-  {
-    name: 'aiStageExecutionFlow',
-    inputSchema: AiStageExecutionInputSchema,
-    outputSchema: AiStageOutputSchema,
-  },
-  async (input: AiStageExecutionInput, streamingCallback?: any): Promise<AiStageOutputSchema> => {
+export async function aiStageExecutionFlow(
+  input: AiStageExecutionInput, 
+  streamingCallback?: any
+): Promise<AiStageOutputSchema> {
     let {
       promptTemplate, model, temperature, imageData,
       thinkingSettings, toolNames, fileInputs,
@@ -373,7 +369,6 @@ export const aiStageExecutionFlow = ai.defineFlow(
       );
     }
   }
-);
 
 // Simple generation for non-streaming, non-chat requests
 async function executeSimpleGeneration(
@@ -382,13 +377,22 @@ async function executeSimpleGeneration(
   thinkingSteps: ThinkingStep[]
 ): Promise<AiStageOutputSchema> {
   try {
-    generateOptions.prompt = promptTemplate;
+    // Format prompt as expected by Genkit
+    const formattedPrompt = [{ text: promptTemplate }];
     
     // Enhanced logging for simple generation
     console.log('[AI Stage Flow Enhanced] ===== SIMPLE GENERATION REQUEST =====');
-    console.log('[AI Stage Flow Enhanced] Simple generation with options:', JSON.stringify(generateOptions, null, 2));
+    console.log('[AI Stage Flow Enhanced] Simple generation with prompt:', JSON.stringify(formattedPrompt, null, 2));
+    console.log('[AI Stage Flow Enhanced] Simple generation with config:', JSON.stringify(generateOptions, null, 2));
     
-    const response = await ai.generate(generateOptions);
+    // Dynamic import to avoid bundling server-only code in client
+    const { ai } = await import('@/ai/genkit');
+    const response = await ai.generate({
+      prompt: formattedPrompt,
+      model: generateOptions.model,
+      config: generateOptions.config,
+      tools: generateOptions.tools
+    });
     
     // Enhanced logging for simple generation response
     console.log('[AI Stage Flow Enhanced] ===== SIMPLE GENERATION RESPONSE =====');
@@ -473,12 +477,29 @@ async function executeWithStreaming(
       };
       console.log('[AI Stage Flow Enhanced] Complete Google API Request:', JSON.stringify(fullRequest, null, 2));
       
-      // Perform the API call
-      const response = await ai.chat({
+      // Convert callHistory to prompt format expected by Genkit
+      const promptParts = [];
+      for (const message of callHistory) {
+        if (message.role === 'user' || message.role === 'model') {
+          for (const part of message.parts) {
+            if (part.text) {
+              promptParts.push({ text: part.text });
+            } else if (part.inlineData) {
+              promptParts.push({ inlineData: part.inlineData });
+            } else if (part.fileData) {
+              promptParts.push({ fileData: part.fileData });
+            }
+          }
+        }
+      }
+      
+      // Perform the API call with dynamic import
+      const { ai } = await import('@/ai/genkit');
+      const response = await ai.generate({
         model: generateOptions.model,
         config: generateOptions.config,
         tools: generateOptions.tools,
-        messages: callHistory
+        prompt: promptParts
       });
       
       // Debug: Log the complete response structure

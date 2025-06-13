@@ -16,7 +16,7 @@ export const simpleCalculatorTool = ai.defineTool(
       error: z.string().optional(),
     }),
   },
-  async (input) => {
+  async (input: any) => {
     console.log('[simpleCalculatorTool] Received input:', input);
     let result: number | undefined;
     let error: string | undefined;
@@ -67,7 +67,7 @@ export const weatherTool = ai.defineTool(
       windSpeed: z.number(),
     }),
   },
-  async (input) => {
+  async (input: any) => {
     console.log('[weatherTool] Getting weather for:', input.location);
     // Return demo data - in production this would call a weather API
     const demoWeather = {
@@ -103,7 +103,7 @@ export const unitConverter = ai.defineTool(
       error: z.string().optional(),
     }),
   },
-  async (input) => {
+  async (input: any) => {
     console.log('[unitConverter] Converting:', input);
     
     // Simple conversion logic - in production this would be more comprehensive

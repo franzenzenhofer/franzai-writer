@@ -23707,3 +23707,3079 @@ Error stack: TypeError: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$a
 }
 [FIREBASE INIT] Emulator mode enabled
 [FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'PPM9WxyQMLkwsg2WDOS8' }
+[WizardPage] Loading existing document: PPM9WxyQMLkwsg2WDOS8
+[DocumentPersistence] Loading document { documentId: 'PPM9WxyQMLkwsg2WDOS8' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'PPM9WxyQMLkwsg2WDOS8' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'PPM9WxyQMLkwsg2WDOS8' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'PPM9WxyQMLkwsg2WDOS8',
+  title: 'New Poem Generator',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'PPM9WxyQMLkwsg2WDOS8',
+  title: 'New Poem Generator',
+  stageCount: 0,
+  validatedStageIds: []
+}
+ GET /w/poem/PPM9WxyQMLkwsg2WDOS8 200 in 336ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 235ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T15:23:04.949Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:23:04.984Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.0-flash',
+  temperature: 0.8,
+  stageOutputType: 'json',
+  hasAiRedoNotes: false,
+  forceGoogleSearchGrounding: false
+}
+[runAiStage] Filled prompt length: 406
+[runAiStage] First 200 chars of filled prompt: Write a poem about 'test'.
+Make it about 4 stanzas long.
+
+Also create a compelling title for this poem.
+
+Format your response as a JSON object with two keys:
+- 'title': A creative, engaging title for 
+Executing AI stage with input: {
+  "promptTemplate": "Write a poem about 'test'.\nMake it about 4 stanzas long.\n\nAlso create a compelling title for this poem.\n\nFormat your response as a JSON object with two keys:\n- 'title': A creative, engaging title for the poem (this will be used as the document title)\n- 'poem': The full poem content\n\nExample:\n{\n  \"title\": \"Whispers of the Morning\",\n  \"poem\": \"Lines of the poem here...\"\n}\n\nEnsure the output is valid JSON.",
+  "model": "googleai/gemini-2.0-flash",
+  "temperature": 0.8,
+  "fileInputs": [],
+  "forceGoogleSearchGrounding": false
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'googleai/gemini-2.0-flash',
+  hasTools: false,
+  hasGrounding: false,
+  forceGoogleSearchGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: "Write a poem about 'test'.\n" +
+    'Make it about 4 stanzas long.\n' +
+    '\n' +
+    'Also create a compelling title for this po...',
+  chatHistory: 'none'
+}
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 406
+}
+[AI Stage Flow Enhanced] Generation path decision: {
+  shouldUseStreaming: true,
+  streamingEnabled: undefined,
+  hasHistory: true,
+  hasTools: false,
+  googleSearchEnabled: undefined,
+  modelUsed: 'googleai/gemini-2.0-flash'
+}
+[AI Stage Flow Enhanced] Streaming iteration 1/5
+[AI Stage Flow Enhanced] ===== API REQUEST DETAILS =====
+[AI Stage Flow Enhanced] Full API Request Configuration: {
+  model: 'googleai/gemini-2.0-flash',
+  temperature: 0.8,
+  hasTools: false,
+  toolsCount: 0,
+  toolNames: [],
+  hasGoogleSearchRetrieval: false,
+  googleSearchRetrieval: undefined,
+  hasGoogleSearchGrounding: false,
+  googleSearchGrounding: undefined,
+  systemInstruction: undefined,
+  callHistoryLength: 1,
+  fullCallHistory: [ { role: 'user', parts: [Array] } ],
+  forceGoogleSearchGrounding: false
+}
+[AI Stage Flow Enhanced] Complete Google API Request: {
+  "model": "googleai/gemini-2.0-flash",
+  "config": {
+    "temperature": 0.8
+  },
+  "messages": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "Write a poem about 'test'.\nMake it about 4 stanzas long.\n\nAlso create a compelling title for this poem.\n\nFormat your response as a JSON object with two keys:\n- 'title': A creative, engaging title for the poem (this will be used as the document title)\n- 'poem': The full poem content\n\nExample:\n{\n  \"title\": \"Whispers of the Morning\",\n  \"poem\": \"Lines of the poem here...\"\n}\n\nEnsure the output is valid JSON."
+        }
+      ]
+    }
+  ]
+}
+[AI Stage Flow Enhanced] Streaming execution failed: TypeError: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$ai$2f$genkit$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__.ai.chat is not a function
+    at executeWithStreaming (src/ai/flows/ai-stage-execution.ts:477:32)
+    at <unknown> (src/ai/flows/ai-stage-execution.ts:358:19)
+    at async runAiStage (src/app/actions/aiActions.ts:183:19)
+  475 |       
+  476 |       // Perform the API call
+> 477 |       const response = await ai.chat({
+      |                                ^
+  478 |         model: generateOptions.model,
+  479 |         config: generateOptions.config,
+  480 |         tools: generateOptions.tools,
+AI Stage Execution Error: TypeError: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$ai$2f$genkit$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__.ai.chat is not a function
+    at executeWithStreaming (src/ai/flows/ai-stage-execution.ts:477:32)
+    at <unknown> (src/ai/flows/ai-stage-execution.ts:358:19)
+    at async runAiStage (src/app/actions/aiActions.ts:183:19)
+  475 |       
+  476 |       // Perform the API call
+> 477 |       const response = await ai.chat({
+      |                                ^
+  478 |         model: generateOptions.model,
+  479 |         config: generateOptions.config,
+  480 |         tools: generateOptions.tools, {
+  traceId: '9ad6fea90999e4815acf699319c5f095'
+}
+Error stack: TypeError: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$ai$2f$genkit$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__.ai.chat is not a function
+    at executeWithStreaming (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:729:158)
+    at /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:649:22
+    at /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2216:20
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_hooks:91:14)
+    at /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2211:40
+    at /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1768:62
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_hooks:91:14)
+    at AsyncStore.run (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2150:31)
+    at runInActionRuntimeContext (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1805:32)
+    at /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1768:22
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1701:33
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1040:20
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1057:28
+    at async runInNewSpan (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1050:12)
+    at async newTrace (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1033:12)
+    at async actionFn.run (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1670:22)
+    at async actionFn (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1649:17)
+    at async runAiStage (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:1107:24)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:417:2449
+    at async handleAction (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:416:21371)
+    at async renderToHTMLOrFlightImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:422:27153)
+    at async doRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1655:34)
+    at async DevServer.renderToResponseWithComponentsImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1920:28)
+    at async DevServer.renderPageComponent (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2408:24)
+    at async DevServer.renderToResponseImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2445:32)
+    at async DevServer.pipeImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1008:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/next-server.js:305:17)
+    at async DevServer.handleRequestImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:900:17)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:371:20
+    at async Span.traceAsyncFn (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/trace/trace.js:157:20)
+    at async DevServer.handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:368:24)
+    at async invokeRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:237:21)
+    at async handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:428:24)
+    at async requestHandlerImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:452:13)
+    at async Server.requestListener (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/start-server.js:158:13)
+ POST /w/poem/PPM9WxyQMLkwsg2WDOS8 200 in 313ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T15:23:08.464Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:23:08.494Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET / 200 in 56ms
+ GET /dashboard 200 in 54ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'poem' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'poem',
+  workflowId: 'poem-generator',
+  workflowName: 'Poem Generator'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'poem',
+  documentId: 'mbuyj7v7wy8o6j1',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749828204692_i2xxby7qf',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749828204692_i2xxby7qf',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 183
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'YpDV3hMPX0TZr7yggLTT',
+  path: 'documents/YpDV3hMPX0TZr7yggLTT'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'YpDV3hMPX0TZr7yggLTT',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'YpDV3hMPX0TZr7yggLTT' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'YpDV3hMPX0TZr7yggLTT' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'YpDV3hMPX0TZr7yggLTT',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'YpDV3hMPX0TZr7yggLTT' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'YpDV3hMPX0TZr7yggLTT',
+  error: undefined,
+  originalId: 'mbuyj7v7wy8o6j1'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbuyj7v7wy8o6j1',
+  createdId: 'YpDV3hMPX0TZr7yggLTT',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/poem/YpDV3hMPX0TZr7yggLTT' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/poem/new 200 in 261ms
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'YpDV3hMPX0TZr7yggLTT' }
+[WizardPage] Loading existing document: YpDV3hMPX0TZr7yggLTT
+[DocumentPersistence] Loading document { documentId: 'YpDV3hMPX0TZr7yggLTT' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'YpDV3hMPX0TZr7yggLTT' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'YpDV3hMPX0TZr7yggLTT' }
+[WizardPage] Loading existing document: YpDV3hMPX0TZr7yggLTT
+[DocumentPersistence] Loading document { documentId: 'YpDV3hMPX0TZr7yggLTT' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'YpDV3hMPX0TZr7yggLTT' }
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:23:25.011Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'YpDV3hMPX0TZr7yggLTT' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'YpDV3hMPX0TZr7yggLTT',
+  title: 'New Poem Generator',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'YpDV3hMPX0TZr7yggLTT',
+  title: 'New Poem Generator',
+  stageCount: 0,
+  validatedStageIds: []
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'YpDV3hMPX0TZr7yggLTT' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'YpDV3hMPX0TZr7yggLTT',
+  title: 'New Poem Generator',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'YpDV3hMPX0TZr7yggLTT',
+  title: 'New Poem Generator',
+  stageCount: 0,
+  validatedStageIds: []
+}
+ GET /w/poem/YpDV3hMPX0TZr7yggLTT 200 in 131ms
+ GET /w/poem/YpDV3hMPX0TZr7yggLTT 200 in 91ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T15:23:25.469Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:23:25.499Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.0-flash',
+  temperature: 0.8,
+  stageOutputType: 'json',
+  hasAiRedoNotes: false,
+  forceGoogleSearchGrounding: false
+}
+[runAiStage] Filled prompt length: 406
+[runAiStage] First 200 chars of filled prompt: Write a poem about 'test'.
+Make it about 4 stanzas long.
+
+Also create a compelling title for this poem.
+
+Format your response as a JSON object with two keys:
+- 'title': A creative, engaging title for 
+Executing AI stage with input: {
+  "promptTemplate": "Write a poem about 'test'.\nMake it about 4 stanzas long.\n\nAlso create a compelling title for this poem.\n\nFormat your response as a JSON object with two keys:\n- 'title': A creative, engaging title for the poem (this will be used as the document title)\n- 'poem': The full poem content\n\nExample:\n{\n  \"title\": \"Whispers of the Morning\",\n  \"poem\": \"Lines of the poem here...\"\n}\n\nEnsure the output is valid JSON.",
+  "model": "googleai/gemini-2.0-flash",
+  "temperature": 0.8,
+  "fileInputs": [],
+  "forceGoogleSearchGrounding": false
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'googleai/gemini-2.0-flash',
+  hasTools: false,
+  hasGrounding: false,
+  forceGoogleSearchGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: "Write a poem about 'test'.\n" +
+    'Make it about 4 stanzas long.\n' +
+    '\n' +
+    'Also create a compelling title for this po...',
+  chatHistory: 'none'
+}
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 406
+}
+[AI Stage Flow Enhanced] Generation path decision: {
+  shouldUseStreaming: true,
+  streamingEnabled: undefined,
+  hasHistory: true,
+  hasTools: false,
+  googleSearchEnabled: undefined,
+  modelUsed: 'googleai/gemini-2.0-flash'
+}
+[AI Stage Flow Enhanced] Streaming iteration 1/5
+[AI Stage Flow Enhanced] ===== API REQUEST DETAILS =====
+[AI Stage Flow Enhanced] Full API Request Configuration: {
+  model: 'googleai/gemini-2.0-flash',
+  temperature: 0.8,
+  hasTools: false,
+  toolsCount: 0,
+  toolNames: [],
+  hasGoogleSearchRetrieval: false,
+  googleSearchRetrieval: undefined,
+  hasGoogleSearchGrounding: false,
+  googleSearchGrounding: undefined,
+  systemInstruction: undefined,
+  callHistoryLength: 1,
+  fullCallHistory: [ { role: 'user', parts: [Array] } ],
+  forceGoogleSearchGrounding: false
+}
+[AI Stage Flow Enhanced] Complete Google API Request: {
+  "model": "googleai/gemini-2.0-flash",
+  "config": {
+    "temperature": 0.8
+  },
+  "messages": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "Write a poem about 'test'.\nMake it about 4 stanzas long.\n\nAlso create a compelling title for this poem.\n\nFormat your response as a JSON object with two keys:\n- 'title': A creative, engaging title for the poem (this will be used as the document title)\n- 'poem': The full poem content\n\nExample:\n{\n  \"title\": \"Whispers of the Morning\",\n  \"poem\": \"Lines of the poem here...\"\n}\n\nEnsure the output is valid JSON."
+        }
+      ]
+    }
+  ]
+}
+[AI Stage Flow Enhanced] Streaming execution failed: TypeError: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$ai$2f$genkit$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__.ai.chat is not a function
+    at executeWithStreaming (src/ai/flows/ai-stage-execution.ts:477:32)
+    at <unknown> (src/ai/flows/ai-stage-execution.ts:358:19)
+    at async runAiStage (src/app/actions/aiActions.ts:183:19)
+  475 |       
+  476 |       // Perform the API call
+> 477 |       const response = await ai.chat({
+      |                                ^
+  478 |         model: generateOptions.model,
+  479 |         config: generateOptions.config,
+  480 |         tools: generateOptions.tools,
+AI Stage Execution Error: TypeError: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$ai$2f$genkit$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__.ai.chat is not a function
+    at executeWithStreaming (src/ai/flows/ai-stage-execution.ts:477:32)
+    at <unknown> (src/ai/flows/ai-stage-execution.ts:358:19)
+    at async runAiStage (src/app/actions/aiActions.ts:183:19)
+  475 |       
+  476 |       // Perform the API call
+> 477 |       const response = await ai.chat({
+      |                                ^
+  478 |         model: generateOptions.model,
+  479 |         config: generateOptions.config,
+  480 |         tools: generateOptions.tools, {
+  traceId: '8fb783d072c927d0695e5f2816e3581a'
+}
+Error stack: TypeError: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$ai$2f$genkit$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__.ai.chat is not a function
+    at executeWithStreaming (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:729:158)
+    at /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:649:22
+    at /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2216:20
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_hooks:91:14)
+    at /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2211:40
+    at /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1768:62
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_hooks:91:14)
+    at AsyncStore.run (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2150:31)
+    at runInActionRuntimeContext (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1805:32)
+    at /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1768:22
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1701:33
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1040:20
+    at async /Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1057:28
+    at async runInNewSpan (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1050:12)
+    at async newTrace (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1033:12)
+    at async actionFn.run (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1670:22)
+    at async actionFn (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1649:17)
+    at async runAiStage (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__72c7832f._.js:1107:24)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:417:2449
+    at async handleAction (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:416:21371)
+    at async renderToHTMLOrFlightImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:422:27153)
+    at async doRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1655:34)
+    at async DevServer.renderToResponseWithComponentsImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1920:28)
+    at async DevServer.renderPageComponent (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2408:24)
+    at async DevServer.renderToResponseImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2445:32)
+    at async DevServer.pipeImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1008:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/next-server.js:305:17)
+    at async DevServer.handleRequestImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:900:17)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:371:20
+    at async Span.traceAsyncFn (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/trace/trace.js:157:20)
+    at async DevServer.handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:368:24)
+    at async invokeRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:237:21)
+    at async handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:428:24)
+    at async requestHandlerImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:452:13)
+    at async Server.requestListener (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/start-server.js:158:13)
+ POST /w/poem/YpDV3hMPX0TZr7yggLTT 200 in 312ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T15:23:30.833Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:23:30.863Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ ✓ Compiled /w/[shortName]/[documentId] in 63ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/w/[shortName]/[documentId]/page/build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/w/[shortName]/[documentId]/page/build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/w/[shortName]/[documentId]/page/build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/w/[shortName]/[documentId]/page/build-manifest.json'
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 523ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.b6vnp8xxgn9'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.b6vnp8xxgn9'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.8n08mlm4568'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.8n08mlm4568'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/w/[shortName]/[documentId]/page/build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/w/[shortName]/[documentId]/page/build-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/w/[shortName]/[documentId]/page/build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/w/[shortName]/[documentId]/page/build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.8zkc7jhxgsc'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.8zkc7jhxgsc'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.ck07liezd2'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.ck07liezd2'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.yu6n5vk75g'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.yu6n5vk75g'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.f77l87t65mv'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.f77l87t65mv'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/w/[shortName]/[documentId]/page/build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/w/[shortName]/[documentId]/page/build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/w/[shortName]/[documentId]/page/build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/w/[shortName]/[documentId]/page/build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.x55gwnqo5tl'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.x55gwnqo5tl'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.hgidjdl3xn'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.hgidjdl3xn'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/w/[shortName]/[documentId]/page/build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/w/[shortName]/[documentId]/page/build-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/w/[shortName]/[documentId]/page/build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/w/[shortName]/[documentId]/page/build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.khoui4dwx7p'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.khoui4dwx7p'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.6luniv5e2zu'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.6luniv5e2zu'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.0xgkkr099yea'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.0xgkkr099yea'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.zmcwu71zk7o'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.zmcwu71zk7o'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/favicon.ico/[__metadata_id__]/route/app-paths-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/favicon.ico/[__metadata_id__]/route/app-paths-manifest.json'
+}
+ ✓ Compiled in 371ms
+ ✓ Compiled in 189ms
+Debugger listening on ws://127.0.0.1:9230/f184f335-c21f-4ba3-b6cf-062a315ceb7d
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 779ms
+ ○ Compiling / ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled / in 1802ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:36:57.383Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET / 200 in 2097ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+ ✓ Compiled /w/[shortName]/[documentId] in 2.6s
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:37:12.692Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:37:12.997Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'hOWnFEkDvc9yAWhAg3hp' }
+[WizardPage] Loading existing document: hOWnFEkDvc9yAWhAg3hp
+[DocumentPersistence] Loading document { documentId: 'hOWnFEkDvc9yAWhAg3hp' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'hOWnFEkDvc9yAWhAg3hp' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'hOWnFEkDvc9yAWhAg3hp' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'hOWnFEkDvc9yAWhAg3hp',
+  title: 'test',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'final-summary',
+    'chat-mode-test',
+    'function-calling-calculator',
+    'code-execution-python',
+    'streaming-test',
+    'function-calling-unit-converter',
+    'combined-features-test',
+    'function-calling-weather',
+    'grounding-url-context',
+    'image-understanding-test',
+    'thinking-mode-test',
+    'test-title',
+    'grounding-google-search',
+    'document-understanding-test'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'hOWnFEkDvc9yAWhAg3hp',
+  title: 'test',
+  stageCount: 14,
+  validatedStageIds: [
+    'final-summary',
+    'chat-mode-test',
+    'function-calling-calculator',
+    'code-execution-python',
+    'streaming-test',
+    'function-calling-unit-converter',
+    'combined-features-test',
+    'function-calling-weather',
+    'grounding-url-context',
+    'image-understanding-test',
+    'thinking-mode-test',
+    'test-title',
+    'grounding-google-search',
+    'document-understanding-test'
+  ]
+}
+ GET /w/gemini-test/hOWnFEkDvc9yAWhAg3hp 200 in 3417ms
+ ✓ Compiled /favicon.ico in 264ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 509ms
+ GET / 200 in 47ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 692ms
+ GET /dashboard 200 in 719ms
+ ○ Compiling /w/[shortName]/new ...
+ ✓ Compiled /w/[shortName]/new in 843ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:37:20.598Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'gemini-test' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'gemini-test',
+  workflowId: 'gemini-tools-test',
+  workflowName: 'Gemini AI Tools Test'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'gemini-test',
+  documentId: 'mbuz14v8w5vy31m',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749829040613_wx424b0lp',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749829040613_wx424b0lp',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 192
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'eZNskcExO44fGonPlDhY',
+  path: 'documents/eZNskcExO44fGonPlDhY'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'eZNskcExO44fGonPlDhY',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'eZNskcExO44fGonPlDhY' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'eZNskcExO44fGonPlDhY' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'eZNskcExO44fGonPlDhY',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'eZNskcExO44fGonPlDhY' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'eZNskcExO44fGonPlDhY',
+  error: undefined,
+  originalId: 'mbuz14v8w5vy31m'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbuz14v8w5vy31m',
+  createdId: 'eZNskcExO44fGonPlDhY',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/gemini-test/eZNskcExO44fGonPlDhY' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/gemini-test/new 200 in 1385ms
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'eZNskcExO44fGonPlDhY' }
+[WizardPage] Loading existing document: eZNskcExO44fGonPlDhY
+[DocumentPersistence] Loading document { documentId: 'eZNskcExO44fGonPlDhY' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'eZNskcExO44fGonPlDhY' }
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'eZNskcExO44fGonPlDhY' }
+[WizardPage] Loading existing document: eZNskcExO44fGonPlDhY
+[DocumentPersistence] Loading document { documentId: 'eZNskcExO44fGonPlDhY' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'eZNskcExO44fGonPlDhY' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'eZNskcExO44fGonPlDhY' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'eZNskcExO44fGonPlDhY',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'eZNskcExO44fGonPlDhY',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'eZNskcExO44fGonPlDhY' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'eZNskcExO44fGonPlDhY',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'eZNskcExO44fGonPlDhY',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+ GET /w/gemini-test/eZNskcExO44fGonPlDhY 200 in 127ms
+ GET /w/gemini-test/eZNskcExO44fGonPlDhY 200 in 93ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:37:21.239Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'poem' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'poem',
+  workflowId: 'poem-generator',
+  workflowName: 'Poem Generator'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'poem',
+  documentId: 'mbuz16kywfo25k6',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749829042835_0f9nwsj7e',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749829042835_0f9nwsj7e',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 183
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'ippNNex9tdfC8bhri339',
+  path: 'documents/ippNNex9tdfC8bhri339'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'ippNNex9tdfC8bhri339',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'ippNNex9tdfC8bhri339' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'ippNNex9tdfC8bhri339' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'ippNNex9tdfC8bhri339',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'ippNNex9tdfC8bhri339' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'ippNNex9tdfC8bhri339',
+  error: undefined,
+  originalId: 'mbuz16kywfo25k6'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbuz16kywfo25k6',
+  createdId: 'ippNNex9tdfC8bhri339',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/poem/ippNNex9tdfC8bhri339' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/poem/new 200 in 127ms
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'ippNNex9tdfC8bhri339' }
+[WizardPage] Loading existing document: ippNNex9tdfC8bhri339
+[DocumentPersistence] Loading document { documentId: 'ippNNex9tdfC8bhri339' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ippNNex9tdfC8bhri339' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'ippNNex9tdfC8bhri339' }
+[WizardPage] Loading existing document: ippNNex9tdfC8bhri339
+[DocumentPersistence] Loading document { documentId: 'ippNNex9tdfC8bhri339' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ippNNex9tdfC8bhri339' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ippNNex9tdfC8bhri339' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'ippNNex9tdfC8bhri339',
+  title: 'New Poem Generator',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'ippNNex9tdfC8bhri339',
+  title: 'New Poem Generator',
+  stageCount: 0,
+  validatedStageIds: []
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ippNNex9tdfC8bhri339' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'ippNNex9tdfC8bhri339',
+  title: 'New Poem Generator',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'ippNNex9tdfC8bhri339',
+  title: 'New Poem Generator',
+  stageCount: 0,
+  validatedStageIds: []
+}
+ GET /w/poem/ippNNex9tdfC8bhri339 200 in 130ms
+ GET /w/poem/ippNNex9tdfC8bhri339 200 in 92ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:37:23.207Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:37:23.305Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.0-flash',
+  temperature: 0.8,
+  stageOutputType: 'json',
+  hasAiRedoNotes: false,
+  forceGoogleSearchGrounding: false
+}
+[runAiStage] Filled prompt length: 406
+[runAiStage] First 200 chars of filled prompt: Write a poem about 'test'.
+Make it about 4 stanzas long.
+
+Also create a compelling title for this poem.
+
+Format your response as a JSON object with two keys:
+- 'title': A creative, engaging title for 
+Executing AI stage with input: {
+  "promptTemplate": "Write a poem about 'test'.\nMake it about 4 stanzas long.\n\nAlso create a compelling title for this poem.\n\nFormat your response as a JSON object with two keys:\n- 'title': A creative, engaging title for the poem (this will be used as the document title)\n- 'poem': The full poem content\n\nExample:\n{\n  \"title\": \"Whispers of the Morning\",\n  \"poem\": \"Lines of the poem here...\"\n}\n\nEnsure the output is valid JSON.",
+  "model": "googleai/gemini-2.0-flash",
+  "temperature": 0.8,
+  "fileInputs": [],
+  "forceGoogleSearchGrounding": false
+}
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T15:37:25.794Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'googleai/gemini-2.0-flash',
+  hasTools: false,
+  hasGrounding: false,
+  forceGoogleSearchGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: "Write a poem about 'test'.\n" +
+    'Make it about 4 stanzas long.\n' +
+    '\n' +
+    'Also create a compelling title for this po...',
+  chatHistory: 'none'
+}
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 406
+}
+[AI Stage Flow Enhanced] Generation path decision: {
+  shouldUseStreaming: true,
+  streamingEnabled: undefined,
+  hasHistory: true,
+  hasTools: false,
+  googleSearchEnabled: undefined,
+  modelUsed: 'googleai/gemini-2.0-flash'
+}
+[AI Stage Flow Enhanced] Streaming iteration 1/5
+[AI Stage Flow Enhanced] ===== API REQUEST DETAILS =====
+[AI Stage Flow Enhanced] Full API Request Configuration: {
+  model: 'googleai/gemini-2.0-flash',
+  temperature: 0.8,
+  hasTools: false,
+  toolsCount: 0,
+  toolNames: [],
+  hasGoogleSearchRetrieval: false,
+  googleSearchRetrieval: undefined,
+  hasGoogleSearchGrounding: false,
+  googleSearchGrounding: undefined,
+  systemInstruction: undefined,
+  callHistoryLength: 1,
+  fullCallHistory: [ { role: 'user', parts: [Array] } ],
+  forceGoogleSearchGrounding: false
+}
+[AI Stage Flow Enhanced] Complete Google API Request: {
+  "model": "googleai/gemini-2.0-flash",
+  "config": {
+    "temperature": 0.8
+  },
+  "messages": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "Write a poem about 'test'.\nMake it about 4 stanzas long.\n\nAlso create a compelling title for this poem.\n\nFormat your response as a JSON object with two keys:\n- 'title': A creative, engaging title for the poem (this will be used as the document title)\n- 'poem': The full poem content\n\nExample:\n{\n  \"title\": \"Whispers of the Morning\",\n  \"poem\": \"Lines of the poem here...\"\n}\n\nEnsure the output is valid JSON."
+        }
+      ]
+    }
+  ]
+}
+[AI Stage Flow Enhanced] Streaming execution failed: TypeError: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$ai$2f$genkit$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__.ai.chat is not a function
+    at executeWithStreaming (src/ai/flows/ai-stage-execution.ts:477:32)
+    at eval (src/ai/flows/ai-stage-execution.ts:358:19)
+    at async runAiStage (src/app/actions/aiActions.ts:185:19)
+  475 |       
+  476 |       // Perform the API call
+> 477 |       const response = await ai.chat({
+      |                                ^
+  478 |         model: generateOptions.model,
+  479 |         config: generateOptions.config,
+  480 |         tools: generateOptions.tools,
+AI Stage Execution Error: TypeError: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$ai$2f$genkit$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__.ai.chat is not a function
+    at executeWithStreaming (src/ai/flows/ai-stage-execution.ts:477:32)
+    at eval (src/ai/flows/ai-stage-execution.ts:358:19)
+    at async runAiStage (src/app/actions/aiActions.ts:185:19)
+  475 |       
+  476 |       // Perform the API call
+> 477 |       const response = await ai.chat({
+      |                                ^
+  478 |         model: generateOptions.model,
+  479 |         config: generateOptions.config,
+  480 |         tools: generateOptions.tools, {
+  traceId: '75a0507e1c99b16e49440240a63c93e7'
+}
+Error stack: TypeError: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$ai$2f$genkit$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__.ai.chat is not a function
+    at executeWithStreaming (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/%5Broot-of-the-server%5D__ab3015c8._.js:625:158)
+    at eval (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/%5Broot-of-the-server%5D__ab3015c8._.js:545:22)
+    at eval (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2216:20)
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_hooks:91:14)
+    at eval (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2211:40)
+    at eval (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1768:62)
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_hooks:91:14)
+    at AsyncStore.run (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:2150:31)
+    at runInActionRuntimeContext (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1805:32)
+    at eval (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1768:22)
+    at async eval (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1701:33)
+    at async eval (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1040:20)
+    at async eval (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1057:28)
+    at async runInNewSpan (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1050:12)
+    at async newTrace (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1033:12)
+    at async actionFn.run (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1670:22)
+    at async actionFn (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/node_modules_@genkit-ai_core_lib_7fa917ad._.js:1649:17)
+    at async runAiStage (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__baf86367._.js:130:24)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:417:2449
+    at async handleAction (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:416:21371)
+    at async renderToHTMLOrFlightImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:422:27153)
+    at async doRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1655:34)
+    at async DevServer.renderToResponseWithComponentsImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1920:28)
+    at async DevServer.renderPageComponent (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2408:24)
+    at async DevServer.renderToResponseImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2445:32)
+    at async DevServer.pipeImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1008:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/next-server.js:305:17)
+    at async DevServer.handleRequestImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:900:17)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:371:20
+    at async Span.traceAsyncFn (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/trace/trace.js:157:20)
+    at async DevServer.handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:368:24)
+    at async invokeRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:237:21)
+    at async handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:428:24)
+    at async requestHandlerImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:452:13)
+    at async Server.requestListener (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/start-server.js:158:13)
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:37:25.859Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ POST /w/poem/ippNNex9tdfC8bhri339 200 in 613ms
+ ○ Compiling /_not-found/page ...
+ ✓ Compiled /_not-found/page in 1270ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 1365ms
+ ✓ Compiled /w/[shortName]/[documentId] in 33ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:38:59.335Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'ippNNex9tdfC8bhri339' }
+[WizardPage] Loading existing document: ippNNex9tdfC8bhri339
+[DocumentPersistence] Loading document { documentId: 'ippNNex9tdfC8bhri339' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ippNNex9tdfC8bhri339' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ippNNex9tdfC8bhri339' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'ippNNex9tdfC8bhri339',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'html-briefing',
+    'generate-poem-with-title',
+    'poem-topic',
+    'generate-html-preview'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'ippNNex9tdfC8bhri339',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'html-briefing',
+    'generate-poem-with-title',
+    'poem-topic',
+    'generate-html-preview'
+  ]
+}
+ GET /w/poem/ippNNex9tdfC8bhri339 200 in 482ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:38:59.766Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ ✓ Compiled in 376ms
+ ✓ Compiled /w/[shortName]/[documentId] in 14ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:39:45.353Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'ippNNex9tdfC8bhri339' }
+[WizardPage] Loading existing document: ippNNex9tdfC8bhri339
+[DocumentPersistence] Loading document { documentId: 'ippNNex9tdfC8bhri339' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ippNNex9tdfC8bhri339' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ippNNex9tdfC8bhri339' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'ippNNex9tdfC8bhri339',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'html-briefing',
+    'generate-html-preview',
+    'generate-poem-with-title',
+    'poem-topic'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'ippNNex9tdfC8bhri339',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'html-briefing',
+    'generate-html-preview',
+    'generate-poem-with-title',
+    'poem-topic'
+  ]
+}
+ GET /w/poem/ippNNex9tdfC8bhri339 200 in 556ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:39:45.820Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'ippNNex9tdfC8bhri339' }
+[WizardPage] Loading existing document: ippNNex9tdfC8bhri339
+[DocumentPersistence] Loading document { documentId: 'ippNNex9tdfC8bhri339' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ippNNex9tdfC8bhri339' }
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:40:01.054Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ippNNex9tdfC8bhri339' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'ippNNex9tdfC8bhri339',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'html-briefing',
+    'generate-html-preview',
+    'generate-poem-with-title',
+    'poem-topic'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'ippNNex9tdfC8bhri339',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'html-briefing',
+    'generate-html-preview',
+    'generate-poem-with-title',
+    'poem-topic'
+  ]
+}
+ GET /w/poem/ippNNex9tdfC8bhri339 200 in 393ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:40:01.280Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'ippNNex9tdfC8bhri339' }
+[WizardPage] Loading existing document: ippNNex9tdfC8bhri339
+[DocumentPersistence] Loading document { documentId: 'ippNNex9tdfC8bhri339' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ippNNex9tdfC8bhri339' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ippNNex9tdfC8bhri339' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'ippNNex9tdfC8bhri339',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'html-briefing',
+    'generate-html-preview',
+    'generate-poem-with-title',
+    'poem-topic'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'ippNNex9tdfC8bhri339',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'html-briefing',
+    'generate-html-preview',
+    'generate-poem-with-title',
+    'poem-topic'
+  ]
+}
+ GET /w/poem/ippNNex9tdfC8bhri339 200 in 149ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 198ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:40:03.257Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /favicon.ico?favicon.56766c03.ico 200 in 608ms
+ ○ Compiling /api/test-ai ...
+ ✓ Compiled /api/test-ai in 1156ms
+ POST /api/test-ai 405 in 1184ms
+ GET /dashboard 200 in 48ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'gemini-test' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'gemini-test',
+  workflowId: 'gemini-tools-test',
+  workflowName: 'Gemini AI Tools Test'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'gemini-test',
+  documentId: 'mbuz58bvwnoyb3d',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749829231723_06qhawcd8',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749829231723_06qhawcd8',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 192
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'DVv84IsJeu2T4FgCCc6A',
+  path: 'documents/DVv84IsJeu2T4FgCCc6A'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'DVv84IsJeu2T4FgCCc6A',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'DVv84IsJeu2T4FgCCc6A' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'DVv84IsJeu2T4FgCCc6A' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'DVv84IsJeu2T4FgCCc6A',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'DVv84IsJeu2T4FgCCc6A' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'DVv84IsJeu2T4FgCCc6A',
+  error: undefined,
+  originalId: 'mbuz58bvwnoyb3d'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbuz58bvwnoyb3d',
+  createdId: 'DVv84IsJeu2T4FgCCc6A',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/gemini-test/DVv84IsJeu2T4FgCCc6A' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/gemini-test/new 200 in 277ms
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'DVv84IsJeu2T4FgCCc6A' }
+[WizardPage] Loading existing document: DVv84IsJeu2T4FgCCc6A
+[DocumentPersistence] Loading document { documentId: 'DVv84IsJeu2T4FgCCc6A' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'DVv84IsJeu2T4FgCCc6A' }
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'DVv84IsJeu2T4FgCCc6A' }
+[WizardPage] Loading existing document: DVv84IsJeu2T4FgCCc6A
+[DocumentPersistence] Loading document { documentId: 'DVv84IsJeu2T4FgCCc6A' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'DVv84IsJeu2T4FgCCc6A' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'DVv84IsJeu2T4FgCCc6A' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'DVv84IsJeu2T4FgCCc6A',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'DVv84IsJeu2T4FgCCc6A',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'DVv84IsJeu2T4FgCCc6A' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'DVv84IsJeu2T4FgCCc6A',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'DVv84IsJeu2T4FgCCc6A',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+ GET /w/gemini-test/DVv84IsJeu2T4FgCCc6A 200 in 101ms
+ GET /w/gemini-test/DVv84IsJeu2T4FgCCc6A 200 in 167ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:40:32.485Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:40:32.643Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[TEST-AI] Starting test...
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.5-flash-preview-05-20',
+  temperature: 0.7,
+  stageOutputType: 'text',
+  hasAiRedoNotes: false,
+  forceGoogleSearchGrounding: false
+}
+[runAiStage] Filled prompt length: 15
+[runAiStage] First 200 chars of filled prompt: Say hello world
+Executing AI stage with input: {
+  "promptTemplate": "Say hello world",
+  "model": "googleai/gemini-2.5-flash-preview-05-20",
+  "temperature": 0.7,
+  "fileInputs": [],
+  "forceGoogleSearchGrounding": false
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'googleai/gemini-2.5-flash-preview-05-20',
+  hasTools: false,
+  hasGrounding: false,
+  forceGoogleSearchGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: 'Say hello world...',
+  chatHistory: 'none'
+}
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 15
+}
+[AI Stage Flow Enhanced] Generation path decision: {
+  shouldUseStreaming: true,
+  streamingEnabled: undefined,
+  hasHistory: true,
+  hasTools: false,
+  googleSearchEnabled: undefined,
+  modelUsed: 'googleai/gemini-2.5-flash-preview-05-20'
+}
+[AI Stage Flow Enhanced] Streaming iteration 1/5
+[AI Stage Flow Enhanced] ===== API REQUEST DETAILS =====
+[AI Stage Flow Enhanced] Full API Request Configuration: {
+  model: 'googleai/gemini-2.5-flash-preview-05-20',
+  temperature: 0.7,
+  hasTools: false,
+  toolsCount: 0,
+  toolNames: [],
+  hasGoogleSearchRetrieval: false,
+  googleSearchRetrieval: undefined,
+  hasGoogleSearchGrounding: false,
+  googleSearchGrounding: undefined,
+  systemInstruction: undefined,
+  callHistoryLength: 1,
+  fullCallHistory: [ { role: 'user', parts: [Array] } ],
+  forceGoogleSearchGrounding: false
+}
+[AI Stage Flow Enhanced] Complete Google API Request: {
+  "model": "googleai/gemini-2.5-flash-preview-05-20",
+  "config": {
+    "temperature": 0.7
+  },
+  "messages": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "Say hello world"
+        }
+      ]
+    }
+  ]
+}
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T15:40:39.510Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[AI Stage Flow Enhanced] Streaming execution failed: TypeError: ai.chat is not a function
+    at executeWithStreaming (src/ai/flows/ai-stage-execution.ts:475:32)
+    at async aiStageExecutionFlow (src/ai/flows/ai-stage-execution.ts:354:13)
+    at async runAiStage (src/app/actions/aiActions.ts:185:19)
+    at async GET (src/app/api/test-ai/route.ts:8:19)
+  473 |       // Perform the API call with dynamic import
+  474 |       const { ai } = await import('@/ai/genkit');
+> 475 |       const response = await ai.chat({
+      |                                ^
+  476 |         model: generateOptions.model,
+  477 |         config: generateOptions.config,
+  478 |         tools: generateOptions.tools,
+AI Stage Execution Error: TypeError: ai.chat is not a function
+    at executeWithStreaming (src/ai/flows/ai-stage-execution.ts:475:32)
+    at async aiStageExecutionFlow (src/ai/flows/ai-stage-execution.ts:354:13)
+    at async runAiStage (src/app/actions/aiActions.ts:185:19)
+    at async GET (src/app/api/test-ai/route.ts:8:19)
+  473 |       // Perform the API call with dynamic import
+  474 |       const { ai } = await import('@/ai/genkit');
+> 475 |       const response = await ai.chat({
+      |                                ^
+  476 |         model: generateOptions.model,
+  477 |         config: generateOptions.config,
+  478 |         tools: generateOptions.tools,
+Error stack: TypeError: ai.chat is not a function
+    at executeWithStreaming (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/src_ai_flows_ai-stage-execution_ts_74a36046._.js:472:39)
+    at async aiStageExecutionFlow (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/src_ai_flows_ai-stage-execution_ts_74a36046._.js:389:16)
+    at async runAiStage (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/[root-of-the-server]__878353b6._.js:183:24)
+    at async GET (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/[root-of-the-server]__878353b6._.js:248:24)
+    at async AppRouteRouteModule.do (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:26:34112)
+    at async AppRouteRouteModule.handle (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:26:41338)
+    at async doRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1518:42)
+    at async DevServer.renderToResponseWithComponentsImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1920:28)
+    at async DevServer.renderPageComponent (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2408:24)
+    at async DevServer.renderToResponseImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2445:32)
+    at async DevServer.pipeImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1008:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/next-server.js:305:17)
+    at async DevServer.handleRequestImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:900:17)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:371:20
+    at async Span.traceAsyncFn (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/trace/trace.js:157:20)
+    at async DevServer.handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:368:24)
+    at async invokeRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:237:21)
+    at async handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:428:24)
+    at async requestHandlerImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:452:13)
+    at async Server.requestListener (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/start-server.js:158:13)
+[TEST-AI] Result: {
+  content: null,
+  error: 'ai.chat is not a function',
+  thinkingSteps: undefined,
+  outputImages: undefined,
+  updatedChatHistory: undefined
+}
+ GET /api/test-ai 200 in 292ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'poem' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'poem',
+  workflowId: 'poem-generator',
+  workflowName: 'Poem Generator'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'poem',
+  documentId: 'mbuz5ktkwzeg8zp',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749829247912_icv6qs772',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749829247912_icv6qs772',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 183
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'tOxrI6TzDIrx8KSMFGJ7',
+  path: 'documents/tOxrI6TzDIrx8KSMFGJ7'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'tOxrI6TzDIrx8KSMFGJ7',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'tOxrI6TzDIrx8KSMFGJ7' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'tOxrI6TzDIrx8KSMFGJ7' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'tOxrI6TzDIrx8KSMFGJ7',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'tOxrI6TzDIrx8KSMFGJ7' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'tOxrI6TzDIrx8KSMFGJ7',
+  error: undefined,
+  originalId: 'mbuz5ktkwzeg8zp'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbuz5ktkwzeg8zp',
+  createdId: 'tOxrI6TzDIrx8KSMFGJ7',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/poem/tOxrI6TzDIrx8KSMFGJ7' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/poem/new 200 in 131ms
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'tOxrI6TzDIrx8KSMFGJ7' }
+[WizardPage] Loading existing document: tOxrI6TzDIrx8KSMFGJ7
+[DocumentPersistence] Loading document { documentId: 'tOxrI6TzDIrx8KSMFGJ7' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'tOxrI6TzDIrx8KSMFGJ7' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'tOxrI6TzDIrx8KSMFGJ7' }
+[WizardPage] Loading existing document: tOxrI6TzDIrx8KSMFGJ7
+[DocumentPersistence] Loading document { documentId: 'tOxrI6TzDIrx8KSMFGJ7' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'tOxrI6TzDIrx8KSMFGJ7' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'tOxrI6TzDIrx8KSMFGJ7' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'tOxrI6TzDIrx8KSMFGJ7',
+  title: 'New Poem Generator',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'tOxrI6TzDIrx8KSMFGJ7',
+  title: 'New Poem Generator',
+  stageCount: 0,
+  validatedStageIds: []
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'tOxrI6TzDIrx8KSMFGJ7' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'tOxrI6TzDIrx8KSMFGJ7',
+  title: 'New Poem Generator',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'tOxrI6TzDIrx8KSMFGJ7',
+  title: 'New Poem Generator',
+  stageCount: 0,
+  validatedStageIds: []
+}
+ GET /w/poem/tOxrI6TzDIrx8KSMFGJ7 200 in 145ms
+ GET /w/poem/tOxrI6TzDIrx8KSMFGJ7 200 in 88ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:40:48.400Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:40:48.532Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.0-flash',
+  temperature: 0.8,
+  stageOutputType: 'json',
+  hasAiRedoNotes: false,
+  forceGoogleSearchGrounding: false
+}
+[runAiStage] Filled prompt length: 406
+[runAiStage] First 200 chars of filled prompt: Write a poem about 'test'.
+Make it about 4 stanzas long.
+
+Also create a compelling title for this poem.
+
+Format your response as a JSON object with two keys:
+- 'title': A creative, engaging title for 
+Executing AI stage with input: {
+  "promptTemplate": "Write a poem about 'test'.\nMake it about 4 stanzas long.\n\nAlso create a compelling title for this poem.\n\nFormat your response as a JSON object with two keys:\n- 'title': A creative, engaging title for the poem (this will be used as the document title)\n- 'poem': The full poem content\n\nExample:\n{\n  \"title\": \"Whispers of the Morning\",\n  \"poem\": \"Lines of the poem here...\"\n}\n\nEnsure the output is valid JSON.",
+  "model": "googleai/gemini-2.0-flash",
+  "temperature": 0.8,
+  "fileInputs": [],
+  "forceGoogleSearchGrounding": false
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'googleai/gemini-2.0-flash',
+  hasTools: false,
+  hasGrounding: false,
+  forceGoogleSearchGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: "Write a poem about 'test'.\n" +
+    'Make it about 4 stanzas long.\n' +
+    '\n' +
+    'Also create a compelling title for this po...',
+  chatHistory: 'none'
+}
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 406
+}
+[AI Stage Flow Enhanced] Generation path decision: {
+  shouldUseStreaming: true,
+  streamingEnabled: undefined,
+  hasHistory: true,
+  hasTools: false,
+  googleSearchEnabled: undefined,
+  modelUsed: 'googleai/gemini-2.0-flash'
+}
+[AI Stage Flow Enhanced] Streaming iteration 1/5
+[AI Stage Flow Enhanced] ===== API REQUEST DETAILS =====
+[AI Stage Flow Enhanced] Full API Request Configuration: {
+  model: 'googleai/gemini-2.0-flash',
+  temperature: 0.8,
+  hasTools: false,
+  toolsCount: 0,
+  toolNames: [],
+  hasGoogleSearchRetrieval: false,
+  googleSearchRetrieval: undefined,
+  hasGoogleSearchGrounding: false,
+  googleSearchGrounding: undefined,
+  systemInstruction: undefined,
+  callHistoryLength: 1,
+  fullCallHistory: [ { role: 'user', parts: [Array] } ],
+  forceGoogleSearchGrounding: false
+}
+[AI Stage Flow Enhanced] Complete Google API Request: {
+  "model": "googleai/gemini-2.0-flash",
+  "config": {
+    "temperature": 0.8
+  },
+  "messages": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "Write a poem about 'test'.\nMake it about 4 stanzas long.\n\nAlso create a compelling title for this poem.\n\nFormat your response as a JSON object with two keys:\n- 'title': A creative, engaging title for the poem (this will be used as the document title)\n- 'poem': The full poem content\n\nExample:\n{\n  \"title\": \"Whispers of the Morning\",\n  \"poem\": \"Lines of the poem here...\"\n}\n\nEnsure the output is valid JSON."
+        }
+      ]
+    }
+  ]
+}
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T15:40:51.989Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[AI Stage Flow Enhanced] Streaming execution failed: TypeError: ai.chat is not a function
+    at executeWithStreaming (src/ai/flows/ai-stage-execution.ts:475:32)
+    at async aiStageExecutionFlow (src/ai/flows/ai-stage-execution.ts:354:13)
+    at async runAiStage (src/app/actions/aiActions.ts:185:19)
+  473 |       // Perform the API call with dynamic import
+  474 |       const { ai } = await import('@/ai/genkit');
+> 475 |       const response = await ai.chat({
+      |                                ^
+  476 |         model: generateOptions.model,
+  477 |         config: generateOptions.config,
+  478 |         tools: generateOptions.tools,
+AI Stage Execution Error: TypeError: ai.chat is not a function
+    at executeWithStreaming (src/ai/flows/ai-stage-execution.ts:475:32)
+    at async aiStageExecutionFlow (src/ai/flows/ai-stage-execution.ts:354:13)
+    at async runAiStage (src/app/actions/aiActions.ts:185:19)
+  473 |       // Perform the API call with dynamic import
+  474 |       const { ai } = await import('@/ai/genkit');
+> 475 |       const response = await ai.chat({
+      |                                ^
+  476 |         model: generateOptions.model,
+  477 |         config: generateOptions.config,
+  478 |         tools: generateOptions.tools,
+Error stack: TypeError: ai.chat is not a function
+    at executeWithStreaming (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/src_ai_flows_ai-stage-execution_ts_2c261be8._.js:472:39)
+    at async aiStageExecutionFlow (file:///Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/src_ai_flows_ai-stage-execution_ts_2c261be8._.js:389:16)
+    at async runAiStage (/Users/franzenzenhofer/dev/franzai-writer/.next/server/chunks/ssr/[root-of-the-server]__baf86367._.js:130:24)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:417:2449
+    at async handleAction (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:416:21371)
+    at async renderToHTMLOrFlightImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:422:27153)
+    at async doRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1655:34)
+    at async DevServer.renderToResponseWithComponentsImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1920:28)
+    at async DevServer.renderPageComponent (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2408:24)
+    at async DevServer.renderToResponseImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:2445:32)
+    at async DevServer.pipeImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:1008:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/next-server.js:305:17)
+    at async DevServer.handleRequestImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/base-server.js:900:17)
+    at async /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:371:20
+    at async Span.traceAsyncFn (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/trace/trace.js:157:20)
+    at async DevServer.handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/next-dev-server.js:368:24)
+    at async invokeRender (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:237:21)
+    at async handleRequest (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:428:24)
+    at async requestHandlerImpl (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/router-server.js:452:13)
+    at async Server.requestListener (/Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/start-server.js:158:13)
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:40:52.130Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ POST /w/poem/tOxrI6TzDIrx8KSMFGJ7 200 in 571ms
+ ✓ Compiled /w/[shortName]/[documentId] in 18ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:43:05.251Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'tOxrI6TzDIrx8KSMFGJ7' }
+[WizardPage] Loading existing document: tOxrI6TzDIrx8KSMFGJ7
+[DocumentPersistence] Loading document { documentId: 'tOxrI6TzDIrx8KSMFGJ7' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'tOxrI6TzDIrx8KSMFGJ7' }
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:43:05.653Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'tOxrI6TzDIrx8KSMFGJ7' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'tOxrI6TzDIrx8KSMFGJ7',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-poem-with-title',
+    'html-briefing',
+    'poem-topic',
+    'generate-html-preview'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'tOxrI6TzDIrx8KSMFGJ7',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-poem-with-title',
+    'html-briefing',
+    'poem-topic',
+    'generate-html-preview'
+  ]
+}
+ GET /w/poem/tOxrI6TzDIrx8KSMFGJ7 200 in 1403ms
+ ✓ Compiled /w/[shortName]/[documentId] in 16ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:43:38.034Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'tOxrI6TzDIrx8KSMFGJ7' }
+[WizardPage] Loading existing document: tOxrI6TzDIrx8KSMFGJ7
+[DocumentPersistence] Loading document { documentId: 'tOxrI6TzDIrx8KSMFGJ7' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'tOxrI6TzDIrx8KSMFGJ7' }
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:43:38.327Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'tOxrI6TzDIrx8KSMFGJ7' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'tOxrI6TzDIrx8KSMFGJ7',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-html-preview',
+    'generate-poem-with-title',
+    'html-briefing',
+    'poem-topic'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'tOxrI6TzDIrx8KSMFGJ7',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-html-preview',
+    'generate-poem-with-title',
+    'html-briefing',
+    'poem-topic'
+  ]
+}
+ GET /w/poem/tOxrI6TzDIrx8KSMFGJ7 200 in 1526ms
+ ✓ Compiled /w/[shortName]/[documentId] in 20ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:43:50.116Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'tOxrI6TzDIrx8KSMFGJ7' }
+[WizardPage] Loading existing document: tOxrI6TzDIrx8KSMFGJ7
+[DocumentPersistence] Loading document { documentId: 'tOxrI6TzDIrx8KSMFGJ7' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'tOxrI6TzDIrx8KSMFGJ7' }
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:43:50.415Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'tOxrI6TzDIrx8KSMFGJ7' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'tOxrI6TzDIrx8KSMFGJ7',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'poem-topic',
+    'generate-html-preview',
+    'generate-poem-with-title',
+    'html-briefing'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'tOxrI6TzDIrx8KSMFGJ7',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'poem-topic',
+    'generate-html-preview',
+    'generate-poem-with-title',
+    'html-briefing'
+  ]
+}
+ GET /w/poem/tOxrI6TzDIrx8KSMFGJ7 200 in 488ms
+[TEST-AI] Starting test...
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.5-flash-preview-05-20',
+  temperature: 0.7,
+  stageOutputType: 'text',
+  hasAiRedoNotes: false,
+  forceGoogleSearchGrounding: false
+}
+[runAiStage] Filled prompt length: 15
+[runAiStage] First 200 chars of filled prompt: Say hello world
+Executing AI stage with input: {
+  "promptTemplate": "Say hello world",
+  "model": "googleai/gemini-2.5-flash-preview-05-20",
+  "temperature": 0.7,
+  "fileInputs": [],
+  "forceGoogleSearchGrounding": false
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'googleai/gemini-2.5-flash-preview-05-20',
+  hasTools: false,
+  hasGrounding: false,
+  forceGoogleSearchGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: 'Say hello world...',
+  chatHistory: 'none'
+}
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 15
+}
+[AI Stage Flow Enhanced] Generation path decision: {
+  shouldUseStreaming: true,
+  streamingEnabled: undefined,
+  hasHistory: true,
+  hasTools: false,
+  googleSearchEnabled: undefined,
+  modelUsed: 'googleai/gemini-2.5-flash-preview-05-20'
+}
+[AI Stage Flow Enhanced] Streaming iteration 1/5
+[AI Stage Flow Enhanced] ===== API REQUEST DETAILS =====
+[AI Stage Flow Enhanced] Full API Request Configuration: {
+  model: 'googleai/gemini-2.5-flash-preview-05-20',
+  temperature: 0.7,
+  hasTools: false,
+  toolsCount: 0,
+  toolNames: [],
+  hasGoogleSearchRetrieval: false,
+  googleSearchRetrieval: undefined,
+  hasGoogleSearchGrounding: false,
+  googleSearchGrounding: undefined,
+  systemInstruction: undefined,
+  callHistoryLength: 1,
+  fullCallHistory: [ { role: 'user', parts: [Array] } ],
+  forceGoogleSearchGrounding: false
+}
+[AI Stage Flow Enhanced] Complete Google API Request: {
+  "model": "googleai/gemini-2.5-flash-preview-05-20",
+  "config": {
+    "temperature": 0.7
+  },
+  "messages": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "Say hello world"
+        }
+      ]
+    }
+  ]
+}
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T15:43:58.609Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[AI Stage Flow Enhanced] ===== API RESPONSE DETAILS =====
+[AI Stage Flow Enhanced] Raw API Response Summary: {
+  hasText: true,
+  textLength: 12,
+  textPreview: 'Hello world!...',
+  hasResponse: false,
+  responseKeys: [],
+  hasToolRequests: false,
+  toolRequestsCount: 0,
+  hasGroundingMetadata: false,
+  groundingMetadataKeys: [],
+  hasOutputImages: false,
+  outputImagesCount: 0,
+  hasCodeExecutionResults: false
+}
+[AI Stage Flow Enhanced] Complete Google API Response: {
+  "message": {
+    "role": "model",
+    "content": [
+      {
+        "text": "Hello world!"
+      }
+    ]
+  },
+  "finishReason": "stop",
+  "usage": {
+    "inputCharacters": 15,
+    "inputImages": 0,
+    "inputVideos": 0,
+    "inputAudioFiles": 0,
+    "outputCharacters": 12,
+    "outputImages": 0,
+    "outputVideos": 0,
+    "outputAudioFiles": 0,
+    "inputTokens": 4,
+    "outputTokens": 3,
+    "totalTokens": 25
+  },
+  "custom": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Hello world!"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 4,
+      "candidatesTokenCount": 3,
+      "totalTokenCount": 25,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 4
+        }
+      ],
+      "thoughtsTokenCount": 18
+    },
+    "modelVersion": "models/gemini-2.5-flash-preview-05-20",
+    "responseId": "P0dMaOnUNNXl7M8PkbTbgAc"
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "text": "Say hello world"
+          }
+        ]
+      }
+    ],
+    "config": {
+      "temperature": 0.7
+    },
+    "tools": [],
+    "output": {}
+  }
+}
+[AI Stage Flow Enhanced] ===== NO GOOGLE SEARCH GROUNDING FOUND =====
+[AI Stage Flow Enhanced] ❌ Google Search Grounding NOT working - response has no grounding data
+[AI Stage Flow Enhanced] This might indicate:
+[AI Stage Flow Enhanced] 1. Google Search grounding is not properly configured
+[AI Stage Flow Enhanced] 2. The model did not need to search for this query
+[AI Stage Flow Enhanced] 3. There was an issue with the grounding service
+[runAiStage] Success, content type: string
+[TEST-AI] Result: {
+  content: 'Hello world!',
+  groundingMetadata: undefined,
+  updatedChatHistory: [
+    { role: 'user', parts: [Array] },
+    { role: 'model', parts: [Array] }
+  ]
+}
+ GET /api/test-ai 200 in 1582ms
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'tOxrI6TzDIrx8KSMFGJ7' }
+[WizardPage] Loading existing document: tOxrI6TzDIrx8KSMFGJ7
+[DocumentPersistence] Loading document { documentId: 'tOxrI6TzDIrx8KSMFGJ7' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'tOxrI6TzDIrx8KSMFGJ7' }
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:44:10.208Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'tOxrI6TzDIrx8KSMFGJ7' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'tOxrI6TzDIrx8KSMFGJ7',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'poem-topic',
+    'generate-html-preview',
+    'generate-poem-with-title',
+    'html-briefing'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'tOxrI6TzDIrx8KSMFGJ7',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'poem-topic',
+    'generate-html-preview',
+    'generate-poem-with-title',
+    'html-briefing'
+  ]
+}
+ GET /w/poem/tOxrI6TzDIrx8KSMFGJ7 200 in 308ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:44:10.352Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ POST /api/test-ai 405 in 19ms
+[TEST-AI] Starting test...
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.5-flash-preview-05-20',
+  temperature: 0.7,
+  stageOutputType: 'text',
+  hasAiRedoNotes: false,
+  forceGoogleSearchGrounding: false
+}
+[runAiStage] Filled prompt length: 15
+[runAiStage] First 200 chars of filled prompt: Say hello world
+Executing AI stage with input: {
+  "promptTemplate": "Say hello world",
+  "model": "googleai/gemini-2.5-flash-preview-05-20",
+  "temperature": 0.7,
+  "fileInputs": [],
+  "forceGoogleSearchGrounding": false
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'googleai/gemini-2.5-flash-preview-05-20',
+  hasTools: false,
+  hasGrounding: false,
+  forceGoogleSearchGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: 'Say hello world...',
+  chatHistory: 'none'
+}
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 15
+}
+[AI Stage Flow Enhanced] Generation path decision: {
+  shouldUseStreaming: true,
+  streamingEnabled: undefined,
+  hasHistory: true,
+  hasTools: false,
+  googleSearchEnabled: undefined,
+  modelUsed: 'googleai/gemini-2.5-flash-preview-05-20'
+}
+[AI Stage Flow Enhanced] Streaming iteration 1/5
+[AI Stage Flow Enhanced] ===== API REQUEST DETAILS =====
+[AI Stage Flow Enhanced] Full API Request Configuration: {
+  model: 'googleai/gemini-2.5-flash-preview-05-20',
+  temperature: 0.7,
+  hasTools: false,
+  toolsCount: 0,
+  toolNames: [],
+  hasGoogleSearchRetrieval: false,
+  googleSearchRetrieval: undefined,
+  hasGoogleSearchGrounding: false,
+  googleSearchGrounding: undefined,
+  systemInstruction: undefined,
+  callHistoryLength: 1,
+  fullCallHistory: [ { role: 'user', parts: [Array] } ],
+  forceGoogleSearchGrounding: false
+}
+[AI Stage Flow Enhanced] Complete Google API Request: {
+  "model": "googleai/gemini-2.5-flash-preview-05-20",
+  "config": {
+    "temperature": 0.7
+  },
+  "messages": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "Say hello world"
+        }
+      ]
+    }
+  ]
+}
+[AI Stage Flow Enhanced] ===== API RESPONSE DETAILS =====
+[AI Stage Flow Enhanced] Raw API Response Summary: {
+  hasText: true,
+  textLength: 11,
+  textPreview: 'Hello world...',
+  hasResponse: false,
+  responseKeys: [],
+  hasToolRequests: false,
+  toolRequestsCount: 0,
+  hasGroundingMetadata: false,
+  groundingMetadataKeys: [],
+  hasOutputImages: false,
+  outputImagesCount: 0,
+  hasCodeExecutionResults: false
+}
+[AI Stage Flow Enhanced] Complete Google API Response: {
+  "message": {
+    "role": "model",
+    "content": [
+      {
+        "text": "Hello world"
+      }
+    ]
+  },
+  "finishReason": "stop",
+  "usage": {
+    "inputCharacters": 15,
+    "inputImages": 0,
+    "inputVideos": 0,
+    "inputAudioFiles": 0,
+    "outputCharacters": 11,
+    "outputImages": 0,
+    "outputVideos": 0,
+    "outputAudioFiles": 0,
+    "inputTokens": 4,
+    "outputTokens": 2,
+    "totalTokens": 32
+  },
+  "custom": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "Hello world"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 4,
+      "candidatesTokenCount": 2,
+      "totalTokenCount": 32,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 4
+        }
+      ],
+      "thoughtsTokenCount": 26
+    },
+    "modelVersion": "models/gemini-2.5-flash-preview-05-20",
+    "responseId": "ckdMaJDkA7WuvdIP846E4AY"
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "text": "Say hello world"
+          }
+        ]
+      }
+    ],
+    "config": {
+      "temperature": 0.7
+    },
+    "tools": [],
+    "output": {}
+  }
+}
+[AI Stage Flow Enhanced] ===== NO GOOGLE SEARCH GROUNDING FOUND =====
+[AI Stage Flow Enhanced] ❌ Google Search Grounding NOT working - response has no grounding data
+[AI Stage Flow Enhanced] This might indicate:
+[AI Stage Flow Enhanced] 1. Google Search grounding is not properly configured
+[AI Stage Flow Enhanced] 2. The model did not need to search for this query
+[AI Stage Flow Enhanced] 3. There was an issue with the grounding service
+[runAiStage] Success, content type: string
+[TEST-AI] Result: {
+  content: 'Hello world',
+  groundingMetadata: undefined,
+  updatedChatHistory: [
+    { role: 'user', parts: [Array] },
+    { role: 'model', parts: [Array] }
+  ]
+}
+ GET /api/test-ai 200 in 730ms
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'YpDV3hMPX0TZr7yggLTT' }
+[WizardPage] Loading existing document: YpDV3hMPX0TZr7yggLTT
+[DocumentPersistence] Loading document { documentId: 'YpDV3hMPX0TZr7yggLTT' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'YpDV3hMPX0TZr7yggLTT' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'YpDV3hMPX0TZr7yggLTT' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'YpDV3hMPX0TZr7yggLTT',
+  title: 'New Poem Generator',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'YpDV3hMPX0TZr7yggLTT',
+  title: 'New Poem Generator',
+  stageCount: 0,
+  validatedStageIds: []
+}
+ GET /w/poem/YpDV3hMPX0TZr7yggLTT 200 in 224ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:45:01.059Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /favicon.ico?favicon.56766c03.ico 200 in 235ms
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.0-flash',
+  temperature: 0.8,
+  stageOutputType: 'json',
+  hasAiRedoNotes: false,
+  forceGoogleSearchGrounding: false
+}
+[runAiStage] Filled prompt length: 406
+[runAiStage] First 200 chars of filled prompt: Write a poem about 'test'.
+Make it about 4 stanzas long.
+
+Also create a compelling title for this poem.
+
+Format your response as a JSON object with two keys:
+- 'title': A creative, engaging title for 
+Executing AI stage with input: {
+  "promptTemplate": "Write a poem about 'test'.\nMake it about 4 stanzas long.\n\nAlso create a compelling title for this poem.\n\nFormat your response as a JSON object with two keys:\n- 'title': A creative, engaging title for the poem (this will be used as the document title)\n- 'poem': The full poem content\n\nExample:\n{\n  \"title\": \"Whispers of the Morning\",\n  \"poem\": \"Lines of the poem here...\"\n}\n\nEnsure the output is valid JSON.",
+  "model": "googleai/gemini-2.0-flash",
+  "temperature": 0.8,
+  "fileInputs": [],
+  "forceGoogleSearchGrounding": false
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'googleai/gemini-2.0-flash',
+  hasTools: false,
+  hasGrounding: false,
+  forceGoogleSearchGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: "Write a poem about 'test'.\n" +
+    'Make it about 4 stanzas long.\n' +
+    '\n' +
+    'Also create a compelling title for this po...',
+  chatHistory: 'none'
+}
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 406
+}
+[AI Stage Flow Enhanced] Generation path decision: {
+  shouldUseStreaming: true,
+  streamingEnabled: undefined,
+  hasHistory: true,
+  hasTools: false,
+  googleSearchEnabled: undefined,
+  modelUsed: 'googleai/gemini-2.0-flash'
+}
+[AI Stage Flow Enhanced] Streaming iteration 1/5
+[AI Stage Flow Enhanced] ===== API REQUEST DETAILS =====
+[AI Stage Flow Enhanced] Full API Request Configuration: {
+  model: 'googleai/gemini-2.0-flash',
+  temperature: 0.8,
+  hasTools: false,
+  toolsCount: 0,
+  toolNames: [],
+  hasGoogleSearchRetrieval: false,
+  googleSearchRetrieval: undefined,
+  hasGoogleSearchGrounding: false,
+  googleSearchGrounding: undefined,
+  systemInstruction: undefined,
+  callHistoryLength: 1,
+  fullCallHistory: [ { role: 'user', parts: [Array] } ],
+  forceGoogleSearchGrounding: false
+}
+[AI Stage Flow Enhanced] Complete Google API Request: {
+  "model": "googleai/gemini-2.0-flash",
+  "config": {
+    "temperature": 0.8
+  },
+  "messages": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "Write a poem about 'test'.\nMake it about 4 stanzas long.\n\nAlso create a compelling title for this poem.\n\nFormat your response as a JSON object with two keys:\n- 'title': A creative, engaging title for the poem (this will be used as the document title)\n- 'poem': The full poem content\n\nExample:\n{\n  \"title\": \"Whispers of the Morning\",\n  \"poem\": \"Lines of the poem here...\"\n}\n\nEnsure the output is valid JSON."
+        }
+      ]
+    }
+  ]
+}
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T15:45:05.002Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:45:05.111Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[AI Stage Flow Enhanced] ===== API RESPONSE DETAILS =====
+[AI Stage Flow Enhanced] Raw API Response Summary: {
+  hasText: true,
+  textLength: 668,
+  textPreview: '```json\n' +
+    '{\n' +
+    '  "title": "The Crucible of Knowing",\n' +
+    '  "poem": "A blank page stares, a silent plea,\\nA test unfolds, for all to see.\\nNot just of facts, precisely learned,\\nBut how the mind has twisted, tu...',
+  hasResponse: false,
+  responseKeys: [],
+  hasToolRequests: false,
+  toolRequestsCount: 0,
+  hasGroundingMetadata: false,
+  groundingMetadataKeys: [],
+  hasOutputImages: false,
+  outputImagesCount: 0,
+  hasCodeExecutionResults: false
+}
+[AI Stage Flow Enhanced] Complete Google API Response: {
+  "message": {
+    "role": "model",
+    "content": [
+      {
+        "text": "```json\n{\n  \"title\": \"The Crucible of Knowing\",\n  \"poem\": \"A blank page stares, a silent plea,\\nA test unfolds, for all to see.\\nNot just of facts, precisely learned,\\nBut how the mind has twisted, turned.\\n\\nA pressure builds, a nervous sweat,\\nEach question faced, a mental threat.\\nRecall, connect, and then create,\\nA bridge of thought, to seal your fate.\\n\\nBeyond the score, the right or wrong,\\nA deeper truth, where we belong.\\nThe test reveals, both strength and flaw,\\nA mirror held, to what we saw.\\n\\nA chance to grow, to understand,\\nThe limits pushed, by guiding hand.\\nTo learn from failures, rise anew,\\nThe crucible of knowing, sees us through.\"\n}\n```"
+      }
+    ]
+  },
+  "finishReason": "stop",
+  "usage": {
+    "inputCharacters": 406,
+    "inputImages": 0,
+    "inputVideos": 0,
+    "inputAudioFiles": 0,
+    "outputCharacters": 668,
+    "outputImages": 0,
+    "outputVideos": 0,
+    "outputAudioFiles": 0,
+    "inputTokens": 109,
+    "outputTokens": 177,
+    "totalTokens": 286
+  },
+  "custom": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```json\n{\n  \"title\": \"The Crucible of Knowing\",\n  \"poem\": \"A blank page stares, a silent plea,\\nA test unfolds, for all to see.\\nNot just of facts, precisely learned,\\nBut how the mind has twisted, turned.\\n\\nA pressure builds, a nervous sweat,\\nEach question faced, a mental threat.\\nRecall, connect, and then create,\\nA bridge of thought, to seal your fate.\\n\\nBeyond the score, the right or wrong,\\nA deeper truth, where we belong.\\nThe test reveals, both strength and flaw,\\nA mirror held, to what we saw.\\n\\nA chance to grow, to understand,\\nThe limits pushed, by guiding hand.\\nTo learn from failures, rise anew,\\nThe crucible of knowing, sees us through.\"\n}\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "avgLogprobs": -0.4326997746182027
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 109,
+      "candidatesTokenCount": 177,
+      "totalTokenCount": 286,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 109
+        }
+      ],
+      "candidatesTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 177
+        }
+      ]
+    },
+    "modelVersion": "gemini-2.0-flash",
+    "responseId": "gUdMaOvdE_SbhMIP253NSQ"
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "text": "Write a poem about 'test'.\nMake it about 4 stanzas long.\n\nAlso create a compelling title for this poem.\n\nFormat your response as a JSON object with two keys:\n- 'title': A creative, engaging title for the poem (this will be used as the document title)\n- 'poem': The full poem content\n\nExample:\n{\n  \"title\": \"Whispers of the Morning\",\n  \"poem\": \"Lines of the poem here...\"\n}\n\nEnsure the output is valid JSON."
+          }
+        ]
+      }
+    ],
+    "config": {
+      "temperature": 0.8
+    },
+    "tools": [],
+    "output": {}
+  }
+}
+[AI Stage Flow Enhanced] ===== NO GOOGLE SEARCH GROUNDING FOUND =====
+[AI Stage Flow Enhanced] ❌ Google Search Grounding NOT working - response has no grounding data
+[AI Stage Flow Enhanced] This might indicate:
+[AI Stage Flow Enhanced] 1. Google Search grounding is not properly configured
+[AI Stage Flow Enhanced] 2. The model did not need to search for this query
+[AI Stage Flow Enhanced] 3. There was an issue with the grounding service
+[runAiStage] Success, content type: object
+ POST /w/poem/YpDV3hMPX0TZr7yggLTT 200 in 2177ms
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'googleai/gemini-2.0-flash',
+  temperature: 0.3,
+  stageOutputType: 'html',
+  hasAiRedoNotes: false,
+  forceGoogleSearchGrounding: false
+}
+[runAiStage] Filled prompt length: 1158
+[runAiStage] First 200 chars of filled prompt: Convert this poem into beautiful HTML with proper formatting and styling:
+
+Title: The Crucible of Knowing
+Poem:
+A blank page stares, a silent plea,
+A test unfolds, for all to see.
+Not just of facts, p
+Executing AI stage with input: {
+  "promptTemplate": "Convert this poem into beautiful HTML with proper formatting and styling:\n\nTitle: The Crucible of Knowing\nPoem:\nA blank page stares, a silent plea,\nA test unfolds, for all to see.\nNot just of facts, precisely learned,\nBut how the mind has twisted, turned.\n\nA pressure builds, a nervous sweat,\nEach question faced, a mental threat.\nRecall, connect, and then create,\nA bridge of thought, to seal your fate.\n\nBeyond the score, the right or wrong,\nA deeper truth, where we belong.\nThe test reveals, both strength and flaw,\nA mirror held, to what we saw.\n\nA chance to grow, to understand,\nThe limits pushed, by guiding hand.\nTo learn from failures, rise anew,\nThe crucible of knowing, sees us through.\n\nSpecial instructions: test\n\nIMPORTANT: Output ONLY the clean HTML content without any markdown code blocks, backticks, or explanatory text. Do not include ```html or ``` markers. Just return the pure HTML that can be directly rendered.\n\nCreate clean, semantic HTML with inline CSS for styling. Make it visually appealing and readable. Use proper HTML structure with headings, paragraphs, and styling for a poem presentation. Include the title as an H1 heading.",
+  "model": "googleai/gemini-2.0-flash",
+  "temperature": 0.3,
+  "fileInputs": [],
+  "forceGoogleSearchGrounding": false
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'googleai/gemini-2.0-flash',
+  hasTools: false,
+  hasGrounding: false,
+  forceGoogleSearchGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: 'Convert this poem into beautiful HTML with proper formatting and styling:\n' +
+    '\n' +
+    'Title: The Crucible of Kn...',
+  chatHistory: 'none'
+}
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 1158
+}
+[AI Stage Flow Enhanced] Generation path decision: {
+  shouldUseStreaming: true,
+  streamingEnabled: undefined,
+  hasHistory: true,
+  hasTools: false,
+  googleSearchEnabled: undefined,
+  modelUsed: 'googleai/gemini-2.0-flash'
+}
+[AI Stage Flow Enhanced] Streaming iteration 1/5
+[AI Stage Flow Enhanced] ===== API REQUEST DETAILS =====
+[AI Stage Flow Enhanced] Full API Request Configuration: {
+  model: 'googleai/gemini-2.0-flash',
+  temperature: 0.3,
+  hasTools: false,
+  toolsCount: 0,
+  toolNames: [],
+  hasGoogleSearchRetrieval: false,
+  googleSearchRetrieval: undefined,
+  hasGoogleSearchGrounding: false,
+  googleSearchGrounding: undefined,
+  systemInstruction: undefined,
+  callHistoryLength: 1,
+  fullCallHistory: [ { role: 'user', parts: [Array] } ],
+  forceGoogleSearchGrounding: false
+}
+[AI Stage Flow Enhanced] Complete Google API Request: {
+  "model": "googleai/gemini-2.0-flash",
+  "config": {
+    "temperature": 0.3
+  },
+  "messages": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "Convert this poem into beautiful HTML with proper formatting and styling:\n\nTitle: The Crucible of Knowing\nPoem:\nA blank page stares, a silent plea,\nA test unfolds, for all to see.\nNot just of facts, precisely learned,\nBut how the mind has twisted, turned.\n\nA pressure builds, a nervous sweat,\nEach question faced, a mental threat.\nRecall, connect, and then create,\nA bridge of thought, to seal your fate.\n\nBeyond the score, the right or wrong,\nA deeper truth, where we belong.\nThe test reveals, both strength and flaw,\nA mirror held, to what we saw.\n\nA chance to grow, to understand,\nThe limits pushed, by guiding hand.\nTo learn from failures, rise anew,\nThe crucible of knowing, sees us through.\n\nSpecial instructions: test\n\nIMPORTANT: Output ONLY the clean HTML content without any markdown code blocks, backticks, or explanatory text. Do not include ```html or ``` markers. Just return the pure HTML that can be directly rendered.\n\nCreate clean, semantic HTML with inline CSS for styling. Make it visually appealing and readable. Use proper HTML structure with headings, paragraphs, and styling for a poem presentation. Include the title as an H1 heading."
+        }
+      ]
+    }
+  ]
+}
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T15:45:10.132Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[AI Stage Flow Enhanced] ===== API RESPONSE DETAILS =====
+[AI Stage Flow Enhanced] Raw API Response Summary: {
+  hasText: true,
+  textLength: 2125,
+  textPreview: '```html\n' +
+    '<!DOCTYPE html>\n' +
+    '<html lang="en">\n' +
+    '<head>\n' +
+    '    <meta charset="UTF-8">\n' +
+    '    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+    '    <title>The Crucible of Knowing</title>\n' +
+    '    <st...',
+  hasResponse: false,
+  responseKeys: [],
+  hasToolRequests: false,
+  toolRequestsCount: 0,
+  hasGroundingMetadata: false,
+  groundingMetadataKeys: [],
+  hasOutputImages: false,
+  outputImagesCount: 0,
+  hasCodeExecutionResults: false
+}
+[AI Stage Flow Enhanced] Complete Google API Response: {
+  "message": {
+    "role": "model",
+    "content": [
+      {
+        "text": "```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>The Crucible of Knowing</title>\n    <style>\n        body {\n            font-family: Arial, sans-serif;\n            line-height: 1.6;\n            margin: 20px;\n            background-color: #f8f8f8;\n            color: #333;\n        }\n        .poem-container {\n            max-width: 700px;\n            margin: 0 auto;\n            padding: 20px;\n            background-color: #fff;\n            border-radius: 8px;\n            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\n        }\n        h1 {\n            text-align: center;\n            color: #444;\n            margin-bottom: 20px;\n        }\n        p {\n            margin-bottom: 15px;\n            text-align: center;\n            font-size: 1.1em;\n        }\n        .stanza {\n            margin-bottom: 30px;\n        }\n    </style>\n</head>\n<body>\n    <div class=\"poem-container\">\n        <h1>The Crucible of Knowing</h1>\n\n        <div class=\"stanza\">\n            <p>A blank page stares, a silent plea,</p>\n            <p>A test unfolds, for all to see.</p>\n            <p>Not just of facts, precisely learned,</p>\n            <p>But how the mind has twisted, turned.</p>\n        </div>\n\n        <div class=\"stanza\">\n            <p>A pressure builds, a nervous sweat,</p>\n            <p>Each question faced, a mental threat.</p>\n            <p>Recall, connect, and then create,</p>\n            <p>A bridge of thought, to seal your fate.</p>\n        </div>\n\n        <div class=\"stanza\">\n            <p>Beyond the score, the right or wrong,</p>\n            <p>A deeper truth, where we belong.</p>\n            <p>The test reveals, both strength and flaw,</p>\n            <p>A mirror held, to what we saw.</p>\n        </div>\n\n        <div class=\"stanza\">\n            <p>A chance to grow, to understand,</p>\n            <p>The limits pushed, by guiding hand.</p>\n            <p>To learn from failures, rise anew,</p>\n            <p>The crucible of knowing, sees us through.</p>\n        </div>\n    </div>\n</body>\n</html>\n```"
+      }
+    ]
+  },
+  "finishReason": "stop",
+  "usage": {
+    "inputCharacters": 1158,
+    "inputImages": 0,
+    "inputVideos": 0,
+    "inputAudioFiles": 0,
+    "outputCharacters": 2125,
+    "outputImages": 0,
+    "outputVideos": 0,
+    "outputAudioFiles": 0,
+    "inputTokens": 266,
+    "outputTokens": 658,
+    "totalTokens": 924
+  },
+  "custom": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>The Crucible of Knowing</title>\n    <style>\n        body {\n            font-family: Arial, sans-serif;\n            line-height: 1.6;\n            margin: 20px;\n            background-color: #f8f8f8;\n            color: #333;\n        }\n        .poem-container {\n            max-width: 700px;\n            margin: 0 auto;\n            padding: 20px;\n            background-color: #fff;\n            border-radius: 8px;\n            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\n        }\n        h1 {\n            text-align: center;\n            color: #444;\n            margin-bottom: 20px;\n        }\n        p {\n            margin-bottom: 15px;\n            text-align: center;\n            font-size: 1.1em;\n        }\n        .stanza {\n            margin-bottom: 30px;\n        }\n    </style>\n</head>\n<body>\n    <div class=\"poem-container\">\n        <h1>The Crucible of Knowing</h1>\n\n        <div class=\"stanza\">\n            <p>A blank page stares, a silent plea,</p>\n            <p>A test unfolds, for all to see.</p>\n            <p>Not just of facts, precisely learned,</p>\n            <p>But how the mind has twisted, turned.</p>\n        </div>\n\n        <div class=\"stanza\">\n            <p>A pressure builds, a nervous sweat,</p>\n            <p>Each question faced, a mental threat.</p>\n            <p>Recall, connect, and then create,</p>\n            <p>A bridge of thought, to seal your fate.</p>\n        </div>\n\n        <div class=\"stanza\">\n            <p>Beyond the score, the right or wrong,</p>\n            <p>A deeper truth, where we belong.</p>\n            <p>The test reveals, both strength and flaw,</p>\n            <p>A mirror held, to what we saw.</p>\n        </div>\n\n        <div class=\"stanza\">\n            <p>A chance to grow, to understand,</p>\n            <p>The limits pushed, by guiding hand.</p>\n            <p>To learn from failures, rise anew,</p>\n            <p>The crucible of knowing, sees us through.</p>\n        </div>\n    </div>\n</body>\n</html>\n```"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "citationMetadata": {
+          "citationSources": [
+            {
+              "startIndex": 3,
+              "endIndex": 161,
+              "uri": "https://alexmercedcoder.medium.com/frontend-crud-with-plain-vanilla-js-9ab1de9a4ad5"
+            },
+            {
+              "startIndex": 408,
+              "endIndex": 615,
+              "uri": "https://github.com/Htet-Lin-Aung/practical-test"
+            },
+            {
+              "startIndex": 490,
+              "endIndex": 734
+            }
+          ]
+        },
+        "avgLogprobs": -0.01583428223444698
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 266,
+      "candidatesTokenCount": 658,
+      "totalTokenCount": 924,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 266
+        }
+      ],
+      "candidatesTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 658
+        }
+      ]
+    },
+    "modelVersion": "gemini-2.0-flash",
+    "responseId": "hkdMaIDHB8WThMIPlI2PQA"
+  },
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "text": "Convert this poem into beautiful HTML with proper formatting and styling:\n\nTitle: The Crucible of Knowing\nPoem:\nA blank page stares, a silent plea,\nA test unfolds, for all to see.\nNot just of facts, precisely learned,\nBut how the mind has twisted, turned.\n\nA pressure builds, a nervous sweat,\nEach question faced, a mental threat.\nRecall, connect, and then create,\nA bridge of thought, to seal your fate.\n\nBeyond the score, the right or wrong,\nA deeper truth, where we belong.\nThe test reveals, both strength and flaw,\nA mirror held, to what we saw.\n\nA chance to grow, to understand,\nThe limits pushed, by guiding hand.\nTo learn from failures, rise anew,\nThe crucible of knowing, sees us through.\n\nSpecial instructions: test\n\nIMPORTANT: Output ONLY the clean HTML content without any markdown code blocks, backticks, or explanatory text. Do not include ```html or ``` markers. Just return the pure HTML that can be directly rendered.\n\nCreate clean, semantic HTML with inline CSS for styling. Make it visually appealing and readable. Use proper HTML structure with headings, paragraphs, and styling for a poem presentation. Include the title as an H1 heading."
+          }
+        ]
+      }
+    ],
+    "config": {
+      "temperature": 0.3
+    },
+    "tools": [],
+    "output": {}
+  }
+}
+[AI Stage Flow Enhanced] ===== NO GOOGLE SEARCH GROUNDING FOUND =====
+[AI Stage Flow Enhanced] ❌ Google Search Grounding NOT working - response has no grounding data
+[AI Stage Flow Enhanced] This might indicate:
+[AI Stage Flow Enhanced] 1. Google Search grounding is not properly configured
+[AI Stage Flow Enhanced] 2. The model did not need to search for this query
+[AI Stage Flow Enhanced] 3. There was an issue with the grounding service
+[runAiStage] Success, content type: string
+ POST /w/poem/YpDV3hMPX0TZr7yggLTT 200 in 4148ms

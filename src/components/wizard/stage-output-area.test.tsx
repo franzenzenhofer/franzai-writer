@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+// @ts-ignore
 import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { StageOutputArea } from './stage-output-area';
