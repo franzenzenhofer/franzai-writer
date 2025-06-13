@@ -1,0 +1,45 @@
+{
+  "timestamp": "2025-06-13T09:29:33.353Z",
+  "environment": {
+    "nodeVersion": "v22.16.0",
+    "platform": "darwin",
+    "apiKeyLoaded": true,
+    "apiKeyPrefix": "AIzaSyCEgl...",
+    "useEmulator": "true"
+  },
+  "tests": [
+    {
+      "name": "Auth Emulator Check",
+      "success": false,
+      "error": "fetch failed",
+      "url": "http://localhost:9099"
+    },
+    {
+      "name": "Firestore Emulator Check",
+      "success": false,
+      "error": "fetch failed",
+      "url": "http://localhost:8080"
+    },
+    {
+      "name": "Direct Gemini API Call",
+      "success": true,
+      "duration": 772,
+      "status": 200,
+      "result": "Hello from Gemini\n"
+    },
+    {
+      "name": "Direct AI Call",
+      "success": true,
+      "duration": 4200,
+      "result": {
+        "overview": "The Test Workflow is designed to facilitate efficient debugging, allowing developers to quickly identify and resolve issues within their software. By providing a structured process through its stages, it streamlines the debugging process, saving valuable time and resources.\n\nUltimately, this workflow helps ensure higher quality code, faster development cycles, and a more robust and reliable final product. It's an invaluable tool for any developer looking to improve their debugging workflow."
+      }
+    },
+    {
+      "name": "API Route Call",
+      "success": false,
+      "duration": 15003,
+      "error": "Request timed out after 15 seconds"
+    }
+  ]
+}

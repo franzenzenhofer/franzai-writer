@@ -65,8 +65,20 @@ export const aiStageExecutionFlow = ai.defineFlow(
         systemInstructions, chatHistory
     } = input;
 
-    // Simplify by not loading tools dynamically to avoid getStore issues
-    // Tools can be added back later once context issues are resolved
+    // Load tools if requested - careful to avoid getStore issues
+    let availableTools: any[] = [];
+    if (toolNames && toolNames.length > 0) {
+        try {
+            // Import tools only when needed
+            const { allTools } = await import('@/ai/tools/sample-tools');
+            availableTools = allTools.filter(tool => toolNames.includes(tool.name));
+            console.log(`[AI Stage Flow] Loaded ${availableTools.length} tools:`, availableTools.map(t => t.name));
+        } catch (error) {
+            console.error('[AI Stage Flow] Failed to load tools:', error);
+            // Continue without tools rather than failing
+        }
+    }
+    
     let currentThinkingSteps: ThinkingStep[] = [];
     let accumulatedContent = "";
     let finalOutputImages: AiStageOutputSchema['outputImages'] = [];
@@ -95,9 +107,15 @@ export const aiStageExecutionFlow = ai.defineFlow(
         prompt: promptTemplate,
         model: model, // Pass the model string directly - Genkit will resolve it
         config: {
-            ...(temperature !== undefined ? { temperature } : {})
+            ...(temperature !== undefined ? { temperature } : {}),
+            ...(thinkingSettings?.enabled ? { enableThinking: true } : {})
         }
     };
+    
+    // Add tools if available
+    if (availableTools.length > 0) {
+        generateOptions.tools = availableTools;
+    }
 
     console.log(`[AI Stage Flow] Generating with options:`, JSON.stringify(generateOptions, null, 2));
     

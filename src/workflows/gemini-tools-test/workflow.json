@@ -1,0 +1,253 @@
+{
+  "id": "gemini-tools-test",
+  "shortName": "gemini-test",
+  "name": "Gemini AI Tools Test",
+  "description": "Comprehensive test workflow demonstrating all Gemini AI advanced features",
+  "config": {
+    "setTitleFromStageOutput": "test-title",
+    "finalOutputStageId": "final-summary",
+    "showThinking": true
+  },
+  "stages": [
+    {
+      "id": "test-title",
+      "title": "Test Title",
+      "description": "Enter a title for this test session",
+      "inputType": "textarea",
+      "outputType": "text",
+      "dependencies": [],
+      "autoRun": false,
+      "showThinking": false
+    },
+    {
+      "id": "grounding-google-search",
+      "title": "Grounding with Google Search",
+      "description": "Test Google Search grounding. Ask a question about current events or recent information.",
+      "inputType": "textarea",
+      "outputType": "text",
+      "model": "googleai/gemini-2.0-flash-exp",
+      "dependencies": ["test-title"],
+      "groundingSettings": {
+        "googleSearch": {
+          "enabled": true,
+          "dynamicThreshold": 0.7
+        }
+      },
+      "promptTemplate": "Using Google Search grounding, answer this question: {{userInput}}\n\nProvide sources and citations for your answer.",
+      "autoRun": false,
+      "showThinking": true
+    },
+    {
+      "id": "grounding-url-context",
+      "title": "Grounding with URL Context",
+      "description": "Test URL grounding. Enter a URL to analyze its content.",
+      "inputType": "form",
+      "formFields": [
+        { "name": "url", "label": "URL to Analyze", "type": "text", "placeholder": "https://example.com" },
+        { "name": "question", "label": "Question about the URL", "type": "textarea", "placeholder": "What is this page about?" }
+      ],
+      "outputType": "text",
+      "model": "googleai/gemini-2.0-flash-exp",
+      "dependencies": ["test-title"],
+      "groundingSettings": {
+        "urlContext": {
+          "enabled": true,
+          "urls": ["{{userInput.url}}"]
+        }
+      },
+      "promptTemplate": "Analyze the content from {{userInput.url}} and answer: {{userInput.question}}",
+      "autoRun": false,
+      "showThinking": true
+    },
+    {
+      "id": "thinking-mode-test",
+      "title": "Thinking Mode Test",
+      "description": "Test thinking mode with a complex reasoning task",
+      "inputType": "textarea",
+      "outputType": "text",
+      "model": "googleai/gemini-2.0-flash-thinking-exp",
+      "dependencies": ["test-title"],
+      "thinkingSettings": {
+        "enabled": true,
+        "thinkingBudget": 8192
+      },
+      "promptTemplate": "Solve this problem step by step: {{userInput}}",
+      "autoRun": false,
+      "showThinking": true
+    },
+    {
+      "id": "function-calling-calculator",
+      "title": "Function Calling - Calculator",
+      "description": "Test function calling with calculator tool. Try: 'What is 25 * 37 + 156 / 4?'",
+      "inputType": "textarea",
+      "outputType": "text",
+      "model": "googleai/gemini-2.0-flash-exp",
+      "dependencies": ["test-title"],
+      "toolNames": ["simpleCalculator"],
+      "functionCallingMode": "AUTO",
+      "promptTemplate": "{{userInput}}\n\nUse the calculator tool to solve any mathematical operations needed.",
+      "autoRun": false,
+      "showThinking": true
+    },
+    {
+      "id": "function-calling-weather",
+      "title": "Function Calling - Weather",
+      "description": "Test weather tool. Try: 'What's the weather in New York and London?'",
+      "inputType": "textarea",
+      "outputType": "text",
+      "model": "googleai/gemini-2.0-flash-exp",
+      "dependencies": ["test-title"],
+      "toolNames": ["weatherTool"],
+      "functionCallingMode": "AUTO",
+      "promptTemplate": "{{userInput}}\n\nUse the weather tool to get weather information for any locations mentioned.",
+      "autoRun": false,
+      "showThinking": true
+    },
+    {
+      "id": "function-calling-unit-converter",
+      "title": "Function Calling - Unit Converter",
+      "description": "Test unit conversion. Try: 'Convert 100 kilometers to miles and 72 fahrenheit to celsius'",
+      "inputType": "textarea",
+      "outputType": "text",
+      "model": "googleai/gemini-2.0-flash-exp",
+      "dependencies": ["test-title"],
+      "toolNames": ["unitConverter"],
+      "functionCallingMode": "AUTO",
+      "promptTemplate": "{{userInput}}\n\nUse the unit converter tool for any unit conversions needed.",
+      "autoRun": false,
+      "showThinking": true
+    },
+    {
+      "id": "code-execution-python",
+      "title": "Code Execution - Python",
+      "description": "Test Python code execution. Try: 'Create a bar chart of sales data: Q1=100, Q2=150, Q3=120, Q4=180'",
+      "inputType": "textarea",
+      "outputType": "text",
+      "model": "googleai/gemini-2.0-flash-exp",
+      "dependencies": ["test-title"],
+      "toolNames": ["codeInterpreter"],
+      "codeExecutionSettings": {
+        "enabled": true,
+        "timeout": 30000
+      },
+      "promptTemplate": "{{userInput}}\n\nWrite and execute Python code to accomplish this task. If creating visualizations, use matplotlib.",
+      "autoRun": false,
+      "showThinking": true
+    },
+    {
+      "id": "streaming-test",
+      "title": "Streaming Response Test",
+      "description": "Test streaming responses. Ask for a long, detailed explanation.",
+      "inputType": "textarea",
+      "outputType": "text",
+      "model": "googleai/gemini-2.0-flash-exp",
+      "dependencies": ["test-title"],
+      "streamingSettings": {
+        "enabled": true,
+        "chunkSize": 10
+      },
+      "promptTemplate": "{{userInput}}\n\nProvide a detailed, comprehensive response.",
+      "autoRun": false,
+      "showThinking": false
+    },
+    {
+      "id": "chat-mode-test",
+      "title": "Chat Mode Test",
+      "description": "Test multi-turn chat. Have a conversation!",
+      "inputType": "textarea",
+      "outputType": "text",
+      "model": "googleai/gemini-2.0-flash-exp",
+      "dependencies": ["test-title"],
+      "chatEnabled": true,
+      "chatSettings": {
+        "maxHistory": 10,
+        "temperature": 0.7
+      },
+      "systemInstructions": "You are a helpful AI assistant in a test environment. Be conversational and remember context from previous messages.",
+      "promptTemplate": "{{userInput}}",
+      "autoRun": false,
+      "showThinking": false
+    },
+    {
+      "id": "image-understanding-test",
+      "title": "Image Understanding Test",
+      "description": "Upload an image to test image understanding capabilities",
+      "inputType": "image",
+      "outputType": "json",
+      "model": "googleai/gemini-2.0-flash-exp",
+      "dependencies": ["test-title"],
+      "imageSettings": {
+        "maxDimension": 2048,
+        "supportedFormats": ["image/jpeg", "image/png", "image/webp", "image/gif"]
+      },
+      "promptTemplate": "Analyze this image in detail. Provide a JSON response with:\n1. 'description': Overall description\n2. 'objects': Array of identified objects\n3. 'text': Any text found in the image\n4. 'colors': Dominant colors\n5. 'mood': The mood or atmosphere",
+      "autoRun": false,
+      "showThinking": false
+    },
+    {
+      "id": "document-understanding-test",
+      "title": "Document Understanding Test",
+      "description": "Upload a document (PDF, DOCX, TXT) to test document understanding",
+      "inputType": "document",
+      "outputType": "json",
+      "model": "googleai/gemini-2.0-flash-exp",
+      "dependencies": ["test-title"],
+      "documentSettings": {
+        "maxSizeMB": 20,
+        "supportedFormats": ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "text/plain"]
+      },
+      "promptTemplate": "Analyze this document and provide a JSON summary with:\n1. 'title': Document title or main topic\n2. 'summary': Brief summary\n3. 'keyPoints': Array of key points\n4. 'wordCount': Approximate word count\n5. 'language': Primary language",
+      "autoRun": false,
+      "showThinking": false
+    },
+    {
+      "id": "combined-features-test",
+      "title": "Combined Features Test",
+      "description": "Test multiple features together: grounding + function calling + code execution",
+      "inputType": "textarea",
+      "outputType": "text",
+      "model": "googleai/gemini-2.0-flash-exp",
+      "dependencies": ["test-title"],
+      "groundingSettings": {
+        "googleSearch": {
+          "enabled": true,
+          "dynamicThreshold": 0.5
+        }
+      },
+      "toolNames": ["simpleCalculator", "weatherTool", "unitConverter", "codeInterpreter"],
+      "functionCallingMode": "AUTO",
+      "thinkingSettings": {
+        "enabled": true
+      },
+      "promptTemplate": "{{userInput}}\n\nUse any combination of search, tools, and code execution to provide a comprehensive answer.",
+      "autoRun": false,
+      "showThinking": true
+    },
+    {
+      "id": "final-summary",
+      "title": "Test Summary",
+      "description": "AI will summarize all the tests performed",
+      "inputType": "none",
+      "outputType": "markdown",
+      "model": "googleai/gemini-2.0-flash-exp",
+      "dependencies": [
+        "test-title",
+        "grounding-google-search",
+        "grounding-url-context",
+        "thinking-mode-test",
+        "function-calling-calculator",
+        "function-calling-weather",
+        "function-calling-unit-converter",
+        "code-execution-python",
+        "streaming-test",
+        "chat-mode-test",
+        "image-understanding-test",
+        "document-understanding-test",
+        "combined-features-test"
+      ],
+      "promptTemplate": "# Gemini Tools Test Summary for '{{test-title.output}}'\n\nSummarize the results of all the tests performed:\n\n## Tests Performed:\n1. **Google Search Grounding**: {{#if grounding-google-search.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n2. **URL Context Grounding**: {{#if grounding-url-context.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n3. **Thinking Mode**: {{#if thinking-mode-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n4. **Calculator Function**: {{#if function-calling-calculator.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n5. **Weather Function**: {{#if function-calling-weather.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n6. **Unit Converter**: {{#if function-calling-unit-converter.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n7. **Code Execution**: {{#if code-execution-python.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n8. **Streaming**: {{#if streaming-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n9. **Chat Mode**: {{#if chat-mode-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n10. **Image Understanding**: {{#if image-understanding-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n11. **Document Understanding**: {{#if document-understanding-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n12. **Combined Features**: {{#if combined-features-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n\nProvide a comprehensive summary in Markdown format.",
+      "autoRun": true,
+      "showThinking": false
+    }
+  ]
+}

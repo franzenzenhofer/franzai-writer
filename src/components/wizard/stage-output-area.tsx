@@ -10,6 +10,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { WysiwygEditor } from "./wysiwyg-editor";
 import { HtmlPreview } from "./html-preview";
+import { GroundingSourcesDisplay } from "./grounding-sources-display";
+import { FunctionCallsDisplay } from "./function-calls-display";
+import { CodeExecutionDisplay } from "./code-execution-display";
 // Button and Save icon removed as they are now handled by StageCard
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
@@ -448,7 +451,23 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
         )}
       </div>
       {/* Save Edits button is now managed by StageCard */}
-      {stageState.groundingInfo && !isEditingOutput && (
+      {/* Display Grounding Sources */}
+      {stageState.groundingSources && stageState.groundingSources.length > 0 && !isEditingOutput && (
+        <GroundingSourcesDisplay sources={stageState.groundingSources} />
+      )}
+      
+      {/* Display Function Calls */}
+      {stageState.functionCalls && stageState.functionCalls.length > 0 && !isEditingOutput && (
+        <FunctionCallsDisplay functionCalls={stageState.functionCalls} />
+      )}
+      
+      {/* Display Code Execution Results */}
+      {stageState.codeExecutionResults && !isEditingOutput && (
+        <CodeExecutionDisplay results={stageState.codeExecutionResults} />
+      )}
+      
+      {/* Legacy grounding info display */}
+      {stageState.groundingInfo && !isEditingOutput && !stageState.groundingSources && (
         <Card className="bg-muted/50">
           <CardHeader className="pb-2">
             <CardTitle className="text-base font-headline flex items-center">

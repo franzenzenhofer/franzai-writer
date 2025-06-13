@@ -3,7 +3,15 @@
 **Created**: 2025-06-10
 **Priority**: High
 **Component**: AI Integration
-**Status**: PARTIALLY COMPLETE (Updated: 2025-06-11)
+**Status**: PARTIALLY COMPLETE (Updated: 2025-06-13)
+
+## UPDATE 2025-06-13
+Comprehensive documentation on Gemini grounding capabilities has been created:
+- See `/docs/gemini-grounding-capabilities.md` for full model support matrix
+- Google Search grounding is supported on all Gemini models except 2.0 Flash-Lite
+- URL context is supported on all models except 2.0 Flash-Lite
+- Gemini 2.0+ uses "Search as Tool" approach
+- Gemini 1.5 uses legacy "Dynamic Retrieval" approach
 
 ## UPDATE 2025-06-11
 Type definitions for grounding have been added to the codebase:
@@ -50,15 +58,8 @@ import { googleAI } from '@genkit-ai/googleai';
 
 export const ai = genkit({
   plugins: [googleAI({
-    // Enable grounding features
-    groundingConfig: {
-      googleSearch: {
-        dynamicRetrievalConfig: {
-          mode: 'MODE_DYNAMIC',
-          dynamicThreshold: 0.7
-        }
-      }
-    }
+    // Note: Grounding is configured per-request in Gemini 2.0+
+    // No global configuration needed here
   })],
   model: 'googleai/gemini-2.0-flash',
 });
@@ -67,20 +68,27 @@ export const ai = genkit({
 ### 2. Update AI Stage Execution
 ```typescript
 // src/ai/flows/ai-stage-execution.ts
+// For Gemini 2.0+ models (Search as Tool)
 const response = await model.generate({
   prompt: processedPrompt,
   config: {
-    temperature: temperature,
+    temperature: temperature || 0.0, // 0.0 recommended for grounding
     maxOutputTokens: 8192,
-    tools: stage.enableGrounding ? [{
-      googleSearch: {
-        dynamicRetrievalConfig: {
-          mode: 'MODE_DYNAMIC',
-          dynamicThreshold: 0.7
-        }
-      }
-    }] : undefined,
-    groundingUrls: stage.groundingUrls || []
+    tools: stage.enableGrounding ? [
+      { googleSearch: {} }  // Simple tool declaration for Gemini 2.0+
+    ] : undefined,
+  }
+});
+
+// For Gemini 1.5 models (Dynamic Retrieval - legacy)
+const response = await model.generate({
+  prompt: processedPrompt,
+  config: {
+    temperature: temperature || 0.0,
+    maxOutputTokens: 8192,
+    dynamicRetrieval: stage.enableGrounding ? {
+      threshold: 0.3  // Default, or 0.0 to force search
+    } : undefined
   }
 });
 ```
@@ -160,6 +168,24 @@ interface GroundingUrlsInputProps {
 - Timeout handling for slow searches
 - Retry logic for transient failures
 
+## Implementation Notes
+
+### Rate Limits
+- Google Search grounding: 1 million queries per day limit
+- Contact Google Cloud support for higher limits
+- Implement usage tracking to monitor limits
+
+### Model Compatibility
+- All models support grounding EXCEPT Gemini 2.0 Flash-Lite
+- Check model version before enabling grounding features
+- See `/docs/gemini-grounding-capabilities.md` for full compatibility matrix
+
+### Best Practices
+- Always use temperature 0.0 when grounding is enabled
+- Model decides when to use search (cannot force in 2.0+)
+- Grounded URIs accessible for 30 days
+- Web pages that disallow Google-Extended won't be used
+
 ## Acceptance Criteria
 - [ ] Google Search grounding works in AI stages
 - [ ] URL context grounding implemented
@@ -168,3 +194,5 @@ interface GroundingUrlsInputProps {
 - [ ] Error handling works properly
 - [ ] Performance remains acceptable
 - [ ] Documentation updated
+- [ ] Model compatibility checks implemented
+- [ ] Rate limit monitoring in place
