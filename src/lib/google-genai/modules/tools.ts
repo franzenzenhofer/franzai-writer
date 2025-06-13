@@ -105,36 +105,38 @@ export class ToolsModule {
     modelConfig: ModelConfig = { model: 'gemini-2.0-flash' }
   ): Promise<ToolResponse> {
     try {
-      const genAI = getGoogleGenAI();
+      const genAI = getGoogleGenAI().getRawClient();
       const functionDeclarations = tools.map(tool => this.convertToGoogleFormat(tool));
       
-      const model = genAI.getModel(modelConfig.model, {
-        tools: [{
-          functionDeclarations
-        }],
-        generationConfig: {
+      const contents: any[] = [];
+      if (modelConfig.systemInstruction) {
+        contents.push({ text: modelConfig.systemInstruction });
+      }
+      contents.push({ text: prompt });
+      
+      const result = await genAI.models.generateContent({
+        model: modelConfig.model,
+        contents,
+        config: {
           temperature: modelConfig.temperature,
           maxOutputTokens: modelConfig.maxOutputTokens,
+          tools: [{
+            functionDeclarations
+          }]
         }
       });
-
-      if (modelConfig.systemInstruction) {
-        model.systemInstruction = modelConfig.systemInstruction;
-      }
-
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
+      // result is the response for @google/genai
       
       // Extract function calls
       const functionCalls: FunctionCall[] = [];
-      const candidates = response.candidates || [];
+      const candidates = result.candidates || [];
       
       for (const candidate of candidates) {
         const parts = candidate.content?.parts || [];
         for (const part of parts) {
           if (part.functionCall) {
             functionCalls.push({
-              name: part.functionCall.name,
+              name: part.functionCall.name || '',
               args: part.functionCall.args
             });
           }
@@ -142,9 +144,9 @@ export class ToolsModule {
       }
 
       return {
-        text: response.text(),
+        text: result.text || '',
         functionCalls: functionCalls.length > 0 ? functionCalls : undefined,
-        usageMetadata: response.usageMetadata
+        usageMetadata: result.usageMetadata
       };
     } catch (error) {
       console.error('Tool calling error:', error);

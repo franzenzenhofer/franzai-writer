@@ -25,22 +25,27 @@ export class StructuredOutputModule {
     modelConfig: ModelConfig = { model: 'gemini-2.0-flash' }
   ): Promise<T> {
     try {
-      const genAI = getGoogleGenAI();
-      const model = genAI.getModel(modelConfig.model, {
-        generationConfig: {
+      const genAI = getGoogleGenAI().getRawClient();
+      
+      const contents: any[] = [];
+      if (modelConfig.systemInstruction) {
+        contents.push({ text: modelConfig.systemInstruction });
+      }
+      contents.push({ text: prompt });
+      
+      const result = await genAI.models.generateContent({
+        model: modelConfig.model,
+        contents,
+        config: {
           temperature: modelConfig.temperature,
           maxOutputTokens: modelConfig.maxOutputTokens,
           topP: modelConfig.topP,
           topK: modelConfig.topK,
           responseMimeType: 'application/json',
           responseSchema: schema
-        },
-        systemInstruction: modelConfig.systemInstruction
+        }
       });
-
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      const text = response.text();
+      const text = result.text || '';
       
       return JSON.parse(text) as T;
     } catch (error) {
@@ -59,25 +64,30 @@ export class StructuredOutputModule {
     onProgress?: (partial: string) => void
   ): Promise<T> {
     try {
-      const genAI = getGoogleGenAI();
-      const model = genAI.getModel(modelConfig.model, {
-        generationConfig: {
+      const genAI = getGoogleGenAI().getRawClient();
+      
+      const contents: any[] = [];
+      if (modelConfig.systemInstruction) {
+        contents.push({ text: modelConfig.systemInstruction });
+      }
+      contents.push({ text: prompt });
+      
+      const streamPromise = genAI.models.generateContentStream({
+        model: modelConfig.model,
+        contents,
+        config: {
           temperature: modelConfig.temperature,
           maxOutputTokens: modelConfig.maxOutputTokens,
           responseMimeType: 'application/json',
           responseSchema: schema
         }
       });
-
-      if (modelConfig.systemInstruction) {
-        model.systemInstruction = modelConfig.systemInstruction;
-      }
-
-      const result = await model.generateContentStream(prompt);
+      
+      const result = await streamPromise;
       
       let fullText = '';
-      for await (const chunk of result.stream) {
-        const chunkText = chunk.text();
+      for await (const chunk of result) {
+        const chunkText = chunk.text || '';
         fullText += chunkText;
         if (onProgress) {
           onProgress(fullText);
