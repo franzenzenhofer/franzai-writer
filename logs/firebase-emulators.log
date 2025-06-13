@@ -44,3 +44,13 @@ i  hosting[franzai-writer]: Serving hosting files from: out
 
 Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
  
+ 
+i  emulators: Received SIGHUP for the first time. Starting a clean shutdown.
+i  emulators: Please wait for a clean shutdown or send the SIGHUP signal again to stop right now.
+i  emulators: Shutting down emulators.
+i  ui: Stopping Emulator UI
+i  hosting: Stopping Hosting Emulator
+i  firestore: Stopping Firestore Emulator
+i  auth: Stopping Authentication Emulator
+i  hub: Stopping emulator hub
+i  logging: Stopping Logging Emulator

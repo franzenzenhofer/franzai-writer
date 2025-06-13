@@ -250,7 +250,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     // It updates the central state with the latest form data.
     updateStageState(stageId, { 
         userInput: data, 
-        status: 'idle', // Keep as idle, don't clear output yet, user might just be editing
+        status: 'idle', // Keep as idle, don't clear output yet, user might just be editing form
         // output: undefined, // Clearing output here might be too aggressive if user is just tweaking form
         // completedAt: undefined, 
         isStale: true // Mark as stale because input changed
@@ -338,8 +338,21 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         currentStageInput: stageInputForRun,
         stageOutputType: stage.outputType,
         hasAiRedoNotes: !!aiRedoNotes,
-        willForceGoogleSearchGrounding: !!aiRedoNotes
+        willForceGoogleSearchGrounding: !!aiRedoNotes,
+        // CRITICAL: Debug groundingSettings from workflow
+        stageGroundingSettings: stage.groundingSettings,
+        hasGroundingSettings: !!stage.groundingSettings,
+        googleSearchEnabled: stage.groundingSettings?.googleSearch?.enabled,
       });
+
+      // 🚨 VISUAL INDICATOR: Show grounding status in console for easy debugging
+      if (stage.groundingSettings?.googleSearch?.enabled) {
+        console.log('🟢🟢🟢 WORKFLOW SAYS: GOOGLE SEARCH GROUNDING SHOULD BE ENABLED! 🟢🟢🟢');
+        console.log('🔧 Stage configuration has groundingSettings.googleSearch.enabled = true');
+      } else {
+        console.log('🔴🔴🔴 WORKFLOW SAYS: NO GOOGLE SEARCH GROUNDING CONFIGURED 🔴🔴🔴');
+        console.log('🔧 Stage configuration groundingSettings:', stage.groundingSettings);
+      }
       
       const result = await runAiStage({
         promptTemplate: enhancedPromptTemplate,
@@ -355,6 +368,8 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         // CRITICAL: Pass AI Redo notes to force Google Search grounding
         aiRedoNotes: aiRedoNotes,
         forceGoogleSearchGrounding: !!aiRedoNotes, // Force grounding when AI Redo is used
+        // CRITICAL: Pass groundingSettings from the workflow stage configuration
+        groundingSettings: stage.groundingSettings,
       });
 
       if (result.error) {

@@ -1,6 +1,7 @@
 'use server';
 
 import {z} from 'zod';
+import { generateWithDirectGemini, generateStreamWithDirectGemini, type DirectGeminiRequest, type DirectGeminiResponse } from '@/ai/direct-gemini';
 
 // Input Schema including all Gemini features with proper grounding implementation
 const AiStageExecutionInputSchema = z.object({
@@ -126,8 +127,18 @@ export async function aiStageExecutionFlow(
       hasThinking: thinkingSettings?.enabled,
       isStreaming: streamingSettings?.enabled,
       promptTemplate: promptTemplate ? `${promptTemplate.substring(0, 100)}...` : 'EMPTY',
-      chatHistory: chatHistory ? `${chatHistory.length} messages` : 'none'
+      chatHistory: chatHistory ? `${chatHistory.length} messages` : 'none',
+      // CRITICAL: Debug groundingSettings in detail
+      groundingSettings: groundingSettings,
+      googleSearchSettings: groundingSettings?.googleSearch,
     });
+
+    // 🚨 CRITICAL GROUNDING DEBUG 🚨
+    console.log('🚨🚨🚨 === GOOGLE SEARCH GROUNDING DEBUG === 🚨🚨🚨');
+    console.log('🔍 forceGoogleSearchGrounding:', forceGoogleSearchGrounding);
+    console.log('🔍 groundingSettings?.googleSearch?.enabled:', groundingSettings?.googleSearch?.enabled);
+    console.log('🔍 Full groundingSettings object:', JSON.stringify(groundingSettings, null, 2));
+    console.log('🚨🚨🚨 ================================== 🚨🚨🚨');
 
     // Initialize response tracking
     let currentThinkingSteps: ThinkingStep[] = [];
@@ -230,20 +241,27 @@ export async function aiStageExecutionFlow(
     }
 
     // Determine the model to use
-    let modelToUse = model || 'googleai/gemini-2.0-flash-exp';
+    let modelToUse = model || 'googleai/gemini-2.0-flash';
     
     // Use thinking model if thinking is enabled
     if (thinkingSettings?.enabled && modelToUse.includes('gemini-2.0-flash')) {
-      modelToUse = 'googleai/gemini-2.0-flash-thinking-exp';
+      modelToUse = 'googleai/gemini-2.5-flash-preview';
       console.log('[AI Stage Flow Enhanced] Switched to thinking model:', modelToUse);
     }
 
-    // Build generation options
-    const generateOptions: any = {
+    // Configure generation options
+    const generateOptions = {
       model: modelToUse,
       config: {
         temperature: temperature ?? 0.7,
+        ...(thinkingSettings?.enabled && {
+          thinkingConfig: {
+            includeThoughts: true,
+            thinkingBudget: thinkingSettings.thinkingBudget || 2048
+          }
+        })
       },
+      tools: [] as any[],
     };
 
     // Add thinking configuration
@@ -252,76 +270,31 @@ export async function aiStageExecutionFlow(
       currentThinkingSteps.push({ type: 'textLog', message: 'Thinking mode enabled' });
     }
 
-    // CRITICAL: Implement proper Google Search grounding as per documentation
-    // For Gemini 2.0+ models, use the Search as Tool approach
+    // CRITICAL: Implement proper Google Search grounding using direct API
     const shouldEnableGoogleSearch = 
       forceGoogleSearchGrounding || 
       groundingSettings?.googleSearch?.enabled;
 
+    // 🚀 NEW: Use direct Gemini API for Google Search grounding (bypassing Genkit)
     if (shouldEnableGoogleSearch) {
-      // Determine if this is a Gemini 2.0+ model
-      const isGemini20Plus = modelToUse.includes('2.0') || modelToUse.includes('2.5');
+      console.log('🚀🚀🚀 GOOGLE SEARCH GROUNDING REQUESTED! 🚀🚀🚀');
+      console.log('🔧 Using Direct Gemini API with proper googleSearch tool...');
       
-      console.log('[AI Stage Flow Enhanced] Google Search Grounding Configuration:', {
-        shouldEnableGoogleSearch,
-        isGemini20Plus,
-        modelToUse,
-        forceGoogleSearchGrounding,
-        groundingSettingsEnabled: groundingSettings?.googleSearch?.enabled,
-        temperature: temperature ?? 0.7
-      });
-      
-      if (isGemini20Plus) {
-        // For Gemini 2.0+, use Search as Tool (recommended approach)
-        console.log('[AI Stage Flow Enhanced] Enabling Google Search grounding for Gemini 2.0+ model using Search as Tool');
-        
-        // Add Google Search as a tool
-        if (!generateOptions.tools) {
-          generateOptions.tools = [];
-        }
-        generateOptions.tools.push({ googleSearch: {} });
-        
-        // Set temperature to 0.0 as recommended for grounding
-        generateOptions.config.temperature = 0.0;
-        
-        console.log('[AI Stage Flow Enhanced] Google Search tool added:', generateOptions.tools);
-        
-        currentThinkingSteps.push({ 
-          type: 'textLog', 
-          message: `Google Search grounding enabled with Search as Tool approach for model ${modelToUse}` 
-        });
-      } else {
-        // For Gemini 1.5 models, use Dynamic Retrieval (legacy approach)
-        console.log('[AI Stage Flow Enhanced] Enabling Google Search grounding for Gemini 1.5 model with Dynamic Retrieval');
-        
-        generateOptions.config.googleSearchRetrieval = {
-          dynamicRetrievalConfig: {
-            dynamicThreshold: groundingSettings?.googleSearch?.dynamicThreshold ?? 0.3,
-            mode: 'MODE_DYNAMIC'
-          }
-        };
-        
-        // Set temperature to 0.0 as recommended for grounding
-        generateOptions.config.temperature = 0.0;
-        
-        console.log('[AI Stage Flow Enhanced] Google Search Retrieval config:', generateOptions.config.googleSearchRetrieval);
-        
-        currentThinkingSteps.push({ 
-          type: 'textLog', 
-          message: `Google Search grounding enabled with Dynamic Retrieval (threshold: ${groundingSettings?.googleSearch?.dynamicThreshold ?? 0.3}) for model ${modelToUse}` 
-        });
-      }
-      
-      // CRITICAL: Add explicit system instruction for Google Search grounding
-      const groundingSystemInstruction = "IMPORTANT: You have access to Google Search grounding. When answering questions about current events, recent information, or factual data that may change over time, automatically use Google Search to find up-to-date information. Do NOT generate code to search - use the built-in Google Search capability instead. Provide actual search results and cite your sources.";
-      
-      if (systemInstructions) {
-        systemInstructions = systemInstructions + "\n\n" + groundingSystemInstruction;
-      } else {
-        systemInstructions = groundingSystemInstruction; 
-      }
-      
-      console.log('[AI Stage Flow Enhanced] Enhanced system instructions with grounding guidance');
+      // Use direct API path for Google Search grounding
+      return await executeWithDirectGeminiAPI(
+        {
+          model: modelToUse,
+          prompt: promptTemplate,
+          temperature: temperature ?? 0.1, // Low temperature for grounding accuracy
+          systemInstruction: systemInstructions,
+          enableGoogleSearch: true,
+          dynamicRetrievalThreshold: groundingSettings?.googleSearch?.dynamicThreshold,
+          tools: availableTools
+        },
+        currentThinkingSteps,
+        streamingCallback,
+        input
+      );
     }
 
     // Configure function calling mode
@@ -338,16 +311,30 @@ export async function aiStageExecutionFlow(
     }
 
     // Use streaming or regular generation
-    const shouldUseStreaming = streamingSettings?.enabled || callHistory.length > 0 || generateOptions.tools?.length > 0;
+    const shouldUseStreaming = streamingSettings?.enabled || callHistory.length > 0 || 
+                              generateOptions.tools?.length > 0 || generateOptions.config.tools?.length > 0;
     
     console.log('[AI Stage Flow Enhanced] Generation path decision:', {
       shouldUseStreaming,
       streamingEnabled: streamingSettings?.enabled,
       hasHistory: callHistory.length > 0,
-      hasTools: generateOptions.tools?.length > 0,
+      hasTools: (generateOptions.tools?.length || 0) + (generateOptions.config.tools?.length || 0) > 0,
       googleSearchEnabled: shouldEnableGoogleSearch,
       modelUsed: modelToUse
     });
+
+    // 🚨 FINAL TOOLS CHECK: Show exactly what tools are going to the API
+    console.log('🔧🔧🔧 FINAL API REQUEST TOOLS CHECK 🔧🔧🔧');
+    console.log('📋 generateOptions.tools:', JSON.stringify(generateOptions.tools, null, 2));
+    console.log('📋 generateOptions.config:', JSON.stringify(generateOptions.config, null, 2));
+    console.log('📊 Total tools count:', generateOptions.tools?.length || 0);
+    if (generateOptions.tools?.some((tool: any) => tool.google_search !== undefined)) {
+      console.log('✅✅✅ GOOGLE SEARCH TOOL IS PRESENT IN API REQUEST! ✅✅✅');
+      console.log('🎯 Using Gemini 2.0+ Search as Tool approach');
+    } else {
+      console.log('❌❌❌ NO GOOGLE SEARCH GROUNDING CONFIGURED ❌❌❌');
+    }
+    console.log('🔧🔧🔧 ================================= 🔧🔧🔧');
     
     if (shouldUseStreaming) {
       // Use streaming for chat, tools, or when explicitly enabled
@@ -377,30 +364,20 @@ async function executeSimpleGeneration(
   thinkingSteps: ThinkingStep[]
 ): Promise<AiStageOutputSchema> {
   try {
-    // Format prompt as expected by Genkit
-    const formattedPrompt = [{ text: promptTemplate }];
-    
-    // Enhanced logging for simple generation
-    console.log('[AI Stage Flow Enhanced] ===== SIMPLE GENERATION REQUEST =====');
-    console.log('[AI Stage Flow Enhanced] Simple generation with prompt:', JSON.stringify(formattedPrompt, null, 2));
-    console.log('[AI Stage Flow Enhanced] Simple generation with config:', JSON.stringify(generateOptions, null, 2));
-    
     // Dynamic import to avoid bundling server-only code in client
     const { ai } = await import('@/ai/genkit');
+    console.log('[AI Stage Flow Enhanced] Using simple generation');
+    
     const response = await ai.generate({
-      prompt: formattedPrompt,
       model: generateOptions.model,
+      prompt: promptTemplate,
       config: generateOptions.config,
-      tools: generateOptions.tools
+      ...(generateOptions.tools?.length > 0 && { tools: generateOptions.tools }),
     });
-    
-    // Enhanced logging for simple generation response
-    console.log('[AI Stage Flow Enhanced] ===== SIMPLE GENERATION RESPONSE =====');
-    console.log('[AI Stage Flow Enhanced] Simple generation response:', JSON.stringify(response, null, 2));
-    
+
     const content = response.text || '';
     
-    // Extract proper grounding metadata from the response
+    // Extract grounding metadata and sources
     const groundingMetadata = extractGroundingMetadata(response);
     const groundingSources = extractGroundingSources(response);
     
@@ -438,7 +415,7 @@ async function executeWithStreaming(
   let accumulatedContent = "";
   let finalOutputImages: any[] = [];
   let groundingSources: any[] = [];
-  let groundingMetadata: AiStageOutputSchema['groundingMetadata'];
+  let groundingMetadata: AiStageOutputSchema['groundingMetadata'] = undefined;
   let functionCalls: any[] = [];
   let codeExecutionResults: any;
   
@@ -457,11 +434,8 @@ async function executeWithStreaming(
         temperature: generateOptions.config?.temperature,
         hasTools: !!generateOptions.tools?.length,
         toolsCount: generateOptions.tools?.length || 0,
-        toolNames: generateOptions.tools?.map((t: any) => t.name) || [],
-        hasGoogleSearchRetrieval: !!generateOptions.config?.googleSearchRetrieval,
-        googleSearchRetrieval: generateOptions.config?.googleSearchRetrieval,
-        hasGoogleSearchGrounding: !!generateOptions.config?.googleSearchGrounding,
-        googleSearchGrounding: generateOptions.config?.googleSearchGrounding,
+        toolNames: generateOptions.tools?.map((t: any) => t.name || Object.keys(t)[0]) || [],
+        hasGoogleSearchTool: !!generateOptions.tools?.some((tool: any) => tool.google_search !== undefined),
         systemInstruction: generateOptions.config?.systemInstruction,
         callHistoryLength: callHistory.length,
         fullCallHistory: callHistory,
@@ -688,6 +662,71 @@ async function executeWithStreaming(
   }
 }
 
+// Direct Gemini API execution for Google Search grounding
+async function executeWithDirectGeminiAPI(
+  request: DirectGeminiRequest,
+  thinkingSteps: ThinkingStep[],
+  streamingCallback?: any,
+  originalInput?: AiStageExecutionInput
+): Promise<AiStageOutputSchema> {
+  console.log('🎯 [Direct Gemini API] Starting execution for Google Search grounding');
+  
+  try {
+    // Use streaming if callback is provided
+    if (streamingCallback) {
+      console.log('🌊 [Direct Gemini API] Using streaming mode');
+      
+      const stream = await generateStreamWithDirectGemini(request);
+      let finalResult: DirectGeminiResponse | null = null;
+      
+      for await (const chunk of stream) {
+        finalResult = chunk;
+        
+        // Send streaming callback
+        if (streamingCallback) {
+          streamingCallback({
+            content: chunk.content,
+            groundingMetadata: chunk.groundingMetadata,
+            groundingSources: chunk.groundingSources,
+            isComplete: false
+          });
+        }
+      }
+      
+      if (!finalResult) {
+        throw new Error('No final result from streaming');
+      }
+      
+      console.log('✅ [Direct Gemini API] Streaming completed successfully');
+      
+      return {
+        content: finalResult.content,
+        thinkingSteps: thinkingSteps.length > 0 ? thinkingSteps : undefined,
+        groundingMetadata: finalResult.groundingMetadata,
+        groundingSources: finalResult.groundingSources,
+      };
+      
+    } else {
+      console.log('📝 [Direct Gemini API] Using non-streaming mode');
+      
+      const result = await generateWithDirectGemini(request);
+      
+      console.log('✅ [Direct Gemini API] Generation completed successfully');
+      
+      return {
+        content: result.content,
+        thinkingSteps: thinkingSteps.length > 0 ? thinkingSteps : undefined,
+        groundingMetadata: result.groundingMetadata,
+        groundingSources: result.groundingSources,
+      };
+    }
+    
+  } catch (error) {
+    console.error('❌ [Direct Gemini API] Execution failed:', error);
+    throw error;
+  }
+}
+
 // Helper to simulate streaming from a regular response
 async function* simulateStream(response: any) {
   yield {
@@ -728,26 +767,86 @@ function extractGroundingSources(response: any): any[] {
       }
     }
   }
+
+  // Also check for citationMetadata which is how Search as Tool grounding data comes through
+  const citationMetadata = response.custom?.candidates?.[0]?.citationMetadata || response.citationMetadata;
+  if (citationMetadata && citationMetadata.citationSources?.length > 0) {
+    console.log('[AI Stage Flow Enhanced] Extracting sources from citationMetadata');
+    
+    for (const citation of citationMetadata.citationSources) {
+      sources.push({
+        type: 'search' as const,
+        title: citation.uri, // Use URI as title since title is not provided in citations
+        url: citation.uri,
+        snippet: `Cited content from index ${citation.startIndex} to ${citation.endIndex}`,
+      });
+    }
+  }
   
   return sources;
 }
 
 // Extract grounding metadata from response metadata
 function extractGroundingMetadata(response: any): AiStageOutputSchema['groundingMetadata'] {
-  const metadata = response.metadata?.groundingMetadata;
-  if (!metadata) return undefined;
+  // The actual grounding metadata might be nested differently by the Genkit SDK
+  // Check common locations: response.metadata.groundingMetadata, response.groundingMetadata, response.response?.groundingMetadata
+  const rawMetadata = response.groundingMetadata || response.response?.groundingMetadata || response.metadata?.groundingMetadata;
 
-  const groundingMetadata: AiStageOutputSchema['groundingMetadata'] = {
-    searchEntryPoint: {
-      renderedContent: metadata.searchEntryPoint?.renderedContent || '',
-    },
-    groundingChunks: metadata.groundingChunks?.map((chunk: any) => ({
+  if (!rawMetadata) {
+    console.log('[AI Stage Flow Enhanced] No raw grounding metadata found in the response object.');
+    
+    // Check for citationMetadata which seems to be how grounding data comes through for Search as Tool
+    const citationMetadata = response.custom?.candidates?.[0]?.citationMetadata || response.citationMetadata;
+    if (citationMetadata && citationMetadata.citationSources?.length > 0) {
+      console.log('[AI Stage Flow Enhanced] Found citationMetadata with sources:', JSON.stringify(citationMetadata, null, 2));
+      
+      // Convert citationMetadata to groundingMetadata format
+      const groundingMetadata: AiStageOutputSchema['groundingMetadata'] = {
+        groundingChunks: citationMetadata.citationSources.map((source: any) => ({
+          web: {
+            uri: source.uri || '',
+            title: '', // Citation sources don't typically include titles, we'll extract from content if needed
+          },
+        })).filter((chunk: any) => chunk.web.uri), // Filter out empty chunks
+        groundingSupports: citationMetadata.citationSources.map((source: any, index: number) => ({
+          segment: {
+            startIndex: source.startIndex,
+            endIndex: source.endIndex,
+            text: '', // We'd need to extract this from the response text based on indices
+          },
+          groundingChunkIndices: [index],
+          confidenceScores: [],
+        })),
+        webSearchQueries: [], // Not available in citation metadata
+      };
+
+      console.log('[AI Stage Flow Enhanced] Converted citationMetadata to groundingMetadata:', JSON.stringify(groundingMetadata, null, 2));
+      return groundingMetadata;
+    }
+    
+    return undefined;
+  }
+  
+  console.log('[AI Stage Flow Enhanced] Raw grounding metadata found:', JSON.stringify(rawMetadata, null, 2));
+
+  // Defensive check for crucial parts
+  if (!rawMetadata.searchEntryPoint && !rawMetadata.webSearchQueries && !rawMetadata.groundingChunks) {
+    console.log('[AI Stage Flow Enhanced] Raw metadata does not contain expected grounding fields (searchEntryPoint, webSearchQueries, groundingChunks).');
+    return undefined;
+  }
+  
+  const extracted: AiStageOutputSchema['groundingMetadata'] = {
+    searchEntryPoint: rawMetadata.searchEntryPoint ? {
+      renderedContent: rawMetadata.searchEntryPoint.renderedContent || '',
+      // map other searchEntryPoint fields if they exist
+    } : undefined,
+    groundingChunks: (rawMetadata.groundingChunks || []).map((chunk: any) => ({
       web: {
-        uri: chunk.web?.uri || '',
-        title: chunk.web?.title || '',
+        uri: chunk.web?.uri || (typeof chunk.uri === 'string' ? chunk.uri : ''), // Handle slightly different structures
+        title: chunk.web?.title || (typeof chunk.title === 'string' ? chunk.title : ''),
       },
-    })) || [],
-    groundingSupports: metadata.groundingSupports?.map((support: any) => ({
+    })).filter((chunk:any) => chunk.web.uri), // Filter out empty chunks
+    groundingSupports: (rawMetadata.groundingSupports || []).map((support: any) => ({
       segment: {
         startIndex: support.segment?.startIndex,
         endIndex: support.segment?.endIndex,
@@ -755,11 +854,17 @@ function extractGroundingMetadata(response: any): AiStageOutputSchema['grounding
       },
       groundingChunkIndices: support.groundingChunkIndices || [],
       confidenceScores: support.confidenceScores || [],
-    })) || [],
-    webSearchQueries: metadata.webSearchQueries || [],
+    })),
+    webSearchQueries: rawMetadata.webSearchQueries || [],
   };
 
-  return groundingMetadata;
+  // Only return the object if it has meaningful data
+  if (extracted.webSearchQueries?.length || extracted.groundingChunks?.length || extracted.searchEntryPoint?.renderedContent) {
+    console.log('[AI Stage Flow Enhanced] Successfully extracted grounding metadata:', JSON.stringify(extracted, null, 2));
+    return extracted;
+  }
+  console.log('[AI Stage Flow Enhanced] Extracted grounding metadata was empty.');
+  return undefined;
 }
 
 // Export for compatibility

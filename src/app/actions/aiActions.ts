@@ -18,6 +18,8 @@ interface RunAiStageParams {
   // New parameter to force Google Search grounding for AI Redo
   aiRedoNotes?: string;
   forceGoogleSearchGrounding?: boolean;
+  // Add groundingSettings from the workflow stage configuration
+  groundingSettings?: Stage['groundingSettings'];
 }
 
 interface AiActionResult {
@@ -95,7 +97,12 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
       temperature: params.temperature,
       stageOutputType: params.stageOutputType,
       hasAiRedoNotes: !!params.aiRedoNotes,
-      forceGoogleSearchGrounding: !!params.forceGoogleSearchGrounding
+      forceGoogleSearchGrounding: !!params.forceGoogleSearchGrounding,
+      // CRITICAL: Debug groundingSettings
+      hasGroundingSettings: !!params.groundingSettings,
+      groundingSettings: params.groundingSettings,
+      googleSearchEnabled: params.groundingSettings?.googleSearch?.enabled,
+      googleSearchThreshold: params.groundingSettings?.googleSearch?.dynamicThreshold,
     });
 
     // Create an enhanced context that includes direct userInput reference
@@ -135,18 +142,23 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
       chatHistory: params.chatHistory, // Pass it through
       // CRITICAL: Force Google Search grounding for AI Redo or when explicitly requested
       forceGoogleSearchGrounding: params.forceGoogleSearchGrounding || !!params.aiRedoNotes,
+      // Pass groundingSettings from the workflow stage configuration
+      groundingSettings: params.groundingSettings,
     };
 
     // Enable Google Search grounding if AI Redo is being used or explicitly requested
-    if (params.aiRedoNotes || params.forceGoogleSearchGrounding) {
+    // or if groundingSettings are provided from the workflow
+    if (params.aiRedoNotes || params.forceGoogleSearchGrounding || params.groundingSettings?.googleSearch?.enabled) {
       if (!aiInput.groundingSettings) {
         aiInput.groundingSettings = {};
       }
-      aiInput.groundingSettings.googleSearch = {
-        enabled: true,
-        dynamicThreshold: 0.3, // Default threshold for AI Redo
-      };
-      console.log("[runAiStage] Google Search grounding enabled for AI Redo functionality");
+      if (!aiInput.groundingSettings.googleSearch) {
+        aiInput.groundingSettings.googleSearch = {
+          enabled: true,
+          dynamicThreshold: params.groundingSettings?.googleSearch?.dynamicThreshold || 0.3,
+        };
+      }
+      console.log("[runAiStage] Google Search grounding enabled - AI Redo:", !!params.aiRedoNotes, "Force:", !!params.forceGoogleSearchGrounding, "Workflow:", !!params.groundingSettings?.googleSearch?.enabled);
     }
 
     // Add imageData if present in currentStageInput (for image inputType)
