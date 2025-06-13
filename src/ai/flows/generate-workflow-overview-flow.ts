@@ -53,7 +53,7 @@ export async function generateWorkflowOverview(input: GenerateWorkflowOverviewIn
 
 const prompt = ai.definePrompt({
   name: 'generateWorkflowOverviewPrompt',
-  model: 'googleai/gemini-2.0-flash-exp',
+  model: 'googleai/gemini-2.0-flash',
   config: {
     temperature: 0.7,
   },
