@@ -15,12 +15,37 @@ interface RunAiStageParams {
   contextVars: Record<string, StageState | { userInput: any, output: any }>; 
   currentStageInput?: any; 
   stageOutputType: Stage['outputType'];
+  // New parameter to force Google Search grounding for AI Redo
+  aiRedoNotes?: string;
+  forceGoogleSearchGrounding?: boolean;
 }
 
 interface AiActionResult {
   content: any;
   error?: string;
   groundingInfo?: any;
+  // Proper grounding metadata structure
+  groundingMetadata?: {
+    searchEntryPoint?: {
+      renderedContent: string;
+    };
+    groundingChunks?: Array<{
+      web: {
+        uri: string;
+        title: string;
+      };
+    }>;
+    groundingSupports?: Array<{
+      segment: {
+        startIndex?: number;
+        endIndex: number;
+        text: string;
+      };
+      groundingChunkIndices: number[];
+      confidenceScores: number[];
+    }>;
+    webSearchQueries?: string[];
+  };
   thinkingSteps?: import('@/ai/flows/ai-stage-execution').ThinkingStep[];
   outputImages?: Array<{
     name?: string;
@@ -68,7 +93,9 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
       hasPromptTemplate: !!params.promptTemplate,
       model: params.model,
       temperature: params.temperature,
-      stageOutputType: params.stageOutputType
+      stageOutputType: params.stageOutputType,
+      hasAiRedoNotes: !!params.aiRedoNotes,
+      forceGoogleSearchGrounding: !!params.forceGoogleSearchGrounding
     });
 
     // Create an enhanced context that includes direct userInput reference
@@ -77,7 +104,14 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
       userInput: params.currentStageInput // Add direct userInput reference
     };
 
-    const filledPrompt = substitutePromptVars(params.promptTemplate, enhancedContext);
+    let filledPrompt = substitutePromptVars(params.promptTemplate, enhancedContext);
+    
+    // If AI Redo notes are provided, enhance the prompt with additional instructions
+    if (params.aiRedoNotes) {
+      filledPrompt += `\n\nAdditional instructions: ${params.aiRedoNotes}`;
+      console.log("[runAiStage] Enhanced prompt with AI REDO notes");
+    }
+    
     console.log("[runAiStage] Filled prompt length:", filledPrompt.length);
     console.log("[runAiStage] First 200 chars of filled prompt:", filledPrompt.substring(0, 200));
 
@@ -99,7 +133,21 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
       fileInputs: [],
       systemInstructions: params.systemInstructions, // Pass it through
       chatHistory: params.chatHistory, // Pass it through
+      // CRITICAL: Force Google Search grounding for AI Redo or when explicitly requested
+      forceGoogleSearchGrounding: params.forceGoogleSearchGrounding || !!params.aiRedoNotes,
     };
+
+    // Enable Google Search grounding if AI Redo is being used or explicitly requested
+    if (params.aiRedoNotes || params.forceGoogleSearchGrounding) {
+      if (!aiInput.groundingSettings) {
+        aiInput.groundingSettings = {};
+      }
+      aiInput.groundingSettings.googleSearch = {
+        enabled: true,
+        dynamicThreshold: 0.3, // Default threshold for AI Redo
+      };
+      console.log("[runAiStage] Google Search grounding enabled for AI Redo functionality");
+    }
 
     // Add imageData if present in currentStageInput (for image inputType)
     if (params.currentStageInput &&
@@ -138,6 +186,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
     const thinkingSteps = result.thinkingSteps;
     const outputImages = result.outputImages;
     const updatedChatHistory = result.updatedChatHistory; // Capture updatedChatHistory
+    const groundingMetadata = result.groundingMetadata; // Capture grounding metadata
 
     if (params.stageOutputType === 'json') {
         try {
@@ -152,9 +201,10 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
     }
 
     console.log("[runAiStage] Success, content type:", typeof parsedContent);
-    // Return thinkingSteps and outputImages along with content
+    // Return all response data including grounding metadata
     return {
         content: parsedContent,
+        groundingMetadata,
         ...(thinkingSteps && { thinkingSteps }),
         ...(outputImages && { outputImages }),
         ...(updatedChatHistory && { updatedChatHistory }), // Return it

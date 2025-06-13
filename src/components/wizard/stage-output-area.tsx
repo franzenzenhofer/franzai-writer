@@ -451,9 +451,25 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
         )}
       </div>
       {/* Save Edits button is now managed by StageCard */}
-      {/* Display Grounding Sources */}
-      {stageState.groundingSources && stageState.groundingSources.length > 0 && !isEditingOutput && (
-        <GroundingSourcesDisplay sources={stageState.groundingSources} />
+      {/* Display grounding metadata for Google Search */}
+      {stageState.groundingMetadata?.searchEntryPoint?.renderedContent && (
+        <div className="mt-4 border-t pt-4">
+          <h4 className="text-sm font-medium mb-2 text-muted-foreground">Google Search Suggestions</h4>
+          <div 
+            className="grounding-search-suggestions"
+            dangerouslySetInnerHTML={{ 
+              __html: stageState.groundingMetadata.searchEntryPoint.renderedContent 
+            }}
+          />
+        </div>
+      )}
+
+          {/* Display grounding sources if available */}
+    {stageState.groundingSources && stageState.groundingSources.length > 0 && (
+      <GroundingSourcesDisplay 
+        sources={stageState.groundingSources} 
+        groundingMetadata={stageState.groundingMetadata}
+      />
       )}
       
       {/* Display Function Calls */}
@@ -466,22 +482,11 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
         <CodeExecutionDisplay results={stageState.codeExecutionResults} />
       )}
       
-      {/* Legacy grounding info display */}
-      {stageState.groundingInfo && !isEditingOutput && !stageState.groundingSources && (
-        <Card className="bg-muted/50">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base font-headline flex items-center">
-              <Info className="w-4 h-4 mr-2 text-primary" />
-              Grounding Information
-            </CardTitle>
-            <CardDescription className="text-xs">
-              Context or sources used by the AI for this output. (Placeholder)
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <JsonRenderer data={stageState.groundingInfo} />
-          </CardContent>
-        </Card>
+      {/* Legacy grounding display */}
+      {stageState.groundingInfo && (
+        <div className="mt-4 text-xs text-muted-foreground">
+          <strong>Grounding info:</strong> {JSON.stringify(stageState.groundingInfo)}
+        </div>
       )}
       {stageState.thinkingSteps && stageState.thinkingSteps.length > 0 && !isEditingOutput && shouldShowThinking() && (
         <Card className="bg-muted/50 mt-4">

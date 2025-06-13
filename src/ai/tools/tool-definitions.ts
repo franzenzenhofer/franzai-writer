@@ -105,7 +105,7 @@ export const unitConverterDefinition = {
   fn: async (input: any) => {
     console.log('[unitConverter] Converting:', input);
     
-    const conversions: Record<string, Record<string, number>> = {
+    const conversions: Record<string, Record<string, number | ((x: number) => number)>> = {
       // Length
       'meter': { 'feet': 3.28084, 'kilometer': 0.001, 'mile': 0.000621371 },
       'kilometer': { 'mile': 0.621371, 'meter': 1000, 'feet': 3280.84 },

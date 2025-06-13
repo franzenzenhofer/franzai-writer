@@ -23,7 +23,8 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:debug": "playwright test --debug",
     "logs:tail": "tail -f logs/nextjs-dev.log",
-    "logs:errors": "grep ERROR logs/nextjs-dev.log || echo 'No errors found'"
+    "logs:errors": "grep ERROR logs/nextjs-dev.log || echo 'No errors found'",
+    "kill": "pkill -f 'next-server' || true; pkill -f 'genkit' || true; pkill -f 'firebase-tools' || true; lsof -ti:9002,4000,9099,8080,5000 | xargs kill -9 2>/dev/null || true; echo '✅ All servers killed'"
   },
   "dependencies": {
     "@genkit-ai/googleai": "^1.8.0",

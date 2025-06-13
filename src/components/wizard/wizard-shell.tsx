@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect, useCallback } from 'react';
@@ -260,7 +259,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   };
 
   const handleRunStage = useCallback(async (stageId: string, currentInput?: any, aiRedoNotes?: string) => {
-    console.log('[handleRunStage] Called with:', { stageId, currentInput });
+    console.log('[handleRunStage] Called with:', { stageId, currentInput, hasAiRedoNotes: !!aiRedoNotes });
     const stage = instance.workflow.stages.find(s => s.id === stageId);
     if (!stage) return;
 
@@ -338,7 +337,8 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         contextVarsKeys: Object.keys(contextVars),
         currentStageInput: stageInputForRun,
         stageOutputType: stage.outputType,
-        hasAiRedoNotes: !!aiRedoNotes
+        hasAiRedoNotes: !!aiRedoNotes,
+        willForceGoogleSearchGrounding: !!aiRedoNotes
       });
       
       const result = await runAiStage({
@@ -352,6 +352,9 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         contextVars: contextVars,
         currentStageInput: stageInputForRun,
         stageOutputType: stage.outputType,
+        // CRITICAL: Pass AI Redo notes to force Google Search grounding
+        aiRedoNotes: aiRedoNotes,
+        forceGoogleSearchGrounding: !!aiRedoNotes, // Force grounding when AI Redo is used
       });
 
       if (result.error) {
@@ -365,6 +368,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         status: "completed",
         output: result.content, // Final accumulated content
         groundingInfo: result.groundingInfo,
+        groundingMetadata: result.groundingMetadata, // Store grounding metadata
         thinkingSteps: result.thinkingSteps,
         outputImages: result.outputImages,
         chatHistory: result.updatedChatHistory, // Store updated chat history
@@ -372,7 +376,19 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         completedAt: new Date().toISOString(),
         isStale: false,
       });
-      toast({ title: "AI Stage Completed", description: `AI processing for "${stage.title}" finished.` });
+      
+      // Show specific toast message for AI Redo with grounding
+      if (aiRedoNotes) {
+        toast({ 
+          title: "AI Redo Completed", 
+          description: `AI regeneration for "${stage.title}" finished with Google Search grounding.` 
+        });
+      } else {
+        toast({ 
+          title: "AI Stage Completed", 
+          description: `AI processing for "${stage.title}" finished.` 
+        });
+      }
       
       // Auto-scroll to next stage after a brief delay (configurable)
       const autoScrollConfig = instance.workflow.config?.autoScroll;

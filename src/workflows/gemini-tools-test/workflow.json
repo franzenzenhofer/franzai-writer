@@ -25,16 +25,19 @@
       "description": "Test Google Search grounding. Ask a question about current events or recent information.",
       "inputType": "textarea",
       "outputType": "text",
-      "model": "googleai/gemini-2.0-flash-exp",
+      "model": "googleai/gemini-2.0-flash",
+      "temperature": 0.0,
       "dependencies": ["test-title"],
       "groundingSettings": {
         "googleSearch": {
           "enabled": true,
-          "dynamicThreshold": 0.7
+          "dynamicThreshold": 0.3
         }
       },
-      "promptTemplate": "Using Google Search grounding, answer this question: {{userInput}}\n\nProvide sources and citations for your answer.",
+      "systemInstructions": "You have Google Search grounding enabled. Use it to find current, up-to-date information. Do NOT generate code to search - use your built-in Google Search capability to provide real search results with proper citations.",
+      "promptTemplate": "Answer this question using current information from Google Search: {{grounding-google-search.userInput}}\n\nIMPORTANT: Use Google Search grounding to find real, current information. Provide actual search results with sources and citations. Do not generate code or scripts.",
       "autoRun": false,
+      "aiRedoEnabled": true,
       "showThinking": true
     },
     {
@@ -206,12 +209,13 @@
       "description": "Test multiple features together: grounding + function calling + code execution",
       "inputType": "textarea",
       "outputType": "text",
-      "model": "googleai/gemini-2.0-flash-exp",
+      "model": "googleai/gemini-2.0-flash",
+      "temperature": 0.0,
       "dependencies": ["test-title"],
       "groundingSettings": {
         "googleSearch": {
           "enabled": true,
-          "dynamicThreshold": 0.5
+          "dynamicThreshold": 0.3
         }
       },
       "toolNames": ["simpleCalculator", "weatherTool", "unitConverter", "codeInterpreter"],
@@ -219,8 +223,9 @@
       "thinkingSettings": {
         "enabled": true
       },
-      "promptTemplate": "{{userInput}}\n\nUse any combination of search, tools, and code execution to provide a comprehensive answer.",
+      "promptTemplate": "{{combined-features-test.userInput}}\n\nUse any combination of Google Search, tools, and code execution to provide a comprehensive answer.",
       "autoRun": false,
+      "aiRedoEnabled": true,
       "showThinking": true
     },
     {

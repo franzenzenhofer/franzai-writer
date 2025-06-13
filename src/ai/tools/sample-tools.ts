@@ -77,7 +77,7 @@ export const weatherTool = ai.defineTool(
       'default': { temperature: 70, conditions: 'Sunny', humidity: 50, windSpeed: 8 },
     };
     
-    const weather = demoWeather[input.location] || demoWeather['default'];
+    const weather = demoWeather[input.location as keyof typeof demoWeather] || demoWeather['default'];
     return {
       location: input.location,
       ...weather,

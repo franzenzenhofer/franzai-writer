@@ -1,5 +1,6 @@
 import { genkit } from 'genkit';
 import { googleAI } from '@genkit-ai/googleai';
+import type { Genkit } from 'genkit';
 
 console.log('[GENKIT INIT] STEP 1: Starting Genkit initialization at', new Date().toISOString());
 console.log('[GENKIT INIT] STEP 2: Environment check:');
@@ -14,7 +15,7 @@ console.log('[GENKIT INIT] - GOOGLE_GENAI_API_KEY length:', process.env.GOOGLE_G
 // `defineTool()` while the runtime context is still un-initialised and lead to
 // the `getStore` undefined error we are fixing.
 
-let ai;
+let ai: any;
 
 try {
   console.log('[GENKIT INIT] STEP 3: Creating Genkit instance...');

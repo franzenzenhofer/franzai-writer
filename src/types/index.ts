@@ -124,27 +124,42 @@ export interface Workflow {
 }
 
 export interface StageState {
-  stageId: string;
-  userInput?: any; 
-  output?: any; 
+  stageId?: string; // Stage ID for compatibility
   status: "idle" | "running" | "completed" | "error";
+  userInput?: any;
+  output?: any;
   error?: string;
-  completedAt?: string; 
-  groundingInfo?: any; 
-  isStale?: boolean;
-  staleDismissed?: boolean; // Track if stale warning was dismissed
   depsAreMet?: boolean;
-  shouldAutoRun?: boolean;
+  completedAt?: string;
+  isEditingInput?: boolean;
   isEditingOutput?: boolean;
-  thinkingSteps?: import('@/ai/flows/ai-stage-execution').ThinkingStep[];
-  chatHistory?: Array<{role: 'user' | 'model' | 'system', parts: any[]}>;
-  currentStreamOutput?: string; // For displaying live streaming text
-  outputImages?: Array<{
-    name?: string;
-    base64Data: string;
-    mimeType: string;
-  }>;
-  // Advanced Gemini feature responses
+  currentStreamOutput?: string; // For streaming responses
+  isStale?: boolean; // Marks content as potentially outdated
+  staleDismissed?: boolean; // User dismissed the stale warning
+  shouldAutoRun?: boolean;
+  groundingInfo?: any; // Legacy grounding information
+  // Proper grounding metadata structure as per Google documentation
+  groundingMetadata?: {
+    searchEntryPoint?: {
+      renderedContent: string;
+    };
+    groundingChunks?: Array<{
+      web: {
+        uri: string;
+        title: string;
+      };
+    }>;
+    groundingSupports?: Array<{
+      segment: {
+        startIndex?: number;
+        endIndex: number;
+        text: string;
+      };
+      groundingChunkIndices: number[];
+      confidenceScores: number[];
+    }>;
+    webSearchQueries?: string[];
+  };
   groundingSources?: Array<{
     type: 'search' | 'url';
     title: string;
@@ -167,6 +182,16 @@ export interface StageState {
       mimeType: string;
     }>;
   };
+  thinkingSteps?: import('@/ai/flows/ai-stage-execution').ThinkingStep[];
+  outputImages?: Array<{
+    name?: string;
+    base64Data: string;
+    mimeType: string;
+  }>;
+  chatHistory?: Array<{
+    role: 'user' | 'model' | 'system';
+    parts: any[];
+  }>;
 }
 
 export interface WizardDocument {
