@@ -42,22 +42,48 @@ const auth = getAuth(app);
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 
+// Log Firebase configuration status
+console.log('[FIREBASE INIT] Configuration loaded:', {
+  projectId: firebaseConfig.projectId,
+  authDomain: firebaseConfig.authDomain,
+  useEmulator: process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATOR,
+  isServer: typeof window === 'undefined',
+  timestamp: new Date().toISOString()
+});
+
 // Connect to emulators if in development
-if (process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATOR === 'true' && typeof window !== 'undefined') {
-  const { connectAuthEmulator } = require('firebase/auth');
-  const { connectFirestoreEmulator } = require('firebase/firestore');
+if (process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATOR === 'true') {
+  console.log('[FIREBASE INIT] Emulator mode enabled');
   
-  // Connect to auth emulator
-  if (!auth.emulatorConfig) {
-    connectAuthEmulator(auth, `http://${process.env.NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_HOST || 'localhost:9099'}`);
+  if (typeof window !== 'undefined') {
+    console.log('[FIREBASE INIT] Running in browser, connecting to emulators...');
+    
+    const { connectAuthEmulator } = require('firebase/auth');
+    const { connectFirestoreEmulator } = require('firebase/firestore');
+    
+    // Connect to auth emulator
+    const authEmulatorHost = process.env.NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_HOST || 'localhost:9099';
+    if (!auth.emulatorConfig) {
+      console.log('[FIREBASE INIT] Connecting to Auth emulator at:', authEmulatorHost);
+      connectAuthEmulator(auth, `http://${authEmulatorHost}`);
+      console.log('[FIREBASE INIT] Auth emulator connected');
+    } else {
+      console.log('[FIREBASE INIT] Auth emulator already connected');
+    }
+    
+    // Connect to Firestore emulator
+    try {
+      console.log('[FIREBASE INIT] Connecting to Firestore emulator at: localhost:8080');
+      connectFirestoreEmulator(db, 'localhost', 8080);
+      console.log('[FIREBASE INIT] Firestore emulator connected');
+    } catch (e) {
+      console.log('[FIREBASE INIT] Firestore emulator already connected');
+    }
+  } else {
+    console.log('[FIREBASE INIT] Running on server, skipping emulator connection');
   }
-  
-  // Connect to Firestore emulator
-  try {
-    connectFirestoreEmulator(db, 'localhost', 8080);
-  } catch (e) {
-    console.log('Firestore emulator already connected');
-  }
+} else {
+  console.warn('[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!');
 }
 
 const signUp = async (email: string, password: string) => {
