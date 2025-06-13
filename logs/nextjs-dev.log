@@ -34898,3 +34898,322 @@ Starting inspector on 127.0.0.1:9230 failed: address already in use
 [TEST-SIMPLE] GET request received at: 2025-06-13T18:28:50.847Z
  GET /api/test-simple 200 in 216ms
  POST /api/ai/stream 200 in 1075ms
+ GET / 200 in 154ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 329ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 1170ms
+Debugger listening on ws://127.0.0.1:9230/617ecb0b-2c97-4321-b714-6c89ab107727
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+Creating turbopack project { dir: '/Users/franzenzenhofer/dev/franzai-writer', testMode: true }
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 798ms
+ ○ Compiling / ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled / in 1667ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T19:57:49.491Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET / 200 in 1947ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 745ms
+ GET /dashboard 200 in 774ms
+ ○ Compiling /w/[shortName]/new ...
+ ✓ Compiled /w/[shortName]/new in 1016ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T19:57:56.583Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T19:57:56.851Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'gemini-test' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'gemini-test',
+  workflowId: 'gemini-tools-test',
+  workflowName: 'Gemini AI Tools Test'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'gemini-test',
+  documentId: 'mbv8c9vkw3kh7aq',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749844676865_fva5begba',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749844676865_fva5begba',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 192
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'EdJ9S16mlN1cJYGEoNvu',
+  path: 'documents/EdJ9S16mlN1cJYGEoNvu'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'EdJ9S16mlN1cJYGEoNvu',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'EdJ9S16mlN1cJYGEoNvu' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'EdJ9S16mlN1cJYGEoNvu' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'EdJ9S16mlN1cJYGEoNvu',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'EdJ9S16mlN1cJYGEoNvu' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'EdJ9S16mlN1cJYGEoNvu',
+  error: undefined,
+  originalId: 'mbv8c9vkw3kh7aq'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbv8c9vkw3kh7aq',
+  createdId: 'EdJ9S16mlN1cJYGEoNvu',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/gemini-test/EdJ9S16mlN1cJYGEoNvu' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/gemini-test/new 200 in 1831ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'poem' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'poem',
+  workflowId: 'poem-generator',
+  workflowName: 'Poem Generator'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'poem',
+  documentId: 'mbv8d6aiw3nx58i',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749844718874_2hi0u4urw',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749844718874_2hi0u4urw',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 183
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'W9Anz49QQV0PEN2IOvCM',
+  path: 'documents/W9Anz49QQV0PEN2IOvCM'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'W9Anz49QQV0PEN2IOvCM',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'W9Anz49QQV0PEN2IOvCM' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'W9Anz49QQV0PEN2IOvCM' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'W9Anz49QQV0PEN2IOvCM',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'W9Anz49QQV0PEN2IOvCM' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'W9Anz49QQV0PEN2IOvCM',
+  error: undefined,
+  originalId: 'mbv8d6aiw3nx58i'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbv8d6aiw3nx58i',
+  createdId: 'W9Anz49QQV0PEN2IOvCM',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/poem/W9Anz49QQV0PEN2IOvCM' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/poem/new 200 in 158ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T19:58:39.163Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
