@@ -13,7 +13,16 @@ import type {
   StageOutput,
   StageContext 
 } from '@/types';
-import { SchemaType } from '@google/genai';
+
+// Define SchemaType enum for @google/genai
+enum SchemaType {
+  STRING = 'string',
+  NUMBER = 'number',
+  INTEGER = 'integer',
+  BOOLEAN = 'boolean',
+  ARRAY = 'array',
+  OBJECT = 'object'
+}
 
 export interface ExecutionResult {
   output: StageOutput;

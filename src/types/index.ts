@@ -222,12 +222,16 @@ export interface StageInput {
   inputType: StageInputType;
   userInput?: any;
   formFields?: FormField[];
+  text?: string; // Text input for the stage
+  files?: any[]; // File inputs if any
 }
 
 export interface StageContext {
   contextVars: Record<string, any>;
   stageStates: Record<string, StageState>;
 }
+
+export type StageOutput = any; // Can be text, JSON, markdown, HTML etc based on outputType
 
 export interface AiStageExecutionParams {
   promptTemplate: string;

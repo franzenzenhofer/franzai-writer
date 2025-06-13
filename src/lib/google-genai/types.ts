@@ -3,30 +3,66 @@
  * Complete type definitions for all Gemini 2.0+ features
  */
 
-import type { 
-  Content,
-  Part,
-  GenerateContentRequest,
-  GenerateContentResult,
-  FunctionDeclaration,
-  Tool,
-  GenerationConfig,
-  SafetySetting,
-  RequestOptions
-} from '@google/genai';
+// For @google/genai package, we need to define our own types
+// since the API is different from @google/generative-ai
 
-// Re-export core types
-export type {
-  Content,
-  Part,
-  GenerateContentRequest,
-  GenerateContentResult,
-  FunctionDeclaration,
-  Tool,
-  GenerationConfig,
-  SafetySetting,
-  RequestOptions
-};
+export interface Content {
+  role: 'user' | 'model' | 'system';
+  parts: Part[];
+}
+
+export interface Part {
+  text?: string;
+  inlineData?: {
+    mimeType: string;
+    data: string;
+  };
+  fileData?: {
+    mimeType: string;
+    uri: string;
+  };
+}
+
+export interface FunctionDeclaration {
+  name: string;
+  description?: string;
+  parameters?: any;
+}
+
+export interface Tool {
+  functionDeclarations?: FunctionDeclaration[];
+  codeExecution?: {};
+  googleSearch?: {};
+}
+
+export interface GenerationConfig {
+  temperature?: number;
+  maxOutputTokens?: number;
+  topP?: number;
+  topK?: number;
+  stopSequences?: string[];
+  candidateCount?: number;
+  responseMimeType?: string;
+  responseSchema?: any;
+}
+
+export interface SafetySetting {
+  category: string;
+  threshold: string;
+}
+
+export interface GenerateContentResponse {
+  text: () => string;
+  candidates?: any[];
+  usageMetadata?: any;
+}
+
+export interface GenerateContentRequest {
+  contents: Content[];
+  generationConfig?: GenerationConfig;
+  safetySettings?: SafetySetting[];
+  tools?: Tool[];
+}
 
 // Model configurations
 export interface ModelConfig {

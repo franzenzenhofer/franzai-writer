@@ -4,19 +4,19 @@
  * Modular design for easy feature extension
  */
 
-import { GoogleGenerativeAI, GenerativeModel, ModelParams } from '@google/genai';
+import { GoogleGenAI } from '@google/genai';
 
 export class GoogleGenAICore {
   private static instance: GoogleGenAICore;
-  private genAI: GoogleGenerativeAI;
-  private models: Map<string, GenerativeModel> = new Map();
+  private genAI: GoogleGenAI;
+  private models: Map<string, any> = new Map();
 
   private constructor() {
     const apiKey = process.env.GOOGLE_GENAI_API_KEY;
     if (!apiKey) {
       throw new Error('GOOGLE_GENAI_API_KEY environment variable is required');
     }
-    this.genAI = new GoogleGenerativeAI(apiKey);
+    this.genAI = new GoogleGenAI({ apiKey });
   }
 
   static getInstance(): GoogleGenAICore {
@@ -28,25 +28,22 @@ export class GoogleGenAICore {
 
   /**
    * Get or create a model instance with caching
+   * Note: @google/genai doesn't support model caching the same way
    */
-  getModel(modelName: string, modelParams?: ModelParams): GenerativeModel {
-    const cacheKey = `${modelName}_${JSON.stringify(modelParams || {})}`;
-    
-    if (!this.models.has(cacheKey)) {
-      const model = this.genAI.getGenerativeModel({ 
-        model: modelName,
-        ...modelParams 
-      });
-      this.models.set(cacheKey, model);
-    }
-    
-    return this.models.get(cacheKey)!;
+  getModel(modelName: string, modelParams?: any): any {
+    // For @google/genai, we return the models API directly
+    // The actual model instance is created when calling generate methods
+    return {
+      modelName,
+      modelParams,
+      genAI: this.genAI
+    };
   }
 
   /**
    * Get the raw GoogleGenerativeAI instance for advanced usage
    */
-  getRawClient(): GoogleGenerativeAI {
+  getRawClient(): GoogleGenAI {
     return this.genAI;
   }
 

@@ -4,7 +4,17 @@
  */
 
 import { getGoogleGenAI } from '../core';
-import { FunctionDeclaration, SchemaType, Tool } from '@google/genai';
+import type { FunctionDeclaration, Tool } from '../types';
+
+// Define SchemaType enum for @google/genai
+enum SchemaType {
+  STRING = 'string',
+  NUMBER = 'number',
+  INTEGER = 'integer',
+  BOOLEAN = 'boolean',
+  ARRAY = 'array',
+  OBJECT = 'object'
+}
 import type { ModelConfig } from '../types';
 
 export interface ToolDefinition {

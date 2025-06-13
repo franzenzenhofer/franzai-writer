@@ -95,6 +95,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
     const stage: Stage = {
       id: 'temp-stage',
       title: 'AI Processing',
+      description: 'Temporary stage for AI processing',
       inputType: 'none',
       outputType: params.stageOutputType || 'text',
       prompt: promptWithNotes,
@@ -181,11 +182,25 @@ export async function* streamAiStage(params: RunAiStageParams): AsyncGenerator<s
     const finalPrompt = substitutePromptVars(params.promptTemplate, params.contextVars);
 
     // Prepare stage
-    const stage = {
+    const stage: Stage = params.stage ? {
       ...params.stage,
       prompt: finalPrompt,
       model: params.model || params.stage.model,
       temperature: params.temperature ?? params.stage.temperature,
+    } : {
+      id: 'temp-stage',
+      title: 'AI Processing', 
+      description: 'Temporary stage for streaming',
+      inputType: 'none',
+      outputType: params.stageOutputType || 'text',
+      prompt: finalPrompt,
+      promptTemplate: params.promptTemplate,
+      model: params.model,
+      temperature: params.temperature,
+      thinkingSettings: params.thinkingSettings,
+      toolNames: params.toolNames,
+      systemInstructions: params.systemInstructions,
+      groundingSettings: params.groundingSettings
     };
 
     // Prepare input

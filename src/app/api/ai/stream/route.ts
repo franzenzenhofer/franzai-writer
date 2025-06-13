@@ -4,7 +4,7 @@
  */
 
 import { NextRequest } from 'next/server';
-import { GoogleGenerativeAI } from '@google/genai';
+import { GoogleGenAI } from '@google/genai';
 
 export const runtime = 'edge';
 
@@ -21,21 +21,24 @@ export async function POST(request: NextRequest) {
       return new Response('API key not configured', { status: 500 });
     }
 
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const genModel = genAI.getGenerativeModel({ 
+    const genAI = new GoogleGenAI({ apiKey });
+    
+    // For @google/genai, we need to use the models API directly
+    const streamPromise = genAI.models.generateContentStream({
       model,
-      generationConfig: config
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      config
     });
-
-    const result = await genModel.generateContentStream(prompt);
+    
+    const result = await streamPromise;
 
     // Create a TransformStream to handle the streaming
     const encoder = new TextEncoder();
     const stream = new ReadableStream({
       async start(controller) {
         try {
-          for await (const chunk of result.stream) {
-            const text = chunk.text();
+          for await (const chunk of result) {
+            const text = chunk.text || '';
             // Send as Server-Sent Events format
             const data = `data: ${JSON.stringify({ text })}\n\n`;
             controller.enqueue(encoder.encode(data));
