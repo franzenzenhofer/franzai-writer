@@ -16893,3 +16893,590 @@ Executing AI stage with input: {
 }
 [FIREBASE INIT] Emulator mode enabled
 [FIREBASE INIT] Running on server, skipping emulator connection
+ GET / 200 in 320ms
+ GET / 200 in 325ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'gemini-test' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'gemini-test',
+  workflowId: 'gemini-tools-test',
+  workflowName: 'Gemini AI Tools Test'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'gemini-test',
+  documentId: 'mbuqmj1awfhigym',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749814922206_6ft7nsbfe',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749814922206_6ft7nsbfe',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 192
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'QZupyXg6D55CCSWzteIu',
+  path: 'documents/QZupyXg6D55CCSWzteIu'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'QZupyXg6D55CCSWzteIu',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'gemini-test' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'gemini-test',
+  workflowId: 'gemini-tools-test',
+  workflowName: 'Gemini AI Tools Test'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'gemini-test',
+  documentId: 'mbuqmj3zwk36w9k',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749814922304_s1lzl7rn8',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749814922304_s1lzl7rn8',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 192
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: '9bD2Kls5smd1tYa2ZwqJ',
+  path: 'documents/9bD2Kls5smd1tYa2ZwqJ'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: '9bD2Kls5smd1tYa2ZwqJ',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'QZupyXg6D55CCSWzteIu' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'QZupyXg6D55CCSWzteIu' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'QZupyXg6D55CCSWzteIu',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'QZupyXg6D55CCSWzteIu' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'QZupyXg6D55CCSWzteIu',
+  error: undefined,
+  originalId: 'mbuqmj1awfhigym'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbuqmj1awfhigym',
+  createdId: 'QZupyXg6D55CCSWzteIu',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/gemini-test/QZupyXg6D55CCSWzteIu' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: '9bD2Kls5smd1tYa2ZwqJ' }
+[FirestoreAdapter] Document created { collection: 'documents', id: '9bD2Kls5smd1tYa2ZwqJ' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: '9bD2Kls5smd1tYa2ZwqJ',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: '9bD2Kls5smd1tYa2ZwqJ' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: '9bD2Kls5smd1tYa2ZwqJ',
+  error: undefined,
+  originalId: 'mbuqmj3zwk36w9k'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbuqmj3zwk36w9k',
+  createdId: '9bD2Kls5smd1tYa2ZwqJ',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/gemini-test/9bD2Kls5smd1tYa2ZwqJ' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/gemini-test/new 307 in 381ms
+ GET /w/gemini-test/new 307 in 287ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:42:02.571Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: '9bD2Kls5smd1tYa2ZwqJ' }
+[WizardPage] Loading existing document: 9bD2Kls5smd1tYa2ZwqJ
+[DocumentPersistence] Loading document { documentId: '9bD2Kls5smd1tYa2ZwqJ' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: '9bD2Kls5smd1tYa2ZwqJ' }
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'QZupyXg6D55CCSWzteIu' }
+[WizardPage] Loading existing document: QZupyXg6D55CCSWzteIu
+[DocumentPersistence] Loading document { documentId: 'QZupyXg6D55CCSWzteIu' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'QZupyXg6D55CCSWzteIu' }
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:42:02.792Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: '9bD2Kls5smd1tYa2ZwqJ' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: '9bD2Kls5smd1tYa2ZwqJ',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: '9bD2Kls5smd1tYa2ZwqJ',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'QZupyXg6D55CCSWzteIu' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'QZupyXg6D55CCSWzteIu',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'QZupyXg6D55CCSWzteIu',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+ GET /w/gemini-test/QZupyXg6D55CCSWzteIu 200 in 547ms
+ GET /w/gemini-test/9bD2Kls5smd1tYa2ZwqJ 200 in 510ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:42:03.422Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:42:03.459Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET / 200 in 132ms
+ GET / 200 in 83ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'gemini-test' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'gemini-test',
+  workflowId: 'gemini-tools-test',
+  workflowName: 'Gemini AI Tools Test'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'gemini-test',
+  documentId: 'mbuqml6ow0ot9m4',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749814924993_mzivcpnj7',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749814924993_mzivcpnj7',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 192
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'ktvTGpP4GGWajC2wQqJM',
+  path: 'documents/ktvTGpP4GGWajC2wQqJM'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'ktvTGpP4GGWajC2wQqJM',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'ktvTGpP4GGWajC2wQqJM' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'ktvTGpP4GGWajC2wQqJM' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'ktvTGpP4GGWajC2wQqJM',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'ktvTGpP4GGWajC2wQqJM' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'ktvTGpP4GGWajC2wQqJM',
+  error: undefined,
+  originalId: 'mbuqml6ow0ot9m4'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbuqml6ow0ot9m4',
+  createdId: 'ktvTGpP4GGWajC2wQqJM',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/gemini-test/ktvTGpP4GGWajC2wQqJM' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/gemini-test/new 307 in 197ms
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'ktvTGpP4GGWajC2wQqJM' }
+[WizardPage] Loading existing document: ktvTGpP4GGWajC2wQqJM
+[DocumentPersistence] Loading document { documentId: 'ktvTGpP4GGWajC2wQqJM' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ktvTGpP4GGWajC2wQqJM' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ktvTGpP4GGWajC2wQqJM' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'ktvTGpP4GGWajC2wQqJM',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'ktvTGpP4GGWajC2wQqJM',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:42:05.307Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /w/gemini-test/ktvTGpP4GGWajC2wQqJM 200 in 179ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:42:05.887Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'gemini-test' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'gemini-test',
+  workflowId: 'gemini-tools-test',
+  workflowName: 'Gemini AI Tools Test'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'gemini-test',
+  documentId: 'mbuqmlwlwdvv1u2',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749814925927_63ov7tvzh',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749814925927_63ov7tvzh',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 192
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'l5JW3QDxut8WV038SbVe',
+  path: 'documents/l5JW3QDxut8WV038SbVe'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'l5JW3QDxut8WV038SbVe',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:42:05.946Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'l5JW3QDxut8WV038SbVe' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'l5JW3QDxut8WV038SbVe' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'l5JW3QDxut8WV038SbVe',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'l5JW3QDxut8WV038SbVe' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'l5JW3QDxut8WV038SbVe',
+  error: undefined,
+  originalId: 'mbuqmlwlwdvv1u2'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbuqmlwlwdvv1u2',
+  createdId: 'l5JW3QDxut8WV038SbVe',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/gemini-test/l5JW3QDxut8WV038SbVe' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/gemini-test/new 307 in 268ms
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'l5JW3QDxut8WV038SbVe' }
+[WizardPage] Loading existing document: l5JW3QDxut8WV038SbVe
+[DocumentPersistence] Loading document { documentId: 'l5JW3QDxut8WV038SbVe' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'l5JW3QDxut8WV038SbVe' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'l5JW3QDxut8WV038SbVe' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'l5JW3QDxut8WV038SbVe',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'l5JW3QDxut8WV038SbVe',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:42:06.273Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /w/gemini-test/l5JW3QDxut8WV038SbVe 200 in 182ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 248ms
+[GENKIT INIT] STEP 1: Starting Genkit initialization at 2025-06-13T11:42:06.702Z
+[GENKIT INIT] STEP 2: Environment check:
+[GENKIT INIT] - NODE_ENV: development
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY exists: true
+[GENKIT INIT] - GOOGLE_GENAI_API_KEY length: 39
+[GENKIT INIT] STEP 3: Creating Genkit instance...
+[GENKIT INIT] STEP 4: Genkit instance created successfully
+[GENKIT INIT] STEP 5: AI object type: object
+[GENKIT INIT] STEP 6: AI object keys: [ 'options', 'registry', 'reflectionServer', 'flows' ]
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T11:42:06.740Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
