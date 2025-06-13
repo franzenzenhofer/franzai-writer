@@ -30,11 +30,33 @@ const GenerateWorkflowOverviewOutputSchema = z.object({
 export type GenerateWorkflowOverviewOutput = z.infer<typeof GenerateWorkflowOverviewOutputSchema>;
 
 export async function generateWorkflowOverview(input: GenerateWorkflowOverviewInput): Promise<GenerateWorkflowOverviewOutput> {
-  return generateWorkflowOverviewFlow(input);
+  console.log('[generateWorkflowOverview] STEP 1: Function called at', new Date().toISOString());
+  console.log('[generateWorkflowOverview] STEP 2: Input received:', JSON.stringify(input, null, 2));
+  
+  try {
+    console.log('[generateWorkflowOverview] STEP 3: Calling generateWorkflowOverviewFlow...');
+    const startTime = Date.now();
+    
+    const result = await generateWorkflowOverviewFlow(input);
+    
+    const endTime = Date.now();
+    console.log('[generateWorkflowOverview] STEP 4: Flow completed in', endTime - startTime, 'ms');
+    console.log('[generateWorkflowOverview] STEP 5: Result:', JSON.stringify(result, null, 2));
+    
+    return result;
+  } catch (error) {
+    console.error('[generateWorkflowOverview] ERROR:', error);
+    console.error('[generateWorkflowOverview] Error stack:', error instanceof Error ? error.stack : 'No stack');
+    throw error;
+  }
 }
 
 const prompt = ai.definePrompt({
   name: 'generateWorkflowOverviewPrompt',
+  model: 'googleai/gemini-2.0-flash-exp',
+  config: {
+    temperature: 0.7,
+  },
   input: {schema: GenerateWorkflowOverviewInputSchema},
   output: {schema: GenerateWorkflowOverviewOutputSchema},
   prompt: `
@@ -65,8 +87,31 @@ const generateWorkflowOverviewFlow = ai.defineFlow(
     outputSchema: GenerateWorkflowOverviewOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
-    return output!;
+    console.log('[generateWorkflowOverviewFlow] FLOW STEP 1: Flow execution started at', new Date().toISOString());
+    console.log('[generateWorkflowOverviewFlow] FLOW STEP 2: Input to flow:', JSON.stringify(input, null, 2));
+    
+    try {
+      console.log('[generateWorkflowOverviewFlow] FLOW STEP 3: Calling prompt function...');
+      const promptStartTime = Date.now();
+      
+      const {output} = await prompt(input);
+      
+      const promptEndTime = Date.now();
+      console.log('[generateWorkflowOverviewFlow] FLOW STEP 4: Prompt completed in', promptEndTime - promptStartTime, 'ms');
+      console.log('[generateWorkflowOverviewFlow] FLOW STEP 5: Prompt output:', JSON.stringify(output, null, 2));
+      
+      if (!output) {
+        console.error('[generateWorkflowOverviewFlow] FLOW ERROR: Output is null/undefined!');
+        throw new Error('AI prompt returned no output');
+      }
+      
+      return output;
+    } catch (error) {
+      console.error('[generateWorkflowOverviewFlow] FLOW ERROR:', error);
+      console.error('[generateWorkflowOverviewFlow] FLOW Error type:', typeof error);
+      console.error('[generateWorkflowOverviewFlow] FLOW Error details:', JSON.stringify(error, null, 2));
+      throw error;
+    }
   }
 );
 

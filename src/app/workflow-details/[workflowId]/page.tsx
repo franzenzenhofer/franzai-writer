@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft, Settings, GitBranch, Sparkles, ArrowRight, Cpu, Thermometer } from "lucide-react";
-// import { WorkflowOverviewClient } from "@/components/workflow/workflow-overview-client";
+import { WorkflowOverviewClient } from "@/components/workflow/workflow-overview-client";
 import { Badge } from "@/components/ui/badge";
 
 export default async function WorkflowDetailsPage({ params }: { params: Promise<{ workflowId: string }> }) {
@@ -138,8 +138,8 @@ export default async function WorkflowDetailsPage({ params }: { params: Promise<
           </CardContent>
         </Card>
 
-        {/* AI Overview - TEMPORARILY DISABLED FOR DEBUGGING */}
-        {/* <Card>
+        {/* AI Overview */}
+        <Card>
           <CardHeader className="pb-4">
             <CardTitle className="text-lg font-semibold flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-blue-600" />
@@ -149,7 +149,7 @@ export default async function WorkflowDetailsPage({ params }: { params: Promise<
           <CardContent>
             <WorkflowOverviewClient workflow={workflow} />
           </CardContent>
-        </Card> */}
+        </Card>
 
         {/* CTA */}
         <div className="flex justify-center pt-4">

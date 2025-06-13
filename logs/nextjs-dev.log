@@ -11616,3 +11616,661 @@ Starting inspector on 127.0.0.1:9230 failed: address already in use
 [WorkflowDetailsPage] STEP 4: Calling getWorkflowById...
 [WorkflowDetailsPage] STEP 5: Workflow result: Found
  GET /workflow-details/poem-generator 200 in 209ms
+ ○ Compiling /w/[shortName]/new ...
+ ✓ Compiled /w/[shortName]/new in 1020ms
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'poem' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'poem',
+  workflowId: 'poem-generator',
+  workflowName: 'Poem Generator'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'poem',
+  documentId: 'mbui0ydgwg1np3e',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749800478725_nornqgiwp',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749800478725_nornqgiwp',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 183
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'bjeLcBvdVZ3KHxoibeOB',
+  path: 'documents/bjeLcBvdVZ3KHxoibeOB'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'bjeLcBvdVZ3KHxoibeOB',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'bjeLcBvdVZ3KHxoibeOB' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'bjeLcBvdVZ3KHxoibeOB' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'bjeLcBvdVZ3KHxoibeOB',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'bjeLcBvdVZ3KHxoibeOB' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'bjeLcBvdVZ3KHxoibeOB',
+  error: undefined,
+  originalId: 'mbui0ydgwg1np3e'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbui0ydgwg1np3e',
+  createdId: 'bjeLcBvdVZ3KHxoibeOB',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/poem/bjeLcBvdVZ3KHxoibeOB' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/poem/new 200 in 1894ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+ GET / 200 in 62ms
+ GET /dashboard 200 in 783ms
+[WorkflowDetailsPage] STEP 1: Page function called
+[WorkflowDetailsPage] STEP 2: Params received: Promise {
+  <pending>,
+  workflowId: 'poem-generator',
+  [Symbol(async_id_symbol)]: 66768,
+  [Symbol(trigger_async_id_symbol)]: 66767,
+  [Symbol(kResourceStore)]: {
+    isStaticGeneration: false,
+    page: '/workflow-details/[workflowId]/page',
+    fallbackRouteParams: null,
+    route: '/workflow-details/[workflowId]',
+    incrementalCache: IncrementalCache {
+      locks: Map(0) {},
+      hasCustomCacheHandler: false,
+      dev: true,
+      disableForTestmode: false,
+      minimalMode: false,
+      requestHeaders: [Object],
+      requestProtocol: 'http',
+      allowedRevalidateHeaderKeys: undefined,
+      prerenderManifest: [Object],
+      cacheControls: [SharedCacheControls],
+      fetchCacheKeyPrefix: '',
+      cacheHandler: [FileSystemCache]
+    },
+    cacheLifeProfiles: {
+      default: [Object],
+      seconds: [Object],
+      minutes: [Object],
+      hours: [Object],
+      days: [Object],
+      weeks: [Object],
+      max: [Object]
+    },
+    isRevalidate: false,
+    isPrerendering: undefined,
+    fetchCache: undefined,
+    isOnDemandRevalidate: false,
+    isDraftMode: false,
+    requestEndedState: { ended: false },
+    isPrefetchRequest: false,
+    buildId: 'development',
+    reactLoadableManifest: {},
+    assetPrefix: '',
+    afterContext: AfterContext {
+      workUnitStores: Set(0) {},
+      waitUntil: [Function (anonymous)],
+      onClose: [Function: bound onClose],
+      onTaskError: undefined,
+      callbackQueue: [EventEmitter]
+    },
+    dynamicIOEnabled: false,
+    dev: true,
+    previouslyRevalidatedTags: [],
+    refreshTagsByCacheKind: Map(2) { 'default' => [Object], 'remote' => [Object] },
+    fetchMetrics: []
+  },
+  [Symbol(kResourceStore)]: {
+    type: 'request',
+    phase: 'render',
+    implicitTags: { tags: [Array], expirationsByCacheKind: [Map] },
+    url: {
+      pathname: '/workflow-details/poem-generator',
+      search: '?_rsc=s91z9'
+    },
+    rootParams: {},
+    headers: [Getter],
+    cookies: [Getter/Setter],
+    mutableCookies: [Getter],
+    userspaceMutableCookies: [Getter],
+    draftMode: [Getter],
+    renderResumeDataCache: null,
+    isHmrRefresh: false,
+    serverComponentsHmrCache: LRUCache {
+      cache: Map(0) {},
+      sizes: Map(0) {},
+      totalSize: 0,
+      maxSize: 52428800,
+      calculateSize: [Function: length]
+    }
+  },
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined
+}
+[WorkflowDetailsPage] STEP 3: WorkflowId extracted: poem-generator
+[WorkflowDetailsPage] STEP 4: Calling getWorkflowById...
+[WorkflowDetailsPage] STEP 5: Workflow result: Found
+ GET /workflow-details/poem-generator 200 in 48ms
+[WorkflowDetailsPage] STEP 1: Page function called
+[WorkflowDetailsPage] STEP 2: Params received: Promise {
+  <pending>,
+  workflowId: 'poem-generator',
+  [Symbol(async_id_symbol)]: 71744,
+  [Symbol(trigger_async_id_symbol)]: 71743,
+  [Symbol(kResourceStore)]: {
+    isStaticGeneration: false,
+    page: '/workflow-details/[workflowId]/page',
+    fallbackRouteParams: null,
+    route: '/workflow-details/[workflowId]',
+    incrementalCache: IncrementalCache {
+      locks: Map(0) {},
+      hasCustomCacheHandler: false,
+      dev: true,
+      disableForTestmode: false,
+      minimalMode: false,
+      requestHeaders: [Object],
+      requestProtocol: 'http',
+      allowedRevalidateHeaderKeys: undefined,
+      prerenderManifest: [Object],
+      cacheControls: [SharedCacheControls],
+      fetchCacheKeyPrefix: '',
+      cacheHandler: [FileSystemCache]
+    },
+    cacheLifeProfiles: {
+      default: [Object],
+      seconds: [Object],
+      minutes: [Object],
+      hours: [Object],
+      days: [Object],
+      weeks: [Object],
+      max: [Object]
+    },
+    isRevalidate: false,
+    isPrerendering: undefined,
+    fetchCache: undefined,
+    isOnDemandRevalidate: false,
+    isDraftMode: false,
+    requestEndedState: { ended: false },
+    isPrefetchRequest: false,
+    buildId: 'development',
+    reactLoadableManifest: {},
+    assetPrefix: '',
+    afterContext: AfterContext {
+      workUnitStores: Set(0) {},
+      waitUntil: [Function (anonymous)],
+      onClose: [Function: bound onClose],
+      onTaskError: undefined,
+      callbackQueue: [EventEmitter]
+    },
+    dynamicIOEnabled: false,
+    dev: true,
+    previouslyRevalidatedTags: [],
+    refreshTagsByCacheKind: Map(2) { 'default' => [Object], 'remote' => [Object] },
+    fetchMetrics: []
+  },
+  [Symbol(kResourceStore)]: {
+    type: 'request',
+    phase: 'render',
+    implicitTags: { tags: [Array], expirationsByCacheKind: [Map] },
+    url: { pathname: '/workflow-details/poem-generator', search: '' },
+    rootParams: {},
+    headers: [Getter],
+    cookies: [Getter/Setter],
+    mutableCookies: [Getter],
+    userspaceMutableCookies: [Getter],
+    draftMode: [Getter],
+    renderResumeDataCache: null,
+    isHmrRefresh: false,
+    serverComponentsHmrCache: LRUCache {
+      cache: Map(0) {},
+      sizes: Map(0) {},
+      totalSize: 0,
+      maxSize: 52428800,
+      calculateSize: [Function: length]
+    }
+  },
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined
+}
+[WorkflowDetailsPage] STEP 3: WorkflowId extracted: poem-generator
+[WorkflowDetailsPage] STEP 4: Calling getWorkflowById...
+[WorkflowDetailsPage] STEP 5: Workflow result: Found
+ GET /workflow-details/poem-generator 200 in 398ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 265ms
+[WorkflowDetailsPage] STEP 1: Page function called
+[WorkflowDetailsPage] STEP 2: Params received: Promise {
+  <pending>,
+  workflowId: 'poem-generator',
+  [Symbol(async_id_symbol)]: 88289,
+  [Symbol(trigger_async_id_symbol)]: 88288,
+  [Symbol(kResourceStore)]: {
+    isStaticGeneration: false,
+    page: '/workflow-details/[workflowId]/page',
+    fallbackRouteParams: null,
+    route: '/workflow-details/[workflowId]',
+    incrementalCache: IncrementalCache {
+      locks: Map(0) {},
+      hasCustomCacheHandler: false,
+      dev: true,
+      disableForTestmode: false,
+      minimalMode: false,
+      requestHeaders: [Object],
+      requestProtocol: 'http',
+      allowedRevalidateHeaderKeys: undefined,
+      prerenderManifest: [Object],
+      cacheControls: [SharedCacheControls],
+      fetchCacheKeyPrefix: '',
+      cacheHandler: [FileSystemCache]
+    },
+    cacheLifeProfiles: {
+      default: [Object],
+      seconds: [Object],
+      minutes: [Object],
+      hours: [Object],
+      days: [Object],
+      weeks: [Object],
+      max: [Object]
+    },
+    isRevalidate: false,
+    isPrerendering: undefined,
+    fetchCache: undefined,
+    isOnDemandRevalidate: false,
+    isDraftMode: false,
+    requestEndedState: { ended: false },
+    isPrefetchRequest: false,
+    buildId: 'development',
+    reactLoadableManifest: {},
+    assetPrefix: '',
+    afterContext: AfterContext {
+      workUnitStores: Set(0) {},
+      waitUntil: [Function (anonymous)],
+      onClose: [Function: bound onClose],
+      onTaskError: undefined,
+      callbackQueue: [EventEmitter]
+    },
+    dynamicIOEnabled: false,
+    dev: true,
+    previouslyRevalidatedTags: [],
+    refreshTagsByCacheKind: Map(2) { 'default' => [Object], 'remote' => [Object] },
+    fetchMetrics: []
+  },
+  [Symbol(kResourceStore)]: {
+    type: 'request',
+    phase: 'render',
+    implicitTags: { tags: [Array], expirationsByCacheKind: [Map] },
+    url: { pathname: '/workflow-details/poem-generator', search: '' },
+    rootParams: {},
+    headers: [Getter],
+    cookies: [Getter/Setter],
+    mutableCookies: [Getter],
+    userspaceMutableCookies: [Getter],
+    draftMode: [Getter],
+    renderResumeDataCache: null,
+    isHmrRefresh: false,
+    serverComponentsHmrCache: LRUCache {
+      cache: Map(0) {},
+      sizes: Map(0) {},
+      totalSize: 0,
+      maxSize: 52428800,
+      calculateSize: [Function: length]
+    }
+  },
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined
+}
+[WorkflowDetailsPage] STEP 3: WorkflowId extracted: poem-generator
+[WorkflowDetailsPage] STEP 4: Calling getWorkflowById...
+[WorkflowDetailsPage] STEP 5: Workflow result: Found
+ GET /workflow-details/poem-generator 200 in 57ms
+[WorkflowDetailsPage] STEP 1: Page function called
+[WorkflowDetailsPage] STEP 2: Params received: Promise {
+  <pending>,
+  workflowId: 'poem-generator',
+  [Symbol(async_id_symbol)]: 98488,
+  [Symbol(trigger_async_id_symbol)]: 98487,
+  [Symbol(kResourceStore)]: {
+    isStaticGeneration: false,
+    page: '/workflow-details/[workflowId]/page',
+    fallbackRouteParams: null,
+    route: '/workflow-details/[workflowId]',
+    incrementalCache: IncrementalCache {
+      locks: Map(0) {},
+      hasCustomCacheHandler: false,
+      dev: true,
+      disableForTestmode: false,
+      minimalMode: false,
+      requestHeaders: [Object],
+      requestProtocol: 'http',
+      allowedRevalidateHeaderKeys: undefined,
+      prerenderManifest: [Object],
+      cacheControls: [SharedCacheControls],
+      fetchCacheKeyPrefix: '',
+      cacheHandler: [FileSystemCache]
+    },
+    cacheLifeProfiles: {
+      default: [Object],
+      seconds: [Object],
+      minutes: [Object],
+      hours: [Object],
+      days: [Object],
+      weeks: [Object],
+      max: [Object]
+    },
+    isRevalidate: false,
+    isPrerendering: undefined,
+    fetchCache: undefined,
+    isOnDemandRevalidate: false,
+    isDraftMode: false,
+    requestEndedState: { ended: false },
+    isPrefetchRequest: false,
+    buildId: 'development',
+    reactLoadableManifest: {},
+    assetPrefix: '',
+    afterContext: AfterContext {
+      workUnitStores: Set(0) {},
+      waitUntil: [Function (anonymous)],
+      onClose: [Function: bound onClose],
+      onTaskError: undefined,
+      callbackQueue: [EventEmitter]
+    },
+    dynamicIOEnabled: false,
+    dev: true,
+    previouslyRevalidatedTags: [],
+    refreshTagsByCacheKind: Map(2) { 'default' => [Object], 'remote' => [Object] },
+    fetchMetrics: []
+  },
+  [Symbol(kResourceStore)]: {
+    type: 'request',
+    phase: 'render',
+    implicitTags: { tags: [Array], expirationsByCacheKind: [Map] },
+    url: {
+      pathname: '/workflow-details/poem-generator',
+      search: '?_rsc=482u1'
+    },
+    rootParams: {},
+    headers: [Getter],
+    cookies: [Getter/Setter],
+    mutableCookies: [Getter],
+    userspaceMutableCookies: [Getter],
+    draftMode: [Getter],
+    renderResumeDataCache: null,
+    isHmrRefresh: true,
+    serverComponentsHmrCache: LRUCache {
+      cache: Map(0) {},
+      sizes: Map(0) {},
+      totalSize: 0,
+      maxSize: 52428800,
+      calculateSize: [Function: length]
+    }
+  },
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined
+}
+[WorkflowDetailsPage] STEP 3: WorkflowId extracted: poem-generator
+[WorkflowDetailsPage] STEP 4: Calling getWorkflowById...
+[WorkflowDetailsPage] STEP 5: Workflow result: Found
+ GET /workflow-details/poem-generator 200 in 111ms
+[WorkflowDetailsPage] STEP 1: Page function called
+[WorkflowDetailsPage] STEP 2: Params received: Promise {
+  <pending>,
+  workflowId: 'poem-generator',
+  [Symbol(async_id_symbol)]: 102384,
+  [Symbol(trigger_async_id_symbol)]: 102383,
+  [Symbol(kResourceStore)]: {
+    isStaticGeneration: false,
+    page: '/workflow-details/[workflowId]/page',
+    fallbackRouteParams: null,
+    route: '/workflow-details/[workflowId]',
+    incrementalCache: IncrementalCache {
+      locks: Map(0) {},
+      hasCustomCacheHandler: false,
+      dev: true,
+      disableForTestmode: false,
+      minimalMode: false,
+      requestHeaders: [Object],
+      requestProtocol: 'http',
+      allowedRevalidateHeaderKeys: undefined,
+      prerenderManifest: [Object],
+      cacheControls: [SharedCacheControls],
+      fetchCacheKeyPrefix: '',
+      cacheHandler: [FileSystemCache]
+    },
+    cacheLifeProfiles: {
+      default: [Object],
+      seconds: [Object],
+      minutes: [Object],
+      hours: [Object],
+      days: [Object],
+      weeks: [Object],
+      max: [Object]
+    },
+    isRevalidate: false,
+    isPrerendering: undefined,
+    fetchCache: undefined,
+    isOnDemandRevalidate: false,
+    isDraftMode: false,
+    requestEndedState: { ended: false },
+    isPrefetchRequest: false,
+    buildId: 'development',
+    reactLoadableManifest: {},
+    assetPrefix: '',
+    afterContext: AfterContext {
+      workUnitStores: Set(0) {},
+      waitUntil: [Function (anonymous)],
+      onClose: [Function: bound onClose],
+      onTaskError: undefined,
+      callbackQueue: [EventEmitter]
+    },
+    dynamicIOEnabled: false,
+    dev: true,
+    previouslyRevalidatedTags: [],
+    refreshTagsByCacheKind: Map(2) { 'default' => [Object], 'remote' => [Object] },
+    fetchMetrics: []
+  },
+  [Symbol(kResourceStore)]: {
+    type: 'request',
+    phase: 'render',
+    implicitTags: { tags: [Array], expirationsByCacheKind: [Map] },
+    url: {
+      pathname: '/workflow-details/poem-generator',
+      search: '?_rsc=482u1'
+    },
+    rootParams: {},
+    headers: [Getter],
+    cookies: [Getter/Setter],
+    mutableCookies: [Getter],
+    userspaceMutableCookies: [Getter],
+    draftMode: [Getter],
+    renderResumeDataCache: null,
+    isHmrRefresh: true,
+    serverComponentsHmrCache: LRUCache {
+      cache: Map(0) {},
+      sizes: Map(0) {},
+      totalSize: 0,
+      maxSize: 52428800,
+      calculateSize: [Function: length]
+    }
+  },
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined,
+  [Symbol(kResourceStore)]: undefined
+}
+[WorkflowDetailsPage] STEP 3: WorkflowId extracted: poem-generator
+[WorkflowDetailsPage] STEP 4: Calling getWorkflowById...
+[WorkflowDetailsPage] STEP 5: Workflow result: Found
+ GET /workflow-details/poem-generator 200 in 38ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 230ms
+Debugger listening on ws://127.0.0.1:9229/e4cff6ef-3b16-49df-8d16-dff9d658fb51
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 1773117,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/8ed27b2c-4aab-454a-8da6-3538384fe5d5
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 608ms
+ ○ Compiling /api/workflow-overview ...

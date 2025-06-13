@@ -1,8 +1,6 @@
-
 "use client";
 
 import type { Workflow } from "@/types";
-import { generateWorkflowOverview, type GenerateWorkflowOverviewInput } from "@/ai/flows/generate-workflow-overview-flow";
 import React, { useEffect, useState } from "react";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -19,26 +17,79 @@ export function WorkflowOverviewClient({ workflow }: WorkflowOverviewClientProps
 
   useEffect(() => {
     const fetchOverview = async () => {
+      const requestId = Math.random().toString(36).substring(7);
+      console.log(`[WorkflowOverviewClient] REQUEST ${requestId} START:`, new Date().toISOString());
+      
       try {
         setIsLoading(true);
         setError(null);
         
-        const finalOutputStageId = workflow.config?.finalOutputStageId || (workflow.stages.length > 0 ? workflow.stages[workflow.stages.length - 1].id : undefined);
-        const finalOutputStage = finalOutputStageId ? workflow.stages.find(s => s.id === finalOutputStageId) : undefined;
+        const finalOutputStageId = workflow.config?.finalOutputStageId || 
+          (workflow.stages.length > 0 ? workflow.stages[workflow.stages.length - 1].id : undefined);
+        const finalOutputStage = finalOutputStageId ? 
+          workflow.stages.find(s => s.id === finalOutputStageId) : undefined;
 
-        const input: GenerateWorkflowOverviewInput = {
+        const requestBody = {
           workflowName: workflow.name,
           workflowDescription: workflow.description,
           stages: workflow.stages.map(s => ({ title: s.title, description: s.description })),
           finalOutputStageTitle: finalOutputStage?.title
         };
-        const result = await generateWorkflowOverview(input);
-        setOverview(result.overview);
+        
+        console.log(`[WorkflowOverviewClient] REQUEST ${requestId} BODY:`, JSON.stringify(requestBody, null, 2));
+        
+        // Create AbortController for timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => {
+          console.error(`[WorkflowOverviewClient] REQUEST ${requestId} TIMEOUT after 10s`);
+          controller.abort();
+        }, 10000);
+        
+        const startTime = Date.now();
+        console.log(`[WorkflowOverviewClient] REQUEST ${requestId} FETCHING:`, new Date().toISOString());
+        
+        const response = await fetch('/api/workflow-overview', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody),
+          signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        const endTime = Date.now();
+        
+        console.log(`[WorkflowOverviewClient] REQUEST ${requestId} RESPONSE STATUS:`, response.status);
+        console.log(`[WorkflowOverviewClient] REQUEST ${requestId} RESPONSE TIME:`, endTime - startTime, 'ms');
+        
+        const data = await response.json();
+        console.log(`[WorkflowOverviewClient] REQUEST ${requestId} RESPONSE DATA:`, JSON.stringify(data, null, 2));
+        
+        if (!response.ok) {
+          throw new Error(data.error || `HTTP error! status: ${response.status}`);
+        }
+        
+        if (data.success && data.data?.overview) {
+          setOverview(data.data.overview);
+          console.log(`[WorkflowOverviewClient] REQUEST ${requestId} SUCCESS`);
+        } else {
+          throw new Error('Invalid response format');
+        }
+        
       } catch (e: any) {
-        console.error("Failed to generate workflow overview:", e);
-        setError(e.message || "Failed to load overview from AI.");
+        console.error(`[WorkflowOverviewClient] REQUEST ${requestId} ERROR:`, e);
+        console.error(`[WorkflowOverviewClient] REQUEST ${requestId} ERROR TYPE:`, e.name);
+        console.error(`[WorkflowOverviewClient] REQUEST ${requestId} ERROR STACK:`, e.stack);
+        
+        if (e.name === 'AbortError') {
+          setError('Request timed out after 10 seconds');
+        } else {
+          setError(e.message || "Failed to load overview from AI.");
+        }
       } finally {
         setIsLoading(false);
+        console.log(`[WorkflowOverviewClient] REQUEST ${requestId} END:`, new Date().toISOString());
       }
     };
 
