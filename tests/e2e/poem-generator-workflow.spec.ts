@@ -8,12 +8,11 @@ test.describe('Complete Poem Generator Workflow', () => {
 
   test('should create poem from start to finish', async ({ page }) => {
     // Navigate to poem generator workflow
-    await page.locator('text=Poem Generator').first().click();
-    await page.locator('a:has-text("Start")').nth(0).click(); // First Start button
+    await page.click('#workflow-start-poem-generator');
 
     // Wait for wizard to load
-    await page.waitForURL('**/wizard/**');
-    await expect(page.getByTestId('wizard-page-title')).toContainText('Poem Generator');
+    await page.waitForURL('**/w/poem/**');
+    await expect(page.getByTestId('wizard-page-title')).toBeVisible();
 
     // Stage 1: Poem Topic
     const poemTopic = 'a beautiful sunny day';
@@ -51,12 +50,11 @@ test.describe('Complete Poem Generator Workflow', () => {
     await page.goto('/dashboard');
 
     // Navigate to poem generator workflow
-    await page.locator('text=Poem Generator').first().click();
-    await page.locator('a:has-text("Start")').nth(0).click();
+    await page.click('#workflow-start-poem-generator');
 
     // Wait for wizard to load
-    await page.waitForURL('**/wizard/**');
-    await expect(page.getByTestId('wizard-page-title')).toContainText('Poem Generator');
+    await page.waitForURL('**/w/poem/**');
+    await expect(page.getByTestId('wizard-page-title')).toBeVisible();
 
     // Try to process empty stage
     await page.locator('button:has-text("Process Stage")').first().click();
