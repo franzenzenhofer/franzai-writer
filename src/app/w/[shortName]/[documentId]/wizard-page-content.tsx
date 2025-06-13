@@ -1,6 +1,5 @@
 "use client";
 
-import { AuthGuard } from "@/components/auth/auth-guard";
 import { useAuth } from "@/components/layout/app-providers";
 import { WizardShell } from "@/components/wizard/wizard-shell";
 import ErrorBoundary from "@/components/error-boundary";
@@ -49,11 +48,9 @@ function WizardPageContent({ initialInstance }: WizardPageContentProps) {
   }
 
   return (
-    <AuthGuard>
-      <ErrorBoundary fallback={WizardErrorFallback}>
-        <WizardShell initialInstance={initialInstance} />
-      </ErrorBoundary>
-    </AuthGuard>
+    <ErrorBoundary fallback={WizardErrorFallback}>
+      <WizardShell initialInstance={initialInstance} />
+    </ErrorBoundary>
   );
 }
 

@@ -1,11 +1,11 @@
 import { notFound } from 'next/navigation';
 import { getWorkflowByShortName } from '@/lib/workflow-loader';
 import { documentPersistence } from '@/lib/document-persistence';
-import WizardPageContent from './wizard-page-content';
+import WizardClientWrapper from './wizard-client-wrapper';
 import type { WizardDocument, WizardInstance, StageState, Workflow } from '@/types';
 
 // Force dynamic rendering since this page loads documents from Firestore
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic' as const;
 
 /**
  * Initialize proper StageState objects for each stage in the workflow
@@ -168,7 +168,7 @@ export default async function WizardPage({
 
   return (
     <>
-      <WizardPageContent initialInstance={wizardInstance} />
+      <WizardClientWrapper initialInstance={wizardInstance} />
     </>
   );
 } 

@@ -35449,3 +35449,1172 @@ Starting inspector on 127.0.0.1:9230 failed: address already in use
 [FIREBASE INIT] Emulator mode enabled
 [FIREBASE INIT] Running on server, skipping emulator connection
  GET /dashboard 200 in 45ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.vgybv2tw5sq'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.vgybv2tw5sq'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.ipfq4squs5c'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.ipfq4squs5c'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.vgybv2tw5sq'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.vgybv2tw5sq'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.mwwyg7oxy9'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.mwwyg7oxy9'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.zkbms6a1xz'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.zkbms6a1xz'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/page/app-build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/page/app-build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.zizq1a8ur3'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.zizq1a8ur3'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/page/app-build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/page/app-build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.1l7w7r50itd'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.1l7w7r50itd'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.ctvqj7dl4ho'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.ctvqj7dl4ho'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/page/app-build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/page/app-build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.84qb27p3z7l'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.84qb27p3z7l'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/page/app-build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/page/app-build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.qv0wpe3d8l'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.qv0wpe3d8l'
+}
+[Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.qwjajk1q57'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/development/_buildManifest.js.tmp.qwjajk1q57'
+}
+Debugger listening on ws://127.0.0.1:9229/6cb58d5f-4c2c-41fb-a706-0fedcc0e6b3b
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 2137924,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/b8aaada5-a828-4501-b31b-8eead7dd855d
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+Creating turbopack project { dir: '/Users/franzenzenhofer/dev/franzai-writer', testMode: true }
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 689ms
+ ○ Compiling /dashboard ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled /dashboard in 1520ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:33:59.148Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /dashboard 200 in 1824ms
+ ✓ Compiled /favicon.ico in 259ms
+ GET /favicon.ico?favicon.56766c03.ico 200 in 525ms
+Debugger listening on ws://127.0.0.1:9229/1910c9c7-c8e9-4787-b992-88cd5ab27285
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 23089,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/d54dc1ce-9c2e-4fa1-b5bf-6ab5191c3338
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+Creating turbopack project { dir: '/Users/franzenzenhofer/dev/franzai-writer', testMode: true }
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 631ms
+ ○ Compiling /test-wizard ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled /test-wizard in 1518ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:34:28.728Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /test-wizard 200 in 1778ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+ GET /test-wizard 200 in 42ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:35:46.044Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /test-wizard 200 in 188ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:36:18.827Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /test-wizard 200 in 134ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:38:44.077Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /test-wizard 200 in 151ms
+Debugger listening on ws://127.0.0.1:9229/f1319fee-955a-415e-b133-bad7eff0b5c3
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 438058,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/0b3854a5-5e6f-43d4-b0e5-7686eb4462c7
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+Creating turbopack project { dir: '/Users/franzenzenhofer/dev/franzai-writer', testMode: true }
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 670ms
+ ○ Compiling / ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled / in 1497ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:41:51.333Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET / 200 in 1777ms
+ ○ Compiling /test-wizard ...
+ ✓ Compiled /test-wizard in 642ms
+ GET /test-wizard 200 in 679ms
+ ✓ Compiled in 57ms
+ ✓ Compiled /test-wizard in 10ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:42:45.425Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /test-wizard 200 in 187ms
+ ✓ Compiled in 63ms
+ ✓ Compiled /test-wizard in 8ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:43:06.909Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /test-wizard 200 in 127ms
+ ✓ Compiled in 44ms
+ ✓ Compiled /test-wizard in 7ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:43:31.696Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /test-wizard 200 in 124ms
+ ✓ Compiled in 58ms
+ ✓ Compiled /test-wizard in 10ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:44:24.760Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /test-wizard 200 in 134ms
+ ✓ Compiled in 51ms
+ ○ Compiling /w/[shortName]/new ...
+ ✓ Compiled /w/[shortName]/new in 936ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:45:26.737Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:45:26.996Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'poem' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'poem',
+  workflowId: 'poem-generator',
+  workflowName: 'Poem Generator'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'poem',
+  documentId: 'mbva1d2dwsy92jk',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749847527013_w5pl63c90',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1749847527013_w5pl63c90',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 183
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'JmKX8W3E5GQZQQTZlU1J',
+  path: 'documents/JmKX8W3E5GQZQQTZlU1J'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'JmKX8W3E5GQZQQTZlU1J',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'JmKX8W3E5GQZQQTZlU1J' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'JmKX8W3E5GQZQQTZlU1J' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'JmKX8W3E5GQZQQTZlU1J',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'JmKX8W3E5GQZQQTZlU1J' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'JmKX8W3E5GQZQQTZlU1J',
+  error: undefined,
+  originalId: 'mbva1d2dwsy92jk'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mbva1d2dwsy92jk',
+  createdId: 'JmKX8W3E5GQZQQTZlU1J',
+  workflowId: 'poem-generator'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/poem/JmKX8W3E5GQZQQTZlU1J' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/poem/new 307 in 1756ms
+Debugger listening on ws://127.0.0.1:9229/686205db-f784-41c1-90bd-8b95e00c0746
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 239274,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/a7c508f2-088d-462b-b3e9-ec631bce959a
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+Creating turbopack project { dir: '/Users/franzenzenhofer/dev/franzai-writer', testMode: true }
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 608ms
+ ○ Compiling / ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled / in 1514ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:46:04.881Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET / 200 in 1797ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+Debugger listening on ws://127.0.0.1:9229/6a17cce1-912c-436b-b3a6-b15cbe6ac678
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 168073,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/0c268d49-e686-408d-9065-e687ab3dede3
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+Creating turbopack project { dir: '/Users/franzenzenhofer/dev/franzai-writer', testMode: true }
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 628ms
+ ○ Compiling / ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled / in 1567ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:49:02.486Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET / 200 in 1846ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+[TestFirebasePage] Starting
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:53:40.438Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[TestFirebasePage] Firebase imported successfully
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:53:40.516Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /test-firebase 200 in 988ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:54:14.988Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[TestFirebasePage] Starting full wizard flow test
+[TestFirebasePage] Workflow loaded: poem-generator
+[DocumentPersistence] Loading document { documentId: 'test-doc-id' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'test-doc-id' }
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:54:15.075Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+[FirestoreAdapter] Document not found { collection: 'documents', id: 'test-doc-id' }
+[DocumentPersistence] Document not found { documentId: 'test-doc-id' }
+[TestFirebasePage] Document load result: { success: false, error: 'Document not found' }
+[TestFirebasePage] Wizard instance created
+ GET /test-firebase 200 in 998ms
+Debugger listening on ws://127.0.0.1:9229/18db72fd-47e1-416e-a6f3-8d68781900c5
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 376280,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/f14d5dbb-495f-4f36-95f5-2bd7eae74d46
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+Creating turbopack project { dir: '/Users/franzenzenhofer/dev/franzai-writer', testMode: true }
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 627ms
+ ○ Compiling / ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled / in 1497ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:55:35.284Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET / 200 in 1767ms
+ ○ Compiling /test-minimal ...
+ ✓ Compiled /test-minimal in 640ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:56:10.735Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /test-minimal 200 in 825ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:56:36.107Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET /test-minimal 200 in 125ms
+ ○ Compiling /test-exact ...
+Debugger listening on ws://127.0.0.1:9229/09914ba5-13e0-428b-93b7-1c2b11f515e1
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 127138,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/6917bae9-51eb-4943-93d5-4efd622a363e
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+Creating turbopack project { dir: '/Users/franzenzenhofer/dev/franzai-writer', testMode: true }
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 639ms
+ ○ Compiling / ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ✓ Compiled / in 1566ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'true',
+  isServer: true,
+  timestamp: '2025-06-13T20:58:10.612Z'
+}
+[FIREBASE INIT] Emulator mode enabled
+[FIREBASE INIT] Running on server, skipping emulator connection
+ GET / 200 in 1840ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+ GET / 200 in 54ms
+Debugger listening on ws://127.0.0.1:9229/3c5c4053-fa75-4924-98a3-24158e69d3f7
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 212748,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/045bf5c6-66a9-4be9-a4e5-d5a54e294b8d
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+Creating turbopack project { dir: '/Users/franzenzenhofer/dev/franzai-writer', testMode: true }
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 716ms
+ ○ Compiling /w/[shortName]/[documentId] ...
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+Debugger listening on ws://127.0.0.1:9229/cc203ac1-09b2-4ece-b79e-b3a90788d219
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 27615,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/dc4daf30-760b-4b39-80dc-8a1f80d666b0
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local
+
+ ✓ Starting...
+Creating turbopack project { dir: '/Users/franzenzenhofer/dev/franzai-writer', testMode: true }
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": true,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 634ms
+Debugger listening on ws://127.0.0.1:9229/025cbbbf-c488-49e9-925b-fcc1a856976a
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 44783,
+    "turboFlag": true,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
