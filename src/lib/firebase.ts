@@ -12,8 +12,7 @@ import {
   User
 } from "firebase/auth";
 // Removed: import * as firebaseui from "firebaseui";
-import firebase from 'firebase/compat/app'; // Added for firebase.auth namespace
-import 'firebase/compat/auth'; // Required for firebase.auth.GoogleAuthProvider, etc.
+// Removed compat imports to simplify module loading
 
 // Firebase configuration - FAIL HARD if not properly configured
 const firebaseConfig = {
@@ -25,12 +24,12 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
-// Validate configuration - FAIL HARD if missing
+// Validate configuration - only log warnings, don't throw at module level
 if (!firebaseConfig.apiKey || firebaseConfig.apiKey === 'demo-api-key') {
-  throw new Error('FATAL: Firebase API key not configured');
+  console.warn('WARNING: Firebase API key not configured');
 }
 if (!firebaseConfig.projectId || firebaseConfig.projectId === 'demo-project') {
-  throw new Error('FATAL: Firebase project ID not configured');
+  console.warn('WARNING: Firebase project ID not configured');
 }
 
 // Initialize Firebase
@@ -86,71 +85,8 @@ if (process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATOR === 'true') {
   console.warn('[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!');
 }
 
-const signUp = async (email: string, password: string) => {
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-    
-    // NOTE: User data storage moved to document persistence layer
-    // No direct Firestore operations here
-    
-    return user;
-  } catch (error) {
-    throw error;
-  }
-};
+// Export authentication functions separately to avoid complex module initialization
+// These will be moved to a separate auth-functions.ts file if needed
 
-// FirebaseUI configuration - REMOVED from here
-// export const uiConfig: firebaseui.auth.Config = { ... };
-
-const signIn = async (email: string, password: string) => {
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-    return user;
-  } catch (error) {
-    throw error;
-  }
-};
-
-// Google Sign In
-const googleProvider = new GoogleAuthProvider();
-
-const signInWithGoogle = async () => {
-  try {
-    const result = await signInWithPopup(auth, googleProvider);
-    const user = result.user;
-    
-    // NOTE: User data storage moved to document persistence layer
-    // No direct Firestore operations here
-    
-    return user;
-  } catch (error) {
-    throw error;
-  }
-};
-
-// Password Reset
-const resetPassword = async (email: string) => {
-  try {
-    await sendPasswordResetEmail(auth, email);
-  } catch (error) {
-    throw error;
-  }
-};
-
-// Sign Out
-const logOut = async () => {
-  try {
-    await signOut(auth);
-  } catch (error) {
-    throw error;
-  }
-};
-
-// Auth State Observer
-const onAuthStateChange = (callback: (user: User | null) => void) => {
-  return onAuthStateChanged(auth, callback);
-};
-
-export { app, auth, db, signUp, signIn, signInWithGoogle, resetPassword, logOut, onAuthStateChange };
+// Export only the essential Firebase instances
+export { auth, db };

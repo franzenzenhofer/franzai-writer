@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { signIn, signInWithGoogle } from '@/lib/firebase';
+import { signIn, signInWithGoogle } from '@/lib/auth-functions';
 import { useAuth } from '@/components/layout/app-providers';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';

@@ -17,14 +17,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LogOut, Settings, User as UserIcon } from "lucide-react";
 import { useAuth } from "./app-providers";
-import { auth } from "@/lib/firebase";
+import { logOut } from "@/lib/auth-functions";
 
 export function SiteHeader() {
   const { user, loading } = useAuth();
 
   const handleLogout = async () => {
     try {
-      await auth.signOut();
+      await logOut();
     } catch (error) {
       console.error("Logout Error:", error);
     }

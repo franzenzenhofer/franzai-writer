@@ -2,7 +2,7 @@
 
 import { AuthGuard } from "@/components/auth/auth-guard";
 import { useAuth } from "@/components/layout/app-providers";
-import { WizardShell } from "@/components/wizard/wizard-shell";
+import { WizardShellWrapper } from "@/components/wizard/wizard-shell-wrapper";
 import ErrorBoundary from "@/components/error-boundary";
 import type { WizardInstance } from "@/types";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -51,7 +51,7 @@ function WizardPageContent({ initialInstance }: WizardPageContentProps) {
   return (
     <AuthGuard>
       <ErrorBoundary fallback={WizardErrorFallback}>
-        <WizardShell initialInstance={initialInstance} />
+        <WizardShellWrapper initialInstance={initialInstance} />
       </ErrorBoundary>
     </AuthGuard>
   );
