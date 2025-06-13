@@ -35448,3 +35448,4 @@ Starting inspector on 127.0.0.1:9230 failed: address already in use
 }
 [FIREBASE INIT] Emulator mode enabled
 [FIREBASE INIT] Running on server, skipping emulator connection
+ GET /dashboard 200 in 45ms
