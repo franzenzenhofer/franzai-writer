@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import type { WizardInstance, Stage, StageState } from '@/types';
 import { StageCard } from './stage-card';
 import { Button } from '@/components/ui/button';
-import { runAiStage } from '@/app/actions/aiActions'; 
+import { runAiStage } from '@/app/actions/aiActions-new'; 
 import { useToast } from '@/hooks/use-toast';
 import { AlertTriangle, Check, Info, Lightbulb, DownloadCloud, FileWarning, Save } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";

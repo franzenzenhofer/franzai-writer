@@ -9,11 +9,14 @@ import type { StageState, Stage, Workflow } from "@/types";
 import { executeAIStage, streamAIStage } from "@/ai/flows/ai-stage-execution-new";
 
 interface RunAiStageParams {
-  workflow: Workflow;
-  stage: Stage;
+  workflow?: Workflow; // Make optional for backward compatibility
   promptTemplate: string;
   model?: string;
   temperature?: number;
+  thinkingSettings?: Stage['thinkingSettings'];
+  toolNames?: Stage['toolNames'];
+  systemInstructions?: Stage['systemInstructions'];
+  chatHistory?: StageState['chatHistory'];
   contextVars: Record<string, StageState | { userInput: any, output: any }>;
   currentStageInput?: any;
   stageOutputType: Stage['outputType'];
@@ -76,18 +79,25 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
       ? `${finalPrompt}\n\nAI Redo Notes: ${params.aiRedoNotes}`
       : finalPrompt;
 
-    // Prepare stage with overrides
-    const stage = {
-      ...params.stage,
+    // Create a minimal stage if workflow not provided
+    const stage: Stage = {
+      id: 'temp-stage',
+      title: 'AI Processing',
+      inputType: 'none',
+      outputType: params.stageOutputType || 'text',
       prompt: promptWithNotes,
-      model: params.model || params.stage.model,
-      temperature: params.temperature ?? params.stage.temperature,
+      promptTemplate: params.promptTemplate,
+      model: params.model,
+      temperature: params.temperature,
+      thinkingSettings: params.thinkingSettings,
+      toolNames: params.toolNames,
+      systemInstructions: params.systemInstructions,
+      groundingSettings: params.groundingSettings
     };
 
     // Add Google Search grounding if forced
     if (params.forceGoogleSearchGrounding) {
       stage.tools = [
-        ...(stage.tools || []),
         { type: 'googleSearch', enabled: true }
       ];
     }
@@ -98,9 +108,19 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
       files: []
     };
 
+    // Create minimal workflow if not provided
+    const workflow: Workflow = params.workflow || {
+      id: 'temp-workflow',
+      name: 'Temporary Workflow',
+      description: '',
+      stages: [stage],
+      defaultModel: params.model || 'gemini-2.0-flash',
+      temperature: params.temperature
+    };
+
     // Execute with new SDK
     const result = await executeAIStage({
-      workflow: params.workflow,
+      workflow,
       stage,
       input: stageInput,
       context: params.contextVars
@@ -128,7 +148,8 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
 
     return {
       content,
-      usage: result.usage
+      usage: result.usage,
+      groundingMetadata: result.output.json?.groundingMetadata // Pass through grounding metadata if available
     };
 
   } catch (error) {

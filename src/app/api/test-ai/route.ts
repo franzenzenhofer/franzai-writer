@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { runAiStage } from '@/app/actions/aiActions';
+import { runAiStage } from '@/app/actions/aiActions-new';
 
 export async function GET() {
   try {

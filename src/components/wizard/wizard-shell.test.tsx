@@ -5,7 +5,7 @@ import { screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { WizardShell } from './wizard-shell';
 import type { WizardInstance, Stage, StageState } from '@/types';
-import * as aiActions from '@/app/actions/aiActions'; // To mock runAiStage
+import * as aiActions from '@/app/actions/aiActions-new'; // To mock runAiStage
 import { useToast } from '@/hooks/use-toast';
 
 // Mock child components and hooks
