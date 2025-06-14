@@ -369,22 +369,32 @@ async function executeSimpleGeneration(
   thinkingSteps: ThinkingStep[]
 ): Promise<AiStageOutputSchema> {
   try {
-    // Dynamic import to avoid bundling server-only code in client
-    const { ai } = await import('@/ai/genkit');
-    console.log('[AI Stage Flow Enhanced] Using simple generation');
+    console.log('[AI Stage Flow Enhanced] Using simple generation with @google/genai');
     
-    const response = await ai.generate({
+    // Use direct Gemini API instead of genkit
+    const request: DirectGeminiRequest = {
       model: generateOptions.model,
       prompt: promptTemplate,
-      config: generateOptions.config,
-      ...(generateOptions.tools?.length > 0 && { tools: generateOptions.tools }),
-    });
-
-    const content = response.text || '';
+      temperature: generateOptions.config?.temperature,
+      systemInstruction: generateOptions.config?.systemInstruction,
+      maxOutputTokens: generateOptions.config?.maxOutputTokens,
+      enableGoogleSearch: generateOptions.googleSearchGrounding?.enabled,
+      dynamicRetrievalThreshold: generateOptions.googleSearchGrounding?.dynamicRetrievalThreshold,
+      tools: generateOptions.tools,
+    };
     
-    // Extract grounding metadata and sources
-    const groundingMetadata = extractGroundingMetadata(response);
-    const groundingSources = extractGroundingSources(response);
+    const response = await generateWithDirectGemini(request);
+
+    const content = response.content || '';
+    
+    // Direct-gemini already provides grounding metadata in the expected format
+    const groundingMetadata = response.groundingMetadata;
+    const groundingSources = response.groundingSources?.map(source => ({
+      type: 'search' as const,
+      title: source.title,
+      url: source.uri,
+      snippet: source.snippet,
+    })) || [];
     
     // Log grounding detection for simple generation
     if (groundingMetadata || groundingSources.length > 0) {
@@ -472,39 +482,64 @@ async function executeWithStreaming(
         }
       }
       
-      // Perform the API call with dynamic import
-      const { ai } = await import('@/ai/genkit');
-      const response = await ai.generate({
+      // Use direct Gemini API for streaming
+      console.log('[AI Stage Flow Enhanced] Using streaming generation with @google/genai');
+      
+      // Convert promptParts to a single prompt string
+      const promptString = promptParts.map(part => 
+        typeof part === 'string' ? part : part.text || JSON.stringify(part)
+      ).join('\n\n');
+      
+      const request: DirectGeminiRequest = {
         model: generateOptions.model,
-        config: generateOptions.config,
+        prompt: promptString,
+        temperature: generateOptions.config?.temperature,
+        systemInstruction: generateOptions.config?.systemInstruction,
+        maxOutputTokens: generateOptions.config?.maxOutputTokens,
+        enableGoogleSearch: generateOptions.googleSearchGrounding?.enabled,
+        dynamicRetrievalThreshold: generateOptions.googleSearchGrounding?.dynamicRetrievalThreshold,
         tools: generateOptions.tools,
-        prompt: promptParts
-      });
+      };
+      
+      // Handle streaming with async iterable
+      let finalResponse: DirectGeminiResponse | null = null;
+      const streamIterator = await generateStreamWithDirectGemini(request);
+      
+      for await (const chunk of streamIterator) {
+        if (chunk.content && streamingCallback) {
+          streamingCallback({ type: 'text', text: chunk.content });
+        }
+        // Keep the last chunk as the final response with all metadata
+        finalResponse = chunk;
+      }
+      
+      const response = finalResponse || { content: '' };
       
       // Debug: Log the complete response structure
       console.log('[AI Stage Flow Enhanced] ===== API RESPONSE DETAILS =====');
       console.log('[AI Stage Flow Enhanced] Raw API Response Summary:', {
-        hasText: !!response.text,
-        textLength: response.text?.length || 0,
-        textPreview: response.text?.substring(0, 200) + '...',
-        hasResponse: !!response.response,
-        responseKeys: response.response ? Object.keys(response.response) : [],
-        hasToolRequests: !!response.toolRequests?.length,
-        toolRequestsCount: response.toolRequests?.length || 0,
-        hasGroundingMetadata: !!(response.response?.groundingMetadata || response.groundingMetadata),
-        groundingMetadataKeys: (response.response?.groundingMetadata || response.groundingMetadata) ? 
-          Object.keys(response.response?.groundingMetadata || response.groundingMetadata) : [],
-        hasOutputImages: !!response.outputImages?.length,
-        outputImagesCount: response.outputImages?.length || 0,
-        hasCodeExecutionResults: !!response.codeExecutionResults
+        hasContent: !!response.content,
+        contentLength: response.content?.length || 0,
+        contentPreview: response.content?.substring(0, 200) + '...',
+        hasGroundingMetadata: !!response.groundingMetadata,
+        groundingMetadataKeys: response.groundingMetadata ? Object.keys(response.groundingMetadata) : [],
+        hasGroundingSources: !!response.groundingSources?.length,
+        groundingSourcesCount: response.groundingSources?.length || 0,
+        hasUsageMetadata: !!response.usageMetadata,
+        modelVersion: response.modelVersion
       });
       
       // Log the complete raw response from Google
       console.log('[AI Stage Flow Enhanced] Complete Google API Response:', JSON.stringify(response, null, 2));
       
-      // Extract grounding metadata from response
-      groundingMetadata = extractGroundingMetadata(response);
-      groundingSources = extractGroundingSources(response);
+      // Direct-gemini already provides grounding metadata in the expected format
+      groundingMetadata = response.groundingMetadata;
+      groundingSources = response.groundingSources?.map(source => ({
+        type: 'search' as const,
+        title: source.title,
+        url: source.uri,
+        snippet: source.snippet,
+      })) || [];
       
       if (groundingMetadata || groundingSources.length > 0) {
         console.log('[AI Stage Flow Enhanced] ===== GOOGLE SEARCH GROUNDING DETECTED =====');
@@ -529,24 +564,15 @@ async function executeWithStreaming(
       }
       
       // Handle streaming response
-      const textContent = response.text || '';
-      accumulatedContent += textContent;
+      const textContent = response.content || '';
+      accumulatedContent = textContent; // Direct-gemini already accumulates content
       
-      // Handle output images
-      if (response.outputImages && response.outputImages.length > 0) {
-        finalOutputImages = response.outputImages;
-        console.log(`[AI Stage Flow Enhanced] Output images found: ${response.outputImages.length}`);
-      }
+      // Note: Direct-gemini doesn't provide output images, code execution results, or tool requests
+      // in the current implementation. These would need to be extracted from candidates if available.
       
-      // Handle code execution results
-      if (response.codeExecutionResults) {
-        codeExecutionResults = response.codeExecutionResults;
-        console.log('[AI Stage Flow Enhanced] Code execution results found');
-      }
-      
-      // Handle tool requests
-      if (response.toolRequests && response.toolRequests.length > 0) {
-        console.log(`[AI Stage Flow Enhanced] Tool requests: ${response.toolRequests.length}`);
+      // Tool requests are not currently supported with direct-gemini
+      // Skip tool handling for now
+      if (false) {
         
         // Log each tool request
         for (const toolRequest of response.toolRequests) {
@@ -632,17 +658,10 @@ async function executeWithStreaming(
           });
         }
         
-        // Continue to next iteration to get final response
-        continue;
       }
       
-      // If no tool requests, we're done
-      callHistory.push({
-        role: 'model',
-        parts: [{ text: textContent }]
-      });
-      
-      break; // Exit the loop
+      // Exit the loop since we're done
+      break;
     }
     
     // Stream the final response if callback provided
