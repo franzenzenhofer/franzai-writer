@@ -50,14 +50,23 @@ export class TextGenerationModule {
         systemInstruction: modelConfig.systemInstruction
       });
       
-      return {
+      const response = {
         text: result.text || '',
         usageMetadata: result.usage as any,
         finishReason: result.finishReason,
         safetyRatings: result.safetyRatings,
       };
+      
+      console.log('📥 [AI RESPONSE] Text Generation:', {
+        textLength: response.text.length,
+        textPreview: response.text.substring(0, 100) + '...',
+        usageMetadata: response.usageMetadata,
+        finishReason: response.finishReason
+      });
+      
+      return response;
     } catch (error) {
-      console.error('Text generation error:', error);
+      console.error('❌ [AI ERROR] Text generation failed:', error);
       throw error;
     }
   }
@@ -70,6 +79,13 @@ export class TextGenerationModule {
     modelConfig: ModelConfig = { model: 'gemini-2.0-flash' },
     streamOptions: StreamOptions = {}
   ): Promise<void> {
+    console.log('📤 [AI REQUEST] Text Generation Stream:', {
+      model: modelConfig.model,
+      promptLength: prompt.length,
+      temperature: modelConfig.temperature,
+      systemInstruction: modelConfig.systemInstruction?.substring(0, 100) + '...'
+    });
+    
     try {
       const genAI = getGoogleGenAI().getRawClient();
       
@@ -94,21 +110,29 @@ export class TextGenerationModule {
       });
       
       let fullText = '';
+      let chunkCount = 0;
       
       for await (const chunk of result) {
         const chunkText = chunk.text || '';
         fullText += chunkText;
+        chunkCount++;
         
         if (streamOptions.onChunk) {
           streamOptions.onChunk(chunkText);
         }
       }
       
+      console.log('📥 [AI RESPONSE] Text Generation Stream Complete:', {
+        totalChunks: chunkCount,
+        fullTextLength: fullText.length,
+        textPreview: fullText.substring(0, 100) + '...'
+      });
+      
       if (streamOptions.onComplete) {
         streamOptions.onComplete(fullText);
       }
     } catch (error) {
-      console.error('Stream generation error:', error);
+      console.error('❌ [AI ERROR] Stream generation failed:', error);
       if (streamOptions.onError) {
         streamOptions.onError(error as Error);
       } else {

@@ -60,6 +60,15 @@ The core feature is a JSON-based workflow system where each workflow:
 **CRITICAL**: Always use `@google/genai` package, NEVER use `@google/generative-ai`
 **IMPORTANT**: Always consult the official Gemini docs at https://ai.google.dev/gemini-api/docs/ for the latest API usage
 
+## Error Handling Policy - FAIL FAST!
+
+**CRITICAL**: NO FALLBACKS, NO MOCK DATA!
+- If an AI request fails, we FAIL EARLY, we FAIL LOUD, we FAIL HARD!
+- Never use mock data or fallback responses when AI fails
+- Always propagate errors to the user with clear error messages
+- Log ALL errors with full stack traces
+- This applies EVERYWHERE in the codebase
+
 ## Firebase Ecosystem Guidelines
 
 - **Stay within Firebase ecosystem**: Use Firebase services for all backend needs (Firestore, Auth, Storage, Functions)

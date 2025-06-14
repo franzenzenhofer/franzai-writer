@@ -24,6 +24,14 @@ export class StructuredOutputModule {
     schema: any,
     modelConfig: ModelConfig = { model: 'gemini-2.0-flash' }
   ): Promise<T> {
+    console.log('📤 [AI REQUEST] Structured JSON Generation:', {
+      model: modelConfig.model,
+      promptLength: prompt.length,
+      temperature: modelConfig.temperature,
+      schema: JSON.stringify(schema).substring(0, 100) + '...',
+      systemInstruction: modelConfig.systemInstruction?.substring(0, 100) + '...'
+    });
+    
     try {
       const genAI = getGoogleGenAI().getRawClient();
       
@@ -48,10 +56,17 @@ export class StructuredOutputModule {
       });
       
       const text = result.text || '';
+      const parsed = JSON.parse(text) as T;
       
-      return JSON.parse(text) as T;
+      console.log('📥 [AI RESPONSE] Structured JSON Generation:', {
+        textLength: text.length,
+        parsedKeys: Object.keys(parsed as any),
+        preview: JSON.stringify(parsed).substring(0, 200) + '...'
+      });
+      
+      return parsed;
     } catch (error) {
-      console.error('Structured output generation error:', error);
+      console.error('❌ [AI ERROR] Structured output generation failed:', error);
       throw error;
     }
   }
@@ -65,6 +80,14 @@ export class StructuredOutputModule {
     modelConfig: ModelConfig = { model: 'gemini-2.0-flash' },
     onProgress?: (partial: string) => void
   ): Promise<T> {
+    console.log('📤 [AI REQUEST] Structured JSON Stream:', {
+      model: modelConfig.model,
+      promptLength: prompt.length,
+      temperature: modelConfig.temperature,
+      schema: JSON.stringify(schema).substring(0, 100) + '...',
+      systemInstruction: modelConfig.systemInstruction?.substring(0, 100) + '...'
+    });
+    
     try {
       const genAI = getGoogleGenAI().getRawClient();
       
@@ -97,9 +120,17 @@ export class StructuredOutputModule {
         }
       }
       
-      return JSON.parse(fullText) as T;
+      const parsed = JSON.parse(fullText) as T;
+      
+      console.log('📥 [AI RESPONSE] Structured JSON Stream Complete:', {
+        fullTextLength: fullText.length,
+        parsedKeys: Object.keys(parsed as any),
+        preview: JSON.stringify(parsed).substring(0, 200) + '...'
+      });
+      
+      return parsed;
     } catch (error) {
-      console.error('Structured output stream error:', error);
+      console.error('❌ [AI ERROR] Structured output stream failed:', error);
       throw error;
     }
   }
