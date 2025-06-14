@@ -1,18 +1,25 @@
 "use server";
 import "server-only";
 
-import { runAiStage } from '@/app/actions/aiActions-new';
+// Dynamic import happens inside the wrapper to keep server-only code out of the client graph
+
+import type { AiActionResult } from '@/app/actions/aiActions-new';
 
 // Server action wrapper that can be safely imported by client components
-export async function runAiStageWrapper(params: any) {
+export async function runAiStageWrapper(params: any): Promise<AiActionResult> {
+  const { runAiStage } = await import('@/app/actions/aiActions-new');
   try {
-    const result = await runAiStage(params);
-    return result;
+    return await runAiStage(params);
   } catch (error: any) {
     console.error('AI execution error:', error);
-    return { 
-      error: error.message || 'AI execution failed',
-      content: null 
-    };
+    return {
+      content: null,
+      error: error?.message || 'AI execution failed',
+      groundingMetadata: undefined,
+      groundingInfo: undefined,
+      thinkingSteps: undefined,
+      outputImages: undefined,
+      updatedChatHistory: undefined,
+    } as AiActionResult;
   }
 }

@@ -147,7 +147,7 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
           chunksCount: candidate.groundingMetadata.groundingChunks?.length || 0,
           supportsCount: candidate.groundingMetadata.groundingSupports?.length || 0,
           searchQueries: candidate.groundingMetadata.webSearchQueries?.length || 0,
-          sourcesExtracted: groundingSources.length
+          sourcesExtracted: groundingSources?.length ?? 0
         });
       } else {
         console.log('❌ [Direct Gemini] No grounding metadata found');

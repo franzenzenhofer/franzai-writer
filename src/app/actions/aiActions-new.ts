@@ -7,7 +7,7 @@
 import "server-only";
 
 import type { StageState, Stage, Workflow } from "@/types";
-import { executeAIStage, streamAIStage } from "@/ai/flows/ai-stage-execution-new";
+import type { executeAIStage as ExecuteAIStageFn, streamAIStage as StreamAIStageFn } from "@/ai/flows/ai-stage-execution-new";
 
 interface RunAiStageParams {
   workflow?: Workflow; // Make optional for backward compatibility
@@ -27,7 +27,7 @@ interface RunAiStageParams {
   groundingSettings?: Stage['groundingSettings'];
 }
 
-interface AiActionResult {
+export interface AiActionResult {
   content: any;
   error?: string;
   groundingMetadata?: any;
@@ -132,7 +132,11 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
       temperature: params.temperature
     };
 
-    // Execute with new SDK
+    // Dynamically load the heavy execution flow only when the server action actually runs
+    const { executeAIStage } = await import("@/ai/flows/ai-stage-execution-new") as {
+      executeAIStage: typeof ExecuteAIStageFn;
+    };
+
     const result = await executeAIStage({
       workflow,
       stage,
@@ -210,7 +214,11 @@ export async function* streamAiStage(params: RunAiStageParams): AsyncGenerator<s
       files: []
     };
 
-    // Stream with new SDK
+    // Dynamically import the streaming helper only when needed
+    const { streamAIStage } = await import("@/ai/flows/ai-stage-execution-new") as {
+      streamAIStage: typeof StreamAIStageFn;
+    };
+
     const stream = streamAIStage({
       workflow: params.workflow,
       stage,
