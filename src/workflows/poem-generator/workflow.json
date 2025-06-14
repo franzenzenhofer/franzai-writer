@@ -35,7 +35,7 @@
       "description": "AI will generate a poem and title based on your topic.",
       "inputType": "none",
       "promptTemplate": "Write a poem about '{{poem-topic.output}}'.\nMake it about 4 stanzas long.\n\nAlso create a compelling title for this poem.\n\nFormat your response as a JSON object with two keys:\n- 'title': A creative, engaging title for the poem (this will be used as the document title)\n- 'poem': The full poem content\n\nExample:\n{\n  \"title\": \"Whispers of the Morning\",\n  \"poem\": \"Lines of the poem here...\"\n}\n\nEnsure the output is valid JSON.",
-      "model": "googleai/gemini-2.0-flash",
+      "model": "gemini-2.0-flash",
       "temperature": 0.8,
       "outputType": "json",
       "jsonFields": [
@@ -77,7 +77,7 @@
       "description": "AI will convert your poem into beautiful HTML based on your briefing.",
       "inputType": "none",
       "promptTemplate": "Convert this poem into beautiful HTML with proper formatting and styling:\n\nTitle: {{generate-poem-with-title.output.title}}\nPoem:\n{{generate-poem-with-title.output.poem}}\n\nSpecial instructions: {{html-briefing.output}}\n\nIMPORTANT: Output ONLY the clean HTML content without any markdown code blocks, backticks, or explanatory text. Do not include ```html or ``` markers. Just return the pure HTML that can be directly rendered.\n\nCreate clean, semantic HTML with inline CSS for styling. Make it visually appealing and readable. Use proper HTML structure with headings, paragraphs, and styling for a poem presentation. Include the title as an H1 heading.",
-      "model": "googleai/gemini-2.0-flash",
+      "model": "gemini-2.0-flash",
       "temperature": 0.3,
       "outputType": "html",
       "dependencies": ["generate-poem-with-title"],

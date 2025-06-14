@@ -6,9 +6,9 @@
  */
 
 import 'dotenv/config';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 
-console.log('🚀 Testing Text Generation with Google Generative AI\n');
+console.log('🚀 Testing Text Generation with Google GenAI (@google/genai)\n');
 
 // Check API key
 if (!process.env.GOOGLE_GENAI_API_KEY) {
@@ -16,17 +16,18 @@ if (!process.env.GOOGLE_GENAI_API_KEY) {
   process.exit(1);
 }
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY);
+const genAI = new GoogleGenAI({ apiKey: process.env.GOOGLE_GENAI_API_KEY });
 
 async function testBasicGeneration() {
   console.log('📝 Test 1: Basic Text Generation');
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
-    const result = await model.generateContent('Write a haiku about coding');
-    const response = await result.response;
+    const result = await genAI.models.generateContent({
+      model: 'gemini-2.0-flash',
+      contents: 'Write a haiku about coding'
+    });
     console.log('✅ Success! Generated text:');
-    console.log(response.text());
-    console.log('\n📊 Usage metadata:', response.usageMetadata);
+    console.log(result.text);
+    console.log('\n📊 Usage metadata:', result.usage);
     return true;
   } catch (error) {
     console.error('❌ Error:', error.message);
@@ -37,14 +38,13 @@ async function testBasicGeneration() {
 async function testWithSystemInstruction() {
   console.log('\n📝 Test 2: Generation with System Instruction');
   try {
-    const model = genAI.getGenerativeModel({ 
+    const result = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
+      contents: 'What is TypeScript?',
       systemInstruction: 'You are a helpful coding assistant. Keep responses concise.'
     });
-    const result = await model.generateContent('What is TypeScript?');
-    const response = await result.response;
     console.log('✅ Success! Generated text:');
-    console.log(response.text());
+    console.log(result.text);
     return true;
   } catch (error) {
     console.error('❌ Error:', error.message);
@@ -55,13 +55,15 @@ async function testWithSystemInstruction() {
 async function testStreaming() {
   console.log('\n📝 Test 3: Streaming Generation');
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
-    const result = await model.generateContentStream('Count from 1 to 5 slowly');
+    const result = await genAI.models.generateContentStream({
+      model: 'gemini-2.0-flash',
+      contents: 'Count from 1 to 5 slowly'
+    });
     
     console.log('✅ Streaming response:');
     let fullText = '';
-    for await (const chunk of result.stream) {
-      const chunkText = chunk.text();
+    for await (const chunk of result) {
+      const chunkText = chunk.text || '';
       process.stdout.write(chunkText);
       fullText += chunkText;
     }
@@ -76,9 +78,11 @@ async function testStreaming() {
 async function testTokenCounting() {
   console.log('\n📝 Test 4: Token Counting');
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
     const text = 'This is a test sentence for token counting.';
-    const result = await model.countTokens(text);
+    const result = await genAI.models.countTokens({
+      model: 'gemini-2.0-flash',
+      contents: text
+    });
     console.log(`✅ Token count for "${text}": ${result.totalTokens} tokens`);
     return true;
   } catch (error) {
@@ -90,19 +94,18 @@ async function testTokenCounting() {
 async function testWithParameters() {
   console.log('\n📝 Test 5: Generation with Parameters');
   try {
-    const model = genAI.getGenerativeModel({ 
+    const result = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
-      generationConfig: {
+      contents: 'List 3 programming languages',
+      config: {
         temperature: 0.1,
-        maxOutputTokens: 50,
+        maxTokens: 50,
         topP: 0.8,
         topK: 10
       }
     });
-    const result = await model.generateContent('List 3 programming languages');
-    const response = await result.response;
     console.log('✅ Success! Generated text:');
-    console.log(response.text());
+    console.log(result.text);
     return true;
   } catch (error) {
     console.error('❌ Error:', error.message);

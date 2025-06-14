@@ -33,24 +33,21 @@ export class StructuredOutputModule {
       }
       contents.push({ text: prompt });
       
-      const model = genAI.getGenerativeModel({ 
+      const result = await genAI.models.generateContent({
         model: modelConfig.model,
-        generationConfig: {
+        contents: prompt,
+        config: {
           temperature: modelConfig.temperature,
-          maxOutputTokens: modelConfig.maxOutputTokens,
+          maxTokens: modelConfig.maxOutputTokens,
           topP: modelConfig.topP,
           topK: modelConfig.topK,
           responseMimeType: 'application/json',
           responseSchema: schema
-        }
+        },
+        systemInstruction: modelConfig.systemInstruction
       });
       
-      const result = await model.generateContent({
-        contents: [{ role: 'user', parts: contents }]
-      });
-      
-      const response = result.response;
-      const text = response.text() || '';
+      const text = result.text || '';
       
       return JSON.parse(text) as T;
     } catch (error) {
@@ -77,20 +74,18 @@ export class StructuredOutputModule {
       }
       contents.push({ text: prompt });
       
-      const model = genAI.getGenerativeModel({ 
+      const result = await genAI.models.generateContentStream({
         model: modelConfig.model,
-        generationConfig: {
+        contents: prompt,
+        config: {
           temperature: modelConfig.temperature,
-          maxOutputTokens: modelConfig.maxOutputTokens,
+          maxTokens: modelConfig.maxOutputTokens,
           topP: modelConfig.topP,
           topK: modelConfig.topK,
           responseMimeType: 'application/json',
           responseSchema: schema
-        }
-      });
-      
-      const result = await model.generateContentStream({
-        contents: [{ role: 'user', parts: contents }]
+        },
+        systemInstruction: modelConfig.systemInstruction
       });
       
       let fullText = '';

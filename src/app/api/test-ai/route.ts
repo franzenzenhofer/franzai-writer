@@ -7,7 +7,7 @@ export async function GET() {
     
     const result = await runAiStage({
       promptTemplate: 'Say hello world',
-      model: 'googleai/gemini-2.5-flash-preview-05-20',
+      model: 'gemini-2.0-flash',
       temperature: 0.7,
       contextVars: {},
       currentStageInput: '',

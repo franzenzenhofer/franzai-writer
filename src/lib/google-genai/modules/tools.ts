@@ -114,19 +114,17 @@ export class ToolsModule {
       }
       contents.push({ text: prompt });
       
-      const model = genAI.getGenerativeModel({ 
+      const result = await genAI.models.generateContent({
         model: modelConfig.model,
+        contents: prompt,
         tools: [{
           functionDeclarations
         }],
-        generationConfig: {
+        config: {
           temperature: modelConfig.temperature,
-          maxOutputTokens: modelConfig.maxOutputTokens
-        }
-      });
-      
-      const result = await model.generateContent({
-        contents: [{ role: 'user', parts: contents }]
+          maxTokens: modelConfig.maxOutputTokens
+        },
+        systemInstruction: modelConfig.systemInstruction
       });
       // result is the response for @google/genai
       
