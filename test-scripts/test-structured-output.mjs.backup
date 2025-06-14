@@ -100,50 +100,49 @@ async function testArrayJSON() {
 async function testNestedJSON() {
   console.log('\n📝 Test 3: Nested Objects');
   try {
-    const schema = {
-      type: 'object',
-      properties: {
-        recipe: {
-          type: 'object',
+    const model = genAI.getGenerativeModel({ 
+      model: 'gemini-2.0-flash',
+      generationConfig: {
+        responseMimeType: 'application/json',
+        responseSchema: {
+          type: SchemaType.OBJECT,
           properties: {
-            name: { type: 'string' },
-            servings: { type: 'number' },
-            ingredients: {
-              type: 'array',
-              items: {
-                type: 'object',
-                properties: {
-                  item: { type: 'string' },
-                  amount: { type: 'string' }
+            recipe: {
+              type: SchemaType.OBJECT,
+              properties: {
+                name: { type: SchemaType.STRING },
+                servings: { type: SchemaType.NUMBER },
+                ingredients: {
+                  type: SchemaType.ARRAY,
+                  items: {
+                    type: SchemaType.OBJECT,
+                    properties: {
+                      item: { type: SchemaType.STRING },
+                      amount: { type: SchemaType.STRING }
+                    }
+                  }
+                },
+                instructions: {
+                  type: SchemaType.ARRAY,
+                  items: { type: SchemaType.STRING }
                 }
-              }
-            },
-            instructions: {
-              type: 'array',
-              items: { type: 'string' }
+              },
+              required: ['name', 'servings', 'ingredients', 'instructions']
             }
           },
-          required: ['name', 'servings', 'ingredients', 'instructions']
+          required: ['recipe']
         }
-      },
-      required: ['recipe']
-    };
-    
-    const result = await genAI.models.generateContent({
-      model: 'gemini-2.0-flash',
-      contents: 'Create a simple pancake recipe JSON',
-      config: {
-        responseMimeType: 'application/json',
-        responseSchema: schema
       }
     });
     
-    const json = JSON.parse(result.text || '{}');
+    const result = await model.generateContent('Create a simple pancake recipe JSON');
+    const response = await result.response;
+    const json = JSON.parse(response.text());
     
     console.log('✅ Generated JSON:', JSON.stringify(json, null, 2));
     console.log('✅ Has nested structure:', !!json.recipe);
-    console.log('✅ Ingredients is array:', Array.isArray(json.recipe?.ingredients));
-    console.log('✅ Instructions is array:', Array.isArray(json.recipe?.instructions));
+    console.log('✅ Ingredients is array:', Array.isArray(json.recipe.ingredients));
+    console.log('✅ Instructions is array:', Array.isArray(json.recipe.instructions));
     return true;
   } catch (error) {
     console.error('❌ Error:', error.message);
@@ -154,59 +153,58 @@ async function testNestedJSON() {
 async function testComplexSchema() {
   console.log('\n📝 Test 4: Complex Schema with Multiple Types');
   try {
-    const schema = {
-      type: 'object',
-      properties: {
-        article: {
-          type: 'object',
-          properties: {
-            title: { type: 'string' },
-            author: { type: 'string' },
-            publishDate: { type: 'string' },
-            tags: {
-              type: 'array',
-              items: { type: 'string' }
-            },
-            metadata: {
-              type: 'object',
-              properties: {
-                wordCount: { type: 'number' },
-                readingTime: { type: 'number' },
-                featured: { type: 'boolean' }
-              }
-            },
-            sections: {
-              type: 'array',
-              items: {
-                type: 'object',
-                properties: {
-                  heading: { type: 'string' },
-                  content: { type: 'string' }
-                }
-              }
-            }
-          },
-          required: ['title', 'author', 'sections']
-        }
-      }
-    };
-    
-    const result = await genAI.models.generateContent({
+    const model = genAI.getGenerativeModel({ 
       model: 'gemini-2.0-flash',
-      contents: 'Create an article about TypeScript with 2 sections',
-      config: {
+      generationConfig: {
         responseMimeType: 'application/json',
-        responseSchema: schema
+        responseSchema: {
+          type: SchemaType.OBJECT,
+          properties: {
+            article: {
+              type: SchemaType.OBJECT,
+              properties: {
+                title: { type: SchemaType.STRING },
+                author: { type: SchemaType.STRING },
+                publishDate: { type: SchemaType.STRING },
+                tags: {
+                  type: SchemaType.ARRAY,
+                  items: { type: SchemaType.STRING }
+                },
+                metadata: {
+                  type: SchemaType.OBJECT,
+                  properties: {
+                    wordCount: { type: SchemaType.NUMBER },
+                    readingTime: { type: SchemaType.NUMBER },
+                    featured: { type: SchemaType.BOOLEAN }
+                  }
+                },
+                sections: {
+                  type: SchemaType.ARRAY,
+                  items: {
+                    type: SchemaType.OBJECT,
+                    properties: {
+                      heading: { type: SchemaType.STRING },
+                      content: { type: SchemaType.STRING }
+                    }
+                  }
+                }
+              },
+              required: ['title', 'author', 'sections']
+            }
+          }
+        }
       }
     });
     
-    const json = JSON.parse(result.text || '{}');
+    const result = await model.generateContent('Create an article about TypeScript with 2 sections');
+    const response = await result.response;
+    const json = JSON.parse(response.text());
     
     console.log('✅ Generated JSON:', JSON.stringify(json, null, 2));
     console.log('✅ Has all required fields:', 
       !!(json.article && json.article.title && json.article.author && json.article.sections)
     );
-    console.log('✅ Sections count:', json.article?.sections?.length);
+    console.log('✅ Sections count:', json.article.sections.length);
     return true;
   } catch (error) {
     console.error('❌ Error:', error.message);
@@ -217,31 +215,30 @@ async function testComplexSchema() {
 async function testStreamingJSON() {
   console.log('\n📝 Test 5: Streaming JSON Generation');
   try {
-    const schema = {
-      type: 'object',
-      properties: {
-        story: { type: 'string' },
-        characters: {
-          type: 'array',
-          items: { type: 'string' }
-        }
-      }
-    };
-    
-    console.log('Streaming JSON (collecting chunks)...');
-    const result = await genAI.models.generateContentStream({
+    const model = genAI.getGenerativeModel({ 
       model: 'gemini-2.0-flash',
-      contents: 'Create a short story JSON with 3 characters',
-      config: {
+      generationConfig: {
         responseMimeType: 'application/json',
-        responseSchema: schema
+        responseSchema: {
+          type: SchemaType.OBJECT,
+          properties: {
+            story: { type: SchemaType.STRING },
+            characters: {
+              type: SchemaType.ARRAY,
+              items: { type: SchemaType.STRING }
+            }
+          }
+        }
       }
     });
     
+    console.log('Streaming JSON (collecting chunks)...');
+    const result = await model.generateContentStream('Create a short story JSON with 3 characters');
+    
     let fullText = '';
     let chunkCount = 0;
-    for await (const chunk of result) {
-      fullText += chunk.text || '';
+    for await (const chunk of result.stream) {
+      fullText += chunk.text();
       chunkCount++;
       process.stdout.write('.');
     }
