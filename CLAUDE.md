@@ -57,6 +57,9 @@ The core feature is a JSON-based workflow system where each workflow:
 - Supports multiple input types: textarea, form, context, none
 - Output formats: text, json, markdown
 
+**CRITICAL**: Always use `@google/genai` package, NEVER use `@google/generative-ai`
+**IMPORTANT**: Always consult the official Gemini docs at https://ai.google.dev/gemini-api/docs/ for the latest API usage
+
 ## Firebase Ecosystem Guidelines
 
 - **Stay within Firebase ecosystem**: Use Firebase services for all backend needs (Firestore, Auth, Storage, Functions)
