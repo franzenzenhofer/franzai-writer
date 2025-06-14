@@ -26,8 +26,25 @@ Call log:
     - link "Login":
       - /url: /login
 - main:
-  - heading "404" [level=1]
-  - heading "This page could not be found." [level=2]
+  - heading "New Poem Generator" [level=1]
+  - paragraph: "Workflow: Poem Generator"
+  - text: Progress 0 / 4 Stages
+  - progressbar
+  - text: Last saved 2:22:20 PM Poem Topic What is the topic of your poem?
+  - textbox "What is the topic of your poem?"
+  - button "Continue":
+    - img
+    - text: Continue
+  - img
+  - text: "Waiting for: Poem Topic Generate Poem & Title AI will generate a poem and title based on your topic."
+  - img
+  - text: "Waiting for: Generate Poem & Title HTML Briefing Optional Special instructions for HTML formatting (optional)"
+  - textbox "Special instructions for HTML formatting (optional)"
+  - img
+  - text: "Waiting for: Generate Poem & Title Generate HTML Preview AI will convert your poem into beautiful HTML based on your briefing."
+  - button "Finalize Document" [disabled]:
+    - img
+    - text: Finalize Document
 - contentinfo:
   - paragraph: © 2025 Franz AI Writer. All rights reserved.
   - paragraph:
@@ -47,9 +64,6 @@ Call log:
 - alert
 - button "Open Next.js Dev Tools":
   - img
-- button "Open issues overlay": 1 Issue
-- button "Collapse issues badge":
-  - img
 ```
 
 # Test source
@@ -61,8 +75,8 @@ Call log:
    4 |
    5 | test.describe('Poem Generator Workflow - Comprehensive Test with AI Redo', () => {
    6 |   test.beforeEach(async ({ page }) => {
-   7 |     // Navigate to the poem generator workflow
-   8 |     await page.goto('/w/poem-generator/new');
+   7 |     // Navigate to the poem generator workflow (shortName is "poem")
+   8 |     await page.goto('/w/poem/new');
    9 |     
    10 |     // Wait for the wizard shell to load
 >  11 |     await page.waitForSelector('[data-testid="wizard-shell"]', { timeout: 10000 });
@@ -70,101 +84,101 @@ Call log:
    12 |   });
    13 |
    14 |   test('Complete poem generation from start to finish with AI Redo', async ({ page }) => {
-   15 |     // Step 1: Topic Selection
+   15 |     // Step 1: Enter Poem Topic
    16 |     await test.step('Enter poem topic', async () => {
-   17 |       await page.waitForSelector('[data-stage-id="topic-selection"]', { timeout: 10000 });
+   17 |       await page.waitForSelector('[data-stage-id="poem-topic"]', { timeout: 10000 });
    18 |       
-   19 |       const topicInput = page.locator('[data-stage-id="topic-selection"] textarea');
+   19 |       const topicInput = page.locator('[data-stage-id="poem-topic"] textarea');
    20 |       await expect(topicInput).toBeVisible();
    21 |       await topicInput.fill('The beauty of autumn leaves changing colors');
    22 |       
-   23 |       const processButton = page.locator('[data-stage-id="topic-selection"] button:has-text("Process Stage")');
+   23 |       const processButton = page.locator('[data-stage-id="poem-topic"] button:has-text("Process Stage")');
    24 |       await processButton.click();
    25 |       
    26 |       // Wait for processing to complete
-   27 |       await page.waitForSelector('[data-stage-id="topic-selection"] [data-testid="stage-output-area"]', { 
+   27 |       await page.waitForSelector('[data-stage-id="poem-topic"] [data-testid="stage-output-area"]', { 
    28 |         state: 'visible',
    29 |         timeout: 30000 
    30 |       });
    31 |     });
    32 |
-   33 |     // Step 2: Poem Style
-   34 |     await test.step('Select poem style', async () => {
-   35 |       await page.waitForSelector('[data-stage-id="poem-style"] button:has-text("Process Stage")', { 
-   36 |         state: 'visible',
-   37 |         timeout: 10000 
-   38 |       });
-   39 |       
-   40 |       const styleButton = page.locator('[data-stage-id="poem-style"] button:has-text("Process Stage")');
-   41 |       await styleButton.click();
-   42 |       
-   43 |       // Wait for style to be generated
-   44 |       await page.waitForSelector('[data-stage-id="poem-style"] [data-testid="stage-output-area"]', { 
-   45 |         state: 'visible',
-   46 |         timeout: 30000 
-   47 |       });
-   48 |     });
-   49 |
-   50 |     // Step 3: Tone and Mood (Test AI Redo here)
-   51 |     await test.step('Generate tone and mood with AI Redo', async () => {
-   52 |       await page.waitForSelector('[data-stage-id="tone-mood"] button:has-text("Process Stage")', { 
-   53 |         state: 'visible',
-   54 |         timeout: 10000 
-   55 |       });
+   33 |     // Step 2: Generate Poem with Title (Test AI Redo here)
+   34 |     await test.step('Generate poem with title and test AI Redo', async () => {
+   35 |       // This stage should auto-run due to dependencies, wait for it to complete
+   36 |       await page.waitForSelector('[data-stage-id="generate-poem-with-title"] [data-testid="stage-output-area"]', { 
+   37 |         state: 'visible',
+   38 |         timeout: 45000 
+   39 |       });
+   40 |       
+   41 |       // Capture the first output
+   42 |       const firstOutput = await page.locator('[data-stage-id="generate-poem-with-title"] [data-testid="stage-output-area"]').textContent();
+   43 |       console.log('First poem output:', firstOutput?.substring(0, 200) + '...');
+   44 |       
+   45 |       // Use AI Redo with Google Search grounding
+   46 |       const aiRedoButton = page.locator('[data-stage-id="generate-poem-with-title"] button[title="AI Redo"]');
+   47 |       await expect(aiRedoButton).toBeVisible();
+   48 |       await aiRedoButton.click();
+   49 |       
+   50 |       // Wait for AI Redo dialog
+   51 |       await page.waitForSelector('[role="dialog"]:has-text("AI Redo")', { timeout: 5000 });
+   52 |       
+   53 |       // Fill in redo instructions
+   54 |       const redoInput = page.locator('[role="dialog"] textarea');
+   55 |       await redoInput.fill('Make the poem more melancholic and nostalgic, with references to current autumn weather patterns');
    56 |       
-   57 |       // First generation
-   58 |       const toneButton = page.locator('[data-stage-id="tone-mood"] button:has-text("Process Stage")');
-   59 |       await toneButton.click();
+   57 |       // Enable Google Search grounding
+   58 |       const groundingCheckbox = page.locator('[role="dialog"] input[type="checkbox"]');
+   59 |       await groundingCheckbox.check();
    60 |       
-   61 |       // Wait for tone to be generated
-   62 |       await page.waitForSelector('[data-stage-id="tone-mood"] [data-testid="stage-output-area"]', { 
-   63 |         state: 'visible',
-   64 |         timeout: 30000 
-   65 |       });
-   66 |       
-   67 |       // Capture the first output
-   68 |       const firstOutput = await page.locator('[data-stage-id="tone-mood"] [data-testid="stage-output-area"]').textContent();
-   69 |       console.log('First tone output:', firstOutput);
-   70 |       
-   71 |       // Use AI Redo with Google Search grounding
-   72 |       const aiRedoButton = page.locator('[data-stage-id="tone-mood"] button[title="AI Redo"]');
-   73 |       await expect(aiRedoButton).toBeVisible();
-   74 |       await aiRedoButton.click();
-   75 |       
-   76 |       // Wait for AI Redo dialog
-   77 |       await page.waitForSelector('[role="dialog"]:has-text("AI Redo")', { timeout: 5000 });
-   78 |       
-   79 |       // Fill in redo instructions
-   80 |       const redoInput = page.locator('[role="dialog"] textarea');
-   81 |       await redoInput.fill('Make the tone more melancholic and nostalgic, with references to current autumn weather patterns');
-   82 |       
-   83 |       // Enable Google Search grounding
-   84 |       const groundingCheckbox = page.locator('[role="dialog"] input[type="checkbox"]');
-   85 |       await groundingCheckbox.check();
+   61 |       // Click Redo button
+   62 |       const confirmRedoButton = page.locator('[role="dialog"] button:has-text("Redo with AI")');
+   63 |       await confirmRedoButton.click();
+   64 |       
+   65 |       // Wait for new output - use a more robust wait
+   66 |       await page.waitForTimeout(3000); // Give time for the request to start
+   67 |       await page.waitForFunction(() => {
+   68 |         const output = document.querySelector('[data-stage-id="generate-poem-with-title"] [data-testid="stage-output-area"]');
+   69 |         return output && output.textContent && output.textContent.trim().length > 100;
+   70 |       }, { timeout: 45000 });
+   71 |       
+   72 |       const secondOutput = await page.locator('[data-stage-id="generate-poem-with-title"] [data-testid="stage-output-area"]').textContent();
+   73 |       console.log('Second poem output after AI Redo:', secondOutput?.substring(0, 200) + '...');
+   74 |       
+   75 |       // Verify the output changed and contains expected elements
+   76 |       expect(secondOutput).not.toBe(firstOutput);
+   77 |       expect(secondOutput?.toLowerCase()).toContain('autumn');
+   78 |     });
+   79 |
+   80 |     // Step 3: HTML Briefing (Optional)
+   81 |     await test.step('Add HTML briefing (optional)', async () => {
+   82 |       await page.waitForSelector('[data-stage-id="html-briefing"]', { timeout: 10000 });
+   83 |       
+   84 |       const briefingInput = page.locator('[data-stage-id="html-briefing"] textarea');
+   85 |       await briefingInput.fill('Make it elegant with a dark theme, centered layout, and beautiful typography');
    86 |       
-   87 |       // Click Redo button
-   88 |       const confirmRedoButton = page.locator('[role="dialog"] button:has-text("Redo with AI")');
-   89 |       await confirmRedoButton.click();
-   90 |       
-   91 |       // Wait for new output
-   92 |       await page.waitForFunction(() => {
-   93 |         const output = document.querySelector('[data-stage-id="tone-mood"] [data-testid="stage-output-area"]');
-   94 |         return output && output.textContent !== '';
-   95 |       }, { timeout: 30000 });
-   96 |       
-   97 |       const secondOutput = await page.locator('[data-stage-id="tone-mood"] [data-testid="stage-output-area"]').textContent();
-   98 |       console.log('Second tone output after AI Redo:', secondOutput);
-   99 |       
-  100 |       // Verify the output changed
-  101 |       expect(secondOutput).not.toBe(firstOutput);
-  102 |       expect(secondOutput?.toLowerCase()).toContain('melancholic');
-  103 |     });
-  104 |
-  105 |     // Step 4: Key Imagery
-  106 |     await test.step('Generate key imagery', async () => {
-  107 |       await page.waitForSelector('[data-stage-id="key-imagery"] button:has-text("Process Stage")', { 
-  108 |         state: 'visible',
-  109 |         timeout: 10000 
-  110 |       });
-  111 |       
+   87 |       const processButton = page.locator('[data-stage-id="html-briefing"] button:has-text("Process Stage")');
+   88 |       await processButton.click();
+   89 |       
+   90 |       // Wait for processing to complete
+   91 |       await page.waitForSelector('[data-stage-id="html-briefing"] [data-testid="stage-output-area"]', { 
+   92 |         state: 'visible',
+   93 |         timeout: 30000 
+   94 |       });
+   95 |     });
+   96 |
+   97 |     // Step 4: Generate HTML Preview (Final Output)
+   98 |     await test.step('Generate HTML preview and save output', async () => {
+   99 |       // This stage should auto-run, wait for it to complete
+  100 |       await page.waitForSelector('[data-stage-id="generate-html-preview"] [data-testid="stage-output-area"]', { 
+  101 |         state: 'visible',
+  102 |         timeout: 45000 
+  103 |       });
+  104 |       
+  105 |       // Capture the final HTML output
+  106 |       const finalOutputElement = page.locator('[data-stage-id="generate-html-preview"] [data-testid="stage-output-area"]');
+  107 |       const htmlContent = await finalOutputElement.innerHTML();
+  108 |       const textContent = await finalOutputElement.textContent();
+  109 |       
+  110 |       // Create output directory
+  111 |       const outputDir = path.join(process.cwd(), 'docs', 'test-outputs');
 ```
