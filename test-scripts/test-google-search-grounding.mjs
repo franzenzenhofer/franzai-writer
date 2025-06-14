@@ -25,7 +25,7 @@ async function testBasicGrounding() {
       model: 'gemini-2.0-flash',
       contents: 'What are the latest AI announcements from Google in 2025?',
       config: {
-        tools: [{ google_search: {} }]
+        tools: [{ google_search_retrieval: {} }]
       }
     });
 
@@ -48,19 +48,18 @@ async function testBasicGrounding() {
 async function testGroundingWithContext() {
   console.log('\n📝 Test 2: Grounding with Context');
   try {
-    const result = await genAI.models.generateContent({
+    const model = genAI.getGenerativeModel({ 
       model: 'gemini-2.0-flash',
-      contents: 'Based on current information, what is the weather forecast for New York City tomorrow?',
-      config: {
-        tools: [{ google_search: {} }]
-      }
+      tools: [{ googleSearchRetrieval: {} }]
     });
+    const result = await model.generateContent('Based on current information, what is the weather forecast for New York City tomorrow?');
 
     console.log('✅ Response:', result.text || 'No response');
     
     // Check if response mentions real-time information
-    const hasRealTimeInfo = result.text?.toLowerCase().includes('weather') || 
-                           result.text?.toLowerCase().includes('forecast');
+    const responseText = result.text;
+    const hasRealTimeInfo = responseText?.toLowerCase().includes('weather') || 
+                           responseText?.toLowerCase().includes('forecast');
     console.log('✅ Contains weather information:', hasRealTimeInfo);
     
     return hasRealTimeInfo;
@@ -73,20 +72,19 @@ async function testGroundingWithContext() {
 async function testGroundingAccuracy() {
   console.log('\n📝 Test 3: Grounding Accuracy Check');
   try {
-    const result = await genAI.models.generateContent({
+    const model = genAI.getGenerativeModel({ 
       model: 'gemini-2.0-flash',
-      contents: 'What is the current stock price of GOOGL?',
-      config: {
-        tools: [{ google_search: {} }]
-      }
+      tools: [{ googleSearchRetrieval: {} }]
     });
+    const result = await model.generateContent('What is the current stock price of GOOGL?');
 
     console.log('✅ Response:', result.text || 'No response');
     
     // Check if response contains price information
-    const hasPriceInfo = result.text?.includes('$') || 
-                        result.text?.toLowerCase().includes('price') ||
-                        result.text?.toLowerCase().includes('stock');
+    const responseText = result.response.text();
+    const hasPriceInfo = responseText?.includes('$') || 
+                        responseText?.toLowerCase().includes('price') ||
+                        responseText?.toLowerCase().includes('stock');
     
     console.log('✅ Contains price information:', hasPriceInfo);
     
@@ -112,16 +110,17 @@ async function testGroundingWithSystemInstruction() {
       contents: 'Who won the latest Nobel Prize in Physics?',
       systemInstruction: 'You are a helpful assistant that always cites sources when using grounded information.',
       config: {
-        tools: [{ google_search: {} }]
+        tools: [{ google_search_retrieval: {} }]
       }
     });
 
     console.log('✅ Response:', result.text || 'No response');
     
     // Check if response includes citations or sources
-    const hasCitations = result.text?.toLowerCase().includes('according to') ||
-                        result.text?.toLowerCase().includes('source') ||
-                        result.text?.toLowerCase().includes('based on');
+    const responseText = result.response.text();
+    const hasCitations = responseText?.toLowerCase().includes('according to') ||
+                        responseText?.toLowerCase().includes('source') ||
+                        responseText?.toLowerCase().includes('based on');
     
     console.log('✅ Includes citations/sources:', hasCitations);
     return true;
@@ -138,7 +137,7 @@ async function testGroundingStreaming() {
       model: 'gemini-2.0-flash',
       contents: 'What are the top technology news stories today?',
       config: {
-        tools: [{ google_search: {} }]
+        tools: [{ google_search_retrieval: {} }]
       }
     });
 
@@ -192,7 +191,7 @@ async function testGroundingWithJsonOutput() {
       model: 'gemini-2.0-flash',
       contents: 'Get the latest news about artificial intelligence and format as JSON',
       config: {
-        tools: [{ google_search: {} }],
+        tools: [{ google_search_retrieval: {} }],
         response_mime_type: 'application/json',
         response_schema: schema
       }

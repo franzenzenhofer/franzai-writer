@@ -167,12 +167,10 @@ async function testToolChaining() {
     const prompt1 = `You need to calculate 15 + 27. Respond with a tool call in JSON format.
 Available tool: ${JSON.stringify(calculatorTool)}`;
 
-    const result1 = await genAI.models.generateContent({
-      model: 'gemini-2.0-flash',
-      contents: prompt1
-    });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+    const result1 = await model.generateContent(prompt1);
 
-    console.log('✅ Tool call request:', result1.text);
+    console.log('✅ Tool call request:', result1.text || '');
 
     // Simulate tool execution and send response
     const prompt2 = `The calculate tool returned: { "result": 42 }
@@ -183,7 +181,7 @@ Now provide the final answer to the user.`;
       contents: prompt2
     });
 
-    console.log('✅ Final response:', result2.text);
+    console.log('✅ Final response:', result2.text || '');
     
     const finalText = result2.text || '';
     return finalText.includes('42');
@@ -201,8 +199,7 @@ async function testNativeGoogleSearch() {
       model: 'gemini-2.0-flash',
       contents: 'What is the current weather in Tokyo?',
       config: {
-        // This would enable grounding if supported
-        tools: [{ google_search: {} }]
+        tools: [{ google_search_retrieval: {} }]
       }
     });
 
