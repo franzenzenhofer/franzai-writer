@@ -104,6 +104,14 @@ export class ToolsModule {
     tools: ToolDefinition[],
     modelConfig: ModelConfig = { model: 'gemini-2.0-flash' }
   ): Promise<ToolResponse> {
+    console.log('📤 [AI REQUEST] Function Calling:', {
+      model: modelConfig.model,
+      promptLength: prompt.length,
+      toolCount: tools.length,
+      toolNames: tools.map(t => t.name),
+      temperature: modelConfig.temperature
+    });
+    
     try {
       const genAI = getGoogleGenAI().getRawClient();
       const functionDeclarations = tools.map(tool => this.convertToGoogleFormat(tool));
@@ -146,13 +154,23 @@ export class ToolsModule {
         }
       }
 
-      return {
+      const result = {
         text: response.text() || '',
         functionCalls: functionCalls.length > 0 ? functionCalls : undefined,
         usageMetadata: response.usageMetadata
       };
+      
+      console.log('📥 [AI RESPONSE] Function Calling:', {
+        hasText: !!result.text,
+        textLength: result.text.length,
+        functionCallCount: functionCalls.length,
+        functionCalls: functionCalls.map(fc => ({ name: fc.name, hasArgs: !!fc.args })),
+        usageMetadata: result.usageMetadata
+      });
+      
+      return result;
     } catch (error) {
-      console.error('Tool calling error:', error);
+      console.error('❌ [AI ERROR] Tool calling failed:', error);
       throw error;
     }
   }
@@ -166,6 +184,12 @@ export class ToolsModule {
     toolHandlers: Record<string, (args: any) => Promise<any>>,
     modelConfig: ModelConfig = { model: 'gemini-2.0-flash' }
   ): Promise<string> {
+    console.log('📤 [AI REQUEST] Execute and Respond:', {
+      model: modelConfig.model,
+      promptLength: prompt.length,
+      availableTools: Object.keys(toolHandlers)
+    });
+    
     try {
       // First, get the function calls
       const initialResponse = await this.callWithTools(prompt, tools, modelConfig);
@@ -180,12 +204,15 @@ export class ToolsModule {
         const handler = toolHandlers[call.name];
         if (handler) {
           try {
+            console.log(`🔧 [TOOL EXECUTION] Calling ${call.name} with args:`, call.args);
             const result = await handler(call.args);
+            console.log(`✅ [TOOL RESULT] ${call.name}:`, result);
             functionResponses.push({
               name: call.name,
               response: result
             });
           } catch (error) {
+            console.error(`❌ [TOOL ERROR] ${call.name} failed:`, error);
             functionResponses.push({
               name: call.name,
               response: { error: (error as Error).message }
@@ -220,9 +247,16 @@ export class ToolsModule {
       const finalResult = await model.generateContent({ contents });
       const finalResponse = await finalResult.response;
       
-      return finalResponse.text();
+      const finalText = finalResponse.text();
+      
+      console.log('📥 [AI RESPONSE] Final Response:', {
+        textLength: finalText.length,
+        preview: finalText.substring(0, 200) + '...'
+      });
+      
+      return finalText;
     } catch (error) {
-      console.error('Tool execution error:', error);
+      console.error('❌ [AI ERROR] Tool execution failed:', error);
       throw error;
     }
   }

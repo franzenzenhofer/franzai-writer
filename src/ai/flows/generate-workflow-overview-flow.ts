@@ -7,7 +7,7 @@
  * - GenerateWorkflowOverviewOutput - The return type for the generateWorkflowOverview function.
  */
 
-import {ai} from '@/ai/genkit';
+import { StructuredOutputModule } from '@/lib/google-genai';
 import {z} from 'zod';
 
 const StageInfoSchema = z.object({
@@ -34,13 +34,33 @@ export async function generateWorkflowOverview(input: GenerateWorkflowOverviewIn
   console.log('[generateWorkflowOverview] STEP 2: Input received:', JSON.stringify(input, null, 2));
   
   try {
-    console.log('[generateWorkflowOverview] STEP 3: Calling generateWorkflowOverviewFlow...');
+    console.log('[generateWorkflowOverview] STEP 3: Generating workflow overview with @google/genai...');
     const startTime = Date.now();
     
-    const result = await generateWorkflowOverviewFlow(input);
+    // Build the prompt from the template
+    const prompt = buildPrompt(input);
+    
+    // Use StructuredOutputModule to generate JSON response
+    const result = await StructuredOutputModule.generateJSON<GenerateWorkflowOverviewOutput>(
+      prompt,
+      {
+        type: 'object',
+        properties: {
+          overview: {
+            type: 'string',
+            description: 'A concise, engaging summary of what this workflow typically produces and its key benefits or purpose. Should be 1-2 paragraphs long, formatted as Markdown.'
+          }
+        },
+        required: ['overview']
+      },
+      {
+        model: 'gemini-2.0-flash',
+        temperature: 0.7
+      }
+    );
     
     const endTime = Date.now();
-    console.log('[generateWorkflowOverview] STEP 4: Flow completed in', endTime - startTime, 'ms');
+    console.log('[generateWorkflowOverview] STEP 4: Generation completed in', endTime - startTime, 'ms');
     console.log('[generateWorkflowOverview] STEP 5: Result:', JSON.stringify(result, null, 2));
     
     return result;
@@ -51,67 +71,28 @@ export async function generateWorkflowOverview(input: GenerateWorkflowOverviewIn
   }
 }
 
-const prompt = ai.definePrompt({
-  name: 'generateWorkflowOverviewPrompt',
-  model: 'googleai/gemini-2.0-flash',
-  config: {
-    temperature: 0.7,
-  },
-  input: {schema: GenerateWorkflowOverviewInputSchema},
-  output: {schema: GenerateWorkflowOverviewOutputSchema},
-  prompt: `
-You are an expert technical writer tasked with creating a compelling overview for a software workflow.
+function buildPrompt(input: GenerateWorkflowOverviewInput): string {
+  let prompt = `You are an expert technical writer tasked with creating a compelling overview for a software workflow.
 Based on the following workflow details, generate a concise and engaging summary (1-2 paragraphs, formatted as Markdown) of what this workflow typically produces and its key benefits or purpose.
 Focus on the end result and value for the user. Make it sound appealing and useful.
 
-Workflow Name: {{workflowName}}
-Workflow Description: {{workflowDescription}}
+Workflow Name: ${input.workflowName}
+Workflow Description: ${input.workflowDescription}
 
-{{#if finalOutputStageTitle}}
-The workflow culminates in the '{{finalOutputStageTitle}}' stage, which typically delivers the primary output.
-{{/if}}
+`;
 
-Here's a brief look at the stages involved:
-{{#each stages}}
-- {{title}}: {{description}}
-{{/each}}
-
-Please provide the Markdown summary.
-  `,
-});
-
-const generateWorkflowOverviewFlow = ai.defineFlow(
-  {
-    name: 'generateWorkflowOverviewFlow',
-    inputSchema: GenerateWorkflowOverviewInputSchema,
-    outputSchema: GenerateWorkflowOverviewOutputSchema,
-  },
-  async (input: any) => {
-    console.log('[generateWorkflowOverviewFlow] FLOW STEP 1: Flow execution started at', new Date().toISOString());
-    console.log('[generateWorkflowOverviewFlow] FLOW STEP 2: Input to flow:', JSON.stringify(input, null, 2));
-    
-    try {
-      console.log('[generateWorkflowOverviewFlow] FLOW STEP 3: Calling prompt function...');
-      const promptStartTime = Date.now();
-      
-      const {output} = await prompt(input);
-      
-      const promptEndTime = Date.now();
-      console.log('[generateWorkflowOverviewFlow] FLOW STEP 4: Prompt completed in', promptEndTime - promptStartTime, 'ms');
-      console.log('[generateWorkflowOverviewFlow] FLOW STEP 5: Prompt output:', JSON.stringify(output, null, 2));
-      
-      if (!output) {
-        console.error('[generateWorkflowOverviewFlow] FLOW ERROR: Output is null/undefined!');
-        throw new Error('AI prompt returned no output');
-      }
-      
-      return output;
-    } catch (error) {
-      console.error('[generateWorkflowOverviewFlow] FLOW ERROR:', error);
-      console.error('[generateWorkflowOverviewFlow] FLOW Error type:', typeof error);
-      console.error('[generateWorkflowOverviewFlow] FLOW Error details:', JSON.stringify(error, null, 2));
-      throw error;
-    }
+  if (input.finalOutputStageTitle) {
+    prompt += `The workflow culminates in the '${input.finalOutputStageTitle}' stage, which typically delivers the primary output.\n\n`;
   }
-);
+
+  prompt += `Here's a brief look at the stages involved:\n`;
+  
+  for (const stage of input.stages) {
+    prompt += `- ${stage.title}: ${stage.description}\n`;
+  }
+  
+  prompt += `\nPlease provide the Markdown summary.`;
+  
+  return prompt;
+}
 
