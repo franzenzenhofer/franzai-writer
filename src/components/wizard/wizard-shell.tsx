@@ -4,8 +4,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import type { WizardInstance, Stage, StageState } from '@/types';
 import { StageCard } from './stage-card';
 import { Button } from '@/components/ui/button';
-// Import server action through a wrapper to prevent bundling issues
-import { runAiStageWrapper as runAiStage } from './wizard-actions'; 
 import { useToast } from '@/hooks/use-toast';
 import { AlertTriangle, Check, Info, Lightbulb, DownloadCloud, FileWarning, Save } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -15,6 +13,9 @@ import { siteConfig } from '@/config/site';
 import { useDocumentPersistence } from '@/hooks/use-document-persistence';
 import { Badge } from '@/components/ui/badge';
 
+// Lazy load the AI stage runner to prevent Turbopack static analysis
+let runAiStage: any = null;
+
 interface WizardShellProps {
   initialInstance: WizardInstance;
 }
@@ -23,10 +24,19 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   const [instance, setInstance] = useState<WizardInstance>(initialInstance);
   const { toast } = useToast();
   const [pageTitle, setPageTitle] = useState(initialInstance.document.title);
+  const [aiStageLoaded, setAiStageLoaded] = useState(false);
 
   const [isFinalizeDialogOpen, setIsFinalizeDialogOpen] = useState(false);
   const [finalDocumentContent, setFinalDocumentContent] = useState("");
   const [hasFinalizedOnce, setHasFinalizedOnce] = useState(false);
+
+  // Load the AI stage runner dynamically
+  useEffect(() => {
+    import('@/lib/ai-stage-runner').then(module => {
+      runAiStage = module.runAiStage;
+      setAiStageLoaded(true);
+    });
+  }, []);
 
   // Auto-scroll utility
   const scrollToStageById = useCallback((stageId: string) => {
@@ -260,6 +270,15 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   };
 
   const handleRunStage = useCallback(async (stageId: string, currentInput?: any, aiRedoNotes?: string) => {
+    if (!aiStageLoaded || !runAiStage) {
+      toast({
+        title: "AI not ready",
+        description: "Please wait for AI to load",
+        variant: "destructive",
+      });
+      return;
+    }
+
     console.log('[handleRunStage] Called with:', { stageId, currentInput, hasAiRedoNotes: !!aiRedoNotes });
     const stage = instance.workflow.stages.find(s => s.id === stageId);
     if (!stage) return;
@@ -435,7 +454,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       updateStageState(stageId, { status: "error", error: error.message || "AI processing failed." });
       toast({ title: "AI Stage Error", description: error.message || "An error occurred.", variant: "destructive" });
     }
-  }, [instance.workflow.stages, instance.stageStates, instance.workflow.config?.autoScroll, updateStageState, toast, scrollToStageById]);
+  }, [aiStageLoaded, instance.workflow.stages, instance.stageStates, instance.workflow.config?.autoScroll, updateStageState, toast, scrollToStageById]);
 
 
   

@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "npm run kill && npm run dev:start",
-    "dev:start": "export PATH=\"/opt/homebrew/opt/openjdk/bin:$PATH\" && npm run emulators:background && sleep 8 && DEBUG=genkit*,ai*,google* GENKIT_LOG_LEVEL=debug next dev --turbopack -p 9002 2>&1 | tee -a logs/nextjs-dev.log",
+    "dev:start": "NEXT_PUBLIC_DEMO_MODE=true NEXT_PUBLIC_USE_FIREBASE_EMULATOR=false DEBUG=genkit*,ai*,google* GENKIT_LOG_LEVEL=debug next dev --turbopack -p 9002 2>&1 | tee -a logs/nextjs-dev.log",
     "dev:debug": "NODE_OPTIONS='--inspect' next dev --turbopack -p 9002",
-    "dev:verbose": "DEBUG='*' next dev --turbopack -p 9002 2>&1 | tee -a logs/nextjs-verbose.log",
+    "dev:verbose": "NEXT_PUBLIC_DEMO_MODE=true NEXT_PUBLIC_USE_FIREBASE_EMULATOR=false DEBUG='*' next dev --turbopack -p 9002 2>&1 | tee -a logs/nextjs-verbose.log",
+    "dev:with-emulators": "export PATH=\"/opt/homebrew/opt/openjdk/bin:$PATH\" && npm run emulators:background && sleep 8 && DEBUG=genkit*,ai*,google* GENKIT_LOG_LEVEL=debug next dev --turbopack -p 9002 2>&1 | tee -a logs/nextjs-dev.log",
     "genkit:dev": "genkit start -- tsx src/ai/dev.ts",
     "genkit:watch": "genkit start -- tsx --watch src/ai/dev.ts",
     "emulators:start": "export PATH=\"/opt/homebrew/opt/openjdk/bin:$PATH\" && firebase emulators:start",

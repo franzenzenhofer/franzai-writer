@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useAuth } from '@/components/layout/app-providers';
 import { useToast } from '@/hooks/use-toast';
-import { documentPersistence } from '@/lib/document-persistence';
+import { clientDocumentPersistence } from '@/lib/document-persistence-client';
 import type { WizardInstance, StageState } from '@/types';
 
 interface UseDocumentPersistenceProps {
@@ -71,7 +71,7 @@ export function useDocumentPersistence({
         throw new Error('FATAL: Stage states are invalid');
       }
 
-      const result = await documentPersistence.saveDocument(
+      const result = await clientDocumentPersistence.saveDocument(
         documentId,
         instance.document.title,
         instance.workflow.id,
@@ -138,7 +138,7 @@ export function useDocumentPersistence({
         throw new Error('FATAL: Document ID is required');
       }
       
-      const result = await documentPersistence.loadDocument(docId);
+      const result = await clientDocumentPersistence.loadDocument(docId);
       
       if (!result.success) {
         throw new Error(result.error || 'Load operation failed');
