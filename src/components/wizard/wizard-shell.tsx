@@ -4,21 +4,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import type { WizardInstance, Stage, StageState } from '@/types';
 import { StageCard } from './stage-card';
 import { Button } from '@/components/ui/button';
-// Replace direct server action import with fetch to prevent Turbopack bundling issues
-async function runAiStage(params: any) {
-  const response = await fetch('/api/wizard/execute', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(params)
-  });
-  
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.error || 'AI execution failed');
-  }
-  
-  return response.json();
-} 
+// Import server action through a wrapper to prevent bundling issues
+import { runAiStageWrapper as runAiStage } from './wizard-actions'; 
 import { useToast } from '@/hooks/use-toast';
 import { AlertTriangle, Check, Info, Lightbulb, DownloadCloud, FileWarning, Save } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
