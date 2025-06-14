@@ -7,7 +7,7 @@
  */
 
 import 'dotenv/config';
-import { genai } from '@google/genai';
+import { GoogleGenAI } from '@google/genai';
 
 console.log('🚀 Testing Function Calling Workarounds with @google/genai\n');
 
@@ -18,7 +18,7 @@ if (!process.env.GOOGLE_GENAI_API_KEY) {
 }
 
 // Initialize the client
-const client = genai({ apiKey: process.env.GOOGLE_GENAI_API_KEY });
+const genAI = new GoogleGenAI({ apiKey: process.env.GOOGLE_GENAI_API_KEY });
 
 // Define test tools for prompt engineering
 const weatherTool = {
@@ -54,15 +54,15 @@ ${JSON.stringify([weatherTool], null, 2)}
 
 User request: What's the weather in Paris, France?`;
 
-    const result = await client.models.generateContent({
+    const result = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
       contents: prompt
     });
 
-    console.log('✅ Response:', result.text || 'No response');
+    const responseText = result.text || '';
+    console.log('✅ Response:', responseText);
     
     // Check if response contains tool call
-    const responseText = result.text || '';
     if (responseText.includes('"tool"') && responseText.includes('get_weather')) {
       console.log('✅ Tool call detected in response');
       
@@ -96,14 +96,14 @@ ${JSON.stringify([weatherTool, calculatorTool], null, 2)}
 
 User request: Calculate 25 times 4`;
 
-    const result = await client.models.generateContent({
+    const result = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
       contents: prompt
     });
 
-    console.log('✅ Response:', result.text || 'No response');
-    
     const responseText = result.text || '';
+    console.log('✅ Response:', responseText);
+    
     if (responseText.includes('calculate') && responseText.includes('"tool"')) {
       console.log('✅ Correct tool selected');
       return true;
@@ -134,7 +134,7 @@ async function testStructuredOutput() {
       }
     };
 
-    const result = await client.models.generateContent({
+    const result = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
       contents: 'I need to calculate 15 plus 27. Use the calculate tool.',
       config: {
@@ -143,10 +143,11 @@ async function testStructuredOutput() {
       }
     });
 
-    console.log('✅ Structured response:', result.text || 'No response');
+    const responseText = result.text || '';
+    console.log('✅ Structured response:', responseText);
     
     try {
-      const parsed = JSON.parse(result.text || '{}');
+      const parsed = JSON.parse(responseText);
       console.log('✅ Parsed response:', JSON.stringify(parsed, null, 2));
       return parsed.tool === 'calculate';
     } catch (e) {
@@ -166,7 +167,7 @@ async function testToolChaining() {
     const prompt1 = `You need to calculate 15 + 27. Respond with a tool call in JSON format.
 Available tool: ${JSON.stringify(calculatorTool)}`;
 
-    const result1 = await client.models.generateContent({
+    const result1 = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
       contents: prompt1
     });
@@ -177,7 +178,7 @@ Available tool: ${JSON.stringify(calculatorTool)}`;
     const prompt2 = `The calculate tool returned: { "result": 42 }
 Now provide the final answer to the user.`;
 
-    const result2 = await client.models.generateContent({
+    const result2 = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
       contents: prompt2
     });
@@ -196,7 +197,7 @@ async function testNativeGoogleSearch() {
   console.log('\n📝 Test 5: Native Google Search (if available)');
   try {
     // Test if Google Search grounding works
-    const result = await client.models.generateContent({
+    const result = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
       contents: 'What is the current weather in Tokyo?',
       config: {

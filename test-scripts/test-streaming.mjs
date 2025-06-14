@@ -6,7 +6,7 @@
  */
 
 import 'dotenv/config';
-import { genai } from '@google/genai';
+import { GoogleGenAI } from '@google/genai';
 
 console.log('🚀 Testing Streaming with @google/genai\n');
 
@@ -17,12 +17,12 @@ if (!process.env.GOOGLE_GENAI_API_KEY) {
 }
 
 // Initialize the client
-const client = genai({ apiKey: process.env.GOOGLE_GENAI_API_KEY });
+const genAI = new GoogleGenAI({ apiKey: process.env.GOOGLE_GENAI_API_KEY });
 
 async function testBasicStreaming() {
   console.log('📝 Test 1: Basic SDK Streaming');
   try {
-    const result = await client.models.generateContentStream({
+    const stream = await genAI.models.generateContentStream({
       model: 'gemini-2.0-flash',
       contents: 'Write 3 programming tips, one per line'
     });
@@ -31,7 +31,7 @@ async function testBasicStreaming() {
     let chunkCount = 0;
     let fullText = '';
     
-    for await (const chunk of result) {
+    for await (const chunk of stream) {
       const text = chunk.text || '';
       process.stdout.write(text);
       fullText += text;
@@ -50,7 +50,7 @@ async function testBasicStreaming() {
 async function testStreamingWithSystemInstruction() {
   console.log('\n📝 Test 2: Streaming with System Instruction');
   try {
-    const result = await client.models.generateContentStream({
+    const stream = await genAI.models.generateContentStream({
       model: 'gemini-2.0-flash',
       contents: 'Count from 1 to 5',
       systemInstruction: 'You are a helpful assistant that always responds concisely.'
@@ -59,7 +59,7 @@ async function testStreamingWithSystemInstruction() {
     console.log('✅ Streaming response:');
     let fullText = '';
     
-    for await (const chunk of result) {
+    for await (const chunk of stream) {
       const text = chunk.text || '';
       process.stdout.write(text);
       fullText += text;
@@ -80,7 +80,7 @@ async function testStreamingSpeed() {
     let firstChunkTime = 0;
     let chunkTimings = [];
     
-    const result = await client.models.generateContentStream({
+    const stream = await genAI.models.generateContentStream({
       model: 'gemini-2.0-flash',
       contents: 'Write a 100 word story about a robot',
       config: {
@@ -92,7 +92,7 @@ async function testStreamingSpeed() {
     console.log('✅ Measuring streaming performance...');
     let chunkCount = 0;
     
-    for await (const chunk of result) {
+    for await (const chunk of stream) {
       const currentTime = Date.now() - startTime;
       if (chunkCount === 0) {
         firstChunkTime = currentTime;
@@ -119,7 +119,7 @@ async function testStreamingSpeed() {
 async function testStreamingInterruption() {
   console.log('\n📝 Test 4: Streaming Early Exit');
   try {
-    const result = await client.models.generateContentStream({
+    const stream = await genAI.models.generateContentStream({
       model: 'gemini-2.0-flash',
       contents: 'Count from 1 to 100 slowly'
     });
@@ -127,7 +127,7 @@ async function testStreamingInterruption() {
     console.log('✅ Testing early stream exit (will stop after 5 chunks)...');
     let chunkCount = 0;
     
-    for await (const chunk of result) {
+    for await (const chunk of stream) {
       const text = chunk.text || '';
       process.stdout.write(text);
       chunkCount++;
@@ -150,7 +150,7 @@ async function testStreamingError() {
   console.log('\n📝 Test 5: Streaming Error Handling');
   try {
     // Intentionally use a very low max tokens to potentially trigger an error
-    const result = await client.models.generateContentStream({
+    const stream = await genAI.models.generateContentStream({
       model: 'gemini-2.0-flash',
       contents: 'Write a 1000 word essay',
       config: {
@@ -161,7 +161,7 @@ async function testStreamingError() {
     console.log('✅ Testing error conditions...');
     let fullText = '';
     
-    for await (const chunk of result) {
+    for await (const chunk of stream) {
       const text = chunk.text || '';
       fullText += text;
     }
@@ -182,27 +182,27 @@ async function testMultiTurnStreaming() {
     console.log('ℹ️  Testing multi-turn conversation...');
     
     // First turn
-    const result1 = await client.models.generateContentStream({
+    const stream1 = await genAI.models.generateContentStream({
       model: 'gemini-2.0-flash',
       contents: 'Hello! My name is Alice.'
     });
     
     console.log('Turn 1 response:');
     let response1 = '';
-    for await (const chunk of result1) {
+    for await (const chunk of stream1) {
       const text = chunk.text || '';
       process.stdout.write(text);
       response1 += text;
     }
     
     // Second turn (simulated - @google/genai may not maintain context)
-    const result2 = await client.models.generateContentStream({
+    const stream2 = await genAI.models.generateContentStream({
       model: 'gemini-2.0-flash',
       contents: 'What did I just tell you my name was? (Previous message: "Hello! My name is Alice.")'
     });
     
     console.log('\n\nTurn 2 response:');
-    for await (const chunk of result2) {
+    for await (const chunk of stream2) {
       const text = chunk.text || '';
       process.stdout.write(text);
     }

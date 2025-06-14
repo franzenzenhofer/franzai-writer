@@ -6,7 +6,7 @@
  */
 
 import 'dotenv/config';
-import { genai } from '@google/genai';
+import { GoogleGenAI } from '@google/genai';
 
 console.log('🚀 Testing Google Search Grounding with @google/genai\n');
 
@@ -16,12 +16,12 @@ if (!process.env.GOOGLE_GENAI_API_KEY) {
 }
 
 // Initialize the client
-const client = genai({ apiKey: process.env.GOOGLE_GENAI_API_KEY });
+const genAI = new GoogleGenAI({ apiKey: process.env.GOOGLE_GENAI_API_KEY });
 
 async function testBasicGrounding() {
   console.log('📝 Test 1: Basic Google Search Grounding');
   try {
-    const result = await client.models.generateContent({
+    const result = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
       contents: 'What are the latest AI announcements from Google in 2025?',
       config: {
@@ -48,7 +48,7 @@ async function testBasicGrounding() {
 async function testGroundingWithContext() {
   console.log('\n📝 Test 2: Grounding with Context');
   try {
-    const result = await client.models.generateContent({
+    const result = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
       contents: 'Based on current information, what is the weather forecast for New York City tomorrow?',
       config: {
@@ -73,7 +73,7 @@ async function testGroundingWithContext() {
 async function testGroundingAccuracy() {
   console.log('\n📝 Test 3: Grounding Accuracy Check');
   try {
-    const result = await client.models.generateContent({
+    const result = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
       contents: 'What is the current stock price of GOOGL?',
       config: {
@@ -107,7 +107,7 @@ async function testGroundingAccuracy() {
 async function testGroundingWithSystemInstruction() {
   console.log('\n📝 Test 4: Grounding with System Instruction');
   try {
-    const result = await client.models.generateContent({
+    const result = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
       contents: 'Who won the latest Nobel Prize in Physics?',
       systemInstruction: 'You are a helpful assistant that always cites sources when using grounded information.',
@@ -134,7 +134,7 @@ async function testGroundingWithSystemInstruction() {
 async function testGroundingStreaming() {
   console.log('\n📝 Test 5: Grounding with Streaming');
   try {
-    const result = await client.models.generateContentStream({
+    const stream = await genAI.models.generateContentStream({
       model: 'gemini-2.0-flash',
       contents: 'What are the top technology news stories today?',
       config: {
@@ -146,7 +146,7 @@ async function testGroundingStreaming() {
     let fullText = '';
     let hasGroundingData = false;
     
-    for await (const chunk of result) {
+    for await (const chunk of stream) {
       const text = chunk.text || '';
       process.stdout.write(text);
       fullText += text;
@@ -188,7 +188,7 @@ async function testGroundingWithJsonOutput() {
       }
     };
 
-    const result = await client.models.generateContent({
+    const result = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
       contents: 'Get the latest news about artificial intelligence and format as JSON',
       config: {
