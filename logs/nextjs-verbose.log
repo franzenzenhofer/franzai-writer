@@ -18335,3 +18335,2458 @@ Prompt variable '{{generate-poem-with-title.output.poem}}' not found in context.
 2025-06-14T09:49:09.451Z compression [ 'application/json' ] not compressible
 2025-06-14T09:49:09.451Z compression no compression: filtered
  POST /api/documents/save 200 in 259ms
+2025-06-14T09:54:56.079Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:54:56.080Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:54:56.080Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:54:56.081Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:54:56.104Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.104Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.104Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.104Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.104Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.104Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.104Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.104Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.104Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.104Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.104Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.104Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.104Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.104Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.104Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.105Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.108Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.108Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.108Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.108Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.108Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.108Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.108Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.108Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.108Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.108Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.108Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.109Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.109Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.109Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.109Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.109Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.116Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.116Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.116Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.116Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.116Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.116Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.116Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.116Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.116Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.116Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.116Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.116Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.116Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.116Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.116Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.116Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.121Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.121Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.121Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.121Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.121Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.121Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.121Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.121Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.121Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.121Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.121Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.121Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.121Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.121Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.121Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:56.121Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+ ✓ Compiled in 378ms (1295 modules)
+2025-06-14T09:54:56.468Z next:router-server:main requestHandler! /w/poem/ocC82GwvPBQU1A6hAcqu?_rsc=1nly6 {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/ocC82GwvPBQU1A6hAcqu',
+    query: [Object: null prototype] { _rsc: '1nly6' }
+  },
+  finished: true
+}
+2025-06-14T09:54:56.468Z next:router-server:main invokeRender /w/poem/ocC82GwvPBQU1A6hAcqu?_rsc=1nly6 {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  'next-hmr-refresh': '1',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+  'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22ocC82GwvPBQU1A6hAcqu%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FocC82GwvPBQU1A6hAcqu%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/ocC82GwvPBQU1A6hAcqu',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-GB,en;q=0.9',
+  cookie: '__next_hmr_refresh_hash__=1d3d6bf840e841d688eb371f0d339643633457081244afec'
+}
+2025-06-14T09:54:56.469Z next:router-server:main requestHandler! /w/poem/MBN7DNQt6JbhOBoWOuSH?_rsc=1ivbn {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/MBN7DNQt6JbhOBoWOuSH',
+    query: [Object: null prototype] { _rsc: '1ivbn' }
+  },
+  finished: true
+}
+2025-06-14T09:54:56.469Z next:router-server:main invokeRender /w/poem/MBN7DNQt6JbhOBoWOuSH?_rsc=1ivbn {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22MBN7DNQt6JbhOBoWOuSH%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FMBN7DNQt6JbhOBoWOuSH%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/MBN7DNQt6JbhOBoWOuSH',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=1d3d6bf840e841d688eb371f0d339643633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+2025-06-14T09:54:56.470Z next:router-server:main requestHandler! /w/poem/W7nK16VKIp2QC7YeVwza?_rsc=l7m0a {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/W7nK16VKIp2QC7YeVwza',
+    query: [Object: null prototype] { _rsc: 'l7m0a' }
+  },
+  finished: true
+}
+2025-06-14T09:54:56.470Z next:router-server:main invokeRender /w/poem/W7nK16VKIp2QC7YeVwza?_rsc=l7m0a {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22W7nK16VKIp2QC7YeVwza%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FW7nK16VKIp2QC7YeVwza%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/W7nK16VKIp2QC7YeVwza',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=1d3d6bf840e841d688eb371f0d339643633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+2025-06-14T09:54:56.470Z next:router-server:main requestHandler! /w/poem/mHMA6a6rruvWifqPIrHv?_rsc=3mma3 {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/mHMA6a6rruvWifqPIrHv',
+    query: [Object: null prototype] { _rsc: '3mma3' }
+  },
+  finished: true
+}
+2025-06-14T09:54:56.470Z next:router-server:main invokeRender /w/poem/mHMA6a6rruvWifqPIrHv?_rsc=3mma3 {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22mHMA6a6rruvWifqPIrHv%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FmHMA6a6rruvWifqPIrHv%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/mHMA6a6rruvWifqPIrHv',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=1d3d6bf840e841d688eb371f0d339643633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-14T09:54:56.749Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+2025-06-14T09:54:56.789Z compression gzip compression
+2025-06-14T09:54:56.789Z compression gzip compression
+2025-06-14T09:54:56.789Z compression gzip compression
+2025-06-14T09:54:56.789Z compression gzip compression
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'MBN7DNQt6JbhOBoWOuSH' }
+[WizardPage] Loading existing document: MBN7DNQt6JbhOBoWOuSH
+[DocumentPersistence] Loading document { documentId: 'MBN7DNQt6JbhOBoWOuSH' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'MBN7DNQt6JbhOBoWOuSH' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'W7nK16VKIp2QC7YeVwza' }
+[WizardPage] Loading existing document: W7nK16VKIp2QC7YeVwza
+[DocumentPersistence] Loading document { documentId: 'W7nK16VKIp2QC7YeVwza' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'W7nK16VKIp2QC7YeVwza' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'mHMA6a6rruvWifqPIrHv' }
+[WizardPage] Loading existing document: mHMA6a6rruvWifqPIrHv
+[DocumentPersistence] Loading document { documentId: 'mHMA6a6rruvWifqPIrHv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'mHMA6a6rruvWifqPIrHv' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'ocC82GwvPBQU1A6hAcqu' }
+[WizardPage] Loading existing document: ocC82GwvPBQU1A6hAcqu
+[DocumentPersistence] Loading document { documentId: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+2025-06-14T09:54:56.856Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749894896577 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749894896577' }
+  },
+  finished: true
+}
+2025-06-14T09:54:56.856Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:54:56.856Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:54:56.856Z send accept ranges
+2025-06-14T09:54:56.856Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T09:54:56.856Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T09:54:56.856Z send content-type text/css
+2025-06-14T09:54:56.856Z compression gzip compression
+2025-06-14T09:54:56.863Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749894896576 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749894896576' }
+  },
+  finished: true
+}
+2025-06-14T09:54:56.863Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:54:56.863Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749894896575 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749894896575' }
+  },
+  finished: true
+}
+2025-06-14T09:54:56.864Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:54:56.864Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:54:56.864Z send accept ranges
+2025-06-14T09:54:56.865Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T09:54:56.865Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T09:54:56.865Z send content-type text/css
+2025-06-14T09:54:56.867Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:54:56.867Z send accept ranges
+2025-06-14T09:54:56.867Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T09:54:56.867Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T09:54:56.867Z send content-type text/css
+2025-06-14T09:54:56.868Z compression gzip compression
+2025-06-14T09:54:56.868Z compression gzip compression
+2025-06-14T09:54:56.873Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749894896576 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749894896576' }
+  },
+  finished: true
+}
+2025-06-14T09:54:56.873Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:54:56.873Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:54:56.873Z send accept ranges
+2025-06-14T09:54:56.873Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T09:54:56.873Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T09:54:56.873Z send content-type text/css
+2025-06-14T09:54:56.874Z compression gzip compression
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'MBN7DNQt6JbhOBoWOuSH' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'MBN7DNQt6JbhOBoWOuSH',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-html-preview',
+    'generate-poem-with-title',
+    'poem-topic',
+    'html-briefing'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'MBN7DNQt6JbhOBoWOuSH',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-html-preview',
+    'generate-poem-with-title',
+    'poem-topic',
+    'html-briefing'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'W7nK16VKIp2QC7YeVwza' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'W7nK16VKIp2QC7YeVwza',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'poem-topic',
+    'html-briefing',
+    'generate-poem-with-title',
+    'generate-html-preview'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'W7nK16VKIp2QC7YeVwza',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'poem-topic',
+    'html-briefing',
+    'generate-poem-with-title',
+    'generate-html-preview'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'mHMA6a6rruvWifqPIrHv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'mHMA6a6rruvWifqPIrHv',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'html-briefing',
+    'generate-html-preview',
+    'generate-poem-with-title',
+    'poem-topic'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'mHMA6a6rruvWifqPIrHv',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'html-briefing',
+    'generate-html-preview',
+    'generate-poem-with-title',
+    'poem-topic'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'ocC82GwvPBQU1A6hAcqu',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-html-preview',
+    'generate-poem-with-title',
+    'html-briefing',
+    'poem-topic'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'ocC82GwvPBQU1A6hAcqu',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-html-preview',
+    'generate-poem-with-title',
+    'html-briefing',
+    'poem-topic'
+  ]
+}
+ GET /w/poem/MBN7DNQt6JbhOBoWOuSH 200 in 637ms
+ GET /w/poem/W7nK16VKIp2QC7YeVwza 200 in 636ms
+ GET /w/poem/mHMA6a6rruvWifqPIrHv 200 in 638ms
+ GET /w/poem/ocC82GwvPBQU1A6hAcqu 200 in 642ms
+2025-06-14T09:54:57.165Z next:router-server:main requestHandler! /favicon.ico {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/favicon.ico'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: { pathname: '/favicon.ico', query: [Object: null prototype] {} },
+  finished: true
+}
+2025-06-14T09:54:57.166Z next:router-server:main invokeRender /favicon.ico {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  'sec-ch-ua-platform': '"macOS"',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+  'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
+  'sec-ch-ua-mobile': '?0',
+  accept: 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'no-cors',
+  'sec-fetch-dest': 'image',
+  referer: 'http://localhost:9002/w/poem/ocC82GwvPBQU1A6hAcqu',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-GB,en;q=0.9'
+}
+2025-06-14T09:54:57.176Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:54:57.176Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:54:57.178Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:54:57.178Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:54:57.179Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:54:57.179Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:54:57.180Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:54:57.180Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:54:57.210Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.210Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.210Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.210Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.210Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.210Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.210Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.210Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.210Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.210Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.210Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.210Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.210Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.210Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.210Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.210Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.217Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.218Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.218Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.218Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.218Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.218Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.218Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.218Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.218Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.218Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.218Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.218Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.218Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.218Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.218Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.218Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.223Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.223Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.223Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.223Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.223Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.223Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.223Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.223Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.223Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.223Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.223Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.223Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.223Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.223Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.223Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.223Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.226Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.226Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.226Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.226Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.226Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.226Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.226Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.227Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.227Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.227Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.227Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.227Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.227Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.227Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.227Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:54:57.227Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+ ✓ Compiled /favicon.ico in 165ms (1311 modules)
+2025-06-14T09:54:57.413Z compression [ 'image/x-icon' ] not compressible
+2025-06-14T09:54:57.413Z compression no compression: filtered
+ GET /favicon.ico 200 in 247ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-14T09:54:57.425Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+2025-06-14T09:55:07.236Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:55:07.236Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:55:07.237Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:55:07.237Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:55:07.237Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:55:07.237Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:55:07.237Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:55:07.237Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:55:07.254Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.255Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.255Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.255Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.255Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.255Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.255Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.255Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.255Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.255Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.255Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.255Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.255Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.255Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.255Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.255Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.258Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.258Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.258Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.258Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.258Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.258Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.258Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.258Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.258Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.258Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.258Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.258Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.258Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.258Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.258Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.258Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.261Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.261Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.261Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.261Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.261Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.261Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.261Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.261Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.261Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.261Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.261Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.261Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.262Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.262Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.262Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.262Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.264Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.264Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.264Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.264Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.264Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.264Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.264Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.264Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.265Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.265Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.265Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.265Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.265Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.265Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.265Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:55:07.265Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+ ✓ Compiled in 130ms (1311 modules)
+2025-06-14T09:55:07.361Z next:router-server:main requestHandler! /w/poem/ocC82GwvPBQU1A6hAcqu?_rsc=1nly6 {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/ocC82GwvPBQU1A6hAcqu',
+    query: [Object: null prototype] { _rsc: '1nly6' }
+  },
+  finished: true
+}
+2025-06-14T09:55:07.361Z next:router-server:main invokeRender /w/poem/ocC82GwvPBQU1A6hAcqu?_rsc=1nly6 {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  'next-hmr-refresh': '1',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+  'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22ocC82GwvPBQU1A6hAcqu%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FocC82GwvPBQU1A6hAcqu%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/ocC82GwvPBQU1A6hAcqu',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-GB,en;q=0.9',
+  cookie: '__next_hmr_refresh_hash__=1d3d6bf840e841d662cd7abf00394741633457081244afec'
+}
+2025-06-14T09:55:07.369Z next:router-server:main requestHandler! /w/poem/MBN7DNQt6JbhOBoWOuSH?_rsc=1ivbn {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/MBN7DNQt6JbhOBoWOuSH',
+    query: [Object: null prototype] { _rsc: '1ivbn' }
+  },
+  finished: true
+}
+2025-06-14T09:55:07.369Z next:router-server:main invokeRender /w/poem/MBN7DNQt6JbhOBoWOuSH?_rsc=1ivbn {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22MBN7DNQt6JbhOBoWOuSH%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FMBN7DNQt6JbhOBoWOuSH%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/MBN7DNQt6JbhOBoWOuSH',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=1d3d6bf840e841d662cd7abf00394741633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+2025-06-14T09:55:07.371Z next:router-server:main requestHandler! /w/poem/W7nK16VKIp2QC7YeVwza?_rsc=l7m0a {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/W7nK16VKIp2QC7YeVwza',
+    query: [Object: null prototype] { _rsc: 'l7m0a' }
+  },
+  finished: true
+}
+2025-06-14T09:55:07.371Z next:router-server:main invokeRender /w/poem/W7nK16VKIp2QC7YeVwza?_rsc=l7m0a {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22W7nK16VKIp2QC7YeVwza%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FW7nK16VKIp2QC7YeVwza%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/W7nK16VKIp2QC7YeVwza',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=1d3d6bf840e841d662cd7abf00394741633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+2025-06-14T09:55:07.372Z next:router-server:main requestHandler! /w/poem/mHMA6a6rruvWifqPIrHv?_rsc=3mma3 {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/mHMA6a6rruvWifqPIrHv',
+    query: [Object: null prototype] { _rsc: '3mma3' }
+  },
+  finished: true
+}
+2025-06-14T09:55:07.372Z next:router-server:main invokeRender /w/poem/mHMA6a6rruvWifqPIrHv?_rsc=3mma3 {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22mHMA6a6rruvWifqPIrHv%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FmHMA6a6rruvWifqPIrHv%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/mHMA6a6rruvWifqPIrHv',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=1d3d6bf840e841d662cd7abf00394741633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-14T09:55:07.497Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+2025-06-14T09:55:07.511Z compression gzip compression
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'ocC82GwvPBQU1A6hAcqu' }
+[WizardPage] Loading existing document: ocC82GwvPBQU1A6hAcqu
+[DocumentPersistence] Loading document { documentId: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+2025-06-14T09:55:07.576Z compression gzip compression
+2025-06-14T09:55:07.576Z compression gzip compression
+2025-06-14T09:55:07.577Z compression gzip compression
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'MBN7DNQt6JbhOBoWOuSH' }
+[WizardPage] Loading existing document: MBN7DNQt6JbhOBoWOuSH
+[DocumentPersistence] Loading document { documentId: 'MBN7DNQt6JbhOBoWOuSH' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'MBN7DNQt6JbhOBoWOuSH' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'W7nK16VKIp2QC7YeVwza' }
+[WizardPage] Loading existing document: W7nK16VKIp2QC7YeVwza
+[DocumentPersistence] Loading document { documentId: 'W7nK16VKIp2QC7YeVwza' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'W7nK16VKIp2QC7YeVwza' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'mHMA6a6rruvWifqPIrHv' }
+[WizardPage] Loading existing document: mHMA6a6rruvWifqPIrHv
+[DocumentPersistence] Loading document { documentId: 'mHMA6a6rruvWifqPIrHv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'mHMA6a6rruvWifqPIrHv' }
+2025-06-14T09:55:07.594Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749894907421 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749894907421' }
+  },
+  finished: true
+}
+2025-06-14T09:55:07.594Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:55:07.595Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:55:07.595Z send accept ranges
+2025-06-14T09:55:07.595Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T09:55:07.595Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T09:55:07.595Z send content-type text/css
+2025-06-14T09:55:07.595Z compression gzip compression
+2025-06-14T09:55:07.606Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749894907543 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749894907543' }
+  },
+  finished: true
+}
+2025-06-14T09:55:07.606Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:55:07.606Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749894907544 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749894907544' }
+  },
+  finished: true
+}
+2025-06-14T09:55:07.606Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:55:07.606Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:55:07.606Z send accept ranges
+2025-06-14T09:55:07.606Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T09:55:07.606Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T09:55:07.607Z send content-type text/css
+2025-06-14T09:55:07.607Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:55:07.607Z send accept ranges
+2025-06-14T09:55:07.607Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T09:55:07.607Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T09:55:07.607Z send content-type text/css
+2025-06-14T09:55:07.607Z compression gzip compression
+2025-06-14T09:55:07.607Z compression gzip compression
+2025-06-14T09:55:07.613Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749894907544 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749894907544' }
+  },
+  finished: true
+}
+2025-06-14T09:55:07.613Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:55:07.613Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:55:07.613Z send accept ranges
+2025-06-14T09:55:07.614Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T09:55:07.614Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T09:55:07.614Z send content-type text/css
+2025-06-14T09:55:07.614Z compression gzip compression
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'ocC82GwvPBQU1A6hAcqu',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-html-preview',
+    'poem-topic',
+    'html-briefing',
+    'generate-poem-with-title'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'ocC82GwvPBQU1A6hAcqu',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-html-preview',
+    'poem-topic',
+    'html-briefing',
+    'generate-poem-with-title'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'MBN7DNQt6JbhOBoWOuSH' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'MBN7DNQt6JbhOBoWOuSH',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'generate-html-preview',
+    'html-briefing'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'MBN7DNQt6JbhOBoWOuSH',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'generate-html-preview',
+    'html-briefing'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'W7nK16VKIp2QC7YeVwza' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'W7nK16VKIp2QC7YeVwza',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-html-preview',
+    'poem-topic',
+    'html-briefing',
+    'generate-poem-with-title'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'W7nK16VKIp2QC7YeVwza',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-html-preview',
+    'poem-topic',
+    'html-briefing',
+    'generate-poem-with-title'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'mHMA6a6rruvWifqPIrHv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'mHMA6a6rruvWifqPIrHv',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-html-preview',
+    'html-briefing',
+    'poem-topic',
+    'generate-poem-with-title'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'mHMA6a6rruvWifqPIrHv',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-html-preview',
+    'html-briefing',
+    'poem-topic',
+    'generate-poem-with-title'
+  ]
+}
+ GET /w/poem/mHMA6a6rruvWifqPIrHv 200 in 389ms
+ GET /w/poem/MBN7DNQt6JbhOBoWOuSH 200 in 394ms
+ GET /w/poem/W7nK16VKIp2QC7YeVwza 200 in 393ms
+ GET /w/poem/ocC82GwvPBQU1A6hAcqu 200 in 403ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-14T09:55:08.194Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+2025-06-14T09:56:07.910Z next:router-server:main requestHandler! /api/wizard/execute {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/api/wizard/execute'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/api/wizard/execute',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T09:56:07.910Z next:router-server:main invokeRender /api/wizard/execute {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  'content-length': '3527',
+  'sec-ch-ua-platform': '"macOS"',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+  'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
+  'content-type': 'application/json',
+  'sec-ch-ua-mobile': '?0',
+  accept: '*/*',
+  origin: 'http://localhost:9002',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/ocC82GwvPBQU1A6hAcqu',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-GB,en;q=0.9'
+}
+2025-06-14T09:56:07.919Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:56:07.919Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:56:07.920Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:56:07.920Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:56:07.921Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:56:07.921Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:56:07.921Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:56:07.921Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:56:07.941Z next:jsconfig-paths-plugin skipping request as it is inside node_modules bufferutil
+2025-06-14T09:56:07.941Z next:jsconfig-paths-plugin skipping request as it is inside node_modules utf-8-validate
+2025-06-14T09:56:07.954Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.954Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.954Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.954Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.955Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.955Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.955Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.955Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.955Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.955Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.955Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.955Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.955Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.955Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.955Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.955Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.955Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.955Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.955Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.955Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.955Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-action-entry-loader
+2025-06-14T09:56:07.958Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.958Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.958Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.958Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.958Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.958Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.958Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.958Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.958Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.958Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.958Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.958Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.958Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.958Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.958Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.958Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.958Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.958Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.959Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.959Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.963Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.963Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.963Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.963Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.963Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.963Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.963Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.963Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.963Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.964Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.964Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.964Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.964Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.964Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.964Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.964Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.964Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.964Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.964Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.964Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.967Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.967Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.967Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.967Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.967Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.967Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.967Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.967Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.967Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.971Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.971Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.971Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.971Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.971Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.971Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.971Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.971Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.971Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.971Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.971Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:07.976Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-action-entry-loader
+2025-06-14T09:56:07.976Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-action-entry-loader
+2025-06-14T09:56:07.977Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-action-entry-loader
+ ✓ Compiled /api/wizard/execute in 488ms (1469 modules)
+Watchpack Error (initial scan): Error: ENOTDIR: not a directory, scandir '/usr/local/bin/node'
+[runAiStage] Starting with new SDK
+Prompt variable '{{generate-poem-with-title.output.title}}' not found in context. Replacing with empty string.
+Prompt variable '{{generate-poem-with-title.output.poem}}' not found in context. Replacing with empty string.
+📤 [AI REQUEST] Text Generation: {
+  model: 'gemini-2.0-flash',
+  promptLength: 603,
+  temperature: 0.3,
+  systemInstruction: 'undefined...'
+}
+2025-06-14T09:56:09.923Z next:router-server:main requestHandler! /api/documents/save {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/api/documents/save'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/api/documents/save',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T09:56:09.923Z next:router-server:main invokeRender /api/documents/save {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  'content-length': '3610',
+  'sec-ch-ua-platform': '"macOS"',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+  'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
+  'content-type': 'application/json',
+  'sec-ch-ua-mobile': '?0',
+  accept: '*/*',
+  origin: 'http://localhost:9002',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/ocC82GwvPBQU1A6hAcqu',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-GB,en;q=0.9'
+}
+2025-06-14T09:56:09.942Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:56:09.942Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:56:09.949Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:56:09.949Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:56:09.949Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:56:09.949Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:56:09.950Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:56:09.950Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:56:10.046Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:56:10.047Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:56:10.047Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:56:10.047Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:56:10.228Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/lib/document-persistence
+2025-06-14T09:56:10.228Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/lib/document-persistence
+2025-06-14T09:56:10.229Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/lib/document-persistence
+2025-06-14T09:56:10.229Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/lib/document-persistence
+2025-06-14T09:56:10.243Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.244Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-action-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.248Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.252Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.252Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.252Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.252Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.252Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.252Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.252Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.252Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.252Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.252Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.252Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.252Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.252Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.252Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.252Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.252Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.253Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.253Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.253Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.253Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.253Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.253Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.253Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.253Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.256Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.256Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.256Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.256Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.256Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.256Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.257Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.257Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.257Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.257Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.257Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.257Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.257Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.257Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.257Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.257Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.257Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.257Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.257Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.257Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.257Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.257Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.257Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.257Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:56:10.267Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-action-entry-loader
+2025-06-14T09:56:10.267Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-action-entry-loader
+2025-06-14T09:56:10.267Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-action-entry-loader
+ ✓ Compiled /api/documents/save in 470ms (1471 modules)
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-14T09:56:10.518Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'ocC82GwvPBQU1A6hAcqu',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  stageStatesCount: 4,
+  hasUserId: false,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749894970520_a0nps6ext',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  originalCount: 4,
+  cleanedKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  cleanedCount: 4
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[DocumentPersistence] Document updated successfully { documentId: 'ocC82GwvPBQU1A6hAcqu' }
+2025-06-14T09:56:11.006Z compression [ 'application/json' ] not compressible
+2025-06-14T09:56:11.006Z compression no compression: filtered
+ POST /api/documents/save 200 in 1083ms
+Tool calling error: TypeError: Cannot read properties of undefined (reading 'properties')
+    at ToolsModule.convertToGoogleFormat (src/lib/google-genai/modules/tools.ts:90:51)
+    at eval (src/lib/google-genai/modules/tools.ts:109:58)
+    at Array.map (<anonymous>)
+    at ToolsModule.callWithTools (src/lib/google-genai/modules/tools.ts:109:41)
+    at AIStageExecution.executeWithTools (src/lib/google-genai/ai-stage-execution.ts:185:37)
+    at AIStageExecution.execute (src/lib/google-genai/ai-stage-execution.ts:86:38)
+    at async executeAIStage (src/ai/flows/ai-stage-execution-new.ts:53:19)
+    at async runAiStage (src/app/actions/aiActions-new.ts:140:19)
+    at async POST (src/app/api/wizard/execute/route.ts:7:19)
+  88 |       parameters: {
+  89 |         type: SchemaType.OBJECT,
+> 90 |         properties: Object.entries(tool.parameters.properties).reduce((acc, [key, value]) => {
+     |                                                   ^
+  91 |           acc[key] = convertProperty(value);
+  92 |           return acc;
+  93 |         }, {} as any),
+AI Stage Execution Error: TypeError: Cannot read properties of undefined (reading 'properties')
+    at ToolsModule.convertToGoogleFormat (src/lib/google-genai/modules/tools.ts:90:51)
+    at eval (src/lib/google-genai/modules/tools.ts:109:58)
+    at Array.map (<anonymous>)
+    at ToolsModule.callWithTools (src/lib/google-genai/modules/tools.ts:109:41)
+    at AIStageExecution.executeWithTools (src/lib/google-genai/ai-stage-execution.ts:185:37)
+    at AIStageExecution.execute (src/lib/google-genai/ai-stage-execution.ts:86:38)
+    at async executeAIStage (src/ai/flows/ai-stage-execution-new.ts:53:19)
+    at async runAiStage (src/app/actions/aiActions-new.ts:140:19)
+    at async POST (src/app/api/wizard/execute/route.ts:7:19)
+  88 |       parameters: {
+  89 |         type: SchemaType.OBJECT,
+> 90 |         properties: Object.entries(tool.parameters.properties).reduce((acc, [key, value]) => {
+     |                                                   ^
+  91 |           acc[key] = convertProperty(value);
+  92 |           return acc;
+  93 |         }, {} as any),
+2025-06-14T09:56:11.723Z compression [ 'application/json' ] not compressible
+2025-06-14T09:56:11.723Z compression no compression: filtered
+ POST /api/wizard/execute 200 in 3814ms
+2025-06-14T09:56:13.740Z next:router-server:main requestHandler! /api/documents/save {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/api/documents/save'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/api/documents/save',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T09:56:13.740Z next:router-server:main invokeRender /api/documents/save {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  'content-length': '3677',
+  'sec-ch-ua-platform': '"macOS"',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+  'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
+  'content-type': 'application/json',
+  'sec-ch-ua-mobile': '?0',
+  accept: '*/*',
+  origin: 'http://localhost:9002',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/ocC82GwvPBQU1A6hAcqu',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-GB,en;q=0.9'
+}
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'ocC82GwvPBQU1A6hAcqu',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  stageStatesCount: 4,
+  hasUserId: false,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749894973745_6597iqzxn',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  originalCount: 4,
+  cleanedKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  cleanedCount: 4
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[DocumentPersistence] Document updated successfully { documentId: 'ocC82GwvPBQU1A6hAcqu' }
+2025-06-14T09:56:13.909Z compression [ 'application/json' ] not compressible
+2025-06-14T09:56:13.909Z compression no compression: filtered
+ POST /api/documents/save 200 in 170ms
+2025-06-14T09:56:39.242Z next:router-server:main requestHandler! /api/wizard/execute {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/api/wizard/execute'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/api/wizard/execute',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T09:56:39.242Z next:router-server:main invokeRender /api/wizard/execute {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  'content-length': '3474',
+  'sec-ch-ua-platform': '"macOS"',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+  'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
+  'content-type': 'application/json',
+  'sec-ch-ua-mobile': '?0',
+  accept: '*/*',
+  origin: 'http://localhost:9002',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/ocC82GwvPBQU1A6hAcqu',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-GB,en;q=0.9'
+}
+[runAiStage] Starting with new SDK
+Prompt variable '{{generate-poem-with-title.output.title}}' not found in context. Replacing with empty string.
+Prompt variable '{{generate-poem-with-title.output.poem}}' not found in context. Replacing with empty string.
+📤 [AI REQUEST] Text Generation: {
+  model: 'gemini-2.0-flash',
+  promptLength: 551,
+  temperature: 0.3,
+  systemInstruction: 'undefined...'
+}
+2025-06-14T09:56:41.256Z next:router-server:main requestHandler! /api/documents/save {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/api/documents/save'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/api/documents/save',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T09:56:41.256Z next:router-server:main invokeRender /api/documents/save {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  'content-length': '3610',
+  'sec-ch-ua-platform': '"macOS"',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+  'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
+  'content-type': 'application/json',
+  'sec-ch-ua-mobile': '?0',
+  accept: '*/*',
+  origin: 'http://localhost:9002',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/ocC82GwvPBQU1A6hAcqu',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-GB,en;q=0.9'
+}
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'ocC82GwvPBQU1A6hAcqu',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  stageStatesCount: 4,
+  hasUserId: false,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749895001261_zxru305wa',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  originalCount: 4,
+  cleanedKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  cleanedCount: 4
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[DocumentPersistence] Document updated successfully { documentId: 'ocC82GwvPBQU1A6hAcqu' }
+2025-06-14T09:56:41.453Z compression [ 'application/json' ] not compressible
+2025-06-14T09:56:41.454Z compression no compression: filtered
+ POST /api/documents/save 200 in 199ms
+2025-06-14T09:56:41.468Z compression [ 'application/json' ] not compressible
+2025-06-14T09:56:41.468Z compression no compression: filtered
+ POST /api/wizard/execute 200 in 2227ms
+2025-06-14T09:56:43.492Z next:router-server:main requestHandler! /api/documents/save {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/api/documents/save'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/api/documents/save',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T09:56:43.492Z next:router-server:main invokeRender /api/documents/save {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  'content-length': '3036',
+  'sec-ch-ua-platform': '"macOS"',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+  'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
+  'content-type': 'application/json',
+  'sec-ch-ua-mobile': '?0',
+  accept: '*/*',
+  origin: 'http://localhost:9002',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/ocC82GwvPBQU1A6hAcqu',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-GB,en;q=0.9'
+}
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'ocC82GwvPBQU1A6hAcqu',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  stageStatesCount: 4,
+  hasUserId: false,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749895003502_huxuc4a60',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  originalCount: 4,
+  cleanedKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  cleanedCount: 4
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[DocumentPersistence] Document updated successfully { documentId: 'ocC82GwvPBQU1A6hAcqu' }
+2025-06-14T09:56:43.665Z compression [ 'application/json' ] not compressible
+2025-06-14T09:56:43.665Z compression no compression: filtered
+ POST /api/documents/save 200 in 173ms
+2025-06-14T09:56:53.125Z next:router-server:main requestHandler! /api/wizard/execute {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/api/wizard/execute'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/api/wizard/execute',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T09:56:53.125Z next:router-server:main invokeRender /api/wizard/execute {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  'content-length': '2682',
+  'sec-ch-ua-platform': '"macOS"',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+  'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
+  'content-type': 'application/json',
+  'sec-ch-ua-mobile': '?0',
+  accept: '*/*',
+  origin: 'http://localhost:9002',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/ocC82GwvPBQU1A6hAcqu',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-GB,en;q=0.9'
+}
+[runAiStage] Starting with new SDK
+2025-06-14T09:56:53.832Z compression [ 'application/json' ] not compressible
+2025-06-14T09:56:53.833Z compression no compression: filtered
+ POST /api/wizard/execute 200 in 708ms
+2025-06-14T09:56:55.861Z next:router-server:main requestHandler! /api/documents/save {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/api/documents/save'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/api/documents/save',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T09:56:55.861Z next:router-server:main invokeRender /api/documents/save {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  'content-length': '2352',
+  'sec-ch-ua-platform': '"macOS"',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+  'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
+  'content-type': 'application/json',
+  'sec-ch-ua-mobile': '?0',
+  accept: '*/*',
+  origin: 'http://localhost:9002',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/ocC82GwvPBQU1A6hAcqu',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-GB,en;q=0.9'
+}
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'ocC82GwvPBQU1A6hAcqu',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  stageStatesCount: 4,
+  hasUserId: false,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749895015870_x9tpkv9ky',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  originalCount: 4,
+  cleanedKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  cleanedCount: 4
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[DocumentPersistence] Document updated successfully { documentId: 'ocC82GwvPBQU1A6hAcqu' }
+2025-06-14T09:56:56.034Z compression [ 'application/json' ] not compressible
+2025-06-14T09:56:56.034Z compression no compression: filtered
+ POST /api/documents/save 200 in 174ms
+2025-06-14T09:57:05.432Z next:router-server:main requestHandler! /api/documents/save {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/api/documents/save'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/api/documents/save',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T09:57:05.432Z next:router-server:main invokeRender /api/documents/save {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  'content-length': '2361',
+  'sec-ch-ua-platform': '"macOS"',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+  'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
+  'content-type': 'application/json',
+  'sec-ch-ua-mobile': '?0',
+  accept: '*/*',
+  origin: 'http://localhost:9002',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/ocC82GwvPBQU1A6hAcqu',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-GB,en;q=0.9'
+}
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'ocC82GwvPBQU1A6hAcqu',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  stageStatesCount: 4,
+  hasUserId: false,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749895025440_x25bkevig',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  originalCount: 4,
+  cleanedKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  cleanedCount: 4
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[DocumentPersistence] Document updated successfully { documentId: 'ocC82GwvPBQU1A6hAcqu' }
+2025-06-14T09:57:05.712Z compression [ 'application/json' ] not compressible
+2025-06-14T09:57:05.712Z compression no compression: filtered
+ POST /api/documents/save 200 in 281ms
+2025-06-14T09:57:06.714Z next:router-server:main requestHandler! /api/wizard/execute {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/api/wizard/execute'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/api/wizard/execute',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T09:57:06.715Z next:router-server:main invokeRender /api/wizard/execute {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  'content-length': '2010',
+  'sec-ch-ua-platform': '"macOS"',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+  'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
+  'content-type': 'application/json',
+  'sec-ch-ua-mobile': '?0',
+  accept: '*/*',
+  origin: 'http://localhost:9002',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/ocC82GwvPBQU1A6hAcqu',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-GB,en;q=0.9'
+}
+[runAiStage] Starting with new SDK
+2025-06-14T09:57:07.325Z compression [ 'application/json' ] not compressible
+2025-06-14T09:57:07.325Z compression no compression: filtered
+ POST /api/wizard/execute 200 in 613ms
+2025-06-14T09:57:09.352Z next:router-server:main requestHandler! /api/documents/save {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/api/documents/save'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/api/documents/save',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T09:57:09.352Z next:router-server:main invokeRender /api/documents/save {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  'content-length': '2362',
+  'sec-ch-ua-platform': '"macOS"',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+  'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
+  'content-type': 'application/json',
+  'sec-ch-ua-mobile': '?0',
+  accept: '*/*',
+  origin: 'http://localhost:9002',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/ocC82GwvPBQU1A6hAcqu',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-GB,en;q=0.9'
+}
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'ocC82GwvPBQU1A6hAcqu',
+  title: 'New Poem Generator',
+  workflowId: 'poem-generator',
+  stageStatesKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  stageStatesCount: 4,
+  hasUserId: false,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1749895029359_6j5i5ul1n',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  originalCount: 4,
+  cleanedKeys: [
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing',
+    'generate-html-preview'
+  ],
+  cleanedCount: 4
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[DocumentPersistence] Document updated successfully { documentId: 'ocC82GwvPBQU1A6hAcqu' }
+2025-06-14T09:57:09.536Z compression [ 'application/json' ] not compressible
+2025-06-14T09:57:09.536Z compression no compression: filtered
+ POST /api/documents/save 200 in 184ms
+2025-06-14T09:58:13.947Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:58:13.947Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:58:13.948Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:58:13.948Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:58:13.948Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:58:13.948Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:58:13.949Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:58:13.949Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T09:58:13.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.979Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.984Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.984Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.984Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.984Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.984Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.984Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.984Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.984Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.984Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.984Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.984Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.984Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.985Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.985Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.985Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.985Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.985Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.985Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.985Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.985Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.991Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.991Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.991Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.991Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.991Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.991Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.991Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.991Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.991Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.991Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.991Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.991Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.991Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.991Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.991Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.991Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.991Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.991Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.991Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.991Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.996Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.996Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.996Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.996Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.996Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.996Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.996Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.996Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.996Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.996Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.996Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.997Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.997Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.997Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.997Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.997Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.997Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.997Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.997Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T09:58:13.997Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+ ✓ Compiled in 405ms (1313 modules)
+2025-06-14T09:58:14.358Z next:router-server:main requestHandler! /w/poem/ocC82GwvPBQU1A6hAcqu?_rsc=1nly6 {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/ocC82GwvPBQU1A6hAcqu',
+    query: [Object: null prototype] { _rsc: '1nly6' }
+  },
+  finished: true
+}
+2025-06-14T09:58:14.358Z next:router-server:main invokeRender /w/poem/ocC82GwvPBQU1A6hAcqu?_rsc=1nly6 {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  'next-hmr-refresh': '1',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+  'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22ocC82GwvPBQU1A6hAcqu%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FocC82GwvPBQU1A6hAcqu%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/ocC82GwvPBQU1A6hAcqu',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-GB,en;q=0.9',
+  cookie: '__next_hmr_refresh_hash__=1d3d6bf840e841d6dba552a4c366deb0633457081244afec'
+}
+2025-06-14T09:58:14.359Z next:router-server:main requestHandler! /w/poem/W7nK16VKIp2QC7YeVwza?_rsc=l7m0a {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/W7nK16VKIp2QC7YeVwza',
+    query: [Object: null prototype] { _rsc: 'l7m0a' }
+  },
+  finished: true
+}
+2025-06-14T09:58:14.359Z next:router-server:main invokeRender /w/poem/W7nK16VKIp2QC7YeVwza?_rsc=l7m0a {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22W7nK16VKIp2QC7YeVwza%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FW7nK16VKIp2QC7YeVwza%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/W7nK16VKIp2QC7YeVwza',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=1d3d6bf840e841d6dba552a4c366deb0633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+2025-06-14T09:58:14.361Z next:router-server:main requestHandler! /w/poem/mHMA6a6rruvWifqPIrHv?_rsc=3mma3 {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/mHMA6a6rruvWifqPIrHv',
+    query: [Object: null prototype] { _rsc: '3mma3' }
+  },
+  finished: true
+}
+2025-06-14T09:58:14.361Z next:router-server:main invokeRender /w/poem/mHMA6a6rruvWifqPIrHv?_rsc=3mma3 {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22mHMA6a6rruvWifqPIrHv%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FmHMA6a6rruvWifqPIrHv%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/mHMA6a6rruvWifqPIrHv',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=1d3d6bf840e841d6dba552a4c366deb0633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+2025-06-14T09:58:14.361Z next:router-server:main requestHandler! /w/poem/MBN7DNQt6JbhOBoWOuSH?_rsc=1ivbn {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/MBN7DNQt6JbhOBoWOuSH',
+    query: [Object: null prototype] { _rsc: '1ivbn' }
+  },
+  finished: true
+}
+2025-06-14T09:58:14.361Z next:router-server:main invokeRender /w/poem/MBN7DNQt6JbhOBoWOuSH?_rsc=1ivbn {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22MBN7DNQt6JbhOBoWOuSH%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FMBN7DNQt6JbhOBoWOuSH%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/MBN7DNQt6JbhOBoWOuSH',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=1d3d6bf840e841d6dba552a4c366deb0633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-14T09:58:14.582Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+2025-06-14T09:58:14.622Z compression gzip compression
+2025-06-14T09:58:14.622Z compression gzip compression
+2025-06-14T09:58:14.623Z compression gzip compression
+2025-06-14T09:58:14.624Z compression gzip compression
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'W7nK16VKIp2QC7YeVwza' }
+[WizardPage] Loading existing document: W7nK16VKIp2QC7YeVwza
+[DocumentPersistence] Loading document { documentId: 'W7nK16VKIp2QC7YeVwza' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'W7nK16VKIp2QC7YeVwza' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'mHMA6a6rruvWifqPIrHv' }
+[WizardPage] Loading existing document: mHMA6a6rruvWifqPIrHv
+[DocumentPersistence] Loading document { documentId: 'mHMA6a6rruvWifqPIrHv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'mHMA6a6rruvWifqPIrHv' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'MBN7DNQt6JbhOBoWOuSH' }
+[WizardPage] Loading existing document: MBN7DNQt6JbhOBoWOuSH
+[DocumentPersistence] Loading document { documentId: 'MBN7DNQt6JbhOBoWOuSH' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'MBN7DNQt6JbhOBoWOuSH' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'ocC82GwvPBQU1A6hAcqu' }
+[WizardPage] Loading existing document: ocC82GwvPBQU1A6hAcqu
+[DocumentPersistence] Loading document { documentId: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+2025-06-14T09:58:14.677Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749895094486 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749895094486' }
+  },
+  finished: true
+}
+2025-06-14T09:58:14.678Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:58:14.679Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749895094482 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749895094482' }
+  },
+  finished: true
+}
+2025-06-14T09:58:14.679Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:58:14.679Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:58:14.679Z send accept ranges
+2025-06-14T09:58:14.680Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T09:58:14.680Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T09:58:14.680Z send content-type text/css
+2025-06-14T09:58:14.682Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749895094483 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749895094483' }
+  },
+  finished: true
+}
+2025-06-14T09:58:14.684Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:58:14.684Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:58:14.684Z send accept ranges
+2025-06-14T09:58:14.684Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T09:58:14.684Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T09:58:14.684Z send content-type text/css
+2025-06-14T09:58:14.685Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:58:14.685Z send accept ranges
+2025-06-14T09:58:14.685Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T09:58:14.685Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T09:58:14.685Z send content-type text/css
+2025-06-14T09:58:14.686Z compression gzip compression
+2025-06-14T09:58:14.686Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749895094474 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749895094474' }
+  },
+  finished: true
+}
+2025-06-14T09:58:14.686Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:58:14.686Z compression gzip compression
+2025-06-14T09:58:14.687Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T09:58:14.687Z send accept ranges
+2025-06-14T09:58:14.687Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T09:58:14.687Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T09:58:14.687Z send content-type text/css
+2025-06-14T09:58:14.688Z compression gzip compression
+2025-06-14T09:58:14.688Z compression gzip compression
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'W7nK16VKIp2QC7YeVwza' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'W7nK16VKIp2QC7YeVwza',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-html-preview',
+    'html-briefing',
+    'poem-topic',
+    'generate-poem-with-title'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'W7nK16VKIp2QC7YeVwza',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-html-preview',
+    'html-briefing',
+    'poem-topic',
+    'generate-poem-with-title'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'mHMA6a6rruvWifqPIrHv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'mHMA6a6rruvWifqPIrHv',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-poem-with-title',
+    'generate-html-preview',
+    'html-briefing',
+    'poem-topic'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'mHMA6a6rruvWifqPIrHv',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-poem-with-title',
+    'generate-html-preview',
+    'html-briefing',
+    'poem-topic'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'MBN7DNQt6JbhOBoWOuSH' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'MBN7DNQt6JbhOBoWOuSH',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-html-preview',
+    'poem-topic',
+    'html-briefing',
+    'generate-poem-with-title'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'MBN7DNQt6JbhOBoWOuSH',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-html-preview',
+    'poem-topic',
+    'html-briefing',
+    'generate-poem-with-title'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'ocC82GwvPBQU1A6hAcqu',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'html-briefing',
+    'generate-poem-with-title',
+    'poem-topic',
+    'generate-html-preview'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'ocC82GwvPBQU1A6hAcqu',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'html-briefing',
+    'generate-poem-with-title',
+    'poem-topic',
+    'generate-html-preview'
+  ]
+}
+ GET /w/poem/mHMA6a6rruvWifqPIrHv 200 in 527ms
+ GET /w/poem/W7nK16VKIp2QC7YeVwza 200 in 529ms
+ GET /w/poem/MBN7DNQt6JbhOBoWOuSH 200 in 528ms
+ GET /w/poem/ocC82GwvPBQU1A6hAcqu 200 in 532ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-14T09:58:15.466Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!

@@ -25,7 +25,7 @@
       "description": "Test Google Search grounding. Ask a question about current events or recent information.",
       "inputType": "textarea",
       "outputType": "text",
-      "model": "googleai/gemini-2.0-flash",
+      "model": "gemini-2.0-flash",
       "temperature": 0.0,
       "dependencies": ["test-title"],
       "groundingSettings": {
@@ -50,7 +50,7 @@
         { "name": "question", "label": "Question about the URL", "type": "textarea", "placeholder": "What is this page about?" }
       ],
       "outputType": "text",
-      "model": "googleai/gemini-2.0-flash-exp",
+      "model": "gemini-2.0-flash-exp",
       "dependencies": ["test-title"],
       "groundingSettings": {
         "urlContext": {
@@ -68,7 +68,7 @@
       "description": "Test thinking mode with a complex reasoning task",
       "inputType": "textarea",
       "outputType": "text",
-      "model": "googleai/gemini-2.0-flash-thinking-exp",
+      "model": "gemini-2.0-flash-thinking-exp",
       "dependencies": ["test-title"],
       "thinkingSettings": {
         "enabled": true,
@@ -84,7 +84,7 @@
       "description": "Test function calling with calculator tool. Try: 'What is 25 * 37 + 156 / 4?'",
       "inputType": "textarea",
       "outputType": "text",
-      "model": "googleai/gemini-2.0-flash-exp",
+      "model": "gemini-2.0-flash-exp",
       "dependencies": ["test-title"],
       "toolNames": ["simpleCalculator"],
       "functionCallingMode": "AUTO",
@@ -98,7 +98,7 @@
       "description": "Test weather tool. Try: 'What's the weather in New York and London?'",
       "inputType": "textarea",
       "outputType": "text",
-      "model": "googleai/gemini-2.0-flash-exp",
+      "model": "gemini-2.0-flash-exp",
       "dependencies": ["test-title"],
       "toolNames": ["weatherTool"],
       "functionCallingMode": "AUTO",
@@ -112,7 +112,7 @@
       "description": "Test unit conversion. Try: 'Convert 100 kilometers to miles and 72 fahrenheit to celsius'",
       "inputType": "textarea",
       "outputType": "text",
-      "model": "googleai/gemini-2.0-flash-exp",
+      "model": "gemini-2.0-flash-exp",
       "dependencies": ["test-title"],
       "toolNames": ["unitConverter"],
       "functionCallingMode": "AUTO",
@@ -126,7 +126,7 @@
       "description": "Test Python code execution. Try: 'Create a bar chart of sales data: Q1=100, Q2=150, Q3=120, Q4=180'",
       "inputType": "textarea",
       "outputType": "text",
-      "model": "googleai/gemini-2.0-flash-exp",
+      "model": "gemini-2.0-flash-exp",
       "dependencies": ["test-title"],
       "toolNames": ["codeInterpreter"],
       "codeExecutionSettings": {
@@ -143,7 +143,7 @@
       "description": "Test streaming responses. Ask for a long, detailed explanation.",
       "inputType": "textarea",
       "outputType": "text",
-      "model": "googleai/gemini-2.0-flash-exp",
+      "model": "gemini-2.0-flash-exp",
       "dependencies": ["test-title"],
       "streamingSettings": {
         "enabled": true,
@@ -159,7 +159,7 @@
       "description": "Test multi-turn chat. Have a conversation!",
       "inputType": "textarea",
       "outputType": "text",
-      "model": "googleai/gemini-2.0-flash-exp",
+      "model": "gemini-2.0-flash-exp",
       "dependencies": ["test-title"],
       "chatEnabled": true,
       "chatSettings": {
@@ -177,7 +177,7 @@
       "description": "Upload an image to test image understanding capabilities",
       "inputType": "image",
       "outputType": "json",
-      "model": "googleai/gemini-2.0-flash-exp",
+      "model": "gemini-2.0-flash-exp",
       "dependencies": ["test-title"],
       "imageSettings": {
         "maxDimension": 2048,
@@ -193,7 +193,7 @@
       "description": "Upload a document (PDF, DOCX, TXT) to test document understanding",
       "inputType": "document",
       "outputType": "json",
-      "model": "googleai/gemini-2.0-flash-exp",
+      "model": "gemini-2.0-flash-exp",
       "dependencies": ["test-title"],
       "documentSettings": {
         "maxSizeMB": 20,
@@ -209,7 +209,7 @@
       "description": "Test multiple features together: grounding + function calling + code execution",
       "inputType": "textarea",
       "outputType": "text",
-      "model": "googleai/gemini-2.0-flash",
+      "model": "gemini-2.0-flash",
       "temperature": 0.0,
       "dependencies": ["test-title"],
       "groundingSettings": {
@@ -234,7 +234,7 @@
       "description": "AI will summarize all the tests performed",
       "inputType": "none",
       "outputType": "markdown",
-      "model": "googleai/gemini-2.0-flash-exp",
+      "model": "gemini-2.0-flash-exp",
       "dependencies": [
         "test-title",
         "grounding-google-search",
