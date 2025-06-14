@@ -158,6 +158,42 @@ export class AIStageExecution {
       return stage.jsonSchema;
     }
 
+    // If stage has jsonFields, build schema from them
+    if (stage.jsonFields && Array.isArray(stage.jsonFields)) {
+      const properties: Record<string, any> = {};
+      const required: string[] = [];
+
+      stage.jsonFields.forEach(field => {
+        // Determine the schema type based on field type
+        let schemaType = SchemaType.STRING;
+        if (field.type === 'number') {
+          schemaType = SchemaType.NUMBER;
+        } else if (field.type === 'boolean') {
+          schemaType = SchemaType.BOOLEAN;
+        } else if (field.type === 'array') {
+          schemaType = SchemaType.ARRAY;
+        } else if (field.type === 'object') {
+          schemaType = SchemaType.OBJECT;
+        }
+
+        properties[field.key] = {
+          type: schemaType,
+          description: field.label || field.description
+        };
+
+        // All fields are required by default unless explicitly marked optional
+        if (field.required !== false) {
+          required.push(field.key);
+        }
+      });
+
+      return {
+        type: SchemaType.OBJECT,
+        properties,
+        required: required.length > 0 ? required : undefined
+      };
+    }
+
     // Otherwise, build a simple schema
     return {
       type: SchemaType.OBJECT,

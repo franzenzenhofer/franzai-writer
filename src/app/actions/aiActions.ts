@@ -21,6 +21,9 @@ interface RunAiStageParams {
   forceGoogleSearchGrounding?: boolean;
   // Add groundingSettings from the workflow stage configuration
   groundingSettings?: Stage['groundingSettings'];
+  // Add JSON schema and fields for structured output
+  jsonSchema?: Stage['jsonSchema'];
+  jsonFields?: Stage['jsonFields'];
 }
 
 interface AiActionResult {

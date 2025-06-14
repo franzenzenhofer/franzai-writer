@@ -25,6 +25,9 @@ interface RunAiStageParams {
   aiRedoNotes?: string;
   forceGoogleSearchGrounding?: boolean;
   groundingSettings?: Stage['groundingSettings'];
+  // Add JSON schema and fields for structured output
+  jsonSchema?: Stage['jsonSchema'];
+  jsonFields?: Stage['jsonFields'];
 }
 
 export interface AiActionResult {
@@ -106,7 +109,9 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
       thinkingSettings: params.thinkingSettings,
       toolNames: params.toolNames,
       systemInstructions: params.systemInstructions,
-      groundingSettings: params.groundingSettings
+      groundingSettings: params.groundingSettings,
+      jsonSchema: params.jsonSchema,
+      jsonFields: params.jsonFields
     };
 
     // Add Google Search grounding if forced

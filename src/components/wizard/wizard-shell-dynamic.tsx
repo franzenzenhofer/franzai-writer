@@ -149,6 +149,8 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         aiRedoNotes: stageState.aiRedoNotes,
         forceGoogleSearchGrounding: stage.forceGoogleSearchGrounding,
         groundingSettings: stage.groundingSettings,
+        jsonSchema: stage.jsonSchema,
+        jsonFields: stage.jsonFields,
       });
 
       setInstance(prev => ({

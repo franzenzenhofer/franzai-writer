@@ -575,7 +575,7 @@ async function executeWithStreaming(
       if (false) {
         
         // Log each tool request
-        for (const toolRequest of response.toolRequests) {
+        for (const toolRequest of (response as any).toolRequests) {
           console.log(`[AI Stage Flow Enhanced] Tool request: ${toolRequest.name}`, toolRequest.input);
           thinkingSteps.push({
             type: 'toolRequest',
@@ -586,7 +586,7 @@ async function executeWithStreaming(
         
         // Execute all tool requests
         const toolResults = [];
-        for (const toolRequest of response.toolRequests) {
+        for (const toolRequest of (response as any).toolRequests) {
           try {
             let toolResult;
             

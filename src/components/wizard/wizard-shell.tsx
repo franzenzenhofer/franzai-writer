@@ -390,6 +390,9 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         forceGoogleSearchGrounding: !!aiRedoNotes, // Force grounding when AI Redo is used
         // CRITICAL: Pass groundingSettings from the workflow stage configuration
         groundingSettings: stage.groundingSettings,
+        // Add JSON schema and fields for structured output
+        jsonSchema: stage.jsonSchema,
+        jsonFields: stage.jsonFields,
       });
 
       if (result.error) {

@@ -24,8 +24,10 @@ export interface FormField {
 export interface JsonField {
   key: string;
   label: string;
-  type: "text" | "textarea";
+  type: "text" | "textarea" | "number" | "boolean" | "array" | "object";
   displayOrder?: number;
+  description?: string;
+  required?: boolean; // Defaults to true if not specified
 }
 
 export type StageInputType = "text" | "textarea" | "context" | "form" | "none" | "image" | "document";
