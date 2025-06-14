@@ -114,22 +114,27 @@ export class ToolsModule {
       }
       contents.push({ text: prompt });
       
-      const result = await genAI.models.generateContent({
+      const model = genAI.getGenerativeModel({ 
         model: modelConfig.model,
-        contents,
-        config: {
+        tools: [{
+          functionDeclarations
+        }],
+        generationConfig: {
           temperature: modelConfig.temperature,
-          maxOutputTokens: modelConfig.maxOutputTokens,
-          tools: [{
-            functionDeclarations
-          }]
+          maxOutputTokens: modelConfig.maxOutputTokens
         }
+      });
+      
+      const result = await model.generateContent({
+        contents: [{ role: 'user', parts: contents }]
       });
       // result is the response for @google/genai
       
+      const response = result.response;
+      
       // Extract function calls
       const functionCalls: FunctionCall[] = [];
-      const candidates = result.candidates || [];
+      const candidates = response.candidates || [];
       
       for (const candidate of candidates) {
         const parts = candidate.content?.parts || [];
@@ -144,9 +149,9 @@ export class ToolsModule {
       }
 
       return {
-        text: result.text || '',
+        text: response.text() || '',
         functionCalls: functionCalls.length > 0 ? functionCalls : undefined,
-        usageMetadata: result.usageMetadata
+        usageMetadata: response.usageMetadata
       };
     } catch (error) {
       console.error('Tool calling error:', error);

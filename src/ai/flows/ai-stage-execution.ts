@@ -1,4 +1,5 @@
 'use server';
+import 'server-only';
 
 import {z} from 'zod';
 import { generateWithDirectGemini, generateStreamWithDirectGemini, type DirectGeminiRequest, type DirectGeminiResponse } from '@/ai/direct-gemini';

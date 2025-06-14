@@ -28,24 +28,29 @@ export class TextGenerationModule {
       }
       contents.push({ text: prompt });
       
-      const result = await genAI.models.generateContent({
-        model: modelConfig.model,
-        contents,
-        config: {
-          temperature: modelConfig.temperature,
-          maxOutputTokens: modelConfig.maxOutputTokens,
-          topP: modelConfig.topP,
-          topK: modelConfig.topK,
-          stopSequences: modelConfig.stopSequences,
-          candidateCount: modelConfig.candidateCount
-        }
+      // For @google/genai, we need to create model instance first
+      const model = genAI.getGenerativeModel({ model: modelConfig.model });
+      
+      const generationConfig = {
+        temperature: modelConfig.temperature,
+        maxOutputTokens: modelConfig.maxOutputTokens,
+        topP: modelConfig.topP,
+        topK: modelConfig.topK,
+        stopSequences: modelConfig.stopSequences,
+        candidateCount: modelConfig.candidateCount
+      };
+      
+      const result = await model.generateContent({
+        contents: [{ role: 'user', parts: contents }],
+        generationConfig
       });
       
+      const response = result.response;
       return {
-        text: result.text || '',
-        usageMetadata: result.usageMetadata as any, // Type mismatch between @google/genai and our interface
-        finishReason: result.candidates?.[0]?.finishReason,
-        safetyRatings: result.candidates?.[0]?.safetyRatings,
+        text: response.text() || '',
+        usageMetadata: response.usageMetadata as any,
+        finishReason: response.candidates?.[0]?.finishReason,
+        safetyRatings: response.candidates?.[0]?.safetyRatings,
       };
     } catch (error) {
       console.error('Text generation error:', error);
@@ -70,19 +75,21 @@ export class TextGenerationModule {
       }
       contents.push({ text: prompt });
       
-      const streamPromise = genAI.models.generateContentStream({
-        model: modelConfig.model,
-        contents,
-        config: {
-          temperature: modelConfig.temperature,
-          maxOutputTokens: modelConfig.maxOutputTokens,
-          topP: modelConfig.topP,
-          topK: modelConfig.topK,
-          stopSequences: modelConfig.stopSequences
-        }
-      });
+      // For @google/genai, we need to create model instance first
+      const model = genAI.getGenerativeModel({ model: modelConfig.model });
       
-      const result = await streamPromise;
+      const generationConfig = {
+        temperature: modelConfig.temperature,
+        maxOutputTokens: modelConfig.maxOutputTokens,
+        topP: modelConfig.topP,
+        topK: modelConfig.topK,
+        stopSequences: modelConfig.stopSequences
+      };
+      
+      const result = await model.generateContentStream({
+        contents: [{ role: 'user', parts: contents }],
+        generationConfig
+      });
       
       let fullText = '';
       
@@ -117,10 +124,9 @@ export class TextGenerationModule {
   ): Promise<number> {
     try {
       const genAI = getGoogleGenAI().getRawClient();
-      // For @google/genai, token counting might be different
-      // This is a placeholder - you may need to check the actual API
-      const result = await genAI.models.countTokens({
-        model,
+      const modelInstance = genAI.getGenerativeModel({ model });
+      
+      const result = await modelInstance.countTokens({
         contents: [{ role: 'user', parts: [{ text }] }]
       });
       return result.totalTokens || 0;

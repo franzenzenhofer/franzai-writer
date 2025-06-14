@@ -4,6 +4,7 @@
  */
 
 "use server";
+import "server-only";
 
 import type { StageState, Stage, Workflow } from "@/types";
 import { executeAIStage, streamAIStage } from "@/ai/flows/ai-stage-execution-new";

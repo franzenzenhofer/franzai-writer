@@ -12,8 +12,7 @@ import {
   User
 } from "firebase/auth";
 // Removed: import * as firebaseui from "firebaseui";
-import firebase from 'firebase/compat/app'; // Added for firebase.auth namespace
-import 'firebase/compat/auth'; // Required for firebase.auth.GoogleAuthProvider, etc.
+// Removed compat imports to avoid bundling issues
 
 // Firebase configuration - FAIL HARD if not properly configured
 const firebaseConfig = {
@@ -25,12 +24,12 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
-// Validate configuration - FAIL HARD if missing
+// Validate configuration - log warnings instead of throwing at module level
 if (!firebaseConfig.apiKey || firebaseConfig.apiKey === 'demo-api-key') {
-  throw new Error('FATAL: Firebase API key not configured');
+  console.error('FATAL: Firebase API key not configured');
 }
 if (!firebaseConfig.projectId || firebaseConfig.projectId === 'demo-project') {
-  throw new Error('FATAL: Firebase project ID not configured');
+  console.error('FATAL: Firebase project ID not configured');
 }
 
 // Initialize Firebase

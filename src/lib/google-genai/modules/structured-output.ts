@@ -33,10 +33,9 @@ export class StructuredOutputModule {
       }
       contents.push({ text: prompt });
       
-      const result = await genAI.models.generateContent({
+      const model = genAI.getGenerativeModel({ 
         model: modelConfig.model,
-        contents,
-        config: {
+        generationConfig: {
           temperature: modelConfig.temperature,
           maxOutputTokens: modelConfig.maxOutputTokens,
           topP: modelConfig.topP,
@@ -45,7 +44,13 @@ export class StructuredOutputModule {
           responseSchema: schema
         }
       });
-      const text = result.text || '';
+      
+      const result = await model.generateContent({
+        contents: [{ role: 'user', parts: contents }]
+      });
+      
+      const response = result.response;
+      const text = response.text() || '';
       
       return JSON.parse(text) as T;
     } catch (error) {

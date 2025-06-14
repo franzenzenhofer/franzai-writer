@@ -1,4 +1,5 @@
 "use server";
+import "server-only";
 
 import type { StageState, Stage } from "@/types";
 // Import only the type, not the implementation, to avoid bundling server code

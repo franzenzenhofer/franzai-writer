@@ -53,7 +53,7 @@ export class AIStageExecution {
         model: stage.model || workflow.defaultModel || 'gemini-2.0-flash',
         temperature: stage.temperature ?? workflow.temperature ?? 0.7,
         maxOutputTokens: stage.maxTokens || 8192,
-        systemInstruction: stage.systemInstruction
+        systemInstruction: stage.systemInstructions || stage.systemInstruction
       };
 
       let result: any;
@@ -233,7 +233,7 @@ export class AIStageExecution {
       model: stage.model || workflow.defaultModel || 'gemini-2.0-flash',
       temperature: stage.temperature ?? workflow.temperature ?? 0.7,
       maxOutputTokens: stage.maxTokens || 8192,
-      systemInstruction: stage.systemInstruction
+      systemInstruction: stage.systemInstructions || stage.systemInstruction
     };
 
     const chunks: string[] = [];
