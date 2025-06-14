@@ -77,18 +77,21 @@ export class StructuredOutputModule {
       }
       contents.push({ text: prompt });
       
-      const streamPromise = genAI.models.generateContentStream({
+      const model = genAI.getGenerativeModel({ 
         model: modelConfig.model,
-        contents,
-        config: {
+        generationConfig: {
           temperature: modelConfig.temperature,
           maxOutputTokens: modelConfig.maxOutputTokens,
+          topP: modelConfig.topP,
+          topK: modelConfig.topK,
           responseMimeType: 'application/json',
           responseSchema: schema
         }
       });
       
-      const result = await streamPromise;
+      const result = await model.generateContentStream({
+        contents: [{ role: 'user', parts: contents }]
+      });
       
       let fullText = '';
       for await (const chunk of result) {
