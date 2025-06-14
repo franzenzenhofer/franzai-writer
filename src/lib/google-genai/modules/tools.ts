@@ -122,7 +122,7 @@ export class ToolsModule {
       }
       contents.push({ text: prompt });
       
-      const result = await genAI.models.generateContent({
+      const generationResult = await genAI.models.generateContent({
         model: modelConfig.model,
         contents: prompt,
         tools: [{
@@ -134,9 +134,9 @@ export class ToolsModule {
         },
         systemInstruction: modelConfig.systemInstruction
       });
-      // result is the response for @google/genai
+      // generationResult is the response for @google/genai
       
-      const response = result.response;
+      const response = generationResult.response;
       
       // Extract function calls
       const functionCalls: FunctionCall[] = [];

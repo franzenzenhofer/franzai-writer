@@ -1,7 +1,7 @@
 # Test info
 
-- Name: Complete Poem Generator Workflow >> should create poem from start to finish
-- Location: /Users/franzenzenhofer/dev/franzai-writer/tests/e2e/poem-generator-workflow.spec.ts:9:7
+- Name: Complete Poem Generator Workflow >> should show validation if topic is empty
+- Location: /Users/franzenzenhofer/dev/franzai-writer/tests/e2e/poem-generator-workflow.spec.ts:49:7
 
 # Error details
 
@@ -10,7 +10,7 @@ Error: locator.click: Test timeout of 30000ms exceeded.
 Call log:
   - waiting for locator('button:has-text("Process Stage")').first()
 
-    at /Users/franzenzenhofer/dev/franzai-writer/tests/e2e/poem-generator-workflow.spec.ts:20:68
+    at /Users/franzenzenhofer/dev/franzai-writer/tests/e2e/poem-generator-workflow.spec.ts:60:68
 ```
 
 # Page snapshot
@@ -30,9 +30,8 @@ Call log:
   - paragraph: "Workflow: Poem Generator"
   - text: Progress 0 / 4 Stages
   - progressbar
-  - text: Last saved 12:23:55 PM Poem Topic What is the topic of your poem?
-  - textbox "What is the topic of your poem?": a beautiful sunny day
-  - text: ~6 tokens
+  - text: Last saved 12:23:58 PM Poem Topic What is the topic of your poem?
+  - textbox "What is the topic of your poem?"
   - button "Continue":
     - img
     - text: Continue
@@ -89,8 +88,7 @@ Call log:
   17 |     // Stage 1: Poem Topic
   18 |     const poemTopic = 'a beautiful sunny day';
   19 |     await page.locator('textarea').first().fill(poemTopic);
-> 20 |     await page.locator('button:has-text("Process Stage")').first().click();
-     |                                                                    ^ Error: locator.click: Test timeout of 30000ms exceeded.
+  20 |     await page.locator('button:has-text("Process Stage")').first().click();
   21 |     await page.waitForTimeout(2000); // Wait for processing
   22 |
   23 |     // Stage 2: Generate Poem - should auto-run
@@ -130,7 +128,8 @@ Call log:
   57 |     await expect(page.getByTestId('wizard-page-title')).toBeVisible();
   58 |
   59 |     // Try to process empty stage
-  60 |     await page.locator('button:has-text("Process Stage")').first().click();
+> 60 |     await page.locator('button:has-text("Process Stage")').first().click();
+     |                                                                    ^ Error: locator.click: Test timeout of 30000ms exceeded.
   61 |     await page.waitForTimeout(1000); // Wait for potential validation message or lack of progression
   62 |
   63 |     // Progress should still be 0

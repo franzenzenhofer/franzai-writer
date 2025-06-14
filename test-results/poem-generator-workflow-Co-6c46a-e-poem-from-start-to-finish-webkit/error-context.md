@@ -9,6 +9,8 @@
 Error: locator.click: Test timeout of 30000ms exceeded.
 Call log:
   - waiting for locator('button:has-text("Process Stage")').first()
+    - waiting for" http://localhost:9002/w/poem/fEKtpcY6nfLqEgei1Pm8" navigation to finish...
+    - navigated to "http://localhost:9002/w/poem/fEKtpcY6nfLqEgei1Pm8"
 
     at /Users/franzenzenhofer/dev/franzai-writer/tests/e2e/poem-generator-workflow.spec.ts:20:68
 ```
@@ -16,55 +18,37 @@ Call log:
 # Page snapshot
 
 ```yaml
-- banner:
-  - link "FranzAI Writer":
-    - /url: /
-  - navigation:
-    - link "Dashboard":
-      - /url: /dashboard
-  - navigation:
-    - link "Login":
-      - /url: /login
-- main:
-  - heading "New Poem Generator" [level=1]
-  - paragraph: "Workflow: Poem Generator"
-  - text: Progress 0 / 4 Stages
-  - progressbar
-  - text: Last saved 12:23:55 PM Poem Topic What is the topic of your poem?
-  - textbox "What is the topic of your poem?": a beautiful sunny day
-  - text: ~6 tokens
-  - button "Continue":
-    - img
-    - text: Continue
-  - img
-  - text: "Waiting for: Poem Topic Generate Poem & Title AI will generate a poem and title based on your topic."
-  - img
-  - text: "Waiting for: Generate Poem & Title HTML Briefing Optional Special instructions for HTML formatting (optional)"
-  - textbox "Special instructions for HTML formatting (optional)"
-  - img
-  - text: "Waiting for: Generate Poem & Title Generate HTML Preview AI will convert your poem into beautiful HTML based on your briefing."
-  - button "Finalize Document" [disabled]:
-    - img
-    - text: Finalize Document
-- contentinfo:
-  - paragraph: © 2025 Franz AI Writer. All rights reserved.
-  - paragraph:
-    - text: Made with
-    - img
-    - text: using AI-powered workflows
-  - link "Privacy":
-    - /url: /privacy
-  - link "Terms":
-    - /url: /terms
-  - link "GitHub":
-    - /url: https://github.com/your-repo/franz-ai-writer
-    - img
-    - text: GitHub
-- region "Notifications (F8)":
-  - list
 - alert
 - button "Open Next.js Dev Tools":
   - img
+- button "Open issues overlay": 1 Issue
+- navigation:
+  - button "previous" [disabled]:
+    - img "previous"
+  - text: 1/1
+  - button "next" [disabled]:
+    - img "next"
+- img
+- img
+- text: Next.js 15.3.3 Webpack
+- img
+- dialog "Build Error":
+  - text: Build Error
+  - button "Copy Stack Trace":
+    - img
+  - button "No related documentation found" [disabled]:
+    - img
+  - link "Learn more about enabling Node.js inspector for server code with Chrome DevTools":
+    - /url: https://nextjs.org/docs/app/building-your-application/configuring/debugging#server-side-code
+    - img
+  - paragraph: "Module parse failed: Identifier 'result' has already been declared (120:18)"
+  - img
+  - text: ./src/lib/google-genai/modules/tools.ts
+  - button "Open in editor":
+    - img
+  - text: "Module parse failed: Identifier 'result' has already been declared (120:18) | } | } > const result = { | text: response.text() || '', | functionCalls: functionCalls.length > 0 ? functionCalls : undefined,"
+- contentinfo:
+  - paragraph: This error occurred during the build process and can only be dismissed by fixing the error.
 ```
 
 # Test source
