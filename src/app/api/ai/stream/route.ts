@@ -23,14 +23,15 @@ export async function POST(request: NextRequest) {
 
     const genAI = new GoogleGenAI({ apiKey });
     
-    // For @google/genai, we need to use the models API directly
-    const streamPromise = genAI.models.generateContentStream({
+    // For @google/genai, we need to create model instance first
+    const modelInstance = genAI.getGenerativeModel({ 
       model,
-      contents: [{ role: 'user', parts: [{ text: prompt }] }],
-      config
+      generationConfig: config
     });
     
-    const result = await streamPromise;
+    const result = await modelInstance.generateContentStream({
+      contents: [{ role: 'user', parts: [{ text: prompt }] }]
+    });
 
     // Create a TransformStream to handle the streaming
     const encoder = new TextEncoder();
