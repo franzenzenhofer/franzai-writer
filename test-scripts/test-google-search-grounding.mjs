@@ -24,9 +24,7 @@ async function testBasicGrounding() {
     const result = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
       contents: 'What are the latest AI announcements from Google in 2025?',
-      config: {
-        tools: [{ google_search_retrieval: {} }]
-      }
+      tools: [{ googleSearch: {} }]
     });
 
     console.log('✅ Response:', result.text || 'No response');
@@ -48,11 +46,11 @@ async function testBasicGrounding() {
 async function testGroundingWithContext() {
   console.log('\n📝 Test 2: Grounding with Context');
   try {
-    const model = genAI.getGenerativeModel({ 
+    const result = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
-      tools: [{ googleSearchRetrieval: {} }]
+      contents: 'Based on current information, what is the weather forecast for New York City tomorrow?',
+      tools: [{ googleSearch: {} }]
     });
-    const result = await model.generateContent('Based on current information, what is the weather forecast for New York City tomorrow?');
 
     console.log('✅ Response:', result.text || 'No response');
     
@@ -72,16 +70,16 @@ async function testGroundingWithContext() {
 async function testGroundingAccuracy() {
   console.log('\n📝 Test 3: Grounding Accuracy Check');
   try {
-    const model = genAI.getGenerativeModel({ 
+    const result = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
-      tools: [{ googleSearchRetrieval: {} }]
+      contents: 'What is the current stock price of GOOGL?',
+      tools: [{ googleSearch: {} }]
     });
-    const result = await model.generateContent('What is the current stock price of GOOGL?');
 
     console.log('✅ Response:', result.text || 'No response');
     
     // Check if response contains price information
-    const responseText = result.response.text();
+    const responseText = result.text;
     const hasPriceInfo = responseText?.includes('$') || 
                         responseText?.toLowerCase().includes('price') ||
                         responseText?.toLowerCase().includes('stock');
@@ -109,15 +107,13 @@ async function testGroundingWithSystemInstruction() {
       model: 'gemini-2.0-flash',
       contents: 'Who won the latest Nobel Prize in Physics?',
       systemInstruction: 'You are a helpful assistant that always cites sources when using grounded information.',
-      config: {
-        tools: [{ google_search_retrieval: {} }]
-      }
+      tools: [{ googleSearch: {} }]
     });
 
     console.log('✅ Response:', result.text || 'No response');
     
     // Check if response includes citations or sources
-    const responseText = result.response.text();
+    const responseText = result.text;
     const hasCitations = responseText?.toLowerCase().includes('according to') ||
                         responseText?.toLowerCase().includes('source') ||
                         responseText?.toLowerCase().includes('based on');
@@ -136,9 +132,7 @@ async function testGroundingStreaming() {
     const stream = await genAI.models.generateContentStream({
       model: 'gemini-2.0-flash',
       contents: 'What are the top technology news stories today?',
-      config: {
-        tools: [{ google_search_retrieval: {} }]
-      }
+      tools: [{ googleSearch: {} }]
     });
 
     console.log('✅ Streaming response:');
@@ -190,8 +184,8 @@ async function testGroundingWithJsonOutput() {
     const result = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
       contents: 'Get the latest news about artificial intelligence and format as JSON',
+      tools: [{ googleSearch: {} }],
       config: {
-        tools: [{ google_search_retrieval: {} }],
         response_mime_type: 'application/json',
         response_schema: schema
       }
