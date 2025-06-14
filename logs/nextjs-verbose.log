@@ -20790,3 +20790,2010 @@ Prompt variable '{{generate-poem-with-title.output.poem}}' not found in context.
   timestamp: '2025-06-14T09:58:15.466Z'
 }
 [FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+
+
+Source path: /Users/franzenzenhofer/dev/franzai-writer/src/app/globals.css
+Finding changed files: 7.086ms
+Reading changed files: 6.702ms
+Sorting candidates: 0.107ms
+Generate rules: 1.083ms
+Build stylesheet: 0.01ms
+Potential classes:  149
+Active contexts:  1
+JIT TOTAL: 59.926ms
+
+
+ ✓ Compiled in 326ms (856 modules)
+2025-06-14T10:09:24.649Z next:router-server:main requestHandler! /_next/static/webpack/1d3d6bf840e841d6.webpack.hot-update.json {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1d3d6bf840e841d6.webpack.hot-update.json',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/1d3d6bf840e841d6.webpack.hot-update.json'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/1d3d6bf840e841d6.webpack.hot-update.json',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:09:24.649Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1d3d6bf840e841d6.webpack.hot-update.json"
+2025-06-14T10:09:24.654Z next:router-server:main requestHandler! /_next/static/webpack/1d3d6bf840e841d6.webpack.hot-update.json {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1d3d6bf840e841d6.webpack.hot-update.json',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/1d3d6bf840e841d6.webpack.hot-update.json'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/1d3d6bf840e841d6.webpack.hot-update.json',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:09:24.654Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1d3d6bf840e841d6.webpack.hot-update.json"
+2025-06-14T10:09:24.654Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1d3d6bf840e841d6.webpack.hot-update.json"
+2025-06-14T10:09:24.654Z send accept ranges
+2025-06-14T10:09:24.654Z send modified Sat, 14 Jun 2025 10:09:24 GMT
+2025-06-14T10:09:24.654Z send etag W/"2c-1976dea5a7e"
+2025-06-14T10:09:24.654Z send content-type application/json
+2025-06-14T10:09:24.656Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1d3d6bf840e841d6.webpack.hot-update.json"
+2025-06-14T10:09:24.656Z send accept ranges
+2025-06-14T10:09:24.656Z send modified Sat, 14 Jun 2025 10:09:24 GMT
+2025-06-14T10:09:24.656Z send etag W/"2c-1976dea5a7e"
+2025-06-14T10:09:24.656Z send content-type application/json
+2025-06-14T10:09:24.656Z next:router-server:main requestHandler! /w/poem/ocC82GwvPBQU1A6hAcqu?_rsc=1nly6 {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/ocC82GwvPBQU1A6hAcqu',
+    query: [Object: null prototype] { _rsc: '1nly6' }
+  },
+  finished: true
+}
+2025-06-14T10:09:24.656Z next:router-server:main invokeRender /w/poem/ocC82GwvPBQU1A6hAcqu?_rsc=1nly6 {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  'next-hmr-refresh': '1',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+  'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22ocC82GwvPBQU1A6hAcqu%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FocC82GwvPBQU1A6hAcqu%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/ocC82GwvPBQU1A6hAcqu',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-GB,en;q=0.9',
+  cookie: '__next_hmr_refresh_hash__=f2c766a113499b00dba552a4c366deb0633457081244afec'
+}
+2025-06-14T10:09:24.658Z next:router-server:main requestHandler! /w/poem/MBN7DNQt6JbhOBoWOuSH?_rsc=1ivbn {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/MBN7DNQt6JbhOBoWOuSH',
+    query: [Object: null prototype] { _rsc: '1ivbn' }
+  },
+  finished: true
+}
+2025-06-14T10:09:24.658Z next:router-server:main invokeRender /w/poem/MBN7DNQt6JbhOBoWOuSH?_rsc=1ivbn {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22MBN7DNQt6JbhOBoWOuSH%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FMBN7DNQt6JbhOBoWOuSH%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/MBN7DNQt6JbhOBoWOuSH',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=f2c766a113499b00dba552a4c366deb0633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+2025-06-14T10:09:24.658Z compression no compression: size below threshold
+2025-06-14T10:09:24.662Z next:router-server:main requestHandler! /w/poem/W7nK16VKIp2QC7YeVwza?_rsc=l7m0a {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/W7nK16VKIp2QC7YeVwza',
+    query: [Object: null prototype] { _rsc: 'l7m0a' }
+  },
+  finished: true
+}
+2025-06-14T10:09:24.662Z next:router-server:main invokeRender /w/poem/W7nK16VKIp2QC7YeVwza?_rsc=l7m0a {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22W7nK16VKIp2QC7YeVwza%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FW7nK16VKIp2QC7YeVwza%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/W7nK16VKIp2QC7YeVwza',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=f2c766a113499b00dba552a4c366deb0633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+2025-06-14T10:09:24.662Z compression no compression: size below threshold
+2025-06-14T10:09:24.667Z next:router-server:main requestHandler! /w/poem/mHMA6a6rruvWifqPIrHv?_rsc=3mma3 {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/mHMA6a6rruvWifqPIrHv',
+    query: [Object: null prototype] { _rsc: '3mma3' }
+  },
+  finished: true
+}
+2025-06-14T10:09:24.667Z next:router-server:main invokeRender /w/poem/mHMA6a6rruvWifqPIrHv?_rsc=3mma3 {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22mHMA6a6rruvWifqPIrHv%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FmHMA6a6rruvWifqPIrHv%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/mHMA6a6rruvWifqPIrHv',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=f2c766a113499b00dba552a4c366deb0633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+2025-06-14T10:09:24.671Z next:router-server:main requestHandler! /_next/static/webpack/app/layout.1d3d6bf840e841d6.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1d3d6bf840e841d6.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/app/layout.1d3d6bf840e841d6.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/app/layout.1d3d6bf840e841d6.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:09:24.671Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1d3d6bf840e841d6.hot-update.js"
+2025-06-14T10:09:24.672Z next:router-server:main requestHandler! /_next/static/webpack/app/layout.1d3d6bf840e841d6.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1d3d6bf840e841d6.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/app/layout.1d3d6bf840e841d6.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/app/layout.1d3d6bf840e841d6.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:09:24.672Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1d3d6bf840e841d6.hot-update.js"
+2025-06-14T10:09:24.673Z next:router-server:main requestHandler! /_next/static/webpack/webpack.1d3d6bf840e841d6.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1d3d6bf840e841d6.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/webpack.1d3d6bf840e841d6.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/webpack.1d3d6bf840e841d6.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:09:24.673Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1d3d6bf840e841d6.hot-update.js"
+2025-06-14T10:09:24.673Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1d3d6bf840e841d6.hot-update.js"
+2025-06-14T10:09:24.673Z send accept ranges
+2025-06-14T10:09:24.673Z send modified Sat, 14 Jun 2025 10:09:24 GMT
+2025-06-14T10:09:24.673Z send etag W/"72b-1976dea5a7e"
+2025-06-14T10:09:24.673Z send content-type application/javascript
+2025-06-14T10:09:24.674Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1d3d6bf840e841d6.hot-update.js"
+2025-06-14T10:09:24.675Z send accept ranges
+2025-06-14T10:09:24.675Z send modified Sat, 14 Jun 2025 10:09:24 GMT
+2025-06-14T10:09:24.675Z send etag W/"72b-1976dea5a7e"
+2025-06-14T10:09:24.675Z send content-type application/javascript
+2025-06-14T10:09:24.675Z next:router-server:main requestHandler! /_next/static/webpack/1d3d6bf840e841d6.webpack.hot-update.json {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1d3d6bf840e841d6.webpack.hot-update.json',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/1d3d6bf840e841d6.webpack.hot-update.json'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/1d3d6bf840e841d6.webpack.hot-update.json',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:09:24.675Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1d3d6bf840e841d6.webpack.hot-update.json"
+2025-06-14T10:09:24.675Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1d3d6bf840e841d6.hot-update.js"
+2025-06-14T10:09:24.675Z send accept ranges
+2025-06-14T10:09:24.675Z send modified Sat, 14 Jun 2025 10:09:24 GMT
+2025-06-14T10:09:24.675Z send etag W/"347-1976dea5a7e"
+2025-06-14T10:09:24.675Z send content-type application/javascript
+2025-06-14T10:09:24.679Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1d3d6bf840e841d6.webpack.hot-update.json"
+2025-06-14T10:09:24.679Z send accept ranges
+2025-06-14T10:09:24.679Z send modified Sat, 14 Jun 2025 10:09:24 GMT
+2025-06-14T10:09:24.679Z send etag W/"2c-1976dea5a7e"
+2025-06-14T10:09:24.679Z send content-type application/json
+2025-06-14T10:09:24.679Z next:router-server:main requestHandler! /_next/static/webpack/webpack.1d3d6bf840e841d6.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1d3d6bf840e841d6.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/webpack.1d3d6bf840e841d6.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/webpack.1d3d6bf840e841d6.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:09:24.679Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1d3d6bf840e841d6.hot-update.js"
+2025-06-14T10:09:24.679Z compression gzip compression
+2025-06-14T10:09:24.680Z compression gzip compression
+2025-06-14T10:09:24.681Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1d3d6bf840e841d6.hot-update.js"
+2025-06-14T10:09:24.681Z send accept ranges
+2025-06-14T10:09:24.681Z send modified Sat, 14 Jun 2025 10:09:24 GMT
+2025-06-14T10:09:24.681Z send etag W/"347-1976dea5a7e"
+2025-06-14T10:09:24.681Z send content-type application/javascript
+2025-06-14T10:09:24.681Z compression no compression: size below threshold
+2025-06-14T10:09:24.682Z compression no compression: size below threshold
+2025-06-14T10:09:24.685Z compression no compression: size below threshold
+2025-06-14T10:09:24.687Z next:router-server:main requestHandler! /_next/static/webpack/1d3d6bf840e841d6.webpack.hot-update.json {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1d3d6bf840e841d6.webpack.hot-update.json',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/1d3d6bf840e841d6.webpack.hot-update.json'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/1d3d6bf840e841d6.webpack.hot-update.json',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:09:24.687Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1d3d6bf840e841d6.webpack.hot-update.json"
+2025-06-14T10:09:24.687Z next:router-server:main requestHandler! /_next/static/webpack/app/layout.1d3d6bf840e841d6.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1d3d6bf840e841d6.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/app/layout.1d3d6bf840e841d6.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/app/layout.1d3d6bf840e841d6.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:09:24.687Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1d3d6bf840e841d6.hot-update.js"
+2025-06-14T10:09:24.687Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1d3d6bf840e841d6.webpack.hot-update.json"
+2025-06-14T10:09:24.687Z send accept ranges
+2025-06-14T10:09:24.687Z send modified Sat, 14 Jun 2025 10:09:24 GMT
+2025-06-14T10:09:24.687Z send etag W/"2c-1976dea5a7e"
+2025-06-14T10:09:24.687Z send content-type application/json
+2025-06-14T10:09:24.689Z next:router-server:main requestHandler! /_next/static/webpack/webpack.1d3d6bf840e841d6.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1d3d6bf840e841d6.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/webpack.1d3d6bf840e841d6.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/webpack.1d3d6bf840e841d6.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:09:24.690Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1d3d6bf840e841d6.hot-update.js"
+2025-06-14T10:09:24.690Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1d3d6bf840e841d6.hot-update.js"
+2025-06-14T10:09:24.690Z send accept ranges
+2025-06-14T10:09:24.690Z send modified Sat, 14 Jun 2025 10:09:24 GMT
+2025-06-14T10:09:24.690Z send etag W/"72b-1976dea5a7e"
+2025-06-14T10:09:24.690Z send content-type application/javascript
+2025-06-14T10:09:24.692Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1d3d6bf840e841d6.hot-update.js"
+2025-06-14T10:09:24.692Z send accept ranges
+2025-06-14T10:09:24.692Z send modified Sat, 14 Jun 2025 10:09:24 GMT
+2025-06-14T10:09:24.692Z send etag W/"347-1976dea5a7e"
+2025-06-14T10:09:24.692Z send content-type application/javascript
+2025-06-14T10:09:24.692Z compression no compression: size below threshold
+2025-06-14T10:09:24.697Z compression gzip compression
+2025-06-14T10:09:24.721Z compression no compression: size below threshold
+2025-06-14T10:09:24.725Z next:router-server:main requestHandler! /_next/static/webpack/webpack.1d3d6bf840e841d6.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1d3d6bf840e841d6.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/webpack.1d3d6bf840e841d6.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/webpack.1d3d6bf840e841d6.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:09:24.725Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1d3d6bf840e841d6.hot-update.js"
+2025-06-14T10:09:24.726Z next:router-server:main requestHandler! /_next/static/webpack/app/layout.1d3d6bf840e841d6.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1d3d6bf840e841d6.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/app/layout.1d3d6bf840e841d6.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/app/layout.1d3d6bf840e841d6.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:09:24.726Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1d3d6bf840e841d6.hot-update.js"
+2025-06-14T10:09:24.726Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1d3d6bf840e841d6.hot-update.js"
+2025-06-14T10:09:24.726Z send accept ranges
+2025-06-14T10:09:24.726Z send modified Sat, 14 Jun 2025 10:09:24 GMT
+2025-06-14T10:09:24.726Z send etag W/"347-1976dea5a7e"
+2025-06-14T10:09:24.726Z send content-type application/javascript
+2025-06-14T10:09:24.727Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1d3d6bf840e841d6.hot-update.js"
+2025-06-14T10:09:24.727Z send accept ranges
+2025-06-14T10:09:24.727Z send modified Sat, 14 Jun 2025 10:09:24 GMT
+2025-06-14T10:09:24.727Z send etag W/"72b-1976dea5a7e"
+2025-06-14T10:09:24.727Z send content-type application/javascript
+2025-06-14T10:09:24.728Z compression no compression: size below threshold
+2025-06-14T10:09:24.731Z compression gzip compression
+2025-06-14T10:09:24.842Z compression gzip compression
+2025-06-14T10:09:24.844Z compression gzip compression
+2025-06-14T10:09:24.845Z compression gzip compression
+2025-06-14T10:09:24.846Z compression gzip compression
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'ocC82GwvPBQU1A6hAcqu' }
+[WizardPage] Loading existing document: ocC82GwvPBQU1A6hAcqu
+[DocumentPersistence] Loading document { documentId: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'MBN7DNQt6JbhOBoWOuSH' }
+[WizardPage] Loading existing document: MBN7DNQt6JbhOBoWOuSH
+[DocumentPersistence] Loading document { documentId: 'MBN7DNQt6JbhOBoWOuSH' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'MBN7DNQt6JbhOBoWOuSH' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'W7nK16VKIp2QC7YeVwza' }
+[WizardPage] Loading existing document: W7nK16VKIp2QC7YeVwza
+[DocumentPersistence] Loading document { documentId: 'W7nK16VKIp2QC7YeVwza' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'W7nK16VKIp2QC7YeVwza' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'mHMA6a6rruvWifqPIrHv' }
+[WizardPage] Loading existing document: mHMA6a6rruvWifqPIrHv
+[DocumentPersistence] Loading document { documentId: 'mHMA6a6rruvWifqPIrHv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'mHMA6a6rruvWifqPIrHv' }
+2025-06-14T10:09:24.919Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749895764750 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749895764750' }
+  },
+  finished: true
+}
+2025-06-14T10:09:24.930Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:09:24.930Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749895764754 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749895764754' }
+  },
+  finished: true
+}
+2025-06-14T10:09:24.930Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:09:24.931Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749895764755 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749895764755' }
+  },
+  finished: true
+}
+2025-06-14T10:09:24.931Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:09:24.931Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749895764753 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749895764753' }
+  },
+  finished: true
+}
+2025-06-14T10:09:24.931Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:09:24.932Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:09:24.932Z send accept ranges
+2025-06-14T10:09:24.932Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T10:09:24.932Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T10:09:24.932Z send content-type text/css
+2025-06-14T10:09:24.932Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:09:24.932Z send accept ranges
+2025-06-14T10:09:24.932Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T10:09:24.932Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T10:09:24.932Z send content-type text/css
+2025-06-14T10:09:24.933Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:09:24.933Z send accept ranges
+2025-06-14T10:09:24.933Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T10:09:24.933Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T10:09:24.933Z send content-type text/css
+2025-06-14T10:09:24.940Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:09:24.940Z send accept ranges
+2025-06-14T10:09:24.940Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T10:09:24.940Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T10:09:24.940Z send content-type text/css
+2025-06-14T10:09:24.949Z compression gzip compression
+2025-06-14T10:09:24.949Z compression gzip compression
+2025-06-14T10:09:24.956Z compression gzip compression
+2025-06-14T10:09:24.957Z compression gzip compression
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'ocC82GwvPBQU1A6hAcqu',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'html-briefing',
+    'generate-poem-with-title',
+    'poem-topic',
+    'generate-html-preview'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'ocC82GwvPBQU1A6hAcqu',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'html-briefing',
+    'generate-poem-with-title',
+    'poem-topic',
+    'generate-html-preview'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'MBN7DNQt6JbhOBoWOuSH' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'MBN7DNQt6JbhOBoWOuSH',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-html-preview',
+    'poem-topic',
+    'html-briefing',
+    'generate-poem-with-title'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'MBN7DNQt6JbhOBoWOuSH',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-html-preview',
+    'poem-topic',
+    'html-briefing',
+    'generate-poem-with-title'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'W7nK16VKIp2QC7YeVwza' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'W7nK16VKIp2QC7YeVwza',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-html-preview',
+    'html-briefing',
+    'poem-topic',
+    'generate-poem-with-title'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'W7nK16VKIp2QC7YeVwza',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-html-preview',
+    'html-briefing',
+    'poem-topic',
+    'generate-poem-with-title'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'mHMA6a6rruvWifqPIrHv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'mHMA6a6rruvWifqPIrHv',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-poem-with-title',
+    'generate-html-preview',
+    'html-briefing',
+    'poem-topic'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'mHMA6a6rruvWifqPIrHv',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-poem-with-title',
+    'generate-html-preview',
+    'html-briefing',
+    'poem-topic'
+  ]
+}
+ GET /w/poem/MBN7DNQt6JbhOBoWOuSH 200 in 400ms
+ GET /w/poem/W7nK16VKIp2QC7YeVwza 200 in 399ms
+ GET /w/poem/mHMA6a6rruvWifqPIrHv 200 in 394ms
+ GET /w/poem/ocC82GwvPBQU1A6hAcqu 200 in 412ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-14T10:09:25.976Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+
+
+Source path: /Users/franzenzenhofer/dev/franzai-writer/src/app/globals.css
+Finding changed files: 11.469ms
+Reading changed files: 4.982ms
+Sorting candidates: 0.073ms
+Generate rules: 0.227ms
+Build stylesheet: 0.007ms
+Potential classes:  168
+Active contexts:  1
+JIT TOTAL: 42.349ms
+
+
+ ✓ Compiled in 233ms (856 modules)
+2025-06-14T10:10:34.042Z next:router-server:main requestHandler! /_next/static/webpack/f2c766a113499b00.webpack.hot-update.json {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/f2c766a113499b00.webpack.hot-update.json',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/f2c766a113499b00.webpack.hot-update.json'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/f2c766a113499b00.webpack.hot-update.json',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:34.042Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/f2c766a113499b00.webpack.hot-update.json"
+2025-06-14T10:10:34.045Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/f2c766a113499b00.webpack.hot-update.json"
+2025-06-14T10:10:34.045Z send accept ranges
+2025-06-14T10:10:34.045Z send modified Sat, 14 Jun 2025 10:10:34 GMT
+2025-06-14T10:10:34.045Z send etag W/"2c-1976deb699b"
+2025-06-14T10:10:34.045Z send content-type application/json
+2025-06-14T10:10:34.047Z next:router-server:main requestHandler! /w/poem/ocC82GwvPBQU1A6hAcqu?_rsc=1nly6 {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/ocC82GwvPBQU1A6hAcqu',
+    query: [Object: null prototype] { _rsc: '1nly6' }
+  },
+  finished: true
+}
+2025-06-14T10:10:34.047Z next:router-server:main invokeRender /w/poem/ocC82GwvPBQU1A6hAcqu?_rsc=1nly6 {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  'next-hmr-refresh': '1',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+  'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22ocC82GwvPBQU1A6hAcqu%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FocC82GwvPBQU1A6hAcqu%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/ocC82GwvPBQU1A6hAcqu',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-GB,en;q=0.9',
+  cookie: '__next_hmr_refresh_hash__=8acc765dbe479b40dba552a4c366deb0633457081244afec'
+}
+2025-06-14T10:10:34.052Z compression no compression: size below threshold
+2025-06-14T10:10:34.055Z next:router-server:main requestHandler! /_next/static/webpack/f2c766a113499b00.webpack.hot-update.json {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/f2c766a113499b00.webpack.hot-update.json',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/f2c766a113499b00.webpack.hot-update.json'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/f2c766a113499b00.webpack.hot-update.json',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:34.055Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/f2c766a113499b00.webpack.hot-update.json"
+2025-06-14T10:10:34.059Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/f2c766a113499b00.webpack.hot-update.json"
+2025-06-14T10:10:34.059Z send accept ranges
+2025-06-14T10:10:34.059Z send modified Sat, 14 Jun 2025 10:10:34 GMT
+2025-06-14T10:10:34.059Z send etag W/"2c-1976deb699b"
+2025-06-14T10:10:34.059Z send content-type application/json
+2025-06-14T10:10:34.061Z next:router-server:main requestHandler! /w/poem/MBN7DNQt6JbhOBoWOuSH?_rsc=1ivbn {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/MBN7DNQt6JbhOBoWOuSH',
+    query: [Object: null prototype] { _rsc: '1ivbn' }
+  },
+  finished: true
+}
+2025-06-14T10:10:34.062Z next:router-server:main invokeRender /w/poem/MBN7DNQt6JbhOBoWOuSH?_rsc=1ivbn {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22MBN7DNQt6JbhOBoWOuSH%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FMBN7DNQt6JbhOBoWOuSH%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/MBN7DNQt6JbhOBoWOuSH',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=8acc765dbe479b40dba552a4c366deb0633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+2025-06-14T10:10:34.062Z next:router-server:main requestHandler! /_next/static/webpack/app/layout.f2c766a113499b00.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.f2c766a113499b00.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/app/layout.f2c766a113499b00.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/app/layout.f2c766a113499b00.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:34.062Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.f2c766a113499b00.hot-update.js"
+2025-06-14T10:10:34.062Z next:router-server:main requestHandler! /w/poem/mHMA6a6rruvWifqPIrHv?_rsc=3mma3 {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/mHMA6a6rruvWifqPIrHv',
+    query: [Object: null prototype] { _rsc: '3mma3' }
+  },
+  finished: true
+}
+2025-06-14T10:10:34.062Z next:router-server:main invokeRender /w/poem/mHMA6a6rruvWifqPIrHv?_rsc=3mma3 {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22mHMA6a6rruvWifqPIrHv%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FmHMA6a6rruvWifqPIrHv%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/mHMA6a6rruvWifqPIrHv',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=8acc765dbe479b40dba552a4c366deb0633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+2025-06-14T10:10:34.063Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.f2c766a113499b00.hot-update.js"
+2025-06-14T10:10:34.064Z send accept ranges
+2025-06-14T10:10:34.064Z send modified Sat, 14 Jun 2025 10:10:34 GMT
+2025-06-14T10:10:34.064Z send etag W/"72b-1976deb699b"
+2025-06-14T10:10:34.064Z send content-type application/javascript
+2025-06-14T10:10:34.064Z next:router-server:main requestHandler! /_next/static/webpack/webpack.f2c766a113499b00.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.f2c766a113499b00.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/webpack.f2c766a113499b00.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/webpack.f2c766a113499b00.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:34.064Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.f2c766a113499b00.hot-update.js"
+2025-06-14T10:10:34.065Z compression no compression: size below threshold
+2025-06-14T10:10:34.065Z next:router-server:main requestHandler! /w/poem/W7nK16VKIp2QC7YeVwza?_rsc=l7m0a {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/W7nK16VKIp2QC7YeVwza',
+    query: [Object: null prototype] { _rsc: 'l7m0a' }
+  },
+  finished: true
+}
+2025-06-14T10:10:34.065Z next:router-server:main invokeRender /w/poem/W7nK16VKIp2QC7YeVwza?_rsc=l7m0a {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22W7nK16VKIp2QC7YeVwza%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FW7nK16VKIp2QC7YeVwza%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/W7nK16VKIp2QC7YeVwza',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=8acc765dbe479b40dba552a4c366deb0633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+2025-06-14T10:10:34.065Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.f2c766a113499b00.hot-update.js"
+2025-06-14T10:10:34.065Z send accept ranges
+2025-06-14T10:10:34.065Z send modified Sat, 14 Jun 2025 10:10:34 GMT
+2025-06-14T10:10:34.065Z send etag W/"347-1976deb699d"
+2025-06-14T10:10:34.065Z send content-type application/javascript
+2025-06-14T10:10:34.067Z compression gzip compression
+2025-06-14T10:10:34.070Z compression no compression: size below threshold
+2025-06-14T10:10:34.072Z next:router-server:main requestHandler! /_next/static/webpack/app/layout.f2c766a113499b00.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.f2c766a113499b00.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/app/layout.f2c766a113499b00.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/app/layout.f2c766a113499b00.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:34.072Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.f2c766a113499b00.hot-update.js"
+2025-06-14T10:10:34.072Z next:router-server:main requestHandler! /_next/static/webpack/f2c766a113499b00.webpack.hot-update.json {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/f2c766a113499b00.webpack.hot-update.json',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/f2c766a113499b00.webpack.hot-update.json'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/f2c766a113499b00.webpack.hot-update.json',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:34.072Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/f2c766a113499b00.webpack.hot-update.json"
+2025-06-14T10:10:34.073Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.f2c766a113499b00.hot-update.js"
+2025-06-14T10:10:34.073Z send accept ranges
+2025-06-14T10:10:34.073Z send modified Sat, 14 Jun 2025 10:10:34 GMT
+2025-06-14T10:10:34.073Z send etag W/"72b-1976deb699b"
+2025-06-14T10:10:34.073Z send content-type application/javascript
+2025-06-14T10:10:34.073Z next:router-server:main requestHandler! /_next/static/webpack/webpack.f2c766a113499b00.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.f2c766a113499b00.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/webpack.f2c766a113499b00.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/webpack.f2c766a113499b00.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:34.073Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.f2c766a113499b00.hot-update.js"
+2025-06-14T10:10:34.088Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/f2c766a113499b00.webpack.hot-update.json"
+2025-06-14T10:10:34.088Z send accept ranges
+2025-06-14T10:10:34.088Z send modified Sat, 14 Jun 2025 10:10:34 GMT
+2025-06-14T10:10:34.088Z send etag W/"2c-1976deb699b"
+2025-06-14T10:10:34.088Z send content-type application/json
+2025-06-14T10:10:34.088Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.f2c766a113499b00.hot-update.js"
+2025-06-14T10:10:34.088Z send accept ranges
+2025-06-14T10:10:34.088Z send modified Sat, 14 Jun 2025 10:10:34 GMT
+2025-06-14T10:10:34.088Z send etag W/"347-1976deb699d"
+2025-06-14T10:10:34.088Z send content-type application/javascript
+2025-06-14T10:10:34.088Z compression gzip compression
+2025-06-14T10:10:34.088Z compression no compression: size below threshold
+2025-06-14T10:10:34.091Z compression no compression: size below threshold
+2025-06-14T10:10:34.093Z next:router-server:main requestHandler! /_next/static/webpack/f2c766a113499b00.webpack.hot-update.json {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/f2c766a113499b00.webpack.hot-update.json',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/f2c766a113499b00.webpack.hot-update.json'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/f2c766a113499b00.webpack.hot-update.json',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:34.093Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/f2c766a113499b00.webpack.hot-update.json"
+2025-06-14T10:10:34.094Z next:router-server:main requestHandler! /_next/static/webpack/webpack.f2c766a113499b00.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.f2c766a113499b00.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/webpack.f2c766a113499b00.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/webpack.f2c766a113499b00.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:34.094Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.f2c766a113499b00.hot-update.js"
+2025-06-14T10:10:34.094Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/f2c766a113499b00.webpack.hot-update.json"
+2025-06-14T10:10:34.094Z send accept ranges
+2025-06-14T10:10:34.094Z send modified Sat, 14 Jun 2025 10:10:34 GMT
+2025-06-14T10:10:34.094Z send etag W/"2c-1976deb699b"
+2025-06-14T10:10:34.094Z send content-type application/json
+2025-06-14T10:10:34.095Z next:router-server:main requestHandler! /_next/static/webpack/app/layout.f2c766a113499b00.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.f2c766a113499b00.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/app/layout.f2c766a113499b00.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/app/layout.f2c766a113499b00.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:34.095Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.f2c766a113499b00.hot-update.js"
+2025-06-14T10:10:34.095Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.f2c766a113499b00.hot-update.js"
+2025-06-14T10:10:34.095Z send accept ranges
+2025-06-14T10:10:34.095Z send modified Sat, 14 Jun 2025 10:10:34 GMT
+2025-06-14T10:10:34.095Z send etag W/"347-1976deb699d"
+2025-06-14T10:10:34.095Z send content-type application/javascript
+2025-06-14T10:10:34.095Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.f2c766a113499b00.hot-update.js"
+2025-06-14T10:10:34.095Z send accept ranges
+2025-06-14T10:10:34.095Z send modified Sat, 14 Jun 2025 10:10:34 GMT
+2025-06-14T10:10:34.095Z send etag W/"72b-1976deb699b"
+2025-06-14T10:10:34.095Z send content-type application/javascript
+2025-06-14T10:10:34.095Z compression no compression: size below threshold
+2025-06-14T10:10:34.096Z compression no compression: size below threshold
+2025-06-14T10:10:34.097Z compression gzip compression
+2025-06-14T10:10:34.097Z next:router-server:main requestHandler! /_next/static/webpack/webpack.f2c766a113499b00.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.f2c766a113499b00.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/webpack.f2c766a113499b00.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/webpack.f2c766a113499b00.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:34.097Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.f2c766a113499b00.hot-update.js"
+2025-06-14T10:10:34.098Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.f2c766a113499b00.hot-update.js"
+2025-06-14T10:10:34.098Z send accept ranges
+2025-06-14T10:10:34.098Z send modified Sat, 14 Jun 2025 10:10:34 GMT
+2025-06-14T10:10:34.098Z send etag W/"347-1976deb699d"
+2025-06-14T10:10:34.098Z send content-type application/javascript
+2025-06-14T10:10:34.142Z compression gzip compression
+2025-06-14T10:10:34.143Z compression gzip compression
+2025-06-14T10:10:34.143Z compression gzip compression
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'ocC82GwvPBQU1A6hAcqu' }
+[WizardPage] Loading existing document: ocC82GwvPBQU1A6hAcqu
+[DocumentPersistence] Loading document { documentId: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'MBN7DNQt6JbhOBoWOuSH' }
+[WizardPage] Loading existing document: MBN7DNQt6JbhOBoWOuSH
+[DocumentPersistence] Loading document { documentId: 'MBN7DNQt6JbhOBoWOuSH' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'MBN7DNQt6JbhOBoWOuSH' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'mHMA6a6rruvWifqPIrHv' }
+[WizardPage] Loading existing document: mHMA6a6rruvWifqPIrHv
+[DocumentPersistence] Loading document { documentId: 'mHMA6a6rruvWifqPIrHv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'mHMA6a6rruvWifqPIrHv' }
+2025-06-14T10:10:34.148Z compression no compression: size below threshold
+2025-06-14T10:10:34.148Z next:router-server:main requestHandler! /_next/static/webpack/app/layout.f2c766a113499b00.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.f2c766a113499b00.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/app/layout.f2c766a113499b00.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/app/layout.f2c766a113499b00.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:34.148Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.f2c766a113499b00.hot-update.js"
+2025-06-14T10:10:34.149Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.f2c766a113499b00.hot-update.js"
+2025-06-14T10:10:34.149Z send accept ranges
+2025-06-14T10:10:34.149Z send modified Sat, 14 Jun 2025 10:10:34 GMT
+2025-06-14T10:10:34.149Z send etag W/"72b-1976deb699b"
+2025-06-14T10:10:34.149Z send content-type application/javascript
+2025-06-14T10:10:34.150Z compression gzip compression
+2025-06-14T10:10:34.162Z compression gzip compression
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'W7nK16VKIp2QC7YeVwza' }
+[WizardPage] Loading existing document: W7nK16VKIp2QC7YeVwza
+[DocumentPersistence] Loading document { documentId: 'W7nK16VKIp2QC7YeVwza' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'W7nK16VKIp2QC7YeVwza' }
+2025-06-14T10:10:34.173Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749895834103 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749895834103' }
+  },
+  finished: true
+}
+2025-06-14T10:10:34.174Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:10:34.175Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749895834106 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749895834106' }
+  },
+  finished: true
+}
+2025-06-14T10:10:34.175Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:10:34.176Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:10:34.176Z send accept ranges
+2025-06-14T10:10:34.176Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T10:10:34.176Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T10:10:34.176Z send content-type text/css
+2025-06-14T10:10:34.177Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:10:34.177Z send accept ranges
+2025-06-14T10:10:34.177Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T10:10:34.177Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T10:10:34.177Z send content-type text/css
+2025-06-14T10:10:34.177Z compression gzip compression
+2025-06-14T10:10:34.178Z compression gzip compression
+2025-06-14T10:10:34.182Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749895834106 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749895834106' }
+  },
+  finished: true
+}
+2025-06-14T10:10:34.183Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:10:34.183Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:10:34.183Z send accept ranges
+2025-06-14T10:10:34.183Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T10:10:34.183Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T10:10:34.183Z send content-type text/css
+2025-06-14T10:10:34.184Z compression gzip compression
+2025-06-14T10:10:34.187Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749895834153 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749895834153' }
+  },
+  finished: true
+}
+2025-06-14T10:10:34.187Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:10:34.187Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:10:34.187Z send accept ranges
+2025-06-14T10:10:34.187Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T10:10:34.187Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T10:10:34.187Z send content-type text/css
+2025-06-14T10:10:34.187Z compression gzip compression
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'ocC82GwvPBQU1A6hAcqu',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'html-briefing',
+    'generate-poem-with-title',
+    'poem-topic',
+    'generate-html-preview'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'ocC82GwvPBQU1A6hAcqu',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'html-briefing',
+    'generate-poem-with-title',
+    'poem-topic',
+    'generate-html-preview'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'MBN7DNQt6JbhOBoWOuSH' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'MBN7DNQt6JbhOBoWOuSH',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-html-preview',
+    'poem-topic',
+    'html-briefing',
+    'generate-poem-with-title'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'MBN7DNQt6JbhOBoWOuSH',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-html-preview',
+    'poem-topic',
+    'html-briefing',
+    'generate-poem-with-title'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'mHMA6a6rruvWifqPIrHv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'mHMA6a6rruvWifqPIrHv',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-poem-with-title',
+    'generate-html-preview',
+    'html-briefing',
+    'poem-topic'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'mHMA6a6rruvWifqPIrHv',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-poem-with-title',
+    'generate-html-preview',
+    'html-briefing',
+    'poem-topic'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'W7nK16VKIp2QC7YeVwza' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'W7nK16VKIp2QC7YeVwza',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-html-preview',
+    'html-briefing',
+    'poem-topic',
+    'generate-poem-with-title'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'W7nK16VKIp2QC7YeVwza',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-html-preview',
+    'html-briefing',
+    'poem-topic',
+    'generate-poem-with-title'
+  ]
+}
+ GET /w/poem/MBN7DNQt6JbhOBoWOuSH 200 in 253ms
+ GET /w/poem/mHMA6a6rruvWifqPIrHv 200 in 254ms
+ GET /w/poem/W7nK16VKIp2QC7YeVwza 200 in 253ms
+ GET /w/poem/ocC82GwvPBQU1A6hAcqu 200 in 272ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-14T10:10:34.766Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+
+
+Source path: /Users/franzenzenhofer/dev/franzai-writer/src/app/globals.css
+Finding changed files: 9.883ms
+Reading changed files: 2.644ms
+Sorting candidates: 0.078ms
+Generate rules: 0.165ms
+Build stylesheet: 0.006ms
+Potential classes:  175
+Active contexts:  1
+JIT TOTAL: 39.62ms
+
+
+ ✓ Compiled in 145ms (856 modules)
+2025-06-14T10:10:44.381Z next:router-server:main requestHandler! /w/poem/ocC82GwvPBQU1A6hAcqu?_rsc=1nly6 {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/ocC82GwvPBQU1A6hAcqu',
+    query: [Object: null prototype] { _rsc: '1nly6' }
+  },
+  finished: true
+}
+2025-06-14T10:10:44.381Z next:router-server:main invokeRender /w/poem/ocC82GwvPBQU1A6hAcqu?_rsc=1nly6 {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  'next-hmr-refresh': '1',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+  'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22ocC82GwvPBQU1A6hAcqu%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FocC82GwvPBQU1A6hAcqu%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/ocC82GwvPBQU1A6hAcqu',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-GB,en;q=0.9',
+  cookie: '__next_hmr_refresh_hash__=f0cd79596dc687a1dba552a4c366deb0633457081244afec'
+}
+2025-06-14T10:10:44.400Z compression gzip compression
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'ocC82GwvPBQU1A6hAcqu' }
+[WizardPage] Loading existing document: ocC82GwvPBQU1A6hAcqu
+[DocumentPersistence] Loading document { documentId: 'ocC82GwvPBQU1A6hAcqu' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+2025-06-14T10:10:44.405Z next:router-server:main requestHandler! /_next/static/webpack/8acc765dbe479b40.webpack.hot-update.json {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/8acc765dbe479b40.webpack.hot-update.json',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/8acc765dbe479b40.webpack.hot-update.json'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/8acc765dbe479b40.webpack.hot-update.json',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:44.405Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/8acc765dbe479b40.webpack.hot-update.json"
+2025-06-14T10:10:44.406Z next:router-server:main requestHandler! /_next/static/webpack/8acc765dbe479b40.webpack.hot-update.json {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/8acc765dbe479b40.webpack.hot-update.json',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/8acc765dbe479b40.webpack.hot-update.json'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/8acc765dbe479b40.webpack.hot-update.json',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:44.406Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/8acc765dbe479b40.webpack.hot-update.json"
+2025-06-14T10:10:44.406Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/8acc765dbe479b40.webpack.hot-update.json"
+2025-06-14T10:10:44.406Z send accept ranges
+2025-06-14T10:10:44.406Z send modified Sat, 14 Jun 2025 10:10:44 GMT
+2025-06-14T10:10:44.406Z send etag W/"2c-1976deb9218"
+2025-06-14T10:10:44.406Z send content-type application/json
+2025-06-14T10:10:44.406Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/8acc765dbe479b40.webpack.hot-update.json"
+2025-06-14T10:10:44.406Z send accept ranges
+2025-06-14T10:10:44.406Z send modified Sat, 14 Jun 2025 10:10:44 GMT
+2025-06-14T10:10:44.406Z send etag W/"2c-1976deb9218"
+2025-06-14T10:10:44.406Z send content-type application/json
+2025-06-14T10:10:44.406Z next:router-server:main requestHandler! /w/poem/MBN7DNQt6JbhOBoWOuSH?_rsc=1ivbn {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/MBN7DNQt6JbhOBoWOuSH',
+    query: [Object: null prototype] { _rsc: '1ivbn' }
+  },
+  finished: true
+}
+2025-06-14T10:10:44.406Z next:router-server:main invokeRender /w/poem/MBN7DNQt6JbhOBoWOuSH?_rsc=1ivbn {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22MBN7DNQt6JbhOBoWOuSH%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FMBN7DNQt6JbhOBoWOuSH%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/MBN7DNQt6JbhOBoWOuSH',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=f0cd79596dc687a1dba552a4c366deb0633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+2025-06-14T10:10:44.407Z compression no compression: size below threshold
+2025-06-14T10:10:44.407Z next:router-server:main requestHandler! /w/poem/W7nK16VKIp2QC7YeVwza?_rsc=l7m0a {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/W7nK16VKIp2QC7YeVwza',
+    query: [Object: null prototype] { _rsc: 'l7m0a' }
+  },
+  finished: true
+}
+2025-06-14T10:10:44.407Z next:router-server:main invokeRender /w/poem/W7nK16VKIp2QC7YeVwza?_rsc=l7m0a {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22W7nK16VKIp2QC7YeVwza%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FW7nK16VKIp2QC7YeVwza%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/W7nK16VKIp2QC7YeVwza',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=f0cd79596dc687a1dba552a4c366deb0633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+2025-06-14T10:10:44.407Z compression no compression: size below threshold
+2025-06-14T10:10:44.407Z next:router-server:main requestHandler! /w/poem/mHMA6a6rruvWifqPIrHv?_rsc=3mma3 {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/mHMA6a6rruvWifqPIrHv',
+    query: [Object: null prototype] { _rsc: '3mma3' }
+  },
+  finished: true
+}
+2025-06-14T10:10:44.407Z next:router-server:main invokeRender /w/poem/mHMA6a6rruvWifqPIrHv?_rsc=3mma3 {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22mHMA6a6rruvWifqPIrHv%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FmHMA6a6rruvWifqPIrHv%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/mHMA6a6rruvWifqPIrHv',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=f0cd79596dc687a1dba552a4c366deb0633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+2025-06-14T10:10:44.410Z next:router-server:main requestHandler! /_next/static/webpack/app/layout.8acc765dbe479b40.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.8acc765dbe479b40.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/app/layout.8acc765dbe479b40.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/app/layout.8acc765dbe479b40.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:44.410Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.8acc765dbe479b40.hot-update.js"
+2025-06-14T10:10:44.411Z next:router-server:main requestHandler! /_next/static/webpack/app/layout.8acc765dbe479b40.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.8acc765dbe479b40.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/app/layout.8acc765dbe479b40.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/app/layout.8acc765dbe479b40.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:44.411Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.8acc765dbe479b40.hot-update.js"
+2025-06-14T10:10:44.411Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.8acc765dbe479b40.hot-update.js"
+2025-06-14T10:10:44.411Z send accept ranges
+2025-06-14T10:10:44.411Z send modified Sat, 14 Jun 2025 10:10:44 GMT
+2025-06-14T10:10:44.411Z send etag W/"72b-1976deb9218"
+2025-06-14T10:10:44.411Z send content-type application/javascript
+2025-06-14T10:10:44.411Z next:router-server:main requestHandler! /_next/static/webpack/8acc765dbe479b40.webpack.hot-update.json {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/8acc765dbe479b40.webpack.hot-update.json',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/8acc765dbe479b40.webpack.hot-update.json'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/8acc765dbe479b40.webpack.hot-update.json',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:44.411Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/8acc765dbe479b40.webpack.hot-update.json"
+2025-06-14T10:10:44.411Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.8acc765dbe479b40.hot-update.js"
+2025-06-14T10:10:44.411Z send accept ranges
+2025-06-14T10:10:44.411Z send modified Sat, 14 Jun 2025 10:10:44 GMT
+2025-06-14T10:10:44.411Z send etag W/"72b-1976deb9218"
+2025-06-14T10:10:44.411Z send content-type application/javascript
+2025-06-14T10:10:44.412Z next:router-server:main requestHandler! /_next/static/webpack/webpack.8acc765dbe479b40.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.8acc765dbe479b40.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/webpack.8acc765dbe479b40.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/webpack.8acc765dbe479b40.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:44.412Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.8acc765dbe479b40.hot-update.js"
+2025-06-14T10:10:44.412Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/8acc765dbe479b40.webpack.hot-update.json"
+2025-06-14T10:10:44.412Z send accept ranges
+2025-06-14T10:10:44.412Z send modified Sat, 14 Jun 2025 10:10:44 GMT
+2025-06-14T10:10:44.412Z send etag W/"2c-1976deb9218"
+2025-06-14T10:10:44.412Z send content-type application/json
+2025-06-14T10:10:44.412Z compression gzip compression
+2025-06-14T10:10:44.413Z next:router-server:main requestHandler! /_next/static/webpack/webpack.8acc765dbe479b40.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.8acc765dbe479b40.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/webpack.8acc765dbe479b40.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/webpack.8acc765dbe479b40.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:44.413Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.8acc765dbe479b40.hot-update.js"
+2025-06-14T10:10:44.413Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.8acc765dbe479b40.hot-update.js"
+2025-06-14T10:10:44.413Z send accept ranges
+2025-06-14T10:10:44.413Z send modified Sat, 14 Jun 2025 10:10:44 GMT
+2025-06-14T10:10:44.413Z send etag W/"347-1976deb9218"
+2025-06-14T10:10:44.413Z send content-type application/javascript
+2025-06-14T10:10:44.413Z compression gzip compression
+2025-06-14T10:10:44.413Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.8acc765dbe479b40.hot-update.js"
+2025-06-14T10:10:44.413Z send accept ranges
+2025-06-14T10:10:44.413Z send modified Sat, 14 Jun 2025 10:10:44 GMT
+2025-06-14T10:10:44.413Z send etag W/"347-1976deb9218"
+2025-06-14T10:10:44.413Z send content-type application/javascript
+2025-06-14T10:10:44.413Z compression no compression: size below threshold
+2025-06-14T10:10:44.415Z compression no compression: size below threshold
+2025-06-14T10:10:44.416Z compression no compression: size below threshold
+2025-06-14T10:10:44.418Z next:router-server:main requestHandler! /_next/static/webpack/8acc765dbe479b40.webpack.hot-update.json {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/8acc765dbe479b40.webpack.hot-update.json',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/8acc765dbe479b40.webpack.hot-update.json'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/8acc765dbe479b40.webpack.hot-update.json',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:44.418Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/8acc765dbe479b40.webpack.hot-update.json"
+2025-06-14T10:10:44.418Z next:router-server:main requestHandler! /_next/static/webpack/app/layout.8acc765dbe479b40.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.8acc765dbe479b40.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/app/layout.8acc765dbe479b40.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/app/layout.8acc765dbe479b40.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:44.419Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.8acc765dbe479b40.hot-update.js"
+2025-06-14T10:10:44.419Z next:router-server:main requestHandler! /_next/static/webpack/webpack.8acc765dbe479b40.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.8acc765dbe479b40.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/webpack.8acc765dbe479b40.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/webpack.8acc765dbe479b40.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:44.419Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.8acc765dbe479b40.hot-update.js"
+2025-06-14T10:10:44.419Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/8acc765dbe479b40.webpack.hot-update.json"
+2025-06-14T10:10:44.419Z send accept ranges
+2025-06-14T10:10:44.419Z send modified Sat, 14 Jun 2025 10:10:44 GMT
+2025-06-14T10:10:44.419Z send etag W/"2c-1976deb9218"
+2025-06-14T10:10:44.419Z send content-type application/json
+2025-06-14T10:10:44.420Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.8acc765dbe479b40.hot-update.js"
+2025-06-14T10:10:44.420Z send accept ranges
+2025-06-14T10:10:44.420Z send modified Sat, 14 Jun 2025 10:10:44 GMT
+2025-06-14T10:10:44.420Z send etag W/"72b-1976deb9218"
+2025-06-14T10:10:44.420Z send content-type application/javascript
+2025-06-14T10:10:44.420Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.8acc765dbe479b40.hot-update.js"
+2025-06-14T10:10:44.420Z send accept ranges
+2025-06-14T10:10:44.420Z send modified Sat, 14 Jun 2025 10:10:44 GMT
+2025-06-14T10:10:44.420Z send etag W/"347-1976deb9218"
+2025-06-14T10:10:44.420Z send content-type application/javascript
+2025-06-14T10:10:44.421Z compression no compression: size below threshold
+2025-06-14T10:10:44.421Z compression gzip compression
+2025-06-14T10:10:44.422Z compression no compression: size below threshold
+2025-06-14T10:10:44.427Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749895844385 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749895844385' }
+  },
+  finished: true
+}
+2025-06-14T10:10:44.427Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:10:44.428Z next:router-server:main requestHandler! /_next/static/webpack/webpack.8acc765dbe479b40.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.8acc765dbe479b40.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/webpack.8acc765dbe479b40.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/webpack.8acc765dbe479b40.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:44.428Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.8acc765dbe479b40.hot-update.js"
+2025-06-14T10:10:44.428Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:10:44.428Z send accept ranges
+2025-06-14T10:10:44.428Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T10:10:44.428Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T10:10:44.428Z send content-type text/css
+2025-06-14T10:10:44.429Z next:router-server:main requestHandler! /_next/static/webpack/app/layout.8acc765dbe479b40.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.8acc765dbe479b40.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/app/layout.8acc765dbe479b40.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/app/layout.8acc765dbe479b40.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:10:44.429Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.8acc765dbe479b40.hot-update.js"
+2025-06-14T10:10:44.429Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.8acc765dbe479b40.hot-update.js"
+2025-06-14T10:10:44.429Z send accept ranges
+2025-06-14T10:10:44.429Z send modified Sat, 14 Jun 2025 10:10:44 GMT
+2025-06-14T10:10:44.429Z send etag W/"347-1976deb9218"
+2025-06-14T10:10:44.429Z send content-type application/javascript
+2025-06-14T10:10:44.429Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.8acc765dbe479b40.hot-update.js"
+2025-06-14T10:10:44.429Z send accept ranges
+2025-06-14T10:10:44.429Z send modified Sat, 14 Jun 2025 10:10:44 GMT
+2025-06-14T10:10:44.429Z send etag W/"72b-1976deb9218"
+2025-06-14T10:10:44.429Z send content-type application/javascript
+2025-06-14T10:10:44.429Z compression gzip compression
+2025-06-14T10:10:44.429Z compression no compression: size below threshold
+2025-06-14T10:10:44.431Z compression gzip compression
+2025-06-14T10:10:44.476Z compression gzip compression
+2025-06-14T10:10:44.476Z compression gzip compression
+2025-06-14T10:10:44.476Z compression gzip compression
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'MBN7DNQt6JbhOBoWOuSH' }
+[WizardPage] Loading existing document: MBN7DNQt6JbhOBoWOuSH
+[DocumentPersistence] Loading document { documentId: 'MBN7DNQt6JbhOBoWOuSH' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'MBN7DNQt6JbhOBoWOuSH' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'W7nK16VKIp2QC7YeVwza' }
+[WizardPage] Loading existing document: W7nK16VKIp2QC7YeVwza
+[DocumentPersistence] Loading document { documentId: 'W7nK16VKIp2QC7YeVwza' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'W7nK16VKIp2QC7YeVwza' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'mHMA6a6rruvWifqPIrHv' }
+[WizardPage] Loading existing document: mHMA6a6rruvWifqPIrHv
+[DocumentPersistence] Loading document { documentId: 'mHMA6a6rruvWifqPIrHv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'mHMA6a6rruvWifqPIrHv' }
+2025-06-14T10:10:44.490Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749895844437 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749895844437' }
+  },
+  finished: true
+}
+2025-06-14T10:10:44.490Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:10:44.490Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749895844435 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749895844435' }
+  },
+  finished: true
+}
+2025-06-14T10:10:44.490Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:10:44.490Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749895844436 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749895844436' }
+  },
+  finished: true
+}
+2025-06-14T10:10:44.490Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:10:44.490Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:10:44.490Z send accept ranges
+2025-06-14T10:10:44.490Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T10:10:44.491Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T10:10:44.491Z send content-type text/css
+2025-06-14T10:10:44.492Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:10:44.492Z send accept ranges
+2025-06-14T10:10:44.492Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T10:10:44.492Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T10:10:44.492Z send content-type text/css
+2025-06-14T10:10:44.492Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:10:44.492Z send accept ranges
+2025-06-14T10:10:44.492Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T10:10:44.492Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T10:10:44.492Z send content-type text/css
+2025-06-14T10:10:44.493Z compression gzip compression
+2025-06-14T10:10:44.493Z compression gzip compression
+2025-06-14T10:10:44.493Z compression gzip compression
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'ocC82GwvPBQU1A6hAcqu' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'ocC82GwvPBQU1A6hAcqu',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'html-briefing',
+    'generate-poem-with-title',
+    'poem-topic',
+    'generate-html-preview'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'ocC82GwvPBQU1A6hAcqu',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'html-briefing',
+    'generate-poem-with-title',
+    'poem-topic',
+    'generate-html-preview'
+  ]
+}
+ GET /w/poem/ocC82GwvPBQU1A6hAcqu 200 in 121ms
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'MBN7DNQt6JbhOBoWOuSH' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'MBN7DNQt6JbhOBoWOuSH',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-html-preview',
+    'poem-topic',
+    'html-briefing',
+    'generate-poem-with-title'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'MBN7DNQt6JbhOBoWOuSH',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-html-preview',
+    'poem-topic',
+    'html-briefing',
+    'generate-poem-with-title'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'W7nK16VKIp2QC7YeVwza' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'W7nK16VKIp2QC7YeVwza',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-html-preview',
+    'html-briefing',
+    'poem-topic',
+    'generate-poem-with-title'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'W7nK16VKIp2QC7YeVwza',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-html-preview',
+    'html-briefing',
+    'poem-topic',
+    'generate-poem-with-title'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'mHMA6a6rruvWifqPIrHv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'mHMA6a6rruvWifqPIrHv',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-poem-with-title',
+    'generate-html-preview',
+    'html-briefing',
+    'poem-topic'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'mHMA6a6rruvWifqPIrHv',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-poem-with-title',
+    'generate-html-preview',
+    'html-briefing',
+    'poem-topic'
+  ]
+}
+ GET /w/poem/MBN7DNQt6JbhOBoWOuSH 200 in 194ms
+ GET /w/poem/mHMA6a6rruvWifqPIrHv 200 in 193ms
+ GET /w/poem/W7nK16VKIp2QC7YeVwza 200 in 195ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-14T10:10:45.048Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!

@@ -23,14 +23,24 @@ export async function POST(request: NextRequest) {
 
     const genAI = new GoogleGenAI({ apiKey });
     
-    // For @google/genai, we need to create model instance first
-    const modelInstance = genAI.getGenerativeModel({ 
+    console.log('📤 [AI STREAM REQUEST]:', {
       model,
-      generationConfig: config
+      promptLength: prompt.length,
+      config
     });
     
-    const result = await modelInstance.generateContentStream({
-      contents: [{ role: 'user', parts: [{ text: prompt }] }]
+    // Use the correct @google/genai API
+    const result = await genAI.models.generateContentStream({
+      model,
+      contents: prompt,
+      config: {
+        temperature: config.temperature,
+        maxTokens: config.maxOutputTokens,
+        topP: config.topP,
+        topK: config.topK,
+        stopSequences: config.stopSequences
+      },
+      systemInstruction: config.systemInstruction
     });
 
     // Create a TransformStream to handle the streaming
@@ -38,18 +48,30 @@ export async function POST(request: NextRequest) {
     const stream = new ReadableStream({
       async start(controller) {
         try {
+          let chunkCount = 0;
+          let totalText = '';
+          
           for await (const chunk of result) {
             const text = chunk.text || '';
+            totalText += text;
+            chunkCount++;
+            
             // Send as Server-Sent Events format
             const data = `data: ${JSON.stringify({ text })}\n\n`;
             controller.enqueue(encoder.encode(data));
           }
           
+          console.log('📥 [AI STREAM RESPONSE] Complete:', {
+            chunkCount,
+            totalLength: totalText.length,
+            preview: totalText.substring(0, 100) + '...'
+          });
+          
           // Send completion event
           controller.enqueue(encoder.encode('data: [DONE]\n\n'));
           controller.close();
         } catch (error) {
-          console.error('Streaming error:', error);
+          console.error('❌ [AI STREAM ERROR]:', error);
           controller.error(error);
         }
       }
@@ -63,9 +85,13 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('API error:', error);
+    console.error('❌ [AI STREAM API ERROR]:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     return new Response(
-      JSON.stringify({ error: 'Failed to generate content' }), 
+      JSON.stringify({ 
+        error: 'Failed to generate content',
+        details: errorMessage 
+      }), 
       { 
         status: 500,
         headers: { 'Content-Type': 'application/json' }
