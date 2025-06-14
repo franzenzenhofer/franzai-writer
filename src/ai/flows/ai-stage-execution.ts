@@ -179,7 +179,7 @@ export async function aiStageExecutionFlow(
         }
         
         console.log(`[AI Stage Flow Enhanced] Prepared ${availableTools.length} tools:`, availableTools.map(t => t.name));
-      } catch (error) {
+      } catch (error: unknown) {
         console.error('[AI Stage Flow Enhanced] Failed to prepare tools:', error);
       }
     }
@@ -208,7 +208,7 @@ export async function aiStageExecutionFlow(
             promptTemplate += `\n\n[Context from ${url}]:\n${urlData.content}`;
           }
         }
-      } catch (error) {
+      } catch (error: unknown) {
         console.error('[AI Stage Flow Enhanced] URL grounding failed:', error);
       }
     }
@@ -411,7 +411,7 @@ async function executeSimpleGeneration(
       groundingSources: groundingSources.length > 0 ? groundingSources : undefined,
       groundingMetadata,
     };
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('[AI Stage Flow Enhanced] Generation failed:', error);
     throw error;
   }
@@ -625,7 +625,8 @@ async function executeWithStreaming(
             console.log(`[AI Stage Flow Enhanced] Tool ${toolRequest.name} executed successfully`);
           } catch (error) {
             console.error(`[AI Stage Flow Enhanced] Tool ${toolRequest.name} failed:`, error);
-            const errorResult = `Tool execution failed: ${error instanceof Error ? error.message : String(error)}`;
+            const errorMessage = (error as any)?.message || String(error);
+            const errorResult = `Tool execution failed: ${errorMessage}`;
             
             toolResults.push({
               toolRequestId: toolRequest.toolRequestId,
@@ -680,7 +681,7 @@ async function executeWithStreaming(
       codeExecutionResults
     };
     
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('[AI Stage Flow Enhanced] Streaming execution failed:', error);
     throw error;
   }
@@ -755,7 +756,7 @@ async function executeWithDirectGeminiAPI(
       };
     }
     
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('❌ [Direct Gemini API] Execution failed:', error);
     throw error;
   }

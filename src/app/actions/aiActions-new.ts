@@ -116,9 +116,13 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
 
     // Add Google Search grounding if forced
     if (params.forceGoogleSearchGrounding) {
-      stage.tools = [
-        { type: 'googleSearch', enabled: true }
-      ];
+      stage.groundingSettings = {
+        ...stage.groundingSettings,
+        googleSearch: {
+          enabled: true,
+          dynamicThreshold: 0.7 // Default threshold for AI Redo
+        }
+      };
     }
 
     // Prepare input
