@@ -26096,3 +26096,1925 @@ Watchpack Error (initial scan): Error: ENOTDIR: not a directory, scandir '/usr/l
 2025-06-14T10:13:58.356Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
 2025-06-14T10:13:58.356Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
  ✓ Compiled in 337ms (1322 modules)
+
+
+Source path: /Users/franzenzenhofer/dev/franzai-writer/src/app/globals.css
+Finding changed files: 7.273ms
+Reading changed files: 42.544ms
+Sorting candidates: 0.301ms
+Generate rules: 1.19ms
+Build stylesheet: 0.007ms
+Potential classes:  652
+Active contexts:  1
+JIT TOTAL: 92.168ms
+
+
+2025-06-14T10:17:03.797Z next:router-server:main requestHandler! /_next/static/webpack/3d9de7591c07b427.webpack.hot-update.json {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/3d9de7591c07b427.webpack.hot-update.json',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/3d9de7591c07b427.webpack.hot-update.json'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/3d9de7591c07b427.webpack.hot-update.json',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:03.797Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/3d9de7591c07b427.webpack.hot-update.json"
+2025-06-14T10:17:03.798Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/3d9de7591c07b427.webpack.hot-update.json"
+2025-06-14T10:17:03.798Z send accept ranges
+2025-06-14T10:17:03.798Z send modified Sat, 14 Jun 2025 10:17:03 GMT
+2025-06-14T10:17:03.798Z send etag W/"78-1976df15c25"
+2025-06-14T10:17:03.798Z send content-type application/json
+2025-06-14T10:17:03.799Z next:router-server:main requestHandler! /_next/static/webpack/3d9de7591c07b427.webpack.hot-update.json {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/3d9de7591c07b427.webpack.hot-update.json',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/3d9de7591c07b427.webpack.hot-update.json'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/3d9de7591c07b427.webpack.hot-update.json',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:03.799Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/3d9de7591c07b427.webpack.hot-update.json"
+2025-06-14T10:17:03.799Z compression no compression: size below threshold
+2025-06-14T10:17:03.800Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/3d9de7591c07b427.webpack.hot-update.json"
+2025-06-14T10:17:03.800Z send accept ranges
+2025-06-14T10:17:03.800Z send modified Sat, 14 Jun 2025 10:17:03 GMT
+2025-06-14T10:17:03.800Z send etag W/"78-1976df15c25"
+2025-06-14T10:17:03.800Z send content-type application/json
+2025-06-14T10:17:03.801Z next:router-server:main requestHandler! /_next/static/webpack/app/layout.3d9de7591c07b427.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.3d9de7591c07b427.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/app/layout.3d9de7591c07b427.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/app/layout.3d9de7591c07b427.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:03.802Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.802Z compression no compression: size below threshold
+2025-06-14T10:17:03.802Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.802Z send accept ranges
+2025-06-14T10:17:03.802Z send modified Sat, 14 Jun 2025 10:17:03 GMT
+2025-06-14T10:17:03.802Z send etag W/"72b-1976df15c25"
+2025-06-14T10:17:03.802Z send content-type application/javascript
+2025-06-14T10:17:03.802Z next:router-server:main requestHandler! /_next/static/webpack/webpack.3d9de7591c07b427.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.3d9de7591c07b427.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/webpack.3d9de7591c07b427.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/webpack.3d9de7591c07b427.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:03.802Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.803Z next:router-server:main requestHandler! /_next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:03.804Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.804Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.804Z send accept ranges
+2025-06-14T10:17:03.804Z send modified Sat, 14 Jun 2025 10:17:03 GMT
+2025-06-14T10:17:03.804Z send etag W/"347-1976df15c25"
+2025-06-14T10:17:03.804Z send content-type application/javascript
+2025-06-14T10:17:03.804Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.804Z send accept ranges
+2025-06-14T10:17:03.804Z send modified Sat, 14 Jun 2025 10:17:03 GMT
+2025-06-14T10:17:03.804Z send etag W/"1da9a-1976df15c25"
+2025-06-14T10:17:03.804Z send content-type application/javascript
+2025-06-14T10:17:03.805Z compression gzip compression
+2025-06-14T10:17:03.807Z compression no compression: size below threshold
+2025-06-14T10:17:03.808Z compression gzip compression
+2025-06-14T10:17:03.808Z next:router-server:main requestHandler! /_next/static/webpack/app/layout.3d9de7591c07b427.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.3d9de7591c07b427.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/app/layout.3d9de7591c07b427.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/app/layout.3d9de7591c07b427.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:03.808Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.809Z next:router-server:main requestHandler! /_next/static/webpack/3d9de7591c07b427.webpack.hot-update.json {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/3d9de7591c07b427.webpack.hot-update.json',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/3d9de7591c07b427.webpack.hot-update.json'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/3d9de7591c07b427.webpack.hot-update.json',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:03.809Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/3d9de7591c07b427.webpack.hot-update.json"
+2025-06-14T10:17:03.809Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.809Z send accept ranges
+2025-06-14T10:17:03.809Z send modified Sat, 14 Jun 2025 10:17:03 GMT
+2025-06-14T10:17:03.809Z send etag W/"72b-1976df15c25"
+2025-06-14T10:17:03.809Z send content-type application/javascript
+2025-06-14T10:17:03.810Z next:router-server:main requestHandler! /_next/static/webpack/webpack.3d9de7591c07b427.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.3d9de7591c07b427.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/webpack.3d9de7591c07b427.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/webpack.3d9de7591c07b427.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:03.810Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.810Z next:router-server:main requestHandler! /_next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:03.810Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.810Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/3d9de7591c07b427.webpack.hot-update.json"
+2025-06-14T10:17:03.810Z send accept ranges
+2025-06-14T10:17:03.810Z send modified Sat, 14 Jun 2025 10:17:03 GMT
+2025-06-14T10:17:03.810Z send etag W/"78-1976df15c25"
+2025-06-14T10:17:03.810Z send content-type application/json
+2025-06-14T10:17:03.811Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T10:17:03.811Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T10:17:03.812Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.812Z send accept ranges
+2025-06-14T10:17:03.812Z send modified Sat, 14 Jun 2025 10:17:03 GMT
+2025-06-14T10:17:03.812Z send etag W/"347-1976df15c25"
+2025-06-14T10:17:03.812Z send content-type application/javascript
+2025-06-14T10:17:03.812Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.812Z send accept ranges
+2025-06-14T10:17:03.812Z send modified Sat, 14 Jun 2025 10:17:03 GMT
+2025-06-14T10:17:03.813Z send etag W/"1da9a-1976df15c25"
+2025-06-14T10:17:03.813Z send content-type application/javascript
+2025-06-14T10:17:03.813Z compression gzip compression
+2025-06-14T10:17:03.813Z compression no compression: size below threshold
+2025-06-14T10:17:03.814Z compression no compression: size below threshold
+2025-06-14T10:17:03.815Z compression gzip compression
+2025-06-14T10:17:03.819Z next:router-server:main requestHandler! /_next/static/webpack/3d9de7591c07b427.webpack.hot-update.json {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/3d9de7591c07b427.webpack.hot-update.json',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/3d9de7591c07b427.webpack.hot-update.json'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/3d9de7591c07b427.webpack.hot-update.json',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:03.819Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/3d9de7591c07b427.webpack.hot-update.json"
+2025-06-14T10:17:03.819Z next:router-server:main requestHandler! /_next/static/webpack/app/layout.3d9de7591c07b427.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.3d9de7591c07b427.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/app/layout.3d9de7591c07b427.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/app/layout.3d9de7591c07b427.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:03.819Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.820Z next:router-server:main requestHandler! /_next/static/webpack/webpack.3d9de7591c07b427.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.3d9de7591c07b427.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/webpack.3d9de7591c07b427.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/webpack.3d9de7591c07b427.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:03.821Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.821Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/3d9de7591c07b427.webpack.hot-update.json"
+2025-06-14T10:17:03.821Z send accept ranges
+2025-06-14T10:17:03.821Z send modified Sat, 14 Jun 2025 10:17:03 GMT
+2025-06-14T10:17:03.821Z send etag W/"78-1976df15c25"
+2025-06-14T10:17:03.821Z send content-type application/json
+2025-06-14T10:17:03.821Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.821Z send accept ranges
+2025-06-14T10:17:03.821Z send modified Sat, 14 Jun 2025 10:17:03 GMT
+2025-06-14T10:17:03.821Z send etag W/"72b-1976df15c25"
+2025-06-14T10:17:03.821Z send content-type application/javascript
+2025-06-14T10:17:03.821Z next:router-server:main requestHandler! /_next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:03.821Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.821Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.821Z send accept ranges
+2025-06-14T10:17:03.821Z send modified Sat, 14 Jun 2025 10:17:03 GMT
+2025-06-14T10:17:03.821Z send etag W/"347-1976df15c25"
+2025-06-14T10:17:03.821Z send content-type application/javascript
+2025-06-14T10:17:03.822Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.822Z send accept ranges
+2025-06-14T10:17:03.822Z send modified Sat, 14 Jun 2025 10:17:03 GMT
+2025-06-14T10:17:03.822Z send etag W/"1da9a-1976df15c25"
+2025-06-14T10:17:03.822Z send content-type application/javascript
+2025-06-14T10:17:03.823Z compression no compression: size below threshold
+2025-06-14T10:17:03.824Z compression gzip compression
+2025-06-14T10:17:03.825Z compression no compression: size below threshold
+2025-06-14T10:17:03.828Z compression gzip compression
+2025-06-14T10:17:03.829Z next:router-server:main requestHandler! /_next/static/webpack/webpack.3d9de7591c07b427.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.3d9de7591c07b427.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/webpack.3d9de7591c07b427.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/webpack.3d9de7591c07b427.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:03.829Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.831Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.831Z send accept ranges
+2025-06-14T10:17:03.831Z send modified Sat, 14 Jun 2025 10:17:03 GMT
+2025-06-14T10:17:03.831Z send etag W/"347-1976df15c25"
+2025-06-14T10:17:03.831Z send content-type application/javascript
+2025-06-14T10:17:03.833Z next:router-server:main requestHandler! /_next/static/webpack/app/layout.3d9de7591c07b427.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.3d9de7591c07b427.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/app/layout.3d9de7591c07b427.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/app/layout.3d9de7591c07b427.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:03.833Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.834Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.834Z send accept ranges
+2025-06-14T10:17:03.834Z send modified Sat, 14 Jun 2025 10:17:03 GMT
+2025-06-14T10:17:03.834Z send etag W/"72b-1976df15c25"
+2025-06-14T10:17:03.834Z send content-type application/javascript
+2025-06-14T10:17:03.834Z compression no compression: size below threshold
+2025-06-14T10:17:03.835Z next:router-server:main requestHandler! /_next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:03.835Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.836Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.3d9de7591c07b427.hot-update.js"
+2025-06-14T10:17:03.836Z send accept ranges
+2025-06-14T10:17:03.836Z send modified Sat, 14 Jun 2025 10:17:03 GMT
+2025-06-14T10:17:03.836Z send etag W/"1da9a-1976df15c25"
+2025-06-14T10:17:03.836Z send content-type application/javascript
+2025-06-14T10:17:03.836Z compression gzip compression
+2025-06-14T10:17:03.837Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T10:17:03.837Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T10:17:03.838Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T10:17:03.838Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T10:17:03.838Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T10:17:03.838Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T10:17:03.857Z compression gzip compression
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.886Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.892Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.899Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.900Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.900Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.900Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.900Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.900Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.900Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.900Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.900Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.900Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.900Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.913Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.914Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:03.914Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:04.235Z next:jsconfig-paths-plugin skipping request as it is a relative path ./wysiwyg-editor
+2025-06-14T10:17:04.235Z next:jsconfig-paths-plugin skipping request as it is a relative path ./html-preview
+2025-06-14T10:17:04.235Z next:jsconfig-paths-plugin skipping request as it is a relative path ./grounding-sources-display
+2025-06-14T10:17:04.235Z next:jsconfig-paths-plugin skipping request as it is a relative path ./function-calls-display
+2025-06-14T10:17:04.235Z next:jsconfig-paths-plugin skipping request as it is a relative path ./code-execution-display
+2025-06-14T10:17:04.236Z next:jsconfig-paths-plugin skipping request as it is a relative path ./wysiwyg-editor
+2025-06-14T10:17:04.236Z next:jsconfig-paths-plugin skipping request as it is a relative path ./html-preview
+2025-06-14T10:17:04.236Z next:jsconfig-paths-plugin skipping request as it is a relative path ./grounding-sources-display
+2025-06-14T10:17:04.236Z next:jsconfig-paths-plugin skipping request as it is a relative path ./function-calls-display
+2025-06-14T10:17:04.236Z next:jsconfig-paths-plugin skipping request as it is a relative path ./code-execution-display
+2025-06-14T10:17:04.236Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/json-renderer
+2025-06-14T10:17:04.236Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/markdown-renderer
+2025-06-14T10:17:04.236Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/card
+2025-06-14T10:17:04.236Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/button
+2025-06-14T10:17:04.237Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/textarea
+2025-06-14T10:17:04.237Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/input
+2025-06-14T10:17:04.237Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/lib/utils
+2025-06-14T10:17:04.237Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/hooks/use-toast
+2025-06-14T10:17:04.237Z next:jsconfig-paths-plugin skipping request as it is a relative path ./wysiwyg-editor
+2025-06-14T10:17:04.237Z next:jsconfig-paths-plugin skipping request as it is a relative path ./wysiwyg-editor
+2025-06-14T10:17:04.237Z next:jsconfig-paths-plugin skipping request as it is a relative path ./html-preview
+2025-06-14T10:17:04.237Z next:jsconfig-paths-plugin skipping request as it is a relative path ./html-preview
+2025-06-14T10:17:04.238Z next:jsconfig-paths-plugin skipping request as it is a relative path ./grounding-sources-display
+2025-06-14T10:17:04.238Z next:jsconfig-paths-plugin skipping request as it is a relative path ./grounding-sources-display
+2025-06-14T10:17:04.238Z next:jsconfig-paths-plugin skipping request as it is a relative path ./function-calls-display
+2025-06-14T10:17:04.238Z next:jsconfig-paths-plugin skipping request as it is a relative path ./function-calls-display
+2025-06-14T10:17:04.238Z next:jsconfig-paths-plugin skipping request as it is a relative path ./code-execution-display
+2025-06-14T10:17:04.238Z next:jsconfig-paths-plugin skipping request as it is a relative path ./code-execution-display
+2025-06-14T10:17:04.239Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/json-renderer
+2025-06-14T10:17:04.239Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/markdown-renderer
+2025-06-14T10:17:04.239Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/card
+2025-06-14T10:17:04.239Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/button
+2025-06-14T10:17:04.239Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/textarea
+2025-06-14T10:17:04.239Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/input
+2025-06-14T10:17:04.245Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/lib/utils
+2025-06-14T10:17:04.246Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/hooks/use-toast
+2025-06-14T10:17:04.246Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/json-renderer
+2025-06-14T10:17:04.246Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/json-renderer
+2025-06-14T10:17:04.247Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/markdown-renderer
+2025-06-14T10:17:04.247Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/markdown-renderer
+2025-06-14T10:17:04.247Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/card
+2025-06-14T10:17:04.247Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/card
+2025-06-14T10:17:04.248Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/button
+2025-06-14T10:17:04.248Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/button
+2025-06-14T10:17:04.248Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/textarea
+2025-06-14T10:17:04.248Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/textarea
+2025-06-14T10:17:04.249Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/input
+2025-06-14T10:17:04.249Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/input
+2025-06-14T10:17:04.260Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/lib/utils
+2025-06-14T10:17:04.261Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/lib/utils
+2025-06-14T10:17:04.261Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/hooks/use-toast
+2025-06-14T10:17:04.261Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/hooks/use-toast
+ ✓ Compiled in 985ms (2194 modules)
+2025-06-14T10:17:04.347Z next:router-server:main requestHandler! /w/poem/6JBUOPLFJjKImxrHvpkS?_rsc=13kpz {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/6JBUOPLFJjKImxrHvpkS',
+    query: [Object: null prototype] { _rsc: '13kpz' }
+  },
+  finished: true
+}
+2025-06-14T10:17:04.347Z next:router-server:main invokeRender /w/poem/6JBUOPLFJjKImxrHvpkS?_rsc=13kpz {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  'next-hmr-refresh': '1',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+  'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%226JBUOPLFJjKImxrHvpkS%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2F6JBUOPLFJjKImxrHvpkS%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/6JBUOPLFJjKImxrHvpkS',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-GB,en;q=0.9',
+  cookie: '__next_hmr_refresh_hash__=1e42605dbaa8dee52524afcf62bae544633457081244afec'
+}
+2025-06-14T10:17:04.347Z next:router-server:main requestHandler! /w/poem/mHMA6a6rruvWifqPIrHv?_rsc=3mma3 {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/mHMA6a6rruvWifqPIrHv',
+    query: [Object: null prototype] { _rsc: '3mma3' }
+  },
+  finished: true
+}
+2025-06-14T10:17:04.347Z next:router-server:main invokeRender /w/poem/mHMA6a6rruvWifqPIrHv?_rsc=3mma3 {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22mHMA6a6rruvWifqPIrHv%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FmHMA6a6rruvWifqPIrHv%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/mHMA6a6rruvWifqPIrHv',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=1e42605dbaa8dee52524afcf62bae544633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+2025-06-14T10:17:04.347Z next:router-server:main requestHandler! /w/poem/MBN7DNQt6JbhOBoWOuSH?_rsc=1ivbn {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/MBN7DNQt6JbhOBoWOuSH',
+    query: [Object: null prototype] { _rsc: '1ivbn' }
+  },
+  finished: true
+}
+2025-06-14T10:17:04.347Z next:router-server:main invokeRender /w/poem/MBN7DNQt6JbhOBoWOuSH?_rsc=1ivbn {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22MBN7DNQt6JbhOBoWOuSH%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FMBN7DNQt6JbhOBoWOuSH%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/MBN7DNQt6JbhOBoWOuSH',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=1e42605dbaa8dee52524afcf62bae544633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+2025-06-14T10:17:04.347Z next:router-server:main requestHandler! /w/poem/W7nK16VKIp2QC7YeVwza?_rsc=l7m0a {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/W7nK16VKIp2QC7YeVwza',
+    query: [Object: null prototype] { _rsc: 'l7m0a' }
+  },
+  finished: true
+}
+2025-06-14T10:17:04.347Z next:router-server:main invokeRender /w/poem/W7nK16VKIp2QC7YeVwza?_rsc=l7m0a {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22W7nK16VKIp2QC7YeVwza%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FW7nK16VKIp2QC7YeVwza%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/W7nK16VKIp2QC7YeVwza',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=1e42605dbaa8dee52524afcf62bae544633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-14T10:17:04.521Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+2025-06-14T10:17:04.545Z compression gzip compression
+2025-06-14T10:17:04.545Z compression gzip compression
+2025-06-14T10:17:04.545Z compression gzip compression
+2025-06-14T10:17:04.546Z compression gzip compression
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'mHMA6a6rruvWifqPIrHv' }
+[WizardPage] Loading existing document: mHMA6a6rruvWifqPIrHv
+[DocumentPersistence] Loading document { documentId: 'mHMA6a6rruvWifqPIrHv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'mHMA6a6rruvWifqPIrHv' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'MBN7DNQt6JbhOBoWOuSH' }
+[WizardPage] Loading existing document: MBN7DNQt6JbhOBoWOuSH
+[DocumentPersistence] Loading document { documentId: 'MBN7DNQt6JbhOBoWOuSH' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'MBN7DNQt6JbhOBoWOuSH' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'W7nK16VKIp2QC7YeVwza' }
+[WizardPage] Loading existing document: W7nK16VKIp2QC7YeVwza
+[DocumentPersistence] Loading document { documentId: 'W7nK16VKIp2QC7YeVwza' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'W7nK16VKIp2QC7YeVwza' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: '6JBUOPLFJjKImxrHvpkS' }
+[WizardPage] Loading existing document: 6JBUOPLFJjKImxrHvpkS
+[DocumentPersistence] Loading document { documentId: '6JBUOPLFJjKImxrHvpkS' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: '6JBUOPLFJjKImxrHvpkS' }
+2025-06-14T10:17:04.586Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749896224420 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749896224420' }
+  },
+  finished: true
+}
+2025-06-14T10:17:04.586Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:17:04.586Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:17:04.586Z send accept ranges
+2025-06-14T10:17:04.586Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T10:17:04.586Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T10:17:04.586Z send content-type text/css
+2025-06-14T10:17:04.587Z compression gzip compression
+2025-06-14T10:17:04.593Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749896224416 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749896224416' }
+  },
+  finished: true
+}
+2025-06-14T10:17:04.594Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:17:04.594Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749896224418 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749896224418' }
+  },
+  finished: true
+}
+2025-06-14T10:17:04.595Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:17:04.595Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:17:04.595Z send accept ranges
+2025-06-14T10:17:04.595Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T10:17:04.595Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T10:17:04.595Z send content-type text/css
+2025-06-14T10:17:04.595Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:17:04.595Z send accept ranges
+2025-06-14T10:17:04.595Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T10:17:04.595Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T10:17:04.595Z send content-type text/css
+2025-06-14T10:17:04.597Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749896224419 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749896224419' }
+  },
+  finished: true
+}
+2025-06-14T10:17:04.597Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:17:04.597Z compression gzip compression
+2025-06-14T10:17:04.598Z compression gzip compression
+2025-06-14T10:17:04.598Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:17:04.598Z send accept ranges
+2025-06-14T10:17:04.598Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T10:17:04.598Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T10:17:04.598Z send content-type text/css
+2025-06-14T10:17:04.598Z compression gzip compression
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'mHMA6a6rruvWifqPIrHv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'mHMA6a6rruvWifqPIrHv',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'poem-topic',
+    'html-briefing',
+    'generate-poem-with-title',
+    'generate-html-preview'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'mHMA6a6rruvWifqPIrHv',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'poem-topic',
+    'html-briefing',
+    'generate-poem-with-title',
+    'generate-html-preview'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'MBN7DNQt6JbhOBoWOuSH' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'MBN7DNQt6JbhOBoWOuSH',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-poem-with-title',
+    'html-briefing',
+    'poem-topic',
+    'generate-html-preview'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'MBN7DNQt6JbhOBoWOuSH',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-poem-with-title',
+    'html-briefing',
+    'poem-topic',
+    'generate-html-preview'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'W7nK16VKIp2QC7YeVwza' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'W7nK16VKIp2QC7YeVwza',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-html-preview',
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'W7nK16VKIp2QC7YeVwza',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-html-preview',
+    'poem-topic',
+    'generate-poem-with-title',
+    'html-briefing'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: '6JBUOPLFJjKImxrHvpkS' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: '6JBUOPLFJjKImxrHvpkS',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-html-preview',
+    'html-briefing',
+    'poem-topic',
+    'generate-poem-with-title'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: '6JBUOPLFJjKImxrHvpkS',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-html-preview',
+    'html-briefing',
+    'poem-topic',
+    'generate-poem-with-title'
+  ]
+}
+ GET /w/poem/mHMA6a6rruvWifqPIrHv 200 in 472ms
+ GET /w/poem/MBN7DNQt6JbhOBoWOuSH 200 in 472ms
+ GET /w/poem/6JBUOPLFJjKImxrHvpkS 200 in 473ms
+ GET /w/poem/W7nK16VKIp2QC7YeVwza 200 in 473ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-14T10:17:05.026Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+2025-06-14T10:17:11.002Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T10:17:11.002Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T10:17:11.002Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T10:17:11.002Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T10:17:11.003Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T10:17:11.003Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T10:17:11.003Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T10:17:11.003Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-app-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.021Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.024Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.024Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.024Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.024Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.024Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.024Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.024Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.024Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.024Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.024Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.024Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.024Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.024Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.024Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.024Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.024Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.024Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.024Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.024Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.024Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.025Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.025Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.025Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.025Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.025Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.025Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.025Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.025Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.025Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.025Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.025Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.025Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.030Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.033Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.033Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.033Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.033Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.033Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.034Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.034Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.034Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.034Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.034Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.034Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.034Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.034Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.034Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.034Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.034Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.034Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.035Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.035Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.035Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.035Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.035Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.036Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.036Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.036Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.036Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.036Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.036Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.036Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.036Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.036Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.036Z next:jsconfig-paths-plugin moduleName did not match any paths pattern next-flight-client-entry-loader
+2025-06-14T10:17:11.062Z next:jsconfig-paths-plugin skipping request as it is a relative path ./wysiwyg-editor
+2025-06-14T10:17:11.063Z next:jsconfig-paths-plugin skipping request as it is a relative path ./html-preview
+2025-06-14T10:17:11.063Z next:jsconfig-paths-plugin skipping request as it is a relative path ./grounding-sources-display
+2025-06-14T10:17:11.063Z next:jsconfig-paths-plugin skipping request as it is a relative path ./function-calls-display
+2025-06-14T10:17:11.063Z next:jsconfig-paths-plugin skipping request as it is a relative path ./code-execution-display
+2025-06-14T10:17:11.063Z next:jsconfig-paths-plugin skipping request as it is a relative path ./wysiwyg-editor
+2025-06-14T10:17:11.063Z next:jsconfig-paths-plugin skipping request as it is a relative path ./html-preview
+2025-06-14T10:17:11.063Z next:jsconfig-paths-plugin skipping request as it is a relative path ./grounding-sources-display
+2025-06-14T10:17:11.063Z next:jsconfig-paths-plugin skipping request as it is a relative path ./function-calls-display
+2025-06-14T10:17:11.063Z next:jsconfig-paths-plugin skipping request as it is a relative path ./code-execution-display
+2025-06-14T10:17:11.063Z next:jsconfig-paths-plugin skipping request as it is a relative path ./html-preview
+2025-06-14T10:17:11.063Z next:jsconfig-paths-plugin skipping request as it is a relative path ./html-preview
+2025-06-14T10:17:11.063Z next:jsconfig-paths-plugin skipping request as it is a relative path ./grounding-sources-display
+2025-06-14T10:17:11.064Z next:jsconfig-paths-plugin skipping request as it is a relative path ./grounding-sources-display
+2025-06-14T10:17:11.064Z next:jsconfig-paths-plugin skipping request as it is a relative path ./wysiwyg-editor
+2025-06-14T10:17:11.064Z next:jsconfig-paths-plugin skipping request as it is a relative path ./wysiwyg-editor
+2025-06-14T10:17:11.064Z next:jsconfig-paths-plugin skipping request as it is a relative path ./function-calls-display
+2025-06-14T10:17:11.064Z next:jsconfig-paths-plugin skipping request as it is a relative path ./function-calls-display
+2025-06-14T10:17:11.064Z next:jsconfig-paths-plugin skipping request as it is a relative path ./code-execution-display
+2025-06-14T10:17:11.064Z next:jsconfig-paths-plugin skipping request as it is a relative path ./code-execution-display
+2025-06-14T10:17:11.066Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/json-renderer
+2025-06-14T10:17:11.066Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/markdown-renderer
+2025-06-14T10:17:11.066Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/card
+2025-06-14T10:17:11.066Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/button
+2025-06-14T10:17:11.066Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/textarea
+2025-06-14T10:17:11.066Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/input
+2025-06-14T10:17:11.066Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/lib/utils
+2025-06-14T10:17:11.066Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/hooks/use-toast
+2025-06-14T10:17:11.067Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/json-renderer
+2025-06-14T10:17:11.067Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/markdown-renderer
+2025-06-14T10:17:11.067Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/card
+2025-06-14T10:17:11.067Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/button
+2025-06-14T10:17:11.067Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/textarea
+2025-06-14T10:17:11.067Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/input
+2025-06-14T10:17:11.068Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/markdown-renderer
+2025-06-14T10:17:11.068Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/markdown-renderer
+2025-06-14T10:17:11.068Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/card
+2025-06-14T10:17:11.068Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/card
+2025-06-14T10:17:11.069Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/button
+2025-06-14T10:17:11.069Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/button
+2025-06-14T10:17:11.069Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/json-renderer
+2025-06-14T10:17:11.069Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/json-renderer
+2025-06-14T10:17:11.069Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/input
+2025-06-14T10:17:11.070Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/input
+2025-06-14T10:17:11.070Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/textarea
+2025-06-14T10:17:11.070Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/components/ui/textarea
+2025-06-14T10:17:11.070Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/lib/utils
+2025-06-14T10:17:11.070Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/hooks/use-toast
+2025-06-14T10:17:11.072Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/lib/utils
+2025-06-14T10:17:11.072Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/lib/utils
+2025-06-14T10:17:11.072Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/hooks/use-toast
+2025-06-14T10:17:11.073Z next:jsconfig-paths-plugin skipping request as it is an absolute path /Users/franzenzenhofer/dev/franzai-writer/src/hooks/use-toast
+
+
+Source path: /Users/franzenzenhofer/dev/franzai-writer/src/app/globals.css
+Finding changed files: 3.214ms
+Reading changed files: 20.036ms
+Sorting candidates: 0.257ms
+Generate rules: 1.068ms
+Build stylesheet: 0.009ms
+Potential classes:  652
+Active contexts:  1
+JIT TOTAL: 48.016ms
+
+
+ ✓ Compiled in 274ms (2194 modules)
+2025-06-14T10:17:11.283Z next:router-server:main requestHandler! /_next/static/webpack/1e42605dbaa8dee5.webpack.hot-update.json {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1e42605dbaa8dee5.webpack.hot-update.json',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/1e42605dbaa8dee5.webpack.hot-update.json'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/1e42605dbaa8dee5.webpack.hot-update.json',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:11.283Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1e42605dbaa8dee5.webpack.hot-update.json"
+2025-06-14T10:17:11.283Z next:router-server:main requestHandler! /w/poem/6JBUOPLFJjKImxrHvpkS?_rsc=13kpz {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/6JBUOPLFJjKImxrHvpkS',
+    query: [Object: null prototype] { _rsc: '13kpz' }
+  },
+  finished: true
+}
+2025-06-14T10:17:11.283Z next:router-server:main invokeRender /w/poem/6JBUOPLFJjKImxrHvpkS?_rsc=13kpz {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  'next-hmr-refresh': '1',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+  'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%226JBUOPLFJjKImxrHvpkS%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2F6JBUOPLFJjKImxrHvpkS%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/6JBUOPLFJjKImxrHvpkS',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-GB,en;q=0.9',
+  cookie: '__next_hmr_refresh_hash__=43a4a0818d2934fc976292f47621a71d633457081244afec'
+}
+2025-06-14T10:17:11.283Z next:router-server:main requestHandler! /_next/static/webpack/1e42605dbaa8dee5.webpack.hot-update.json {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1e42605dbaa8dee5.webpack.hot-update.json',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/1e42605dbaa8dee5.webpack.hot-update.json'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/1e42605dbaa8dee5.webpack.hot-update.json',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:11.283Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1e42605dbaa8dee5.webpack.hot-update.json"
+2025-06-14T10:17:11.284Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1e42605dbaa8dee5.webpack.hot-update.json"
+2025-06-14T10:17:11.284Z send accept ranges
+2025-06-14T10:17:11.284Z send modified Sat, 14 Jun 2025 10:17:11 GMT
+2025-06-14T10:17:11.284Z send etag W/"78-1976df1795c"
+2025-06-14T10:17:11.284Z send content-type application/json
+2025-06-14T10:17:11.284Z next:router-server:main requestHandler! /w/poem/MBN7DNQt6JbhOBoWOuSH?_rsc=1ivbn {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/MBN7DNQt6JbhOBoWOuSH',
+    query: [Object: null prototype] { _rsc: '1ivbn' }
+  },
+  finished: true
+}
+2025-06-14T10:17:11.284Z next:router-server:main invokeRender /w/poem/MBN7DNQt6JbhOBoWOuSH?_rsc=1ivbn {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22MBN7DNQt6JbhOBoWOuSH%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FMBN7DNQt6JbhOBoWOuSH%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/MBN7DNQt6JbhOBoWOuSH',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=43a4a0818d2934fc976292f47621a71d633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+2025-06-14T10:17:11.284Z next:router-server:main requestHandler! /w/poem/W7nK16VKIp2QC7YeVwza?_rsc=l7m0a {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/W7nK16VKIp2QC7YeVwza',
+    query: [Object: null prototype] { _rsc: 'l7m0a' }
+  },
+  finished: true
+}
+2025-06-14T10:17:11.284Z next:router-server:main invokeRender /w/poem/W7nK16VKIp2QC7YeVwza?_rsc=l7m0a {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22W7nK16VKIp2QC7YeVwza%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FW7nK16VKIp2QC7YeVwza%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/W7nK16VKIp2QC7YeVwza',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=43a4a0818d2934fc976292f47621a71d633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+2025-06-14T10:17:11.284Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1e42605dbaa8dee5.webpack.hot-update.json"
+2025-06-14T10:17:11.284Z send accept ranges
+2025-06-14T10:17:11.284Z send modified Sat, 14 Jun 2025 10:17:11 GMT
+2025-06-14T10:17:11.284Z send etag W/"78-1976df1795c"
+2025-06-14T10:17:11.284Z send content-type application/json
+2025-06-14T10:17:11.284Z next:router-server:main requestHandler! /w/poem/mHMA6a6rruvWifqPIrHv?_rsc=3mma3 {
+  matchedOutput: {
+    type: 'appFile',
+    fsPath: undefined,
+    locale: undefined,
+    itemsRoot: undefined,
+    itemPath: '/w/[shortName]/[documentId]'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/w/poem/mHMA6a6rruvWifqPIrHv',
+    query: [Object: null prototype] { _rsc: '3mma3' }
+  },
+  finished: true
+}
+2025-06-14T10:17:11.284Z next:router-server:main invokeRender /w/poem/mHMA6a6rruvWifqPIrHv?_rsc=3mma3 {
+  host: 'localhost:9002',
+  connection: 'keep-alive',
+  rsc: '1',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'next-router-state-tree': '%5B%22%22%2C%7B%22children%22%3A%5B%22w%22%2C%7B%22children%22%3A%5B%5B%22shortName%22%2C%22poem%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%5B%22documentId%22%2C%22mHMA6a6rruvWifqPIrHv%22%2C%22d%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fw%2Fpoem%2FmHMA6a6rruvWifqPIrHv%22%2C%22refresh%22%5D%7D%5D%7D%5D%7D%5D%7D%2Cnull%2C%22refetch%22%5D',
+  'next-hmr-refresh': '1',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
+  dnt: '1',
+  accept: '*/*',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://localhost:9002/w/poem/mHMA6a6rruvWifqPIrHv',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9,de;q=0.8,fr;q=0.7,lb;q=0.6,fy;q=0.5',
+  cookie: '__next_hmr_refresh_hash__=43a4a0818d2934fc976292f47621a71d633457081244afec; ajs_anonymous_id=c898be5e-d54f-44b6-b6bc-07789010ebb9; __next_hmr_refresh_hash__=e884208886cb450943a26e163c4473a0633457081244afec'
+}
+2025-06-14T10:17:11.284Z compression no compression: size below threshold
+2025-06-14T10:17:11.285Z compression no compression: size below threshold
+2025-06-14T10:17:11.288Z next:router-server:main requestHandler! /_next/static/webpack/app/layout.1e42605dbaa8dee5.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1e42605dbaa8dee5.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/app/layout.1e42605dbaa8dee5.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/app/layout.1e42605dbaa8dee5.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:11.288Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.288Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.288Z send accept ranges
+2025-06-14T10:17:11.288Z send modified Sat, 14 Jun 2025 10:17:11 GMT
+2025-06-14T10:17:11.288Z send etag W/"72b-1976df1795c"
+2025-06-14T10:17:11.288Z send content-type application/javascript
+2025-06-14T10:17:11.288Z next:router-server:main requestHandler! /_next/static/webpack/1e42605dbaa8dee5.webpack.hot-update.json {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1e42605dbaa8dee5.webpack.hot-update.json',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/1e42605dbaa8dee5.webpack.hot-update.json'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/1e42605dbaa8dee5.webpack.hot-update.json',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:11.288Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1e42605dbaa8dee5.webpack.hot-update.json"
+2025-06-14T10:17:11.288Z next:router-server:main requestHandler! /_next/static/webpack/webpack.1e42605dbaa8dee5.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1e42605dbaa8dee5.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/webpack.1e42605dbaa8dee5.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/webpack.1e42605dbaa8dee5.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:11.288Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.289Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1e42605dbaa8dee5.webpack.hot-update.json"
+2025-06-14T10:17:11.289Z send accept ranges
+2025-06-14T10:17:11.289Z send modified Sat, 14 Jun 2025 10:17:11 GMT
+2025-06-14T10:17:11.289Z send etag W/"78-1976df1795c"
+2025-06-14T10:17:11.289Z send content-type application/json
+2025-06-14T10:17:11.289Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.289Z send accept ranges
+2025-06-14T10:17:11.289Z send modified Sat, 14 Jun 2025 10:17:11 GMT
+2025-06-14T10:17:11.289Z send etag W/"347-1976df1795c"
+2025-06-14T10:17:11.289Z send content-type application/javascript
+2025-06-14T10:17:11.289Z next:router-server:main requestHandler! /_next/static/webpack/app/layout.1e42605dbaa8dee5.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1e42605dbaa8dee5.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/app/layout.1e42605dbaa8dee5.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/app/layout.1e42605dbaa8dee5.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:11.289Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.289Z next:router-server:main requestHandler! /_next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:11.289Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.289Z compression gzip compression
+2025-06-14T10:17:11.289Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.289Z send accept ranges
+2025-06-14T10:17:11.289Z send modified Sat, 14 Jun 2025 10:17:11 GMT
+2025-06-14T10:17:11.289Z send etag W/"72b-1976df1795c"
+2025-06-14T10:17:11.289Z send content-type application/javascript
+2025-06-14T10:17:11.290Z next:router-server:main requestHandler! /_next/static/webpack/webpack.1e42605dbaa8dee5.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1e42605dbaa8dee5.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/webpack.1e42605dbaa8dee5.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/webpack.1e42605dbaa8dee5.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:11.290Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.290Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.290Z send accept ranges
+2025-06-14T10:17:11.290Z send modified Sat, 14 Jun 2025 10:17:11 GMT
+2025-06-14T10:17:11.290Z send etag W/"1dad3-1976df1795c"
+2025-06-14T10:17:11.290Z send content-type application/javascript
+2025-06-14T10:17:11.290Z compression no compression: size below threshold
+2025-06-14T10:17:11.291Z compression no compression: size below threshold
+2025-06-14T10:17:11.292Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.292Z send accept ranges
+2025-06-14T10:17:11.292Z send modified Sat, 14 Jun 2025 10:17:11 GMT
+2025-06-14T10:17:11.292Z send etag W/"347-1976df1795c"
+2025-06-14T10:17:11.292Z send content-type application/javascript
+2025-06-14T10:17:11.292Z compression gzip compression
+2025-06-14T10:17:11.292Z compression gzip compression
+2025-06-14T10:17:11.293Z next:router-server:main requestHandler! /_next/static/webpack/1e42605dbaa8dee5.webpack.hot-update.json {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1e42605dbaa8dee5.webpack.hot-update.json',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/1e42605dbaa8dee5.webpack.hot-update.json'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/1e42605dbaa8dee5.webpack.hot-update.json',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:11.293Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1e42605dbaa8dee5.webpack.hot-update.json"
+2025-06-14T10:17:11.293Z compression no compression: size below threshold
+2025-06-14T10:17:11.293Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/1e42605dbaa8dee5.webpack.hot-update.json"
+2025-06-14T10:17:11.293Z send accept ranges
+2025-06-14T10:17:11.293Z send modified Sat, 14 Jun 2025 10:17:11 GMT
+2025-06-14T10:17:11.293Z send etag W/"78-1976df1795c"
+2025-06-14T10:17:11.294Z send content-type application/json
+2025-06-14T10:17:11.295Z next:router-server:main requestHandler! /_next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:11.295Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.296Z next:router-server:main requestHandler! /_next/static/webpack/app/layout.1e42605dbaa8dee5.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1e42605dbaa8dee5.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/app/layout.1e42605dbaa8dee5.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/app/layout.1e42605dbaa8dee5.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:11.296Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.296Z compression no compression: size below threshold
+2025-06-14T10:17:11.296Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.296Z send accept ranges
+2025-06-14T10:17:11.296Z send modified Sat, 14 Jun 2025 10:17:11 GMT
+2025-06-14T10:17:11.296Z send etag W/"1dad3-1976df1795c"
+2025-06-14T10:17:11.296Z send content-type application/javascript
+2025-06-14T10:17:11.296Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.296Z send accept ranges
+2025-06-14T10:17:11.296Z send modified Sat, 14 Jun 2025 10:17:11 GMT
+2025-06-14T10:17:11.296Z send etag W/"72b-1976df1795c"
+2025-06-14T10:17:11.296Z send content-type application/javascript
+2025-06-14T10:17:11.298Z compression gzip compression
+2025-06-14T10:17:11.298Z compression gzip compression
+2025-06-14T10:17:11.298Z next:router-server:main requestHandler! /_next/static/webpack/webpack.1e42605dbaa8dee5.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1e42605dbaa8dee5.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/webpack.1e42605dbaa8dee5.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/webpack.1e42605dbaa8dee5.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:11.298Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.298Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.298Z send accept ranges
+2025-06-14T10:17:11.298Z send modified Sat, 14 Jun 2025 10:17:11 GMT
+2025-06-14T10:17:11.298Z send etag W/"347-1976df1795c"
+2025-06-14T10:17:11.298Z send content-type application/javascript
+2025-06-14T10:17:11.299Z compression no compression: size below threshold
+2025-06-14T10:17:11.301Z next:router-server:main requestHandler! /_next/static/webpack/app/layout.1e42605dbaa8dee5.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1e42605dbaa8dee5.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/app/layout.1e42605dbaa8dee5.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/app/layout.1e42605dbaa8dee5.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:11.301Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.301Z next:router-server:main requestHandler! /_next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:11.301Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.301Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/app/layout.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.301Z send accept ranges
+2025-06-14T10:17:11.301Z send modified Sat, 14 Jun 2025 10:17:11 GMT
+2025-06-14T10:17:11.301Z send etag W/"72b-1976df1795c"
+2025-06-14T10:17:11.301Z send content-type application/javascript
+2025-06-14T10:17:11.302Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.302Z send accept ranges
+2025-06-14T10:17:11.302Z send modified Sat, 14 Jun 2025 10:17:11 GMT
+2025-06-14T10:17:11.302Z send etag W/"1dad3-1976df1795c"
+2025-06-14T10:17:11.302Z send content-type application/javascript
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-14T10:17:11.420Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+2025-06-14T10:17:11.439Z compression gzip compression
+2025-06-14T10:17:11.439Z compression gzip compression
+2025-06-14T10:17:11.439Z compression gzip compression
+2025-06-14T10:17:11.440Z compression gzip compression
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'MBN7DNQt6JbhOBoWOuSH' }
+[WizardPage] Loading existing document: MBN7DNQt6JbhOBoWOuSH
+[DocumentPersistence] Loading document { documentId: 'MBN7DNQt6JbhOBoWOuSH' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'MBN7DNQt6JbhOBoWOuSH' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'W7nK16VKIp2QC7YeVwza' }
+[WizardPage] Loading existing document: W7nK16VKIp2QC7YeVwza
+[DocumentPersistence] Loading document { documentId: 'W7nK16VKIp2QC7YeVwza' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'W7nK16VKIp2QC7YeVwza' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: 'mHMA6a6rruvWifqPIrHv' }
+[WizardPage] Loading existing document: mHMA6a6rruvWifqPIrHv
+[DocumentPersistence] Loading document { documentId: 'mHMA6a6rruvWifqPIrHv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'mHMA6a6rruvWifqPIrHv' }
+[WizardPage] Starting page load { shortName: 'poem', documentId: '6JBUOPLFJjKImxrHvpkS' }
+[WizardPage] Loading existing document: 6JBUOPLFJjKImxrHvpkS
+[DocumentPersistence] Loading document { documentId: '6JBUOPLFJjKImxrHvpkS' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: '6JBUOPLFJjKImxrHvpkS' }
+2025-06-14T10:17:11.479Z compression gzip compression
+2025-06-14T10:17:11.479Z compression gzip compression
+2025-06-14T10:17:11.481Z next:router-server:main requestHandler! /_next/static/webpack/webpack.1e42605dbaa8dee5.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1e42605dbaa8dee5.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/webpack.1e42605dbaa8dee5.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/webpack.1e42605dbaa8dee5.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:11.481Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.482Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/webpack.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.482Z send accept ranges
+2025-06-14T10:17:11.482Z send modified Sat, 14 Jun 2025 10:17:11 GMT
+2025-06-14T10:17:11.482Z send etag W/"347-1976df1795c"
+2025-06-14T10:17:11.482Z send content-type application/javascript
+2025-06-14T10:17:11.483Z next:router-server:main requestHandler! /_next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js',
+    query: [Object: null prototype] {}
+  },
+  finished: true
+}
+2025-06-14T10:17:11.483Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.483Z compression no compression: size below threshold
+2025-06-14T10:17:11.484Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/webpack/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.1e42605dbaa8dee5.hot-update.js"
+2025-06-14T10:17:11.484Z send accept ranges
+2025-06-14T10:17:11.484Z send modified Sat, 14 Jun 2025 10:17:11 GMT
+2025-06-14T10:17:11.484Z send etag W/"1dad3-1976df1795c"
+2025-06-14T10:17:11.484Z send content-type application/javascript
+2025-06-14T10:17:11.484Z compression gzip compression
+2025-06-14T10:17:11.492Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749896231335 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749896231335' }
+  },
+  finished: true
+}
+2025-06-14T10:17:11.492Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:17:11.492Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749896231330 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749896231330' }
+  },
+  finished: true
+}
+2025-06-14T10:17:11.493Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:17:11.493Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:17:11.493Z send accept ranges
+2025-06-14T10:17:11.493Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T10:17:11.493Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T10:17:11.493Z send content-type text/css
+2025-06-14T10:17:11.496Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:17:11.496Z send accept ranges
+2025-06-14T10:17:11.496Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T10:17:11.496Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T10:17:11.496Z send content-type text/css
+2025-06-14T10:17:11.497Z compression gzip compression
+2025-06-14T10:17:11.497Z compression gzip compression
+2025-06-14T10:17:11.507Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749896231334 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749896231334' }
+  },
+  finished: true
+}
+2025-06-14T10:17:11.507Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:17:11.507Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:17:11.507Z send accept ranges
+2025-06-14T10:17:11.507Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T10:17:11.507Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T10:17:11.507Z send content-type text/css
+2025-06-14T10:17:11.508Z compression gzip compression
+2025-06-14T10:17:11.521Z next:router-server:main requestHandler! /_next/static/css/app/layout.css?v=1749896231333 {
+  matchedOutput: {
+    type: 'nextStaticFolder',
+    fsPath: '/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css',
+    locale: undefined,
+    itemsRoot: '/Users/franzenzenhofer/dev/franzai-writer/.next/static',
+    itemPath: '/css/app/layout.css'
+  },
+  statusCode: undefined,
+  resHeaders: {},
+  bodyStream: false,
+  parsedUrl: {
+    pathname: '/_next/static/css/app/layout.css',
+    query: [Object: null prototype] { v: '1749896231333' }
+  },
+  finished: true
+}
+2025-06-14T10:17:11.521Z send stat "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:17:11.521Z send pipe "/Users/franzenzenhofer/dev/franzai-writer/.next/static/css/app/layout.css"
+2025-06-14T10:17:11.521Z send accept ranges
+2025-06-14T10:17:11.521Z send modified Sat, 14 Jun 2025 09:36:27 GMT
+2025-06-14T10:17:11.521Z send etag W/"12f76-1976dcc2e01"
+2025-06-14T10:17:11.521Z send content-type text/css
+2025-06-14T10:17:11.523Z compression gzip compression
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'MBN7DNQt6JbhOBoWOuSH' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'MBN7DNQt6JbhOBoWOuSH',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-poem-with-title',
+    'poem-topic',
+    'generate-html-preview',
+    'html-briefing'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'MBN7DNQt6JbhOBoWOuSH',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-poem-with-title',
+    'poem-topic',
+    'generate-html-preview',
+    'html-briefing'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'W7nK16VKIp2QC7YeVwza' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'W7nK16VKIp2QC7YeVwza',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'html-briefing',
+    'generate-html-preview',
+    'poem-topic',
+    'generate-poem-with-title'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'W7nK16VKIp2QC7YeVwza',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'html-briefing',
+    'generate-html-preview',
+    'poem-topic',
+    'generate-poem-with-title'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'mHMA6a6rruvWifqPIrHv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'mHMA6a6rruvWifqPIrHv',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-poem-with-title',
+    'poem-topic',
+    'html-briefing',
+    'generate-html-preview'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'mHMA6a6rruvWifqPIrHv',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-poem-with-title',
+    'poem-topic',
+    'html-briefing',
+    'generate-html-preview'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: '6JBUOPLFJjKImxrHvpkS' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: '6JBUOPLFJjKImxrHvpkS',
+  title: 'New Poem Generator',
+  stageStatesCount: 4,
+  stageStatesKeys: [
+    'generate-poem-with-title',
+    'generate-html-preview',
+    'poem-topic',
+    'html-briefing'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: '6JBUOPLFJjKImxrHvpkS',
+  title: 'New Poem Generator',
+  stageCount: 4,
+  validatedStageIds: [
+    'generate-poem-with-title',
+    'generate-html-preview',
+    'poem-topic',
+    'html-briefing'
+  ]
+}
+ GET /w/poem/W7nK16VKIp2QC7YeVwza 200 in 434ms
+ GET /w/poem/MBN7DNQt6JbhOBoWOuSH 200 in 437ms
+ GET /w/poem/mHMA6a6rruvWifqPIrHv 200 in 438ms
+ GET /w/poem/6JBUOPLFJjKImxrHvpkS 200 in 441ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-14T10:17:11.846Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!

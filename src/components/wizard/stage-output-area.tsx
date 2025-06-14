@@ -208,7 +208,7 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
                   // For select fields, show the label instead of the value
                   field.options.find(opt => opt.value === value)?.label || value || 'Not selected'
                 ) : (
-                  value || 'Not provided'
+                  value || '❌ ERROR: AI failed to provide value'
                 )}
               </div>
             </div>
@@ -243,9 +243,21 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
               </label>
               <div className="text-base">
                 {field.type === 'textarea' ? (
-                  <div className="whitespace-pre-wrap font-body">{value || 'Not provided'}</div>
+                  <div className="whitespace-pre-wrap font-body">
+                    {value ? value : (
+                      <div className="text-destructive font-semibold">
+                        ❌ ERROR: AI failed to provide {field.label}
+                      </div>
+                    )}
+                  </div>
                 ) : (
-                  <div className="font-body">{value || 'Not provided'}</div>
+                  <div className="font-body">
+                    {value ? value : (
+                      <span className="text-destructive font-semibold">
+                        ❌ ERROR: AI failed to provide {field.label}
+                      </span>
+                    )}
+                  </div>
                 )}
               </div>
             </div>

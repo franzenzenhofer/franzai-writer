@@ -1,18 +1,10 @@
 import { aiStageExecution, type AiStageExecutionInput } from './ai-stage-execution';
-import { ai } from '@/ai/genkit'; // Mocked below
-import { GenerateResponse } from '@genkit-ai/ai';
+import { generateWithDirectGemini, generateStreamWithDirectGemini } from '@/ai/direct-gemini';
 
-// Mock the entire @/ai/genkit module
-jest.mock('@/ai/genkit', () => ({
-  ai: {
-    defineFlow: jest.fn((config, handler) => handler), // Immediately return the handler
-    generate: jest.fn(),
-  },
-}));
-
-// Mock the googleAI plugin (though not directly used in this file, it's part of genkit setup)
-jest.mock('@genkit-ai/googleai', () => ({
-  googleAI: jest.fn(() => ({ name: 'google-ai-mock' })),
+// Mock the direct-gemini module
+jest.mock('@/ai/direct-gemini', () => ({
+  generateWithDirectGemini: jest.fn(),
+  generateStreamWithDirectGemini: jest.fn(),
 }));
 
 
