@@ -47,8 +47,15 @@ export function ThinkingDisplay({ thinkingSteps, usageMetadata }: ThinkingDispla
   const totalTokens = usageMetadata?.totalTokenCount || 0;
   const promptTokens = usageMetadata?.promptTokenCount || 0;
   
-  const thinkingRatio = totalTokens > 0 ? ((thinkingTokens / totalTokens) * 100).toFixed(1) : '0';
-  const efficiency = outputTokens > 0 ? (thinkingTokens / outputTokens).toFixed(1) : '0';
+  // More meaningful statistics
+  const thinkingIntensity = outputTokens > 0 ? (thinkingTokens / outputTokens).toFixed(1) : '0';
+  const thinkingCostRatio = totalTokens > 0 ? ((thinkingTokens / totalTokens) * 100).toFixed(0) : '0';
+  const outputCostRatio = totalTokens > 0 ? ((outputTokens / totalTokens) * 100).toFixed(0) : '0';
+  const inputCostRatio = totalTokens > 0 ? ((promptTokens / totalTokens) * 100).toFixed(0) : '0';
+  
+  // Quality metrics
+  const wordsPerThinkingToken = thinkingTokens > 0 ? (outputTokens / thinkingTokens * 100).toFixed(0) : '0';
+  const totalCost = promptTokens + thinkingTokens + outputTokens;
   
   // Categorize thinking steps
   const thoughtSteps = thinkingSteps.filter(step => step.type === 'thought' || step.thought);
@@ -177,35 +184,49 @@ export function ThinkingDisplay({ thinkingSteps, usageMetadata }: ThinkingDispla
             <Separator />
             <div>
               <h5 className="text-xs font-medium text-muted-foreground mb-3">
-                Token Usage & Performance
+                Token Usage & Cost Breakdown
               </h5>
-              <div className="bg-muted/20 rounded-lg p-3">
-                <div className="grid grid-cols-2 gap-3 text-xs">
-                  <div>
-                    <span className="font-medium text-muted-foreground">Thinking Tokens:</span>
-                    <div className="text-purple-600 font-semibold">{thinkingTokens.toLocaleString()}</div>
+              
+              {/* Token Breakdown */}
+              <div className="bg-muted/20 rounded-lg p-3 mb-3">
+                <div className="text-xs font-medium text-muted-foreground mb-2">Token Breakdown</div>
+                <div className="space-y-1 text-xs">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Input (Prompt):</span>
+                    <span className="font-mono">{promptTokens.toLocaleString()} tokens ({inputCostRatio}%)</span>
                   </div>
-                  <div>
-                    <span className="font-medium text-muted-foreground">Output Tokens:</span>
-                    <div className="text-blue-600 font-semibold">{outputTokens.toLocaleString()}</div>
+                  <div className="flex justify-between">
+                    <span className="text-purple-600 font-medium">Thinking (Internal):</span>
+                    <span className="font-mono text-purple-600">{thinkingTokens.toLocaleString()} tokens ({thinkingCostRatio}%)</span>
                   </div>
-                  <div>
-                    <span className="font-medium text-muted-foreground">Thinking Ratio:</span>
-                    <div className="text-green-600 font-semibold">{thinkingRatio}%</div>
+                  <div className="flex justify-between">
+                    <span className="text-blue-600 font-medium">Output (Response):</span>
+                    <span className="font-mono text-blue-600">{outputTokens.toLocaleString()} tokens ({outputCostRatio}%)</span>
                   </div>
-                  <div>
-                    <span className="font-medium text-muted-foreground">Efficiency:</span>
-                    <div className="text-orange-600 font-semibold">{efficiency}:1</div>
-                  </div>
-                </div>
-                {promptTokens > 0 && (
-                  <div className="mt-2 pt-2 border-t border-muted/30">
-                    <div className="text-xs text-muted-foreground">
-                      <span className="font-medium">Total Usage:</span> {totalTokens.toLocaleString()} tokens 
-                      ({promptTokens.toLocaleString()} prompt + {thinkingTokens.toLocaleString()} thinking + {outputTokens.toLocaleString()} output)
+                  <div className="border-t border-muted/30 pt-1 mt-2">
+                    <div className="flex justify-between font-medium">
+                      <span>Total Tokens:</span>
+                      <span className="font-mono">{totalTokens.toLocaleString()} tokens</span>
                     </div>
                   </div>
-                )}
+                </div>
+              </div>
+
+              {/* Performance Metrics */}
+              <div className="bg-muted/20 rounded-lg p-3">
+                <div className="text-xs font-medium text-muted-foreground mb-2">AI Performance</div>
+                <div className="grid grid-cols-2 gap-3 text-xs">
+                  <div>
+                    <span className="font-medium text-muted-foreground">Thinking Intensity:</span>
+                    <div className="text-purple-600 font-semibold">{thinkingIntensity}x</div>
+                    <div className="text-muted-foreground text-[10px]">{thinkingIntensity} thinking per output token</div>
+                  </div>
+                  <div>
+                    <span className="font-medium text-muted-foreground">Output Efficiency:</span>
+                    <div className="text-green-600 font-semibold">{wordsPerThinkingToken}%</div>
+                    <div className="text-muted-foreground text-[10px]">output tokens per thinking token</div>
+                  </div>
+                </div>
               </div>
             </div>
           </>
@@ -215,19 +236,19 @@ export function ThinkingDisplay({ thinkingSteps, usageMetadata }: ThinkingDispla
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
             <div>
               <div className="text-lg font-semibold text-purple-600">{thinkingSteps.length}</div>
-              <div className="text-xs text-muted-foreground">Steps</div>
+              <div className="text-xs text-muted-foreground">Reasoning Steps</div>
             </div>
             <div>
-              <div className="text-lg font-semibold text-blue-600">{thinkingTokens.toLocaleString()}</div>
+              <div className="text-lg font-semibold text-purple-600">{thinkingTokens.toLocaleString()}</div>
               <div className="text-xs text-muted-foreground">Thinking Tokens</div>
             </div>
             <div>
-              <div className="text-lg font-semibold text-green-600">{thinkingRatio}%</div>
-              <div className="text-xs text-muted-foreground">Of Total</div>
+              <div className="text-lg font-semibold text-blue-600">{outputTokens.toLocaleString()}</div>
+              <div className="text-xs text-muted-foreground">Output Tokens</div>
             </div>
             <div>
-              <div className="text-lg font-semibold text-orange-600">{efficiency}:1</div>
-              <div className="text-xs text-muted-foreground">Think:Output</div>
+              <div className="text-lg font-semibold text-green-600">{thinkingIntensity}x</div>
+              <div className="text-xs text-muted-foreground">Think Intensity</div>
             </div>
           </div>
         </div>
