@@ -103,7 +103,8 @@ async function generateStyledHtml(
     throw new Error('AI failed to generate styled HTML');
   }
   
-  return result.content;
+  // Clean HTML output - remove code fences and markdown formatting
+  return cleanAiHtmlOutput(result.content);
 }
 
 /**
@@ -157,7 +158,20 @@ async function generateCleanHtml(
     throw new Error('AI failed to generate clean HTML');
   }
   
-  return result.content;
+  // Clean HTML output - remove code fences and markdown formatting
+  return cleanAiHtmlOutput(result.content);
+}
+
+/**
+ * Clean AI HTML output by removing code fences and markdown formatting
+ */
+function cleanAiHtmlOutput(aiResponse: string): string {
+  return aiResponse
+    .replace(/```html\s*/g, '') // Remove opening HTML code fences
+    .replace(/```\s*$/g, '') // Remove closing code fences
+    .replace(/^```\s*/gm, '') // Remove any remaining code fence markers
+    .replace(/^\s*html\s*/gm, '') // Remove standalone 'html' language markers
+    .trim(); // Clean whitespace
 }
 
 /**
@@ -199,6 +213,13 @@ function getDefaultStyledHtmlPrompt(): string {
 {{this}}
 {{/each}}
 
+## CRITICAL OUTPUT INSTRUCTIONS
+- Return ONLY the complete HTML document
+- DO NOT wrap in code fences (no \`\`\`html or \`\`\`)
+- DO NOT use markdown formatting
+- Start directly with <!DOCTYPE html>
+- End directly with </html>
+
 ## Requirements
 1. Create a complete, self-contained HTML document
 2. Include all styles inline in <style> tags
@@ -209,7 +230,7 @@ function getDefaultStyledHtmlPrompt(): string {
 7. Ensure high contrast and accessibility
 8. Include proper meta tags and SEO
 
-Generate the complete HTML document now.`;
+Generate the complete HTML document now. Return ONLY HTML, no markdown.`;
 }
 
 /**
@@ -223,6 +244,13 @@ function getDefaultCleanHtmlPrompt(): string {
 {{this}}
 {{/each}}
 
+## CRITICAL OUTPUT INSTRUCTIONS  
+- Return ONLY clean HTML content
+- DO NOT wrap in code fences (no \`\`\`html or \`\`\`)
+- DO NOT use markdown formatting
+- Start directly with semantic HTML elements
+- NO html/head/body wrapper tags
+
 ## Requirements
 1. Use ONLY semantic HTML5 elements
 2. NO inline styles or JavaScript
@@ -231,5 +259,5 @@ function getDefaultCleanHtmlPrompt(): string {
 5. Include semantic attributes (id, aria-labels)
 6. Start with content directly (no html/head/body tags)
 
-Generate clean, semantic HTML now.`;
+Generate clean, semantic HTML now. Return ONLY HTML content, no markdown.`;
 }

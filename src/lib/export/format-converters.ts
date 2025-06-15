@@ -63,25 +63,75 @@ export async function htmlToMarkdown(html: string): Promise<string> {
 }
 
 /**
- * Generate PDF from HTML
- * Note: This is a placeholder - in production, we'd use Puppeteer or similar
+ * Generate PDF from HTML using Puppeteer
  */
 export async function htmlToPdf(html: string, options?: any): Promise<ArrayBuffer> {
-  // TODO: Implement actual PDF generation
-  // For now, return a placeholder
-  const encoder = new TextEncoder();
-  return encoder.encode('PDF generation not yet implemented').buffer;
+  try {
+    // Dynamic import to avoid bundling Puppeteer in client code
+    const puppeteer = await import('puppeteer');
+    
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
+    
+    const page = await browser.newPage();
+    
+    // Set content with proper options
+    await page.setContent(html, {
+      waitUntil: 'networkidle0',
+      timeout: 30000
+    });
+    
+    // Generate PDF with good defaults
+    const pdf = await page.pdf({
+      format: 'A4',
+      printBackground: true,
+      margin: {
+        top: '1in',
+        bottom: '1in',
+        left: '1in',
+        right: '1in'
+      },
+      preferCSSPageSize: true,
+      ...options
+    });
+    
+    await browser.close();
+    
+    return pdf.buffer;
+  } catch (error) {
+    console.error('PDF generation failed:', error);
+    // Fallback to placeholder for now
+    const encoder = new TextEncoder();
+    return encoder.encode(`PDF generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`).buffer;
+  }
 }
 
 /**
- * Generate DOCX from HTML
- * Note: This is a placeholder - in production, we'd use a library like html-docx-js
+ * Generate DOCX from HTML using html-docx-js
  */
 export async function htmlToDocx(html: string, options?: any): Promise<ArrayBuffer> {
-  // TODO: Implement actual DOCX generation
-  // For now, return a placeholder
-  const encoder = new TextEncoder();
-  return encoder.encode('DOCX generation not yet implemented').buffer;
+  try {
+    // Dynamic import to avoid bundling in client code
+    const { default: HTMLtoDOCX } = await import('html-docx-js');
+    
+    // Convert HTML to DOCX
+    const docxBlob = HTMLtoDOCX(html, {
+      table: { row: { cantSplit: true } },
+      footer: true,
+      pageNumber: true,
+      ...options
+    });
+    
+    // Convert blob to ArrayBuffer
+    return await docxBlob.arrayBuffer();
+  } catch (error) {
+    console.error('DOCX generation failed:', error);
+    // Fallback to placeholder
+    const encoder = new TextEncoder();
+    return encoder.encode(`DOCX generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`).buffer;
+  }
 }
 
 /**
@@ -119,16 +169,41 @@ export async function processExportFormats(
     };
   }
   
-  // PDF and DOCX are placeholders for now
-  formats['pdf'] = {
-    ready: false,
-    error: 'PDF generation coming soon',
-  };
+  // Generate PDF from styled HTML
+  try {
+    console.log('[Format Converters] Generating PDF...');
+    const pdfBuffer = await htmlToPdf(htmlStyled);
+    const pdfBase64 = Buffer.from(pdfBuffer).toString('base64');
+    formats['pdf'] = {
+      ready: true,
+      content: pdfBase64,
+    };
+    console.log('[Format Converters] PDF generation successful');
+  } catch (error) {
+    console.error('[Format Converters] PDF generation failed:', error);
+    formats['pdf'] = {
+      ready: false,
+      error: 'PDF generation failed',
+    };
+  }
   
-  formats['docx'] = {
-    ready: false,
-    error: 'DOCX generation coming soon',
-  };
+  // Generate DOCX from clean HTML
+  try {
+    console.log('[Format Converters] Generating DOCX...');
+    const docxBuffer = await htmlToDocx(htmlClean);
+    const docxBase64 = Buffer.from(docxBuffer).toString('base64');
+    formats['docx'] = {
+      ready: true,
+      content: docxBase64,
+    };
+    console.log('[Format Converters] DOCX generation successful');
+  } catch (error) {
+    console.error('[Format Converters] DOCX generation failed:', error);
+    formats['docx'] = {
+      ready: false,
+      error: 'DOCX generation failed',
+    };
+  }
   
   return formats;
 }

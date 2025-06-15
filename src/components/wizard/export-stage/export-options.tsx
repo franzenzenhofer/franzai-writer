@@ -26,7 +26,21 @@ export function ExportOptions({ formats, exportConfig, onPublish }: ExportOption
   const [copiedFormat, setCopiedFormat] = React.useState<string | null>(null);
   
   const handleDownload = (format: string, content: string) => {
-    const blob = new Blob([content], { type: getContentType(format) });
+    let blob: Blob;
+    
+    // Handle binary formats (PDF, DOCX) that are base64 encoded
+    if (format === 'pdf' || format === 'docx') {
+      const binaryString = atob(content);
+      const bytes = new Uint8Array(binaryString.length);
+      for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      blob = new Blob([bytes], { type: getContentType(format) });
+    } else {
+      // Handle text formats (HTML, Markdown)
+      blob = new Blob([content], { type: getContentType(format) });
+    }
+    
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
