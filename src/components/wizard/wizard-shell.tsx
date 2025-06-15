@@ -308,6 +308,48 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     });
 
 
+    // Handle export stage type
+    if (stage.stageType === 'export') {
+      try {
+        const { executeExportStage } = await import('@/ai/flows/export-stage-execution');
+        
+        const result = await executeExportStage({
+          stage,
+          workflow: instance.workflow,
+          allStageStates: instance.stageStates,
+          progressCallback: (progress) => {
+            updateStageState(stageId, {
+              generationProgress: progress,
+            });
+          },
+        });
+        
+        updateStageState(stageId, {
+          status: "completed",
+          output: result,
+          completedAt: new Date().toISOString(),
+          isStale: false,
+        });
+        
+        toast({ 
+          title: "Export Complete", 
+          description: "Your content has been exported successfully!",
+          variant: "default"
+        });
+      } catch (error) {
+        updateStageState(stageId, { 
+          status: "error", 
+          error: error instanceof Error ? error.message : "Export failed" 
+        });
+        toast({ 
+          title: "Export Error", 
+          description: error instanceof Error ? error.message : "Export failed", 
+          variant: "destructive" 
+        });
+      }
+      return;
+    }
+
     if (!stage.promptTemplate) { 
       updateStageState(stageId, { 
         status: "completed", 

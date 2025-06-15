@@ -723,15 +723,15 @@ The double AI generation approach (styled + clean) is our secret weapon - no oth
 ### Phase 1: Foundation & Architecture
 
 #### 1.1 Core Export Stage Type
-- [ ] Create new `stageType: "export"` in types/index.ts
-- [ ] Update StageCard component to recognize export type
+- [x] Create new `stageType: "export"` in types/index.ts
+- [x] Update StageCard component to recognize export type
 - [ ] Add export stage validation to workflow loader
-- [ ] Create ExportStageCard component with hero styling
-- [ ] Implement trigger button UI with proper states
+- [x] Create ExportStageCard component with hero styling
+- [x] Implement trigger button UI with proper states
 - [ ] Add export stage to workflow schema validation
 
 #### 1.2 State Management
-- [ ] Define ExportStageState interface
+- [x] Define ExportStageState interface
 - [ ] Add export state to WizardInstance
 - [ ] Create export state reducers
 - [ ] Implement export progress tracking
@@ -739,13 +739,13 @@ The double AI generation approach (styled + clean) is our secret weapon - no oth
 - [ ] Handle export state persistence
 
 #### 1.3 UI Components Structure
-- [ ] Create components/wizard/export-stage/ directory
-- [ ] Build ExportStageCard with hero treatment
-- [ ] Create ExportPreview component with toggle
-- [ ] Build ExportOptions grid layout
-- [ ] Design PublishDialog component
-- [ ] Add progress indicators for AI generation
-- [ ] Implement format download buttons
+- [x] Create components/wizard/export-stage/ directory
+- [x] Build ExportStageCard with hero treatment
+- [x] Create ExportPreview component with toggle
+- [x] Build ExportOptions grid layout
+- [x] Design PublishDialog component
+- [x] Add progress indicators for AI generation
+- [x] Implement format download buttons
 
 ### Phase 2: AI Generation Pipeline
 
