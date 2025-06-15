@@ -1,3 +1,5 @@
+'use server';
+
 import { generateWithDirectGemini } from '@/ai/direct-gemini';
 import type { Stage, StageState, ExportConfig } from '@/types';
 import fs from 'fs/promises';
