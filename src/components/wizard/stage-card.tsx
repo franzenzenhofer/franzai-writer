@@ -1,6 +1,6 @@
 "use client";
 
-import type { Stage, StageState, Workflow } from "@/types";
+import type { Stage, StageState, Workflow, ExportStageState } from "@/types";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button"; // Keep for the primary action button
 import { Badge } from "@/components/ui/badge"; // Keep for non-dismissible badges
@@ -13,6 +13,7 @@ import { DismissibleWarningBadge } from "./dismissible-warning-badge";
 import { StageActionButton } from "./StageActionButton";
 import { AiRedoSection } from "./ai-redo-section";
 import { DynamicProgressBar } from "./dynamic-progress-bar";
+import { ExportStageCard } from "./export-stage/export-stage-card";
 
 interface StageCardProps {
   stage: Stage;
@@ -178,6 +179,20 @@ export function StageCard({
       }
   }
   if (isCurrentStage && stageState.depsAreMet !== false) cardClasses = cn(cardClasses, "shadow-accent/30 shadow-xl ring-2 ring-accent");
+
+  // Handle export stage type separately
+  if (stage.stageType === 'export') {
+    return (
+      <ExportStageCard
+        stage={stage}
+        workflow={workflow}
+        stageState={stageState as ExportStageState}
+        isCurrentStage={isCurrentStage}
+        onRunStage={onRunStage}
+        allStageStates={allStageStates}
+      />
+    );
+  }
 
   return (
     <Card 
