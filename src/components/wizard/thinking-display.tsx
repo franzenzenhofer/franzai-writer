@@ -30,6 +30,16 @@ interface ThinkingDisplayProps {
 export function ThinkingDisplay({ thinkingSteps, usageMetadata }: ThinkingDisplayProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   
+  // 🔥 DEBUG: Log what we're receiving
+  console.log('🧠 [ThinkingDisplay] Received props:', {
+    thinkingStepsCount: thinkingSteps?.length || 0,
+    hasUsageMetadata: !!usageMetadata,
+    usageMetadata: usageMetadata,
+    thoughtsTokenCount: usageMetadata?.thoughtsTokenCount,
+    candidatesTokenCount: usageMetadata?.candidatesTokenCount,
+    totalTokenCount: usageMetadata?.totalTokenCount
+  });
+  
   if (!thinkingSteps || thinkingSteps.length === 0) return null;
 
   const thinkingTokens = usageMetadata?.thoughtsTokenCount || 0;

@@ -52,8 +52,13 @@ The core feature is a JSON-based workflow system where each workflow:
 - React Dropzone for file uploads
 
 ### AI Integration
-- Google Genkit framework for AI orchestration
-- Primary model: `googleai/gemini-2.0-flash-exp`
+- **MIGRATION IN PROGRESS**: Moving from Google Genkit to native @google/genai SDK (branch: `backup/genkit-to-genai-attempt-1`)
+- Primary model: `gemini-2.0-flash` (with support for all Gemini models)
+- Enhanced features:
+  - Google Search grounding
+  - URL Context grounding
+  - Thinking mode (Gemini 2.5)
+  - Enhanced AI logging at `logs/ai.log`
 - Supports multiple input types: textarea, form, context, none
 - Output formats: text, json, markdown
 

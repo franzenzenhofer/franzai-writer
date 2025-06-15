@@ -1,5 +1,8 @@
 # Migration Guide: @google/generative-ai to @google/genai
 
+> **IMPORTANT**: Always use `@google/genai` package, NEVER use `@google/generative-ai`
+> **Last Updated**: 2025-06-15
+
 ## Package Names and Main Classes
 
 ### Old: @google/generative-ai

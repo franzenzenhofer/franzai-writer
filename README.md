@@ -1,7 +1,9 @@
 
 # Franz AI Writer
 
-An AI-powered multi-stage document generation platform built with Next.js, Firebase, and Google Genkit.
+An AI-powered multi-stage document generation platform built with Next.js, Firebase, and Google Generative AI SDK.
+
+> **Note**: Migration from Google Genkit to native @google/genai SDK is in progress (Branch: `backup/genkit-to-genai-attempt-1`)
 
 ## Quick Start
 

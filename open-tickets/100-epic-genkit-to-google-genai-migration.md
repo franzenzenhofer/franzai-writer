@@ -2,8 +2,16 @@
 
 **Created:** 2025-01-13
 **Priority:** CRITICAL
-**Status:** In Progress
+**Status:** In Progress (Branch: backup/genkit-to-genai-attempt-1)
 **Estimated Time:** 8-10 hours
+**Last Updated:** 2025-06-15
+
+## Status Update (2025-06-15)
+- Migration is actively being worked on in branch `backup/genkit-to-genai-attempt-1`
+- Direct Gemini API implementation complete with Google Search and URL Context grounding
+- Enhanced AI logging implemented
+- Thinking mode support added for Gemini 2.5
+- Most core functionality migrated, testing in progress
 
 ## Overview
 

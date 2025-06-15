@@ -24435,3 +24435,889 @@ Please solve this step by step and show your reasoning process.
   timestamp: '2025-06-15T19:33:05.787Z'
 }
 [FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+ ✓ Compiled in 225ms (876 modules)
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'vRT4gR2Hanzs0MPppfLE' }
+[WizardPage] Loading existing document: vRT4gR2Hanzs0MPppfLE
+[DocumentPersistence] Loading document { documentId: 'vRT4gR2Hanzs0MPppfLE' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'vRT4gR2Hanzs0MPppfLE' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'vRT4gR2Hanzs0MPppfLE' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'vRT4gR2Hanzs0MPppfLE',
+  title: 'test',
+  stageStatesCount: 15,
+  stageStatesKeys: [
+    'multiple-url-grounding',
+    'function-calling-calculator',
+    'combined-features-test',
+    'test-title',
+    'image-understanding-test',
+    'function-calling-weather',
+    'final-summary',
+    'chat-mode-test',
+    'function-calling-unit-converter',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'streaming-test',
+    'code-execution-python',
+    'grounding-google-search',
+    'document-understanding-test'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'vRT4gR2Hanzs0MPppfLE',
+  title: 'test',
+  stageCount: 15,
+  validatedStageIds: [
+    'multiple-url-grounding',
+    'function-calling-calculator',
+    'combined-features-test',
+    'test-title',
+    'image-understanding-test',
+    'function-calling-weather',
+    'final-summary',
+    'chat-mode-test',
+    'function-calling-unit-converter',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'streaming-test',
+    'code-execution-python',
+    'grounding-google-search',
+    'document-understanding-test'
+  ]
+}
+ GET /w/gemini-test/vRT4gR2Hanzs0MPppfLE 200 in 137ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T19:33:45.225Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+Starting inspector on 127.0.0.1:9230 failed: address already in use
+ ⨯ Failed to start server
+Error: listen EADDRINUSE: address already in use :::9002
+    at <unknown> (Error: listen EADDRINUSE: address already in use :::9002)
+    at new Promise (<anonymous>) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 9002
+}
+Debugger listening on ws://127.0.0.1:9229/1eb14bc8-e17c-4d49-91b0-680f0657e295
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 381,
+    "turboFlag": false,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+ GET /dashboard 200 in 45ms
+ ✓ Compiled in 418ms (2203 modules)
+ GET /dashboard 200 in 147ms
+ ✓ Compiled in 261ms (2203 modules)
+ ✓ Compiled /w/[shortName]/new in 345ms (1329 modules)
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T19:34:15.112Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'gemini-test' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'gemini-test',
+  workflowId: 'gemini-tools-test',
+  workflowName: 'Gemini AI Tools Test'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'gemini-test',
+  documentId: 'mby2di6pw6aoicf',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1750016055122_ft9c5ocbk',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1750016055122_ft9c5ocbk',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 192
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'WdGqWxtvYYsy6N9NPtXL',
+  path: 'documents/WdGqWxtvYYsy6N9NPtXL'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'WdGqWxtvYYsy6N9NPtXL',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[NewDocumentPage] STEP 1: Page accessed { shortName: 'gemini-test' }
+[NewDocumentPage] STEP 2: Workflow found {
+  shortName: 'gemini-test',
+  workflowId: 'gemini-tools-test',
+  workflowName: 'Gemini AI Tools Test'
+}
+[NewDocumentPage] STEP 3: Generated document ID {
+  shortName: 'gemini-test',
+  documentId: 'mby2di93wxcqb8h',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 4: Starting document creation in Firestore
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: null,
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [],
+  stageStatesCount: 0,
+  hasUserId: false,
+  isNewDocument: true
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: undefined,
+  effectiveUserId: 'server_user_1750016055208_295b9kp50',
+  wasGenerated: true
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [],
+  originalCount: 0,
+  cleanedKeys: [],
+  cleanedCount: 0
+}
+[DocumentPersistence] STEP 6: Creating NEW document (documentId is null)
+[DocumentPersistence] STEP 7: Prepared document data for creation {
+  userId: 'server_user_1750016055208_295b9kp50',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  status: 'draft',
+  stageStatesCount: 0,
+  metadata: { wordCount: 0, stageCount: 0 }
+}
+[DocumentPersistence] STEP 8: Calling Firestore adapter to create document
+[FirestoreAdapter] STEP 1: Starting document creation {
+  collection: 'documents',
+  dataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata'
+  ],
+  dataSize: 192
+}
+[FirestoreAdapter] STEP 2: Generated document reference {
+  collection: 'documents',
+  id: 'moTzsqF636CX2DyyPSS4',
+  path: 'documents/moTzsqF636CX2DyyPSS4'
+}
+[FirestoreAdapter] STEP 3: Prepared document data {
+  collection: 'documents',
+  id: 'moTzsqF636CX2DyyPSS4',
+  finalDataKeys: [
+    'userId',
+    'title',
+    'workflowId',
+    'status',
+    'stageStates',
+    'metadata',
+    'id',
+    'createdAt',
+    'updatedAt'
+  ],
+  hasStageStates: true,
+  stageStatesKeys: []
+}
+[FirestoreAdapter] STEP 4: Calling setDoc on Firestore
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'WdGqWxtvYYsy6N9NPtXL',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'WdGqWxtvYYsy6N9NPtXL' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'WdGqWxtvYYsy6N9NPtXL',
+  error: undefined,
+  originalId: 'mby2di6pw6aoicf'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mby2di6pw6aoicf',
+  createdId: 'WdGqWxtvYYsy6N9NPtXL',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/gemini-test/WdGqWxtvYYsy6N9NPtXL' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/gemini-test/new 200 in 845ms
+[FirestoreAdapter] STEP 5: Document created successfully in Firestore { collection: 'documents', id: 'moTzsqF636CX2DyyPSS4' }
+[FirestoreAdapter] Document created { collection: 'documents', id: 'moTzsqF636CX2DyyPSS4' }
+[DocumentPersistence] STEP 9: Document creation completed successfully {
+  createdDocumentId: 'moTzsqF636CX2DyyPSS4',
+  collectionName: 'documents'
+}
+[DocumentPersistence] Document created successfully { documentId: 'moTzsqF636CX2DyyPSS4' }
+[NewDocumentPage] STEP 5: Document creation result {
+  success: true,
+  documentId: 'moTzsqF636CX2DyyPSS4',
+  error: undefined,
+  originalId: 'mby2di93wxcqb8h'
+}
+[NewDocumentPage] STEP 6: Document created successfully in Firestore {
+  originalId: 'mby2di93wxcqb8h',
+  createdId: 'moTzsqF636CX2DyyPSS4',
+  workflowId: 'gemini-tools-test'
+}
+[NewDocumentPage] STEP 7: Initiating redirect to wizard page { targetUrl: '/w/gemini-test/moTzsqF636CX2DyyPSS4' }
+[NewDocumentPage] STEP 8: Caught exception {
+  errorName: 'Error',
+  errorMessage: 'NEXT_REDIRECT',
+  isNextRedirect: true
+}
+[NewDocumentPage] STEP 9: This is a Next.js redirect - letting it through
+ GET /w/gemini-test/new 200 in 339ms
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'WdGqWxtvYYsy6N9NPtXL' }
+[WizardPage] Loading existing document: WdGqWxtvYYsy6N9NPtXL
+[DocumentPersistence] Loading document { documentId: 'WdGqWxtvYYsy6N9NPtXL' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'WdGqWxtvYYsy6N9NPtXL' }
+[WizardPage] Loading existing document: WdGqWxtvYYsy6N9NPtXL
+[DocumentPersistence] Loading document { documentId: 'WdGqWxtvYYsy6N9NPtXL' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'WdGqWxtvYYsy6N9NPtXL',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'WdGqWxtvYYsy6N9NPtXL',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'WdGqWxtvYYsy6N9NPtXL',
+  title: 'New Gemini AI Tools Test',
+  stageStatesCount: 0,
+  stageStatesKeys: []
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'WdGqWxtvYYsy6N9NPtXL',
+  title: 'New Gemini AI Tools Test',
+  stageCount: 0,
+  validatedStageIds: []
+}
+ GET /w/gemini-test/WdGqWxtvYYsy6N9NPtXL 200 in 197ms
+ GET /w/gemini-test/WdGqWxtvYYsy6N9NPtXL 200 in 147ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T19:34:15.890Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T19:34:16.197Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+ ✓ Compiled /api/documents/save in 182ms (1345 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 614ms (2225 modules)
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T19:34:18.724Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'WdGqWxtvYYsy6N9NPtXL',
+  title: 'New Gemini AI Tools Test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'multiple-url-grounding',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  stageStatesCount: 15,
+  hasUserId: true,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  effectiveUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  wasGenerated: false
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'multiple-url-grounding',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  originalCount: 15,
+  cleanedKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'multiple-url-grounding',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  cleanedCount: 15
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'WdGqWxtvYYsy6N9NPtXL' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T19:34:18.969Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+ GET / 200 in 1069ms
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[DocumentPersistence] Document updated successfully { documentId: 'WdGqWxtvYYsy6N9NPtXL' }
+ POST /api/documents/save 200 in 1653ms
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'WdGqWxtvYYsy6N9NPtXL',
+  title: 'test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'multiple-url-grounding',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  stageStatesCount: 15,
+  hasUserId: true,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  effectiveUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  wasGenerated: false
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'multiple-url-grounding',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  originalCount: 15,
+  cleanedKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'multiple-url-grounding',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  cleanedCount: 15
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'WdGqWxtvYYsy6N9NPtXL' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[DocumentPersistence] Document updated successfully { documentId: 'WdGqWxtvYYsy6N9NPtXL' }
+ POST /api/documents/save 200 in 239ms
+ ✓ Compiled /api/wizard/execute in 396ms (1524 modules)
+Watchpack Error (initial scan): Error: ENOTDIR: not a directory, scandir '/usr/local/bin/node'
+[runAiStage] Starting with new SDK
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'gemini-2.5-pro-preview-03-25',
+  temperature: 0.7,
+  stageOutputType: 'text',
+  hasAiRedoNotes: false,
+  forceGoogleSearchGrounding: false,
+  hasGroundingSettings: false,
+  groundingSettings: undefined,
+  googleSearchEnabled: undefined,
+  googleSearchThreshold: undefined,
+  streamingEnabled: undefined
+}
+[runAiStage] Filled prompt length: 69
+[runAiStage] First 200 chars of filled prompt: test
+
+Please solve this step by step and show your reasoning process.
+[runAiStage] About to call aiStageExecutionFlow with input: {
+  promptLength: 69,
+  model: 'gemini-2.5-pro-preview-03-25',
+  temperature: 0.7,
+  hasSystemInstructions: false,
+  hasChatHistory: false,
+  hasThinkingSettings: true,
+  hasToolNames: false,
+  forceGoogleSearchGrounding: false,
+  hasGroundingSettings: false,
+  googleSearchEnabled: undefined
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'gemini-2.5-pro-preview-03-25',
+  hasTools: false,
+  hasGrounding: false,
+  forceGoogleSearchGrounding: false,
+  hasThinking: true,
+  isStreaming: undefined,
+  promptTemplate: 'test\n\nPlease solve this step by step and show your reasoning process....',
+  chatHistory: 'none',
+  groundingSettings: undefined,
+  googleSearchSettings: undefined
+}
+🚨🚨🚨 === GOOGLE SEARCH GROUNDING DEBUG === 🚨🚨🚨
+🔍 forceGoogleSearchGrounding: false
+🔍 groundingSettings?.googleSearch?.enabled: undefined
+🔍 Full groundingSettings object: undefined
+🚨🚨🚨 ================================== 🚨🚨🚨
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 69
+}
+[AI Stage Flow Enhanced] Generation path decision: {
+  shouldUseStreaming: true,
+  streamingEnabled: undefined,
+  hasHistory: true,
+  hasTools: false,
+  googleSearchEnabled: undefined,
+  modelUsed: 'gemini-2.5-pro-preview-03-25'
+}
+🔧🔧🔧 FINAL API REQUEST TOOLS CHECK 🔧🔧🔧
+📋 generateOptions.tools: []
+📋 generateOptions.config: {
+  "temperature": 0.7,
+  "thinkingConfig": {
+    "includeThoughts": true,
+    "thinkingBudget": 8192
+  }
+}
+📊 Total tools count: 0
+❌❌❌ NO GOOGLE SEARCH GROUNDING CONFIGURED ❌❌❌
+🔧🔧🔧 ================================= 🔧🔧🔧
+[AI Stage Flow Enhanced] Streaming iteration 1/5
+[AI Stage Flow Enhanced] ===== API REQUEST DETAILS =====
+[AI Stage Flow Enhanced] Full API Request Configuration: {
+  model: 'gemini-2.5-pro-preview-03-25',
+  temperature: 0.7,
+  hasTools: false,
+  toolsCount: 0,
+  toolNames: [],
+  hasGoogleSearchTool: false,
+  systemInstruction: undefined,
+  callHistoryLength: 1,
+  fullCallHistory: [ { role: 'user', parts: [Array] } ],
+  forceGoogleSearchGrounding: false
+}
+[AI Stage Flow Enhanced] Complete Google API Request: {
+  "model": "gemini-2.5-pro-preview-03-25",
+  "config": {
+    "temperature": 0.7,
+    "thinkingConfig": {
+      "includeThoughts": true,
+      "thinkingBudget": 8192
+    }
+  },
+  "tools": [],
+  "messages": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "test\n\nPlease solve this step by step and show your reasoning process."
+        }
+      ]
+    }
+  ]
+}
+[AI Stage Flow Enhanced] Using streaming generation with @google/genai
+🌊 [Direct Gemini] Starting streaming generation
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T19:34:26.386Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'WdGqWxtvYYsy6N9NPtXL',
+  title: 'test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'multiple-url-grounding',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  stageStatesCount: 15,
+  hasUserId: true,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  effectiveUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  wasGenerated: false
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'multiple-url-grounding',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  originalCount: 15,
+  cleanedKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'multiple-url-grounding',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  cleanedCount: 15
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'WdGqWxtvYYsy6N9NPtXL' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[DocumentPersistence] Document updated successfully { documentId: 'WdGqWxtvYYsy6N9NPtXL' }
+ POST /api/documents/save 200 in 522ms
+[AI Stage Flow Enhanced] ===== API RESPONSE DETAILS =====
+[AI Stage Flow Enhanced] Raw API Response Summary: {
+  hasContent: true,
+  contentLength: 1192,
+  contentPreview: 'Okay, "test" received!\n' +
+    '\n' +
+    "Here's my step-by-step reasoning for how I'm processing this:\n" +
+    '\n' +
+    '1.  **Receive Input:** The input is the word "test".\n' +
+    '2.  **Interpret Input:** I understand "test" in this context...',
+  hasGroundingMetadata: false,
+  groundingMetadataKeys: [],
+  hasGroundingSources: false,
+  groundingSourcesCount: 0,
+  hasUsageMetadata: true,
+  modelVersion: 'models/gemini-2.5-pro-preview-05-06'
+}
+[AI Stage Flow Enhanced] Complete Google API Response: {
+  "content": "Okay, \"test\" received!\n\nHere's my step-by-step reasoning for how I'm processing this:\n\n1.  **Receive Input:** The input is the word \"test\".\n2.  **Interpret Input:** I understand \"test\" in this context as a prompt from you to check if I am operational, responsive, and able to process requests. It's like saying, \"Are you there and working?\"\n3.  **Formulate Response Strategy:**\n    *   Acknowledge the test.\n    *   Confirm my operational status.\n    *   Indicate readiness for a subsequent, more specific task.\n    *   Address the \"step-by-step and show reasoning\" part by explaining this very process.\n4.  **Execute Response:**\n    *   **Step 1 (Acknowledgement):** The word \"test\" has been successfully received.\n    *   **Step 2 (Status Check - Internal):** I verify that my core systems are running and I can generate a coherent response. (This is an internal check I perform).\n    *   **Step 3 (Confirmation of Status - External):** I am functioning correctly.\n    *   **Step 4 (Indicate Readiness):** I am now ready for your actual problem, question, or task.\n\n**Conclusion of this \"test\":** I am operational and awaiting your instructions.\n\nWhat would you like me to do or solve next?",
+  "groundingSources": [],
+  "usageMetadata": {
+    "promptTokenCount": 15,
+    "candidatesTokenCount": 304,
+    "totalTokenCount": 1292,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 15
+      }
+    ],
+    "thoughtsTokenCount": 973
+  },
+  "candidates": [
+    {
+      "content": {
+        "parts": [
+          {
+            "text": " of this \"test\":** I am operational and awaiting your instructions.\n\nWhat would you like me to do or solve next?"
+          }
+        ],
+        "role": "model"
+      },
+      "finishReason": "STOP",
+      "index": 0
+    }
+  ],
+  "modelVersion": "models/gemini-2.5-pro-preview-05-06"
+}
+[AI Stage Flow Enhanced] ===== NO GOOGLE SEARCH GROUNDING FOUND =====
+[AI Stage Flow Enhanced] ❌ Google Search Grounding NOT working - response has no grounding data
+[AI Stage Flow Enhanced] This might indicate:
+[AI Stage Flow Enhanced] 1. Google Search grounding is not properly configured
+[AI Stage Flow Enhanced] 2. The model did not need to search for this query
+[AI Stage Flow Enhanced] 3. There was an issue with the grounding service
+[runAiStage] AI execution completed. Result keys: [
+  'content',
+  'thinkingSteps',
+  'outputImages',
+  'updatedChatHistory',
+  'groundingSources',
+  'groundingMetadata',
+  'functionCalls',
+  'codeExecutionResults'
+]
+[runAiStage] AI execution result: {
+  hasContent: true,
+  contentType: 'string',
+  contentLength: 1192,
+  hasGroundingMetadata: false,
+  hasGroundingSources: false,
+  groundingSourcesCount: 0,
+  hasThinkingSteps: true,
+  thinkingStepsCount: 1,
+  hasUpdatedChatHistory: true,
+  chatHistoryLength: 1
+}
+ POST /api/wizard/execute 200 in 14194ms
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'WdGqWxtvYYsy6N9NPtXL',
+  title: 'test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'multiple-url-grounding',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  stageStatesCount: 15,
+  hasUserId: true,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  effectiveUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  wasGenerated: false
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'multiple-url-grounding',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  originalCount: 15,
+  cleanedKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'multiple-url-grounding',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  cleanedCount: 15
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'WdGqWxtvYYsy6N9NPtXL' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'WdGqWxtvYYsy6N9NPtXL' }
+[DocumentPersistence] Document updated successfully { documentId: 'WdGqWxtvYYsy6N9NPtXL' }
+ POST /api/documents/save 200 in 210ms
