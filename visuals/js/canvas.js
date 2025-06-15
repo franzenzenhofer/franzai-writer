@@ -30,8 +30,8 @@ export function resize() {
   canvas.height = h;
   
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  midX = width / 2;
-  midY = height / 2;
+  midX = w / (2 * dpr);
+  midY = h / (2 * dpr);
 }
 
 // MOBILE FIRST orientation handling

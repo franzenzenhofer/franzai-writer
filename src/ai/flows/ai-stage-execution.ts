@@ -2,7 +2,7 @@
 import 'server-only';
 
 import {z} from 'zod';
-import { generateWithDirectGemini, generateStreamWithDirectGemini, type DirectGeminiRequest, type DirectGeminiResponse } from '@/ai/direct-gemini';
+import { generateWithDirectGemini, type DirectGeminiRequest } from '@/ai/direct-gemini';
 import { appendFileSync } from 'fs';
 import { join } from 'path';
 
@@ -352,91 +352,34 @@ export async function aiStageExecutionFlow(
       }
     }
 
-    // Always use simple generation (streaming removed)
-    return await executeSimpleGeneration(
-      generateOptions,
-      promptTemplate,
-      currentThinkingSteps
+    // Always use direct Gemini API
+    return await executeWithDirectGeminiAPI(
+      {
+        model: modelToUse,
+        prompt: promptTemplate,
+        temperature: temperature ?? 0.7,
+        systemInstruction: systemInstructions,
+        tools: availableTools,
+        enableGoogleSearch: false,
+        enableUrlContext: false
+      },
+      currentThinkingSteps,
+      streamingCallback,
+      input
     );
   }
 
-// Simple generation for non-streaming, non-chat requests
-async function executeSimpleGeneration(
-  generateOptions: any,
-  promptTemplate: string,
-  thinkingSteps: ThinkingStep[]
-): Promise<AiStageOutputSchema> {
-  try {
-    console.log('[AI Stage Flow Enhanced] Using simple generation with @google/genai');
-    
-    // CRITICAL FIX: Check if grounding is enabled properly
-    const groundingEnabled = generateOptions.enableGoogleSearch || 
-                            generateOptions.googleSearchGrounding?.enabled ||
-                            generateOptions.forceGoogleSearchGrounding;
-
-    console.log('[AI Stage Flow Enhanced] 🔍 Simple Generation Grounding Check:');
-    console.log('[AI Stage Flow Enhanced]   - generateOptions.enableGoogleSearch:', generateOptions.enableGoogleSearch);
-    console.log('[AI Stage Flow Enhanced]   - generateOptions.googleSearchGrounding?.enabled:', generateOptions.googleSearchGrounding?.enabled);
-    console.log('[AI Stage Flow Enhanced]   - generateOptions.forceGoogleSearchGrounding:', generateOptions.forceGoogleSearchGrounding);
-    console.log('[AI Stage Flow Enhanced]   - Final groundingEnabled:', groundingEnabled);
-
-    // Use direct Gemini API instead of genkit
-    const request: DirectGeminiRequest = {
-      model: generateOptions.model,
-      prompt: promptTemplate,
-      temperature: generateOptions.config?.temperature,
-      systemInstruction: generateOptions.config?.systemInstruction,
-      maxOutputTokens: generateOptions.config?.maxOutputTokens,
-      enableGoogleSearch: groundingEnabled,
-      dynamicRetrievalThreshold: generateOptions.googleSearchGrounding?.dynamicRetrievalThreshold,
-      tools: generateOptions.tools,
-    };
-    
-    const response = await generateWithDirectGemini(request);
-
-    const content = response.content || '';
-    
-    // Direct-gemini already provides grounding metadata in the expected format
-    const groundingMetadata = response.groundingMetadata;
-    const groundingSources = response.groundingSources?.map(source => ({
-      type: 'search' as const,
-      title: source.title,
-      url: source.uri,
-      snippet: source.snippet,
-    })) || [];
-    
-    // Log grounding detection for simple generation
-    if (groundingMetadata || groundingSources.length > 0) {
-      console.log('[AI Stage Flow Enhanced] ===== SIMPLE GENERATION: GOOGLE SEARCH GROUNDING DETECTED =====');
-      console.log('[AI Stage Flow Enhanced] ✅ Simple Generation: Google Search Grounding IS WORKING!');
-    } else {
-      console.log('[AI Stage Flow Enhanced] ===== SIMPLE GENERATION: NO GOOGLE SEARCH GROUNDING FOUND =====');
-      console.log('[AI Stage Flow Enhanced] ❌ Simple Generation: Google Search Grounding NOT working');
-    }
-    
-    return {
-      content,
-      thinkingSteps: thinkingSteps.length > 0 ? thinkingSteps : undefined,
-      groundingSources: groundingSources.length > 0 ? groundingSources : undefined,
-      groundingMetadata,
-    };
-  } catch (error: unknown) {
-    console.error('[AI Stage Flow Enhanced] Generation failed:', error);
-    throw error;
-  }
-}
-
-// Streaming removed - use executeSimpleGeneration or executeWithDirectGeminiAPI
+// Direct Gemini API execution for all generation cases
 async function executeWithDirectGeminiAPI(
   request: DirectGeminiRequest,
   thinkingSteps: ThinkingStep[],
   streamingCallback?: any,
   originalInput?: AiStageExecutionInput
 ): Promise<AiStageOutputSchema> {
-  console.log('🎯 [Direct Gemini API] Starting execution for Google Search grounding');
+  console.log('[Direct Gemini API] Starting execution');
   
-  // 🔥 LOG FULL REQUEST TO DIRECT GEMINI API
-  logToAiLog('🎯 [DIRECT GEMINI API REQUEST - FULL]', {
+  // LOG FULL REQUEST TO DIRECT GEMINI API
+  logToAiLog('[DIRECT GEMINI API REQUEST - FULL]', {
     request: {
       ...request,
       // Don't log the full system prompt, just structure
@@ -455,207 +398,99 @@ async function executeWithDirectGeminiAPI(
   });
   
   try {
-    // Use streaming if callback is provided
-    if (streamingCallback) {
-      console.log('🌊 [Direct Gemini API] Using streaming mode');
+    console.log('[Direct Gemini API] Using non-streaming mode');
+    
+    const result = await generateWithDirectGemini(request);
+    
+    // LOG FULL NON-STREAMING RESULT
+    logToAiLog('[DIRECT GEMINI NON-STREAMING RESULT]', {
+      hasContent: !!result.content,
+      contentLength: result.content?.length || 0,
+      contentPreview: result.content?.substring(0, 200) + '...' || '',
+      hasGroundingMetadata: !!result.groundingMetadata,
+      groundingMetadataKeys: result.groundingMetadata ? Object.keys(result.groundingMetadata) : [],
+      hasGroundingSources: !!result.groundingSources,
+      groundingSourcesCount: result.groundingSources?.length || 0,
+      groundingSourcesPreview: result.groundingSources?.slice(0, 2),
+      allResultKeys: Object.keys(result)
+    });
+    
+    // LOG FULL GROUNDING METADATA IF PRESENT
+    if (result.groundingMetadata) {
+      logToAiLog('[DIRECT GEMINI GROUNDING METADATA - FULL]', result.groundingMetadata);
+
+      // Use enhanced grounding metadata logging
+      const { logGroundingMetadata } = await import('@/lib/ai-logger');
+      logGroundingMetadata(result.groundingMetadata);
+    }
+    
+    // LOG FULL GROUNDING SOURCES IF PRESENT
+    if (result.groundingSources) {
+      logToAiLog('[DIRECT GEMINI GROUNDING SOURCES - FULL]', result.groundingSources);
       
-      const stream = await generateStreamWithDirectGemini(request);
-      let finalResult: DirectGeminiResponse | null = null;
+      // Use enhanced grounding sources logging
+      const { logGroundingSources } = await import('@/lib/ai-logger');
+      logGroundingSources(result.groundingSources);
+    }
+
+    // LOG FULL URL CONTEXT METADATA IF PRESENT  
+    if (result.urlContextMetadata) {
+      logToAiLog('[DIRECT GEMINI URL CONTEXT METADATA - FULL]', result.urlContextMetadata);
       
-      for await (const chunk of stream) {
-        finalResult = chunk;
-        
-        // 🔥 LOG STREAMING CHUNK
-        logToAiLog('🌊 [DIRECT GEMINI STREAMING CHUNK]', {
-          hasContent: !!chunk.content,
-          contentLength: chunk.content?.length || 0,
-          contentPreview: chunk.content?.substring(0, 100) + '...' || '',
-          hasGroundingMetadata: !!chunk.groundingMetadata,
-          hasGroundingSources: !!chunk.groundingSources,
-          groundingSourcesCount: chunk.groundingSources?.length || 0,
-          allChunkKeys: Object.keys(chunk)
-        });
-        
-        // Send streaming callback
-        if (streamingCallback) {
-          streamingCallback({
-            content: chunk.content,
-            groundingMetadata: chunk.groundingMetadata,
-            groundingSources: chunk.groundingSources,
-            isComplete: false
+      // Use enhanced URL context metadata logging
+      const { logUrlContextMetadata } = await import('@/lib/ai-logger');
+      logUrlContextMetadata(result.urlContextMetadata);
+    }
+
+    // LOG FULL THINKING METADATA IF PRESENT
+    if (result.thinkingSteps && result.thinkingSteps.length > 0) {
+      logToAiLog('[DIRECT GEMINI THINKING STEPS - FULL]', result.thinkingSteps);
+      
+      // Use enhanced thinking metadata logging
+      const { logThinkingMetadata } = await import('@/lib/ai-logger');
+      logThinkingMetadata(result.thinkingSteps, result.usageMetadata);
+      
+      // Convert Direct Gemini thinking steps to our internal format
+      for (const thinkingStep of result.thinkingSteps) {
+        if (thinkingStep.type === 'thought' && thinkingStep.text) {
+          thinkingSteps.push({
+            type: 'textLog',
+            message: `Thought Summary: ${thinkingStep.text}`
           });
         }
       }
-      
-      if (!finalResult) {
-        throw new Error('No final result from streaming');
-      }
-      
-      // 🔥 LOG FINAL STREAMING RESULT
-      logToAiLog('✅ [DIRECT GEMINI STREAMING FINAL RESULT]', {
-        hasContent: !!finalResult.content,
-        contentLength: finalResult.content?.length || 0,
-        contentPreview: finalResult.content?.substring(0, 200) + '...' || '',
-        hasGroundingMetadata: !!finalResult.groundingMetadata,
-        groundingMetadataKeys: finalResult.groundingMetadata ? Object.keys(finalResult.groundingMetadata) : [],
-        hasGroundingSources: !!finalResult.groundingSources,
-        groundingSourcesCount: finalResult.groundingSources?.length || 0,
-        groundingSourcesPreview: finalResult.groundingSources?.slice(0, 2),
-        allFinalResultKeys: Object.keys(finalResult)
-      });
-      
-      // 🔥 LOG FULL GROUNDING METADATA IF PRESENT
-      if (finalResult.groundingMetadata) {
-        logToAiLog('🔍 [DIRECT GEMINI GROUNDING METADATA - FULL]', finalResult.groundingMetadata);
-      }
-      
-      // 🔥 LOG FULL GROUNDING SOURCES IF PRESENT
-      if (finalResult.groundingSources) {
-        logToAiLog('📖 [DIRECT GEMINI GROUNDING SOURCES - FULL]', finalResult.groundingSources);
-      }
-
-      // 🔥 LOG FULL URL CONTEXT METADATA IF PRESENT
-      if (finalResult.urlContextMetadata) {
-        logToAiLog('🌐 [DIRECT GEMINI URL CONTEXT METADATA - FULL]', finalResult.urlContextMetadata);
-      }
-
-      // 🔥 LOG FULL THINKING METADATA IF PRESENT
-      if (finalResult.thinkingSteps && finalResult.thinkingSteps.length > 0) {
-        logToAiLog('🧠 [DIRECT GEMINI THINKING STEPS - FULL]', finalResult.thinkingSteps);
-        
-        // Convert Direct Gemini thinking steps to our internal format
-        for (const thinkingStep of finalResult.thinkingSteps) {
-          if (thinkingStep.type === 'thought' && thinkingStep.text) {
-            thinkingSteps.push({
-              type: 'textLog',
-              message: `💭 Thought Summary: ${thinkingStep.text}`
-            });
-          }
-        }
-      }
-      
-      console.log('✅ [Direct Gemini API] Streaming completed successfully');
-      
-      const processedResult = {
-        content: finalResult.content,
-        thinkingSteps: thinkingSteps.length > 0 ? thinkingSteps : undefined,
-        groundingMetadata: finalResult.groundingMetadata,
-        urlContextMetadata: finalResult.urlContextMetadata,
-        groundingSources: finalResult.groundingSources?.map(source => ({
-          type: 'search' as const,
-          title: source.title,
-          url: source.uri,
-          snippet: source.snippet
-        })),
-        usageMetadata: finalResult.usageMetadata,
-      };
-      
-      // 🔥 LOG PROCESSED RESULT BEING RETURNED
-      logToAiLog('🎯 [DIRECT GEMINI PROCESSED RESULT - STREAMING]', {
-        hasContent: !!processedResult.content,
-        hasGroundingMetadata: !!processedResult.groundingMetadata,
-        hasGroundingSources: !!processedResult.groundingSources,
-        groundingSourcesCount: processedResult.groundingSources?.length || 0,
-        allProcessedKeys: Object.keys(processedResult)
-      });
-      
-      return processedResult;
-      
-    } else {
-      console.log('📝 [Direct Gemini API] Using non-streaming mode');
-      
-      const result = await generateWithDirectGemini(request);
-      
-      // 🔥 LOG FULL NON-STREAMING RESULT
-      logToAiLog('�� [DIRECT GEMINI NON-STREAMING RESULT]', {
-        hasContent: !!result.content,
-        contentLength: result.content?.length || 0,
-        contentPreview: result.content?.substring(0, 200) + '...' || '',
-        hasGroundingMetadata: !!result.groundingMetadata,
-        groundingMetadataKeys: result.groundingMetadata ? Object.keys(result.groundingMetadata) : [],
-        hasGroundingSources: !!result.groundingSources,
-        groundingSourcesCount: result.groundingSources?.length || 0,
-        groundingSourcesPreview: result.groundingSources?.slice(0, 2),
-        allResultKeys: Object.keys(result)
-      });
-      
-      // 🔥 LOG FULL GROUNDING METADATA IF PRESENT
-      if (result.groundingMetadata) {
-        logToAiLog('🔍 [DIRECT GEMINI GROUNDING METADATA - FULL]', result.groundingMetadata);
-  
-  // 🔥 NEW: Use enhanced grounding metadata logging
-  const { logGroundingMetadata } = await import('@/lib/ai-logger');
-  logGroundingMetadata(result.groundingMetadata);
-      }
-      
-      // 🔥 LOG FULL GROUNDING SOURCES IF PRESENT
-      if (result.groundingSources) {
-        logToAiLog('📖 [DIRECT GEMINI GROUNDING SOURCES - FULL]', result.groundingSources);
-        
-        // 🔥 NEW: Use enhanced grounding sources logging
-        const { logGroundingSources } = await import('@/lib/ai-logger');
-        logGroundingSources(result.groundingSources);
-      }
-
-      // 🔥 LOG FULL URL CONTEXT METADATA IF PRESENT  
-      if (result.urlContextMetadata) {
-        logToAiLog('🌐 [DIRECT GEMINI URL CONTEXT METADATA - FULL]', result.urlContextMetadata);
-        
-        // 🔥 NEW: Use enhanced URL context metadata logging
-        const { logUrlContextMetadata } = await import('@/lib/ai-logger');
-        logUrlContextMetadata(result.urlContextMetadata);
-      }
-
-      // 🔥 LOG FULL THINKING METADATA IF PRESENT
-      if (result.thinkingSteps && result.thinkingSteps.length > 0) {
-        logToAiLog('🧠 [DIRECT GEMINI THINKING STEPS - FULL]', result.thinkingSteps);
-        
-        // 🔥 NEW: Use enhanced thinking metadata logging
-        const { logThinkingMetadata } = await import('@/lib/ai-logger');
-        logThinkingMetadata(result.thinkingSteps, result.usageMetadata);
-        
-        // Convert Direct Gemini thinking steps to our internal format
-        for (const thinkingStep of result.thinkingSteps) {
-          if (thinkingStep.type === 'thought' && thinkingStep.text) {
-            thinkingSteps.push({
-              type: 'textLog',
-              message: `💭 Thought Summary: ${thinkingStep.text}`
-            });
-          }
-        }
-      }
-      
-      console.log('✅ [Direct Gemini API] Generation completed successfully');
-      
-      const processedResult = {
-        content: result.content,
-        thinkingSteps: thinkingSteps.length > 0 ? thinkingSteps : undefined,
-        groundingMetadata: result.groundingMetadata,
-        urlContextMetadata: result.urlContextMetadata,
-        groundingSources: result.groundingSources?.map(source => ({
-          type: 'search' as const,
-          title: source.title,
-          url: source.uri,
-          snippet: source.snippet
-        })),
-        usageMetadata: result.usageMetadata,
-      };
-      
-      // 🔥 LOG PROCESSED RESULT BEING RETURNED
-      logToAiLog('🎯 [DIRECT GEMINI PROCESSED RESULT - NON-STREAMING]', {
-        hasContent: !!processedResult.content,
-        hasGroundingMetadata: !!processedResult.groundingMetadata,
-        hasGroundingSources: !!processedResult.groundingSources,
-        groundingSourcesCount: processedResult.groundingSources?.length || 0,
-        allProcessedKeys: Object.keys(processedResult)
-      });
-      
-      return processedResult;
     }
     
+    console.log('[Direct Gemini API] Generation completed successfully');
+    
+    const processedResult = {
+      content: result.content,
+      thinkingSteps: thinkingSteps.length > 0 ? thinkingSteps : undefined,
+      groundingMetadata: result.groundingMetadata,
+      urlContextMetadata: result.urlContextMetadata,
+      groundingSources: result.groundingSources?.map(source => ({
+        type: 'search' as const,
+        title: source.title,
+        url: source.uri,
+        snippet: source.snippet
+      })),
+      usageMetadata: result.usageMetadata,
+    };
+    
+    // LOG PROCESSED RESULT BEING RETURNED
+    logToAiLog('[DIRECT GEMINI PROCESSED RESULT - NON-STREAMING]', {
+      hasContent: !!processedResult.content,
+      hasGroundingMetadata: !!processedResult.groundingMetadata,
+      hasGroundingSources: !!processedResult.groundingSources,
+      groundingSourcesCount: processedResult.groundingSources?.length || 0,
+      allProcessedKeys: Object.keys(processedResult)
+    });
+    
+    return processedResult;
+    
   } catch (error: unknown) {
-    // 🔥 LOG DIRECT GEMINI ERROR
-    logToAiLog('❌ [DIRECT GEMINI API ERROR]', {
+    // LOG DIRECT GEMINI ERROR
+    logToAiLog('[DIRECT GEMINI API ERROR]', {
       error: error instanceof Error ? error.message : String(error),
       stack: error instanceof Error ? error.stack : undefined
     });
@@ -665,14 +500,6 @@ async function executeWithDirectGeminiAPI(
   }
 }
 
-// Helper to simulate streaming from a regular response
-async function* simulateStream(response: any) {
-  yield {
-    content: response.text || '',
-    toolRequests: response.toolRequests || [],
-    groundingSources: extractGroundingSources(response),
-  };
-}
 
 // Extract grounding sources from response metadata
 function extractGroundingSources(response: any): any[] {

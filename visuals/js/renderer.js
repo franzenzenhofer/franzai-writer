@@ -1,5 +1,6 @@
 import { parms } from './config.js';
 import { canvas, ctx, w, h, dpr, midX, midY } from './canvas.js';
+import { physics, updateToyPhysics } from './toy-interactions.js';
 
 // Draw one "motif" that will be rotated / mirrored around the center.
 function drawMotif(t) {
@@ -25,12 +26,18 @@ function drawMotif(t) {
 // Main animation loop
 export function draw(now) {
   const t = now * 0.001; // ms → s
+  
+  // Update physics simulation
+  updateToyPhysics();
 
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
   // Paint multiple mirrored slices to build kaleidoscope.
   ctx.save();
   ctx.translate(midX, midY);
+  
+  // Apply physics rotation
+  ctx.rotate(physics.rotation);
 
   const {slices, swirlSpeed} = parms;
   const sliceAngle = Math.PI * 2 / slices;
