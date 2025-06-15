@@ -481,6 +481,7 @@ async function executeWithStreaming(
   let finalOutputImages: any[] = [];
   let groundingSources: any[] = [];
   let groundingMetadata: AiStageOutputSchema['groundingMetadata'] = undefined;
+  let usageMetadata: AiStageOutputSchema['usageMetadata'] = undefined;
   let functionCalls: any[] = [];
   let codeExecutionResults: any;
   
@@ -573,7 +574,7 @@ async function executeWithStreaming(
         contentPreview: response.content?.substring(0, 200) + '...',
         hasGroundingMetadata: !!response.groundingMetadata,
         groundingMetadataKeys: response.groundingMetadata ? Object.keys(response.groundingMetadata) : [],
-        hasGroundingSources: !!response.groundingSources?.length,
+        hasGroundingSources: !!response.groundingSources,
         groundingSourcesCount: response.groundingSources?.length || 0,
         hasUsageMetadata: !!response.usageMetadata,
         modelVersion: response.modelVersion
@@ -584,6 +585,7 @@ async function executeWithStreaming(
       
       // Direct-gemini already provides grounding metadata in the expected format
       groundingMetadata = response.groundingMetadata;
+      usageMetadata = response.usageMetadata;
       groundingSources = response.groundingSources?.map(source => ({
         type: 'search' as const,
         title: source.title,
@@ -728,7 +730,8 @@ async function executeWithStreaming(
       groundingSources: groundingSources.length > 0 ? groundingSources : undefined,
       groundingMetadata,
       functionCalls: functionCalls.length > 0 ? functionCalls : undefined,
-      codeExecutionResults
+      codeExecutionResults,
+      usageMetadata,
     };
     
   } catch (error: unknown) {
@@ -878,7 +881,7 @@ async function executeWithDirectGeminiAPI(
       const result = await generateWithDirectGemini(request);
       
       // 🔥 LOG FULL NON-STREAMING RESULT
-      logToAiLog('�� [DIRECT GEMINI NON-STREAMING RESULT]', {
+      logToAiLog('✅ [DIRECT GEMINI NON-STREAMING RESULT]', {
         hasContent: !!result.content,
         contentLength: result.content?.length || 0,
         contentPreview: result.content?.substring(0, 200) + '...' || '',

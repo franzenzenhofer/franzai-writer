@@ -1,0 +1,14 @@
+{
+  "name": "dream-kaleido-flow",
+  "version": "1.0.0",
+  "description": "Interactive kaleidoscope visualization with touch gestures",
+  "type": "module",
+  "scripts": {
+    "dev": "npx serve .",
+    "serve": "npx serve ."
+  },
+  "dependencies": {
+    "hammerjs": "^2.0.8"
+  },
+  "devDependencies": {}
+}

@@ -389,7 +389,6 @@ export async function generateStreamWithDirectGemini(request: DirectGeminiReques
       let accumulatedContent = '';
       let finalGroundingMetadata: DirectGeminiResponse['groundingMetadata'];
       let finalGroundingSources: DirectGeminiResponse['groundingSources'] = [];
-      let finalUsageMetadata: DirectGeminiResponse['usageMetadata'];
 
       const stream = await streamPromise;
       for await (const chunk of stream) {
@@ -414,16 +413,11 @@ export async function generateStreamWithDirectGemini(request: DirectGeminiReques
           }
         }
 
-        // Capture usage metadata (token statistics / thinking tokens)
-        if (chunk.usageMetadata) {
-          finalUsageMetadata = chunk.usageMetadata;
-        }
-
         yield {
           content: accumulatedContent,
           groundingMetadata: finalGroundingMetadata,
           groundingSources: finalGroundingSources,
-          usageMetadata: finalUsageMetadata,
+          usageMetadata: chunk.usageMetadata,
           candidates: chunk.candidates,
           modelVersion: chunk.modelVersion
         };
