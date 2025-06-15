@@ -127,3 +127,44 @@ export function logGroundingSources(groundingSources: any[]) {
   // Append to ai.log
   fs.appendFileSync(AI_LOG_PATH, logEntry);
 }
+
+// NEW: Enhanced logging function for URL context metadata
+export function logUrlContextMetadata(urlContextMetadata: any) {
+  const timestamp = new Date().toISOString();
+  let logEntry = `${timestamp} 🌐 [URL CONTEXT METADATA DETAILED] \n`;
+  
+  if (urlContextMetadata?.urlMetadata?.length > 0) {
+    const { urlMetadata } = urlContextMetadata;
+    const successCount = urlMetadata.filter((meta: any) => 
+      meta.urlRetrievalStatus === 'URL_RETRIEVAL_STATUS_SUCCESS'
+    ).length;
+    
+    logEntry += `\n📊 URL CONTEXT SUMMARY:\n`;
+    logEntry += `   Total URLs: ${urlMetadata.length}\n`;
+    logEntry += `   Successful: ${successCount}\n`;
+    logEntry += `   Failed: ${urlMetadata.length - successCount}\n`;
+    logEntry += `   Success Rate: ${Math.round(successCount/urlMetadata.length*100)}%\n`;
+    
+    logEntry += `\n🔗 URL PROCESSING DETAILS:\n`;
+    urlMetadata.forEach((meta: any, index: number) => {
+      const isSuccess = meta.urlRetrievalStatus === 'URL_RETRIEVAL_STATUS_SUCCESS';
+      logEntry += `\n  🌐 URL ${index + 1}:\n`;
+      logEntry += `    📎 URL: ${meta.retrievedUrl}\n`;
+      logEntry += `    ${isSuccess ? '✅' : '❌'} Status: ${meta.urlRetrievalStatus}\n`;
+    });
+  } else {
+    logEntry += `\n❌ NO URL CONTEXT METADATA FOUND\n`;
+  }
+  
+  logEntry += `\n🔗 RAW URL CONTEXT DATA:\n${JSON.stringify(urlContextMetadata, null, 2)}\n`;
+  logEntry += `\n${'='.repeat(80)}\n`;
+  
+  // Ensure logs directory exists
+  const logsDir = path.dirname(AI_LOG_PATH);
+  if (!fs.existsSync(logsDir)) {
+    fs.mkdirSync(logsDir, { recursive: true });
+  }
+  
+  // Append to ai.log
+  fs.appendFileSync(AI_LOG_PATH, logEntry);
+}

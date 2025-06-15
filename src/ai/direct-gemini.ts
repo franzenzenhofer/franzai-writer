@@ -21,6 +21,7 @@ export interface DirectGeminiRequest {
   temperature?: number;
   systemInstruction?: string;
   enableGoogleSearch?: boolean;
+  enableUrlContext?: boolean;
   dynamicRetrievalThreshold?: number;
   maxOutputTokens?: number;
   tools?: any[];
@@ -34,6 +35,12 @@ export interface DirectGeminiResponse {
     groundingSupports?: any[];
     retrievalMetadata?: any;
     webSearchQueries?: string[];
+  };
+  urlContextMetadata?: {
+    urlMetadata?: Array<{
+      retrievedUrl: string;
+      urlRetrievalStatus: string;
+    }>;
   };
   groundingSources?: Array<{
     title: string;
@@ -96,6 +103,12 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
     }
   }
 
+  // Add URL Context grounding if enabled
+  if (request.enableUrlContext) {
+    console.log('✅ [Direct Gemini] Adding URL Context grounding');
+    tools.push({ urlContext: {} });
+  }
+
   // Add tools to config if any exist
   if (tools.length > 0) {
     config.tools = tools;
@@ -133,6 +146,7 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
     
     // Extract grounding metadata
     let groundingMetadata: DirectGeminiResponse['groundingMetadata'];
+    let urlContextMetadata: DirectGeminiResponse['urlContextMetadata'];
     let groundingSources: DirectGeminiResponse['groundingSources'] = [];
     
     if (response.candidates && response.candidates.length > 0) {
@@ -162,11 +176,38 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
       } else {
         console.log('❌ [Direct Gemini] No grounding metadata found');
       }
+
+      if (candidate.urlContextMetadata) {
+        console.log('✅ [Direct Gemini] Found URL context metadata!');
+        urlContextMetadata = candidate.urlContextMetadata;
+        
+        console.log('📊 [Direct Gemini] URL Context stats:', {
+          urlsProcessed: candidate.urlContextMetadata.urlMetadata?.length || 0,
+          urlsSuccess: candidate.urlContextMetadata.urlMetadata?.filter((url: any) => 
+            url.urlRetrievalStatus === 'URL_RETRIEVAL_STATUS_SUCCESS'
+          ).length || 0
+        });
+        
+        // Also extract URL sources for the unified sources array
+        if (candidate.urlContextMetadata.urlMetadata) {
+          const urlSources = candidate.urlContextMetadata.urlMetadata
+            .filter((meta: any) => meta.urlRetrievalStatus === 'URL_RETRIEVAL_STATUS_SUCCESS')
+            .map((meta: any) => ({
+              title: meta.retrievedUrl,
+              uri: meta.retrievedUrl,
+              snippet: 'URL Context Source'
+            }));
+          groundingSources.push(...urlSources);
+        }
+      } else {
+        console.log('❌ [Direct Gemini] No URL context metadata found');
+      }
     }
 
     const result: DirectGeminiResponse = {
       content,
       groundingMetadata,
+      urlContextMetadata,
       groundingSources,
       usageMetadata: response.usageMetadata,
       candidates: response.candidates,
@@ -179,16 +220,24 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
       contentLength: content.length,
       contentPreview: content.substring(0, 200) + '...',
       hasGroundingMetadata: !!groundingMetadata,
+      hasUrlContextMetadata: !!urlContextMetadata,
       groundingSourcesCount: groundingSources?.length || 0,
+      urlContextUrlsCount: urlContextMetadata?.urlMetadata?.length || 0,
       usageMetadata: result.usageMetadata,
       fullContent: content,
-      groundingSources: groundingSources
+      groundingSources: groundingSources,
+      urlContextMetadata: urlContextMetadata
     });
     
     // 🔥 NEW: Use enhanced logging for grounding data
     if (groundingMetadata) {
       const { logGroundingMetadata } = await import('@/lib/ai-logger');
       logGroundingMetadata(groundingMetadata);
+    }
+    
+    if (urlContextMetadata) {
+      const { logUrlContextMetadata } = await import('@/lib/ai-logger');
+      logUrlContextMetadata(urlContextMetadata);
     }
     
     if (groundingSources && groundingSources.length > 0) {

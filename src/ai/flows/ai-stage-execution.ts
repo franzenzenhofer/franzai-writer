@@ -91,6 +91,13 @@ const AiStageOutputSchema = z.object({
     })).optional(),
     webSearchQueries: z.array(z.string()).optional(),
   }).optional(),
+  // URL Context metadata structure
+  urlContextMetadata: z.object({
+    urlMetadata: z.array(z.object({
+      retrievedUrl: z.string(),
+      urlRetrievalStatus: z.string(),
+    })).optional(),
+  }).optional(),
   functionCalls: z.array(z.object({
     toolName: z.string(),
     input: z.any(),
@@ -186,34 +193,8 @@ export async function aiStageExecutionFlow(
       }
     }
 
-    // Handle URL grounding if enabled
-    if (groundingSettings?.urlContext?.enabled && groundingSettings.urlContext.urls.length > 0) {
-      try {
-        console.log('[AI Stage Flow Enhanced] Fetching URL context:', groundingSettings.urlContext.urls);
-        for (const url of groundingSettings.urlContext.urls) {
-          const response = await fetch('/api/fetch-url', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ url }),
-          });
-          
-          if (response.ok) {
-            const urlData = await response.json();
-            groundingSources.push({
-              type: 'url',
-              title: urlData.title || url,
-              url: url,
-              snippet: urlData.content?.substring(0, 200) + '...',
-            });
-            
-            // Add URL content to the prompt
-            promptTemplate += `\n\n[Context from ${url}]:\n${urlData.content}`;
-          }
-        }
-      } catch (error: unknown) {
-        console.error('[AI Stage Flow Enhanced] URL grounding failed:', error);
-      }
-    }
+    // OLD URL grounding approach removed - now using native Gemini API urlContext tool
+    // The native approach is handled in the direct API calls above
 
     // Build prompt parts
     const currentPromptMessageParts: any[] = [];
@@ -257,6 +238,11 @@ export async function aiStageExecutionFlow(
       forceGoogleSearchGrounding || 
       groundingSettings?.googleSearch?.enabled;
 
+    // CRITICAL: Implement proper URL Context grounding using direct API
+    const shouldEnableUrlContext = 
+      groundingSettings?.urlContext?.enabled && 
+      groundingSettings.urlContext.urls?.length > 0;
+
     // Configure generation options
     const generateOptions = {
       model: modelToUse,
@@ -289,18 +275,31 @@ export async function aiStageExecutionFlow(
     }
 
     // 🚀 NEW: Use direct Gemini API for Google Search grounding (bypassing Genkit)
-    if (shouldEnableGoogleSearch) {
-      console.log('🚀🚀🚀 GOOGLE SEARCH GROUNDING REQUESTED! 🚀🚀🚀');
-      console.log('🔧 Using Direct Gemini API with proper googleSearch tool...');
+    if (shouldEnableGoogleSearch || shouldEnableUrlContext) {
+      console.log('🚀🚀🚀 GROUNDING REQUESTED! 🚀🚀🚀');
+      if (shouldEnableGoogleSearch) {
+        console.log('🔧 Using Direct Gemini API with proper googleSearch tool...');
+      }
+      if (shouldEnableUrlContext) {
+        console.log('🌐 Using Direct Gemini API with proper urlContext tool...');
+        console.log('🔗 URLs to process:', groundingSettings.urlContext.urls);
+        
+        // Add URLs to the prompt for URL Context tool
+        const urlsString = groundingSettings.urlContext.urls.join(' ');
+        if (!promptTemplate.includes(urlsString)) {
+          promptTemplate = `${promptTemplate}\n\nPlease analyze content from these URLs: ${urlsString}`;
+        }
+      }
       
-      // Use direct API path for Google Search grounding
+      // Use direct API path for grounding
       return await executeWithDirectGeminiAPI(
         {
           model: modelToUse,
           prompt: promptTemplate,
           temperature: temperature ?? 0.1, // Low temperature for grounding accuracy
           systemInstruction: systemInstructions,
-          enableGoogleSearch: true,
+          enableGoogleSearch: shouldEnableGoogleSearch,
+          enableUrlContext: shouldEnableUrlContext,
           dynamicRetrievalThreshold: groundingSettings?.googleSearch?.dynamicThreshold,
           tools: availableTools
         },
@@ -794,6 +793,11 @@ async function executeWithDirectGeminiAPI(
       if (finalResult.groundingSources) {
         logToAiLog('📖 [DIRECT GEMINI GROUNDING SOURCES - FULL]', finalResult.groundingSources);
       }
+
+      // 🔥 LOG FULL URL CONTEXT METADATA IF PRESENT
+      if (finalResult.urlContextMetadata) {
+        logToAiLog('🌐 [DIRECT GEMINI URL CONTEXT METADATA - FULL]', finalResult.urlContextMetadata);
+      }
       
       console.log('✅ [Direct Gemini API] Streaming completed successfully');
       
@@ -801,6 +805,7 @@ async function executeWithDirectGeminiAPI(
         content: finalResult.content,
         thinkingSteps: thinkingSteps.length > 0 ? thinkingSteps : undefined,
         groundingMetadata: finalResult.groundingMetadata,
+        urlContextMetadata: finalResult.urlContextMetadata,
         groundingSources: finalResult.groundingSources?.map(source => ({
           type: 'search' as const,
           title: source.title,
@@ -855,6 +860,15 @@ async function executeWithDirectGeminiAPI(
         const { logGroundingSources } = await import('@/lib/ai-logger');
         logGroundingSources(result.groundingSources);
       }
+
+      // 🔥 LOG FULL URL CONTEXT METADATA IF PRESENT  
+      if (result.urlContextMetadata) {
+        logToAiLog('🌐 [DIRECT GEMINI URL CONTEXT METADATA - FULL]', result.urlContextMetadata);
+        
+        // 🔥 NEW: Use enhanced URL context metadata logging
+        const { logUrlContextMetadata } = await import('@/lib/ai-logger');
+        logUrlContextMetadata(result.urlContextMetadata);
+      }
       
       console.log('✅ [Direct Gemini API] Generation completed successfully');
       
@@ -862,6 +876,7 @@ async function executeWithDirectGeminiAPI(
         content: result.content,
         thinkingSteps: thinkingSteps.length > 0 ? thinkingSteps : undefined,
         groundingMetadata: result.groundingMetadata,
+        urlContextMetadata: result.urlContextMetadata,
         groundingSources: result.groundingSources?.map(source => ({
           type: 'search' as const,
           title: source.title,

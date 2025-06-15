@@ -762,3 +762,2883 @@ Additional instructions: more details
     "updatedChatHistory"
   ]
 }
+2025-06-15T11:09:46.274Z 🚀 [FULL AI REQUEST STARTING] {
+  "params": {
+    "promptTemplate": "Analyze the content from {{userInput.url}} and answer: {{userInput.question}}",
+    "model": "gemini-2.0-flash-exp",
+    "temperature": 0.7,
+    "contextVars": {
+      "test-title": {
+        "userInput": "Test",
+        "output": "Test"
+      },
+      "grounding-google-search": {
+        "userInput": "tell me what happened yesterday in austria! ",
+        "output": "Yesterday, June 10, 2025, a school shooting in Graz, Austria, resulted in at least 10 deaths, including students and the perpetrator. The Austrian Chancellor, Christian Stocker, declared it \"a national tragedy\" and announced three days of national mourning. A national minute of silence was held today, June 11, 2025, in memory of the victims. Police reported that the suspected gunman had bomb plans at his home.\n"
+      },
+      "grounding-url-context": {
+        "userInput": {
+          "url": "https://news.ycombinator.com/",
+          "question": "list latest news headlines"
+        }
+      }
+    },
+    "currentStageInput": {
+      "url": "https://news.ycombinator.com/",
+      "question": "list latest news headlines"
+    },
+    "stageOutputType": "text",
+    "forceGoogleSearchGrounding": false,
+    "groundingSettings": {
+      "urlContext": {
+        "enabled": true,
+        "urls": [
+          "{{userInput.url}}"
+        ]
+      }
+    }
+  }
+}
+2025-06-15T11:09:51.402Z 🎯 [AI EXECUTION RESULT - RAW] {
+  "hasContent": true,
+  "contentLength": 2542,
+  "contentPreview": "Okay, I can't directly access and parse the live content of a website like Hacker News (https://news.ycombinator.com/). My capabilities are limited to processing text-based information. I don't have a...",
+  "hasGroundingMetadata": false,
+  "groundingSourcesCount": 0,
+  "hasThinkingSteps": false,
+  "hasUpdatedChatHistory": true,
+  "resultKeys": [
+    "content",
+    "thinkingSteps",
+    "outputImages",
+    "updatedChatHistory",
+    "groundingSources",
+    "groundingMetadata",
+    "functionCalls",
+    "codeExecutionResults"
+  ]
+}
+2025-06-15T11:09:51.402Z ✅ [FINAL runAiStage RESULT - TEXT] {
+  "hasContent": true,
+  "hasGroundingMetadata": false,
+  "groundingSourcesCount": 0,
+  "hasThinkingSteps": false,
+  "hasUpdatedChatHistory": true,
+  "resultKeys": [
+    "content",
+    "groundingMetadata",
+    "groundingSources",
+    "thinkingSteps",
+    "outputImages",
+    "updatedChatHistory"
+  ]
+}
+2025-06-15T11:22:02.754Z 🚀 [FULL AI REQUEST STARTING] {
+  "params": {
+    "promptTemplate": "Analyze the content from {{userInput.url}} and answer: {{userInput.question}}",
+    "model": "gemini-2.0-flash-exp",
+    "temperature": 0.7,
+    "contextVars": {
+      "test-title": {
+        "userInput": "test",
+        "output": "test"
+      },
+      "grounding-url-context": {
+        "userInput": {
+          "url": "https://news.ycombinator.com/",
+          "question": "Tell me the latest headlines "
+        }
+      }
+    },
+    "currentStageInput": {
+      "url": "https://news.ycombinator.com/",
+      "question": "Tell me the latest headlines "
+    },
+    "stageOutputType": "text",
+    "forceGoogleSearchGrounding": false,
+    "groundingSettings": {
+      "urlContext": {
+        "enabled": true,
+        "urls": [
+          "{{userInput.url}}"
+        ]
+      }
+    }
+  }
+}
+2025-06-15T11:22:02.817Z 🎯 [DIRECT GEMINI API REQUEST - FULL] {
+  "request": {
+    "model": "gemini-2.0-flash-exp",
+    "prompt": "Analyze the content from https://news.ycombinator.com/ and answer: Tell me the latest headlines \n\nPl...",
+    "temperature": 0.7,
+    "enableUrlContext": true,
+    "tools": [],
+    "hasGroundingConfig": false
+  },
+  "originalInput": {
+    "model": "gemini-2.0-flash-exp",
+    "hasGroundingSettings": true,
+    "groundingSettings": {
+      "urlContext": {
+        "enabled": true,
+        "urls": [
+          "{{userInput.url}}"
+        ]
+      }
+    }
+  }
+}
+2025-06-15T11:22:02.818Z 📤 [AI REQUEST] 
+🔧 MODEL: gemini-2.0-flash-exp
+🌡️  TEMPERATURE: Not specified
+📝 PROMPT LENGTH: Not specified
+🔍 GROUNDING: DISABLED
+🛠️  TOOLS: urlContext
+💭 SYSTEM INSTRUCTION: None
+📊 PROMPT PREVIEW: Analyze the content from https://news.ycombinator.com/ and answer: Tell me the latest headlines 
+
+Please analyze content from these URLs: {{userInput.url}}
+🔗 RAW REQUEST DATA: {
+  "type": "Direct Gemini API",
+  "model": "gemini-2.0-flash-exp",
+  "contentsCount": 1,
+  "configKeys": [
+    "temperature",
+    "tools"
+  ],
+  "toolsCount": 1,
+  "hasGoogleSearch": false,
+  "prompt": "Analyze the content from https://news.ycombinator.com/ and answer: Tell me the latest headlines \n\nPlease analyze content from these URLs: {{userInput.url}}",
+  "tools": [
+    {
+      "urlContext": {}
+    }
+  ],
+  "hasGroundingConfig": false
+}
+================================================================================
+2025-06-15T11:22:07.984Z 📥 [AI RESPONSE] 
+📄 CONTENT LENGTH: 2091
+🎯 GROUNDING DETECTED: YES ✅
+📚 GROUNDING SOURCES: 2 sources found
+🔄 FINISH REASON: Not specified
+📊 TOKEN USAGE: Input=36, Output=621, Total=657
+📝 CONTENT PREVIEW: Here are the latest headlines from Hacker News:
+
+1. Q-learning is not yet scalable (seohong.me)
+2. Infinite Grid of Resistors (mathpages.com)
+3. I have reimplemented Stable Diffusion 3.5 from scratch ...
+🔗 RAW RESPONSE DATA: {
+  "type": "Direct Gemini API",
+  "contentLength": 2091,
+  "contentPreview": "Here are the latest headlines from Hacker News:\n\n1. Q-learning is not yet scalable (seohong.me)\n2. Infinite Grid of Resistors (mathpages.com)\n3. I have reimplemented Stable Diffusion 3.5 from scratch ...",
+  "hasGroundingMetadata": true,
+  "hasUrlContextMetadata": true,
+  "groundingSourcesCount": 2,
+  "urlContextUrlsCount": 1,
+  "usageMetadata": {
+    "promptTokenCount": 36,
+    "candidatesTokenCount": 621,
+    "totalTokenCount": 657,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 36
+      }
+    ],
+    "candidatesTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 621
+      }
+    ]
+  },
+  "fullContent": "Here are the latest headlines from Hacker News:\n\n1. Q-learning is not yet scalable (seohong.me)\n2. Infinite Grid of Resistors (mathpages.com)\n3. I have reimplemented Stable Diffusion 3.5 from scratch in pure PyTorch (github.com/yousef-rafat)\n4. Breaking My Security Assignments (akpain.net)\n5. AMD's AI Future Is Rack Scale 'Helios' (morethanmoore.substack.com)\n6. Wrong ways to use the databases, when the pendulum swung too far (luu.io)\n7. Dance Captcha (dance-captcha.vercel.app)\n8. Chicken Eyeglasses (wikipedia.org)\n9. Solar Orbiter gets world-first views of the Sun's poles (esa.int)\n10. Inside the Apollo “8-Ball” FDAI (Flight Director / Attitude Indicator) (righto.com)\n11. Waymo rides cost more than Uber or Lyft and people are paying anyway (techcrunch.com)\n12. Have a damaged painting? Restore it in just hours with an AI-generated “mask” (news.mit.edu)\n13. Fixing the mechanics of my bullet chess (jacobbrazeal.wordpress.com)\n14. Last fifty years of integer linear programming: Recent practical advances (hal.science)\n15. Debunking HDR [video] (yedlin.net)\n16. CI/CD Observability with OpenTelemetry Step by Step Guide (signoz.io)\n17. Unsupervised Elicitation of Language Models (arxiv.org)\n18. Cray versus Raspberry Pi (aardvark.co.nz)\n19. Seven replies to the viral Apple reasoning paper and why they fall short (garymarcus.substack.com)\n20. Endometriosis is an interesting disease (owlposting.com)\n21. SIMD-friendly algorithms for substring searching (2016) (0x80.pl)\n22. The Many Sides of Erik Satie (mitpress.mit.edu)\n23. How to Build Conscious Machines (osf.io)\n24. Sperm are very different from all other cells (bbc.com)\n25. We investigated Amsterdam's attempt to build a 'fair' fraud detection model (lighthousereports.com)\n26. Bioprospectors mine microbial genomes for antibiotic gold (acs.org)\n27. Clinical knowledge in LLMs does not translate to human interactions (arxiv.org)\n28. TimeGuessr (timeguessr.com)\n29. Slowing the flow of core-dump-related CVEs (lwn.net)\n30. Peano arithmetic is enough, because Peano arithmetic encodes computation (math.stackexchange.com)\n",
+  "groundingSources": [
+    {
+      "title": "Hacker News",
+      "uri": "https://news.ycombinator.com/",
+      "snippet": ""
+    },
+    {
+      "title": "https://news.ycombinator.com/",
+      "uri": "https://news.ycombinator.com/",
+      "snippet": "URL Context Source"
+    }
+  ],
+  "urlContextMetadata": {
+    "urlMetadata": [
+      {
+        "retrievedUrl": "https://news.ycombinator.com/",
+        "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+      }
+    ]
+  }
+}
+================================================================================
+2025-06-15T11:22:07.985Z 🌐 [GOOGLE SEARCH SUGGESTIONS & GROUNDING] 
+
+📚 GROUNDING CHUNKS (1):
+  1. Hacker News - https://news.ycombinator.com/
+
+🎯 GROUNDING SUPPORTS (26):
+  1. "1. Q-learning is not yet scalable (seohong.me)" (Confidence: 98%)
+  2. "2. Infinite Grid of Resistors (mathpages.com)" (Confidence: 95%)
+  3. "3. I have reimplemented Stable Diffusion 3.5 from scratch in pure PyTorch (github.com/yousef-rafat)" (Confidence: 98%)
+  4. "4. Breaking My Security Assignments (akpain.net)" (Confidence: 97%)
+  5. "5. AMD's AI Future Is Rack Scale 'Helios' (morethanmoore.substack.com)" (Confidence: 96%)
+  6. "6. Wrong ways to use the databases, when the pendulum swung too far (luu.io)" (Confidence: 89%)
+  7. "7. Dance Captcha (dance-captcha.vercel.app)" (Confidence: 98%)
+  8. "8. Chicken Eyeglasses (wikipedia.org)" (Confidence: 99%)
+  9. "9. Solar Orbiter gets world-first views of the Sun's poles (esa.int)" (Confidence: 94%)
+  10. "10. Inside the Apollo “8-Ball” FDAI (Flight Director / Attitude Indicator) (righto.com)" (Confidence: 85%)
+  11. "Restore it in just hours with an AI-generated “mask” (news.mit.edu)" (Confidence: 81%)
+  12. "14. Last fifty years of integer linear programming: Recent practical advances (hal.science)" (Confidence: 99%)
+  13. "15. Debunking HDR [video] (yedlin.net)" (Confidence: 99%)
+  14. "16. CI/CD Observability with OpenTelemetry Step by Step Guide (signoz.io)" (Confidence: 98%)
+  15. "17. Unsupervised Elicitation of Language Models (arxiv.org)" (Confidence: 94%)
+  16. "18. Cray versus Raspberry Pi (aardvark.co.nz)" (Confidence: 98%)
+  17. "19. Seven replies to the viral Apple reasoning paper and why they fall short (garymarcus.substack.com)" (Confidence: 88%)
+  18. "20. Endometriosis is an interesting disease (owlposting.com)" (Confidence: 95%)
+  19. "22. The Many Sides of Erik Satie (mitpress.mit.edu)" (Confidence: 97%)
+  20. "23. How to Build Conscious Machines (osf.io)" (Confidence: 97%)
+  21. "24. Sperm are very different from all other cells (bbc.com)" (Confidence: 99%)
+  22. "25. We investigated Amsterdam's attempt to build a 'fair' fraud detection model (lighthousereports.com)" (Confidence: 97%)
+  23. "26. Bioprospectors mine microbial genomes for antibiotic gold (acs.org)" (Confidence: 97%)
+  24. "27. Clinical knowledge in LLMs does not translate to human interactions (arxiv.org)" (Confidence: 98%)
+  25. "28. TimeGuessr (timeguessr.com)" (Confidence: 85%)
+  26. "30. Peano arithmetic is enough, because Peano arithmetic encodes computation (math.stackexchange.com)" (Confidence: 97%)
+
+🔗 FULL GROUNDING METADATA:
+{
+  "groundingChunks": [
+    {
+      "web": {
+        "uri": "https://news.ycombinator.com/",
+        "title": "Hacker News"
+      }
+    }
+  ],
+  "groundingSupports": [
+    {
+      "segment": {
+        "startIndex": 49,
+        "endIndex": 95,
+        "text": "1. Q-learning is not yet scalable (seohong.me)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9829113
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 96,
+        "endIndex": 141,
+        "text": "2. Infinite Grid of Resistors (mathpages.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.95291793
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 142,
+        "endIndex": 241,
+        "text": "3. I have reimplemented Stable Diffusion 3.5 from scratch in pure PyTorch (github.com/yousef-rafat)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.97912395
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 242,
+        "endIndex": 290,
+        "text": "4. Breaking My Security Assignments (akpain.net)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.97458935
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 291,
+        "endIndex": 361,
+        "text": "5. AMD's AI Future Is Rack Scale 'Helios' (morethanmoore.substack.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.96329886
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 362,
+        "endIndex": 438,
+        "text": "6. Wrong ways to use the databases, when the pendulum swung too far (luu.io)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.8939025
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 439,
+        "endIndex": 482,
+        "text": "7. Dance Captcha (dance-captcha.vercel.app)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9841479
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 483,
+        "endIndex": 520,
+        "text": "8. Chicken Eyeglasses (wikipedia.org)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.99006784
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 521,
+        "endIndex": 589,
+        "text": "9. Solar Orbiter gets world-first views of the Sun's poles (esa.int)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9354951
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 590,
+        "endIndex": 681,
+        "text": "10. Inside the Apollo “8-Ball” FDAI (Flight Director / Attitude Indicator) (righto.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.845082
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 801,
+        "endIndex": 872,
+        "text": "Restore it in just hours with an AI-generated “mask” (news.mit.edu)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.8091441
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 946,
+        "endIndex": 1037,
+        "text": "14. Last fifty years of integer linear programming: Recent practical advances (hal.science)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.98909587
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1038,
+        "endIndex": 1076,
+        "text": "15. Debunking HDR [video] (yedlin.net)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9876703
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1077,
+        "endIndex": 1150,
+        "text": "16. CI/CD Observability with OpenTelemetry Step by Step Guide (signoz.io)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9823254
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1151,
+        "endIndex": 1210,
+        "text": "17. Unsupervised Elicitation of Language Models (arxiv.org)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9365437
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1211,
+        "endIndex": 1256,
+        "text": "18. Cray versus Raspberry Pi (aardvark.co.nz)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.98420066
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1257,
+        "endIndex": 1359,
+        "text": "19. Seven replies to the viral Apple reasoning paper and why they fall short (garymarcus.substack.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.8805662
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1360,
+        "endIndex": 1420,
+        "text": "20. Endometriosis is an interesting disease (owlposting.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9542189
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1491,
+        "endIndex": 1542,
+        "text": "22. The Many Sides of Erik Satie (mitpress.mit.edu)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9652545
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1543,
+        "endIndex": 1587,
+        "text": "23. How to Build Conscious Machines (osf.io)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9737224
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1588,
+        "endIndex": 1647,
+        "text": "24. Sperm are very different from all other cells (bbc.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.991907
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1648,
+        "endIndex": 1751,
+        "text": "25. We investigated Amsterdam's attempt to build a 'fair' fraud detection model (lighthousereports.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9700009
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1752,
+        "endIndex": 1823,
+        "text": "26. Bioprospectors mine microbial genomes for antibiotic gold (acs.org)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.96536404
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1824,
+        "endIndex": 1907,
+        "text": "27. Clinical knowledge in LLMs does not translate to human interactions (arxiv.org)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.98432
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1908,
+        "endIndex": 1939,
+        "text": "28. TimeGuessr (timeguessr.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.85336673
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1997,
+        "endIndex": 2098,
+        "text": "30. Peano arithmetic is enough, because Peano arithmetic encodes computation (math.stackexchange.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.97188145
+      ]
+    }
+  ]
+}
+
+================================================================================
+2025-06-15T11:22:07.985Z 🌐 [URL CONTEXT METADATA DETAILED] 
+
+📊 URL CONTEXT SUMMARY:
+   Total URLs: 1
+   Successful: 1
+   Failed: 0
+   Success Rate: 100%
+
+🔗 URL PROCESSING DETAILS:
+
+  🌐 URL 1:
+    📎 URL: https://news.ycombinator.com/
+    ✅ Status: URL_RETRIEVAL_STATUS_SUCCESS
+
+🔗 RAW URL CONTEXT DATA:
+{
+  "urlMetadata": [
+    {
+      "retrievedUrl": "https://news.ycombinator.com/",
+      "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+    }
+  ]
+}
+
+================================================================================
+2025-06-15T11:22:07.985Z 📖 [GROUNDING SOURCES DETAILED] 
+
+📚 FOUND 2 GROUNDING SOURCES:
+
+  📄 SOURCE 1:
+    Title: Hacker News
+    URL: https://news.ycombinator.com/
+    Type: Unknown
+
+  📄 SOURCE 2:
+    Title: https://news.ycombinator.com/
+    URL: https://news.ycombinator.com/
+    Type: Unknown
+    Snippet: URL Context Source
+
+🔗 RAW GROUNDING SOURCES DATA:
+[
+  {
+    "title": "Hacker News",
+    "uri": "https://news.ycombinator.com/",
+    "snippet": ""
+  },
+  {
+    "title": "https://news.ycombinator.com/",
+    "uri": "https://news.ycombinator.com/",
+    "snippet": "URL Context Source"
+  }
+]
+
+================================================================================
+2025-06-15T11:22:07.985Z �� [DIRECT GEMINI NON-STREAMING RESULT] {
+  "hasContent": true,
+  "contentLength": 2091,
+  "contentPreview": "Here are the latest headlines from Hacker News:\n\n1. Q-learning is not yet scalable (seohong.me)\n2. Infinite Grid of Resistors (mathpages.com)\n3. I have reimplemented Stable Diffusion 3.5 from scratch ...",
+  "hasGroundingMetadata": true,
+  "groundingMetadataKeys": [
+    "groundingChunks",
+    "groundingSupports"
+  ],
+  "hasGroundingSources": true,
+  "groundingSourcesCount": 2,
+  "groundingSourcesPreview": [
+    {
+      "title": "Hacker News",
+      "uri": "https://news.ycombinator.com/",
+      "snippet": ""
+    },
+    {
+      "title": "https://news.ycombinator.com/",
+      "uri": "https://news.ycombinator.com/",
+      "snippet": "URL Context Source"
+    }
+  ],
+  "allResultKeys": [
+    "content",
+    "groundingMetadata",
+    "urlContextMetadata",
+    "groundingSources",
+    "usageMetadata",
+    "candidates",
+    "modelVersion"
+  ]
+}
+2025-06-15T11:22:07.985Z 🔍 [DIRECT GEMINI GROUNDING METADATA - FULL] {
+  "groundingChunks": [
+    {
+      "web": {
+        "uri": "https://news.ycombinator.com/",
+        "title": "Hacker News"
+      }
+    }
+  ],
+  "groundingSupports": [
+    {
+      "segment": {
+        "startIndex": 49,
+        "endIndex": 95,
+        "text": "1. Q-learning is not yet scalable (seohong.me)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9829113
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 96,
+        "endIndex": 141,
+        "text": "2. Infinite Grid of Resistors (mathpages.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.95291793
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 142,
+        "endIndex": 241,
+        "text": "3. I have reimplemented Stable Diffusion 3.5 from scratch in pure PyTorch (github.com/yousef-rafat)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.97912395
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 242,
+        "endIndex": 290,
+        "text": "4. Breaking My Security Assignments (akpain.net)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.97458935
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 291,
+        "endIndex": 361,
+        "text": "5. AMD's AI Future Is Rack Scale 'Helios' (morethanmoore.substack.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.96329886
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 362,
+        "endIndex": 438,
+        "text": "6. Wrong ways to use the databases, when the pendulum swung too far (luu.io)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.8939025
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 439,
+        "endIndex": 482,
+        "text": "7. Dance Captcha (dance-captcha.vercel.app)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9841479
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 483,
+        "endIndex": 520,
+        "text": "8. Chicken Eyeglasses (wikipedia.org)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.99006784
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 521,
+        "endIndex": 589,
+        "text": "9. Solar Orbiter gets world-first views of the Sun's poles (esa.int)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9354951
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 590,
+        "endIndex": 681,
+        "text": "10. Inside the Apollo “8-Ball” FDAI (Flight Director / Attitude Indicator) (righto.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.845082
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 801,
+        "endIndex": 872,
+        "text": "Restore it in just hours with an AI-generated “mask” (news.mit.edu)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.8091441
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 946,
+        "endIndex": 1037,
+        "text": "14. Last fifty years of integer linear programming: Recent practical advances (hal.science)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.98909587
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1038,
+        "endIndex": 1076,
+        "text": "15. Debunking HDR [video] (yedlin.net)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9876703
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1077,
+        "endIndex": 1150,
+        "text": "16. CI/CD Observability with OpenTelemetry Step by Step Guide (signoz.io)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9823254
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1151,
+        "endIndex": 1210,
+        "text": "17. Unsupervised Elicitation of Language Models (arxiv.org)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9365437
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1211,
+        "endIndex": 1256,
+        "text": "18. Cray versus Raspberry Pi (aardvark.co.nz)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.98420066
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1257,
+        "endIndex": 1359,
+        "text": "19. Seven replies to the viral Apple reasoning paper and why they fall short (garymarcus.substack.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.8805662
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1360,
+        "endIndex": 1420,
+        "text": "20. Endometriosis is an interesting disease (owlposting.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9542189
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1491,
+        "endIndex": 1542,
+        "text": "22. The Many Sides of Erik Satie (mitpress.mit.edu)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9652545
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1543,
+        "endIndex": 1587,
+        "text": "23. How to Build Conscious Machines (osf.io)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9737224
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1588,
+        "endIndex": 1647,
+        "text": "24. Sperm are very different from all other cells (bbc.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.991907
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1648,
+        "endIndex": 1751,
+        "text": "25. We investigated Amsterdam's attempt to build a 'fair' fraud detection model (lighthousereports.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9700009
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1752,
+        "endIndex": 1823,
+        "text": "26. Bioprospectors mine microbial genomes for antibiotic gold (acs.org)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.96536404
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1824,
+        "endIndex": 1907,
+        "text": "27. Clinical knowledge in LLMs does not translate to human interactions (arxiv.org)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.98432
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1908,
+        "endIndex": 1939,
+        "text": "28. TimeGuessr (timeguessr.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.85336673
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1997,
+        "endIndex": 2098,
+        "text": "30. Peano arithmetic is enough, because Peano arithmetic encodes computation (math.stackexchange.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.97188145
+      ]
+    }
+  ]
+}
+2025-06-15T11:22:07.985Z 🌐 [GOOGLE SEARCH SUGGESTIONS & GROUNDING] 
+
+📚 GROUNDING CHUNKS (1):
+  1. Hacker News - https://news.ycombinator.com/
+
+🎯 GROUNDING SUPPORTS (26):
+  1. "1. Q-learning is not yet scalable (seohong.me)" (Confidence: 98%)
+  2. "2. Infinite Grid of Resistors (mathpages.com)" (Confidence: 95%)
+  3. "3. I have reimplemented Stable Diffusion 3.5 from scratch in pure PyTorch (github.com/yousef-rafat)" (Confidence: 98%)
+  4. "4. Breaking My Security Assignments (akpain.net)" (Confidence: 97%)
+  5. "5. AMD's AI Future Is Rack Scale 'Helios' (morethanmoore.substack.com)" (Confidence: 96%)
+  6. "6. Wrong ways to use the databases, when the pendulum swung too far (luu.io)" (Confidence: 89%)
+  7. "7. Dance Captcha (dance-captcha.vercel.app)" (Confidence: 98%)
+  8. "8. Chicken Eyeglasses (wikipedia.org)" (Confidence: 99%)
+  9. "9. Solar Orbiter gets world-first views of the Sun's poles (esa.int)" (Confidence: 94%)
+  10. "10. Inside the Apollo “8-Ball” FDAI (Flight Director / Attitude Indicator) (righto.com)" (Confidence: 85%)
+  11. "Restore it in just hours with an AI-generated “mask” (news.mit.edu)" (Confidence: 81%)
+  12. "14. Last fifty years of integer linear programming: Recent practical advances (hal.science)" (Confidence: 99%)
+  13. "15. Debunking HDR [video] (yedlin.net)" (Confidence: 99%)
+  14. "16. CI/CD Observability with OpenTelemetry Step by Step Guide (signoz.io)" (Confidence: 98%)
+  15. "17. Unsupervised Elicitation of Language Models (arxiv.org)" (Confidence: 94%)
+  16. "18. Cray versus Raspberry Pi (aardvark.co.nz)" (Confidence: 98%)
+  17. "19. Seven replies to the viral Apple reasoning paper and why they fall short (garymarcus.substack.com)" (Confidence: 88%)
+  18. "20. Endometriosis is an interesting disease (owlposting.com)" (Confidence: 95%)
+  19. "22. The Many Sides of Erik Satie (mitpress.mit.edu)" (Confidence: 97%)
+  20. "23. How to Build Conscious Machines (osf.io)" (Confidence: 97%)
+  21. "24. Sperm are very different from all other cells (bbc.com)" (Confidence: 99%)
+  22. "25. We investigated Amsterdam's attempt to build a 'fair' fraud detection model (lighthousereports.com)" (Confidence: 97%)
+  23. "26. Bioprospectors mine microbial genomes for antibiotic gold (acs.org)" (Confidence: 97%)
+  24. "27. Clinical knowledge in LLMs does not translate to human interactions (arxiv.org)" (Confidence: 98%)
+  25. "28. TimeGuessr (timeguessr.com)" (Confidence: 85%)
+  26. "30. Peano arithmetic is enough, because Peano arithmetic encodes computation (math.stackexchange.com)" (Confidence: 97%)
+
+🔗 FULL GROUNDING METADATA:
+{
+  "groundingChunks": [
+    {
+      "web": {
+        "uri": "https://news.ycombinator.com/",
+        "title": "Hacker News"
+      }
+    }
+  ],
+  "groundingSupports": [
+    {
+      "segment": {
+        "startIndex": 49,
+        "endIndex": 95,
+        "text": "1. Q-learning is not yet scalable (seohong.me)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9829113
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 96,
+        "endIndex": 141,
+        "text": "2. Infinite Grid of Resistors (mathpages.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.95291793
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 142,
+        "endIndex": 241,
+        "text": "3. I have reimplemented Stable Diffusion 3.5 from scratch in pure PyTorch (github.com/yousef-rafat)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.97912395
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 242,
+        "endIndex": 290,
+        "text": "4. Breaking My Security Assignments (akpain.net)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.97458935
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 291,
+        "endIndex": 361,
+        "text": "5. AMD's AI Future Is Rack Scale 'Helios' (morethanmoore.substack.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.96329886
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 362,
+        "endIndex": 438,
+        "text": "6. Wrong ways to use the databases, when the pendulum swung too far (luu.io)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.8939025
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 439,
+        "endIndex": 482,
+        "text": "7. Dance Captcha (dance-captcha.vercel.app)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9841479
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 483,
+        "endIndex": 520,
+        "text": "8. Chicken Eyeglasses (wikipedia.org)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.99006784
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 521,
+        "endIndex": 589,
+        "text": "9. Solar Orbiter gets world-first views of the Sun's poles (esa.int)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9354951
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 590,
+        "endIndex": 681,
+        "text": "10. Inside the Apollo “8-Ball” FDAI (Flight Director / Attitude Indicator) (righto.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.845082
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 801,
+        "endIndex": 872,
+        "text": "Restore it in just hours with an AI-generated “mask” (news.mit.edu)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.8091441
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 946,
+        "endIndex": 1037,
+        "text": "14. Last fifty years of integer linear programming: Recent practical advances (hal.science)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.98909587
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1038,
+        "endIndex": 1076,
+        "text": "15. Debunking HDR [video] (yedlin.net)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9876703
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1077,
+        "endIndex": 1150,
+        "text": "16. CI/CD Observability with OpenTelemetry Step by Step Guide (signoz.io)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9823254
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1151,
+        "endIndex": 1210,
+        "text": "17. Unsupervised Elicitation of Language Models (arxiv.org)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9365437
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1211,
+        "endIndex": 1256,
+        "text": "18. Cray versus Raspberry Pi (aardvark.co.nz)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.98420066
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1257,
+        "endIndex": 1359,
+        "text": "19. Seven replies to the viral Apple reasoning paper and why they fall short (garymarcus.substack.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.8805662
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1360,
+        "endIndex": 1420,
+        "text": "20. Endometriosis is an interesting disease (owlposting.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9542189
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1491,
+        "endIndex": 1542,
+        "text": "22. The Many Sides of Erik Satie (mitpress.mit.edu)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9652545
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1543,
+        "endIndex": 1587,
+        "text": "23. How to Build Conscious Machines (osf.io)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9737224
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1588,
+        "endIndex": 1647,
+        "text": "24. Sperm are very different from all other cells (bbc.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.991907
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1648,
+        "endIndex": 1751,
+        "text": "25. We investigated Amsterdam's attempt to build a 'fair' fraud detection model (lighthousereports.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9700009
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1752,
+        "endIndex": 1823,
+        "text": "26. Bioprospectors mine microbial genomes for antibiotic gold (acs.org)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.96536404
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1824,
+        "endIndex": 1907,
+        "text": "27. Clinical knowledge in LLMs does not translate to human interactions (arxiv.org)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.98432
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1908,
+        "endIndex": 1939,
+        "text": "28. TimeGuessr (timeguessr.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.85336673
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 1997,
+        "endIndex": 2098,
+        "text": "30. Peano arithmetic is enough, because Peano arithmetic encodes computation (math.stackexchange.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.97188145
+      ]
+    }
+  ]
+}
+
+================================================================================
+2025-06-15T11:22:07.985Z 📖 [DIRECT GEMINI GROUNDING SOURCES - FULL] [
+  {
+    "title": "Hacker News",
+    "uri": "https://news.ycombinator.com/",
+    "snippet": ""
+  },
+  {
+    "title": "https://news.ycombinator.com/",
+    "uri": "https://news.ycombinator.com/",
+    "snippet": "URL Context Source"
+  }
+]
+2025-06-15T11:22:07.985Z 📖 [GROUNDING SOURCES DETAILED] 
+
+📚 FOUND 2 GROUNDING SOURCES:
+
+  📄 SOURCE 1:
+    Title: Hacker News
+    URL: https://news.ycombinator.com/
+    Type: Unknown
+
+  📄 SOURCE 2:
+    Title: https://news.ycombinator.com/
+    URL: https://news.ycombinator.com/
+    Type: Unknown
+    Snippet: URL Context Source
+
+🔗 RAW GROUNDING SOURCES DATA:
+[
+  {
+    "title": "Hacker News",
+    "uri": "https://news.ycombinator.com/",
+    "snippet": ""
+  },
+  {
+    "title": "https://news.ycombinator.com/",
+    "uri": "https://news.ycombinator.com/",
+    "snippet": "URL Context Source"
+  }
+]
+
+================================================================================
+2025-06-15T11:22:07.985Z 🌐 [DIRECT GEMINI URL CONTEXT METADATA - FULL] {
+  "urlMetadata": [
+    {
+      "retrievedUrl": "https://news.ycombinator.com/",
+      "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+    }
+  ]
+}
+2025-06-15T11:22:07.985Z 🌐 [URL CONTEXT METADATA DETAILED] 
+
+📊 URL CONTEXT SUMMARY:
+   Total URLs: 1
+   Successful: 1
+   Failed: 0
+   Success Rate: 100%
+
+🔗 URL PROCESSING DETAILS:
+
+  🌐 URL 1:
+    📎 URL: https://news.ycombinator.com/
+    ✅ Status: URL_RETRIEVAL_STATUS_SUCCESS
+
+🔗 RAW URL CONTEXT DATA:
+{
+  "urlMetadata": [
+    {
+      "retrievedUrl": "https://news.ycombinator.com/",
+      "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+    }
+  ]
+}
+
+================================================================================
+2025-06-15T11:22:07.985Z 🎯 [DIRECT GEMINI PROCESSED RESULT - NON-STREAMING] {
+  "hasContent": true,
+  "hasGroundingMetadata": true,
+  "hasGroundingSources": true,
+  "groundingSourcesCount": 2,
+  "allProcessedKeys": [
+    "content",
+    "thinkingSteps",
+    "groundingMetadata",
+    "urlContextMetadata",
+    "groundingSources"
+  ]
+}
+2025-06-15T11:22:07.986Z 🎯 [AI EXECUTION RESULT - RAW] {
+  "hasContent": true,
+  "contentLength": 2091,
+  "contentPreview": "Here are the latest headlines from Hacker News:\n\n1. Q-learning is not yet scalable (seohong.me)\n2. Infinite Grid of Resistors (mathpages.com)\n3. I have reimplemented Stable Diffusion 3.5 from scratch ...",
+  "hasGroundingMetadata": true,
+  "groundingSourcesCount": 2,
+  "hasThinkingSteps": false,
+  "hasUpdatedChatHistory": false,
+  "resultKeys": [
+    "content",
+    "thinkingSteps",
+    "groundingMetadata",
+    "urlContextMetadata",
+    "groundingSources"
+  ]
+}
+2025-06-15T11:22:07.986Z ✅ [FINAL runAiStage RESULT - TEXT] {
+  "hasContent": true,
+  "hasGroundingMetadata": true,
+  "groundingSourcesCount": 2,
+  "hasThinkingSteps": false,
+  "hasUpdatedChatHistory": false,
+  "resultKeys": [
+    "content",
+    "groundingMetadata",
+    "groundingSources",
+    "thinkingSteps",
+    "outputImages",
+    "updatedChatHistory"
+  ]
+}
+2025-06-15T11:22:48.591Z 🧪 [TEST-AI REQUEST - COMPLETE] {
+  "body": {
+    "promptTemplate": "Analyze the content from {{userInput.url}} and answer: {{userInput.question}}",
+    "model": "gemini-2.0-flash-exp",
+    "temperature": 0.7,
+    "contextVars": {
+      "test-title": {
+        "userInput": "Test",
+        "output": "Test"
+      },
+      "grounding-url-context": {
+        "userInput": {
+          "url": "https://news.ycombinator.com/",
+          "question": "Tell me the latest headlines"
+        }
+      }
+    },
+    "currentStageInput": {
+      "url": "https://news.ycombinator.com/",
+      "question": "Tell me the latest headlines"
+    },
+    "stageOutputType": "text",
+    "forceGoogleSearchGrounding": false,
+    "groundingSettings": {
+      "urlContext": {
+        "enabled": true,
+        "urls": [
+          "{{userInput.url}}"
+        ]
+      }
+    }
+  },
+  "url": "http://localhost:9002/api/test-ai",
+  "method": "POST",
+  "timestamp": "2025-06-15T11:22:48.591Z"
+}
+2025-06-15T11:22:48.591Z 🚀 [FULL AI REQUEST STARTING] {
+  "params": {
+    "promptTemplate": "Analyze the content from {{userInput.url}} and answer: {{userInput.question}}",
+    "model": "gemini-2.0-flash-exp",
+    "temperature": 0.7,
+    "contextVars": {
+      "test-title": {
+        "userInput": "Test",
+        "output": "Test"
+      },
+      "grounding-url-context": {
+        "userInput": {
+          "url": "https://news.ycombinator.com/",
+          "question": "Tell me the latest headlines"
+        }
+      }
+    },
+    "currentStageInput": {
+      "url": "https://news.ycombinator.com/",
+      "question": "Tell me the latest headlines"
+    },
+    "stageOutputType": "text",
+    "groundingSettings": {
+      "urlContext": {
+        "enabled": true,
+        "urls": [
+          "{{userInput.url}}"
+        ]
+      }
+    },
+    "forceGoogleSearchGrounding": false
+  }
+}
+2025-06-15T11:22:48.640Z 🎯 [DIRECT GEMINI API REQUEST - FULL] {
+  "request": {
+    "model": "gemini-2.0-flash-exp",
+    "prompt": "Analyze the content from https://news.ycombinator.com/ and answer: Tell me the latest headlines\n\nPle...",
+    "temperature": 0.7,
+    "enableUrlContext": true,
+    "tools": [],
+    "hasGroundingConfig": false
+  },
+  "originalInput": {
+    "model": "gemini-2.0-flash-exp",
+    "hasGroundingSettings": true,
+    "groundingSettings": {
+      "urlContext": {
+        "enabled": true,
+        "urls": [
+          "{{userInput.url}}"
+        ]
+      }
+    }
+  }
+}
+2025-06-15T11:22:48.641Z 📤 [AI REQUEST] 
+🔧 MODEL: gemini-2.0-flash-exp
+🌡️  TEMPERATURE: Not specified
+📝 PROMPT LENGTH: Not specified
+🔍 GROUNDING: DISABLED
+🛠️  TOOLS: urlContext
+💭 SYSTEM INSTRUCTION: None
+📊 PROMPT PREVIEW: Analyze the content from https://news.ycombinator.com/ and answer: Tell me the latest headlines
+
+Please analyze content from these URLs: {{userInput.url}}
+🔗 RAW REQUEST DATA: {
+  "type": "Direct Gemini API",
+  "model": "gemini-2.0-flash-exp",
+  "contentsCount": 1,
+  "configKeys": [
+    "temperature",
+    "tools"
+  ],
+  "toolsCount": 1,
+  "hasGoogleSearch": false,
+  "prompt": "Analyze the content from https://news.ycombinator.com/ and answer: Tell me the latest headlines\n\nPlease analyze content from these URLs: {{userInput.url}}",
+  "tools": [
+    {
+      "urlContext": {}
+    }
+  ],
+  "hasGroundingConfig": false
+}
+================================================================================
+2025-06-15T11:22:51.128Z 📥 [AI RESPONSE] 
+📄 CONTENT LENGTH: 678
+🎯 GROUNDING DETECTED: YES ✅
+📚 GROUNDING SOURCES: 2 sources found
+🔄 FINISH REASON: Not specified
+📊 TOKEN USAGE: Input=35, Output=207, Total=242
+📝 CONTENT PREVIEW: Here are the latest headlines from Hacker News:
+
+1. Q-learning is not yet scalable (seohong.me)
+2. Infinite Grid of Resistors (mathpages.com)
+3. I have reimplemented Stable Diffusion 3.5 from scratch ...
+🔗 RAW RESPONSE DATA: {
+  "type": "Direct Gemini API",
+  "contentLength": 678,
+  "contentPreview": "Here are the latest headlines from Hacker News:\n\n1. Q-learning is not yet scalable (seohong.me)\n2. Infinite Grid of Resistors (mathpages.com)\n3. I have reimplemented Stable Diffusion 3.5 from scratch ...",
+  "hasGroundingMetadata": true,
+  "hasUrlContextMetadata": true,
+  "groundingSourcesCount": 2,
+  "urlContextUrlsCount": 1,
+  "usageMetadata": {
+    "promptTokenCount": 35,
+    "candidatesTokenCount": 207,
+    "totalTokenCount": 242,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 35
+      }
+    ],
+    "candidatesTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 207
+      }
+    ]
+  },
+  "fullContent": "Here are the latest headlines from Hacker News:\n\n1. Q-learning is not yet scalable (seohong.me)\n2. Infinite Grid of Resistors (mathpages.com)\n3. I have reimplemented Stable Diffusion 3.5 from scratch in pure PyTorch (github.com/yousef-rafat)\n4. Breaking My Security Assignments (akpain.net)\n5. AMD's AI Future Is Rack Scale 'Helios' (morethanmoore.substack.com)\n6. Wrong ways to use the databases, when the pendulum swung too far (luu.io)\n7. Dance Captcha (dance-captcha.vercel.app)\n8. Chicken Eyeglasses (wikipedia.org)\n9. Solar Orbiter gets world-first views of the Sun's poles (esa.int)\n10. Inside the Apollo “8-Ball” FDAI (Flight Director / Attitude Indicator) (righto.com)\n",
+  "groundingSources": [
+    {
+      "title": "Hacker News",
+      "uri": "https://news.ycombinator.com/",
+      "snippet": ""
+    },
+    {
+      "title": "https://news.ycombinator.com/",
+      "uri": "https://news.ycombinator.com/",
+      "snippet": "URL Context Source"
+    }
+  ],
+  "urlContextMetadata": {
+    "urlMetadata": [
+      {
+        "retrievedUrl": "https://news.ycombinator.com/",
+        "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+      }
+    ]
+  }
+}
+================================================================================
+2025-06-15T11:22:51.128Z 🌐 [GOOGLE SEARCH SUGGESTIONS & GROUNDING] 
+
+📚 GROUNDING CHUNKS (1):
+  1. Hacker News - https://news.ycombinator.com/
+
+🎯 GROUNDING SUPPORTS (10):
+  1. "1. Q-learning is not yet scalable (seohong.me)" (Confidence: 98%)
+  2. "2. Infinite Grid of Resistors (mathpages.com)" (Confidence: 95%)
+  3. "3. I have reimplemented Stable Diffusion 3.5 from scratch in pure PyTorch (github.com/yousef-rafat)" (Confidence: 98%)
+  4. "4. Breaking My Security Assignments (akpain.net)" (Confidence: 97%)
+  5. "5. AMD's AI Future Is Rack Scale 'Helios' (morethanmoore.substack.com)" (Confidence: 96%)
+  6. "6. Wrong ways to use the databases, when the pendulum swung too far (luu.io)" (Confidence: 89%)
+  7. "7. Dance Captcha (dance-captcha.vercel.app)" (Confidence: 98%)
+  8. "8. Chicken Eyeglasses (wikipedia.org)" (Confidence: 99%)
+  9. "9. Solar Orbiter gets world-first views of the Sun's poles (esa.int)" (Confidence: 94%)
+  10. "10. Inside the Apollo “8-Ball” FDAI (Flight Director / Attitude Indicator) (righto.com)" (Confidence: 85%)
+
+🔗 FULL GROUNDING METADATA:
+{
+  "groundingChunks": [
+    {
+      "web": {
+        "uri": "https://news.ycombinator.com/",
+        "title": "Hacker News"
+      }
+    }
+  ],
+  "groundingSupports": [
+    {
+      "segment": {
+        "startIndex": 49,
+        "endIndex": 95,
+        "text": "1. Q-learning is not yet scalable (seohong.me)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9829113
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 96,
+        "endIndex": 141,
+        "text": "2. Infinite Grid of Resistors (mathpages.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.95291793
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 142,
+        "endIndex": 241,
+        "text": "3. I have reimplemented Stable Diffusion 3.5 from scratch in pure PyTorch (github.com/yousef-rafat)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.97912395
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 242,
+        "endIndex": 290,
+        "text": "4. Breaking My Security Assignments (akpain.net)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.97458935
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 291,
+        "endIndex": 361,
+        "text": "5. AMD's AI Future Is Rack Scale 'Helios' (morethanmoore.substack.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.96329886
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 362,
+        "endIndex": 438,
+        "text": "6. Wrong ways to use the databases, when the pendulum swung too far (luu.io)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.8939025
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 439,
+        "endIndex": 482,
+        "text": "7. Dance Captcha (dance-captcha.vercel.app)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9841479
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 483,
+        "endIndex": 520,
+        "text": "8. Chicken Eyeglasses (wikipedia.org)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.99006784
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 521,
+        "endIndex": 589,
+        "text": "9. Solar Orbiter gets world-first views of the Sun's poles (esa.int)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9354951
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 590,
+        "endIndex": 681,
+        "text": "10. Inside the Apollo “8-Ball” FDAI (Flight Director / Attitude Indicator) (righto.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.845082
+      ]
+    }
+  ]
+}
+
+================================================================================
+2025-06-15T11:22:51.129Z 🌐 [URL CONTEXT METADATA DETAILED] 
+
+📊 URL CONTEXT SUMMARY:
+   Total URLs: 1
+   Successful: 1
+   Failed: 0
+   Success Rate: 100%
+
+🔗 URL PROCESSING DETAILS:
+
+  🌐 URL 1:
+    📎 URL: https://news.ycombinator.com/
+    ✅ Status: URL_RETRIEVAL_STATUS_SUCCESS
+
+🔗 RAW URL CONTEXT DATA:
+{
+  "urlMetadata": [
+    {
+      "retrievedUrl": "https://news.ycombinator.com/",
+      "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+    }
+  ]
+}
+
+================================================================================
+2025-06-15T11:22:51.129Z 📖 [GROUNDING SOURCES DETAILED] 
+
+📚 FOUND 2 GROUNDING SOURCES:
+
+  📄 SOURCE 1:
+    Title: Hacker News
+    URL: https://news.ycombinator.com/
+    Type: Unknown
+
+  📄 SOURCE 2:
+    Title: https://news.ycombinator.com/
+    URL: https://news.ycombinator.com/
+    Type: Unknown
+    Snippet: URL Context Source
+
+🔗 RAW GROUNDING SOURCES DATA:
+[
+  {
+    "title": "Hacker News",
+    "uri": "https://news.ycombinator.com/",
+    "snippet": ""
+  },
+  {
+    "title": "https://news.ycombinator.com/",
+    "uri": "https://news.ycombinator.com/",
+    "snippet": "URL Context Source"
+  }
+]
+
+================================================================================
+2025-06-15T11:22:51.129Z �� [DIRECT GEMINI NON-STREAMING RESULT] {
+  "hasContent": true,
+  "contentLength": 678,
+  "contentPreview": "Here are the latest headlines from Hacker News:\n\n1. Q-learning is not yet scalable (seohong.me)\n2. Infinite Grid of Resistors (mathpages.com)\n3. I have reimplemented Stable Diffusion 3.5 from scratch ...",
+  "hasGroundingMetadata": true,
+  "groundingMetadataKeys": [
+    "groundingChunks",
+    "groundingSupports"
+  ],
+  "hasGroundingSources": true,
+  "groundingSourcesCount": 2,
+  "groundingSourcesPreview": [
+    {
+      "title": "Hacker News",
+      "uri": "https://news.ycombinator.com/",
+      "snippet": ""
+    },
+    {
+      "title": "https://news.ycombinator.com/",
+      "uri": "https://news.ycombinator.com/",
+      "snippet": "URL Context Source"
+    }
+  ],
+  "allResultKeys": [
+    "content",
+    "groundingMetadata",
+    "urlContextMetadata",
+    "groundingSources",
+    "usageMetadata",
+    "candidates",
+    "modelVersion"
+  ]
+}
+2025-06-15T11:22:51.129Z 🔍 [DIRECT GEMINI GROUNDING METADATA - FULL] {
+  "groundingChunks": [
+    {
+      "web": {
+        "uri": "https://news.ycombinator.com/",
+        "title": "Hacker News"
+      }
+    }
+  ],
+  "groundingSupports": [
+    {
+      "segment": {
+        "startIndex": 49,
+        "endIndex": 95,
+        "text": "1. Q-learning is not yet scalable (seohong.me)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9829113
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 96,
+        "endIndex": 141,
+        "text": "2. Infinite Grid of Resistors (mathpages.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.95291793
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 142,
+        "endIndex": 241,
+        "text": "3. I have reimplemented Stable Diffusion 3.5 from scratch in pure PyTorch (github.com/yousef-rafat)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.97912395
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 242,
+        "endIndex": 290,
+        "text": "4. Breaking My Security Assignments (akpain.net)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.97458935
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 291,
+        "endIndex": 361,
+        "text": "5. AMD's AI Future Is Rack Scale 'Helios' (morethanmoore.substack.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.96329886
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 362,
+        "endIndex": 438,
+        "text": "6. Wrong ways to use the databases, when the pendulum swung too far (luu.io)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.8939025
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 439,
+        "endIndex": 482,
+        "text": "7. Dance Captcha (dance-captcha.vercel.app)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9841479
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 483,
+        "endIndex": 520,
+        "text": "8. Chicken Eyeglasses (wikipedia.org)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.99006784
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 521,
+        "endIndex": 589,
+        "text": "9. Solar Orbiter gets world-first views of the Sun's poles (esa.int)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9354951
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 590,
+        "endIndex": 681,
+        "text": "10. Inside the Apollo “8-Ball” FDAI (Flight Director / Attitude Indicator) (righto.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.845082
+      ]
+    }
+  ]
+}
+2025-06-15T11:22:51.129Z 🌐 [GOOGLE SEARCH SUGGESTIONS & GROUNDING] 
+
+📚 GROUNDING CHUNKS (1):
+  1. Hacker News - https://news.ycombinator.com/
+
+🎯 GROUNDING SUPPORTS (10):
+  1. "1. Q-learning is not yet scalable (seohong.me)" (Confidence: 98%)
+  2. "2. Infinite Grid of Resistors (mathpages.com)" (Confidence: 95%)
+  3. "3. I have reimplemented Stable Diffusion 3.5 from scratch in pure PyTorch (github.com/yousef-rafat)" (Confidence: 98%)
+  4. "4. Breaking My Security Assignments (akpain.net)" (Confidence: 97%)
+  5. "5. AMD's AI Future Is Rack Scale 'Helios' (morethanmoore.substack.com)" (Confidence: 96%)
+  6. "6. Wrong ways to use the databases, when the pendulum swung too far (luu.io)" (Confidence: 89%)
+  7. "7. Dance Captcha (dance-captcha.vercel.app)" (Confidence: 98%)
+  8. "8. Chicken Eyeglasses (wikipedia.org)" (Confidence: 99%)
+  9. "9. Solar Orbiter gets world-first views of the Sun's poles (esa.int)" (Confidence: 94%)
+  10. "10. Inside the Apollo “8-Ball” FDAI (Flight Director / Attitude Indicator) (righto.com)" (Confidence: 85%)
+
+🔗 FULL GROUNDING METADATA:
+{
+  "groundingChunks": [
+    {
+      "web": {
+        "uri": "https://news.ycombinator.com/",
+        "title": "Hacker News"
+      }
+    }
+  ],
+  "groundingSupports": [
+    {
+      "segment": {
+        "startIndex": 49,
+        "endIndex": 95,
+        "text": "1. Q-learning is not yet scalable (seohong.me)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9829113
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 96,
+        "endIndex": 141,
+        "text": "2. Infinite Grid of Resistors (mathpages.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.95291793
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 142,
+        "endIndex": 241,
+        "text": "3. I have reimplemented Stable Diffusion 3.5 from scratch in pure PyTorch (github.com/yousef-rafat)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.97912395
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 242,
+        "endIndex": 290,
+        "text": "4. Breaking My Security Assignments (akpain.net)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.97458935
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 291,
+        "endIndex": 361,
+        "text": "5. AMD's AI Future Is Rack Scale 'Helios' (morethanmoore.substack.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.96329886
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 362,
+        "endIndex": 438,
+        "text": "6. Wrong ways to use the databases, when the pendulum swung too far (luu.io)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.8939025
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 439,
+        "endIndex": 482,
+        "text": "7. Dance Captcha (dance-captcha.vercel.app)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9841479
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 483,
+        "endIndex": 520,
+        "text": "8. Chicken Eyeglasses (wikipedia.org)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.99006784
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 521,
+        "endIndex": 589,
+        "text": "9. Solar Orbiter gets world-first views of the Sun's poles (esa.int)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9354951
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 590,
+        "endIndex": 681,
+        "text": "10. Inside the Apollo “8-Ball” FDAI (Flight Director / Attitude Indicator) (righto.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.845082
+      ]
+    }
+  ]
+}
+
+================================================================================
+2025-06-15T11:22:51.129Z 📖 [DIRECT GEMINI GROUNDING SOURCES - FULL] [
+  {
+    "title": "Hacker News",
+    "uri": "https://news.ycombinator.com/",
+    "snippet": ""
+  },
+  {
+    "title": "https://news.ycombinator.com/",
+    "uri": "https://news.ycombinator.com/",
+    "snippet": "URL Context Source"
+  }
+]
+2025-06-15T11:22:51.129Z 📖 [GROUNDING SOURCES DETAILED] 
+
+📚 FOUND 2 GROUNDING SOURCES:
+
+  📄 SOURCE 1:
+    Title: Hacker News
+    URL: https://news.ycombinator.com/
+    Type: Unknown
+
+  📄 SOURCE 2:
+    Title: https://news.ycombinator.com/
+    URL: https://news.ycombinator.com/
+    Type: Unknown
+    Snippet: URL Context Source
+
+🔗 RAW GROUNDING SOURCES DATA:
+[
+  {
+    "title": "Hacker News",
+    "uri": "https://news.ycombinator.com/",
+    "snippet": ""
+  },
+  {
+    "title": "https://news.ycombinator.com/",
+    "uri": "https://news.ycombinator.com/",
+    "snippet": "URL Context Source"
+  }
+]
+
+================================================================================
+2025-06-15T11:22:51.129Z 🌐 [DIRECT GEMINI URL CONTEXT METADATA - FULL] {
+  "urlMetadata": [
+    {
+      "retrievedUrl": "https://news.ycombinator.com/",
+      "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+    }
+  ]
+}
+2025-06-15T11:22:51.129Z 🌐 [URL CONTEXT METADATA DETAILED] 
+
+📊 URL CONTEXT SUMMARY:
+   Total URLs: 1
+   Successful: 1
+   Failed: 0
+   Success Rate: 100%
+
+🔗 URL PROCESSING DETAILS:
+
+  🌐 URL 1:
+    📎 URL: https://news.ycombinator.com/
+    ✅ Status: URL_RETRIEVAL_STATUS_SUCCESS
+
+🔗 RAW URL CONTEXT DATA:
+{
+  "urlMetadata": [
+    {
+      "retrievedUrl": "https://news.ycombinator.com/",
+      "urlRetrievalStatus": "URL_RETRIEVAL_STATUS_SUCCESS"
+    }
+  ]
+}
+
+================================================================================
+2025-06-15T11:22:51.129Z 🎯 [DIRECT GEMINI PROCESSED RESULT - NON-STREAMING] {
+  "hasContent": true,
+  "hasGroundingMetadata": true,
+  "hasGroundingSources": true,
+  "groundingSourcesCount": 2,
+  "allProcessedKeys": [
+    "content",
+    "thinkingSteps",
+    "groundingMetadata",
+    "urlContextMetadata",
+    "groundingSources"
+  ]
+}
+2025-06-15T11:22:51.129Z 🎯 [AI EXECUTION RESULT - RAW] {
+  "hasContent": true,
+  "contentLength": 678,
+  "contentPreview": "Here are the latest headlines from Hacker News:\n\n1. Q-learning is not yet scalable (seohong.me)\n2. Infinite Grid of Resistors (mathpages.com)\n3. I have reimplemented Stable Diffusion 3.5 from scratch ...",
+  "hasGroundingMetadata": true,
+  "groundingSourcesCount": 2,
+  "hasThinkingSteps": false,
+  "hasUpdatedChatHistory": false,
+  "resultKeys": [
+    "content",
+    "thinkingSteps",
+    "groundingMetadata",
+    "urlContextMetadata",
+    "groundingSources"
+  ]
+}
+2025-06-15T11:22:51.129Z ✅ [FINAL runAiStage RESULT - TEXT] {
+  "hasContent": true,
+  "hasGroundingMetadata": true,
+  "groundingSourcesCount": 2,
+  "hasThinkingSteps": false,
+  "hasUpdatedChatHistory": false,
+  "resultKeys": [
+    "content",
+    "groundingMetadata",
+    "groundingSources",
+    "thinkingSteps",
+    "outputImages",
+    "updatedChatHistory"
+  ]
+}
+2025-06-15T11:22:51.130Z 🧪 [TEST-AI RAW RESULT FROM runAiStage] {
+  "hasContent": true,
+  "contentType": "string",
+  "contentLength": 678,
+  "contentPreview": "Here are the latest headlines from Hacker News:\n\n1. Q-learning is not yet scalable (seohong.me)\n2. Infinite Grid of Resistors (mathpages.com)\n3. I have reimplemented Stable Diffusion 3.5 from scratch in pure PyTorch (github.com/yousef-rafat)\n4. Breaking My Security Assignments (akpain.net)\n5. AMD's ...",
+  "hasError": false,
+  "hasGroundingInfo": false,
+  "hasGroundingMetadata": true,
+  "groundingMetadataKeys": [
+    "groundingChunks",
+    "groundingSupports"
+  ],
+  "hasGroundingSources": true,
+  "groundingSourcesCount": 2,
+  "hasThinkingSteps": false,
+  "thinkingStepsCount": 0,
+  "hasUsage": false,
+  "hasUpdatedChatHistory": false,
+  "hasOutputImages": false,
+  "allResultKeys": [
+    "content",
+    "groundingMetadata",
+    "groundingSources",
+    "thinkingSteps",
+    "outputImages",
+    "updatedChatHistory"
+  ]
+}
+2025-06-15T11:22:51.130Z 🔍 [TEST-AI GROUNDING METADATA - FULL] {
+  "groundingChunks": [
+    {
+      "web": {
+        "uri": "https://news.ycombinator.com/",
+        "title": "Hacker News"
+      }
+    }
+  ],
+  "groundingSupports": [
+    {
+      "segment": {
+        "startIndex": 49,
+        "endIndex": 95,
+        "text": "1. Q-learning is not yet scalable (seohong.me)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9829113
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 96,
+        "endIndex": 141,
+        "text": "2. Infinite Grid of Resistors (mathpages.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.95291793
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 142,
+        "endIndex": 241,
+        "text": "3. I have reimplemented Stable Diffusion 3.5 from scratch in pure PyTorch (github.com/yousef-rafat)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.97912395
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 242,
+        "endIndex": 290,
+        "text": "4. Breaking My Security Assignments (akpain.net)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.97458935
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 291,
+        "endIndex": 361,
+        "text": "5. AMD's AI Future Is Rack Scale 'Helios' (morethanmoore.substack.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.96329886
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 362,
+        "endIndex": 438,
+        "text": "6. Wrong ways to use the databases, when the pendulum swung too far (luu.io)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.8939025
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 439,
+        "endIndex": 482,
+        "text": "7. Dance Captcha (dance-captcha.vercel.app)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9841479
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 483,
+        "endIndex": 520,
+        "text": "8. Chicken Eyeglasses (wikipedia.org)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.99006784
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 521,
+        "endIndex": 589,
+        "text": "9. Solar Orbiter gets world-first views of the Sun's poles (esa.int)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.9354951
+      ]
+    },
+    {
+      "segment": {
+        "startIndex": 590,
+        "endIndex": 681,
+        "text": "10. Inside the Apollo “8-Ball” FDAI (Flight Director / Attitude Indicator) (righto.com)"
+      },
+      "groundingChunkIndices": [
+        0
+      ],
+      "confidenceScores": [
+        0.845082
+      ]
+    }
+  ]
+}
+2025-06-15T11:22:51.130Z 📖 [TEST-AI GROUNDING SOURCES - FULL] [
+  {
+    "type": "search",
+    "title": "Hacker News",
+    "url": "https://news.ycombinator.com/",
+    "snippet": ""
+  },
+  {
+    "type": "search",
+    "title": "https://news.ycombinator.com/",
+    "url": "https://news.ycombinator.com/",
+    "snippet": "URL Context Source"
+  }
+]
+2025-06-15T11:22:51.130Z 🧪 [TEST-AI FINAL RESPONSE TO CLIENT] {
+  "response": {
+    "success": true,
+    "hasContent": true,
+    "contentLength": 678,
+    "contentPreview": "Here are the latest headlines from Hacker News:\n\n1. Q-learning is not yet scalable (seohong.me)\n2. Infinite Grid of Resistors (mathpages.com)\n3. I have reimplemented Stable Diffusion 3.5 from scratch in pure PyTorch (github.com/yousef-rafat)\n4. Breaking My Security Assignments (akpain.net)\n5. AMD's ...",
+    "hasGroundingMetadata": true,
+    "groundingMetadataKeys": [
+      "groundingChunks",
+      "groundingSupports"
+    ],
+    "hasGroundingSources": true,
+    "groundingSourcesCount": 2,
+    "hasThinkingSteps": false,
+    "hasError": false,
+    "allResponseKeys": [
+      "success",
+      "content",
+      "groundingMetadata",
+      "groundingSources",
+      "thinkingSteps",
+      "error"
+    ]
+  }
+}
+2025-06-15T11:22:53.147Z 🧪 [TEST-AI REQUEST - COMPLETE] {
+  "body": {
+    "promptTemplate": "What is the main heading on {{userInput.url}}?",
+    "model": "gemini-2.0-flash-exp",
+    "temperature": 0.1,
+    "contextVars": {
+      "grounding-url-context": {
+        "userInput": {
+          "url": "https://example.com"
+        }
+      }
+    },
+    "currentStageInput": {
+      "url": "https://example.com"
+    },
+    "stageOutputType": "text",
+    "groundingSettings": {
+      "urlContext": {
+        "enabled": true,
+        "urls": [
+          "{{userInput.url}}"
+        ]
+      }
+    }
+  },
+  "url": "http://localhost:9002/api/test-ai",
+  "method": "POST",
+  "timestamp": "2025-06-15T11:22:53.147Z"
+}
+2025-06-15T11:22:53.148Z 🚀 [FULL AI REQUEST STARTING] {
+  "params": {
+    "promptTemplate": "What is the main heading on {{userInput.url}}?",
+    "model": "gemini-2.0-flash-exp",
+    "temperature": 0.1,
+    "contextVars": {
+      "grounding-url-context": {
+        "userInput": {
+          "url": "https://example.com"
+        }
+      }
+    },
+    "currentStageInput": {
+      "url": "https://example.com"
+    },
+    "stageOutputType": "text",
+    "groundingSettings": {
+      "urlContext": {
+        "enabled": true,
+        "urls": [
+          "{{userInput.url}}"
+        ]
+      }
+    }
+  }
+}
+2025-06-15T11:22:53.148Z 🎯 [DIRECT GEMINI API REQUEST - FULL] {
+  "request": {
+    "model": "gemini-2.0-flash-exp",
+    "prompt": "What is the main heading on https://example.com?\n\nPlease analyze content from these URLs: {{userInpu...",
+    "temperature": 0.1,
+    "enableUrlContext": true,
+    "tools": [],
+    "hasGroundingConfig": false
+  },
+  "originalInput": {
+    "model": "gemini-2.0-flash-exp",
+    "hasGroundingSettings": true,
+    "groundingSettings": {
+      "urlContext": {
+        "enabled": true,
+        "urls": [
+          "{{userInput.url}}"
+        ]
+      }
+    }
+  }
+}
+2025-06-15T11:22:53.148Z 📤 [AI REQUEST] 
+🔧 MODEL: gemini-2.0-flash-exp
+🌡️  TEMPERATURE: Not specified
+📝 PROMPT LENGTH: Not specified
+🔍 GROUNDING: DISABLED
+🛠️  TOOLS: urlContext
+💭 SYSTEM INSTRUCTION: None
+📊 PROMPT PREVIEW: What is the main heading on https://example.com?
+
+Please analyze content from these URLs: {{userInput.url}}
+🔗 RAW REQUEST DATA: {
+  "type": "Direct Gemini API",
+  "model": "gemini-2.0-flash-exp",
+  "contentsCount": 1,
+  "configKeys": [
+    "temperature",
+    "tools"
+  ],
+  "toolsCount": 1,
+  "hasGoogleSearch": false,
+  "prompt": "What is the main heading on https://example.com?\n\nPlease analyze content from these URLs: {{userInput.url}}",
+  "tools": [
+    {
+      "urlContext": {}
+    }
+  ],
+  "hasGroundingConfig": false
+}
+================================================================================
+2025-06-15T11:22:53.966Z 📥 [AI RESPONSE] 
+📄 CONTENT LENGTH: 117
+🎯 GROUNDING DETECTED: YES ✅
+🔄 FINISH REASON: Not specified
+📊 TOKEN USAGE: Input=25, Output=30, Total=55
+📝 CONTENT PREVIEW: I need a valid URL to browse. The placeholder `{{userInput.url}}` is not a valid URL. Please provide a specific URL.
+...
+🔗 RAW RESPONSE DATA: {
+  "type": "Direct Gemini API",
+  "contentLength": 117,
+  "contentPreview": "I need a valid URL to browse. The placeholder `{{userInput.url}}` is not a valid URL. Please provide a specific URL.\n...",
+  "hasGroundingMetadata": true,
+  "hasUrlContextMetadata": false,
+  "groundingSourcesCount": 0,
+  "urlContextUrlsCount": 0,
+  "usageMetadata": {
+    "promptTokenCount": 25,
+    "candidatesTokenCount": 30,
+    "totalTokenCount": 55,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 25
+      }
+    ],
+    "candidatesTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 30
+      }
+    ]
+  },
+  "fullContent": "I need a valid URL to browse. The placeholder `{{userInput.url}}` is not a valid URL. Please provide a specific URL.\n",
+  "groundingSources": []
+}
+================================================================================
+2025-06-15T11:22:53.966Z 🌐 [GOOGLE SEARCH SUGGESTIONS & GROUNDING] 
+
+🔗 FULL GROUNDING METADATA:
+{}
+
+================================================================================
+2025-06-15T11:22:53.967Z �� [DIRECT GEMINI NON-STREAMING RESULT] {
+  "hasContent": true,
+  "contentLength": 117,
+  "contentPreview": "I need a valid URL to browse. The placeholder `{{userInput.url}}` is not a valid URL. Please provide a specific URL.\n...",
+  "hasGroundingMetadata": true,
+  "groundingMetadataKeys": [],
+  "hasGroundingSources": true,
+  "groundingSourcesCount": 0,
+  "groundingSourcesPreview": [],
+  "allResultKeys": [
+    "content",
+    "groundingMetadata",
+    "urlContextMetadata",
+    "groundingSources",
+    "usageMetadata",
+    "candidates",
+    "modelVersion"
+  ]
+}
+2025-06-15T11:22:53.967Z 🔍 [DIRECT GEMINI GROUNDING METADATA - FULL] {}
+2025-06-15T11:22:53.967Z 🌐 [GOOGLE SEARCH SUGGESTIONS & GROUNDING] 
+
+🔗 FULL GROUNDING METADATA:
+{}
+
+================================================================================
+2025-06-15T11:22:53.967Z 📖 [DIRECT GEMINI GROUNDING SOURCES - FULL] []
+2025-06-15T11:22:53.967Z 📖 [GROUNDING SOURCES DETAILED] 
+
+❌ NO GROUNDING SOURCES FOUND
+
+🔗 RAW GROUNDING SOURCES DATA:
+[]
+
+================================================================================
+2025-06-15T11:22:53.967Z 🎯 [DIRECT GEMINI PROCESSED RESULT - NON-STREAMING] {
+  "hasContent": true,
+  "hasGroundingMetadata": true,
+  "hasGroundingSources": true,
+  "groundingSourcesCount": 0,
+  "allProcessedKeys": [
+    "content",
+    "thinkingSteps",
+    "groundingMetadata",
+    "urlContextMetadata",
+    "groundingSources"
+  ]
+}
+2025-06-15T11:22:53.967Z 🎯 [AI EXECUTION RESULT - RAW] {
+  "hasContent": true,
+  "contentLength": 117,
+  "contentPreview": "I need a valid URL to browse. The placeholder `{{userInput.url}}` is not a valid URL. Please provide a specific URL.\n...",
+  "hasGroundingMetadata": true,
+  "groundingSourcesCount": 0,
+  "hasThinkingSteps": false,
+  "hasUpdatedChatHistory": false,
+  "resultKeys": [
+    "content",
+    "thinkingSteps",
+    "groundingMetadata",
+    "urlContextMetadata",
+    "groundingSources"
+  ]
+}
+2025-06-15T11:22:53.967Z ✅ [FINAL runAiStage RESULT - TEXT] {
+  "hasContent": true,
+  "hasGroundingMetadata": true,
+  "groundingSourcesCount": 0,
+  "hasThinkingSteps": false,
+  "hasUpdatedChatHistory": false,
+  "resultKeys": [
+    "content",
+    "groundingMetadata",
+    "groundingSources",
+    "thinkingSteps",
+    "outputImages",
+    "updatedChatHistory"
+  ]
+}
+2025-06-15T11:22:53.968Z 🧪 [TEST-AI RAW RESULT FROM runAiStage] {
+  "hasContent": true,
+  "contentType": "string",
+  "contentLength": 117,
+  "contentPreview": "I need a valid URL to browse. The placeholder `{{userInput.url}}` is not a valid URL. Please provide a specific URL.\n...",
+  "hasError": false,
+  "hasGroundingInfo": false,
+  "hasGroundingMetadata": true,
+  "groundingMetadataKeys": [],
+  "hasGroundingSources": true,
+  "groundingSourcesCount": 0,
+  "hasThinkingSteps": false,
+  "thinkingStepsCount": 0,
+  "hasUsage": false,
+  "hasUpdatedChatHistory": false,
+  "hasOutputImages": false,
+  "allResultKeys": [
+    "content",
+    "groundingMetadata",
+    "groundingSources",
+    "thinkingSteps",
+    "outputImages",
+    "updatedChatHistory"
+  ]
+}
+2025-06-15T11:22:53.968Z 🔍 [TEST-AI GROUNDING METADATA - FULL] {}
+2025-06-15T11:22:53.968Z 📖 [TEST-AI GROUNDING SOURCES - FULL] []
+2025-06-15T11:22:53.968Z 🧪 [TEST-AI FINAL RESPONSE TO CLIENT] {
+  "response": {
+    "success": true,
+    "hasContent": true,
+    "contentLength": 117,
+    "contentPreview": "I need a valid URL to browse. The placeholder `{{userInput.url}}` is not a valid URL. Please provide a specific URL.\n...",
+    "hasGroundingMetadata": true,
+    "groundingMetadataKeys": [],
+    "hasGroundingSources": true,
+    "groundingSourcesCount": 0,
+    "hasThinkingSteps": false,
+    "hasError": false,
+    "allResponseKeys": [
+      "success",
+      "content",
+      "groundingMetadata",
+      "groundingSources",
+      "thinkingSteps",
+      "error"
+    ]
+  }
+}
