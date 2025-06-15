@@ -140,6 +140,34 @@ function logToAiLog(message: string, data?: any) {
 export async function runAiStage(params: RunAiStageParams): Promise<AiActionResult> {
     console.log('[runAiStage] Starting with new SDK');
     
+    // Check if this is an export stage and handle it differently
+    if (params.stage?.stageType === 'export') {
+        console.log('[runAiStage] Detected export stage, using export execution flow');
+        
+        try {
+            // Use dynamic import to avoid bundling server code in the browser
+            const { executeExportStage } = await import('@/ai/flows/export-stage-execution');
+            
+            const result = await executeExportStage({
+                stage: params.stage,
+                workflow: params.workflow,
+                allStageStates: params.contextVars as Record<string, any>,
+                progressCallback: undefined, // Don't pass progress callback to avoid client reference error
+            });
+            
+            return {
+                content: result,
+                error: undefined,
+            };
+        } catch (error: any) {
+            console.error('[runAiStage] Export stage error:', error);
+            return {
+                content: null,
+                error: error.message || 'Export stage execution failed',
+            };
+        }
+    }
+    
     // 🔥 LOG COMPLETE REQUEST
     logToAiLog('🚀 [FULL AI REQUEST STARTING]', {
       params: {

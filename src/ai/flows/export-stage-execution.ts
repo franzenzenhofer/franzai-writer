@@ -26,7 +26,6 @@ export async function executeExportStage({
       stageStates: allStageStates,
       exportConfig: stage.exportConfig,
       workflowType: workflow.id,
-      progressCallback,
     });
     
     if (htmlResult.error) {
@@ -36,7 +35,7 @@ export async function executeExportStage({
     console.log('[Export Stage Execution] HTML generation complete');
     
     // Step 2: Process all export formats
-    progressCallback?.({ currentFormat: 'Processing formats...' });
+    console.log('[Export Stage Execution] Processing export formats');
     
     const formats = await processExportFormats(
       htmlResult.htmlStyled,

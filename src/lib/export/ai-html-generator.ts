@@ -23,22 +23,18 @@ export interface HtmlGenerationResult {
  * Generate both styled and clean HTML using dual AI passes
  */
 export async function generateExportHtml(options: HtmlGenerationOptions): Promise<HtmlGenerationResult> {
-  const { stages, stageStates, exportConfig, workflowType, progressCallback } = options;
+  const { stages, stageStates, exportConfig, workflowType } = options;
   
   try {
+    console.log('[AI HTML Generator] Starting HTML generation');
+    
     // Step 1: Generate styled HTML
-    progressCallback?.({ styledHtml: 0 });
-    const styledHtml = await generateStyledHtml(stages, stageStates, exportConfig, workflowType, (progress) => {
-      progressCallback?.({ styledHtml: progress });
-    });
+    const styledHtml = await generateStyledHtml(stages, stageStates, exportConfig, workflowType);
     
     // Step 2: Generate clean HTML
-    progressCallback?.({ styledHtml: 100, cleanHtml: 0 });
-    const cleanHtml = await generateCleanHtml(stages, stageStates, exportConfig, workflowType, (progress) => {
-      progressCallback?.({ cleanHtml: progress });
-    });
+    const cleanHtml = await generateCleanHtml(stages, stageStates, exportConfig, workflowType);
     
-    progressCallback?.({ styledHtml: 100, cleanHtml: 100 });
+    console.log('[AI HTML Generator] HTML generation completed successfully');
     
     return {
       htmlStyled: styledHtml,
@@ -61,10 +57,8 @@ async function generateStyledHtml(
   stages: Stage[],
   stageStates: Record<string, StageState>,
   exportConfig?: ExportConfig,
-  workflowType?: string,
-  progressCallback?: (progress: number) => void
+  workflowType?: string
 ): Promise<string> {
-  progressCallback?.(10);
   
   // Load the styled HTML template
   const templatePath = path.join(process.cwd(), 'src/workflows', workflowType || 'default', 'prompts/html-styled-template.md');
@@ -77,8 +71,6 @@ async function generateStyledHtml(
     promptTemplate = getDefaultStyledHtmlPrompt();
   }
   
-  progressCallback?.(20);
-  
   // Prepare content for AI
   const contentSections = stages
     .filter(stage => stageStates[stage.id]?.status === 'completed' && stageStates[stage.id]?.output)
@@ -87,8 +79,6 @@ async function generateStyledHtml(
       stageId: stage.id,
       content: formatStageOutput(stageStates[stage.id].output),
     }));
-  
-  progressCallback?.(30);
   
   // Build the AI prompt
   const prompt = promptTemplate
@@ -99,7 +89,7 @@ async function generateStyledHtml(
     ).join('\n\n'))
     .replace('{{/each}}', '');
   
-  progressCallback?.(40);
+  console.log('[AI HTML Generator] Generating styled HTML with AI');
   
   // Generate HTML with AI
   const result = await generateWithDirectGemini({
@@ -109,13 +99,9 @@ async function generateStyledHtml(
     systemInstruction: 'You are an expert web designer creating beautiful HTML documents.',
   });
   
-  progressCallback?.(90);
-  
   if (!result.content) {
     throw new Error('AI failed to generate styled HTML');
   }
-  
-  progressCallback?.(100);
   
   return result.content;
 }
@@ -127,10 +113,8 @@ async function generateCleanHtml(
   stages: Stage[],
   stageStates: Record<string, StageState>,
   exportConfig?: ExportConfig,
-  workflowType?: string,
-  progressCallback?: (progress: number) => void
+  workflowType?: string
 ): Promise<string> {
-  progressCallback?.(10);
   
   // Load the clean HTML template
   const templatePath = path.join(process.cwd(), 'src/workflows', workflowType || 'default', 'prompts/html-clean-template.md');
@@ -143,8 +127,6 @@ async function generateCleanHtml(
     promptTemplate = getDefaultCleanHtmlPrompt();
   }
   
-  progressCallback?.(20);
-  
   // Prepare content for AI
   const contentSections = stages
     .filter(stage => stageStates[stage.id]?.status === 'completed' && stageStates[stage.id]?.output)
@@ -154,8 +136,6 @@ async function generateCleanHtml(
       content: formatStageOutput(stageStates[stage.id].output),
     }));
   
-  progressCallback?.(30);
-  
   // Build the AI prompt
   const prompt = promptTemplate
     .replace('{{#each stages}}', contentSections.map(section => 
@@ -163,7 +143,7 @@ async function generateCleanHtml(
     ).join('\n\n'))
     .replace('{{/each}}', '');
   
-  progressCallback?.(40);
+  console.log('[AI HTML Generator] Generating clean HTML with AI');
   
   // Generate HTML with AI
   const result = await generateWithDirectGemini({
@@ -173,13 +153,9 @@ async function generateCleanHtml(
     systemInstruction: 'You are an expert in semantic HTML and document structure.',
   });
   
-  progressCallback?.(90);
-  
   if (!result.content) {
     throw new Error('AI failed to generate clean HTML');
   }
-  
-  progressCallback?.(100);
   
   return result.content;
 }
