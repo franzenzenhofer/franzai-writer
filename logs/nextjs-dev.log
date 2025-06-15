@@ -9181,3 +9181,1539 @@ Watchpack Error (initial scan): Error: ENOTDIR: not a directory, scandir '/usr/l
   'error'
 ]
  POST /api/test-ai 200 in 4494ms
+ ✓ Compiled in 136ms (313 modules)
+Debugger listening on ws://127.0.0.1:9229/e826f3a3-e0f4-4e29-96d8-664404f00c84
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 169053,
+    "turboFlag": false,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/7cf4e267-8cf7-4bb7-9427-9dbfe0524b64
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": false,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 1360ms
+Watchpack Error (initial scan): Error: ENOTDIR: not a directory, scandir '/usr/local/bin/node'
+ ○ Compiling /api/wizard/execute ...
+ ✓ Compiled /api/wizard/execute in 715ms (590 modules)
+[runAiStage] Starting with new SDK
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'gemini-2.0-flash',
+  temperature: 0.7,
+  stageOutputType: 'text',
+  hasAiRedoNotes: false,
+  forceGoogleSearchGrounding: false,
+  hasGroundingSettings: true,
+  groundingSettings: { googleSearch: { enabled: true, dynamicThreshold: 0.3 } },
+  googleSearchEnabled: true,
+  googleSearchThreshold: 0.3,
+  streamingEnabled: undefined
+}
+[runAiStage] Filled prompt length: 267
+[runAiStage] First 200 chars of filled prompt: Answer this question using current information from Google Search: what happened ysterday in austria
+
+
+IMPORTANT: Use Google Search grounding to find real, current information. Provide actual search r
+[runAiStage] Grounding enabled for AI processing
+[runAiStage] About to call aiStageExecutionFlow with input: {
+  promptLength: 267,
+  model: 'gemini-2.0-flash',
+  temperature: 0.7,
+  hasSystemInstructions: true,
+  hasChatHistory: false,
+  hasThinkingSettings: false,
+  hasToolNames: false,
+  forceGoogleSearchGrounding: false,
+  hasGroundingSettings: true,
+  googleSearchEnabled: true
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'gemini-2.0-flash',
+  hasTools: false,
+  hasGrounding: true,
+  forceGoogleSearchGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: 'Answer this question using current information from Google Search: what happened ysterday in austria...',
+  chatHistory: 'none',
+  groundingSettings: { googleSearch: { enabled: true, dynamicThreshold: 0.3 } },
+  googleSearchSettings: { enabled: true, dynamicThreshold: 0.3 }
+}
+🚨🚨🚨 === GOOGLE SEARCH GROUNDING DEBUG === 🚨🚨🚨
+🔍 forceGoogleSearchGrounding: false
+🔍 groundingSettings?.googleSearch?.enabled: true
+🔍 Full groundingSettings object: {
+  "googleSearch": {
+    "enabled": true,
+    "dynamicThreshold": 0.3
+  }
+}
+🚨🚨🚨 ================================== 🚨🚨🚨
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 267
+}
+🚀🚀🚀 GOOGLE SEARCH GROUNDING REQUESTED! 🚀🚀🚀
+🔧 Using Direct Gemini API with proper googleSearch tool...
+🎯 [Direct Gemini API] Starting execution for Google Search grounding
+📝 [Direct Gemini API] Using non-streaming mode
+🚀 [Direct Gemini] Starting generation with: {
+  model: 'gemini-2.0-flash',
+  hasPrompt: true,
+  enableGoogleSearch: true,
+  temperature: 0.7
+}
+✅ [Direct Gemini] Adding Google Search grounding
+🎯 [Direct Gemini] Dynamic retrieval threshold: 0.3
+📤 [Direct Gemini] API Request: {
+  model: 'gemini-2.0-flash',
+  contentsCount: 2,
+  configKeys: [ 'temperature', 'toolConfig', 'tools' ],
+  toolsCount: 1,
+  hasGoogleSearch: true
+}
+ ○ Compiling /api/documents/save ...
+ ✓ Compiled /api/documents/save in 835ms (724 modules)
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T10:12:45.585Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  stageStatesCount: 14,
+  hasUserId: true,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  effectiveUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  wasGenerated: false
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  originalCount: 14,
+  cleanedKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  cleanedCount: 14
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[DocumentPersistence] Document updated successfully { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+ POST /api/documents/save 200 in 1727ms
+📥 [Direct Gemini] Raw response keys: [ 'candidates', 'modelVersion', 'usageMetadata' ]
+✅ [Direct Gemini] Found grounding metadata!
+📊 [Direct Gemini] Grounding stats: {
+  chunksCount: 3,
+  supportsCount: 3,
+  searchQueries: 1,
+  sourcesExtracted: 3
+}
+✅ [Direct Gemini] Generation completed successfully
+✅ [Direct Gemini API] Generation completed successfully
+[runAiStage] AI execution completed. Result keys: [ 'content', 'thinkingSteps', 'groundingMetadata', 'groundingSources' ]
+[runAiStage] AI execution result: {
+  hasContent: true,
+  contentType: 'string',
+  contentLength: 1030,
+  hasGroundingMetadata: true,
+  hasGroundingSources: true,
+  groundingSourcesCount: 3,
+  hasThinkingSteps: false,
+  thinkingStepsCount: 0,
+  hasUpdatedChatHistory: false,
+  chatHistoryLength: 0,
+  hasUsage: false
+}
+ POST /api/wizard/execute 200 in 3779ms
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  stageStatesCount: 14,
+  hasUserId: true,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  effectiveUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  wasGenerated: false
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  originalCount: 14,
+  cleanedKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  cleanedCount: 14
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[DocumentPersistence] Document updated successfully { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+ POST /api/documents/save 200 in 263ms
+ ✓ Compiled /api/test-ai in 206ms (726 modules)
+[TEST-AI] Starting POST test...
+[TEST-AI] Request body: {
+  promptTemplate: 'What are the latest breakthrough developments in quantum computing from the past month? Provide 3 specific examples with sources and explain their significance.',
+  model: 'gemini-2.0-flash',
+  temperature: 0.2,
+  groundingSettings: { googleSearch: { enabled: true, dynamicThreshold: 0.3 } },
+  systemInstructions: 'You are an AI assistant that provides up-to-date information using Google Search. Always cite your sources with URLs and provide detailed explanations.',
+  streamingSettings: { enabled: false }
+}
+[runAiStage] Starting with new SDK
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'gemini-2.0-flash',
+  temperature: 0.2,
+  stageOutputType: 'text',
+  hasAiRedoNotes: false,
+  forceGoogleSearchGrounding: false,
+  hasGroundingSettings: true,
+  groundingSettings: { googleSearch: { enabled: true, dynamicThreshold: 0.3 } },
+  googleSearchEnabled: true,
+  googleSearchThreshold: 0.3,
+  streamingEnabled: undefined
+}
+[runAiStage] Filled prompt length: 160
+[runAiStage] First 200 chars of filled prompt: What are the latest breakthrough developments in quantum computing from the past month? Provide 3 specific examples with sources and explain their significance.
+[runAiStage] Grounding enabled for AI processing
+[runAiStage] About to call aiStageExecutionFlow with input: {
+  promptLength: 160,
+  model: 'gemini-2.0-flash',
+  temperature: 0.2,
+  hasSystemInstructions: true,
+  hasChatHistory: false,
+  hasThinkingSettings: false,
+  hasToolNames: false,
+  forceGoogleSearchGrounding: false,
+  hasGroundingSettings: true,
+  googleSearchEnabled: true
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'gemini-2.0-flash',
+  hasTools: false,
+  hasGrounding: true,
+  forceGoogleSearchGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: 'What are the latest breakthrough developments in quantum computing from the past month? Provide 3 sp...',
+  chatHistory: 'none',
+  groundingSettings: { googleSearch: { enabled: true, dynamicThreshold: 0.3 } },
+  googleSearchSettings: { enabled: true, dynamicThreshold: 0.3 }
+}
+🚨🚨🚨 === GOOGLE SEARCH GROUNDING DEBUG === 🚨🚨🚨
+🔍 forceGoogleSearchGrounding: false
+🔍 groundingSettings?.googleSearch?.enabled: true
+🔍 Full groundingSettings object: {
+  "googleSearch": {
+    "enabled": true,
+    "dynamicThreshold": 0.3
+  }
+}
+🚨🚨🚨 ================================== 🚨🚨🚨
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 160
+}
+🚀🚀🚀 GOOGLE SEARCH GROUNDING REQUESTED! 🚀🚀🚀
+🔧 Using Direct Gemini API with proper googleSearch tool...
+🎯 [Direct Gemini API] Starting execution for Google Search grounding
+📝 [Direct Gemini API] Using non-streaming mode
+🚀 [Direct Gemini] Starting generation with: {
+  model: 'gemini-2.0-flash',
+  hasPrompt: true,
+  enableGoogleSearch: true,
+  temperature: 0.2
+}
+✅ [Direct Gemini] Adding Google Search grounding
+🎯 [Direct Gemini] Dynamic retrieval threshold: 0.3
+📤 [Direct Gemini] API Request: {
+  model: 'gemini-2.0-flash',
+  contentsCount: 2,
+  configKeys: [ 'temperature', 'toolConfig', 'tools' ],
+  toolsCount: 1,
+  hasGoogleSearch: true
+}
+📥 [Direct Gemini] Raw response keys: [ 'candidates', 'modelVersion', 'usageMetadata' ]
+✅ [Direct Gemini] Found grounding metadata!
+📊 [Direct Gemini] Grounding stats: {
+  chunksCount: 0,
+  supportsCount: 0,
+  searchQueries: 3,
+  sourcesExtracted: 0
+}
+✅ [Direct Gemini] Generation completed successfully
+✅ [Direct Gemini API] Generation completed successfully
+[runAiStage] AI execution completed. Result keys: [ 'content', 'thinkingSteps', 'groundingMetadata', 'groundingSources' ]
+[runAiStage] AI execution result: {
+  hasContent: true,
+  contentType: 'string',
+  contentLength: 4175,
+  hasGroundingMetadata: true,
+  hasGroundingSources: true,
+  groundingSourcesCount: 0,
+  hasThinkingSteps: false,
+  thinkingStepsCount: 0,
+  hasUpdatedChatHistory: false,
+  chatHistoryLength: 0,
+  hasUsage: false
+}
+[TEST-AI] Result: {
+  content: 'Here are three recent breakthrough developments in quantum computing:\n' +
+    '\n' +
+    "1.  **IBM's Path to Fault-Tolerant Quantum Computing:** IBM has unveiled its roadmap to building the world's first large-scale, fault-tolerant quantum computer, named IBM Quantum Starling, expected by 2029. This system will be housed in a new IBM Quantum Data Center in Poughkeepsie, New York, and is projected to perform 20,000 times more operations than current quantum computers. Key to this is the development of processors like IBM Quantum Loon (expected in 2025) and IBM Quantum Kookaburra (2026), which are designed to test and implement error correction and modularity. A large-scale, fault-tolerant quantum computer could revolutionize fields like drug development, materials discovery, and chemistry by enabling the execution of hundreds of millions to billions of operations. [https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHUhMTUBBM5aC4qHosAj3PNYNVJFAPJvSwOK69c86kGTwtlyeW0WQQg\\_Ut0QY2ms74w8jpZ56\\_SKn0IPw1tD3BYlTg-3PfZCGz-NAhGHDMyPAQpGAo5fXqbAm5NMNmT\\_N5JTD5mk4aPzpSf61rXWo1Lt\\_471P8zX6bHoOMkV6W4eS8H6KSyZAfIKqdu6N8WH3TKtakut\\_ecLNx1BdgYzt\\_mhtro2mY1AEVOnWmQ2vTLFyOOE03gYWk3aH5zGkKwV57m60GdoLKdu34F6nScDTPyRrX4oZ4=](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHUhMTUBBM5aC4qHosAj3PNYNVJFAPJvSwOK69c86kGTwtlyeW0WQQg_Ut0QY2ms74w8jpZ56_SKn0IPw1tD3BYlTg-3PfZCGz-NAhGHDMyPAQpGAo5fXqbAm5NMNmT_N5JTD5mk4aPzpSf61rXWo1Lt_471P8zX6bHoOMkV6W4eS8H6KSyZAfIKqdu6N8WH3TKtakut_ecLNx1BdgYzt_mhtro2mY1AEVOnWmQ2vTLFyOOE03gYWk3aH5zGkKwV57m60GdoLKdu34F6nScDTPyRrX4oZ4=)\n" +
+    `2.  **Nvidia's CUDA-Q for Hybrid Quantum-Classical Computing:** Nvidia CEO Jensen Huang announced that quantum computing is reaching an "inflection point" and introduced CUDA-Q, a platform designed to integrate quantum and classical computing systems. CUDA-Q is an open-source platform that allows hardware and software components to work together in quantum computing applications. Huang envisions a future where every supercomputer will have a quantum processing unit (QPU) connected to GPUs, enabling solutions to previously unsolvable problems. This development suggests a shift towards hybrid architectures to leverage the strengths of both quantum and classical computing. [https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE5587-jmKOpJ6xydnYJPHX2DR04iEyya6n7txaDiPvFZAPX0V\\_bJ1vS54aDPwauRQPzf9g8pDtfDBSIES3TmrdZV--T16EN8F5SndPRz8MdYy9zrVlrAJuHm3TrdFut2O7frOXmCFUzXfHY7E9vlGGCJOH8JbPbwUcmrDzGdMkqj7dQSjZcvdjFOl73-v5HXe3kbaddVTWUjyqdh3kVvHIZT5GgdYOL4faKNhdiQ==](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE5587-jmKOpJ6xydnYJPHX2DR04iEyya6n7txaDiPvFZAPX0V_bJ1vS54aDPwauRQPzf9g8pDtfDBSIES3TmrdZV--T16EN8F5SndPRz8MdYy9zrVlrAJuHm3TrdFut2O7frOXmCFUzXfHY7E9vlGGCJOH8JbPbwUcmrDzGdMkqj7dQSjZcvdjFOl73-v5HXe3kbaddVTWUjyqdh3kVvHIZT5GgdYOL4faKNhdiQ==)\n` +
+    "3.  **Microsoft's Topological Qubit and Majorana 1 Processor:** Microsoft is developing topological qubits and has created the Majorana 1 processor. This processor is built using a new material called a topoconductor and is designed to scale to a million qubits on a single chip. Topological qubits are expected to be more stable and less prone to errors than traditional qubits, addressing a significant challenge in quantum computing. Microsoft aims to build a fault-tolerant prototype based on topological qubits, potentially leading to more reliable and scalable quantum computers. [https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF6mT0M-51p\\_2OeBSujiY4STo6pl9\\_tAEY4AndeqKgCSPFq9x1vnRP4djdmYNrHNtRpJIeLAVXWCUylRnhr0swolziCGylIEP3EWGMnUe5oJMkBu\\_2QbpCdLaiIljL\\_AlzCeqZz2uncHpq3SO9xqJBtamUdXNeMBibKCLclHKGOkjLPtHIKtfir6lnSGCfUVg4Hdt6QADeuiT9N8CCZKtBOxrTbp5oxGoZ0GJDrlRoOAhJ3yxH47pUYxo5CFqcSeBbCfv2-Y0wHVBYtkmfBkcd0toWhZg==](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF6mT0M-51p_2OeBSujiY4STo6pl9_tAEY4AndeqKgCSPFq9x1vnRP4djdmYNrHNtRpJIeLAVXWCUylRnhr0swolziCGylIEP3EWGMnUe5oJMkBu_2QbpCdLaiIljL_AlzCeqZz2uncHpq3SO9xqJBtamUdXNeMBibKCLclHKGOkjLPtHIKtfir6lnSGCfUVg4Hdt6QADeuiT9N8CCZKtBOxrTbp5oxGoZ0GJDrlRoOAhJ3yxH47pUYxo5CFqcSeBbCfv2-Y0wHVBYtkmfBkcd0toWhZg==)\n",
+  groundingMetadata: {
+    searchEntryPoint: {
+      renderedContent: '<style>\n' +
+        '.container {\n' +
+        '  align-items: center;\n' +
+        '  border-radius: 8px;\n' +
+        '  display: flex;\n' +
+        '  font-family: Google Sans, Roboto, sans-serif;\n' +
+        '  font-size: 14px;\n' +
+        '  line-height: 20px;\n' +
+        '  padding: 8px 12px;\n' +
+        '}\n' +
+        '.chip {\n' +
+        '  display: inline-block;\n' +
+        '  border: solid 1px;\n' +
+        '  border-radius: 16px;\n' +
+        '  min-width: 14px;\n' +
+        '  padding: 5px 16px;\n' +
+        '  text-align: center;\n' +
+        '  user-select: none;\n' +
+        '  margin: 0 8px;\n' +
+        '  -webkit-tap-highlight-color: transparent;\n' +
+        '}\n' +
+        '.carousel {\n' +
+        '  overflow: auto;\n' +
+        '  scrollbar-width: none;\n' +
+        '  white-space: nowrap;\n' +
+        '  margin-right: -12px;\n' +
+        '}\n' +
+        '.headline {\n' +
+        '  display: flex;\n' +
+        '  margin-right: 4px;\n' +
+        '}\n' +
+        '.gradient-container {\n' +
+        '  position: relative;\n' +
+        '}\n' +
+        '.gradient {\n' +
+        '  position: absolute;\n' +
+        '  transform: translate(3px, -9px);\n' +
+        '  height: 36px;\n' +
+        '  width: 9px;\n' +
+        '}\n' +
+        '@media (prefers-color-scheme: light) {\n' +
+        '  .container {\n' +
+        '    background-color: #fafafa;\n' +
+        '    box-shadow: 0 0 0 1px #0000000f;\n' +
+        '  }\n' +
+        '  .headline-label {\n' +
+        '    color: #1f1f1f;\n' +
+        '  }\n' +
+        '  .chip {\n' +
+        '    background-color: #ffffff;\n' +
+        '    border-color: #d2d2d2;\n' +
+        '    color: #5e5e5e;\n' +
+        '    text-decoration: none;\n' +
+        '  }\n' +
+        '  .chip:hover {\n' +
+        '    background-color: #f2f2f2;\n' +
+        '  }\n' +
+        '  .chip:focus {\n' +
+        '    background-color: #f2f2f2;\n' +
+        '  }\n' +
+        '  .chip:active {\n' +
+        '    background-color: #d8d8d8;\n' +
+        '    border-color: #b6b6b6;\n' +
+        '  }\n' +
+        '  .logo-dark {\n' +
+        '    display: none;\n' +
+        '  }\n' +
+        '  .gradient {\n' +
+        '    background: linear-gradient(90deg, #fafafa 15%, #fafafa00 100%);\n' +
+        '  }\n' +
+        '}\n' +
+        '@media (prefers-color-scheme: dark) {\n' +
+        '  .container {\n' +
+        '    background-color: #1f1f1f;\n' +
+        '    box-shadow: 0 0 0 1px #ffffff26;\n' +
+        '  }\n' +
+        '  .headline-label {\n' +
+        '    color: #fff;\n' +
+        '  }\n' +
+        '  .chip {\n' +
+        '    background-color: #2c2c2c;\n' +
+        '    border-color: #3c4043;\n' +
+        '    color: #fff;\n' +
+        '    text-decoration: none;\n' +
+        '  }\n' +
+        '  .chip:hover {\n' +
+        '    background-color: #353536;\n' +
+        '  }\n' +
+        '  .chip:focus {\n' +
+        '    background-color: #353536;\n' +
+        '  }\n' +
+        '  .chip:active {\n' +
+        '    background-color: #464849;\n' +
+        '    border-color: #53575b;\n' +
+        '  }\n' +
+        '  .logo-light {\n' +
+        '    display: none;\n' +
+        '  }\n' +
+        '  .gradient {\n' +
+        '    background: linear-gradient(90deg, #1f1f1f 15%, #1f1f1f00 100%);\n' +
+        '  }\n' +
+        '}\n' +
+        '</style>\n' +
+        '<div class="container">\n' +
+        '  <div class="headline">\n' +
+        '    <svg class="logo-light" width="18" height="18" viewBox="9 9 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+        '      <path fill-rule="evenodd" clip-rule="evenodd" d="M42.8622 27.0064C42.8622 25.7839 42.7525 24.6084 42.5487 23.4799H26.3109V30.1568H35.5897C35.1821 32.3041 33.9596 34.1222 32.1258 35.3448V39.6864H37.7213C40.9814 36.677 42.8622 32.2571 42.8622 27.0064V27.0064Z" fill="#4285F4"/>\n' +
+        '      <path fill-rule="evenodd" clip-rule="evenodd" d="M26.3109 43.8555C30.9659 43.8555 34.8687 42.3195 37.7213 39.6863L32.1258 35.3447C30.5898 36.3792 28.6306 37.0061 26.3109 37.0061C21.8282 37.0061 18.0195 33.9811 16.6559 29.906H10.9194V34.3573C13.7563 39.9841 19.5712 43.8555 26.3109 43.8555V43.8555Z" fill="#34A853"/>\n' +
+        '      <path fill-rule="evenodd" clip-rule="evenodd" d="M16.6559 29.8904C16.3111 28.8559 16.1074 27.7588 16.1074 26.6146C16.1074 25.4704 16.3111 24.3733 16.6559 23.3388V18.8875H10.9194C9.74388 21.2072 9.06992 23.8247 9.06992 26.6146C9.06992 29.4045 9.74388 32.022 10.9194 34.3417L15.3864 30.8621L16.6559 29.8904V29.8904Z" fill="#FBBC05"/>\n' +
+        '      <path fill-rule="evenodd" clip-rule="evenodd" d="M26.3109 16.2386C28.85 16.2386 31.107 17.1164 32.9095 18.8091L37.8466 13.8719C34.853 11.082 30.9659 9.3736 26.3109 9.3736C19.5712 9.3736 13.7563 13.245 10.9194 18.8875L16.6559 23.3388C18.0195 19.2636 21.8282 16.2386 26.3109 16.2386V16.2386Z" fill="#EA4335"/>\n' +
+        '    </svg>\n' +
+        '    <svg class="logo-dark" width="18" height="18" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">\n' +
+        '      <circle cx="24" cy="23" fill="#FFF" r="22"/>\n' +
+        '      <path d="M33.76 34.26c2.75-2.56 4.49-6.37 4.49-11.26 0-.89-.08-1.84-.29-3H24.01v5.99h8.03c-.4 2.02-1.5 3.56-3.07 4.56v.75l3.91 2.97h.88z" fill="#4285F4"/>\n' +
+        '      <path d="M15.58 25.77A8.845 8.845 0 0 0 24 31.86c1.92 0 3.62-.46 4.97-1.31l4.79 3.71C31.14 36.7 27.65 38 24 38c-5.93 0-11.01-3.4-13.45-8.36l.17-1.01 4.06-2.85h.8z" fill="#34A853"/>\n' +
+        '      <path d="M15.59 20.21a8.864 8.864 0 0 0 0 5.58l-5.03 3.86c-.98-2-1.53-4.25-1.53-6.64 0-2.39.55-4.64 1.53-6.64l1-.22 3.81 2.98.22 1.08z" fill="#FBBC05"/>\n' +
+        '      <path d="M24 14.14c2.11 0 4.02.75 5.52 1.98l4.36-4.36C31.22 9.43 27.81 8 24 8c-5.93 0-11.01 3.4-13.45 8.36l5.03 3.85A8.86 8.86 0 0 1 24 14.14z" fill="#EA4335"/>\n' +
+        '    </svg>\n' +
+        '    <div class="gradient-container"><div class="gradient"></div></div>\n' +
+        '  </div>\n' +
+        '  <div class="carousel">\n' +
+        '    <a class="chip" href="https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG3_vW_UEX71ko74OKRh6Pe0BmJiblymfpm0blNAEINpuFkSnWwkMLKim905z0zLCwN332LRYerfAbLhBbRUXAzlbVInyQv8AGsbLKBzRK8C3k6ZgGHdGruuQcuO9O8K5uCYmN0RWLitZCq7sC1xuh8Qcn9g3K7YSXalcxF84UWGBeKCAjJwZgErwfX6PqSU9DleZMxVnNljjdEGH0gJAr7_BfLFNWjlyQMLt-6wwdZ9jNLF5pTmg==">recent advancements in quantum computing June 2025</a>\n' +
+        '    <a class="chip" href="https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGTcHy9msQayEFzA2uX2y_eoRj8erykZnO9n5TDa_rA5qorwW6OOaweG9bablxPLjjCLh6uWKcn9kom0F583IjEm6ZsHEUu8yxiKDddGM582adVkWezKdWeKK4vx-QNvOjGLz0qHd04NzBowrjmlsX3Vo70R8mDG9NnpubJwXnyWIxPATycnLmeD_0shFPL5ausocZqks8jD5mXXVsha3sL0-wz8lg26ivV4-ZQLqjHjqCB4Lo=">latest quantum computing breakthroughs last month</a>\n' +
+        '    <a class="chip" href="https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH0ucsbOd5F-dFYpl08A9mhZecXZ2WHTB4JHRf-mTpXl4ja4v880fdHtwL3r_5k18hmGdNpIeYbcRzoYWQDrxyxsiojcARzRWz_pLfyqbSgPcAAGPoUH-B8wEydyllknbiUWQWqvWHhzWy471pUQyd0K1HE1n5GyK-G8FHV0YsA8zNaKJ61VTOJKIIEoV1Me2izlg7Cmdm4lCDhdC3JbJyfpZx_">quantum computing news June 2025</a>\n' +
+        '  </div>\n' +
+        '</div>\n'
+    },
+    retrievalMetadata: {},
+    webSearchQueries: [
+      'latest quantum computing breakthroughs last month',
+      'recent advancements in quantum computing June 2025',
+      'quantum computing news June 2025'
+    ]
+  },
+  groundingSources: [],
+  thinkingSteps: undefined,
+  outputImages: undefined,
+  updatedChatHistory: undefined,
+  usage: undefined
+}
+[TEST-AI] Enhanced Grounding Analysis:
+  - Has grounding metadata: true
+  - Has grounding sources: false
+  - Grounding metadata keys: [ 'searchEntryPoint', 'retrievalMetadata', 'webSearchQueries' ]
+  - Search queries: [
+  'latest quantum computing breakthroughs last month',
+  'recent advancements in quantum computing June 2025',
+  'quantum computing news June 2025'
+]
+[TEST-AI] Response keys: [
+  'success',
+  'content',
+  'groundingMetadata',
+  'groundingSources',
+  'thinkingSteps',
+  'error'
+]
+ POST /api/test-ai 200 in 9735ms
+[runAiStage] Starting with new SDK
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'gemini-2.0-flash',
+  temperature: 0.7,
+  stageOutputType: 'text',
+  hasAiRedoNotes: false,
+  forceGoogleSearchGrounding: false,
+  hasGroundingSettings: true,
+  groundingSettings: { googleSearch: { enabled: true, dynamicThreshold: 0.3 } },
+  googleSearchEnabled: true,
+  googleSearchThreshold: 0.3,
+  streamingEnabled: undefined
+}
+[runAiStage] Filled prompt length: 267
+[runAiStage] First 200 chars of filled prompt: Answer this question using current information from Google Search: what happened ysterday in austria
+
+
+IMPORTANT: Use Google Search grounding to find real, current information. Provide actual search r
+[runAiStage] Grounding enabled for AI processing
+[runAiStage] About to call aiStageExecutionFlow with input: {
+  promptLength: 267,
+  model: 'gemini-2.0-flash',
+  temperature: 0.7,
+  hasSystemInstructions: true,
+  hasChatHistory: false,
+  hasThinkingSettings: false,
+  hasToolNames: false,
+  forceGoogleSearchGrounding: false,
+  hasGroundingSettings: true,
+  googleSearchEnabled: true
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'gemini-2.0-flash',
+  hasTools: false,
+  hasGrounding: true,
+  forceGoogleSearchGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: 'Answer this question using current information from Google Search: what happened ysterday in austria...',
+  chatHistory: 'none',
+  groundingSettings: { googleSearch: { enabled: true, dynamicThreshold: 0.3 } },
+  googleSearchSettings: { enabled: true, dynamicThreshold: 0.3 }
+}
+🚨🚨🚨 === GOOGLE SEARCH GROUNDING DEBUG === 🚨🚨🚨
+🔍 forceGoogleSearchGrounding: false
+🔍 groundingSettings?.googleSearch?.enabled: true
+🔍 Full groundingSettings object: {
+  "googleSearch": {
+    "enabled": true,
+    "dynamicThreshold": 0.3
+  }
+}
+🚨🚨🚨 ================================== 🚨🚨🚨
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 267
+}
+🚀🚀🚀 GOOGLE SEARCH GROUNDING REQUESTED! 🚀🚀🚀
+🔧 Using Direct Gemini API with proper googleSearch tool...
+🎯 [Direct Gemini API] Starting execution for Google Search grounding
+📝 [Direct Gemini API] Using non-streaming mode
+🚀 [Direct Gemini] Starting generation with: {
+  model: 'gemini-2.0-flash',
+  hasPrompt: true,
+  enableGoogleSearch: true,
+  temperature: 0.7
+}
+✅ [Direct Gemini] Adding Google Search grounding
+🎯 [Direct Gemini] Dynamic retrieval threshold: 0.3
+📤 [Direct Gemini] API Request: {
+  model: 'gemini-2.0-flash',
+  contentsCount: 2,
+  configKeys: [ 'temperature', 'toolConfig', 'tools' ],
+  toolsCount: 1,
+  hasGoogleSearch: true
+}
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T10:13:24.048Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  stageStatesCount: 14,
+  hasUserId: true,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  effectiveUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  wasGenerated: false
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  originalCount: 14,
+  cleanedKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  cleanedCount: 14
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[DocumentPersistence] Document updated successfully { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+ POST /api/documents/save 200 in 621ms
+📥 [Direct Gemini] Raw response keys: [ 'candidates', 'modelVersion', 'usageMetadata' ]
+✅ [Direct Gemini] Found grounding metadata!
+📊 [Direct Gemini] Grounding stats: {
+  chunksCount: 3,
+  supportsCount: 9,
+  searchQueries: 1,
+  sourcesExtracted: 3
+}
+✅ [Direct Gemini] Generation completed successfully
+✅ [Direct Gemini API] Generation completed successfully
+[runAiStage] AI execution completed. Result keys: [ 'content', 'thinkingSteps', 'groundingMetadata', 'groundingSources' ]
+[runAiStage] AI execution result: {
+  hasContent: true,
+  contentType: 'string',
+  contentLength: 1238,
+  hasGroundingMetadata: true,
+  hasGroundingSources: true,
+  groundingSourcesCount: 3,
+  hasThinkingSteps: false,
+  thinkingStepsCount: 0,
+  hasUpdatedChatHistory: false,
+  chatHistoryLength: 0,
+  hasUsage: false
+}
+ POST /api/wizard/execute 200 in 3076ms
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  stageStatesCount: 14,
+  hasUserId: true,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  effectiveUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  wasGenerated: false
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  originalCount: 14,
+  cleanedKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  cleanedCount: 14
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[DocumentPersistence] Document updated successfully { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+ POST /api/documents/save 200 in 298ms
+ ✓ Compiled in 220ms (449 modules)
+[TEST-AI] Starting POST test...
+[TEST-AI] Request body: {
+  promptTemplate: 'What are the latest developments in AI reasoning models this week? Provide 3 specific examples with sources.',
+  model: 'gemini-2.0-flash',
+  temperature: 0.2,
+  groundingSettings: { googleSearch: { enabled: true, dynamicThreshold: 0.3 } },
+  systemInstructions: 'You are an AI assistant that provides up-to-date information using Google Search. Always cite your sources with URLs.',
+  streamingSettings: { enabled: false }
+}
+[runAiStage] Starting with new SDK
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'gemini-2.0-flash',
+  temperature: 0.2,
+  stageOutputType: 'text',
+  hasAiRedoNotes: false,
+  forceGoogleSearchGrounding: false,
+  hasGroundingSettings: true,
+  groundingSettings: { googleSearch: { enabled: true, dynamicThreshold: 0.3 } },
+  googleSearchEnabled: true,
+  googleSearchThreshold: 0.3,
+  streamingEnabled: undefined
+}
+[runAiStage] Filled prompt length: 108
+[runAiStage] First 200 chars of filled prompt: What are the latest developments in AI reasoning models this week? Provide 3 specific examples with sources.
+[runAiStage] Grounding enabled for AI processing
+[runAiStage] About to call aiStageExecutionFlow with input: {
+  promptLength: 108,
+  model: 'gemini-2.0-flash',
+  temperature: 0.2,
+  hasSystemInstructions: true,
+  hasChatHistory: false,
+  hasThinkingSettings: false,
+  hasToolNames: false,
+  forceGoogleSearchGrounding: false,
+  hasGroundingSettings: true,
+  googleSearchEnabled: true
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'gemini-2.0-flash',
+  hasTools: false,
+  hasGrounding: true,
+  forceGoogleSearchGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: 'What are the latest developments in AI reasoning models this week? Provide 3 specific examples with ...',
+  chatHistory: 'none',
+  groundingSettings: { googleSearch: { enabled: true, dynamicThreshold: 0.3 } },
+  googleSearchSettings: { enabled: true, dynamicThreshold: 0.3 }
+}
+🚨🚨🚨 === GOOGLE SEARCH GROUNDING DEBUG === 🚨🚨🚨
+🔍 forceGoogleSearchGrounding: false
+🔍 groundingSettings?.googleSearch?.enabled: true
+🔍 Full groundingSettings object: {
+  "googleSearch": {
+    "enabled": true,
+    "dynamicThreshold": 0.3
+  }
+}
+🚨🚨🚨 ================================== 🚨🚨🚨
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 108
+}
+🚀🚀🚀 GOOGLE SEARCH GROUNDING REQUESTED! 🚀🚀🚀
+🔧 Using Direct Gemini API with proper googleSearch tool...
+🎯 [Direct Gemini API] Starting execution for Google Search grounding
+📝 [Direct Gemini API] Using non-streaming mode
+🚀 [Direct Gemini] Starting generation with: {
+  model: 'gemini-2.0-flash',
+  hasPrompt: true,
+  enableGoogleSearch: true,
+  temperature: 0.2
+}
+✅ [Direct Gemini] Adding Google Search grounding
+🎯 [Direct Gemini] Dynamic retrieval threshold: 0.3
+📤 [Direct Gemini] API Request: {
+  model: 'gemini-2.0-flash',
+  contentsCount: 2,
+  configKeys: [ 'temperature', 'toolConfig', 'tools' ],
+  toolsCount: 1,
+  hasGoogleSearch: true
+}
+📥 [Direct Gemini] Raw response keys: [ 'candidates', 'modelVersion', 'usageMetadata' ]
+✅ [Direct Gemini] Found grounding metadata!
+📊 [Direct Gemini] Grounding stats: {
+  chunksCount: 0,
+  supportsCount: 0,
+  searchQueries: 3,
+  sourcesExtracted: 0
+}
+✅ [Direct Gemini] Generation completed successfully
+✅ [Direct Gemini API] Generation completed successfully
+[runAiStage] AI execution completed. Result keys: [ 'content', 'thinkingSteps', 'groundingMetadata', 'groundingSources' ]
+[runAiStage] AI execution result: {
+  hasContent: true,
+  contentType: 'string',
+  contentLength: 4714,
+  hasGroundingMetadata: true,
+  hasGroundingSources: true,
+  groundingSourcesCount: 0,
+  hasThinkingSteps: false,
+  thinkingStepsCount: 0,
+  hasUpdatedChatHistory: false,
+  chatHistoryLength: 0,
+  hasUsage: false
+}
+[TEST-AI] Result: {
+  content: 'Here are three specific examples of the latest developments in AI reasoning models this week:\n' +
+    '\n' +
+    `1.  **Mistral AI's Magistral:** On June 10, 2025, Mistral AI launched Magistral, its first reasoning model, excelling in domain-specific, transparent, and multilingual reasoning. It comes in two versions: Magistral Small (a 24B parameter open-source version) and Magistral Medium (a more powerful, enterprise version). Magistral Medium scored 73.6% on AIME2024 and 90% with majority voting @64, while Magistral Small scored 70.7% and 83.3%, respectively. Magistral is designed to "think things through" like humans, bringing expertise across professional domains with transparent reasoning. It is suited for various enterprise use cases, from structured calculations and programmatic logic to decision trees and rule-based systems. [https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGzsTb2mw2DkigeOJGOr2PibkJm3OgYBfmOnA0n1-_z2eZJlhFPzBfxj7qF8iX83eGG8XeMX_4H5li-jH62CZDB-LR6g5AsJJ8fBvx9HCU-sVmOFD-C0RbJcBi_](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGzsTb2mw2DkigeOJGOr2PibkJm3OgYBfmOnA0n1-_z2eZJlhFPzBfxj7qF8iX83eGG8XeMX_4H5li-jH62CZDB-LR6g5AsJJ8fBvx9HCU-sVmOFD-C0RbJcBi_) and [https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGFpzv5P23cqtaNdvdXxYia39D6PK76kt8Zngzj-vp7Pc04PNPmSduUj0buMF6WUGPK2V-kMvE3T1C5VQA3F_0vHzIVbk37QGuge_lQQzzlfJG0sFF9_UnB49Z4WAn9EnWE8nFvK5vS10pQRS6Sttz7SsPlZC1TN1_cSosvXrSzjLSgJDv_m-c6ntFtUZk8yPWY](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGFpzv5P23cqtaNdvdXxYia39D6PK76kt8Zngzj-vp7Pc04PNPmSduUj0buMF6WUGPK2V-kMvE3T1C5VQA3F_0vHzIVbk37QGuge_lQQzzlfJG0sFF9_UnB49Z4WAn9EnWE8nFvK5vS10pQRS6Sttz7SsPlZC1TN1_cSosvXrSzjLSgJDv_m-c6ntFtUZk8yPWY)\n` +
+    `2.  **Apple's Research on Limitations of Reasoning Models:** A recent paper from Apple researchers indicates that AI reasoning models may not be "thinking" as well as previously thought. These models, including OpenAI's o1 and o3, DeepSeek R1, Claude 3.7 Sonnet Thinking, and Google Gemini Flash Thinking, can collapse when faced with increasingly complex problems. While they outperform standard LLMs on medium-difficulty puzzles, they perform worse on simple puzzles and give up prematurely on hard puzzles. The researchers suggest that these models may only provide "The Illusion of Thinking." [https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHpXitwZ5PrDkzQNnF-L46vppiqOXKBNc6UZLIuWLMiPyzhzZxa4UAO1WnE1G4pKbD0Ejxft3zxNNbFOg8RBb9mXpnZQl5A4YUkaFOFKaqieHgMuX8Ua63SMOHqC2uis7JyJNsfYmtKjjBxjENMAhGjmbKnbGxQsEAJSEaYBuxLFR095gl_LewLV9Odi1c3LSI=](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHpXitwZ5PrDkzQNnF-L46vppiqOXKBNc6UZLIuWLMiPyzhzZxa4UAO1WnE1G4pKbD0Ejxft3zxNNbFOg8RBb9mXpnZQl5A4YUkaFOFKaqieHgMuX8Ua63SMOHqC2uis7JyJNsfYmtKjjBxjENMAhGjmbKnbGxQsEAJSEaYBuxLFR095gl_LewLV9Odi1c3LSI=) and [https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGsyhy2_FWvC-c7oEU4HOsBiszZvNnSU8ZtFo4utlwm99UINM2TIq2vIxde069mUxrJKaaUEdWvi3sjqEm1hsWRqMvP0uHfv-0YL4-Ogn0j4FQhsPNwL2LRZJoctpkZagS3J_c4d5v42n4XXV7jQHtK2XlIZNouofLygxmJA41VWX9EqD0jXS4F9BpNuMG-kYktV8PwD2GdVVzdMV5vCCsyZ2PIbwaGWl3izYDLj-ydr1ZcFHmYkmA5F0KcqXT8fUg3HVCU7GoZugpdn4ylogHyXrrbI-6A-KU7o1_cFkMLYuazW90=](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGsyhy2_FWvC-c7oEU4HOsBiszZvNnSU8ZtFo4utlwm99UINM2TIq2vIxde069mUxrJKaaUEdWvi3sjqEm1hsWRqMvP0uHfv-0YL4-Ogn0j4FQhsPNwL2LRZJoctpkZagS3J_c4d5v42n4XXV7jQHtK2XlIZNouofLygxmJA41VWX9EqD0jXS4F9BpNuMG-kYktV8PwD2GdVVzdMV5vCCsyZ2PIbwaGWl3izYDLj-ydr1ZcFHmYkmA5F0KcqXT8fUg3HVCU7GoZugpdn4ylogHyXrrbI-6A-KU7o1_cFkMLYuazW90=)\n` +
+    '3.  **Developments in Healthcare AI Reasoning Models:** Generative AI (GenAI) reasoning models are enabling healthcare professionals to work more efficiently. Recent models provide transparency into their decision-making processes and can power advanced AI agents using healthcare-specific models like Google AIM, Med-PaLM 2, or Med-R1. This auditability is crucial in healthcare, where understanding why a recommendation was made is often as important as the recommendation itself. [https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEamJdR-zza8q-016W3VFEoGltqTG7--3-v0DQa2YkyyVWUdjQPzf1Uhb13-F98yClhWPXqEaMXY-x5xdU9BdPEy1z-UvYgR8Keo2gkHhjg3Ymn9z2-6hk0dQtnQop4E7VNRGjghswtwbbAq5bGufPQN4ODLf1x47eABeBRUW7dBfPlEm1CNNWMahU6ndjdDlqxZlVdezpDAZebN36_UTQTNdXKYm6V8dWo](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEamJdR-zza8q-016W3VFEoGltqTG7--3-v0DQa2YkyyVWUdjQPzf1Uhb13-F98yClhWPXqEaMXY-x5xdU9BdPEy1z-UvYgR8Keo2gkHhjg3Ymn9z2-6hk0dQtnQop4E7VNRGjghswtwbbAq5bGufPQN4ODLf1x47eABeBRUW7dBfPlEm1CNNWMahU6ndjdDlqxZlVdezpDAZebN36_UTQTNdXKYm6V8dWo)\n',
+  groundingMetadata: {
+    searchEntryPoint: {
+      renderedContent: '<style>\n' +
+        '.container {\n' +
+        '  align-items: center;\n' +
+        '  border-radius: 8px;\n' +
+        '  display: flex;\n' +
+        '  font-family: Google Sans, Roboto, sans-serif;\n' +
+        '  font-size: 14px;\n' +
+        '  line-height: 20px;\n' +
+        '  padding: 8px 12px;\n' +
+        '}\n' +
+        '.chip {\n' +
+        '  display: inline-block;\n' +
+        '  border: solid 1px;\n' +
+        '  border-radius: 16px;\n' +
+        '  min-width: 14px;\n' +
+        '  padding: 5px 16px;\n' +
+        '  text-align: center;\n' +
+        '  user-select: none;\n' +
+        '  margin: 0 8px;\n' +
+        '  -webkit-tap-highlight-color: transparent;\n' +
+        '}\n' +
+        '.carousel {\n' +
+        '  overflow: auto;\n' +
+        '  scrollbar-width: none;\n' +
+        '  white-space: nowrap;\n' +
+        '  margin-right: -12px;\n' +
+        '}\n' +
+        '.headline {\n' +
+        '  display: flex;\n' +
+        '  margin-right: 4px;\n' +
+        '}\n' +
+        '.gradient-container {\n' +
+        '  position: relative;\n' +
+        '}\n' +
+        '.gradient {\n' +
+        '  position: absolute;\n' +
+        '  transform: translate(3px, -9px);\n' +
+        '  height: 36px;\n' +
+        '  width: 9px;\n' +
+        '}\n' +
+        '@media (prefers-color-scheme: light) {\n' +
+        '  .container {\n' +
+        '    background-color: #fafafa;\n' +
+        '    box-shadow: 0 0 0 1px #0000000f;\n' +
+        '  }\n' +
+        '  .headline-label {\n' +
+        '    color: #1f1f1f;\n' +
+        '  }\n' +
+        '  .chip {\n' +
+        '    background-color: #ffffff;\n' +
+        '    border-color: #d2d2d2;\n' +
+        '    color: #5e5e5e;\n' +
+        '    text-decoration: none;\n' +
+        '  }\n' +
+        '  .chip:hover {\n' +
+        '    background-color: #f2f2f2;\n' +
+        '  }\n' +
+        '  .chip:focus {\n' +
+        '    background-color: #f2f2f2;\n' +
+        '  }\n' +
+        '  .chip:active {\n' +
+        '    background-color: #d8d8d8;\n' +
+        '    border-color: #b6b6b6;\n' +
+        '  }\n' +
+        '  .logo-dark {\n' +
+        '    display: none;\n' +
+        '  }\n' +
+        '  .gradient {\n' +
+        '    background: linear-gradient(90deg, #fafafa 15%, #fafafa00 100%);\n' +
+        '  }\n' +
+        '}\n' +
+        '@media (prefers-color-scheme: dark) {\n' +
+        '  .container {\n' +
+        '    background-color: #1f1f1f;\n' +
+        '    box-shadow: 0 0 0 1px #ffffff26;\n' +
+        '  }\n' +
+        '  .headline-label {\n' +
+        '    color: #fff;\n' +
+        '  }\n' +
+        '  .chip {\n' +
+        '    background-color: #2c2c2c;\n' +
+        '    border-color: #3c4043;\n' +
+        '    color: #fff;\n' +
+        '    text-decoration: none;\n' +
+        '  }\n' +
+        '  .chip:hover {\n' +
+        '    background-color: #353536;\n' +
+        '  }\n' +
+        '  .chip:focus {\n' +
+        '    background-color: #353536;\n' +
+        '  }\n' +
+        '  .chip:active {\n' +
+        '    background-color: #464849;\n' +
+        '    border-color: #53575b;\n' +
+        '  }\n' +
+        '  .logo-light {\n' +
+        '    display: none;\n' +
+        '  }\n' +
+        '  .gradient {\n' +
+        '    background: linear-gradient(90deg, #1f1f1f 15%, #1f1f1f00 100%);\n' +
+        '  }\n' +
+        '}\n' +
+        '</style>\n' +
+        '<div class="container">\n' +
+        '  <div class="headline">\n' +
+        '    <svg class="logo-light" width="18" height="18" viewBox="9 9 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+        '      <path fill-rule="evenodd" clip-rule="evenodd" d="M42.8622 27.0064C42.8622 25.7839 42.7525 24.6084 42.5487 23.4799H26.3109V30.1568H35.5897C35.1821 32.3041 33.9596 34.1222 32.1258 35.3448V39.6864H37.7213C40.9814 36.677 42.8622 32.2571 42.8622 27.0064V27.0064Z" fill="#4285F4"/>\n' +
+        '      <path fill-rule="evenodd" clip-rule="evenodd" d="M26.3109 43.8555C30.9659 43.8555 34.8687 42.3195 37.7213 39.6863L32.1258 35.3447C30.5898 36.3792 28.6306 37.0061 26.3109 37.0061C21.8282 37.0061 18.0195 33.9811 16.6559 29.906H10.9194V34.3573C13.7563 39.9841 19.5712 43.8555 26.3109 43.8555V43.8555Z" fill="#34A853"/>\n' +
+        '      <path fill-rule="evenodd" clip-rule="evenodd" d="M16.6559 29.8904C16.3111 28.8559 16.1074 27.7588 16.1074 26.6146C16.1074 25.4704 16.3111 24.3733 16.6559 23.3388V18.8875H10.9194C9.74388 21.2072 9.06992 23.8247 9.06992 26.6146C9.06992 29.4045 9.74388 32.022 10.9194 34.3417L15.3864 30.8621L16.6559 29.8904V29.8904Z" fill="#FBBC05"/>\n' +
+        '      <path fill-rule="evenodd" clip-rule="evenodd" d="M26.3109 16.2386C28.85 16.2386 31.107 17.1164 32.9095 18.8091L37.8466 13.8719C34.853 11.082 30.9659 9.3736 26.3109 9.3736C19.5712 9.3736 13.7563 13.245 10.9194 18.8875L16.6559 23.3388C18.0195 19.2636 21.8282 16.2386 26.3109 16.2386V16.2386Z" fill="#EA4335"/>\n' +
+        '    </svg>\n' +
+        '    <svg class="logo-dark" width="18" height="18" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">\n' +
+        '      <circle cx="24" cy="23" fill="#FFF" r="22"/>\n' +
+        '      <path d="M33.76 34.26c2.75-2.56 4.49-6.37 4.49-11.26 0-.89-.08-1.84-.29-3H24.01v5.99h8.03c-.4 2.02-1.5 3.56-3.07 4.56v.75l3.91 2.97h.88z" fill="#4285F4"/>\n' +
+        '      <path d="M15.58 25.77A8.845 8.845 0 0 0 24 31.86c1.92 0 3.62-.46 4.97-1.31l4.79 3.71C31.14 36.7 27.65 38 24 38c-5.93 0-11.01-3.4-13.45-8.36l.17-1.01 4.06-2.85h.8z" fill="#34A853"/>\n' +
+        '      <path d="M15.59 20.21a8.864 8.864 0 0 0 0 5.58l-5.03 3.86c-.98-2-1.53-4.25-1.53-6.64 0-2.39.55-4.64 1.53-6.64l1-.22 3.81 2.98.22 1.08z" fill="#FBBC05"/>\n' +
+        '      <path d="M24 14.14c2.11 0 4.02.75 5.52 1.98l4.36-4.36C31.22 9.43 27.81 8 24 8c-5.93 0-11.01 3.4-13.45 8.36l5.03 3.85A8.86 8.86 0 0 1 24 14.14z" fill="#EA4335"/>\n' +
+        '    </svg>\n' +
+        '    <div class="gradient-container"><div class="gradient"></div></div>\n' +
+        '  </div>\n' +
+        '  <div class="carousel">\n' +
+        '    <a class="chip" href="https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFS15tQnRL_H0DqfyW4UP7V6RzNuJrIe0x4RI33gjNbZx9RyiTkI6ykdgF1w1MAhUynEp1utMyTLdc6AkeyciwVV6BXVb6ns1OBeNZRybjpEu8aM-7JpdUnpR3gOsGxuYNt092pExp2RCovboKT3v81rKu6NTP8cY5hVyconiPzo-CiZ5jh2aTWYpdXJzhEA_tv-qBZYigOAfc19fv4qfnXyla9IyMQkA==">AI reasoning models advancements 2025</a>\n' +
+        '    <a class="chip" href="https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGEKhfraEm6xDn9ql3PIVnEBeD0K4_yABRalBy7LTlpDiHhSVSJHx6C8nck89Ps1EnVKbz5xR4ZVX1jI5MQehkUsCZmadBVwA9CkSza0nWqdqq7duTA05mscl-X_YQ0VisOLnIaXvaZW6K7AiBEyGCDRVUQfRsFABo_qco8hG-ewBcBUpmtUvU_lhgOSjqHeu02iH7tyB4guUv8vci9VIq9S_bmh7U2TCcbebO4IvyF3KvRgQ==">latest developments AI reasoning models this week</a>\n' +
+        '    <a class="chip" href="https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHMfsQ99Kx-LVueFNhh6wK4nQ9AHshflH0T-PCVs5zuR53GuN_4ozt8S9bUzKdel4qAXg9DP37_HNZoyYIYvo5fBb4mFxzmXAkjOdBAX229D_rmw2_vjyl3B7NVXkQcWDZG2yKTzc7BrLp5EG_gykXhyTGHmF-lrzF-Mg14PPHIAYINFLMaE90IsyaVy4j3RDmzcnXVljC-jmZFlZn5Ca0VsIae">new AI reasoning models June 2025</a>\n' +
+        '  </div>\n' +
+        '</div>\n'
+    },
+    retrievalMetadata: {},
+    webSearchQueries: [
+      'latest developments AI reasoning models this week',
+      'AI reasoning models advancements 2025',
+      'new AI reasoning models June 2025'
+    ]
+  },
+  groundingSources: [],
+  thinkingSteps: undefined,
+  outputImages: undefined,
+  updatedChatHistory: undefined,
+  usage: undefined
+}
+[TEST-AI] Enhanced Grounding Analysis:
+  - Has grounding metadata: true
+  - Has grounding sources: false
+  - Grounding metadata keys: [ 'searchEntryPoint', 'retrievalMetadata', 'webSearchQueries' ]
+  - Search queries: [
+  'latest developments AI reasoning models this week',
+  'AI reasoning models advancements 2025',
+  'new AI reasoning models June 2025'
+]
+[TEST-AI] Response keys: [
+  'success',
+  'content',
+  'groundingMetadata',
+  'groundingSources',
+  'thinkingSteps',
+  'error'
+]
+ POST /api/test-ai 200 in 11545ms
+Debugger listening on ws://127.0.0.1:9229/b4840af1-6ef6-4da4-9590-ae711dd4cd2c
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 166558,
+    "turboFlag": false,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/79557a17-d829-4324-9b8c-0bab4c703295
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": false,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 1494ms
+Watchpack Error (initial scan): Error: ENOTDIR: not a directory, scandir '/usr/local/bin/node'
+ ○ Compiling /api/test-ai ...
+ ✓ Compiled /api/test-ai in 507ms (590 modules)
+[TEST-AI] Starting POST test...
+[TEST-AI] Request body: {
+  promptTemplate: 'What are the most significant developments in quantum computing from this past week? Provide 3 specific examples with sources and explain their impact.',
+  model: 'gemini-2.0-flash',
+  temperature: 0.1,
+  groundingSettings: { googleSearch: { enabled: true, dynamicThreshold: 0.3 } },
+  systemInstructions: 'You are an AI assistant that provides up-to-date information using Google Search. Always cite your sources with URLs and provide detailed explanations.',
+  streamingSettings: { enabled: false }
+}
+[runAiStage] Starting with new SDK
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'gemini-2.0-flash',
+  temperature: 0.1,
+  stageOutputType: 'text',
+  hasAiRedoNotes: false,
+  forceGoogleSearchGrounding: false,
+  hasGroundingSettings: true,
+  groundingSettings: { googleSearch: { enabled: true, dynamicThreshold: 0.3 } },
+  googleSearchEnabled: true,
+  googleSearchThreshold: 0.3,
+  streamingEnabled: undefined
+}
+[runAiStage] Filled prompt length: 151
+[runAiStage] First 200 chars of filled prompt: What are the most significant developments in quantum computing from this past week? Provide 3 specific examples with sources and explain their impact.
+[runAiStage] Grounding enabled for AI processing
+[runAiStage] About to call aiStageExecutionFlow with input: {
+  promptLength: 151,
+  model: 'gemini-2.0-flash',
+  temperature: 0.1,
+  hasSystemInstructions: true,
+  hasChatHistory: false,
+  hasThinkingSettings: false,
+  hasToolNames: false,
+  forceGoogleSearchGrounding: false,
+  hasGroundingSettings: true,
+  googleSearchEnabled: true
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'gemini-2.0-flash',
+  hasTools: false,
+  hasGrounding: true,
+  forceGoogleSearchGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: 'What are the most significant developments in quantum computing from this past week? Provide 3 speci...',
+  chatHistory: 'none',
+  groundingSettings: { googleSearch: { enabled: true, dynamicThreshold: 0.3 } },
+  googleSearchSettings: { enabled: true, dynamicThreshold: 0.3 }
+}
+🚨🚨🚨 === GOOGLE SEARCH GROUNDING DEBUG === 🚨🚨🚨
+🔍 forceGoogleSearchGrounding: false
+🔍 groundingSettings?.googleSearch?.enabled: true
+🔍 Full groundingSettings object: {
+  "googleSearch": {
+    "enabled": true,
+    "dynamicThreshold": 0.3
+  }
+}
+🚨🚨🚨 ================================== 🚨🚨🚨
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 151
+}
+🚀🚀🚀 GOOGLE SEARCH GROUNDING REQUESTED! 🚀🚀🚀
+🔧 Using Direct Gemini API with proper googleSearch tool...
+🎯 [Direct Gemini API] Starting execution for Google Search grounding
+📝 [Direct Gemini API] Using non-streaming mode
+🚀 [Direct Gemini] Starting generation with: {
+  model: 'gemini-2.0-flash',
+  hasPrompt: true,
+  enableGoogleSearch: true,
+  temperature: 0.1
+}
+✅ [Direct Gemini] Adding Google Search grounding
+🎯 [Direct Gemini] Dynamic retrieval threshold: 0.3
+📤 [Direct Gemini] API Request: {
+  model: 'gemini-2.0-flash',
+  contentsCount: 2,
+  configKeys: [ 'temperature', 'toolConfig', 'tools' ],
+  toolsCount: 1,
+  hasGoogleSearch: true
+}
+📥 [Direct Gemini] Raw response keys: [ 'candidates', 'modelVersion', 'usageMetadata' ]
+✅ [Direct Gemini] Found grounding metadata!
+📊 [Direct Gemini] Grounding stats: {
+  chunksCount: 2,
+  supportsCount: 6,
+  searchQueries: 3,
+  sourcesExtracted: 2
+}
+✅ [Direct Gemini] Generation completed successfully
+✅ [Direct Gemini API] Generation completed successfully
+[runAiStage] AI execution completed. Result keys: [ 'content', 'thinkingSteps', 'groundingMetadata', 'groundingSources' ]
+[runAiStage] AI execution result: {
+  hasContent: true,
+  contentType: 'string',
+  contentLength: 2213,
+  hasGroundingMetadata: true,
+  hasGroundingSources: true,
+  groundingSourcesCount: 2,
+  hasThinkingSteps: false,
+  thinkingStepsCount: 0,
+  hasUpdatedChatHistory: false,
+  chatHistoryLength: 0,
+  hasUsage: false
+}
+[TEST-AI] Result: {
+  content: 'Here are three significant developments in quantum computing from the past week:\n' +
+    '\n' +
+    `1.  **IBM's Quantum Starling System:** IBM has announced plans for its "Quantum Starling" system, which is expected to perform up to 20,000 times more operations than current quantum computers. This system aims to tackle complex quantum states beyond current capabilities and is expected to execute 100 million quantum operations using 200 logical qubits, paving the way for the "IBM Quantum Blue Jay" system capable of one billion quantum operations. This development has boosted IBM's stock and is seen as a positive indicator for the quantum computing industry. \\[[2](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHDiBAKgmaQ19T-CFbAHfnFzj4BEAIslWCXffuwnDY6YVHKOZRniXU0AkZEOWeIHepzJOp3rMRo3U3AhC38sv5XOxr3NmTRKmMWL4Wvteo9FN8Wtrfxdc3rQpheMD5l8jPKKX2skir-VQ-qeXtIJNhpB6UAoSWrWWVpAVXtXzUWzEVFT4lCAXAzzlFikH5DS9h8AqWH0BfROMbHnlQMKLA/)\\]\n` +
+    '2.  **Oxford University Achieves Lowest Error Rate for Quantum Logic Operation:** Physicists at the University of Oxford have set a new global benchmark for the accuracy of controlling a single quantum bit, achieving an error rate of just 0.000015%, or one error in 6.7 million operations. This breakthrough is significant because reducing error rates is crucial for building reliable and fault-tolerant quantum computers. \\[[1](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHhwXesMa5hYHyOYcSpELYdXJZCVWVdNfAIWKTwOb2ja6MWJ7iQ9acJGBvLA1n49HB4VT7TloXxCquYIqt8e1DgI6szxuCC6yjbhKfzMvUTVFGBtlNLqXOC60J0S_piRXfS8ilmutN4tBoqLoz5Jm0C-jFLx2HesPLKSOor-_M/)\\]\n' +
+    '3.  **Quantum-Enhanced Machine Learning with Photonic Quantum Circuits:** Researchers have demonstrated that even small-scale quantum computers can enhance machine learning performance using a novel photonic quantum circuit. This suggests that current quantum technology is not just experimental but can already be applied to improve machine learning. \\[[1](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHhwXesMa5hYHyOYcSpELYdXJZCVWVdNfAIWKTwOb2ja6MWJ7iQ9acJGBvLA1n49HB4VT7TloXxCquYIqt8e1DgI6szxuCC6yjbhKfzMvUTVFGBtlNLqXOC60J0S_piRXfS8ilmutN4tBoqLoz5Jm0C-jFLx2HesPLKSOor-_M/)\\]\n',
+  groundingMetadata: {
+    searchEntryPoint: {
+      renderedContent: '<style>\n' +
+        '.container {\n' +
+        '  align-items: center;\n' +
+        '  border-radius: 8px;\n' +
+        '  display: flex;\n' +
+        '  font-family: Google Sans, Roboto, sans-serif;\n' +
+        '  font-size: 14px;\n' +
+        '  line-height: 20px;\n' +
+        '  padding: 8px 12px;\n' +
+        '}\n' +
+        '.chip {\n' +
+        '  display: inline-block;\n' +
+        '  border: solid 1px;\n' +
+        '  border-radius: 16px;\n' +
+        '  min-width: 14px;\n' +
+        '  padding: 5px 16px;\n' +
+        '  text-align: center;\n' +
+        '  user-select: none;\n' +
+        '  margin: 0 8px;\n' +
+        '  -webkit-tap-highlight-color: transparent;\n' +
+        '}\n' +
+        '.carousel {\n' +
+        '  overflow: auto;\n' +
+        '  scrollbar-width: none;\n' +
+        '  white-space: nowrap;\n' +
+        '  margin-right: -12px;\n' +
+        '}\n' +
+        '.headline {\n' +
+        '  display: flex;\n' +
+        '  margin-right: 4px;\n' +
+        '}\n' +
+        '.gradient-container {\n' +
+        '  position: relative;\n' +
+        '}\n' +
+        '.gradient {\n' +
+        '  position: absolute;\n' +
+        '  transform: translate(3px, -9px);\n' +
+        '  height: 36px;\n' +
+        '  width: 9px;\n' +
+        '}\n' +
+        '@media (prefers-color-scheme: light) {\n' +
+        '  .container {\n' +
+        '    background-color: #fafafa;\n' +
+        '    box-shadow: 0 0 0 1px #0000000f;\n' +
+        '  }\n' +
+        '  .headline-label {\n' +
+        '    color: #1f1f1f;\n' +
+        '  }\n' +
+        '  .chip {\n' +
+        '    background-color: #ffffff;\n' +
+        '    border-color: #d2d2d2;\n' +
+        '    color: #5e5e5e;\n' +
+        '    text-decoration: none;\n' +
+        '  }\n' +
+        '  .chip:hover {\n' +
+        '    background-color: #f2f2f2;\n' +
+        '  }\n' +
+        '  .chip:focus {\n' +
+        '    background-color: #f2f2f2;\n' +
+        '  }\n' +
+        '  .chip:active {\n' +
+        '    background-color: #d8d8d8;\n' +
+        '    border-color: #b6b6b6;\n' +
+        '  }\n' +
+        '  .logo-dark {\n' +
+        '    display: none;\n' +
+        '  }\n' +
+        '  .gradient {\n' +
+        '    background: linear-gradient(90deg, #fafafa 15%, #fafafa00 100%);\n' +
+        '  }\n' +
+        '}\n' +
+        '@media (prefers-color-scheme: dark) {\n' +
+        '  .container {\n' +
+        '    background-color: #1f1f1f;\n' +
+        '    box-shadow: 0 0 0 1px #ffffff26;\n' +
+        '  }\n' +
+        '  .headline-label {\n' +
+        '    color: #fff;\n' +
+        '  }\n' +
+        '  .chip {\n' +
+        '    background-color: #2c2c2c;\n' +
+        '    border-color: #3c4043;\n' +
+        '    color: #fff;\n' +
+        '    text-decoration: none;\n' +
+        '  }\n' +
+        '  .chip:hover {\n' +
+        '    background-color: #353536;\n' +
+        '  }\n' +
+        '  .chip:focus {\n' +
+        '    background-color: #353536;\n' +
+        '  }\n' +
+        '  .chip:active {\n' +
+        '    background-color: #464849;\n' +
+        '    border-color: #53575b;\n' +
+        '  }\n' +
+        '  .logo-light {\n' +
+        '    display: none;\n' +
+        '  }\n' +
+        '  .gradient {\n' +
+        '    background: linear-gradient(90deg, #1f1f1f 15%, #1f1f1f00 100%);\n' +
+        '  }\n' +
+        '}\n' +
+        '</style>\n' +
+        '<div class="container">\n' +
+        '  <div class="headline">\n' +
+        '    <svg class="logo-light" width="18" height="18" viewBox="9 9 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+        '      <path fill-rule="evenodd" clip-rule="evenodd" d="M42.8622 27.0064C42.8622 25.7839 42.7525 24.6084 42.5487 23.4799H26.3109V30.1568H35.5897C35.1821 32.3041 33.9596 34.1222 32.1258 35.3448V39.6864H37.7213C40.9814 36.677 42.8622 32.2571 42.8622 27.0064V27.0064Z" fill="#4285F4"/>\n' +
+        '      <path fill-rule="evenodd" clip-rule="evenodd" d="M26.3109 43.8555C30.9659 43.8555 34.8687 42.3195 37.7213 39.6863L32.1258 35.3447C30.5898 36.3792 28.6306 37.0061 26.3109 37.0061C21.8282 37.0061 18.0195 33.9811 16.6559 29.906H10.9194V34.3573C13.7563 39.9841 19.5712 43.8555 26.3109 43.8555V43.8555Z" fill="#34A853"/>\n' +
+        '      <path fill-rule="evenodd" clip-rule="evenodd" d="M16.6559 29.8904C16.3111 28.8559 16.1074 27.7588 16.1074 26.6146C16.1074 25.4704 16.3111 24.3733 16.6559 23.3388V18.8875H10.9194C9.74388 21.2072 9.06992 23.8247 9.06992 26.6146C9.06992 29.4045 9.74388 32.022 10.9194 34.3417L15.3864 30.8621L16.6559 29.8904V29.8904Z" fill="#FBBC05"/>\n' +
+        '      <path fill-rule="evenodd" clip-rule="evenodd" d="M26.3109 16.2386C28.85 16.2386 31.107 17.1164 32.9095 18.8091L37.8466 13.8719C34.853 11.082 30.9659 9.3736 26.3109 9.3736C19.5712 9.3736 13.7563 13.245 10.9194 18.8875L16.6559 23.3388C18.0195 19.2636 21.8282 16.2386 26.3109 16.2386V16.2386Z" fill="#EA4335"/>\n' +
+        '    </svg>\n' +
+        '    <svg class="logo-dark" width="18" height="18" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">\n' +
+        '      <circle cx="24" cy="23" fill="#FFF" r="22"/>\n' +
+        '      <path d="M33.76 34.26c2.75-2.56 4.49-6.37 4.49-11.26 0-.89-.08-1.84-.29-3H24.01v5.99h8.03c-.4 2.02-1.5 3.56-3.07 4.56v.75l3.91 2.97h.88z" fill="#4285F4"/>\n' +
+        '      <path d="M15.58 25.77A8.845 8.845 0 0 0 24 31.86c1.92 0 3.62-.46 4.97-1.31l4.79 3.71C31.14 36.7 27.65 38 24 38c-5.93 0-11.01-3.4-13.45-8.36l.17-1.01 4.06-2.85h.8z" fill="#34A853"/>\n' +
+        '      <path d="M15.59 20.21a8.864 8.864 0 0 0 0 5.58l-5.03 3.86c-.98-2-1.53-4.25-1.53-6.64 0-2.39.55-4.64 1.53-6.64l1-.22 3.81 2.98.22 1.08z" fill="#FBBC05"/>\n' +
+        '      <path d="M24 14.14c2.11 0 4.02.75 5.52 1.98l4.36-4.36C31.22 9.43 27.81 8 24 8c-5.93 0-11.01 3.4-13.45 8.36l5.03 3.85A8.86 8.86 0 0 1 24 14.14z" fill="#EA4335"/>\n' +
+        '    </svg>\n' +
+        '    <div class="gradient-container"><div class="gradient"></div></div>\n' +
+        '  </div>\n' +
+        '  <div class="carousel">\n' +
+        '    <a class="chip" href="https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH-RRUB8iu1LrOxz-eBcvuheg5ZZyZFXqEq4C0EOI-bvHc_Q8ixVP-9f1khoog7Uz_36WIv2Yr_RsDHDIdU_OBXezoXuiA5ouyALtxOu5_29NvsyDGXH_VTfI2KB8vJ1o3mgE3gZrkqMCykeqycsrvZDG0JLGjx11YQOGXDn7cJJa0tt3E7yOrUKGdz1yMNgTFfGUX1tNwguyk1kI1Lv4M56FbYWGCftvys">recent quantum computing breakthroughs</a>\n' +
+        '    <a class="chip" href="https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGYwnatGcxQW4L642W_x2rIMmebzrKAIJkPaP_vctpeIdYDniZO5SDhLmRBskaeobr7XuXCqmt63M7EY7aBOTVR9G9aCgT6Aev097V1GR011JmKCHxYDpVgUexa-7f57PlNZIwpjWFwrtFvPJ1DGMjEJcSABVF0fcs12TiDNjAxMMjeEhKmk0IheR42nw_pX1H3bSxmIMp_3B-ZWmSbD4Ch0x6q1bmvGRPm-UU=">quantum computing developments last week</a>\n' +
+        '    <a class="chip" href="https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEjvPqbDAuJsOVOt5ozq8HasODiJ-z_uKwpDtvMOLpK7sNoyT8I9Dwlswmg4PJ5j-08h1ZNMdUVZ6A6vwJ4ECXcrtfDH_WYdgN94T3rHKp4n46mEiLQyQ7O4pcfJAEz2lVRNKZTKVOM-PFGF_NptM82RXu2U4ZMeO1HKcDOtHLdndf8EqkpVemYd96Gks6nLNtI3UM7ZpYtKYc=">quantum computing news</a>\n' +
+        '  </div>\n' +
+        '</div>\n'
+    },
+    groundingChunks: [ [Object], [Object] ],
+    groundingSupports: [ [Object], [Object], [Object], [Object], [Object], [Object] ],
+    retrievalMetadata: {},
+    webSearchQueries: [
+      'quantum computing developments last week',
+      'recent quantum computing breakthroughs',
+      'quantum computing news'
+    ]
+  },
+  groundingSources: [
+    {
+      type: 'search',
+      title: 'thestreet.com',
+      url: 'https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHDiBAKgmaQ19T-CFbAHfnFzj4BEAIslWCXffuwnDY6YVHKOZRniXU0AkZEOWeIHepzJOp3rMRo3U3AhC38sv5XOxr3NmTRKmMWL4Wvteo9FN8Wtrfxdc3rQpheMD5l8jPKKX2skir-VQ-qeXtIJNhpB6UAoSWrWWVpAVXtXzUWzEVFT4lCAXAzzlFikH5DS9h8AqWH0BfROMbHnlQMKLA=',
+      snippet: ''
+    },
+    {
+      type: 'search',
+      title: 'sciencedaily.com',
+      url: 'https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHhwXesMa5hYHyOYcSpELYdXJZCVWVdNfAIWKTwOb2ja6MWJ7iQ9acJGBvLA1n49HB4VT7TloXxCquYIqt8e1DgI6szxuCC6yjbhKfzMvUTVFGBtlNLqXOC60J0S_piRXfS8ilmutN4tBoqLoz5Jm0C-jFLx2HesPLKSOor-_M=',
+      snippet: ''
+    }
+  ],
+  thinkingSteps: undefined,
+  outputImages: undefined,
+  updatedChatHistory: undefined,
+  usage: undefined
+}
+[TEST-AI] Enhanced Grounding Analysis:
+  - Has grounding metadata: true
+  - Has grounding sources: true
+  - Grounding metadata keys: [
+  'searchEntryPoint',
+  'groundingChunks',
+  'groundingSupports',
+  'retrievalMetadata',
+  'webSearchQueries'
+]
+  - Search queries: [
+  'quantum computing developments last week',
+  'recent quantum computing breakthroughs',
+  'quantum computing news'
+]
+  - Grounding chunks: 2
+  - Grounding supports: 6
+  - Grounding sources count: 2
+  - First source: {
+  type: 'search',
+  title: 'thestreet.com',
+  url: 'https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHDiBAKgmaQ19T-CFbAHfnFzj4BEAIslWCXffuwnDY6YVHKOZRniXU0AkZEOWeIHepzJOp3rMRo3U3AhC38sv5XOxr3NmTRKmMWL4Wvteo9FN8Wtrfxdc3rQpheMD5l8jPKKX2skir-VQ-qeXtIJNhpB6UAoSWrWWVpAVXtXzUWzEVFT4lCAXAzzlFikH5DS9h8AqWH0BfROMbHnlQMKLA=',
+  snippet: ''
+}
+[TEST-AI] Response keys: [
+  'success',
+  'content',
+  'groundingMetadata',
+  'groundingSources',
+  'thinkingSteps',
+  'error'
+]
+ POST /api/test-ai 200 in 6173ms

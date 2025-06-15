@@ -900,7 +900,30 @@ async function* simulateStream(response: any) {
 function extractGroundingSources(response: any): any[] {
   const sources: any[] = [];
   
-  // Check for grounding metadata in response
+  // 🔥 NEW: Check for grounding metadata directly in response (this is the correct location!)
+  const groundingMetadata = response.groundingMetadata || response.response?.groundingMetadata || response.metadata?.groundingMetadata;
+  
+  if (groundingMetadata && groundingMetadata.groundingChunks) {
+    console.log('[AI Stage Flow Enhanced] ✅ Extracting sources from groundingChunks');
+    console.log('[AI Stage Flow Enhanced] Found groundingChunks count:', groundingMetadata.groundingChunks.length);
+    
+    for (const chunk of groundingMetadata.groundingChunks) {
+      if (chunk.web) {
+        sources.push({
+          type: 'search' as const,
+          title: chunk.web.title || 'Unknown Source',
+          url: chunk.web.uri || '',
+          snippet: chunk.web.snippet || '',
+        });
+      }
+    }
+    
+    console.log('[AI Stage Flow Enhanced] ✅ Successfully extracted', sources.length, 'grounding sources from chunks');
+  } else {
+    console.log('[AI Stage Flow Enhanced] ❌ No groundingChunks found in response for source extraction');
+  }
+  
+  // Legacy check for old-style grounding metadata structure
   if (response.metadata?.groundingMetadata) {
     const metadata = response.metadata.groundingMetadata;
     
@@ -943,6 +966,7 @@ function extractGroundingSources(response: any): any[] {
     }
   }
   
+  console.log('[AI Stage Flow Enhanced] Final extracted sources count:', sources.length);
   return sources;
 }
 
