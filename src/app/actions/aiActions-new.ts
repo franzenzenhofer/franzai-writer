@@ -6,14 +6,13 @@
 "use server";
 import "server-only";
 
-import type { StageState, Stage, Workflow } from "@/types";
-import type { executeAIStage as ExecuteAIStageFn, streamAIStage as StreamAIStageFn } from "@/ai/flows/ai-stage-execution-new";
+import type { StageState, Stage } from "@/types";
+// Import only the type, not the implementation, to avoid bundling server code
+import type { AiStageExecutionInput, ThinkingStep } from "@/ai/flows/ai-stage-execution";
 import { appendFileSync } from 'fs';
 import { join } from 'path';
 
 interface RunAiStageParams {
-  workflow?: Workflow; // Make optional for backward compatibility
-  stage?: Stage; // Optional stage object for direct use
   promptTemplate: string;
   model?: string;
   temperature?: number;
@@ -21,43 +20,73 @@ interface RunAiStageParams {
   toolNames?: Stage['toolNames'];
   systemInstructions?: Stage['systemInstructions'];
   chatHistory?: StageState['chatHistory'];
-  contextVars: Record<string, StageState | { userInput: any, output: any }>;
-  currentStageInput?: any;
+  contextVars: Record<string, StageState | { userInput: any, output: any }>; 
+  currentStageInput?: any; 
   stageOutputType: Stage['outputType'];
+  // New parameter to force Google Search grounding for AI Redo
   aiRedoNotes?: string;
   forceGoogleSearchGrounding?: boolean;
+  // Add groundingSettings from the workflow stage configuration
   groundingSettings?: Stage['groundingSettings'];
   // Add JSON schema and fields for structured output
   jsonSchema?: Stage['jsonSchema'];
   jsonFields?: Stage['jsonFields'];
+  // Add streaming settings
+  streamingSettings?: {
+    enabled: boolean;
+    onChunk?: (chunk: string) => void;
+  };
 }
 
-export interface AiActionResult {
+interface AiActionResult {
   content: any;
   error?: string;
-  groundingMetadata?: any;
-  groundingInfo?: any; // Legacy grounding info
-  groundingSources?: any[];
-  thinkingSteps?: any[];
+  groundingInfo?: any;
+  // Proper grounding metadata structure
+  groundingMetadata?: {
+    searchEntryPoint?: {
+      renderedContent: string;
+    };
+    groundingChunks?: Array<{
+      web: {
+        uri: string;
+        title: string;
+      };
+    }>;
+    groundingSupports?: Array<{
+      segment: {
+        startIndex?: number;
+        endIndex: number;
+        text: string;
+      };
+      groundingChunkIndices: number[];
+      confidenceScores: number[];
+    }>;
+    webSearchQueries?: string[];
+  };
+  groundingSources?: Array<{
+    type: 'search' | 'url';
+    title: string;
+    url?: string;
+    snippet?: string;
+  }>;
+  thinkingSteps?: ThinkingStep[];
   outputImages?: Array<{
     name?: string;
     base64Data: string;
     mimeType: string;
   }>;
-  updatedChatHistory?: Array<{
-    role: 'user' | 'model' | 'system';
-    parts: any[];
-  }>;
+  updatedChatHistory?: Array<{role: 'user' | 'model' | 'system', parts: any[]}>;
   usage?: {
-    promptTokens: number;
-    completionTokens: number;
-    totalTokens: number;
+    inputTokens?: number;
+    outputTokens?: number;
+    totalTokens?: number;
   };
 }
 
 function substitutePromptVars(template: string, context: Record<string, any>): string {
   let finalPrompt = template;
-  const regex = /\{\{([\w.-]+)\}\}/g;
+  const regex = /\{\{([\w.-]+)\}\}/g; 
 
   let match;
   while ((match = regex.exec(template)) !== null) {
@@ -76,11 +105,11 @@ function substitutePromptVars(template: string, context: Record<string, any>): s
     }
     
     if (found) {
-      const replacement = (typeof value === 'object' && value !== null) ? JSON.stringify(value, null, 2) : String(value);
-      finalPrompt = finalPrompt.replace(match[0], replacement);
+        const replacement = (typeof value === 'object' && value !== null) ? JSON.stringify(value, null, 2) : String(value);
+        finalPrompt = finalPrompt.replace(match[0], replacement);
     } else {
-      console.warn(`Prompt variable '{{${fullPath}}}' not found in context. Replacing with empty string.`);
-      finalPrompt = finalPrompt.replace(match[0], "");
+        console.warn(`Prompt variable '{{${fullPath}}}' not found in context. Replacing with empty string.`);
+        finalPrompt = finalPrompt.replace(match[0], ""); 
     }
   }
   return finalPrompt;
@@ -101,17 +130,10 @@ function logToAiLog(message: string, data?: any) {
 }
 
 export async function runAiStage(params: RunAiStageParams): Promise<AiActionResult> {
-    console.log('[runAiStage] Starting with params:', {
-        model: params.model,
-        promptTemplate: params.promptTemplate?.substring(0, 100) + '...',
-        systemInstructions: params.systemInstructions?.substring(0, 100) + '...',
-        hasGroundingSettings: !!params.groundingSettings,
-        groundingSettings: params.groundingSettings,
-        stageOutputType: params.stageOutputType
-    });
+    console.log('[runAiStage] Starting with new SDK');
     
     // 🔥 LOG COMPLETE REQUEST
-    logToAiLog('🚀 [FULL AI REQUEST STARTING - NEW]', {
+    logToAiLog('🚀 [FULL AI REQUEST STARTING]', {
       params: {
         ...params,
         // Don't log sensitive data but log structure
@@ -121,96 +143,234 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
         groundingSettings: params.groundingSettings,
         model: params.model,
         temperature: params.temperature,
-        stageOutputType: params.stageOutputType
+        stageOutputType: params.stageOutputType,
+        streamingSettings: params.streamingSettings
       }
     });
 
     try {
-        const result = await executeAIStage(params as AiStageExecutionInput);
+        console.log("[runAiStage] Starting with params:", {
+            hasPromptTemplate: !!params.promptTemplate,
+            model: params.model,
+            temperature: params.temperature,
+            stageOutputType: params.stageOutputType,
+            hasAiRedoNotes: !!params.aiRedoNotes,
+            forceGoogleSearchGrounding: !!params.forceGoogleSearchGrounding,
+            // CRITICAL: Debug groundingSettings
+            hasGroundingSettings: !!params.groundingSettings,
+            groundingSettings: params.groundingSettings,
+            googleSearchEnabled: params.groundingSettings?.googleSearch?.enabled,
+            googleSearchThreshold: params.groundingSettings?.googleSearch?.dynamicThreshold,
+            streamingEnabled: params.streamingSettings?.enabled,
+        });
+
+        // Create an enhanced context that includes direct userInput reference
+        const enhancedContext = {
+            ...params.contextVars,
+            userInput: params.currentStageInput // Add direct userInput reference
+        };
+
+        let filledPrompt = substitutePromptVars(params.promptTemplate, enhancedContext);
         
-        // 🔥 LOG COMPLETE RAW RESULT FROM AI EXECUTION
-        logToAiLog('📥 [RAW AI EXECUTION RESULT - NEW]', {
+        // If AI Redo notes are provided, enhance the prompt with additional instructions
+        if (params.aiRedoNotes) {
+            filledPrompt += `\n\nAdditional instructions: ${params.aiRedoNotes}`;
+            console.log("[runAiStage] Enhanced prompt with AI REDO notes");
+        }
+        
+        console.log("[runAiStage] Filled prompt length:", filledPrompt.length);
+        console.log("[runAiStage] First 200 chars of filled prompt:", filledPrompt.substring(0, 200));
+
+        // Check if we have a valid API key
+        const apiKey = process.env.GOOGLE_GENAI_API_KEY;
+        if (!apiKey) {
+            console.error("[runAiStage] Missing GOOGLE_GENAI_API_KEY environment variable");
+            return { content: null, error: "AI service not configured. Please check API keys." };
+        }
+
+        // Pass model and temperature directly (can be undefined)
+        // The aiStageExecutionFlow will handle using Genkit defaults if they are undefined.
+        const aiInput: AiStageExecutionInput = {
+            promptTemplate: filledPrompt,
+            model: params.model, 
+            temperature: params.temperature,
+            thinkingSettings: params.thinkingSettings ? { enabled: params.thinkingSettings.enabled || false } : undefined,
+            toolNames: params.toolNames,
+            fileInputs: [],
+            systemInstructions: params.systemInstructions,
+            chatHistory: params.chatHistory,
+            // CRITICAL: Force Google Search grounding for AI Redo or when explicitly requested
+            forceGoogleSearchGrounding: params.forceGoogleSearchGrounding || !!params.aiRedoNotes,
+            // Pass groundingSettings from the workflow stage configuration
+            groundingSettings: params.groundingSettings,
+            // Add JSON schema support
+            jsonSchema: params.jsonSchema,
+            jsonFields: params.jsonFields,
+        };
+
+        // Enable Google Search grounding if AI Redo is being used or explicitly requested
+        // or if groundingSettings are provided from the workflow
+        if (params.aiRedoNotes || params.forceGoogleSearchGrounding || params.groundingSettings?.googleSearch?.enabled) {
+            if (!aiInput.groundingSettings) {
+                aiInput.groundingSettings = {};
+            }
+            if (!aiInput.groundingSettings.googleSearch) {
+                aiInput.groundingSettings.googleSearch = {
+                    enabled: true,
+                    dynamicThreshold: params.groundingSettings?.googleSearch?.dynamicThreshold || 0.3,
+                };
+            }
+            console.log("[runAiStage] Grounding enabled for AI processing");
+        }
+
+        console.log("[runAiStage] About to call aiStageExecutionFlow with input:", {
+            promptLength: aiInput.promptTemplate.length,
+            model: aiInput.model,
+            temperature: aiInput.temperature,
+            hasSystemInstructions: !!aiInput.systemInstructions,
+            hasChatHistory: !!aiInput.chatHistory,
+            hasThinkingSettings: !!aiInput.thinkingSettings,
+            hasToolNames: !!aiInput.toolNames,
+            forceGoogleSearchGrounding: aiInput.forceGoogleSearchGrounding,
+            hasGroundingSettings: !!aiInput.groundingSettings,
+            googleSearchEnabled: aiInput.groundingSettings?.googleSearch?.enabled,
+        });
+
+        // Use dynamic import to avoid bundling server code in the browser
+        const { aiStageExecutionFlow } = await import('@/ai/flows/ai-stage-execution');
+        
+        const result = await aiStageExecutionFlow(aiInput);
+        
+        // 🔥 LOG AI EXECUTION RESULT
+        logToAiLog('🎯 [AI EXECUTION RESULT - RAW]', {
           hasContent: !!result.content,
-          contentType: typeof result.content,
           contentLength: typeof result.content === 'string' ? result.content.length : 'N/A',
           contentPreview: typeof result.content === 'string' ? result.content.substring(0, 200) + '...' : result.content,
           hasGroundingMetadata: !!result.groundingMetadata,
-          groundingMetadataKeys: result.groundingMetadata ? Object.keys(result.groundingMetadata) : [],
-          hasGroundingSources: !!result.groundingSources,
           groundingSourcesCount: result.groundingSources?.length || 0,
-          groundingSourcesPreview: result.groundingSources?.slice(0, 2),
-          hasUsage: !!result.usage,
-          hasThinkingSteps: !!result.thinkingSteps,
-          thinkingStepsCount: result.thinkingSteps?.length || 0,
-          allResultKeys: Object.keys(result)
+          hasThinkingSteps: !!result.thinkingSteps?.length,
+          hasUpdatedChatHistory: !!result.updatedChatHistory?.length,
+          usage: result.usage,
+          resultKeys: Object.keys(result)
         });
 
-        // 🔥 LOG FULL GROUNDING METADATA IF PRESENT
-        if (result.groundingMetadata) {
-          logToAiLog('🔍 [FULL GROUNDING METADATA - NEW]', result.groundingMetadata);
-        }
+        console.log("[runAiStage] AI execution completed. Result keys:", Object.keys(result));
 
-        // 🔥 LOG FULL GROUNDING SOURCES IF PRESENT  
-        if (result.groundingSources) {
-          logToAiLog('📖 [FULL GROUNDING SOURCES - NEW]', result.groundingSources);
-        }
+        // Log the result content structure
+        console.log("[runAiStage] AI execution result:", {
+            hasContent: !!result.content,
+            contentType: typeof result.content,
+            contentLength: typeof result.content === 'string' ? result.content.length : 'unknown',
+            hasGroundingMetadata: !!result.groundingMetadata,
+            hasGroundingSources: !!result.groundingSources,
+            groundingSourcesCount: result.groundingSources?.length || 0,
+            hasThinkingSteps: !!result.thinkingSteps && result.thinkingSteps.length > 0,
+            thinkingStepsCount: result.thinkingSteps?.length || 0,
+            hasUpdatedChatHistory: !!result.updatedChatHistory,
+            chatHistoryLength: result.updatedChatHistory?.length || 0,
+            hasUsage: !!result.usage,
+        });
 
-        let parsedContent;
+        const updatedChatHistory = result.updatedChatHistory; // Capture updatedChatHistory
+        const groundingMetadata = result.groundingMetadata; // Capture grounding metadata
+        const groundingSources = result.groundingSources; // Capture grounding sources
+
         if (params.stageOutputType === 'json') {
             try {
+                // Ensure result.content is a string before cleaning
                 const contentString = typeof result.content === 'string' ? result.content : JSON.stringify(result.content);
                 const cleanedJsonString = contentString.replace(/^```json\s*|```$/g, '').trim();
-                parsedContent = JSON.parse(cleanedJsonString);
+                const parsedContent = JSON.parse(cleanedJsonString);
+                
+                const finalResult: AiActionResult = {
+                    content: parsedContent,
+                    groundingMetadata,
+                    groundingSources,
+                    thinkingSteps: result.thinkingSteps,
+                    outputImages: result.outputImages,
+                    updatedChatHistory,
+                    usage: result.usage,
+                };
+
+                // 🔥 LOG FINAL RESULT
+                logToAiLog('✅ [FINAL runAiStage RESULT - JSON]', {
+                  hasContent: !!finalResult.content,
+                  hasGroundingMetadata: !!finalResult.groundingMetadata,
+                  groundingSourcesCount: finalResult.groundingSources?.length || 0,
+                  hasThinkingSteps: !!finalResult.thinkingSteps?.length,
+                  hasUpdatedChatHistory: !!finalResult.updatedChatHistory?.length,
+                  usage: finalResult.usage,
+                  resultKeys: Object.keys(finalResult)
+                });
+
+                return finalResult;
             } catch (e) {
                 console.warn("AI output was expected to be JSON but failed to parse. Returning as text.", e);
-                parsedContent = result.content;
+                const finalResult: AiActionResult = {
+                    content: result.content,
+                    groundingMetadata,
+                    groundingSources,
+                    thinkingSteps: result.thinkingSteps,
+                    outputImages: result.outputImages,
+                    updatedChatHistory,
+                    usage: result.usage,
+                };
+
+                // 🔥 LOG FINAL RESULT (JSON PARSE FAILED)
+                logToAiLog('⚠️ [FINAL runAiStage RESULT - JSON PARSE FAILED]', {
+                  parseError: e instanceof Error ? e.message : String(e),
+                  hasContent: !!finalResult.content,
+                  hasGroundingMetadata: !!finalResult.groundingMetadata,
+                  groundingSourcesCount: finalResult.groundingSources?.length || 0,
+                  hasThinkingSteps: !!finalResult.thinkingSteps?.length,
+                  hasUpdatedChatHistory: !!finalResult.updatedChatHistory?.length,
+                  usage: finalResult.usage,
+                  resultKeys: Object.keys(finalResult)
+                });
+
+                return finalResult;
             }
-        } else {
-            parsedContent = result.content;
         }
 
+        // For text output
         const finalResult: AiActionResult = {
-            content: parsedContent,
-            usage: result.usage,  
-            groundingMetadata: result.groundingMetadata,
-            groundingSources: result.groundingSources,
+            content: result.content,
+            groundingMetadata,
+            groundingSources,
             thinkingSteps: result.thinkingSteps,
             outputImages: result.outputImages,
-            updatedChatHistory: result.updatedChatHistory,
-            functionCalls: result.functionCalls,
-            codeExecutionResults: result.codeExecutionResults
+            updatedChatHistory,
+            usage: result.usage,
         };
 
-        // 🔥 LOG FINAL RESULT BEING RETURNED
-        logToAiLog('✅ [FINAL RESULT BEING RETURNED - NEW]', {
+        // 🔥 LOG FINAL RESULT
+        logToAiLog('✅ [FINAL runAiStage RESULT - TEXT]', {
           hasContent: !!finalResult.content,
-          hasUsage: !!finalResult.usage,
           hasGroundingMetadata: !!finalResult.groundingMetadata,
-          hasGroundingSources: !!finalResult.groundingSources,
           groundingSourcesCount: finalResult.groundingSources?.length || 0,
-          hasThinkingSteps: !!finalResult.thinkingSteps,
-          hasOutputImages: !!finalResult.outputImages,
-          hasUpdatedChatHistory: !!finalResult.updatedChatHistory,
-          hasFunctionCalls: !!finalResult.functionCalls,
-          hasCodeExecutionResults: !!finalResult.codeExecutionResults,
-          allFinalResultKeys: Object.keys(finalResult)
+          hasThinkingSteps: !!finalResult.thinkingSteps?.length,
+          hasUpdatedChatHistory: !!finalResult.updatedChatHistory?.length,
+          usage: finalResult.usage,
+          resultKeys: Object.keys(finalResult)
         });
 
-        console.log("[runAiStage] Success, content type:", typeof parsedContent);
         return finalResult;
-        
+
     } catch (error: any) {
-        // 🔥 LOG ERROR
-        logToAiLog('❌ [AI EXECUTION ERROR - NEW]', {
-          error: error instanceof Error ? error.message : String(error),
-          stack: error instanceof Error ? error.stack : undefined
-        });
+        console.error("[runAiStage] Error during AI execution:", error);
         
-        console.error("AI Stage Execution Error:", error);
-        console.error("Error stack:", error.stack);
+        // 🔥 LOG ERROR
+        logToAiLog('❌ [runAiStage ERROR]', {
+          error: {
+            message: error?.message,
+            stack: error?.stack,
+            name: error?.name
+          }
+        });
+
         return {
-            content: '',
-            error: error.message || 'Unknown error occurred'
+            content: null,
+            error: error.message || "Unknown error occurred during AI processing"
         };
     }
 }

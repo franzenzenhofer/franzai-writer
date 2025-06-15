@@ -8739,3 +8739,445 @@ Watchpack Error (initial scan): Error: ENOTDIR: not a directory, scandir '/usr/l
 ]
  POST /api/test-ai 200 in 7819ms
  ✓ Compiled in 20ms
+Debugger listening on ws://127.0.0.1:9229/0f859290-3f55-4075-832c-127d1529df3f
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 413483,
+    "turboFlag": false,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/76633e91-3ac8-4126-88b6-bada23c01239
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": false,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 1350ms
+Watchpack Error (initial scan): Error: ENOTDIR: not a directory, scandir '/usr/local/bin/node'
+ ○ Compiling /api/test-ai ...
+ ✓ Compiled /api/test-ai in 645ms (590 modules)
+[TEST-AI] Starting POST test...
+[TEST-AI] Request body: {
+  promptTemplate: 'What are the latest AI developments this week? Provide 3 specific examples with sources.',
+  model: 'gemini-2.0-flash',
+  temperature: 0.2,
+  groundingSettings: { googleSearch: { enabled: true, dynamicThreshold: 0.3 } },
+  systemInstructions: 'You are an AI assistant that provides up-to-date information using Google Search. Always cite your sources.',
+  streamingSettings: { enabled: false }
+}
+[runAiStage] Starting with new SDK
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'gemini-2.0-flash',
+  temperature: 0.2,
+  stageOutputType: 'text',
+  hasAiRedoNotes: false,
+  forceGoogleSearchGrounding: false,
+  hasGroundingSettings: true,
+  groundingSettings: { googleSearch: { enabled: true, dynamicThreshold: 0.3 } },
+  googleSearchEnabled: true,
+  googleSearchThreshold: 0.3,
+  streamingEnabled: undefined
+}
+[runAiStage] Filled prompt length: 88
+[runAiStage] First 200 chars of filled prompt: What are the latest AI developments this week? Provide 3 specific examples with sources.
+[runAiStage] Grounding enabled for AI processing
+[runAiStage] About to call aiStageExecutionFlow with input: {
+  promptLength: 88,
+  model: 'gemini-2.0-flash',
+  temperature: 0.2,
+  hasSystemInstructions: true,
+  hasChatHistory: false,
+  hasThinkingSettings: false,
+  hasToolNames: false,
+  forceGoogleSearchGrounding: false,
+  hasGroundingSettings: true,
+  googleSearchEnabled: true
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'gemini-2.0-flash',
+  hasTools: false,
+  hasGrounding: true,
+  forceGoogleSearchGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: 'What are the latest AI developments this week? Provide 3 specific examples with sources....',
+  chatHistory: 'none',
+  groundingSettings: { googleSearch: { enabled: true, dynamicThreshold: 0.3 } },
+  googleSearchSettings: { enabled: true, dynamicThreshold: 0.3 }
+}
+🚨🚨🚨 === GOOGLE SEARCH GROUNDING DEBUG === 🚨🚨🚨
+🔍 forceGoogleSearchGrounding: false
+🔍 groundingSettings?.googleSearch?.enabled: true
+🔍 Full groundingSettings object: {
+  "googleSearch": {
+    "enabled": true,
+    "dynamicThreshold": 0.3
+  }
+}
+🚨🚨🚨 ================================== 🚨🚨🚨
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 88
+}
+🚀🚀🚀 GOOGLE SEARCH GROUNDING REQUESTED! 🚀🚀🚀
+🔧 Using Direct Gemini API with proper googleSearch tool...
+🎯 [Direct Gemini API] Starting execution for Google Search grounding
+📝 [Direct Gemini API] Using non-streaming mode
+🚀 [Direct Gemini] Starting generation with: {
+  model: 'gemini-2.0-flash',
+  hasPrompt: true,
+  enableGoogleSearch: true,
+  temperature: 0.2
+}
+✅ [Direct Gemini] Adding Google Search grounding
+🎯 [Direct Gemini] Dynamic retrieval threshold: 0.3
+📤 [Direct Gemini] API Request: {
+  model: 'gemini-2.0-flash',
+  contentsCount: 2,
+  configKeys: [ 'temperature', 'toolConfig', 'tools' ],
+  toolsCount: 1,
+  hasGoogleSearch: true
+}
+📥 [Direct Gemini] Raw response keys: [ 'candidates', 'modelVersion', 'usageMetadata' ]
+✅ [Direct Gemini] Found grounding metadata!
+📊 [Direct Gemini] Grounding stats: {
+  chunksCount: 10,
+  supportsCount: 8,
+  searchQueries: 3,
+  sourcesExtracted: 10
+}
+✅ [Direct Gemini] Generation completed successfully
+✅ [Direct Gemini API] Generation completed successfully
+[runAiStage] AI execution completed. Result keys: [ 'content', 'thinkingSteps', 'groundingMetadata', 'groundingSources' ]
+[runAiStage] AI execution result: {
+  hasContent: true,
+  contentType: 'string',
+  contentLength: 1216,
+  hasGroundingMetadata: true,
+  hasGroundingSources: true,
+  groundingSourcesCount: 10,
+  hasThinkingSteps: false,
+  thinkingStepsCount: 0,
+  hasUpdatedChatHistory: false,
+  chatHistoryLength: 0,
+  hasUsage: false
+}
+[TEST-AI] Result: {
+  content: 'Here are three of the latest AI developments from this week:\n' +
+    '\n' +
+    '1.  **OpenAI Releases o3 and o4-mini Reasoning Models:** On June 10, 2025, OpenAI announced the release of o3 and o4-mini, new models in their o-series designed to think for longer before responding. These models are the smartest released to date, with o3 being the most powerful reasoning model excelling in coding, math, science, and visual perception. The o4-mini is optimized for fast, cost-efficient reasoning and performs well in math, coding, and visual tasks. OpenAI o3-pro is now available to Pro users in ChatGPT, as well as in their API. ([9])\n' +
+    '2.  **Google Enhances Gemini App with Veo 3:** Google has added new capabilities to the Gemini app, including the state-of-the-art video generation model, Veo 3. Veo 3 is the first video generation model with native support for sound effects, background noises, and dialogue between characters, making it easier to create videos within the app. ([12])\n' +
+    "3.  **NVIDIA Helps Germany Lead Europe's AI Manufacturing Race:** NVIDIA is contributing to Germany's efforts to lead AI manufacturing in Europe. This collaboration aims to boost AI development and production capabilities within the region. ([8])\n",
+  groundingMetadata: {
+    searchEntryPoint: {
+      renderedContent: '<style>\n' +
+        '.container {\n' +
+        '  align-items: center;\n' +
+        '  border-radius: 8px;\n' +
+        '  display: flex;\n' +
+        '  font-family: Google Sans, Roboto, sans-serif;\n' +
+        '  font-size: 14px;\n' +
+        '  line-height: 20px;\n' +
+        '  padding: 8px 12px;\n' +
+        '}\n' +
+        '.chip {\n' +
+        '  display: inline-block;\n' +
+        '  border: solid 1px;\n' +
+        '  border-radius: 16px;\n' +
+        '  min-width: 14px;\n' +
+        '  padding: 5px 16px;\n' +
+        '  text-align: center;\n' +
+        '  user-select: none;\n' +
+        '  margin: 0 8px;\n' +
+        '  -webkit-tap-highlight-color: transparent;\n' +
+        '}\n' +
+        '.carousel {\n' +
+        '  overflow: auto;\n' +
+        '  scrollbar-width: none;\n' +
+        '  white-space: nowrap;\n' +
+        '  margin-right: -12px;\n' +
+        '}\n' +
+        '.headline {\n' +
+        '  display: flex;\n' +
+        '  margin-right: 4px;\n' +
+        '}\n' +
+        '.gradient-container {\n' +
+        '  position: relative;\n' +
+        '}\n' +
+        '.gradient {\n' +
+        '  position: absolute;\n' +
+        '  transform: translate(3px, -9px);\n' +
+        '  height: 36px;\n' +
+        '  width: 9px;\n' +
+        '}\n' +
+        '@media (prefers-color-scheme: light) {\n' +
+        '  .container {\n' +
+        '    background-color: #fafafa;\n' +
+        '    box-shadow: 0 0 0 1px #0000000f;\n' +
+        '  }\n' +
+        '  .headline-label {\n' +
+        '    color: #1f1f1f;\n' +
+        '  }\n' +
+        '  .chip {\n' +
+        '    background-color: #ffffff;\n' +
+        '    border-color: #d2d2d2;\n' +
+        '    color: #5e5e5e;\n' +
+        '    text-decoration: none;\n' +
+        '  }\n' +
+        '  .chip:hover {\n' +
+        '    background-color: #f2f2f2;\n' +
+        '  }\n' +
+        '  .chip:focus {\n' +
+        '    background-color: #f2f2f2;\n' +
+        '  }\n' +
+        '  .chip:active {\n' +
+        '    background-color: #d8d8d8;\n' +
+        '    border-color: #b6b6b6;\n' +
+        '  }\n' +
+        '  .logo-dark {\n' +
+        '    display: none;\n' +
+        '  }\n' +
+        '  .gradient {\n' +
+        '    background: linear-gradient(90deg, #fafafa 15%, #fafafa00 100%);\n' +
+        '  }\n' +
+        '}\n' +
+        '@media (prefers-color-scheme: dark) {\n' +
+        '  .container {\n' +
+        '    background-color: #1f1f1f;\n' +
+        '    box-shadow: 0 0 0 1px #ffffff26;\n' +
+        '  }\n' +
+        '  .headline-label {\n' +
+        '    color: #fff;\n' +
+        '  }\n' +
+        '  .chip {\n' +
+        '    background-color: #2c2c2c;\n' +
+        '    border-color: #3c4043;\n' +
+        '    color: #fff;\n' +
+        '    text-decoration: none;\n' +
+        '  }\n' +
+        '  .chip:hover {\n' +
+        '    background-color: #353536;\n' +
+        '  }\n' +
+        '  .chip:focus {\n' +
+        '    background-color: #353536;\n' +
+        '  }\n' +
+        '  .chip:active {\n' +
+        '    background-color: #464849;\n' +
+        '    border-color: #53575b;\n' +
+        '  }\n' +
+        '  .logo-light {\n' +
+        '    display: none;\n' +
+        '  }\n' +
+        '  .gradient {\n' +
+        '    background: linear-gradient(90deg, #1f1f1f 15%, #1f1f1f00 100%);\n' +
+        '  }\n' +
+        '}\n' +
+        '</style>\n' +
+        '<div class="container">\n' +
+        '  <div class="headline">\n' +
+        '    <svg class="logo-light" width="18" height="18" viewBox="9 9 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+        '      <path fill-rule="evenodd" clip-rule="evenodd" d="M42.8622 27.0064C42.8622 25.7839 42.7525 24.6084 42.5487 23.4799H26.3109V30.1568H35.5897C35.1821 32.3041 33.9596 34.1222 32.1258 35.3448V39.6864H37.7213C40.9814 36.677 42.8622 32.2571 42.8622 27.0064V27.0064Z" fill="#4285F4"/>\n' +
+        '      <path fill-rule="evenodd" clip-rule="evenodd" d="M26.3109 43.8555C30.9659 43.8555 34.8687 42.3195 37.7213 39.6863L32.1258 35.3447C30.5898 36.3792 28.6306 37.0061 26.3109 37.0061C21.8282 37.0061 18.0195 33.9811 16.6559 29.906H10.9194V34.3573C13.7563 39.9841 19.5712 43.8555 26.3109 43.8555V43.8555Z" fill="#34A853"/>\n' +
+        '      <path fill-rule="evenodd" clip-rule="evenodd" d="M16.6559 29.8904C16.3111 28.8559 16.1074 27.7588 16.1074 26.6146C16.1074 25.4704 16.3111 24.3733 16.6559 23.3388V18.8875H10.9194C9.74388 21.2072 9.06992 23.8247 9.06992 26.6146C9.06992 29.4045 9.74388 32.022 10.9194 34.3417L15.3864 30.8621L16.6559 29.8904V29.8904Z" fill="#FBBC05"/>\n' +
+        '      <path fill-rule="evenodd" clip-rule="evenodd" d="M26.3109 16.2386C28.85 16.2386 31.107 17.1164 32.9095 18.8091L37.8466 13.8719C34.853 11.082 30.9659 9.3736 26.3109 9.3736C19.5712 9.3736 13.7563 13.245 10.9194 18.8875L16.6559 23.3388C18.0195 19.2636 21.8282 16.2386 26.3109 16.2386V16.2386Z" fill="#EA4335"/>\n' +
+        '    </svg>\n' +
+        '    <svg class="logo-dark" width="18" height="18" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">\n' +
+        '      <circle cx="24" cy="23" fill="#FFF" r="22"/>\n' +
+        '      <path d="M33.76 34.26c2.75-2.56 4.49-6.37 4.49-11.26 0-.89-.08-1.84-.29-3H24.01v5.99h8.03c-.4 2.02-1.5 3.56-3.07 4.56v.75l3.91 2.97h.88z" fill="#4285F4"/>\n' +
+        '      <path d="M15.58 25.77A8.845 8.845 0 0 0 24 31.86c1.92 0 3.62-.46 4.97-1.31l4.79 3.71C31.14 36.7 27.65 38 24 38c-5.93 0-11.01-3.4-13.45-8.36l.17-1.01 4.06-2.85h.8z" fill="#34A853"/>\n' +
+        '      <path d="M15.59 20.21a8.864 8.864 0 0 0 0 5.58l-5.03 3.86c-.98-2-1.53-4.25-1.53-6.64 0-2.39.55-4.64 1.53-6.64l1-.22 3.81 2.98.22 1.08z" fill="#FBBC05"/>\n' +
+        '      <path d="M24 14.14c2.11 0 4.02.75 5.52 1.98l4.36-4.36C31.22 9.43 27.81 8 24 8c-5.93 0-11.01 3.4-13.45 8.36l5.03 3.85A8.86 8.86 0 0 1 24 14.14z" fill="#EA4335"/>\n' +
+        '    </svg>\n' +
+        '    <div class="gradient-container"><div class="gradient"></div></div>\n' +
+        '  </div>\n' +
+        '  <div class="carousel">\n' +
+        '    <a class="chip" href="https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEv98yhkVvqHOL0_lonB1v1UqHBEiwA4a6uNKxvoBZ5RgGg0W8nEyaW87IvKdpcdA9fRIsdaUa_VigVbt1h_o62Z0CQtP-5-7T2Ic5vWhCHcrFSp58qaCTATRqxVCR_7XRrzUapHsMVhRJ61eWVQVmBD7AiGs4KwY9mFqegCAFIh5tS41b6NHnZJGVFGJwV8rLUUdTy-_-lRA7acSUwpPjfb77mREEzWoHY2tn6CiymMrw=">recent breakthroughs in artificial intelligence</a>\n' +
+        '    <a class="chip" href="https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG8W27S_FhyoFHOMJyGxqsOansXARkR6sWViv68AztUtu5gRE-tEyPaFzDGl-ay4xtHVcWFER7RLNsNb8xz8WTg6gxFe5VD1M-4TXx6V9z3c1AA-LlU7YPyDwo-jYcExdZ4pH2bJoqdL6AkfuafhSeMfrtLlvizAHHMfIcOo-s0YQtHZf_3tdIUX7jFDhMfowjyoMfq3ZcAWUB9t_o3XGLFOf4=">latest AI developments this week</a>\n' +
+        '    <a class="chip" href="https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFMwtoz3DLfde0tQyjNqkHP9wY3_ww8-Ai-G6rpu1HVAjHrxGIC02k_bwqH-8Bsj19VS94Y-g6ZNBnjz85QnVaCLoAKQ_KLCoBDycKvK-WN8RKFKww_FjZ_vLXKNk2hpV_Yco8yhnMGLiJJTt043_YkfsONtZFrzmtKw1MltoioO64ECmCd48nR9dXgU06Kde42oMADkMSL0tBta9EHDhNwoXo=">new AI models released this week</a>\n' +
+        '  </div>\n' +
+        '</div>\n'
+    },
+    groundingChunks: [
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object]
+    ],
+    groundingSupports: [
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object]
+    ],
+    retrievalMetadata: {},
+    webSearchQueries: [
+      'latest AI developments this week',
+      'recent breakthroughs in artificial intelligence',
+      'new AI models released this week'
+    ]
+  },
+  groundingSources: [
+    {
+      type: 'search',
+      title: 'openai.com',
+      url: 'https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGRMmGvSxrtfgCCheLr2qJljQscJ9B1Pu4n25vRnCVZnJCVpD8aLN0nVsGDqbE6Gdo_jb--6_goCFmdDNOAay7olG1dFxNfmILGa222XMtgee8RbGay0JQFo0Q_-d-vlStp0PLTxAJawYfe11FD9g==',
+      snippet: ''
+    },
+    {
+      type: 'search',
+      title: 'openai.com',
+      url: 'https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG4z17akc6VA6YHaUoNivYhqWbAwVXN75xD1LUsXbGiE4JPVOulsVL_wFRPFHNjEhlz5xZs7tT6-s2FIoIVbtatXqVzdHl8hYOAh_YR-PUPitOEk3ctpypGLrGA7tdL91YckUTURWg3eRqQXf8iRT4123whcFcI9JU5',
+      snippet: ''
+    },
+    {
+      type: 'search',
+      title: 'blog.google',
+      url: 'https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEF4ZoUezLw9HYAj-iinM4bM89-tyycmWWrWfG7HGxcMNTFpHbr1Xidt2zodN46l_38lZEdB765E2pWgez567GhDL_cGqDbgeRHbFVzeq4bCg9GPmuoYUeRolUfohR9O5o80S9BQCw6aViDjav79McVryuxcv5R3w==',
+      snippet: ''
+    },
+    {
+      type: 'search',
+      title: 'keele.ac.uk',
+      url: 'https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFqdtSeFLORBbzwSeTbmywsGQeM3Bfz2_n-7s2hk0tPuj10tYD0UJtHNgy3QijGTb-WVuwhcKu7XfOdi6lprAaQBYtA03re5ngDeeiuAgkYHZ4ARL82Ael2ZO8PmZFKuMq0KyPieUDc1gBWoa1AJePFIMA-aO5LdqSFo2ORsJQ4mKVr4yWn5xIV',
+      snippet: ''
+    },
+    {
+      type: 'search',
+      title: 'economictimes.com',
+      url: 'https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGYwx3eZSY8ceBqXhkgyumKDb78F8JxYWC_3G9gXnkq87VZwGQ2W41iIsyyJ7LGtP0wzZ_Cjv8-lSqK4yZnNuKe8wqCDcdmZcW5QuOjxvh0tYNtzJnsmbjmVuSfe3IaRBwHhbWlBpocrbA7l8wHrSDbcGM=',
+      snippet: ''
+    },
+    {
+      type: 'search',
+      title: 'blog.google',
+      url: 'https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGuvu7vm8OZTdD96hQsbiaqkkg0KabDlkc3dcn1xGeEnVy0kV9XKKG5zPiHGzbuaxWhTaKXbKeddC9QzcH3GuE_NzCx_o34GANMjN6cjltZRpbhWPo7BvvFx82iQ7IJizF0RG4u_--vf_RfbUSJ_rHeb9K5fTcffCP5',
+      snippet: ''
+    },
+    {
+      type: 'search',
+      title: 'softude.com',
+      url: 'https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFWkATFc3rR7I4ZHzFMF_1SiBK7hT_5hzxGk-SaSeoCdyPixOwlq5JU_xLWygLRMl0x1HnrDDuCWps6Q6LXrQFj55Vgv59r4CZlg4RqUUP86cn-lHYxqz35CvpsaS_OaCOrIwVi4DHXnkJ29dr26_MuBi850HC0Sdpbxv9Wpf7gwbOkQZM1NR53',
+      snippet: ''
+    },
+    {
+      type: 'search',
+      title: 'ironhack.com',
+      url: 'https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGfL3t17XP4FQ3liZ8EfdCPp4rCVUYSSKP_uP4ZSv3A59IMLERsLvzwzO18nNVzrhClqhydZrGf6KhJi8fftiT0_Zrx43ZKwE7iCVEJAhPuhiIe1CEKxxUFOHoBubf-V9ehelZ1_7v43JHx7o_yMSn1p-OfNUcCWIDc-Cv0vQrnkUC38lriljqM2RKii0T0SToJV2nflg==',
+      snippet: ''
+    },
+    {
+      type: 'search',
+      title: 'artificialintelligence-news.com',
+      url: 'https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG0OJ_JLdxiy7OFvkqnrSRNsqNC1XuYWIagZ8_ZKf90uLFHh8s7xGsCKqLL0y8peNYqIyFFbm2NIBPrIWppIsAFVtBj_qP9cGA6LyirW1RvMUkDGfYG5_9qfBx7ohRVsTIzNeWK91E=',
+      snippet: ''
+    },
+    {
+      type: 'search',
+      title: 'crescendo.ai',
+      url: 'https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFEDpG0YUjb1wBdg_CQ6b8gRF25HqNt89-7QthYezHjKXo4xkDCCqak1j7JIoLQVp3uJIlroyykzeZrcaUAnQgonlU5d6ajN3_hloH10X-7aUza6mSBU0vl90B9jkZGP1p8GFttvomsFUutHFQRWtk3azE=',
+      snippet: ''
+    }
+  ],
+  thinkingSteps: undefined,
+  outputImages: undefined,
+  updatedChatHistory: undefined,
+  usage: undefined
+}
+[TEST-AI] Enhanced Grounding Analysis:
+  - Has grounding metadata: true
+  - Has grounding sources: true
+  - Grounding metadata keys: [
+  'searchEntryPoint',
+  'groundingChunks',
+  'groundingSupports',
+  'retrievalMetadata',
+  'webSearchQueries'
+]
+  - Search queries: [
+  'latest AI developments this week',
+  'recent breakthroughs in artificial intelligence',
+  'new AI models released this week'
+]
+  - Grounding chunks: 10
+  - Grounding supports: 8
+  - Grounding sources count: 10
+  - First source: {
+  type: 'search',
+  title: 'openai.com',
+  url: 'https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGRMmGvSxrtfgCCheLr2qJljQscJ9B1Pu4n25vRnCVZnJCVpD8aLN0nVsGDqbE6Gdo_jb--6_goCFmdDNOAay7olG1dFxNfmILGa222XMtgee8RbGay0JQFo0Q_-d-vlStp0PLTxAJawYfe11FD9g==',
+  snippet: ''
+}
+[TEST-AI] Response keys: [
+  'success',
+  'content',
+  'groundingMetadata',
+  'groundingSources',
+  'thinkingSteps',
+  'error'
+]
+ POST /api/test-ai 200 in 4494ms
