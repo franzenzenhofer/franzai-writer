@@ -1,0 +1,14 @@
+2025-06-15T09:23:26.465Z 📤 [AI REQUEST] {
+  "type": "Text Generation",
+  "model": "gemini-2.0-flash",
+  "promptLength": 0,
+  "temperature": 0.7,
+  "systemInstruction": "undefined...",
+  "prompt": ""
+}
+2025-06-15T09:23:28.000Z 📥 [AI RESPONSE] {
+  "type": "Text Generation",
+  "textLength": 542,
+  "textPreview": "Please provide me with more context! I need to know what you'd like me to do. For example, are you a...",
+  "fullText": "Please provide me with more context! I need to know what you'd like me to do. For example, are you asking me to:\n\n* **Summarize something?** If so, please provide the text.\n* **Translate something?** If so, please provide the text and the target language.\n* **Write something?** If so, please tell me what you want me to write about, the style, the length, and any other relevant details.\n* **Answer a question?** If so, please ask the question.\n* **Something else entirely?** Please explain.\n\nI'm ready to help, but I need more information!\n"
+}

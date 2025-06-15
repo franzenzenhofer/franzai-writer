@@ -1,4 +1,5 @@
 import { GoogleGenAI } from '@google/genai';
+import { logAI } from '@/lib/ai-logger';
 
 // Direct Gemini API client for Google Search grounding
 let genAI: GoogleGenAI | null = null;
@@ -100,12 +101,20 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
     config.tools = tools;
   }
 
-  console.log('📤 [Direct Gemini] API Request:', {
+  const directRequestLog = {
     model: request.model,
     contentsCount: contents.length,
     configKeys: Object.keys(config),
     toolsCount: tools.length,
     hasGoogleSearch: tools.some(t => t.googleSearch !== undefined)
+  };
+  console.log('📤 [Direct Gemini] API Request:', directRequestLog);
+  logAI('REQUEST', { 
+    type: 'Direct Gemini API', 
+    ...directRequestLog, 
+    prompt: request.prompt.substring(0, 500),
+    tools: tools,
+    systemInstruction: request.systemInstruction?.substring(0, 200)
   });
 
   try {
@@ -164,6 +173,16 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
     };
 
     console.log('✅ [Direct Gemini] Generation completed successfully');
+    logAI('RESPONSE', { 
+      type: 'Direct Gemini API', 
+      contentLength: content.length,
+      contentPreview: content.substring(0, 200) + '...',
+      hasGroundingMetadata: !!groundingMetadata,
+      groundingSourcesCount: groundingSources.length,
+      usageMetadata: result.usageMetadata,
+      fullContent: content,
+      groundingSources: groundingSources
+    });
     return result;
 
   } catch (error) {

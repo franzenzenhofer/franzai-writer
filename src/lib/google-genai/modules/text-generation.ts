@@ -4,6 +4,7 @@
  */
 
 import { getGoogleGenAI } from '../core';
+import { logAI } from '@/lib/ai-logger';
 import type { 
   ModelConfig, 
   GenerationRequest, 
@@ -19,12 +20,14 @@ export class TextGenerationModule {
     prompt: string,
     modelConfig: ModelConfig = { model: 'gemini-2.0-flash' }
   ): Promise<GenerationResponse> {
-    console.log('📤 [AI REQUEST] Text Generation:', {
+    const requestLog = {
       model: modelConfig.model,
       promptLength: prompt.length,
       temperature: modelConfig.temperature,
       systemInstruction: modelConfig.systemInstruction?.substring(0, 100) + '...'
-    });
+    };
+    console.log('📤 [AI REQUEST] Text Generation:', requestLog);
+    logAI('REQUEST', { type: 'Text Generation', ...requestLog, prompt: prompt.substring(0, 500) });
     
     try {
       const genAI = getGoogleGenAI().getRawClient();
@@ -57,12 +60,14 @@ export class TextGenerationModule {
         safetyRatings: result.safetyRatings,
       };
       
-      console.log('📥 [AI RESPONSE] Text Generation:', {
+      const responseLog = {
         textLength: response.text.length,
         textPreview: response.text.substring(0, 100) + '...',
         usageMetadata: response.usageMetadata,
         finishReason: response.finishReason
-      });
+      };
+      console.log('📥 [AI RESPONSE] Text Generation:', responseLog);
+      logAI('RESPONSE', { type: 'Text Generation', ...responseLog, fullText: response.text });
       
       return response;
     } catch (error) {
@@ -79,12 +84,14 @@ export class TextGenerationModule {
     modelConfig: ModelConfig = { model: 'gemini-2.0-flash' },
     streamOptions: StreamOptions = {}
   ): Promise<void> {
-    console.log('📤 [AI REQUEST] Text Generation Stream:', {
+    const streamRequestLog = {
       model: modelConfig.model,
       promptLength: prompt.length,
       temperature: modelConfig.temperature,
       systemInstruction: modelConfig.systemInstruction?.substring(0, 100) + '...'
-    });
+    };
+    console.log('📤 [AI REQUEST] Text Generation Stream:', streamRequestLog);
+    logAI('REQUEST', { type: 'Text Generation Stream', ...streamRequestLog, prompt: prompt.substring(0, 500) });
     
     try {
       const genAI = getGoogleGenAI().getRawClient();
