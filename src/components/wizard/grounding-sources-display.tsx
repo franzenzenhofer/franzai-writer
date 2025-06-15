@@ -1,8 +1,9 @@
 'use client';
 
-import { Globe, Link, Search, Star } from 'lucide-react';
+import { Globe, Link, Search, Star, Wrench, Clock, ExternalLink, TrendingUp, Database } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
 
 interface GroundingSource {
   type: 'search' | 'url';
@@ -34,93 +35,239 @@ interface GroundingSourcesDisplayProps {
     }>;
     webSearchQueries?: string[];
   };
+  functionCalls?: Array<{
+    toolName: string;
+    input: any;
+    output: any;
+    timestamp?: string;
+  }>;
 }
 
-export function GroundingSourcesDisplay({ sources, groundingMetadata }: GroundingSourcesDisplayProps) {
+export function GroundingSourcesDisplay({ sources, groundingMetadata, functionCalls }: GroundingSourcesDisplayProps) {
   if (!sources || sources.length === 0) return null;
 
+  const toolsUsed = functionCalls?.map(fc => fc.toolName) || [];
+  const hasGoogleSearch = sources.some(source => source.url?.includes('vertexaisearch.cloud.google.com')) || 
+                         groundingMetadata?.webSearchQueries?.length > 0;
+  const hasGroundingSupports = groundingMetadata?.groundingSupports?.length > 0;
+  const totalConfidence = groundingMetadata?.groundingSupports?.reduce((sum, support) => {
+    const avgScore = support.confidenceScores.reduce((a, b) => a + b, 0) / (support.confidenceScores.length || 1);
+    return sum + avgScore;
+  }, 0) || 0;
+  const avgConfidence = hasGroundingSupports ? totalConfidence / groundingMetadata.groundingSupports.length : 0;
+
   return (
-    <Card className="mt-4">
+    <Card className="mt-4 border-l-4 border-l-blue-500">
       <CardHeader className="pb-3">
         <CardTitle className="text-sm font-medium flex items-center gap-2">
-          <Globe className="h-4 w-4" />
-          Grounding Sources
-          <Badge variant="secondary" className="text-xs">
-            Google Search
-          </Badge>
+          <Database className="h-4 w-4 text-blue-600" />
+          AI Research & Grounding
+          <div className="flex gap-1 ml-auto">
+            {hasGoogleSearch && (
+              <Badge variant="secondary" className="text-xs">
+                <Search className="h-3 w-3 mr-1" />
+                Google Search
+              </Badge>
+            )}
+            {hasGroundingSupports && (
+              <Badge variant="outline" className="text-xs">
+                <TrendingUp className="h-3 w-3 mr-1" />
+                {Math.round(avgConfidence * 100)}% Confidence
+              </Badge>
+            )}
+          </div>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        {/* Display web search queries if available */}
+        
+        <div className="bg-muted/20 rounded-lg p-3">
+          <h5 className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
+            <Wrench className="h-3 w-3" />
+            AI Tools & Capabilities Used
+          </h5>
+          <div className="flex flex-wrap gap-1">
+            {hasGoogleSearch && (
+              <Badge variant="default" className="text-xs bg-blue-600">
+                <Globe className="h-3 w-3 mr-1" />
+                Google Search Grounding
+              </Badge>
+            )}
+            {groundingMetadata?.groundingChunks && groundingMetadata.groundingChunks.length > 0 && (
+              <Badge variant="outline" className="text-xs">
+                <Database className="h-3 w-3 mr-1" />
+                {groundingMetadata.groundingChunks.length} Knowledge Sources
+              </Badge>
+            )}
+            {hasGroundingSupports && (
+              <Badge variant="outline" className="text-xs">
+                <Star className="h-3 w-3 mr-1" />
+                Quality Validation
+              </Badge>
+            )}
+            {toolsUsed.length > 0 && toolsUsed.map((tool, index) => (
+              <Badge key={index} variant="secondary" className="text-xs">
+                <Wrench className="h-3 w-3 mr-1" />
+                {tool}
+              </Badge>
+            ))}
+          </div>
+        </div>
+
+        <Separator />
+
         {groundingMetadata?.webSearchQueries && groundingMetadata.webSearchQueries.length > 0 && (
-          <div className="mb-4">
+          <div>
             <h5 className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
               <Search className="h-3 w-3" />
-              Search Queries
+              Search Queries Executed ({groundingMetadata.webSearchQueries.length})
             </h5>
             <div className="flex flex-wrap gap-1">
               {groundingMetadata.webSearchQueries.map((query, index) => (
                 <Badge key={index} variant="outline" className="text-xs">
-                  {query}
+                  "{query}"
                 </Badge>
               ))}
             </div>
           </div>
         )}
 
-        {/* Display grounding sources */}
-        {sources.map((source, index) => (
-          <div key={index} className="border-l-2 border-blue-500 pl-3 py-2">
-            <div className="flex items-start gap-2">
-              {source.type === 'search' ? (
-                <Globe className="h-3 w-3 mt-1 text-blue-600 flex-shrink-0" />
-              ) : (
-                <Link className="h-3 w-3 mt-1 text-green-600 flex-shrink-0" />
-              )}
-              <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-medium truncate">{source.title}</h4>
-                {source.snippet && (
-                  <p className="text-xs text-muted-foreground mt-1">{source.snippet}</p>
-                )}
-                {source.url && (
-                  <a
-                    href={source.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs text-blue-600 hover:underline mt-1 inline-block"
-                  >
-                    {source.url}
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
-
-        {/* Display grounding supports with confidence scores */}
-        {groundingMetadata?.groundingSupports && groundingMetadata.groundingSupports.length > 0 && (
-          <div className="mt-4 pt-4 border-t">
-            <h5 className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
-              <Star className="h-3 w-3" />
-              Grounding Quality
-            </h5>
-            <div className="space-y-2">
-              {groundingMetadata.groundingSupports.map((support, index) => (
-                <div key={index} className="bg-muted/30 rounded p-2">
-                  <p className="text-xs mb-1">&ldquo;{support.segment.text}&rdquo;</p>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-muted-foreground">Confidence:</span>
-                    {support.confidenceScores.map((score, scoreIndex) => (
-                      <Badge key={scoreIndex} variant="outline" className="text-xs">
-                        {Math.round(score * 100)}%
+        <div>
+          <h5 className="text-xs font-medium text-muted-foreground mb-3 flex items-center gap-1">
+            <Globe className="h-3 w-3" />
+            Knowledge Sources ({sources.length})
+          </h5>
+          <div className="space-y-3">
+            {sources.map((source, index) => (
+              <div key={index} className="border-l-2 border-blue-400 pl-3 py-2 bg-blue-50/30 rounded-r">
+                <div className="flex items-start gap-2">
+                  {source.type === 'search' ? (
+                    <Globe className="h-3 w-3 mt-1 text-blue-600 flex-shrink-0" />
+                  ) : (
+                    <Link className="h-3 w-3 mt-1 text-green-600 flex-shrink-0" />
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h4 className="text-sm font-medium truncate">{source.title}</h4>
+                      <Badge variant="outline" className="text-xs shrink-0">
+                        Source {index + 1}
                       </Badge>
-                    ))}
+                    </div>
+                    {source.snippet && (
+                      <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{source.snippet}</p>
+                    )}
+                    {source.url && (
+                      <div className="flex items-center gap-1 mt-2">
+                        <ExternalLink className="h-3 w-3 text-blue-500" />
+                        <a
+                          href={source.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs text-blue-600 hover:underline truncate"
+                          title={source.url}
+                        >
+                          {source.url.length > 60 ? source.url.substring(0, 60) + '...' : source.url}
+                        </a>
+                      </div>
+                    )}
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
+        </div>
+
+        {groundingMetadata?.groundingSupports && groundingMetadata.groundingSupports.length > 0 && (
+          <>
+            <Separator />
+            <div>
+              <h5 className="text-xs font-medium text-muted-foreground mb-3 flex items-center gap-1">
+                <Star className="h-3 w-3" />
+                Content Quality & Grounding Assessment
+              </h5>
+              <div className="space-y-3">
+                {groundingMetadata.groundingSupports.map((support, index) => {
+                  const avgScore = support.confidenceScores.reduce((a, b) => a + b, 0) / (support.confidenceScores.length || 1);
+                  const confidenceLevel = avgScore > 0.8 ? 'High' : avgScore > 0.6 ? 'Medium' : 'Low';
+                  const confidenceColor = avgScore > 0.8 ? 'bg-green-100 text-green-800' : 
+                                        avgScore > 0.6 ? 'bg-yellow-100 text-yellow-800' : 
+                                        'bg-red-100 text-red-800';
+                  
+                  return (
+                    <div key={index} className="bg-muted/20 rounded-lg p-3">
+                      <div className="flex items-center justify-between mb-2">
+                        <Badge variant="outline" className="text-xs">
+                          Segment {index + 1}
+                        </Badge>
+                        <Badge className={`text-xs ${confidenceColor}`}>
+                          {confidenceLevel} Confidence ({Math.round(avgScore * 100)}%)
+                        </Badge>
+                      </div>
+                      <p className="text-xs mb-2 font-medium">&ldquo;{support.segment.text}&rdquo;</p>
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <span>Sources:</span>
+                        {support.groundingChunkIndices.map((chunkIndex, scoreIndex) => (
+                          <Badge key={scoreIndex} variant="outline" className="text-xs">
+                            #{chunkIndex + 1}
+                          </Badge>
+                        ))}
+                        {support.segment.startIndex !== undefined && (
+                          <span className="ml-2">
+                            Position: {support.segment.startIndex}-{support.segment.endIndex}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </>
         )}
+
+        {groundingMetadata?.searchEntryPoint?.renderedContent && (
+          <>
+            <Separator />
+            <div>
+              <h5 className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
+                <TrendingUp className="h-3 w-3" />
+                Google Search Suggestions
+              </h5>
+              <div 
+                className="grounding-search-suggestions text-xs border rounded p-2 bg-gray-50"
+                dangerouslySetInnerHTML={{ 
+                  __html: groundingMetadata.searchEntryPoint.renderedContent 
+                }}
+              />
+            </div>
+          </>
+        )}
+
+        <div className="bg-blue-50/50 rounded-lg p-3 mt-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+            <div>
+              <div className="text-lg font-semibold text-blue-600">{sources.length}</div>
+              <div className="text-xs text-muted-foreground">Sources</div>
+            </div>
+            {groundingMetadata?.webSearchQueries && (
+              <div>
+                <div className="text-lg font-semibold text-green-600">{groundingMetadata.webSearchQueries.length}</div>
+                <div className="text-xs text-muted-foreground">Queries</div>
+              </div>
+            )}
+            {hasGroundingSupports && (
+              <div>
+                <div className="text-lg font-semibold text-purple-600">{Math.round(avgConfidence * 100)}%</div>
+                <div className="text-xs text-muted-foreground">Avg Quality</div>
+              </div>
+            )}
+            {groundingMetadata?.groundingChunks && (
+              <div>
+                <div className="text-lg font-semibold text-orange-600">{groundingMetadata.groundingChunks.length}</div>
+                <div className="text-xs text-muted-foreground">Knowledge Chunks</div>
+              </div>
+            )}
+          </div>
+        </div>
       </CardContent>
     </Card>
   );

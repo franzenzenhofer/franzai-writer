@@ -10717,3 +10717,267 @@ Watchpack Error (initial scan): Error: ENOTDIR: not a directory, scandir '/usr/l
   'error'
 ]
  POST /api/test-ai 200 in 6173ms
+ ✓ Compiled /api/wizard/execute in 237ms (590 modules)
+[runAiStage] Starting with new SDK
+[runAiStage] Starting with params: {
+  hasPromptTemplate: true,
+  model: 'gemini-2.0-flash',
+  temperature: 0.7,
+  stageOutputType: 'text',
+  hasAiRedoNotes: false,
+  forceGoogleSearchGrounding: false,
+  hasGroundingSettings: true,
+  groundingSettings: { googleSearch: { enabled: true, dynamicThreshold: 0.3 } },
+  googleSearchEnabled: true,
+  googleSearchThreshold: 0.3,
+  streamingEnabled: undefined
+}
+[runAiStage] Filled prompt length: 267
+[runAiStage] First 200 chars of filled prompt: Answer this question using current information from Google Search: what happened ysterday in austria
+
+
+IMPORTANT: Use Google Search grounding to find real, current information. Provide actual search r
+[runAiStage] Grounding enabled for AI processing
+[runAiStage] About to call aiStageExecutionFlow with input: {
+  promptLength: 267,
+  model: 'gemini-2.0-flash',
+  temperature: 0.7,
+  hasSystemInstructions: true,
+  hasChatHistory: false,
+  hasThinkingSettings: false,
+  hasToolNames: false,
+  forceGoogleSearchGrounding: false,
+  hasGroundingSettings: true,
+  googleSearchEnabled: true
+}
+[AI Stage Flow Enhanced] Starting with input: {
+  model: 'gemini-2.0-flash',
+  hasTools: false,
+  hasGrounding: true,
+  forceGoogleSearchGrounding: false,
+  hasThinking: undefined,
+  isStreaming: undefined,
+  promptTemplate: 'Answer this question using current information from Google Search: what happened ysterday in austria...',
+  chatHistory: 'none',
+  groundingSettings: { googleSearch: { enabled: true, dynamicThreshold: 0.3 } },
+  googleSearchSettings: { enabled: true, dynamicThreshold: 0.3 }
+}
+🚨🚨🚨 === GOOGLE SEARCH GROUNDING DEBUG === 🚨🚨🚨
+🔍 forceGoogleSearchGrounding: false
+🔍 groundingSettings?.googleSearch?.enabled: true
+🔍 Full groundingSettings object: {
+  "googleSearch": {
+    "enabled": true,
+    "dynamicThreshold": 0.3
+  }
+}
+🚨🚨🚨 ================================== 🚨🚨🚨
+[AI Stage Flow Enhanced] Chat history built: {
+  hasExistingHistory: false,
+  currentPromptParts: 1,
+  callHistoryLength: 1,
+  promptTemplateLength: 267
+}
+🚀🚀🚀 GOOGLE SEARCH GROUNDING REQUESTED! 🚀🚀🚀
+🔧 Using Direct Gemini API with proper googleSearch tool...
+🎯 [Direct Gemini API] Starting execution for Google Search grounding
+📝 [Direct Gemini API] Using non-streaming mode
+🚀 [Direct Gemini] Starting generation with: {
+  model: 'gemini-2.0-flash',
+  hasPrompt: true,
+  enableGoogleSearch: true,
+  temperature: 0.7
+}
+✅ [Direct Gemini] Adding Google Search grounding
+🎯 [Direct Gemini] Dynamic retrieval threshold: 0.3
+📤 [Direct Gemini] API Request: {
+  model: 'gemini-2.0-flash',
+  contentsCount: 2,
+  configKeys: [ 'temperature', 'toolConfig', 'tools' ],
+  toolsCount: 1,
+  hasGoogleSearch: true
+}
+ ✓ Compiled /api/documents/save in 462ms (724 modules)
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T10:21:03.249Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  stageStatesCount: 14,
+  hasUserId: true,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  effectiveUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  wasGenerated: false
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  originalCount: 14,
+  cleanedKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  cleanedCount: 14
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+📥 [Direct Gemini] Raw response keys: [ 'candidates', 'modelVersion', 'usageMetadata' ]
+✅ [Direct Gemini] Found grounding metadata!
+📊 [Direct Gemini] Grounding stats: {
+  chunksCount: 2,
+  supportsCount: 3,
+  searchQueries: 1,
+  sourcesExtracted: 2
+}
+✅ [Direct Gemini] Generation completed successfully
+✅ [Direct Gemini API] Generation completed successfully
+[runAiStage] AI execution completed. Result keys: [ 'content', 'thinkingSteps', 'groundingMetadata', 'groundingSources' ]
+[runAiStage] AI execution result: {
+  hasContent: true,
+  contentType: 'string',
+  contentLength: 624,
+  hasGroundingMetadata: true,
+  hasGroundingSources: true,
+  groundingSourcesCount: 2,
+  hasThinkingSteps: false,
+  thinkingStepsCount: 0,
+  hasUpdatedChatHistory: false,
+  chatHistoryLength: 0,
+  hasUsage: false
+}
+ POST /api/wizard/execute 200 in 2716ms
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[DocumentPersistence] Document updated successfully { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+ POST /api/documents/save 200 in 1187ms
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  stageStatesCount: 14,
+  hasUserId: true,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  effectiveUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  wasGenerated: false
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  originalCount: 14,
+  cleanedKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  cleanedCount: 14
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[DocumentPersistence] Document updated successfully { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+ POST /api/documents/save 200 in 261ms
+ ✓ Compiled in 235ms (447 modules)
+ ✓ Compiled in 20ms

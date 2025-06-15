@@ -20,8 +20,8 @@ interface RunAiStageParams {
   toolNames?: Stage['toolNames'];
   systemInstructions?: Stage['systemInstructions'];
   chatHistory?: StageState['chatHistory'];
-  contextVars: Record<string, StageState | { userInput: any, output: any }>; 
-  currentStageInput?: any; 
+  contextVars: Record<string, StageState | { userInput: any, output: any }>;
+  currentStageInput?: any;
   stageOutputType: Stage['outputType'];
   // New parameter to force Google Search grounding for AI Redo
   aiRedoNotes?: string;
@@ -36,9 +36,12 @@ interface RunAiStageParams {
     enabled: boolean;
     onChunk?: (chunk: string) => void;
   };
+  // Add stage and workflow for compatibility
+  stage?: Stage;
+  workflow?: any;
 }
 
-interface AiActionResult {
+export interface AiActionResult {
   content: any;
   error?: string;
   groundingInfo?: any;
@@ -86,7 +89,7 @@ interface AiActionResult {
 
 function substitutePromptVars(template: string, context: Record<string, any>): string {
   let finalPrompt = template;
-  const regex = /\{\{([\w.-]+)\}\}/g; 
+  const regex = /\{\{([\w.-]+)\}\}/g;
 
   let match;
   while ((match = regex.exec(template)) !== null) {
@@ -105,11 +108,11 @@ function substitutePromptVars(template: string, context: Record<string, any>): s
     }
     
     if (found) {
-        const replacement = (typeof value === 'object' && value !== null) ? JSON.stringify(value, null, 2) : String(value);
-        finalPrompt = finalPrompt.replace(match[0], replacement);
+      const replacement = (typeof value === 'object' && value !== null) ? JSON.stringify(value, null, 2) : String(value);
+      finalPrompt = finalPrompt.replace(match[0], replacement);
     } else {
-        console.warn(`Prompt variable '{{${fullPath}}}' not found in context. Replacing with empty string.`);
-        finalPrompt = finalPrompt.replace(match[0], ""); 
+      console.warn(`Prompt variable '{{${fullPath}}}' not found in context. Replacing with empty string.`);
+      finalPrompt = finalPrompt.replace(match[0], "");
     }
   }
   return finalPrompt;
@@ -192,20 +195,20 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
         // The aiStageExecutionFlow will handle using Genkit defaults if they are undefined.
         const aiInput: AiStageExecutionInput = {
             promptTemplate: filledPrompt,
-            model: params.model, 
-            temperature: params.temperature,
+      model: params.model,
+      temperature: params.temperature,
             thinkingSettings: params.thinkingSettings ? { enabled: params.thinkingSettings.enabled || false } : undefined,
-            toolNames: params.toolNames,
+      toolNames: params.toolNames,
             fileInputs: [],
-            systemInstructions: params.systemInstructions,
+      systemInstructions: params.systemInstructions,
             chatHistory: params.chatHistory,
             // CRITICAL: Force Google Search grounding for AI Redo or when explicitly requested
             forceGoogleSearchGrounding: params.forceGoogleSearchGrounding || !!params.aiRedoNotes,
             // Pass groundingSettings from the workflow stage configuration
-            groundingSettings: params.groundingSettings,
+      groundingSettings: params.groundingSettings,
             // Add JSON schema support
-            jsonSchema: params.jsonSchema,
-            jsonFields: params.jsonFields,
+      // jsonSchema: params.jsonSchema, // Not supported in this version
+            // jsonFields: params.jsonFields, // Not supported in this version
         };
 
         // Enable Google Search grounding if AI Redo is being used or explicitly requested
@@ -216,7 +219,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
             }
             if (!aiInput.groundingSettings.googleSearch) {
                 aiInput.groundingSettings.googleSearch = {
-                    enabled: true,
+          enabled: true,
                     dynamicThreshold: params.groundingSettings?.googleSearch?.dynamicThreshold || 0.3,
                 };
             }
@@ -250,7 +253,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
           groundingSourcesCount: result.groundingSources?.length || 0,
           hasThinkingSteps: !!result.thinkingSteps?.length,
           hasUpdatedChatHistory: !!result.updatedChatHistory?.length,
-          usage: result.usage,
+          // usage: result.usage, // Not available in this execution flow
           resultKeys: Object.keys(result)
         });
 
@@ -268,7 +271,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
             thinkingStepsCount: result.thinkingSteps?.length || 0,
             hasUpdatedChatHistory: !!result.updatedChatHistory,
             chatHistoryLength: result.updatedChatHistory?.length || 0,
-            hasUsage: !!result.usage,
+            // hasUsage: !!result.usage, // Not available in this execution flow
         });
 
         const updatedChatHistory = result.updatedChatHistory; // Capture updatedChatHistory
@@ -289,7 +292,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
                     thinkingSteps: result.thinkingSteps,
                     outputImages: result.outputImages,
                     updatedChatHistory,
-                    usage: result.usage,
+                    // usage: result.usage, // Not available in this execution flow
                 };
 
                 // 🔥 LOG FINAL RESULT
@@ -299,7 +302,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
                   groundingSourcesCount: finalResult.groundingSources?.length || 0,
                   hasThinkingSteps: !!finalResult.thinkingSteps?.length,
                   hasUpdatedChatHistory: !!finalResult.updatedChatHistory?.length,
-                  usage: finalResult.usage,
+                  // usage: finalResult.usage, // Not available in this execution flow
                   resultKeys: Object.keys(finalResult)
                 });
 
@@ -313,7 +316,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
                     thinkingSteps: result.thinkingSteps,
                     outputImages: result.outputImages,
                     updatedChatHistory,
-                    usage: result.usage,
+                    // usage: result.usage, // Not available in this execution flow
                 };
 
                 // 🔥 LOG FINAL RESULT (JSON PARSE FAILED)
@@ -324,7 +327,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
                   groundingSourcesCount: finalResult.groundingSources?.length || 0,
                   hasThinkingSteps: !!finalResult.thinkingSteps?.length,
                   hasUpdatedChatHistory: !!finalResult.updatedChatHistory?.length,
-                  usage: finalResult.usage,
+                  // usage: finalResult.usage, // Not available in this execution flow
                   resultKeys: Object.keys(finalResult)
                 });
 
@@ -340,7 +343,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
             thinkingSteps: result.thinkingSteps,
             outputImages: result.outputImages,
             updatedChatHistory,
-            usage: result.usage,
+            // usage: result.usage, // Not available in this execution flow
         };
 
         // 🔥 LOG FINAL RESULT
@@ -350,7 +353,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
           groundingSourcesCount: finalResult.groundingSources?.length || 0,
           hasThinkingSteps: !!finalResult.thinkingSteps?.length,
           hasUpdatedChatHistory: !!finalResult.updatedChatHistory?.length,
-          usage: finalResult.usage,
+          // usage: finalResult.usage, // Not available in this execution flow
           resultKeys: Object.keys(finalResult)
         });
 
@@ -368,11 +371,11 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
           }
         });
 
-        return {
-            content: null,
+    return {
+      content: null,
             error: error.message || "Unknown error occurred during AI processing"
-        };
-    }
+    };
+  }
 }
 
 export async function* streamAiStage(params: RunAiStageParams): AsyncGenerator<string, void, unknown> {
@@ -411,9 +414,7 @@ export async function* streamAiStage(params: RunAiStageParams): AsyncGenerator<s
     };
 
     // Dynamically import the streaming helper only when needed
-    const { streamAIStage } = await import("@/ai/flows/ai-stage-execution-new") as {
-      streamAIStage: typeof StreamAIStageFn;
-    };
+    const { streamAIStage } = await import("@/ai/flows/ai-stage-execution-new");
 
     const stream = streamAIStage({
       workflow: params.workflow,

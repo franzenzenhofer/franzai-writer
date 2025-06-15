@@ -481,6 +481,7 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
       <GroundingSourcesDisplay 
         sources={stageState.groundingSources} 
         groundingMetadata={stageState.groundingMetadata}
+        functionCalls={stageState.functionCalls}
       />
       )}
       

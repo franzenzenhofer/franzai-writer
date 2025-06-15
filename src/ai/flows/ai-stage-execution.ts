@@ -721,13 +721,12 @@ async function executeWithDirectGeminiAPI(
     request: {
       ...request,
       // Don't log the full system prompt, just structure
-      system: request.system ? request.system.substring(0, 100) + '...' : undefined,
-      prompt: request.prompt ? request.prompt.substring(0, 200) + '...' : undefined,
-      model: request.model,
+      systemInstruction: request.systemInstruction ? request.systemInstruction.substring(0, 100) + '...' : undefined,
+      prompt: request.prompt ? request.prompt.substring(0, 100) + '...' : undefined,
       temperature: request.temperature,
       maxOutputTokens: request.maxOutputTokens,
-      hasGroundingConfig: !!request.groundingConfig,
-      groundingConfig: request.groundingConfig
+      hasGroundingConfig: !!request.tools?.some((tool: any) => tool.googleSearchRetrieval),
+      groundingConfig: request.tools?.find((tool: any) => tool.googleSearchRetrieval) || undefined
     },
     originalInput: originalInput ? {
       model: originalInput.model,
@@ -827,7 +826,7 @@ async function executeWithDirectGeminiAPI(
       const result = await generateWithDirectGemini(request);
       
       // 🔥 LOG FULL NON-STREAMING RESULT
-      logToAiLog('📝 [DIRECT GEMINI NON-STREAMING RESULT]', {
+      logToAiLog('�� [DIRECT GEMINI NON-STREAMING RESULT]', {
         hasContent: !!result.content,
         contentLength: result.content?.length || 0,
         contentPreview: result.content?.substring(0, 200) + '...' || '',
