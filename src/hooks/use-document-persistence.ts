@@ -37,7 +37,6 @@ export function useDocumentPersistence({
   });
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const hasInitialSaveRef = useRef(false);
-  const prevIsSavingRef = useRef(false);
 
   const log = (operation: string, data?: any) => {
     console.log(`[useDocumentPersistence] ${operation}`, data || '');
@@ -240,17 +239,6 @@ export function useDocumentPersistence({
       }
     }
   }, [instance.stageStates, documentId, saveDocument]);
-
-  useEffect(() => {
-    const wasSaving = prevIsSavingRef.current;
-    if (wasSaving && !isSaving && !saveError) {
-      toast({
-        title: "Saved",
-        description: `Document "${instance.document.title}" saved successfully.`,
-      });
-    }
-    prevIsSavingRef.current = isSaving;
-  }, [isSaving, saveError, instance.document.title, toast, documentId]);
 
   return {
     isSaving,

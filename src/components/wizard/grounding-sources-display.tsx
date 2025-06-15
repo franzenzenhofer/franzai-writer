@@ -121,7 +121,7 @@ export function GroundingSourcesDisplay({ sources, groundingMetadata, functionCa
             <div className="flex flex-wrap gap-1">
               {groundingMetadata.webSearchQueries.map((query, index) => (
                 <Badge key={index} variant="outline" className="text-xs">
-                  &quot;{query}&quot;
+                  "{query}"
                 </Badge>
               ))}
             </div>
@@ -199,7 +199,7 @@ export function GroundingSourcesDisplay({ sources, groundingMetadata, functionCa
                           {confidenceLevel} Confidence ({Math.round(avgScore * 100)}%)
                         </Badge>
                       </div>
-                      <p className="text-xs mb-2 font-medium">&quot;{support.segment.text}&quot;</p>
+                      <p className="text-xs mb-2 font-medium">&ldquo;{support.segment.text}&rdquo;</p>
                       <div className="flex items-center gap-2 text-xs text-muted-foreground">
                         <span>Sources:</span>
                         {support.groundingChunkIndices.map((chunkIndex, scoreIndex) => (
