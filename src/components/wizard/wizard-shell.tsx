@@ -407,6 +407,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         output: result.content, // Final accumulated content
         groundingInfo: result.groundingInfo,
         groundingMetadata: result.groundingMetadata, // Store grounding metadata
+        groundingSources: result.groundingSources, // CRITICAL FIX: Store grounding sources!
         thinkingSteps: result.thinkingSteps,
         outputImages: result.outputImages,
         chatHistory: result.updatedChatHistory, // Store updated chat history

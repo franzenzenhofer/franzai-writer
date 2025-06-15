@@ -114,7 +114,8 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
     ...directRequestLog, 
     prompt: request.prompt.substring(0, 500),
     tools: tools,
-    systemInstruction: request.systemInstruction?.substring(0, 200)
+    systemInstruction: request.systemInstruction?.substring(0, 200),
+    hasGroundingConfig: !!tools.find((tool: any) => tool.googleSearch)
   });
 
   try {
@@ -183,6 +184,18 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
       fullContent: content,
       groundingSources: groundingSources
     });
+    
+    // 🔥 NEW: Use enhanced logging for grounding data
+    if (groundingMetadata) {
+      const { logGroundingMetadata } = await import('@/lib/ai-logger');
+      logGroundingMetadata(groundingMetadata);
+    }
+    
+    if (groundingSources && groundingSources.length > 0) {
+      const { logGroundingSources } = await import('@/lib/ai-logger');
+      logGroundingSources(groundingSources);
+    }
+    
     return result;
 
   } catch (error) {

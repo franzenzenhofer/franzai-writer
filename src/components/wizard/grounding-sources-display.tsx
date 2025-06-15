@@ -1,9 +1,10 @@
 'use client';
 
-import { Globe, Link, Search, Star, Wrench, Clock, ExternalLink, TrendingUp, Database } from 'lucide-react';
+import { Globe, Link, Search, Star, Wrench, Clock, ExternalLink, TrendingUp, Database, ChevronDown, ChevronRight } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { useState } from 'react';
 
 interface GroundingSource {
   type: 'search' | 'url';
@@ -44,6 +45,8 @@ interface GroundingSourcesDisplayProps {
 }
 
 export function GroundingSourcesDisplay({ sources, groundingMetadata, functionCalls }: GroundingSourcesDisplayProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  
   if (!sources || sources.length === 0) return null;
 
   const toolsUsed = functionCalls?.map(fc => fc.toolName) || [];
@@ -58,10 +61,17 @@ export function GroundingSourcesDisplay({ sources, groundingMetadata, functionCa
 
   return (
     <Card className="mt-4 border-l-4 border-l-blue-500">
-      <CardHeader className="pb-3">
+      <CardHeader 
+        className="pb-3 cursor-pointer hover:bg-muted/50 transition-colors"
+        onClick={() => setIsExpanded(!isExpanded)}
+      >
         <CardTitle className="text-sm font-medium flex items-center gap-2">
-          <Database className="h-4 w-4 text-blue-600" />
-          AI Research & Grounding
+          {isExpanded ? (
+            <ChevronDown className="h-4 w-4 text-muted-foreground" />
+          ) : (
+            <ChevronRight className="h-4 w-4 text-muted-foreground" />
+          )}
+          Sources ({sources.length})
           <div className="flex gap-1 ml-auto">
             {hasGoogleSearch && (
               <Badge variant="secondary" className="text-xs">
@@ -78,7 +88,8 @@ export function GroundingSourcesDisplay({ sources, groundingMetadata, functionCa
           </div>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      {isExpanded && (
+        <CardContent className="space-y-4">
         
         <div className="bg-muted/20 rounded-lg p-3">
           <h5 className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
@@ -268,7 +279,8 @@ export function GroundingSourcesDisplay({ sources, groundingMetadata, functionCa
             )}
           </div>
         </div>
-      </CardContent>
+        </CardContent>
+      )}
     </Card>
   );
 }

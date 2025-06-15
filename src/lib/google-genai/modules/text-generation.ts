@@ -93,6 +93,17 @@ export class TextGenerationModule {
       console.log('📥 [AI RESPONSE] Text Generation:', responseLog);
       logAI('RESPONSE', { type: 'Text Generation', ...responseLog, fullText: response.text });
       
+      // 🔥 NEW: Use enhanced logging for grounding data
+      if (response.groundingMetadata) {
+        const { logGroundingMetadata } = await import('@/lib/ai-logger');
+        logGroundingMetadata(response.groundingMetadata);
+      }
+      
+      if (response.groundingSources && response.groundingSources.length > 0) {
+        const { logGroundingSources } = await import('@/lib/ai-logger');
+        logGroundingSources(response.groundingSources);
+      }
+      
       return response;
     } catch (error) {
       console.error('❌ [AI ERROR] Text generation failed:', error);

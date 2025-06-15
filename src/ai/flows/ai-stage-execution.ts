@@ -841,11 +841,19 @@ async function executeWithDirectGeminiAPI(
       // 🔥 LOG FULL GROUNDING METADATA IF PRESENT
       if (result.groundingMetadata) {
         logToAiLog('🔍 [DIRECT GEMINI GROUNDING METADATA - FULL]', result.groundingMetadata);
+  
+  // 🔥 NEW: Use enhanced grounding metadata logging
+  const { logGroundingMetadata } = await import('@/lib/ai-logger');
+  logGroundingMetadata(result.groundingMetadata);
       }
       
       // 🔥 LOG FULL GROUNDING SOURCES IF PRESENT
       if (result.groundingSources) {
         logToAiLog('📖 [DIRECT GEMINI GROUNDING SOURCES - FULL]', result.groundingSources);
+        
+        // 🔥 NEW: Use enhanced grounding sources logging
+        const { logGroundingSources } = await import('@/lib/ai-logger');
+        logGroundingSources(result.groundingSources);
       }
       
       console.log('✅ [Direct Gemini API] Generation completed successfully');
