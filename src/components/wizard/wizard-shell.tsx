@@ -414,6 +414,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         currentStreamOutput: "", // Clear stream output
         completedAt: new Date().toISOString(),
         isStale: false,
+        usageMetadata: result.usageMetadata, // Store usage metadata for thinking display
       });
       
       // Show specific toast message for AI Redo with grounding

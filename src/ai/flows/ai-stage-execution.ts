@@ -114,6 +114,12 @@ const AiStageOutputSchema = z.object({
       mimeType: z.string(),
     })).optional(),
   }).optional(),
+  usageMetadata: z.object({
+    thoughtsTokenCount: z.number().optional(),
+    candidatesTokenCount: z.number().optional(),
+    totalTokenCount: z.number().optional(),
+    promptTokenCount: z.number().optional(),
+  }).optional(),
 });
 export type AiStageOutputSchema = z.infer<typeof AiStageOutputSchema>;
 
@@ -239,9 +245,24 @@ export async function aiStageExecutionFlow(
       groundingSettings?.googleSearch?.enabled;
 
     // CRITICAL: Implement proper URL Context grounding using direct API
+    let urlsToProcess: string[] = [];
+    
+    if (groundingSettings?.urlContext?.enabled) {
+      if (groundingSettings.urlContext.extractUrlsFromInput && promptTemplate) {
+        // Extract URLs from the input text using regex
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        const extractedUrls = promptTemplate.match(urlRegex) || [];
+        urlsToProcess = [...new Set(extractedUrls)]; // Remove duplicates
+        console.log('[AI Stage Flow Enhanced] Extracted URLs from input:', urlsToProcess);
+      } else if (groundingSettings.urlContext.urls?.length > 0) {
+        urlsToProcess = groundingSettings.urlContext.urls;
+        console.log('[AI Stage Flow Enhanced] Using predefined URLs:', urlsToProcess);
+      }
+    }
+    
     const shouldEnableUrlContext = 
       groundingSettings?.urlContext?.enabled && 
-      groundingSettings.urlContext.urls?.length > 0;
+      urlsToProcess.length > 0;
 
     // Configure generation options
     const generateOptions = {
@@ -282,12 +303,17 @@ export async function aiStageExecutionFlow(
       }
       if (shouldEnableUrlContext) {
         console.log('🌐 Using Direct Gemini API with proper urlContext tool...');
-        console.log('🔗 URLs to process:', groundingSettings.urlContext.urls);
+        console.log('🔗 URLs to process:', urlsToProcess);
         
-        // Add URLs to the prompt for URL Context tool
-        const urlsString = groundingSettings.urlContext.urls.join(' ');
-        if (!promptTemplate.includes(urlsString)) {
-          promptTemplate = `${promptTemplate}\n\nPlease analyze content from these URLs: ${urlsString}`;
+        // If URLs were extracted from input, don't add them again to avoid duplication
+        if (groundingSettings.urlContext.extractUrlsFromInput) {
+          console.log('🔍 URLs extracted from input text - using as-is for URL Context');
+        } else {
+          // Add URLs to the prompt for URL Context tool (legacy behavior)
+          const urlsString = urlsToProcess.join(' ');
+          if (!promptTemplate.includes(urlsString)) {
+            promptTemplate = `${promptTemplate}\n\nPlease analyze content from these URLs: ${urlsString}`;
+          }
         }
       }
       
@@ -300,7 +326,12 @@ export async function aiStageExecutionFlow(
           systemInstruction: systemInstructions,
           enableGoogleSearch: shouldEnableGoogleSearch,
           enableUrlContext: shouldEnableUrlContext,
+          urlsToProcess: urlsToProcess, // Pass extracted URLs
           dynamicRetrievalThreshold: groundingSettings?.googleSearch?.dynamicThreshold,
+          // Thinking configuration
+          enableThinking: thinkingSettings?.enabled,
+          thinkingBudget: thinkingSettings?.thinkingBudget,
+          includeThoughts: true, // Always include thoughts when thinking is enabled
           tools: availableTools
         },
         currentThinkingSteps,
@@ -798,6 +829,21 @@ async function executeWithDirectGeminiAPI(
       if (finalResult.urlContextMetadata) {
         logToAiLog('🌐 [DIRECT GEMINI URL CONTEXT METADATA - FULL]', finalResult.urlContextMetadata);
       }
+
+      // 🔥 LOG FULL THINKING METADATA IF PRESENT
+      if (finalResult.thinkingSteps && finalResult.thinkingSteps.length > 0) {
+        logToAiLog('🧠 [DIRECT GEMINI THINKING STEPS - FULL]', finalResult.thinkingSteps);
+        
+        // Convert Direct Gemini thinking steps to our internal format
+        for (const thinkingStep of finalResult.thinkingSteps) {
+          if (thinkingStep.type === 'thought' && thinkingStep.text) {
+            thinkingSteps.push({
+              type: 'textLog',
+              message: `💭 Thought Summary: ${thinkingStep.text}`
+            });
+          }
+        }
+      }
       
       console.log('✅ [Direct Gemini API] Streaming completed successfully');
       
@@ -812,6 +858,7 @@ async function executeWithDirectGeminiAPI(
           url: source.uri,
           snippet: source.snippet
         })),
+        usageMetadata: finalResult.usageMetadata,
       };
       
       // 🔥 LOG PROCESSED RESULT BEING RETURNED
@@ -869,6 +916,25 @@ async function executeWithDirectGeminiAPI(
         const { logUrlContextMetadata } = await import('@/lib/ai-logger');
         logUrlContextMetadata(result.urlContextMetadata);
       }
+
+      // 🔥 LOG FULL THINKING METADATA IF PRESENT
+      if (result.thinkingSteps && result.thinkingSteps.length > 0) {
+        logToAiLog('🧠 [DIRECT GEMINI THINKING STEPS - FULL]', result.thinkingSteps);
+        
+        // 🔥 NEW: Use enhanced thinking metadata logging
+        const { logThinkingMetadata } = await import('@/lib/ai-logger');
+        logThinkingMetadata(result.thinkingSteps, result.usageMetadata);
+        
+        // Convert Direct Gemini thinking steps to our internal format
+        for (const thinkingStep of result.thinkingSteps) {
+          if (thinkingStep.type === 'thought' && thinkingStep.text) {
+            thinkingSteps.push({
+              type: 'textLog',
+              message: `💭 Thought Summary: ${thinkingStep.text}`
+            });
+          }
+        }
+      }
       
       console.log('✅ [Direct Gemini API] Generation completed successfully');
       
@@ -883,6 +949,7 @@ async function executeWithDirectGeminiAPI(
           url: source.uri,
           snippet: source.snippet
         })),
+        usageMetadata: result.usageMetadata,
       };
       
       // 🔥 LOG PROCESSED RESULT BEING RETURNED

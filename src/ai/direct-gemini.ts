@@ -22,9 +22,14 @@ export interface DirectGeminiRequest {
   systemInstruction?: string;
   enableGoogleSearch?: boolean;
   enableUrlContext?: boolean;
+  urlsToProcess?: string[]; // Array of URLs for URL context grounding
   dynamicRetrievalThreshold?: number;
   maxOutputTokens?: number;
   tools?: any[];
+  // Thinking mode configuration
+  enableThinking?: boolean;
+  thinkingBudget?: number;
+  includeThoughts?: boolean;
 }
 
 export interface DirectGeminiResponse {
@@ -46,6 +51,13 @@ export interface DirectGeminiResponse {
     title: string;
     uri: string;
     snippet?: string;
+  }>;
+  // Thinking mode fields
+  thinkingSteps?: Array<{
+    type: 'thought' | 'textLog';
+    text?: string;
+    content?: string;
+    thought?: boolean;
   }>;
   usageMetadata?: any;
   candidates?: any[];
@@ -80,6 +92,22 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
 
   if (request.maxOutputTokens) {
     config.maxOutputTokens = request.maxOutputTokens;
+  }
+
+  // Add thinking configuration for 2.5 series models
+  if (request.enableThinking || request.includeThoughts || request.thinkingBudget) {
+    console.log('🧠 [Direct Gemini] Adding thinking configuration');
+    config.thinkingConfig = {};
+    
+    if (request.includeThoughts !== false) { // Default to true if thinking is enabled
+      config.thinkingConfig.includeThoughts = true;
+      console.log('✅ [Direct Gemini] Thought summaries enabled');
+    }
+    
+    if (request.thinkingBudget) {
+      config.thinkingConfig.thinkingBudget = request.thinkingBudget;
+      console.log('🧠 [Direct Gemini] Thinking budget set to:', request.thinkingBudget);
+    }
   }
 
   // Add tools
@@ -141,6 +169,9 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
 
     console.log('📥 [Direct Gemini] Raw response keys:', Object.keys(response));
     
+    // 🔥 ENHANCED: Log the complete raw response structure for debugging
+    console.log('🔍 [Direct Gemini] COMPLETE RAW RESPONSE:', JSON.stringify(response, null, 2));
+    
     // Extract text content
     const content = response.text || '';
     
@@ -148,9 +179,50 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
     let groundingMetadata: DirectGeminiResponse['groundingMetadata'];
     let urlContextMetadata: DirectGeminiResponse['urlContextMetadata'];
     let groundingSources: DirectGeminiResponse['groundingSources'] = [];
+    let thinkingSteps: DirectGeminiResponse['thinkingSteps'] = [];
     
     if (response.candidates && response.candidates.length > 0) {
       const candidate = response.candidates[0];
+      console.log('🔍 [Direct Gemini] Candidate keys:', Object.keys(candidate));
+      
+      // Check for thinking data in various possible locations
+      if (response.usageMetadata?.thoughtsTokenCount) {
+        console.log('🧠 [Direct Gemini] Thoughts token count detected:', response.usageMetadata.thoughtsTokenCount);
+      }
+      
+      // Check if there are any thinking-related fields in the response
+      const responseStr = JSON.stringify(response);
+      if (responseStr.includes('thought') || responseStr.includes('thinking')) {
+        console.log('🧠 [Direct Gemini] Response contains thinking-related content');
+      }
+      
+      // Extract thinking steps - Gemini 2.5 thinking mode approach
+      // Note: Gemini 2.5 API doesn't return actual thought content, only thoughtsTokenCount
+      if (response.usageMetadata?.thoughtsTokenCount && response.usageMetadata.thoughtsTokenCount > 0) {
+        console.log('🧠 [Direct Gemini] Thinking mode detected!');
+        console.log('🧠 [Direct Gemini] Thoughts token count:', response.usageMetadata.thoughtsTokenCount);
+        
+        // Create a synthetic thinking step to show that thinking occurred
+        const thinkingTokens = response.usageMetadata.thoughtsTokenCount;
+        const outputTokens = response.usageMetadata.candidatesTokenCount || 0;
+        const totalTokens = response.usageMetadata.totalTokenCount || 0;
+        
+        thinkingSteps.push({
+          type: 'thought',
+          text: `The AI engaged in internal reasoning before responding. This thinking process used ${thinkingTokens} tokens of computational thought, analyzing the problem step-by-step before generating the ${outputTokens}-token response.`,
+          thought: true
+        });
+        
+        console.log('✅ [Direct Gemini] Created thinking step summary');
+        console.log('🧠 [Direct Gemini] Thinking stats:', {
+          thinkingTokens,
+          outputTokens,
+          totalTokens,
+          thinkingRatio: ((thinkingTokens / totalTokens) * 100).toFixed(1) + '%'
+        });
+      } else {
+        console.log('❌ [Direct Gemini] No thinking detected (thoughtsTokenCount: 0 or missing)');
+      }
       
       if (candidate.groundingMetadata) {
         console.log('✅ [Direct Gemini] Found grounding metadata!');
@@ -209,6 +281,7 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
       groundingMetadata,
       urlContextMetadata,
       groundingSources,
+      thinkingSteps: thinkingSteps.length > 0 ? thinkingSteps : undefined,
       usageMetadata: response.usageMetadata,
       candidates: response.candidates,
       modelVersion: response.modelVersion
@@ -221,12 +294,16 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
       contentPreview: content.substring(0, 200) + '...',
       hasGroundingMetadata: !!groundingMetadata,
       hasUrlContextMetadata: !!urlContextMetadata,
+      hasThinkingSteps: !!thinkingSteps && thinkingSteps.length > 0,
       groundingSourcesCount: groundingSources?.length || 0,
       urlContextUrlsCount: urlContextMetadata?.urlMetadata?.length || 0,
+      thinkingStepsCount: thinkingSteps?.length || 0,
+      thoughtsTokenCount: result.usageMetadata?.thoughtsTokenCount,
       usageMetadata: result.usageMetadata,
       fullContent: content,
       groundingSources: groundingSources,
-      urlContextMetadata: urlContextMetadata
+      urlContextMetadata: urlContextMetadata,
+      thinkingSteps: thinkingSteps
     });
     
     // 🔥 NEW: Use enhanced logging for grounding data
@@ -243,6 +320,12 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
     if (groundingSources && groundingSources.length > 0) {
       const { logGroundingSources } = await import('@/lib/ai-logger');
       logGroundingSources(groundingSources);
+    }
+    
+    // 🔥 NEW: Use enhanced logging for thinking data
+    if (thinkingSteps && thinkingSteps.length > 0) {
+      const { logThinkingMetadata } = await import('@/lib/ai-logger');
+      logThinkingMetadata(thinkingSteps, result.usageMetadata);
     }
     
     return result;

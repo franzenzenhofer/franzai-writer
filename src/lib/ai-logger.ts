@@ -168,3 +168,75 @@ export function logUrlContextMetadata(urlContextMetadata: any) {
   // Append to ai.log
   fs.appendFileSync(AI_LOG_PATH, logEntry);
 }
+
+// NEW: Enhanced logging function for thinking steps and metadata
+export function logThinkingMetadata(thinkingSteps: any[], usageMetadata?: any) {
+  const timestamp = new Date().toISOString();
+  let logEntry = `${timestamp} 🧠 [THINKING MODE METADATA DETAILED] \n`;
+  
+  if (thinkingSteps && thinkingSteps.length > 0) {
+    logEntry += `\n🧠 THINKING SUMMARY:\n`;
+    logEntry += `   Total Steps: ${thinkingSteps.length}\n`;
+    
+    // Categorize thinking steps
+    const textLogs = thinkingSteps.filter(step => step.type === 'textLog');
+    const toolRequests = thinkingSteps.filter(step => step.type === 'toolRequest');
+    const toolResponses = thinkingSteps.filter(step => step.type === 'toolResponse');
+    const thoughtParts = thinkingSteps.filter(step => step.type === 'thought' || step.thought);
+    
+    logEntry += `   Text Logs: ${textLogs.length}\n`;
+    logEntry += `   Tool Requests: ${toolRequests.length}\n`;
+    logEntry += `   Tool Responses: ${toolResponses.length}\n`;
+    logEntry += `   Thought Parts: ${thoughtParts.length}\n`;
+    
+    // Add usage metadata if available
+    if (usageMetadata) {
+      logEntry += `\n💰 THINKING USAGE METADATA:\n`;
+      if (usageMetadata.thoughtsTokenCount) {
+        logEntry += `   Thinking Tokens: ${usageMetadata.thoughtsTokenCount}\n`;
+      }
+      if (usageMetadata.candidatesTokenCount) {
+        logEntry += `   Output Tokens: ${usageMetadata.candidatesTokenCount}\n`;
+      }
+      if (usageMetadata.promptTokenCount) {
+        logEntry += `   Input Tokens: ${usageMetadata.promptTokenCount}\n`;
+      }
+      if (usageMetadata.totalTokenCount) {
+        logEntry += `   Total Tokens: ${usageMetadata.totalTokenCount}\n`;
+      }
+    }
+    
+    logEntry += `\n🔍 THINKING STEPS DETAILS:\n`;
+    thinkingSteps.forEach((step, index) => {
+      logEntry += `\n  🧠 Step ${index + 1}:\n`;
+      logEntry += `    Type: ${step.type || 'unknown'}\n`;
+      
+      if (step.type === 'textLog') {
+        logEntry += `    Message: ${step.message?.substring(0, 200)}${step.message?.length > 200 ? '...' : ''}\n`;
+      } else if (step.type === 'toolRequest') {
+        logEntry += `    Tool: ${step.toolName}\n`;
+        logEntry += `    Input: ${JSON.stringify(step.input)?.substring(0, 100)}...\n`;
+      } else if (step.type === 'toolResponse') {
+        logEntry += `    Tool: ${step.toolName}\n`;
+        logEntry += `    Output: ${JSON.stringify(step.output)?.substring(0, 100)}...\n`;
+      } else if (step.thought || step.type === 'thought') {
+        logEntry += `    Thought Content: ${(step.text || step.content)?.substring(0, 300)}${(step.text || step.content)?.length > 300 ? '...' : ''}\n`;
+      }
+    });
+    
+  } else {
+    logEntry += `\n❌ NO THINKING STEPS FOUND\n`;
+  }
+  
+  logEntry += `\n🧠 RAW THINKING DATA:\n${JSON.stringify({ thinkingSteps, usageMetadata }, null, 2)}\n`;
+  logEntry += `\n${'='.repeat(80)}\n`;
+  
+  // Ensure logs directory exists
+  const logsDir = path.dirname(AI_LOG_PATH);
+  if (!fs.existsSync(logsDir)) {
+    fs.mkdirSync(logsDir, { recursive: true });
+  }
+  
+  // Append to ai.log
+  fs.appendFileSync(AI_LOG_PATH, logEntry);
+}

@@ -85,6 +85,12 @@ export interface AiActionResult {
     outputTokens?: number;
     totalTokens?: number;
   };
+  usageMetadata?: {
+    thoughtsTokenCount?: number;
+    candidatesTokenCount?: number;
+    totalTokenCount?: number;
+    promptTokenCount?: number;
+  };
 }
 
 function substitutePromptVars(template: string, context: Record<string, any>): string {
@@ -292,6 +298,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
                     thinkingSteps: result.thinkingSteps,
                     outputImages: result.outputImages,
                     updatedChatHistory,
+                    usageMetadata: result.usageMetadata,
                     // usage: result.usage, // Not available in this execution flow
                 };
 
@@ -316,6 +323,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
                     thinkingSteps: result.thinkingSteps,
                     outputImages: result.outputImages,
                     updatedChatHistory,
+                    usageMetadata: result.usageMetadata,
                     // usage: result.usage, // Not available in this execution flow
                 };
 
@@ -343,6 +351,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
             thinkingSteps: result.thinkingSteps,
             outputImages: result.outputImages,
             updatedChatHistory,
+            usageMetadata: result.usageMetadata,
             // usage: result.usage, // Not available in this execution flow
         };
 

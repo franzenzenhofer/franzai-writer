@@ -13,6 +13,7 @@ import { HtmlPreview } from "./html-preview";
 import { GroundingSourcesDisplay } from "./grounding-sources-display";
 import { FunctionCallsDisplay } from "./function-calls-display";
 import { CodeExecutionDisplay } from "./code-execution-display";
+import { ThinkingDisplay } from "./thinking-display";
 // Button and Save icon removed as they are now handled by StageCard
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
@@ -501,40 +502,12 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
           <strong>Grounding info:</strong> {JSON.stringify(stageState.groundingInfo)}
         </div>
       )}
+      {/* Display Thinking Process */}
       {stageState.thinkingSteps && stageState.thinkingSteps.length > 0 && !isEditingOutput && shouldShowThinking() && (
-        <Card className="bg-muted/50 mt-4">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base font-headline flex items-center">
-              <Info className="w-4 h-4 mr-2 text-primary" /> {/* Re-using Info icon, consider a "brain" or "lightbulb" icon */}
-              Thinking Process
-            </CardTitle>
-            <CardDescription className="text-xs">
-              Intermediate steps or reasoning from the AI.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            {stageState.thinkingSteps.map((step, index) => (
-              <div key={index} className="p-2 border rounded bg-background text-xs">
-                {step.type === 'toolRequest' && (
-                  <div>
-                    <p className="font-semibold">Tool Call: <code className="font-mono bg-muted p-1 rounded">{step.toolName}</code></p>
-                    <p className="mt-1">Input:</p>
-                    <pre className="whitespace-pre-wrap font-mono bg-muted p-2 rounded mt-1">{JSON.stringify(step.input, null, 2)}</pre>
-                  </div>
-                )}
-                {step.type === 'toolResponse' && (
-                  <div>
-                    <p className="font-semibold">Result from <code className="font-mono bg-muted p-1 rounded">{step.toolName}</code>:</p>
-                    <pre className="whitespace-pre-wrap font-mono bg-muted p-2 rounded mt-1">{JSON.stringify(step.output, null, 2)}</pre>
-                  </div>
-                )}
-                {step.type === 'textLog' && (
-                  <p className="font-mono">{step.message}</p>
-                )}
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+        <ThinkingDisplay 
+          thinkingSteps={stageState.thinkingSteps}
+          usageMetadata={stageState.usageMetadata}
+        />
       )}
       {stageState.outputImages && stageState.outputImages.length > 0 && !isEditingOutput && (
         <Card className="bg-muted/50 mt-4">

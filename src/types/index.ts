@@ -201,6 +201,12 @@ export interface StageState {
     role: 'user' | 'model' | 'system';
     parts: any[];
   }>;
+  usageMetadata?: {
+    thoughtsTokenCount?: number;
+    candidatesTokenCount?: number;
+    totalTokenCount?: number;
+    promptTokenCount?: number;
+  };
 }
 
 export interface WizardDocument {

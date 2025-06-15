@@ -63,18 +63,38 @@
       "showThinking": true
     },
     {
-      "id": "thinking-mode-test",
-      "title": "Thinking Mode Test",
-      "description": "Test thinking mode with a complex reasoning task",
+      "id": "multiple-url-grounding",
+      "title": "Multiple URL Context Grounding",
+      "description": "Test multiple URL grounding from mixed text. Enter text containing multiple URLs and a question about them.",
       "inputType": "textarea",
       "outputType": "text",
-      "model": "gemini-2.0-flash-thinking-exp",
+      "model": "gemini-2.0-flash-exp",
+      "temperature": 0.1,
+      "dependencies": ["test-title"],
+      "groundingSettings": {
+        "urlContext": {
+          "enabled": true,
+          "extractUrlsFromInput": true
+        }
+      },
+      "systemInstructions": "You have URL Context grounding enabled. I will extract URLs from the user's input text and provide them for grounding. Use the content from these URLs to provide comprehensive answers with proper citations.",
+      "promptTemplate": "{{multiple-url-grounding.userInput}}\n\nIMPORTANT: Use URL Context grounding to analyze content from any URLs mentioned in the text above. Provide detailed analysis with proper citations from the URL sources.",
+      "autoRun": false,
+      "showThinking": true
+    },
+    {
+      "id": "thinking-mode-test",
+      "title": "Thinking Mode Test",
+      "description": "Test thinking mode with a complex reasoning task and show thought summaries",
+      "inputType": "textarea",
+      "outputType": "text",
+      "model": "gemini-2.5-pro-preview-03-25",
       "dependencies": ["test-title"],
       "thinkingSettings": {
         "enabled": true,
         "thinkingBudget": 8192
       },
-      "promptTemplate": "Solve this problem step by step: {{userInput}}",
+      "promptTemplate": "{{userInput}}\n\nPlease solve this step by step and show your reasoning process.",
       "autoRun": false,
       "showThinking": true
     },
@@ -239,6 +259,7 @@
         "test-title",
         "grounding-google-search",
         "grounding-url-context",
+        "multiple-url-grounding",
         "thinking-mode-test",
         "function-calling-calculator",
         "function-calling-weather",
@@ -250,7 +271,7 @@
         "document-understanding-test",
         "combined-features-test"
       ],
-      "promptTemplate": "# Gemini Tools Test Summary for '{{test-title.output}}'\n\nSummarize the results of all the tests performed:\n\n## Tests Performed:\n1. **Google Search Grounding**: {{#if grounding-google-search.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n2. **URL Context Grounding**: {{#if grounding-url-context.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n3. **Thinking Mode**: {{#if thinking-mode-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n4. **Calculator Function**: {{#if function-calling-calculator.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n5. **Weather Function**: {{#if function-calling-weather.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n6. **Unit Converter**: {{#if function-calling-unit-converter.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n7. **Code Execution**: {{#if code-execution-python.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n8. **Streaming**: {{#if streaming-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n9. **Chat Mode**: {{#if chat-mode-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n10. **Image Understanding**: {{#if image-understanding-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n11. **Document Understanding**: {{#if document-understanding-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n12. **Combined Features**: {{#if combined-features-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n\nProvide a comprehensive summary in Markdown format.",
+      "promptTemplate": "# Gemini Tools Test Summary for '{{test-title.output}}'\n\nSummarize the results of all the tests performed:\n\n## Tests Performed:\n1. **Google Search Grounding**: {{#if grounding-google-search.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n2. **URL Context Grounding**: {{#if grounding-url-context.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n3. **Multiple URL Grounding**: {{#if multiple-url-grounding.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n4. **Thinking Mode**: {{#if thinking-mode-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n5. **Calculator Function**: {{#if function-calling-calculator.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n6. **Weather Function**: {{#if function-calling-weather.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n7. **Unit Converter**: {{#if function-calling-unit-converter.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n8. **Code Execution**: {{#if code-execution-python.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n9. **Streaming**: {{#if streaming-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n10. **Chat Mode**: {{#if chat-mode-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n11. **Image Understanding**: {{#if image-understanding-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n12. **Document Understanding**: {{#if document-understanding-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n13. **Combined Features**: {{#if combined-features-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n\nProvide a comprehensive summary in Markdown format.",
       "autoRun": true,
       "showThinking": false
     }

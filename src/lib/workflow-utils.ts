@@ -26,7 +26,8 @@ export function initializeStageStates(workflow: Workflow): Record<string, StageS
       thinkingSteps: undefined,
       chatHistory: undefined,
       currentStreamOutput: undefined,
-      outputImages: undefined
+      outputImages: undefined,
+      usageMetadata: undefined
     };
   });
   

@@ -31,7 +31,8 @@ function initializeStageStates(workflow: Workflow): Record<string, StageState> {
       thinkingSteps: undefined,
       chatHistory: undefined,
       currentStreamOutput: undefined,
-      outputImages: undefined
+      outputImages: undefined,
+      usageMetadata: undefined
     };
   });
   
