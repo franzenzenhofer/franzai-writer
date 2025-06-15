@@ -60,34 +60,20 @@ export function GroundingSourcesDisplay({ sources, groundingMetadata, functionCa
   const avgConfidence = hasGroundingSupports ? totalConfidence / groundingMetadata.groundingSupports.length : 0;
 
   return (
-    <Card className="mt-4 border-l-4 border-l-blue-500">
-      <CardHeader 
-        className="pb-3 cursor-pointer hover:bg-muted/50 transition-colors"
+    <Card className="mt-4">
+      <div 
+        className="px-6 py-2 cursor-pointer hover:bg-muted/50 transition-colors border-b"
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        <CardTitle className="text-sm font-medium flex items-center gap-2">
+        <div className="text-sm font-normal flex items-center gap-2">
           {isExpanded ? (
             <ChevronDown className="h-4 w-4 text-muted-foreground" />
           ) : (
             <ChevronRight className="h-4 w-4 text-muted-foreground" />
           )}
           Sources ({sources.length})
-          <div className="flex gap-1 ml-auto">
-            {hasGoogleSearch && (
-              <Badge variant="secondary" className="text-xs">
-                <Search className="h-3 w-3 mr-1" />
-                Google Search
-              </Badge>
-            )}
-            {hasGroundingSupports && (
-              <Badge variant="outline" className="text-xs">
-                <TrendingUp className="h-3 w-3 mr-1" />
-                {Math.round(avgConfidence * 100)}% Confidence
-              </Badge>
-            )}
-          </div>
-        </CardTitle>
-      </CardHeader>
+        </div>
+      </div>
       {isExpanded && (
         <CardContent className="space-y-4">
         
