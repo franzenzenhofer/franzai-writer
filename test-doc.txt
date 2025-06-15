@@ -1,4 +1,0 @@
-This is a test document for the recipe workflow.
-It contains some sample text that the AI should summarize.
-Main ingredients: Flour, Sugar, Eggs.
-Instructions: Mix well, bake at 350.
