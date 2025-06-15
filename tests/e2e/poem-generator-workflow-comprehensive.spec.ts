@@ -7,8 +7,8 @@ test.describe('Poem Generator Workflow - Comprehensive Test with AI Redo', () =>
     // Navigate to the poem generator workflow (shortName is "poem")
     await page.goto('/w/poem/new');
     
-    // Wait for the wizard shell to load
-    await page.waitForSelector('[data-testid="wizard-shell"]', { timeout: 10000 });
+    // Wait for the page to load - check for stage card or poem topic
+    await page.waitForSelector('[data-stage-id="poem-topic"]', { timeout: 10000 });
   });
 
   test('Complete poem generation from start to finish with AI Redo', async ({ page }) => {

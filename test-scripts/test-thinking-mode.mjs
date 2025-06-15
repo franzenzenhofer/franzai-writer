@@ -6,7 +6,7 @@
  */
 
 import 'dotenv/config';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 
 console.log('🚀 Testing Thinking Mode (2.5 models)\n');
 
@@ -15,13 +15,14 @@ if (!process.env.GOOGLE_GENAI_API_KEY) {
   process.exit(1);
 }
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY);
+const genAI = new GoogleGenAI({ apiKey: process.env.GOOGLE_GENAI_API_KEY });
 
 async function testBasicThinking() {
   console.log('📝 Test 1: Basic Thinking Mode');
   try {
-    const model = genAI.getGenerativeModel({
+    const result = await genAI.models.generateContent({
       model: 'gemini-2.5-flash',
+      contents: 'Explain why a heavier object and a lighter object fall at the same rate in a vacuum',
       generationConfig: {
         thinking: {
           includeThoughts: true,
@@ -29,15 +30,10 @@ async function testBasicThinking() {
         }
       }
     });
-
-    const result = await model.generateContent(
-      'Explain why a heavier object and a lighter object fall at the same rate in a vacuum'
-    );
-    const response = await result.response;
     
-    console.log('✅ Response:', response.text());
-    console.log('✅ Usage metadata:', response.usageMetadata);
-    console.log('✅ Thoughts token count:', response.usageMetadata?.thoughtsTokenCount);
+    console.log('✅ Response:', result.text);
+    console.log('✅ Usage metadata:', result.usageMetadata);
+    console.log('✅ Thoughts token count:', result.usageMetadata?.thoughtsTokenCount);
     
     return true;
   } catch (error) {
@@ -50,8 +46,9 @@ async function testBasicThinking() {
 async function testComplexReasoning() {
   console.log('\n📝 Test 2: Complex Reasoning Task');
   try {
-    const model = genAI.getGenerativeModel({
+    const result = await genAI.models.generateContent({
       model: 'gemini-2.5-pro',
+      contents: 'Prove that the square root of 2 is irrational',
       generationConfig: {
         thinking: {
           includeThoughts: true,
@@ -59,14 +56,9 @@ async function testComplexReasoning() {
         }
       }
     });
-
-    const result = await model.generateContent(
-      'Prove that the square root of 2 is irrational'
-    );
-    const response = await result.response;
     
-    console.log('✅ Response:', response.text().substring(0, 200) + '...');
-    console.log('✅ Thoughts included:', !!response.usageMetadata?.thoughtsTokenCount);
+    console.log('✅ Response:', result.text.substring(0, 200) + '...');
+    console.log('✅ Thoughts included:', !!result.usageMetadata?.thoughtsTokenCount);
     
     return true;
   } catch (error) {

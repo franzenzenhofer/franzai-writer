@@ -6,7 +6,7 @@
  */
 
 import 'dotenv/config';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 
 console.log('🚀 Testing Code Execution\n');
 
@@ -15,23 +15,21 @@ if (!process.env.GOOGLE_GENAI_API_KEY) {
   process.exit(1);
 }
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY);
+const genAI = new GoogleGenAI({ apiKey: process.env.GOOGLE_GENAI_API_KEY });
 
 async function testBasicCodeExecution() {
   console.log('📝 Test 1: Basic Python Code Execution');
   try {
-    const model = genAI.getGenerativeModel({
+    const result = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
+      contents: 'Calculate the factorial of 10 using Python',
       tools: [{ codeExecution: {} }]
     });
-
-    const result = await model.generateContent('Calculate the factorial of 10 using Python');
-    const response = await result.response;
     
-    console.log('✅ Response:', response.text());
+    console.log('✅ Response:', result.text);
     
     // Check for code execution in parts
-    const parts = response.candidates?.[0]?.content?.parts || [];
+    const parts = result.candidates?.[0]?.content?.parts || [];
     const hasCode = parts.some(part => part.executableCode || part.codeExecutionResult);
     console.log('✅ Code executed:', hasCode);
     
@@ -45,20 +43,16 @@ async function testBasicCodeExecution() {
 async function testDataVisualization() {
   console.log('\n📝 Test 2: Data Visualization with Matplotlib');
   try {
-    const model = genAI.getGenerativeModel({
+    const result = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
+      contents: 'Create a bar chart showing programming language popularity: Python 40%, JavaScript 35%, Java 15%, Others 10%',
       tools: [{ codeExecution: {} }]
     });
-
-    const result = await model.generateContent(
-      'Create a bar chart showing programming language popularity: Python 40%, JavaScript 35%, Java 15%, Others 10%'
-    );
-    const response = await result.response;
     
-    console.log('✅ Response:', response.text());
+    console.log('✅ Response:', result.text);
     
     // Check for image output
-    const parts = response.candidates?.[0]?.content?.parts || [];
+    const parts = result.candidates?.[0]?.content?.parts || [];
     const hasImage = parts.some(part => part.inlineData?.mimeType?.includes('image'));
     console.log('✅ Image generated:', hasImage);
     

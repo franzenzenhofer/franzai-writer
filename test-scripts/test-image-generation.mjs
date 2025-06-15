@@ -6,7 +6,7 @@
  */
 
 import 'dotenv/config';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 import fs from 'fs';
 
 console.log('🚀 Testing Image Generation\n');
@@ -16,25 +16,23 @@ if (!process.env.GOOGLE_GENAI_API_KEY) {
   process.exit(1);
 }
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY);
+const genAI = new GoogleGenAI({ apiKey: process.env.GOOGLE_GENAI_API_KEY });
 
 async function testBasicImageGeneration() {
   console.log('📝 Test 1: Basic Image Generation');
   try {
-    const model = genAI.getGenerativeModel({
+    const result = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
+      contents: 'Generate an image of a cute robot coding on a laptop',
       generationConfig: {
         responseModalities: ['TEXT', 'IMAGE']
       }
     });
-
-    const result = await model.generateContent('Generate an image of a cute robot coding on a laptop');
-    const response = await result.response;
     
-    console.log('✅ Response text:', response.text());
+    console.log('✅ Response text:', result.text);
     
     // Check for image in response
-    const parts = response.candidates?.[0]?.content?.parts || [];
+    const parts = result.candidates?.[0]?.content?.parts || [];
     const imagePart = parts.find(part => part.inlineData?.mimeType?.startsWith('image/'));
     
     if (imagePart) {
@@ -59,8 +57,9 @@ async function testBasicImageGeneration() {
 async function testImageWithOptions() {
   console.log('\n📝 Test 2: Image Generation with Options');
   try {
-    const model = genAI.getGenerativeModel({
+    const result = await genAI.models.generateContent({
       model: 'gemini-2.0-flash',
+      contents: 'Create a beautiful landscape painting of mountains at sunset',
       generationConfig: {
         responseModalities: ['TEXT', 'IMAGE'],
         imageOptions: {
@@ -69,15 +68,10 @@ async function testImageWithOptions() {
         }
       }
     });
-
-    const result = await model.generateContent(
-      'Create a beautiful landscape painting of mountains at sunset'
-    );
-    const response = await result.response;
     
     console.log('✅ Response generated');
     
-    const parts = response.candidates?.[0]?.content?.parts || [];
+    const parts = result.candidates?.[0]?.content?.parts || [];
     const hasImage = parts.some(part => part.inlineData?.mimeType?.startsWith('image/'));
     console.log('✅ Image included:', hasImage);
     
