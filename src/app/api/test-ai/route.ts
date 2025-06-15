@@ -107,6 +107,11 @@ export async function POST(request: Request) {
     if (result.groundingSources) {
       logToAiLog('📖 [TEST-AI GROUNDING SOURCES - FULL]', result.groundingSources);
     }
+
+    // LOG FULL URL CONTEXT METADATA IF PRESENT
+    if (result.urlContextMetadata) {
+      logToAiLog('🌐 [TEST-AI URL CONTEXT METADATA - FULL]', result.urlContextMetadata);
+    }
     
     // Enhanced logging for grounding metadata and sources
     console.log('[TEST-AI] Enhanced Grounding Analysis:');
