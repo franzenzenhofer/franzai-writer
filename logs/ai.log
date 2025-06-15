@@ -352,3 +352,196 @@
   "groundingSourcesCount": 5,
   "fullText": "Here's a summary of what happened in world news yesterday, June 14, 2025:\n\n*   **Israel-Iran Conflict:** Tensions remained high with continued strikes and retaliatory actions. Donald Trump denied US involvement in Israel's \"Operation Rising Lion,\" while Iran claimed to have proof of American support. Reports indicated Israel struck Iran's largest gas field and possibly targeted Iran's Defense Ministry headquarters.\n*   **Nigeria:** Gunmen killed at least 100 people in a village attack in north-central Nigeria.\n*   **Air India Plane Crash:** An Air India plane crashed, and the captain sent a mayday call less than a minute before the crash. Families were waiting for the remains of relatives. King Charles is set to honor the victims at the Trooping the Colour parade.\n*   **Minnesota Shooting:** A manhunt was underway for a suspect in the deadly shooting of Democratic lawmakers in Minnesota.\n*   **Typhoon Wutip:** Typhoon Wutip caused five deaths and left two missing in central Vietnam, with farmlands flooded. The typhoon also reached southern China.\n*   **Other News:**\n    *   Former Nicaraguan President Violeta Chamorro died at 95.\n    *   Trump held a military parade amid protests across America.\n    *   Putin and Trump discussed Middle East tensions and the Ukraine war in a phone call."
 }
+2025-06-15T09:52:45.776Z 📤 [AI REQUEST] {
+  "type": "Text Generation",
+  "model": "gemini-2.0-flash",
+  "promptLength": 38,
+  "temperature": 0.7,
+  "systemInstruction": "undefined...",
+  "prompt": "What happened in world news yesterday?"
+}
+2025-06-15T09:52:48.658Z 📥 [AI RESPONSE] {
+  "type": "Text Generation",
+  "textLength": 1124,
+  "textPreview": "Here's a summary of what happened in world news yesterday, June 14, 2025, based on the search result...",
+  "hasGroundingMetadata": true,
+  "groundingSourcesCount": 3,
+  "fullText": "Here's a summary of what happened in world news yesterday, June 14, 2025, based on the search results:\n\n*   **Israel-Iran Conflict:** Tensions remained high, with continued strikes and retaliatory actions. Donald Trump denied US involvement in Israel's \"Operation Rising Lion,\" while Iran claimed to have proof of American support. There were reports of missiles striking Israel's port city of Haifa and a massive fire at an Iranian oil depot after an Israeli attack.\n*   **Nigeria:** Gunmen killed at least 100 people in north-central Nigeria, according to Amnesty International.\n*   **Air India Plane Crash:** An investigation was underway into the Air India plane crash, with focus on the final moments before the crash. King Charles was set to honor the victims at the Trooping the Colour parade.\n*   **US Politics:** Trump held a military parade amid protests across America. In Minnesota, a manhunt was underway for a suspect in the deadly shooting of Democratic lawmakers.\n*   **Typhoon Wutip:** Typhoon Wutip caused five deaths and two missing in central Vietnam, with farmlands flooded as it reached southern China."
+}
+2025-06-15T09:53:18.667Z 📤 [AI REQUEST] {
+  "type": "Text Generation",
+  "model": "gemini-2.0-flash",
+  "promptLength": 88,
+  "temperature": 0.2,
+  "systemInstruction": "You are an AI assistant that provides up-to-date information using Google Search. Always cite your s...",
+  "prompt": "What are the latest AI developments this week? Provide 3 specific examples with sources."
+}
+2025-06-15T09:53:21.198Z 📥 [AI RESPONSE] {
+  "type": "Text Generation",
+  "textLength": 831,
+  "textPreview": "Here are three recent AI developments:\n\n1.  **OpenAI Releases GPT-4.5 with Enhanced Emotional Intell...",
+  "hasGroundingMetadata": true,
+  "groundingSourcesCount": 9,
+  "fullText": "Here are three recent AI developments:\n\n1.  **OpenAI Releases GPT-4.5 with Enhanced Emotional Intelligence:** OpenAI has launched GPT-4.5, focusing on improved emotional intelligence (EQ). This upgrade enhances empathy and human-like conversational capabilities, enabling more intuitive interactions.\n    ([2])\n2.  **Google Launches Gemma 3:** Google has released Gemma 3, its latest family of open AI models. These models are optimized for developer flexibility and performance across tasks and support applications like chatbots, search, and code generation.\n    ([2])\n3.  **Meta Unveils LLaMA 4 with Voice-Powered AI:** Meta has introduced LLaMA 4, a new voice-powered AI model designed for natural language interactions. The model aims to improve AI assistants, automated customer service, and real-time translation.\n    ([2])\n"
+}
+2025-06-15T09:53:21.222Z 📤 [AI REQUEST] {
+  "type": "Text Generation",
+  "model": "gemini-2.0-flash",
+  "promptLength": 63,
+  "temperature": 0.1,
+  "systemInstruction": "undefined...",
+  "prompt": "What happened in world news yesterday? Give me a brief summary."
+}
+2025-06-15T09:53:23.580Z 📥 [AI RESPONSE] {
+  "type": "Text Generation",
+  "textLength": 1014,
+  "textPreview": "Here's a brief summary of what happened in world news yesterday, June 14, 2025:\n\n*   **Israel-Iran C...",
+  "hasGroundingMetadata": true,
+  "groundingSourcesCount": 4,
+  "fullText": "Here's a brief summary of what happened in world news yesterday, June 14, 2025:\n\n*   **Israel-Iran Conflict:** Tensions remain high as Israel and Iran continue to exchange attacks. Israel has reportedly targeted Iran's Defense Ministry headquarters and struck nuclear facilities. Iran has launched missile barrages on Israel, with some missiles reaching Tel Aviv.\n*   **Air India Plane Crash:** A London-bound Air India flight crashed in Ahmedabad, India, shortly after takeoff, killing over 240 people.\n*   **Nigeria Attack:** Gunmen killed at least 100 people in Nigeria's Benue state.\n*   **US-China Trade:** A U.S.-China trade truce leaves the issue of military-use rare earth unresolved.\n*   **Minnesota Shooting:** Two Minnesota state lawmakers were shot, one fatally.\n*   **US Military Parade:** A massive military parade took place in Washington D.C., coinciding with protests.\n*   **Other Events:** There was a hot air balloon crash in Turkey. Former President of Nicaragua, Violeta Chamorro, died at 95.\n"
+}
+2025-06-15T09:53:23.587Z 📤 [AI REQUEST] {
+  "type": "Text Generation",
+  "model": "gemini-2.0-flash",
+  "promptLength": 55,
+  "temperature": 0.1,
+  "systemInstruction": "Provide accurate, up-to-date information with proper citations....",
+  "prompt": "Tell me about recent developments in quantum computing."
+}
+2025-06-15T09:53:28.596Z 📥 [AI RESPONSE] {
+  "type": "Text Generation",
+  "textLength": 3556,
+  "textPreview": "Here's a summary of recent developments in quantum computing:\n\n**General Trends:**\n\n*   **Increased ...",
+  "hasGroundingMetadata": true,
+  "groundingSourcesCount": 5,
+  "fullText": "Here's a summary of recent developments in quantum computing:\n\n**General Trends:**\n\n*   **Increased Investment:** Quantum technology investment in the first five months of 2025 reached nearly three-quarters of 2024's total, with fewer but larger and more strategic funding rounds.\n*   **Commercialization:** The industry is transitioning from experimental deployments to commercial-scale commitments, with growing sales and climbing stock prices.\n*   **Diversifying Demand:** Governments, corporations, and research institutions are deploying quantum solutions, not just exploring them.\n*   **Government Support:** Continued government funding is encouraging private-sector involvement.\n*   **Integration with AI:** Quantum companies are combining quantum computers with classical supercomputers and AI methods.\n\n**Hardware Advancements:**\n\n*   **Logical Qubits:** Microsoft and Quantinuum entangled 12 logical qubits, reducing the physical error rate significantly.\n*   **Quantum Memory:** Google demonstrated a quantum memory with below-threshold error rates and doubled coherence lifetimes compared to physical qubits.\n*   **Networking:** Companies are connecting multiple processors to create larger systems. Photonic demonstrated distributed entanglement, and QuTech connected two small quantum computers in different cities. IBM is building L-couplers to scale its systems.\n*   **Hypercube Network Technologies:** These enhance the scalability and performance of quantum systems by improving communication between qubits.\n*   **Integrated Photonics:** This is emerging as a promising avenue for scalable quantum computing with trapped ions, potentially leading to more compact and efficient devices.\n*   **New Materials:** Development of innovative materials like germanium and GeSn-based quantum well lasers to improve quantum hardware efficiency and performance.\n*   **Topological Qubits:** Research teams are making progress toward topological qubits, which could lead to fault-tolerant quantum computing.\n*   **Quantum Computing Chip:** Microsoft launched Majorana 1, a quantum computing chip with a Topological Core architecture.\n\n**Quantum Software and Machine Learning:**\n\n*   **Quantum Machine Learning Integration:** Machine learning is being integrated with quantum systems to enhance computational power. Frameworks like TorchQC enable the application of deep learning techniques in quantum dynamics and control.\n*   **Generative Quantum AI:** Quantinuum launched a Generative Quantum AI framework that combines AI, quantum computing, and supercomputers.\n*   **Software Stack Development:** Companies like Classiq are focused on building the software stack for quantum computing.\n\n**Commercial Applications:**\n\n*   **Real-world Use Cases:** Quantum use cases are being developed in aerospace, energy, financial services, and national security.\n*   **Materials Discovery:** Quantum computing is being applied to specific problems in logistics, simulation, and materials discovery.\n*   **Encryption:** Quantum hardware is being used to generate truly random encryption keys.\n*    **Automotive and Aerospace:** Quantum computing is being used to improve the performance of hydrogen fuel cell catalysts and electric batteries mobility.\n\n**Other Key Points:**\n\n*   **Quantum Readiness:** CxOs need to prepare for quantum computing, as boardrooms are increasingly interested in quantum plans.\n*   **National Capability:** Quantum computing is considered a national capability, with countries investing heavily to attract talent and secure data.\n"
+}
+2025-06-15T09:55:41.219Z 📤 [AI REQUEST] {
+  "type": "Text Generation",
+  "model": "gemini-2.0-flash",
+  "promptLength": 267,
+  "temperature": 0.7,
+  "systemInstruction": "You have Google Search grounding enabled. Use it to find current, up-to-date information. Do NOT gen...",
+  "prompt": "Answer this question using current information from Google Search: what happened ysterday in austria\n\n\nIMPORTANT: Use Google Search grounding to find real, current information. Provide actual search results with sources and citations. Do not generate code or scripts."
+}
+2025-06-15T09:55:43.461Z 📥 [AI RESPONSE] {
+  "type": "Text Generation",
+  "textLength": 613,
+  "textPreview": "Yesterday, June 14, 2025, based on the search results, the main news event in Austria was the afterm...",
+  "hasGroundingMetadata": true,
+  "groundingSourcesCount": 1,
+  "fullText": "Yesterday, June 14, 2025, based on the search results, the main news event in Austria was the aftermath of a deadly school shooting in Graz.\n\nHere's a summary of what happened:\n\n*   **Mourning and Reflection:** Austria held a minute of silence to remember the 10 people killed in the school shooting. People were also laying candles in Graz in memory of the victims.\n*   **Details of the Shooting:** News reports indicated that the shooter was an ex-pupil and that police found bomb plans at the suspect's home.\n*   **National Response:** Austria declared three days of national mourning following the shooting.\n\n"
+}
+2025-06-15T09:57:31.965Z 📤 [AI REQUEST] {
+  "type": "Text Generation",
+  "model": "gemini-2.0-flash",
+  "promptLength": 88,
+  "temperature": 0.2,
+  "systemInstruction": "You are an AI assistant that provides up-to-date information using Google Search. Always cite your s...",
+  "prompt": "What are the latest AI developments this week? Provide 3 specific examples with sources."
+}
+2025-06-15T09:57:37.289Z 📥 [AI RESPONSE] {
+  "type": "Text Generation",
+  "textLength": 2211,
+  "textPreview": "Okay, I will provide you with 3 examples of the latest AI developments from this week (June 9th - Ju...",
+  "hasGroundingMetadata": true,
+  "groundingSourcesCount": 3,
+  "fullText": "Okay, I will provide you with 3 examples of the latest AI developments from this week (June 9th - June 15th, 2025), using Google Search to gather the most up-to-date information.\n\nHere are three recent AI developments from this week:\n\n1.  **Apple Intelligence Enhancements:** Apple unveiled new Apple Intelligence features across its devices (iPhone, iPad, Mac, Apple Watch, and Apple Vision Pro). These include improved Live Translation, visual intelligence updates, enhancements to Image Playground and Genmoji, and direct access for Shortcuts to Apple Intelligence. Developers can now access the on-device large language model at the core of Apple Intelligence. These features will be available for testing starting today and to users this fall. (Source: [https://www.apple.com/newsroom/2025/06/apple-intelligence-gets-even-more-powerful-with-new-capabilities-across-apple-devices/](https://www.apple.com/newsroom/2025/06/apple-intelligence-gets-even-more-powerful-with-new-capabilities-across-apple-devices/))\n2.  **Meta's V-JEPA 2 World Model:** Meta introduced V-JEPA 2, a video-trained world model that enhances robots' and AI agents' understanding of the physical world and their ability to predict how it will respond to actions. This model enables robots to interact with unfamiliar objects and environments, performing tasks like reaching, picking up, and placing objects. Meta also released three new benchmarks to evaluate physical reasoning in AI models. (Source: [https://about.fb.com/news/2025/06/our-new-model-helps-ai-think-before-it-acts/](https://about.fb.com/news/2025/06/our-new-model-helps-ai-think-before-it-acts/))\n3.  **Mistral AI's Reasoning Model - Magistral:** Mistral AI launched Magistral, its first reasoning model, designed for domain-specific, transparent, and multilingual reasoning. It comes in two versions: Magistral Small (a 24B parameter open-source version) and Magistral Medium (an enterprise version). Magistral is versatile and suitable for applications requiring longer thought processing and better accuracy, such as legal research, financial forecasting, and software development. (Source: [https://mistral.ai/news/magistral/](https://mistral.ai/news/magistral/))\n"
+}
+2025-06-15T09:58:48.089Z 📤 [AI REQUEST] {
+  "type": "Text Generation",
+  "model": "gemini-2.0-flash",
+  "promptLength": 93,
+  "temperature": 0.1,
+  "systemInstruction": "You are an AI assistant that provides up-to-date information using Google Search. Always cite your s...",
+  "prompt": "What are the latest developments in quantum computing this week? Provide 3 specific examples."
+}
+2025-06-15T09:58:50.907Z 📥 [AI RESPONSE] {
+  "type": "Text Generation",
+  "textLength": 1044,
+  "textPreview": "Here are three of the latest developments in quantum computing this week:\n\n1.  **Quantum Internet Ad...",
+  "hasGroundingMetadata": true,
+  "groundingSourcesCount": 4,
+  "fullText": "Here are three of the latest developments in quantum computing this week:\n\n1.  **Quantum Internet Advancement:** A team of Danish and German scientists has started a major project focused on creating new technology that could be the foundation for a future quantum internet. They are utilizing a rare element called erbium along with silicon chips. ([1])\n2.  **IBM's Quantum Computing Plans:** IBM is working on building the world's first large-scale quantum computer that can operate without errors. This announcement has boosted IBM's stock and is seen as a positive sign for the quantum computing industry. ([2])\n3.  **Quantum Error Correction Breakthrough:** Google has achieved a milestone with its new Willow quantum processor, a ~100-qubit superconducting chip, by demonstrating \"below-threshold\" error correction. By scaling Willow's qubit grid from 9 to 49 encoded qubits, they were able to cut the error rate in half with each step, marking the first time that adding more qubits has made the overall computation more reliable. ([3])\n"
+}
+2025-06-15T10:03:07.291Z 🧪 [TEST-AI REQUEST - COMPLETE] {
+  "body": {
+    "promptTemplate": "What are the latest AI developments this week? Provide 3 specific examples with sources.",
+    "model": "gemini-2.0-flash",
+    "temperature": 0.2,
+    "groundingSettings": {
+      "googleSearch": {
+        "enabled": true,
+        "dynamicThreshold": 0.3
+      }
+    },
+    "systemInstructions": "You are an AI assistant that provides up-to-date information using Google Search. Always cite your sources.",
+    "streamingSettings": {
+      "enabled": false
+    }
+  },
+  "url": "http://localhost:9002/api/test-ai",
+  "method": "POST",
+  "timestamp": "2025-06-15T10:03:07.291Z"
+}
+2025-06-15T10:03:07.353Z 📤 [AI REQUEST] {
+  "type": "Text Generation",
+  "model": "gemini-2.0-flash",
+  "promptLength": 88,
+  "temperature": 0.2,
+  "systemInstruction": "You are an AI assistant that provides up-to-date information using Google Search. Always cite your s...",
+  "prompt": "What are the latest AI developments this week? Provide 3 specific examples with sources."
+}
+2025-06-15T10:03:14.400Z 📥 [AI RESPONSE] {
+  "type": "Text Generation",
+  "textLength": 2864,
+  "textPreview": "Okay, I will provide you with 3 examples of the latest AI developments this week.\n\nHere are three re...",
+  "hasGroundingMetadata": true,
+  "groundingSourcesCount": 10,
+  "fullText": "Okay, I will provide you with 3 examples of the latest AI developments this week.\n\nHere are three recent AI developments:\n\n1.  **AI Agents with Autonomous Capabilities:** AI agents are evolving to perform tasks autonomously, interpreting requests, retrieving information, and providing personalized responses without human intervention. Gartner forecasts that agentic AI will be integrated into 33% of enterprise software applications in 2028, compared to less than 1% in 2024.\n    *   Source: [https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHuBJdRIl1C2PNceK-vWXRwSEj54hDw-rAkp6T4uCSyatRuHtDuN1eOJNymO304zOPl0TdV1ilsN3OrZaWMx-HTl\\_rAe0oBNYnFVYzbOK6S6\\_HSYOpstTnB6qlhwMSLX5AnuOFnqrbLiV6ERRm80oP\\_fepjBeFFEHfJr6Ki0sT4aXrUvplAQJ4phORUzsPiLnPp9DN47KUkZdd5vFtO\\_EpbkDDl55wzaIVztMR3r3Q=](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHuBJdRIl1C2PNceK-vWXRwSEj54hDw-rAkp6T4uCSyatRuHtDuN1eOJNymO304zOPl0TdV1ilsN3OrZaWMx-HTl_rAe0oBNYnFVYzbOK6S6_HSYOpstTnB6qlhwMSLX5AnuOFnqrbLiV6ERRm80oP_fepjBeFFEHfJr6Ki0sT4aXrUvplAQJ4phORUzsPiLnPp9DN47KUkZdd5vFtO_EpbkDDl55wzaIVztMR3r3Q=)\n2.  **Advanced Natural Language Processing (NLP):** NLP technologies have reached new heights, enabling AI systems to comprehend and generate human language with unprecedented accuracy and nuance. Conversational AI agents can engage in complex dialogues, understand context, and exhibit emotional intelligence, revolutionizing customer service, education, and entertainment.\n    *   Source: [https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFWVTNqC1\\_bXRsUKnbRlFrq6hYTSgcP3ILvDR4vhed7sHfD\\_NeW8YNmfJXhJjQfBsaoiHOmgn7Db4np1ammeOCZa3TpXPPVSMgW3vb-D9uusQ5bTWvuaRRrDMOAlF5oRGDSsLIYVve\\_NdMre-VSbY6\\_dG5ZbzNoMVjvGQ==](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFWVTNqC1_bXRsUKnbRlFrq6hYTSgcP3ILvDR4vhed7sHfD_NeW8YNmfJXhJjQfBsaoiHOmgn7Db4np1ammeOCZa3TpXPPVSMgW3vb-D9uusQ5bTWvuaRRrDMOAlF5oRGDSsLIYVve_NdMre-VSbY6_dG5ZbzNoMVjvGQ==)\n3.  **AI in Healthcare for Personalized Medicine and Predictive Analytics:** The healthcare sector has witnessed significant AI-driven transformations, particularly in personalized medicine and predictive analytics. AI algorithms analyze extensive datasets, including genetic information and patient histories, to tailor treatment plans and assist in early disease detection and prognosis.\n    *   Source: [https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFWVTNqC1\\_bXRsUKnbRlFrq6hYTSgcP3ILvDR4vhed7sHfD\\_NeW8YNmfJXhJjQfBsaoiHOmgn7Db4np1ammeOCZa3TpXPPVSMgW3vb-D9uusQ5bTWvuaRRrDMOAlF5oRGDSsLIYVve\\_NdMre-VSbY6\\_dG5ZbzNoMVjvGQ==](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFWVTNqC1_bXRsUKnbRlFrq6hYTSgcP3ILvDR4vhed7sHfD_NeW8YNmfJXhJjQfBsaoiHOmgn7Db4np1ammeOCZa3TpXPPVSMgW3vb-D9uusQ5bTWvuaRRrDMOAlF5oRGDSsLIYVve_NdMre-VSbY6_dG5ZbzNoMVjvGQ==)\n"
+}
+2025-06-15T10:03:14.401Z 🧪 [TEST-AI RAW RESULT FROM runAiStage] {
+  "hasContent": true,
+  "contentType": "string",
+  "contentLength": 2864,
+  "contentPreview": "Okay, I will provide you with 3 examples of the latest AI developments this week.\n\nHere are three recent AI developments:\n\n1.  **AI Agents with Autonomous Capabilities:** AI agents are evolving to perform tasks autonomously, interpreting requests, retrieving information, and providing personalized r...",
+  "hasError": false,
+  "hasGroundingInfo": false,
+  "hasGroundingMetadata": false,
+  "groundingMetadataKeys": [],
+  "hasGroundingSources": false,
+  "groundingSourcesCount": 0,
+  "hasThinkingSteps": false,
+  "thinkingStepsCount": 0,
+  "hasUsage": false,
+  "hasUpdatedChatHistory": false,
+  "hasOutputImages": false,
+  "allResultKeys": [
+    "content",
+    "usage",
+    "groundingMetadata",
+    "groundingSources"
+  ]
+}
+2025-06-15T10:03:14.401Z 🧪 [TEST-AI FINAL RESPONSE TO CLIENT] {
+  "response": {
+    "success": true,
+    "hasContent": true,
+    "contentLength": 2864,
+    "contentPreview": "Okay, I will provide you with 3 examples of the latest AI developments this week.\n\nHere are three recent AI developments:\n\n1.  **AI Agents with Autonomous Capabilities:** AI agents are evolving to perform tasks autonomously, interpreting requests, retrieving information, and providing personalized r...",
+    "hasGroundingMetadata": false,
+    "groundingMetadataKeys": [],
+    "hasGroundingSources": false,
+    "groundingSourcesCount": 0,
+    "hasThinkingSteps": false,
+    "hasError": false,
+    "allResponseKeys": [
+      "success",
+      "content",
+      "groundingMetadata",
+      "groundingSources",
+      "thinkingSteps",
+      "error"
+    ]
+  }
+}

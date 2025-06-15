@@ -6929,3 +6929,1813 @@ Watchpack Error (initial scan): Error: ENOTDIR: not a directory, scandir '/usr/l
   'error'
 ]
  POST /api/test-ai 200 in 3131ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 758ms (2666 modules)
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T09:52:13.772Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /_next/static/webpack/f6d597cd3b8505aa.webpack.hot-update.json 404 in 782ms
+ GET /w/gemini-test/BHAtTG1NpuXc1Q6PDDep 200 in 5ms
+ ⨯ [Error: Cannot find module './vendor-chunks/next.js'
+Require stack:
+- /Users/franzenzenhofer/dev/franzai-writer/.next/server/webpack-runtime.js
+- /Users/franzenzenhofer/dev/franzai-writer/.next/server/app/w/[shortName]/[documentId]/page.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/require.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/load-components.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/build/utils.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/static-paths-worker.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/jest-worker/processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/w/gemini-test/BHAtTG1NpuXc1Q6PDDep'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/next.js'
+Require stack:
+- /Users/franzenzenhofer/dev/franzai-writer/.next/server/webpack-runtime.js
+- /Users/franzenzenhofer/dev/franzai-writer/.next/server/app/w/[shortName]/[documentId]/page.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/require.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/load-components.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/build/utils.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/dev/static-paths-worker.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/compiled/jest-worker/processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/w/gemini-test/BHAtTG1NpuXc1Q6PDDep'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/server/pages/_document.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/server/pages/_document.js'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/server/pages/_document.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/server/pages/_document.js'
+}
+ GET /w/gemini-test/BHAtTG1NpuXc1Q6PDDep 500 in 228ms
+ GET /_next/static/chunks/fallback/webpack.js 404 in 162ms
+ GET /_next/static/chunks/fallback/react-refresh.js 404 in 117ms
+ GET /_next/static/chunks/fallback/main.js 404 in 118ms
+ GET /_next/static/chunks/fallback/pages/_app.js 404 in 114ms
+ GET /_next/static/chunks/fallback/pages/_error.js 404 in 114ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/favicon.ico/route.js'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/franzenzenhofer/dev/franzai-writer/.next/server/app/favicon.ico/route.js',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 24ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T09:52:30.044Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T09:52:30.113Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[WizardPage] Loading existing document: BHAtTG1NpuXc1Q6PDDep
+[DocumentPersistence] Loading document { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'grounding-url-context',
+    'test-title',
+    'final-summary',
+    'document-understanding-test',
+    'combined-features-test',
+    'chat-mode-test',
+    'function-calling-unit-converter',
+    'streaming-test',
+    'function-calling-weather',
+    'code-execution-python',
+    'grounding-google-search',
+    'image-understanding-test',
+    'thinking-mode-test',
+    'function-calling-calculator'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  stageCount: 14,
+  validatedStageIds: [
+    'grounding-url-context',
+    'test-title',
+    'final-summary',
+    'document-understanding-test',
+    'combined-features-test',
+    'chat-mode-test',
+    'function-calling-unit-converter',
+    'streaming-test',
+    'function-calling-weather',
+    'code-execution-python',
+    'grounding-google-search',
+    'image-understanding-test',
+    'thinking-mode-test',
+    'function-calling-calculator'
+  ]
+}
+ GET /w/gemini-test/BHAtTG1NpuXc1Q6PDDep 200 in 1569ms
+ GET /_next/static/css/app/layout.css?v=1749981150047 404 in 31ms
+ GET /_next/static/chunks/app/error.js 404 in 108ms
+ GET /_next/static/chunks/main-app.js?v=1749981150047 404 in 109ms
+ GET /_next/static/chunks/app/page.js 404 in 108ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 109ms
+ GET /_next/static/chunks/app/w/%5BshortName%5D/%5BdocumentId%5D/error.js 404 in 108ms
+ GET /_next/static/chunks/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.js 404 in 59ms
+ GET /_next/static/chunks/app/w/%5BshortName%5D/%5BdocumentId%5D/page.js 404 in 59ms
+ GET /_next/static/chunks/app/global-error.js 404 in 60ms
+ ⨯ Error: Cannot find module './447.js'
+Require stack:
+- /Users/franzenzenhofer/dev/franzai-writer/.next/server/webpack-runtime.js
+- /Users/franzenzenhofer/dev/franzai-writer/.next/server/app/_not-found/page.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/require.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/load-components.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/build/utils.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/build/swc/options.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/build/swc/index.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/config.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/next.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/start-server.js
+    at __webpack_require__.f.require (.next/server/webpack-runtime.js:208:28)
+    at <unknown> (.next/server/webpack-runtime.js:116:40)
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (.next/server/webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (.next/server/webpack-runtime.js:167:22)
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:21661)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:21707) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 20ms
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[WizardPage] Loading existing document: BHAtTG1NpuXc1Q6PDDep
+[DocumentPersistence] Loading document { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'grounding-url-context',
+    'test-title',
+    'final-summary',
+    'document-understanding-test',
+    'combined-features-test',
+    'chat-mode-test',
+    'function-calling-unit-converter',
+    'streaming-test',
+    'function-calling-weather',
+    'code-execution-python',
+    'grounding-google-search',
+    'image-understanding-test',
+    'thinking-mode-test',
+    'function-calling-calculator'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  stageCount: 14,
+  validatedStageIds: [
+    'grounding-url-context',
+    'test-title',
+    'final-summary',
+    'document-understanding-test',
+    'combined-features-test',
+    'chat-mode-test',
+    'function-calling-unit-converter',
+    'streaming-test',
+    'function-calling-weather',
+    'code-execution-python',
+    'grounding-google-search',
+    'image-understanding-test',
+    'thinking-mode-test',
+    'function-calling-calculator'
+  ]
+}
+ GET /w/gemini-test/BHAtTG1NpuXc1Q6PDDep 200 in 172ms
+ GET /_next/static/css/app/layout.css?v=1749981153481 404 in 31ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T09:52:33.737Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+ GET /_next/static/chunks/main-app.js?v=1749981153481 404 in 99ms
+ GET /_next/static/chunks/app/error.js 404 in 99ms
+ GET /_next/static/chunks/app/page.js 404 in 99ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 100ms
+ GET /_next/static/chunks/app/w/%5BshortName%5D/%5BdocumentId%5D/error.js 404 in 99ms
+ GET /_next/static/chunks/app/global-error.js 404 in 56ms
+ GET /_next/static/chunks/app/w/%5BshortName%5D/%5BdocumentId%5D/page.js 404 in 56ms
+ GET /_next/static/chunks/_app-pages-browser_src_app_w_shortName_documentId_wizard-page-content_tsx.js 404 in 56ms
+ ⨯ Error: Cannot find module './447.js'
+Require stack:
+- /Users/franzenzenhofer/dev/franzai-writer/.next/server/webpack-runtime.js
+- /Users/franzenzenhofer/dev/franzai-writer/.next/server/app/_not-found/page.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/require.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/load-components.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/build/utils.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/build/swc/options.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/build/swc/index.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/config.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/next.js
+- /Users/franzenzenhofer/dev/franzai-writer/node_modules/next/dist/server/lib/start-server.js
+    at __webpack_require__.f.require (.next/server/webpack-runtime.js:208:28)
+    at <unknown> (.next/server/webpack-runtime.js:116:40)
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (.next/server/webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (.next/server/webpack-runtime.js:167:22)
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:21661)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:21707) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 19ms
+Debugger listening on ws://127.0.0.1:9229/202c4611-4c9b-45d1-b7be-f1de345e2014
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 1680166,
+    "turboFlag": false,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/a864516f-3cba-4bff-83da-a27ff137b9ad
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": false,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 2.1s
+ ○ Compiling /_not-found ...
+Watchpack Error (initial scan): Error: ENOTDIR: not a directory, scandir '/usr/local/bin/node'
+ ✓ Compiled /api/test-ai in 5.5s (2329 modules)
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T09:52:45.616Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[TEST-AI] Starting POST test...
+[TEST-AI] Request body: {
+  "promptTemplate": "What happened in world news yesterday?",
+  "forceGoogleSearchGrounding": true
+}
+[runAiStage] Starting with new SDK
+📤 [AI REQUEST] Text Generation: {
+  model: 'gemini-2.0-flash',
+  promptLength: 38,
+  temperature: 0.7,
+  systemInstruction: 'undefined...'
+}
+ GET /_next/static/webpack/3386742c52ab30c1.webpack.hot-update.json 404 in 5999ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T09:52:46.184Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T09:52:46.292Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[WizardPage] Loading existing document: BHAtTG1NpuXc1Q6PDDep
+[DocumentPersistence] Loading document { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: '4uhVu0tEOLwcmnAA2wdv' }
+[WizardPage] Loading existing document: 4uhVu0tEOLwcmnAA2wdv
+[DocumentPersistence] Loading document { documentId: '4uhVu0tEOLwcmnAA2wdv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: '4uhVu0tEOLwcmnAA2wdv' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'code-execution-python',
+    'image-understanding-test',
+    'function-calling-weather',
+    'streaming-test',
+    'chat-mode-test',
+    'function-calling-unit-converter',
+    'grounding-google-search',
+    'grounding-url-context',
+    'final-summary',
+    'document-understanding-test',
+    'function-calling-calculator',
+    'thinking-mode-test',
+    'combined-features-test',
+    'test-title'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  stageCount: 14,
+  validatedStageIds: [
+    'code-execution-python',
+    'image-understanding-test',
+    'function-calling-weather',
+    'streaming-test',
+    'chat-mode-test',
+    'function-calling-unit-converter',
+    'grounding-google-search',
+    'grounding-url-context',
+    'final-summary',
+    'document-understanding-test',
+    'function-calling-calculator',
+    'thinking-mode-test',
+    'combined-features-test',
+    'test-title'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: '4uhVu0tEOLwcmnAA2wdv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: '4uhVu0tEOLwcmnAA2wdv',
+  title: 'test',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'code-execution-python',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'grounding-url-context',
+    'combined-features-test',
+    'thinking-mode-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'streaming-test',
+    'function-calling-unit-converter',
+    'grounding-google-search',
+    'test-title',
+    'final-summary'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: '4uhVu0tEOLwcmnAA2wdv',
+  title: 'test',
+  stageCount: 14,
+  validatedStageIds: [
+    'code-execution-python',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'grounding-url-context',
+    'combined-features-test',
+    'thinking-mode-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'streaming-test',
+    'function-calling-unit-converter',
+    'grounding-google-search',
+    'test-title',
+    'final-summary'
+  ]
+}
+ GET /w/gemini-test/BHAtTG1NpuXc1Q6PDDep 200 in 6930ms
+ GET /w/gemini-test/4uhVu0tEOLwcmnAA2wdv 200 in 1308ms
+ ○ Compiling /favicon.ico ...
+✅ [TextGeneration] Grounding metadata found
+📥 [AI RESPONSE] Text Generation: {
+  textLength: 1124,
+  textPreview: "Here's a summary of what happened in world news yesterday, June 14, 2025, based on the search result...",
+  usageMetadata: undefined,
+  finishReason: undefined,
+  hasGroundingMetadata: true,
+  groundingSourcesCount: 3
+}
+[TEST-AI] Result: {
+  content: "Here's a summary of what happened in world news yesterday, June 14, 2025, based on the search results:\n" +
+    '\n' +
+    `*   **Israel-Iran Conflict:** Tensions remained high, with continued strikes and retaliatory actions. Donald Trump denied US involvement in Israel's "Operation Rising Lion," while Iran claimed to have proof of American support. There were reports of missiles striking Israel's port city of Haifa and a massive fire at an Iranian oil depot after an Israeli attack.\n` +
+    '*   **Nigeria:** Gunmen killed at least 100 people in north-central Nigeria, according to Amnesty International.\n' +
+    '*   **Air India Plane Crash:** An investigation was underway into the Air India plane crash, with focus on the final moments before the crash. King Charles was set to honor the victims at the Trooping the Colour parade.\n' +
+    '*   **US Politics:** Trump held a military parade amid protests across America. In Minnesota, a manhunt was underway for a suspect in the deadly shooting of Democratic lawmakers.\n' +
+    '*   **Typhoon Wutip:** Typhoon Wutip caused five deaths and two missing in central Vietnam, with farmlands flooded as it reached southern China.',
+  usage: undefined,
+  groundingMetadata: undefined,
+  groundingSources: undefined
+}
+[TEST-AI] Response keys: [
+  'success',
+  'content',
+  'groundingMetadata',
+  'groundingSources',
+  'thinkingSteps',
+  'error'
+]
+ POST /api/test-ai 200 in 5203ms
+ ✓ Compiled /favicon.ico in 1264ms (1473 modules)
+ GET /favicon.ico 200 in 1300ms
+ GET /favicon.ico 200 in 5ms
+ ✓ Compiled /api/documents/save in 200ms (2319 modules)
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T09:52:50.482Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  stageStatesCount: 14,
+  hasUserId: true,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  effectiveUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  wasGenerated: false
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  originalCount: 14,
+  cleanedKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  cleanedCount: 14
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: '4uhVu0tEOLwcmnAA2wdv',
+  title: 'test\n',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  stageStatesCount: 14,
+  hasUserId: true,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  effectiveUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  wasGenerated: false
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  originalCount: 14,
+  cleanedKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  cleanedCount: 14
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: '4uhVu0tEOLwcmnAA2wdv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: '4uhVu0tEOLwcmnAA2wdv' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[DocumentPersistence] Document updated successfully { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+ POST /api/documents/save 200 in 824ms
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: '4uhVu0tEOLwcmnAA2wdv' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: '4uhVu0tEOLwcmnAA2wdv' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: '4uhVu0tEOLwcmnAA2wdv' }
+[DocumentPersistence] Document updated successfully { documentId: '4uhVu0tEOLwcmnAA2wdv' }
+ POST /api/documents/save 200 in 241ms
+[TEST-AI] Starting POST test...
+[TEST-AI] Request body: {
+  "promptTemplate": "What are the latest AI developments this week? Provide 3 specific examples with sources.",
+  "model": "gemini-2.0-flash",
+  "temperature": 0.2,
+  "groundingSettings": {
+    "googleSearch": {
+      "enabled": true,
+      "dynamicThreshold": 0.3
+    }
+  },
+  "systemInstructions": "You are an AI assistant that provides up-to-date information using Google Search. Always cite your sources.",
+  "streamingSettings": {
+    "enabled": false
+  }
+}
+[runAiStage] Starting with new SDK
+📤 [AI REQUEST] Text Generation: {
+  model: 'gemini-2.0-flash',
+  promptLength: 88,
+  temperature: 0.2,
+  systemInstruction: 'You are an AI assistant that provides up-to-date information using Google Search. Always cite your s...'
+}
+✅ [TextGeneration] Grounding metadata found
+📥 [AI RESPONSE] Text Generation: {
+  textLength: 831,
+  textPreview: 'Here are three recent AI developments:\n' +
+    '\n' +
+    '1.  **OpenAI Releases GPT-4.5 with Enhanced Emotional Intell...',
+  usageMetadata: undefined,
+  finishReason: undefined,
+  hasGroundingMetadata: true,
+  groundingSourcesCount: 9
+}
+[TEST-AI] Result: {
+  content: 'Here are three recent AI developments:\n' +
+    '\n' +
+    '1.  **OpenAI Releases GPT-4.5 with Enhanced Emotional Intelligence:** OpenAI has launched GPT-4.5, focusing on improved emotional intelligence (EQ). This upgrade enhances empathy and human-like conversational capabilities, enabling more intuitive interactions.\n' +
+    '    ([2])\n' +
+    '2.  **Google Launches Gemma 3:** Google has released Gemma 3, its latest family of open AI models. These models are optimized for developer flexibility and performance across tasks and support applications like chatbots, search, and code generation.\n' +
+    '    ([2])\n' +
+    '3.  **Meta Unveils LLaMA 4 with Voice-Powered AI:** Meta has introduced LLaMA 4, a new voice-powered AI model designed for natural language interactions. The model aims to improve AI assistants, automated customer service, and real-time translation.\n' +
+    '    ([2])\n',
+  usage: undefined,
+  groundingMetadata: undefined,
+  groundingSources: undefined
+}
+[TEST-AI] Response keys: [
+  'success',
+  'content',
+  'groundingMetadata',
+  'groundingSources',
+  'thinkingSteps',
+  'error'
+]
+ POST /api/test-ai 200 in 2605ms
+[TEST-AI] Starting POST test...
+[TEST-AI] Request body: {
+  "promptTemplate": "What happened in world news yesterday? Give me a brief summary.",
+  "model": "gemini-2.0-flash",
+  "temperature": 0.1,
+  "groundingSettings": {
+    "googleSearch": {
+      "enabled": true,
+      "dynamicThreshold": 0.4
+    }
+  },
+  "streamingSettings": {
+    "enabled": true
+  }
+}
+[runAiStage] Starting with new SDK
+📤 [AI REQUEST] Text Generation: {
+  model: 'gemini-2.0-flash',
+  promptLength: 63,
+  temperature: 0.1,
+  systemInstruction: 'undefined...'
+}
+✅ [TextGeneration] Grounding metadata found
+📥 [AI RESPONSE] Text Generation: {
+  textLength: 1014,
+  textPreview: "Here's a brief summary of what happened in world news yesterday, June 14, 2025:\n" +
+    '\n' +
+    '*   **Israel-Iran C...',
+  usageMetadata: undefined,
+  finishReason: undefined,
+  hasGroundingMetadata: true,
+  groundingSourcesCount: 4
+}
+[TEST-AI] Result: {
+  content: "Here's a brief summary of what happened in world news yesterday, June 14, 2025:\n" +
+    '\n' +
+    "*   **Israel-Iran Conflict:** Tensions remain high as Israel and Iran continue to exchange attacks. Israel has reportedly targeted Iran's Defense Ministry headquarters and struck nuclear facilities. Iran has launched missile barrages on Israel, with some missiles reaching Tel Aviv.\n" +
+    '*   **Air India Plane Crash:** A London-bound Air India flight crashed in Ahmedabad, India, shortly after takeoff, killing over 240 people.\n' +
+    "*   **Nigeria Attack:** Gunmen killed at least 100 people in Nigeria's Benue state.\n" +
+    '*   **US-China Trade:** A U.S.-China trade truce leaves the issue of military-use rare earth unresolved.\n' +
+    '*   **Minnesota Shooting:** Two Minnesota state lawmakers were shot, one fatally.\n' +
+    '*   **US Military Parade:** A massive military parade took place in Washington D.C., coinciding with protests.\n' +
+    '*   **Other Events:** There was a hot air balloon crash in Turkey. Former President of Nicaragua, Violeta Chamorro, died at 95.\n',
+  usage: undefined,
+  groundingMetadata: undefined,
+  groundingSources: undefined
+}
+[TEST-AI] Response keys: [
+  'success',
+  'content',
+  'groundingMetadata',
+  'groundingSources',
+  'thinkingSteps',
+  'error'
+]
+ POST /api/test-ai 200 in 2367ms
+[TEST-AI] Starting POST test...
+[TEST-AI] Request body: {
+  "promptTemplate": "Tell me about recent developments in quantum computing.",
+  "model": "gemini-2.0-flash",
+  "temperature": 0.1,
+  "forceGoogleSearchGrounding": true,
+  "systemInstructions": "Provide accurate, up-to-date information with proper citations."
+}
+[runAiStage] Starting with new SDK
+📤 [AI REQUEST] Text Generation: {
+  model: 'gemini-2.0-flash',
+  promptLength: 55,
+  temperature: 0.1,
+  systemInstruction: 'Provide accurate, up-to-date information with proper citations....'
+}
+✅ [TextGeneration] Grounding metadata found
+📥 [AI RESPONSE] Text Generation: {
+  textLength: 3556,
+  textPreview: "Here's a summary of recent developments in quantum computing:\n" +
+    '\n' +
+    '**General Trends:**\n' +
+    '\n' +
+    '*   **Increased ...',
+  usageMetadata: undefined,
+  finishReason: undefined,
+  hasGroundingMetadata: true,
+  groundingSourcesCount: 5
+}
+[TEST-AI] Result: {
+  content: "Here's a summary of recent developments in quantum computing:\n" +
+    '\n' +
+    '**General Trends:**\n' +
+    '\n' +
+    "*   **Increased Investment:** Quantum technology investment in the first five months of 2025 reached nearly three-quarters of 2024's total, with fewer but larger and more strategic funding rounds.\n" +
+    '*   **Commercialization:** The industry is transitioning from experimental deployments to commercial-scale commitments, with growing sales and climbing stock prices.\n' +
+    '*   **Diversifying Demand:** Governments, corporations, and research institutions are deploying quantum solutions, not just exploring them.\n' +
+    '*   **Government Support:** Continued government funding is encouraging private-sector involvement.\n' +
+    '*   **Integration with AI:** Quantum companies are combining quantum computers with classical supercomputers and AI methods.\n' +
+    '\n' +
+    '**Hardware Advancements:**\n' +
+    '\n' +
+    '*   **Logical Qubits:** Microsoft and Quantinuum entangled 12 logical qubits, reducing the physical error rate significantly.\n' +
+    '*   **Quantum Memory:** Google demonstrated a quantum memory with below-threshold error rates and doubled coherence lifetimes compared to physical qubits.\n' +
+    '*   **Networking:** Companies are connecting multiple processors to create larger systems. Photonic demonstrated distributed entanglement, and QuTech connected two small quantum computers in different cities. IBM is building L-couplers to scale its systems.\n' +
+    '*   **Hypercube Network Technologies:** These enhance the scalability and performance of quantum systems by improving communication between qubits.\n' +
+    '*   **Integrated Photonics:** This is emerging as a promising avenue for scalable quantum computing with trapped ions, potentially leading to more compact and efficient devices.\n' +
+    '*   **New Materials:** Development of innovative materials like germanium and GeSn-based quantum well lasers to improve quantum hardware efficiency and performance.\n' +
+    '*   **Topological Qubits:** Research teams are making progress toward topological qubits, which could lead to fault-tolerant quantum computing.\n' +
+    '*   **Quantum Computing Chip:** Microsoft launched Majorana 1, a quantum computing chip with a Topological Core architecture.\n' +
+    '\n' +
+    '**Quantum Software and Machine Learning:**\n' +
+    '\n' +
+    '*   **Quantum Machine Learning Integration:** Machine learning is being integrated with quantum systems to enhance computational power. Frameworks like TorchQC enable the application of deep learning techniques in quantum dynamics and control.\n' +
+    '*   **Generative Quantum AI:** Quantinuum launched a Generative Quantum AI framework that combines AI, quantum computing, and supercomputers.\n' +
+    '*   **Software Stack Development:** Companies like Classiq are focused on building the software stack for quantum computing.\n' +
+    '\n' +
+    '**Commercial Applications:**\n' +
+    '\n' +
+    '*   **Real-world Use Cases:** Quantum use cases are being developed in aerospace, energy, financial services, and national security.\n' +
+    '*   **Materials Discovery:** Quantum computing is being applied to specific problems in logistics, simulation, and materials discovery.\n' +
+    '*   **Encryption:** Quantum hardware is being used to generate truly random encryption keys.\n' +
+    '*    **Automotive and Aerospace:** Quantum computing is being used to improve the performance of hydrogen fuel cell catalysts and electric batteries mobility.\n' +
+    '\n' +
+    '**Other Key Points:**\n' +
+    '\n' +
+    '*   **Quantum Readiness:** CxOs need to prepare for quantum computing, as boardrooms are increasingly interested in quantum plans.\n' +
+    '*   **National Capability:** Quantum computing is considered a national capability, with countries investing heavily to attract talent and secure data.\n',
+  usage: undefined,
+  groundingMetadata: undefined,
+  groundingSources: undefined
+}
+[TEST-AI] Response keys: [
+  'success',
+  'content',
+  'groundingMetadata',
+  'groundingSources',
+  'thinkingSteps',
+  'error'
+]
+ POST /api/test-ai 200 in 5014ms
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[WizardPage] Loading existing document: BHAtTG1NpuXc1Q6PDDep
+[DocumentPersistence] Loading document { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T09:55:37.762Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  stageCount: 14,
+  validatedStageIds: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ]
+}
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T09:55:38.027Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+ GET /w/gemini-test/BHAtTG1NpuXc1Q6PDDep 200 in 495ms
+ GET /favicon.ico 200 in 10ms
+ ✓ Compiled /api/wizard/execute in 398ms (2313 modules)
+[runAiStage] Starting with new SDK
+📤 [AI REQUEST] Text Generation: {
+  model: 'gemini-2.0-flash',
+  promptLength: 267,
+  temperature: 0.7,
+  systemInstruction: 'You have Google Search grounding enabled. Use it to find current, up-to-date information. Do NOT gen...'
+}
+ ✓ Compiled /api/documents/save in 138ms (1474 modules)
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T09:55:43.022Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  stageStatesCount: 14,
+  hasUserId: true,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  effectiveUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  wasGenerated: false
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  originalCount: 14,
+  cleanedKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  cleanedCount: 14
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+✅ [TextGeneration] Grounding metadata found
+📥 [AI RESPONSE] Text Generation: {
+  textLength: 613,
+  textPreview: 'Yesterday, June 14, 2025, based on the search results, the main news event in Austria was the afterm...',
+  usageMetadata: undefined,
+  finishReason: undefined,
+  hasGroundingMetadata: true,
+  groundingSourcesCount: 1
+}
+ POST /api/wizard/execute 200 in 2762ms
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[DocumentPersistence] Document updated successfully { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+ POST /api/documents/save 200 in 745ms
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  stageStatesCount: 14,
+  hasUserId: true,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  effectiveUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  wasGenerated: false
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  originalCount: 14,
+  cleanedKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  cleanedCount: 14
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[DocumentPersistence] Document updated successfully { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+ POST /api/documents/save 200 in 187ms
+ ✓ Compiled in 138ms (855 modules)
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[WizardPage] Loading existing document: BHAtTG1NpuXc1Q6PDDep
+[DocumentPersistence] Loading document { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: '4uhVu0tEOLwcmnAA2wdv' }
+[WizardPage] Loading existing document: 4uhVu0tEOLwcmnAA2wdv
+[DocumentPersistence] Loading document { documentId: '4uhVu0tEOLwcmnAA2wdv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: '4uhVu0tEOLwcmnAA2wdv' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  stageCount: 14,
+  validatedStageIds: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: '4uhVu0tEOLwcmnAA2wdv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: '4uhVu0tEOLwcmnAA2wdv',
+  title: 'test',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'document-understanding-test',
+    'code-execution-python',
+    'test-title',
+    'grounding-google-search',
+    'function-calling-weather',
+    'grounding-url-context',
+    'combined-features-test',
+    'final-summary',
+    'function-calling-calculator',
+    'chat-mode-test',
+    'streaming-test',
+    'image-understanding-test',
+    'function-calling-unit-converter',
+    'thinking-mode-test'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: '4uhVu0tEOLwcmnAA2wdv',
+  title: 'test',
+  stageCount: 14,
+  validatedStageIds: [
+    'document-understanding-test',
+    'code-execution-python',
+    'test-title',
+    'grounding-google-search',
+    'function-calling-weather',
+    'grounding-url-context',
+    'combined-features-test',
+    'final-summary',
+    'function-calling-calculator',
+    'chat-mode-test',
+    'streaming-test',
+    'image-understanding-test',
+    'function-calling-unit-converter',
+    'thinking-mode-test'
+  ]
+}
+ GET /w/gemini-test/BHAtTG1NpuXc1Q6PDDep 200 in 207ms
+ GET /w/gemini-test/4uhVu0tEOLwcmnAA2wdv 200 in 213ms
+ GET /favicon.ico 200 in 16ms
+ GET /favicon.ico 200 in 13ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T09:56:28.716Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+ ✓ Compiled in 137ms (855 modules)
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[WizardPage] Loading existing document: BHAtTG1NpuXc1Q6PDDep
+[DocumentPersistence] Loading document { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: '4uhVu0tEOLwcmnAA2wdv' }
+[WizardPage] Loading existing document: 4uhVu0tEOLwcmnAA2wdv
+[DocumentPersistence] Loading document { documentId: '4uhVu0tEOLwcmnAA2wdv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: '4uhVu0tEOLwcmnAA2wdv' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'function-calling-unit-converter',
+    'chat-mode-test',
+    'combined-features-test',
+    'grounding-url-context',
+    'streaming-test',
+    'function-calling-weather',
+    'thinking-mode-test',
+    'document-understanding-test',
+    'grounding-google-search',
+    'test-title',
+    'code-execution-python',
+    'final-summary',
+    'image-understanding-test',
+    'function-calling-calculator'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  stageCount: 14,
+  validatedStageIds: [
+    'function-calling-unit-converter',
+    'chat-mode-test',
+    'combined-features-test',
+    'grounding-url-context',
+    'streaming-test',
+    'function-calling-weather',
+    'thinking-mode-test',
+    'document-understanding-test',
+    'grounding-google-search',
+    'test-title',
+    'code-execution-python',
+    'final-summary',
+    'image-understanding-test',
+    'function-calling-calculator'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: '4uhVu0tEOLwcmnAA2wdv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: '4uhVu0tEOLwcmnAA2wdv',
+  title: 'test',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'document-understanding-test',
+    'code-execution-python',
+    'test-title',
+    'grounding-google-search',
+    'function-calling-weather',
+    'grounding-url-context',
+    'combined-features-test',
+    'final-summary',
+    'function-calling-calculator',
+    'chat-mode-test',
+    'streaming-test',
+    'image-understanding-test',
+    'function-calling-unit-converter',
+    'thinking-mode-test'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: '4uhVu0tEOLwcmnAA2wdv',
+  title: 'test',
+  stageCount: 14,
+  validatedStageIds: [
+    'document-understanding-test',
+    'code-execution-python',
+    'test-title',
+    'grounding-google-search',
+    'function-calling-weather',
+    'grounding-url-context',
+    'combined-features-test',
+    'final-summary',
+    'function-calling-calculator',
+    'chat-mode-test',
+    'streaming-test',
+    'image-understanding-test',
+    'function-calling-unit-converter',
+    'thinking-mode-test'
+  ]
+}
+ GET /w/gemini-test/BHAtTG1NpuXc1Q6PDDep 200 in 125ms
+ GET /w/gemini-test/4uhVu0tEOLwcmnAA2wdv 200 in 126ms
+ GET /favicon.ico 200 in 19ms
+ GET /favicon.ico 200 in 4ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T09:56:40.302Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+ ✓ Compiled in 130ms (855 modules)
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[WizardPage] Loading existing document: BHAtTG1NpuXc1Q6PDDep
+[DocumentPersistence] Loading document { documentId: 'BHAtTG1NpuXc1Q6PDDep' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: '4uhVu0tEOLwcmnAA2wdv' }
+[WizardPage] Loading existing document: 4uhVu0tEOLwcmnAA2wdv
+[DocumentPersistence] Loading document { documentId: '4uhVu0tEOLwcmnAA2wdv' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: '4uhVu0tEOLwcmnAA2wdv' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'BHAtTG1NpuXc1Q6PDDep' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'function-calling-unit-converter',
+    'chat-mode-test',
+    'combined-features-test',
+    'grounding-url-context',
+    'streaming-test',
+    'function-calling-weather',
+    'thinking-mode-test',
+    'document-understanding-test',
+    'grounding-google-search',
+    'test-title',
+    'code-execution-python',
+    'final-summary',
+    'image-understanding-test',
+    'function-calling-calculator'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'BHAtTG1NpuXc1Q6PDDep',
+  title: 'test',
+  stageCount: 14,
+  validatedStageIds: [
+    'function-calling-unit-converter',
+    'chat-mode-test',
+    'combined-features-test',
+    'grounding-url-context',
+    'streaming-test',
+    'function-calling-weather',
+    'thinking-mode-test',
+    'document-understanding-test',
+    'grounding-google-search',
+    'test-title',
+    'code-execution-python',
+    'final-summary',
+    'image-understanding-test',
+    'function-calling-calculator'
+  ]
+}
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: '4uhVu0tEOLwcmnAA2wdv' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: '4uhVu0tEOLwcmnAA2wdv',
+  title: 'test',
+  stageStatesCount: 14,
+  stageStatesKeys: [
+    'document-understanding-test',
+    'code-execution-python',
+    'test-title',
+    'grounding-google-search',
+    'function-calling-weather',
+    'grounding-url-context',
+    'combined-features-test',
+    'final-summary',
+    'function-calling-calculator',
+    'chat-mode-test',
+    'streaming-test',
+    'image-understanding-test',
+    'function-calling-unit-converter',
+    'thinking-mode-test'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: '4uhVu0tEOLwcmnAA2wdv',
+  title: 'test',
+  stageCount: 14,
+  validatedStageIds: [
+    'document-understanding-test',
+    'code-execution-python',
+    'test-title',
+    'grounding-google-search',
+    'function-calling-weather',
+    'grounding-url-context',
+    'combined-features-test',
+    'final-summary',
+    'function-calling-calculator',
+    'chat-mode-test',
+    'streaming-test',
+    'image-understanding-test',
+    'function-calling-unit-converter',
+    'thinking-mode-test'
+  ]
+}
+ GET /w/gemini-test/BHAtTG1NpuXc1Q6PDDep 200 in 124ms
+ GET /w/gemini-test/4uhVu0tEOLwcmnAA2wdv 200 in 125ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T09:56:52.620Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+Debugger listening on ws://127.0.0.1:9229/a46c174f-4203-4c8f-9c02-cd499460ec1d
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 280500,
+    "turboFlag": false,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/6663fb57-83e5-4851-bb1b-8c0060069ef3
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": false,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 1792ms
+ ○ Compiling /api/test-ai ...
+Watchpack Error (initial scan): Error: ENOTDIR: not a directory, scandir '/usr/local/bin/node'
+ ✓ Compiled /api/test-ai in 885ms (587 modules)
+[TEST-AI] Starting POST test...
+[TEST-AI] Request body: {
+  "promptTemplate": "What are the latest AI developments this week? Provide 3 specific examples with sources.",
+  "model": "gemini-2.0-flash",
+  "temperature": 0.2,
+  "groundingSettings": {
+    "googleSearch": {
+      "enabled": true,
+      "dynamicThreshold": 0.3
+    }
+  },
+  "systemInstructions": "You are an AI assistant that provides up-to-date information using Google Search. Always cite your sources.",
+  "streamingSettings": {
+    "enabled": false
+  }
+}
+[runAiStage] Starting with new SDK
+📤 [AI REQUEST] Text Generation: {
+  model: 'gemini-2.0-flash',
+  promptLength: 88,
+  temperature: 0.2,
+  systemInstruction: 'You are an AI assistant that provides up-to-date information using Google Search. Always cite your s...'
+}
+✅ [TextGeneration] Grounding metadata found
+📥 [AI RESPONSE] Text Generation: {
+  textLength: 2211,
+  textPreview: 'Okay, I will provide you with 3 examples of the latest AI developments from this week (June 9th - Ju...',
+  usageMetadata: undefined,
+  finishReason: undefined,
+  hasGroundingMetadata: true,
+  groundingSourcesCount: 3
+}
+[TEST-AI] Result: {
+  content: 'Okay, I will provide you with 3 examples of the latest AI developments from this week (June 9th - June 15th, 2025), using Google Search to gather the most up-to-date information.\n' +
+    '\n' +
+    'Here are three recent AI developments from this week:\n' +
+    '\n' +
+    '1.  **Apple Intelligence Enhancements:** Apple unveiled new Apple Intelligence features across its devices (iPhone, iPad, Mac, Apple Watch, and Apple Vision Pro). These include improved Live Translation, visual intelligence updates, enhancements to Image Playground and Genmoji, and direct access for Shortcuts to Apple Intelligence. Developers can now access the on-device large language model at the core of Apple Intelligence. These features will be available for testing starting today and to users this fall. (Source: [https://www.apple.com/newsroom/2025/06/apple-intelligence-gets-even-more-powerful-with-new-capabilities-across-apple-devices/](https://www.apple.com/newsroom/2025/06/apple-intelligence-gets-even-more-powerful-with-new-capabilities-across-apple-devices/))\n' +
+    "2.  **Meta's V-JEPA 2 World Model:** Meta introduced V-JEPA 2, a video-trained world model that enhances robots' and AI agents' understanding of the physical world and their ability to predict how it will respond to actions. This model enables robots to interact with unfamiliar objects and environments, performing tasks like reaching, picking up, and placing objects. Meta also released three new benchmarks to evaluate physical reasoning in AI models. (Source: [https://about.fb.com/news/2025/06/our-new-model-helps-ai-think-before-it-acts/](https://about.fb.com/news/2025/06/our-new-model-helps-ai-think-before-it-acts/))\n" +
+    "3.  **Mistral AI's Reasoning Model - Magistral:** Mistral AI launched Magistral, its first reasoning model, designed for domain-specific, transparent, and multilingual reasoning. It comes in two versions: Magistral Small (a 24B parameter open-source version) and Magistral Medium (an enterprise version). Magistral is versatile and suitable for applications requiring longer thought processing and better accuracy, such as legal research, financial forecasting, and software development. (Source: [https://mistral.ai/news/magistral/](https://mistral.ai/news/magistral/))\n",
+  usage: undefined,
+  groundingMetadata: undefined,
+  groundingSources: undefined
+}
+[TEST-AI] Enhanced Grounding Analysis:
+  - Has grounding metadata: false
+  - Has grounding sources: false
+[TEST-AI] Response keys: [
+  'success',
+  'content',
+  'groundingMetadata',
+  'groundingSources',
+  'thinkingSteps',
+  'error'
+]
+ POST /api/test-ai 200 in 6395ms
+Debugger listening on ws://127.0.0.1:9229/4c8b5df9-3b7f-46e5-8863-2f7396327ed4
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 78628,
+    "turboFlag": false,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/80ca5327-0dab-45fd-a96e-cd56f4f863d1
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": false,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 1313ms
+Watchpack Error (initial scan): Error: ENOTDIR: not a directory, scandir '/usr/local/bin/node'
+ ○ Compiling /api/test-ai ...
+ ✓ Compiled /api/test-ai in 545ms (587 modules)
+[TEST-AI] Starting POST test...
+[TEST-AI] Request body: {
+  "promptTemplate": "What are the latest developments in quantum computing this week? Provide 3 specific examples.",
+  "model": "gemini-2.0-flash",
+  "temperature": 0.1,
+  "groundingSettings": {
+    "googleSearch": {
+      "enabled": true,
+      "dynamicThreshold": 0.3
+    }
+  },
+  "systemInstructions": "You are an AI assistant that provides up-to-date information using Google Search. Always cite your sources with URLs."
+}
+[runAiStage] Starting with new SDK
+📤 [AI REQUEST] Text Generation: {
+  model: 'gemini-2.0-flash',
+  promptLength: 93,
+  temperature: 0.1,
+  systemInstruction: 'You are an AI assistant that provides up-to-date information using Google Search. Always cite your s...'
+}
+✅ [TextGeneration] Grounding metadata found
+📥 [AI RESPONSE] Text Generation: {
+  textLength: 1044,
+  textPreview: 'Here are three of the latest developments in quantum computing this week:\n' +
+    '\n' +
+    '1.  **Quantum Internet Ad...',
+  usageMetadata: undefined,
+  finishReason: undefined,
+  hasGroundingMetadata: true,
+  groundingSourcesCount: 4
+}
+[TEST-AI] Result: {
+  content: 'Here are three of the latest developments in quantum computing this week:\n' +
+    '\n' +
+    '1.  **Quantum Internet Advancement:** A team of Danish and German scientists has started a major project focused on creating new technology that could be the foundation for a future quantum internet. They are utilizing a rare element called erbium along with silicon chips. ([1])\n' +
+    "2.  **IBM's Quantum Computing Plans:** IBM is working on building the world's first large-scale quantum computer that can operate without errors. This announcement has boosted IBM's stock and is seen as a positive sign for the quantum computing industry. ([2])\n" +
+    `3.  **Quantum Error Correction Breakthrough:** Google has achieved a milestone with its new Willow quantum processor, a ~100-qubit superconducting chip, by demonstrating "below-threshold" error correction. By scaling Willow's qubit grid from 9 to 49 encoded qubits, they were able to cut the error rate in half with each step, marking the first time that adding more qubits has made the overall computation more reliable. ([3])\n`,
+  usage: undefined,
+  groundingMetadata: undefined,
+  groundingSources: undefined
+}
+[TEST-AI] Enhanced Grounding Analysis:
+  - Has grounding metadata: false
+  - Has grounding sources: false
+[TEST-AI] Response keys: [
+  'success',
+  'content',
+  'groundingMetadata',
+  'groundingSources',
+  'thinkingSteps',
+  'error'
+]
+ POST /api/test-ai 200 in 3553ms
+ ✓ Compiled in 15ms
+Debugger listening on ws://127.0.0.1:9229/73b23729-200d-4efb-9303-e051afae68ca
+For help, see: https://nodejs.org/en/docs/inspector
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STOPPED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "durationMilliseconds": 259395,
+    "turboFlag": false,
+    "pagesDir": false,
+    "appDir": true,
+    "isRspack": false
+  }
+}
+[?25h
+Debugger listening on ws://127.0.0.1:9230/24ee6e45-cb42-47e1-958d-b34e1142ebcc
+For help, see: https://nodejs.org/en/docs/inspector
+   the --inspect option was detected, the Next.js router server should be inspected at 9230.
+   ▲ Next.js 15.3.3
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.1.200:9002
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "15.3.3",
+    "nodeVersion": "v22.16.0",
+    "cliCommand": "dev",
+    "isSrcDir": true,
+    "hasNowJson": false,
+    "isCustomServer": false,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 1,
+    "imageLocalPatternsCount": null,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageQualities": null,
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": false,
+    "isRspack": false,
+    "appDir": true,
+    "pagesDir": false,
+    "staticStaleTime": 300,
+    "dynamicStaleTime": 0,
+    "reactCompiler": false,
+    "reactCompilerCompilationMode": null,
+    "reactCompilerPanicThreshold": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbopackPersistentCaching",
+    "invocationCount": 0
+  }
+}
+ ✓ Ready in 1306ms
+Watchpack Error (initial scan): Error: ENOTDIR: not a directory, scandir '/usr/local/bin/node'
+ ○ Compiling /api/test-ai ...
+ ✓ Compiled /api/test-ai in 576ms (587 modules)
+[TEST-AI] Starting POST test...
+[TEST-AI] Request body: {
+  promptTemplate: 'What are the latest AI developments this week? Provide 3 specific examples with sources.',
+  model: 'gemini-2.0-flash',
+  temperature: 0.2,
+  groundingSettings: { googleSearch: { enabled: true, dynamicThreshold: 0.3 } },
+  systemInstructions: 'You are an AI assistant that provides up-to-date information using Google Search. Always cite your sources.',
+  streamingSettings: { enabled: false }
+}
+[runAiStage] Starting with new SDK
+📤 [AI REQUEST] Text Generation: {
+  model: 'gemini-2.0-flash',
+  promptLength: 88,
+  temperature: 0.2,
+  systemInstruction: 'You are an AI assistant that provides up-to-date information using Google Search. Always cite your s...'
+}
+✅ [TextGeneration] Grounding metadata found
+📥 [AI RESPONSE] Text Generation: {
+  textLength: 2864,
+  textPreview: 'Okay, I will provide you with 3 examples of the latest AI developments this week.\n' +
+    '\n' +
+    'Here are three re...',
+  usageMetadata: undefined,
+  finishReason: undefined,
+  hasGroundingMetadata: true,
+  groundingSourcesCount: 10
+}
+[TEST-AI] Result: {
+  content: 'Okay, I will provide you with 3 examples of the latest AI developments this week.\n' +
+    '\n' +
+    'Here are three recent AI developments:\n' +
+    '\n' +
+    '1.  **AI Agents with Autonomous Capabilities:** AI agents are evolving to perform tasks autonomously, interpreting requests, retrieving information, and providing personalized responses without human intervention. Gartner forecasts that agentic AI will be integrated into 33% of enterprise software applications in 2028, compared to less than 1% in 2024.\n' +
+    '    *   Source: [https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHuBJdRIl1C2PNceK-vWXRwSEj54hDw-rAkp6T4uCSyatRuHtDuN1eOJNymO304zOPl0TdV1ilsN3OrZaWMx-HTl\\_rAe0oBNYnFVYzbOK6S6\\_HSYOpstTnB6qlhwMSLX5AnuOFnqrbLiV6ERRm80oP\\_fepjBeFFEHfJr6Ki0sT4aXrUvplAQJ4phORUzsPiLnPp9DN47KUkZdd5vFtO\\_EpbkDDl55wzaIVztMR3r3Q=](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHuBJdRIl1C2PNceK-vWXRwSEj54hDw-rAkp6T4uCSyatRuHtDuN1eOJNymO304zOPl0TdV1ilsN3OrZaWMx-HTl_rAe0oBNYnFVYzbOK6S6_HSYOpstTnB6qlhwMSLX5AnuOFnqrbLiV6ERRm80oP_fepjBeFFEHfJr6Ki0sT4aXrUvplAQJ4phORUzsPiLnPp9DN47KUkZdd5vFtO_EpbkDDl55wzaIVztMR3r3Q=)\n' +
+    '2.  **Advanced Natural Language Processing (NLP):** NLP technologies have reached new heights, enabling AI systems to comprehend and generate human language with unprecedented accuracy and nuance. Conversational AI agents can engage in complex dialogues, understand context, and exhibit emotional intelligence, revolutionizing customer service, education, and entertainment.\n' +
+    '    *   Source: [https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFWVTNqC1\\_bXRsUKnbRlFrq6hYTSgcP3ILvDR4vhed7sHfD\\_NeW8YNmfJXhJjQfBsaoiHOmgn7Db4np1ammeOCZa3TpXPPVSMgW3vb-D9uusQ5bTWvuaRRrDMOAlF5oRGDSsLIYVve\\_NdMre-VSbY6\\_dG5ZbzNoMVjvGQ==](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFWVTNqC1_bXRsUKnbRlFrq6hYTSgcP3ILvDR4vhed7sHfD_NeW8YNmfJXhJjQfBsaoiHOmgn7Db4np1ammeOCZa3TpXPPVSMgW3vb-D9uusQ5bTWvuaRRrDMOAlF5oRGDSsLIYVve_NdMre-VSbY6_dG5ZbzNoMVjvGQ==)\n' +
+    '3.  **AI in Healthcare for Personalized Medicine and Predictive Analytics:** The healthcare sector has witnessed significant AI-driven transformations, particularly in personalized medicine and predictive analytics. AI algorithms analyze extensive datasets, including genetic information and patient histories, to tailor treatment plans and assist in early disease detection and prognosis.\n' +
+    '    *   Source: [https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFWVTNqC1\\_bXRsUKnbRlFrq6hYTSgcP3ILvDR4vhed7sHfD\\_NeW8YNmfJXhJjQfBsaoiHOmgn7Db4np1ammeOCZa3TpXPPVSMgW3vb-D9uusQ5bTWvuaRRrDMOAlF5oRGDSsLIYVve\\_NdMre-VSbY6\\_dG5ZbzNoMVjvGQ==](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFWVTNqC1_bXRsUKnbRlFrq6hYTSgcP3ILvDR4vhed7sHfD_NeW8YNmfJXhJjQfBsaoiHOmgn7Db4np1ammeOCZa3TpXPPVSMgW3vb-D9uusQ5bTWvuaRRrDMOAlF5oRGDSsLIYVve_NdMre-VSbY6_dG5ZbzNoMVjvGQ==)\n',
+  usage: undefined,
+  groundingMetadata: undefined,
+  groundingSources: undefined
+}
+[TEST-AI] Enhanced Grounding Analysis:
+  - Has grounding metadata: false
+  - Has grounding sources: false
+[TEST-AI] Response keys: [
+  'success',
+  'content',
+  'groundingMetadata',
+  'groundingSources',
+  'thinkingSteps',
+  'error'
+]
+ POST /api/test-ai 200 in 7819ms
+ ✓ Compiled in 20ms

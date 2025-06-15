@@ -3,6 +3,8 @@ import 'server-only';
 
 import {z} from 'zod';
 import { generateWithDirectGemini, generateStreamWithDirectGemini, type DirectGeminiRequest, type DirectGeminiResponse } from '@/ai/direct-gemini';
+import { appendFileSync } from 'fs';
+import { join } from 'path';
 
 // Input Schema including all Gemini features with proper grounding implementation
 const AiStageExecutionInputSchema = z.object({
@@ -714,6 +716,26 @@ async function executeWithDirectGeminiAPI(
 ): Promise<AiStageOutputSchema> {
   console.log('🎯 [Direct Gemini API] Starting execution for Google Search grounding');
   
+  // 🔥 LOG FULL REQUEST TO DIRECT GEMINI API
+  logToAiLog('🎯 [DIRECT GEMINI API REQUEST - FULL]', {
+    request: {
+      ...request,
+      // Don't log the full system prompt, just structure
+      system: request.system ? request.system.substring(0, 100) + '...' : undefined,
+      prompt: request.prompt ? request.prompt.substring(0, 200) + '...' : undefined,
+      model: request.model,
+      temperature: request.temperature,
+      maxOutputTokens: request.maxOutputTokens,
+      hasGroundingConfig: !!request.groundingConfig,
+      groundingConfig: request.groundingConfig
+    },
+    originalInput: originalInput ? {
+      model: originalInput.model,
+      hasGroundingSettings: !!originalInput.groundingSettings,
+      groundingSettings: originalInput.groundingSettings
+    } : undefined
+  });
+  
   try {
     // Use streaming if callback is provided
     if (streamingCallback) {
@@ -724,6 +746,17 @@ async function executeWithDirectGeminiAPI(
       
       for await (const chunk of stream) {
         finalResult = chunk;
+        
+        // 🔥 LOG STREAMING CHUNK
+        logToAiLog('🌊 [DIRECT GEMINI STREAMING CHUNK]', {
+          hasContent: !!chunk.content,
+          contentLength: chunk.content?.length || 0,
+          contentPreview: chunk.content?.substring(0, 100) + '...' || '',
+          hasGroundingMetadata: !!chunk.groundingMetadata,
+          hasGroundingSources: !!chunk.groundingSources,
+          groundingSourcesCount: chunk.groundingSources?.length || 0,
+          allChunkKeys: Object.keys(chunk)
+        });
         
         // Send streaming callback
         if (streamingCallback) {
@@ -740,9 +773,32 @@ async function executeWithDirectGeminiAPI(
         throw new Error('No final result from streaming');
       }
       
+      // 🔥 LOG FINAL STREAMING RESULT
+      logToAiLog('✅ [DIRECT GEMINI STREAMING FINAL RESULT]', {
+        hasContent: !!finalResult.content,
+        contentLength: finalResult.content?.length || 0,
+        contentPreview: finalResult.content?.substring(0, 200) + '...' || '',
+        hasGroundingMetadata: !!finalResult.groundingMetadata,
+        groundingMetadataKeys: finalResult.groundingMetadata ? Object.keys(finalResult.groundingMetadata) : [],
+        hasGroundingSources: !!finalResult.groundingSources,
+        groundingSourcesCount: finalResult.groundingSources?.length || 0,
+        groundingSourcesPreview: finalResult.groundingSources?.slice(0, 2),
+        allFinalResultKeys: Object.keys(finalResult)
+      });
+      
+      // 🔥 LOG FULL GROUNDING METADATA IF PRESENT
+      if (finalResult.groundingMetadata) {
+        logToAiLog('🔍 [DIRECT GEMINI GROUNDING METADATA - FULL]', finalResult.groundingMetadata);
+      }
+      
+      // 🔥 LOG FULL GROUNDING SOURCES IF PRESENT
+      if (finalResult.groundingSources) {
+        logToAiLog('📖 [DIRECT GEMINI GROUNDING SOURCES - FULL]', finalResult.groundingSources);
+      }
+      
       console.log('✅ [Direct Gemini API] Streaming completed successfully');
       
-      return {
+      const processedResult = {
         content: finalResult.content,
         thinkingSteps: thinkingSteps.length > 0 ? thinkingSteps : undefined,
         groundingMetadata: finalResult.groundingMetadata,
@@ -754,14 +810,48 @@ async function executeWithDirectGeminiAPI(
         })),
       };
       
+      // 🔥 LOG PROCESSED RESULT BEING RETURNED
+      logToAiLog('🎯 [DIRECT GEMINI PROCESSED RESULT - STREAMING]', {
+        hasContent: !!processedResult.content,
+        hasGroundingMetadata: !!processedResult.groundingMetadata,
+        hasGroundingSources: !!processedResult.groundingSources,
+        groundingSourcesCount: processedResult.groundingSources?.length || 0,
+        allProcessedKeys: Object.keys(processedResult)
+      });
+      
+      return processedResult;
+      
     } else {
       console.log('📝 [Direct Gemini API] Using non-streaming mode');
       
       const result = await generateWithDirectGemini(request);
       
+      // 🔥 LOG FULL NON-STREAMING RESULT
+      logToAiLog('📝 [DIRECT GEMINI NON-STREAMING RESULT]', {
+        hasContent: !!result.content,
+        contentLength: result.content?.length || 0,
+        contentPreview: result.content?.substring(0, 200) + '...' || '',
+        hasGroundingMetadata: !!result.groundingMetadata,
+        groundingMetadataKeys: result.groundingMetadata ? Object.keys(result.groundingMetadata) : [],
+        hasGroundingSources: !!result.groundingSources,
+        groundingSourcesCount: result.groundingSources?.length || 0,
+        groundingSourcesPreview: result.groundingSources?.slice(0, 2),
+        allResultKeys: Object.keys(result)
+      });
+      
+      // 🔥 LOG FULL GROUNDING METADATA IF PRESENT
+      if (result.groundingMetadata) {
+        logToAiLog('🔍 [DIRECT GEMINI GROUNDING METADATA - FULL]', result.groundingMetadata);
+      }
+      
+      // 🔥 LOG FULL GROUNDING SOURCES IF PRESENT
+      if (result.groundingSources) {
+        logToAiLog('📖 [DIRECT GEMINI GROUNDING SOURCES - FULL]', result.groundingSources);
+      }
+      
       console.log('✅ [Direct Gemini API] Generation completed successfully');
       
-      return {
+      const processedResult = {
         content: result.content,
         thinkingSteps: thinkingSteps.length > 0 ? thinkingSteps : undefined,
         groundingMetadata: result.groundingMetadata,
@@ -772,10 +862,27 @@ async function executeWithDirectGeminiAPI(
           snippet: source.snippet
         })),
       };
+      
+      // 🔥 LOG PROCESSED RESULT BEING RETURNED
+      logToAiLog('🎯 [DIRECT GEMINI PROCESSED RESULT - NON-STREAMING]', {
+        hasContent: !!processedResult.content,
+        hasGroundingMetadata: !!processedResult.groundingMetadata,
+        hasGroundingSources: !!processedResult.groundingSources,
+        groundingSourcesCount: processedResult.groundingSources?.length || 0,
+        allProcessedKeys: Object.keys(processedResult)
+      });
+      
+      return processedResult;
     }
     
   } catch (error: unknown) {
-    console.error('❌ [Direct Gemini API] Execution failed:', error);
+    // 🔥 LOG DIRECT GEMINI ERROR
+    logToAiLog('❌ [DIRECT GEMINI API ERROR]', {
+      error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined
+    });
+    
+    console.error('[Direct Gemini API] Execution failed:', error);
     throw error;
   }
 }
@@ -918,6 +1025,20 @@ function extractGroundingMetadata(response: any): AiStageOutputSchema['grounding
   }
   console.log('[AI Stage Flow Enhanced] Extracted grounding metadata was empty.');
   return undefined;
+}
+
+function logToAiLog(message: string, data?: any) {
+  const timestamp = new Date().toISOString();
+  const logEntry = data 
+    ? `${timestamp} ${message} ${JSON.stringify(data, null, 2)}\n`
+    : `${timestamp} ${message}\n`;
+  
+  try {
+    const logPath = join(process.cwd(), 'logs', 'ai.log');
+    appendFileSync(logPath, logEntry);
+  } catch (error) {
+    console.error('Failed to write to ai.log:', error);
+  }
 }
 
 // Export for compatibility

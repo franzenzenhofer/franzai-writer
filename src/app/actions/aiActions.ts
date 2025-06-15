@@ -4,6 +4,8 @@ import "server-only";
 import type { StageState, Stage } from "@/types";
 // Import only the type, not the implementation, to avoid bundling server code
 import type { AiStageExecutionInput, ThinkingStep } from "@/ai/flows/ai-stage-execution";
+import { appendFileSync } from 'fs';
+import { join } from 'path';
 
 interface RunAiStageParams {
   promptTemplate: string;
@@ -52,6 +54,12 @@ interface AiActionResult {
     }>;
     webSearchQueries?: string[];
   };
+  groundingSources?: Array<{
+    type: 'search' | 'url';
+    title: string;
+    url?: string;
+    snippet?: string;
+  }>;
   thinkingSteps?: ThinkingStep[];
   outputImages?: Array<{
     name?: string;
@@ -92,8 +100,38 @@ function substitutePromptVars(template: string, context: Record<string, any>): s
   return finalPrompt;
 }
 
+function logToAiLog(message: string, data?: any) {
+  const timestamp = new Date().toISOString();
+  const logEntry = data 
+    ? `${timestamp} ${message} ${JSON.stringify(data, null, 2)}\n`
+    : `${timestamp} ${message}\n`;
+  
+  try {
+    const logPath = join(process.cwd(), 'logs', 'ai.log');
+    appendFileSync(logPath, logEntry);
+  } catch (error) {
+    console.error('Failed to write to ai.log:', error);
+  }
+}
 
 export async function runAiStage(params: RunAiStageParams): Promise<AiActionResult> {
+  console.log('[runAiStage] Starting with new SDK');
+  
+  // 🔥 LOG COMPLETE REQUEST
+  logToAiLog('🚀 [FULL AI REQUEST STARTING]', {
+    params: {
+      ...params,
+      // Don't log sensitive data but log structure
+      systemInstructions: params.systemInstructions ? params.systemInstructions.substring(0, 100) + '...' : undefined,
+      promptTemplate: params.promptTemplate?.substring(0, 200) + (params.promptTemplate?.length > 200 ? '...' : ''),
+      // Log full grounding settings
+      groundingSettings: params.groundingSettings,
+      model: params.model,
+      temperature: params.temperature,
+      stageOutputType: params.stageOutputType
+    }
+  });
+
   try {
     console.log("[runAiStage] Starting with params:", {
       hasPromptTemplate: !!params.promptTemplate,
@@ -205,6 +243,42 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
     const outputImages = result.outputImages;
     const updatedChatHistory = result.updatedChatHistory; // Capture updatedChatHistory
     const groundingMetadata = result.groundingMetadata; // Capture grounding metadata
+    const groundingSources = result.groundingSources; // Capture grounding sources
+
+    // 🔥 LOG COMPLETE RAW RESULT FROM AI EXECUTION
+    logToAiLog('📥 [RAW AI EXECUTION RESULT]', {
+      hasContent: !!result.content,
+      contentType: typeof result.content,
+      contentLength: typeof result.content === 'string' ? result.content.length : 'N/A',
+      contentPreview: typeof result.content === 'string' ? result.content.substring(0, 200) + '...' : result.content,
+      hasGroundingMetadata: !!result.groundingMetadata,
+      groundingMetadataKeys: result.groundingMetadata ? Object.keys(result.groundingMetadata) : [],
+      hasGroundingSources: !!result.groundingSources,
+      groundingSourcesCount: result.groundingSources?.length || 0,
+      groundingSourcesPreview: result.groundingSources?.slice(0, 2),
+      hasUsage: !!result.usage,
+      hasThinkingSteps: !!result.thinkingSteps,
+      thinkingStepsCount: result.thinkingSteps?.length || 0,
+      allResultKeys: Object.keys(result)
+    });
+
+    // 🔥 LOG FULL GROUNDING METADATA IF PRESENT
+    if (result.groundingMetadata) {
+      logToAiLog('🔍 [FULL GROUNDING METADATA]', result.groundingMetadata);
+    }
+
+    // 🔥 LOG FULL GROUNDING SOURCES IF PRESENT  
+    if (result.groundingSources) {
+      logToAiLog('📖 [FULL GROUNDING SOURCES]', result.groundingSources);
+    }
+
+    // 🔥 LOG CAPTURED VALUES BEFORE PROCESSING
+    logToAiLog('⚙️ [CAPTURED VALUES FOR PROCESSING]', {
+      hasUpdatedChatHistory: !!updatedChatHistory,
+      hasGroundingMetadata: !!groundingMetadata,
+      hasGroundingSources: !!groundingSources,
+      groundingSourcesCount: groundingSources?.length || 0
+    });
 
     if (params.stageOutputType === 'json') {
         try {
@@ -214,20 +288,43 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
             parsedContent = JSON.parse(cleanedJsonString);
         } catch (e) {
             console.warn("AI output was expected to be JSON but failed to parse. Returning as text.", e);
-            parsedContent = result.content; // Or contentString if it was not originally a string
+            parsedContent = result.content;
         }
     }
 
-    console.log("[runAiStage] Success, content type:", typeof parsedContent);
-    // Return all response data including grounding metadata
-    return {
+    const finalResult: AiActionResult = {
         content: parsedContent,
-        groundingMetadata,
-        ...(thinkingSteps && { thinkingSteps }),
-        ...(outputImages && { outputImages }),
-        ...(updatedChatHistory && { updatedChatHistory }), // Return it
+        groundingInfo: result.groundingInfo,
+        groundingMetadata: groundingMetadata,
+        groundingSources: groundingSources,
+        thinkingSteps: thinkingSteps,
+        outputImages: outputImages,
+        usage: result.usage,
+        updatedChatHistory: updatedChatHistory
     };
+
+    // 🔥 LOG FINAL RESULT BEING RETURNED
+    logToAiLog('✅ [FINAL RESULT BEING RETURNED]', {
+      hasContent: !!finalResult.content,
+      hasGroundingInfo: !!finalResult.groundingInfo,
+      hasGroundingMetadata: !!finalResult.groundingMetadata,
+      hasGroundingSources: !!finalResult.groundingSources,
+      groundingSourcesCount: finalResult.groundingSources?.length || 0,
+      hasThinkingSteps: !!finalResult.thinkingSteps,
+      hasOutputImages: !!finalResult.outputImages,
+      hasUsage: !!finalResult.usage,
+      hasUpdatedChatHistory: !!finalResult.updatedChatHistory,
+      allFinalResultKeys: Object.keys(finalResult)
+    });
+
+    return finalResult;
   } catch (error: any) {
+    // 🔥 LOG ERROR
+    logToAiLog('❌ [AI EXECUTION ERROR]', {
+      error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined
+    });
+    
     console.error("AI Stage Execution Error:", error);
     console.error("Error stack:", error.stack);
     return {
@@ -235,7 +332,8 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
         error: error.message || "An unknown error occurred during AI processing.",
         thinkingSteps: undefined,
         outputImages: undefined,
-        updatedChatHistory: params.chatHistory // Return original history on error
+        updatedChatHistory: params.chatHistory, // Return original history on error
+        groundingSources: undefined
     };
   }
 }

@@ -1,5 +1,21 @@
 import { NextResponse } from 'next/server';
 import { runAiStage } from '@/app/actions/aiActions-new';
+import { appendFileSync } from 'fs';
+import { join } from 'path';
+
+function logToAiLog(message: string, data?: any) {
+  const timestamp = new Date().toISOString();
+  const logEntry = data 
+    ? `${timestamp} ${message} ${JSON.stringify(data, null, 2)}\n`
+    : `${timestamp} ${message}\n`;
+  
+  try {
+    const logPath = join(process.cwd(), 'logs', 'ai.log');
+    appendFileSync(logPath, logEntry);
+  } catch (error) {
+    console.error('Failed to write to ai.log:', error);
+  }
+}
 
 export async function GET() {
   try {
@@ -35,8 +51,16 @@ export async function POST(request: Request) {
     console.log('[TEST-AI] Starting POST test...');
     
     const body = await request.json();
-    console.log('[TEST-AI] Request body:', JSON.stringify(body, null, 2));
+    console.log('[TEST-AI] Request body:', body);
     
+    // 🔥 LOG COMPLETE TEST API REQUEST
+    logToAiLog('🧪 [TEST-AI REQUEST - COMPLETE]', {
+      body: body,
+      url: request.url,
+      method: request.method,
+      timestamp: new Date().toISOString()
+    });
+
     const result = await runAiStage({
       promptTemplate: body.promptTemplate || 'Say hello world',
       model: body.model || 'gemini-2.0-flash',
@@ -51,8 +75,61 @@ export async function POST(request: Request) {
     
     console.log('[TEST-AI] Result:', result);
     
-    // Return the result with grounding metadata if present
-    const response = { 
+    // 🔥 LOG COMPLETE TEST API RESULT BEFORE PROCESSING
+    logToAiLog('🧪 [TEST-AI RAW RESULT FROM runAiStage]', {
+      hasContent: !!result.content,
+      contentType: typeof result.content,
+      contentLength: typeof result.content === 'string' ? result.content.length : 'N/A',
+      contentPreview: typeof result.content === 'string' ? result.content.substring(0, 300) + '...' : result.content,
+      hasError: !!result.error,
+      error: result.error,
+      hasGroundingInfo: !!result.groundingInfo,
+      hasGroundingMetadata: !!result.groundingMetadata,
+      groundingMetadataKeys: result.groundingMetadata ? Object.keys(result.groundingMetadata) : [],
+      hasGroundingSources: !!result.groundingSources,
+      groundingSourcesCount: result.groundingSources?.length || 0,
+      hasThinkingSteps: !!result.thinkingSteps,
+      thinkingStepsCount: result.thinkingSteps?.length || 0,
+      hasUsage: !!result.usage,
+      hasUpdatedChatHistory: !!result.updatedChatHistory,
+      hasOutputImages: !!result.outputImages,
+      allResultKeys: Object.keys(result)
+    });
+
+    // 🔥 LOG FULL GROUNDING METADATA IF PRESENT
+    if (result.groundingMetadata) {
+      logToAiLog('🔍 [TEST-AI GROUNDING METADATA - FULL]', result.groundingMetadata);
+    }
+
+    // �� LOG FULL GROUNDING SOURCES IF PRESENT
+    if (result.groundingSources) {
+      logToAiLog('📖 [TEST-AI GROUNDING SOURCES - FULL]', result.groundingSources);
+    }
+    
+    // Enhanced logging for grounding metadata and sources
+    console.log('[TEST-AI] Enhanced Grounding Analysis:');
+    console.log('  - Has grounding metadata:', !!result.groundingMetadata);
+    console.log('  - Has grounding sources:', !!result.groundingSources?.length);
+    
+    if (result.groundingMetadata) {
+      console.log('  - Grounding metadata keys:', Object.keys(result.groundingMetadata));
+      if (result.groundingMetadata.webSearchQueries?.length) {
+        console.log('  - Search queries:', result.groundingMetadata.webSearchQueries);
+      }
+      if (result.groundingMetadata.groundingChunks?.length) {
+        console.log('  - Grounding chunks:', result.groundingMetadata.groundingChunks.length);
+      }
+      if (result.groundingMetadata.groundingSupports?.length) {
+        console.log('  - Grounding supports:', result.groundingMetadata.groundingSupports.length);
+      }
+    }
+    
+    if (result.groundingSources?.length) {
+      console.log('  - Grounding sources count:', result.groundingSources.length);
+      console.log('  - First source:', result.groundingSources[0]);
+    }
+
+    const response = {
       success: !result.error,
       content: result.content,
       groundingMetadata: result.groundingMetadata,
@@ -60,16 +137,39 @@ export async function POST(request: Request) {
       thinkingSteps: result.thinkingSteps,
       error: result.error
     };
-    
+
+    // 🔥 LOG FINAL RESPONSE BEING SENT TO CLIENT
+    logToAiLog('🧪 [TEST-AI FINAL RESPONSE TO CLIENT]', {
+      response: {
+        success: response.success,
+        hasContent: !!response.content,
+        contentLength: typeof response.content === 'string' ? response.content.length : 'N/A',
+        contentPreview: typeof response.content === 'string' ? response.content.substring(0, 300) + '...' : response.content,
+        hasGroundingMetadata: !!response.groundingMetadata,
+        groundingMetadataKeys: response.groundingMetadata ? Object.keys(response.groundingMetadata) : [],
+        hasGroundingSources: !!response.groundingSources,
+        groundingSourcesCount: response.groundingSources?.length || 0,
+        hasThinkingSteps: !!response.thinkingSteps,
+        hasError: !!response.error,
+        allResponseKeys: Object.keys(response)
+      }
+    });
+
     console.log('[TEST-AI] Response keys:', Object.keys(response));
     
     return NextResponse.json(response);
   } catch (error: any) {
     console.error('[TEST-AI] Error:', error);
-    return NextResponse.json({ 
-      success: false, 
-      error: error.message,
-      stack: error.stack 
+    
+    // 🔥 LOG TEST API ERROR
+    logToAiLog('❌ [TEST-AI ERROR]', {
+      error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined
+    });
+    
+    return NextResponse.json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error occurred'
     }, { status: 500 });
   }
 }
