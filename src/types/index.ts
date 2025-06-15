@@ -32,10 +32,96 @@ export interface JsonField {
 
 export type StageInputType = "text" | "textarea" | "context" | "form" | "none" | "image" | "document";
 
+export interface ExportTriggerButton {
+  label: string;
+  variant?: 'hero' | 'default' | 'outline' | 'ghost';
+  size?: 'small' | 'medium' | 'large';
+  description?: string;
+}
+
+export interface ExportFormat {
+  enabled: boolean;
+  label: string;
+  description: string;
+  icon?: string;
+  aiTemplate?: string;
+  deriveFrom?: string;
+  features?: string[];
+  options?: Record<string, any>;
+  stripElements?: string[];
+  preserveStructure?: boolean;
+}
+
+export interface ExportConfig {
+  aiModel?: string;
+  temperature?: number;
+  formats: {
+    'html-styled'?: ExportFormat;
+    'html-clean'?: ExportFormat;
+    'markdown'?: ExportFormat;
+    'pdf'?: ExportFormat;
+    'docx'?: ExportFormat;
+    'epub'?: ExportFormat;
+    [key: string]: ExportFormat | undefined;
+  };
+  publishing?: {
+    enabled: boolean;
+    instant?: boolean;
+    baseUrl?: string;
+    customDomains?: boolean;
+    formats?: string[];
+    features?: {
+      seo?: {
+        noindex?: boolean;
+        openGraph?: boolean;
+        twitterCard?: boolean;
+        structuredData?: boolean;
+      };
+      sharing?: {
+        shortUrls?: boolean;
+        qrCode?: boolean;
+        socialButtons?: boolean;
+      };
+      protection?: {
+        public?: boolean;
+        passwordOption?: boolean;
+        expiration?: {
+          default?: string;
+          options?: string[];
+        };
+      };
+      branding?: {
+        showLogo?: boolean;
+        poweredBy?: string;
+        customizable?: boolean;
+      };
+    };
+  };
+  styling?: {
+    themes?: {
+      default?: string;
+      options?: string[];
+    };
+    customization?: {
+      fonts?: {
+        heading?: string;
+        body?: string;
+      };
+      colors?: {
+        primary?: string;
+        background?: string;
+        text?: string;
+      };
+    };
+    cssTemplate?: string;
+  };
+}
+
 export interface Stage {
   id: string;
   title: string;
   description: string;
+  stageType?: 'default' | 'export'; // New stage type for export functionality
   inputType: StageInputType;
   formFields?: FormField[]; // Only if inputType is 'form'
   jsonFields?: JsonField[]; // Only if outputType is 'json' - defines how to render JSON fields
@@ -43,7 +129,7 @@ export interface Stage {
   prompt?: string; // Resolved prompt after template substitution
   model?: string; // Optional: Specific AI model for this stage
   temperature?: number; // Optional: Specific temperature for this stage
-  outputType: "text" | "json" | "markdown" | "html";
+  outputType: "text" | "json" | "markdown" | "html" | "export-interface"; // Added export-interface
   dependencies?: string[]; 
   autoRun?: boolean; 
   autorunDependsOn?: string[]; // Optional: Separate dependencies for autorun behavior
@@ -97,6 +183,9 @@ export interface Stage {
   jsonSchema?: any; // JSON schema for structured output
   maxTokens?: number; // Maximum tokens for output
   systemInstruction?: string; // Alias for systemInstructions
+  showAsHero?: boolean; // Show stage with hero UI treatment
+  triggerButton?: ExportTriggerButton; // Custom trigger button for export stage
+  exportConfig?: ExportConfig; // Export stage configuration
 }
 
 export interface WorkflowConfig {
@@ -193,6 +282,34 @@ export interface StageState {
     candidatesTokenCount?: number;
     totalTokenCount?: number;
     promptTokenCount?: number;
+  };
+}
+
+export interface ExportStageState extends StageState {
+  output: {
+    htmlStyled?: string;
+    htmlClean?: string;
+    markdown?: string;
+    formats: {
+      [format: string]: {
+        ready: boolean;
+        content?: string;
+        url?: string;
+        error?: string;
+      };
+    };
+    publishing?: {
+      publishedUrl?: string;
+      publishedAt?: Date;
+      publishedFormats?: string[];
+      shortUrl?: string;
+      qrCodeUrl?: string;
+    };
+  };
+  generationProgress?: {
+    styledHtml?: number;
+    cleanHtml?: number;
+    currentFormat?: string;
   };
 }
 
