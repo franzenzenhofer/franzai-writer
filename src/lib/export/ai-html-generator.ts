@@ -93,7 +93,7 @@ async function generateStyledHtml(
   
   // Generate HTML with AI
   const result = await generateWithDirectGemini({
-    model: exportConfig?.aiModel || 'googleai/gemini-2.0-flash',
+    model: exportConfig?.aiModel || 'gemini-2.0-flash',
     temperature: exportConfig?.temperature ?? 0.3,
     prompt,
     systemInstruction: 'You are an expert web designer creating beautiful HTML documents.',
@@ -147,7 +147,7 @@ async function generateCleanHtml(
   
   // Generate HTML with AI
   const result = await generateWithDirectGemini({
-    model: exportConfig?.aiModel || 'googleai/gemini-2.0-flash',
+    model: exportConfig?.aiModel || 'gemini-2.0-flash',
     temperature: exportConfig?.temperature ?? 0.3,
     prompt,
     systemInstruction: 'You are an expert in semantic HTML and document structure.',
