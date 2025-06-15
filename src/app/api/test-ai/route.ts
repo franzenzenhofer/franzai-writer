@@ -86,6 +86,8 @@ export async function POST(request: Request) {
       hasGroundingInfo: !!result.groundingInfo,
       hasGroundingMetadata: !!result.groundingMetadata,
       groundingMetadataKeys: result.groundingMetadata ? Object.keys(result.groundingMetadata) : [],
+      hasUrlContextMetadata: !!result.urlContextMetadata,
+      urlContextMetadataKeys: result.urlContextMetadata ? Object.keys(result.urlContextMetadata) : [],
       hasGroundingSources: !!result.groundingSources,
       groundingSourcesCount: result.groundingSources?.length || 0,
       hasThinkingSteps: !!result.thinkingSteps,
@@ -133,6 +135,7 @@ export async function POST(request: Request) {
       success: !result.error,
       content: result.content,
       groundingMetadata: result.groundingMetadata,
+      urlContextMetadata: result.urlContextMetadata,
       groundingSources: result.groundingSources,
       thinkingSteps: result.thinkingSteps,
       error: result.error
