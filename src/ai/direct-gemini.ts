@@ -269,7 +269,9 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
               uri: meta.retrievedUrl,
               snippet: 'URL Context Source'
             }));
-          groundingSources.push(...urlSources);
+          if (groundingSources) {
+            groundingSources.push(...urlSources);
+          }
         }
       } else {
         console.log('❌ [Direct Gemini] No URL context metadata found');

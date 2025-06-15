@@ -51,13 +51,14 @@ export function GroundingSourcesDisplay({ sources, groundingMetadata, functionCa
 
   const toolsUsed = functionCalls?.map(fc => fc.toolName) || [];
   const hasGoogleSearch = sources.some(source => source.url?.includes('vertexaisearch.cloud.google.com')) || 
-                         groundingMetadata?.webSearchQueries?.length > 0;
-  const hasGroundingSupports = groundingMetadata?.groundingSupports?.length > 0;
+                         (groundingMetadata?.webSearchQueries?.length ?? 0) > 0;
+  const hasGroundingSupports = (groundingMetadata?.groundingSupports?.length ?? 0) > 0;
   const totalConfidence = groundingMetadata?.groundingSupports?.reduce((sum, support) => {
     const avgScore = support.confidenceScores.reduce((a, b) => a + b, 0) / (support.confidenceScores.length || 1);
     return sum + avgScore;
   }, 0) || 0;
-  const avgConfidence = hasGroundingSupports ? totalConfidence / groundingMetadata.groundingSupports.length : 0;
+  const avgConfidence = hasGroundingSupports && groundingMetadata?.groundingSupports ? 
+    totalConfidence / groundingMetadata.groundingSupports.length : 0;
 
   return (
     <Card className="mt-4">
@@ -121,7 +122,7 @@ export function GroundingSourcesDisplay({ sources, groundingMetadata, functionCa
             <div className="flex flex-wrap gap-1">
               {groundingMetadata.webSearchQueries.map((query, index) => (
                 <Badge key={index} variant="outline" className="text-xs">
-                  "{query}"
+                  &ldquo;{query}&rdquo;
                 </Badge>
               ))}
             </div>

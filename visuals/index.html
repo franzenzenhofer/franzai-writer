@@ -2,88 +2,59 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#000000">
 <title>Dream‑Kaleido‑Flow</title>
 <style>
-  html, body {
+  * {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  html, body {
+    width: 100%;
     height: 100%;
     background: #000;
     overflow: hidden;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    position: fixed;
+    touch-action: none;
   }
   
   canvas {
     display: block;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
     cursor: move;
   }
   
-  #info {
-    position: fixed;
-    left: 8px;
-    bottom: 8px;
-    padding: 0.4em 0.6em;
-    font: 12px/1.3 monospace;
-    color: #eee;
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 4px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    user-select: none;
+  /* Prevent bounce on iOS */
+  body {
+    overscroll-behavior: none;
   }
   
-  button {
-    transition: all 0.2s ease;
-  }
-  
-  button:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
-    transform: scale(1.05);
-  }
-  
-  /* Loading indicator */
-  .loading {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-family: monospace;
-    font-size: 16px;
-  }
-  
-  /* Hide scrollbars */
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  
-  * {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  /* Handle notch/safe areas on modern phones */
+  @supports (padding: env(safe-area-inset-top)) {
+    body {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
   }
 </style>
 </head>
 <body>
 <canvas id="c"></canvas>
-<div id="info">Loading...</div>
-<div class="loading" id="loading">Initializing kaleidoscope...</div>
-
-<!-- Main application module -->
 <script type="module" src="js/main.js"></script>
-
-<script>
-// Remove loading indicator after a short delay
-setTimeout(() => {
-  const loading = document.getElementById('loading');
-  if (loading) {
-    loading.style.transition = 'opacity 0.5s';
-    loading.style.opacity = '0';
-    setTimeout(() => loading.remove(), 500);
-  }
-}, 1000);
-</script>
-
 </body>
 </html>

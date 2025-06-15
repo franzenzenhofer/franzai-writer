@@ -1,77 +1,67 @@
-// Interaction module with Hammer.js integration
+import { parms } from './config.js';
 import Hammer from 'hammerjs';
-import { updateParams } from './config.js';
 
-export class InteractionManager {
-  constructor(element) {
-    this.element = element;
-    this.hammer = new Hammer.Manager(element);
-    this.setupGestures();
+let lastX = 0;
+let lastY = 0;
+
+// Pointer tweaks: drag horizontally to change swirl, vertically to change slice count.
+export function setupPointerInteraction() {
+  // Only use pointer events on desktop
+  if (!('ontouchstart' in window)) {
+    window.addEventListener('pointermove', e => {
+      const normX = (e.clientX / window.innerWidth  - .5) * 2;
+      const normY = (e.clientY / window.innerHeight - .5) * 2;
+      parms.swirlSpeed = 0.05 + Math.abs(normX) * 0.6;
+      parms.slices     = 6 + Math.floor(Math.abs(normY) * 18); // 6–24 slices
+    }, {passive:true});
   }
+}
+
+// Setup Hammer.js for touch gestures
+export function setupHammerGestures(element) {
+  const hammer = new Hammer.Manager(element, {
+    touchAction: 'none',
+    recognizers: [
+      [Hammer.Pan, { direction: Hammer.DIRECTION_ALL, threshold: 0 }],
+      [Hammer.Pinch, { enable: true }],
+      [Hammer.Rotate, { enable: true }]
+    ]
+  });
   
-  setupGestures() {
-    // Add pan gesture recognizer
-    this.hammer.add(new Hammer.Pan({ 
-      direction: Hammer.DIRECTION_ALL,
-      threshold: 5
-    }));
+  // Handle pan gestures
+  hammer.on('panstart', (event) => {
+    lastX = event.center.x;
+    lastY = event.center.y;
+  });
+  
+  hammer.on('panmove', (event) => {
+    const deltaX = event.center.x - lastX;
+    const deltaY = event.center.y - lastY;
     
-    // Add pinch gesture for potential future scaling
-    this.hammer.add(new Hammer.Pinch());
+    // More sensitive on mobile
+    const sensitivity = window.matchMedia('(max-width: 768px)').matches ? 1.5 : 1;
     
-    // Add tap gesture
-    this.hammer.add(new Hammer.Tap());
+    const normX = (deltaX / window.innerWidth) * sensitivity;
+    const normY = (deltaY / window.innerHeight) * sensitivity;
     
-    // Handle pan/drag gestures
-    this.hammer.on('pan', (event) => {
-      this.handlePan(event);
-    });
+    parms.swirlSpeed = Math.max(0.05, Math.min(0.65, parms.swirlSpeed + normX));
+    parms.slices = Math.max(6, Math.min(24, Math.round(parms.slices + normY * 10)));
     
-    // Handle pinch gestures (for future enhancements)
-    this.hammer.on('pinch', (event) => {
-      this.handlePinch(event);
-    });
-    
-    // Handle tap gestures
-    this.hammer.on('tap', (event) => {
-      this.handleTap(event);
-    });
-    
-    // Also support traditional pointer events for desktop
-    this.setupPointerEvents();
-  }
+    lastX = event.center.x;
+    lastY = event.center.y;
+  });
   
-  setupPointerEvents() {
-    this.element.addEventListener('pointermove', (event) => {
-      const normalizedX = (event.clientX / window.innerWidth - 0.5) * 2;
-      const normalizedY = (event.clientY / window.innerHeight - 0.5) * 2;
-      this.updateParameters(normalizedX, normalizedY);
-    }, { passive: true });
-  }
+  // Handle pinch for sizing
+  hammer.on('pinch', (event) => {
+    parms.sizeMod = Math.max(0.1, Math.min(0.5, 0.18 * event.scale));
+  });
   
-  handlePan(event) {
-    // Normalize pan delta to -1 to 1 range
-    const normalizedX = event.deltaX / (window.innerWidth / 2);
-    const normalizedY = event.deltaY / (window.innerHeight / 2);
-    this.updateParameters(normalizedX, normalizedY);
-  }
+  // Handle rotate for hue speed
+  hammer.on('rotate', (event) => {
+    parms.hueSpeed = Math.max(10, Math.min(100, 40 + event.rotation / 2));
+  });
   
-  handlePinch(event) {
-    // Reserved for future scaling functionality
-    console.log('Pinch scale:', event.scale);
-  }
-  
-  handleTap(event) {
-    // Could be used to reset parameters or toggle modes
-    console.log('Tap at:', event.center);
-  }
-  
-  updateParameters(normalizedX, normalizedY) {
-    updateParams.setSwirlSpeed(normalizedX);
-    updateParams.setSlices(normalizedY);
-  }
-  
-  destroy() {
-    this.hammer.destroy();
-  }
+  // Prevent default touch behavior
+  element.addEventListener('touchstart', (e) => e.preventDefault(), { passive: false });
+  element.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
 }

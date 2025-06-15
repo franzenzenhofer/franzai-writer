@@ -1,31 +1,23 @@
-// Configuration module - all parameters in one place
-export const config = {
-  // Visual parameters
-  slices: 12,
-  circles: 8,
-  baseRadius: 0.35,
-  swirlSpeed: 0.25,
-  hueSpeed: 40,
-  sizeMod: 0.18,
-  
-  // Constraints
-  minSlices: 6,
-  maxSlices: 24,
-  minSwirlSpeed: 0.05,
-  maxSwirlSpeed: 0.65,
-  
-  // Canvas settings
-  backgroundColor: '#000',
-  infoText: '🌀 Dream‑Kaleido‑Flow – swipe/drag to interact'
+// MOBILE FIRST - Default parameters optimized for mobile
+export const parms = {
+  slices: 8,             // Optimized for mobile performance
+  circles: 6,            // Fewer circles for smooth 60fps on phones
+  baseRadius: 0.4,       // Larger for touch-friendly visuals
+  swirlSpeed: 0.15,      // Slower for better mobile control
+  hueSpeed: 30,          // Calmer color transitions
+  sizeMod: 0.2           // Better visibility on small screens
 };
 
-// Parameter update functions
-export const updateParams = {
-  setSwirlSpeed: (normalizedX) => {
-    config.swirlSpeed = config.minSwirlSpeed + Math.abs(normalizedX) * (config.maxSwirlSpeed - config.minSwirlSpeed);
-  },
+// Desktop enhancements for larger screens
+export function enhanceForDesktop() {
+  const isDesktop = window.matchMedia('(min-width: 769px) and (pointer: fine)').matches;
   
-  setSlices: (normalizedY) => {
-    config.slices = config.minSlices + Math.floor(Math.abs(normalizedY) * (config.maxSlices - config.minSlices));
+  if (isDesktop) {
+    parms.slices = 12;
+    parms.circles = 8;
+    parms.baseRadius = 0.35;
+    parms.swirlSpeed = 0.25;
+    parms.hueSpeed = 40;
+    parms.sizeMod = 0.18;
   }
-};
+}

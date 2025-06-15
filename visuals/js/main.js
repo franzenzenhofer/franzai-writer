@@ -1,70 +1,33 @@
-// Main entry point - ties all modules together
-import { config } from './config.js';
-import { CanvasManager } from './canvas.js';
-import { drawKaleidoscope } from './renderer.js';
-import { InteractionManager } from './interaction.js';
-import { AnimationLoop } from './animation.js';
+import { resize, canvas, setupOrientationHandler } from './canvas.js';
+import { setupPointerInteraction, setupHammerGestures } from './interaction.js';
+import { draw } from './renderer.js';
+import { applyMobileDefaults } from './config.js';
 
-class KaleidoscopeApp {
-  constructor() {
-    this.canvasManager = null;
-    this.interactionManager = null;
-    this.animationLoop = null;
-  }
-  
-  init() {
-    // Initialize canvas
-    this.canvasManager = new CanvasManager('c');
-    
-    // Initialize interaction handling
-    this.interactionManager = new InteractionManager(this.canvasManager.canvas);
-    
-    // Initialize animation loop
-    this.animationLoop = new AnimationLoop((time) => {
-      drawKaleidoscope(this.canvasManager, time);
-    });
-    
-    // Update info text if it exists
-    const infoElement = document.getElementById('info');
-    if (infoElement) {
-      infoElement.textContent = config.infoText;
-    }
-    
-    // Start the animation
-    this.animationLoop.start();
-    
-    // Set up visibility change handling
-    this.setupVisibilityHandling();
-  }
-  
-  setupVisibilityHandling() {
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        this.animationLoop.pause();
-      } else {
-        this.animationLoop.resume();
-      }
-    });
-  }
-  
-  destroy() {
-    if (this.animationLoop) {
-      this.animationLoop.stop();
-    }
-    if (this.interactionManager) {
-      this.interactionManager.destroy();
-    }
-  }
-}
+// Apply mobile defaults if needed
+applyMobileDefaults();
 
-// Initialize app when DOM is ready
-const app = new KaleidoscopeApp();
+// Initialize canvas
+window.addEventListener('resize', resize, {passive:true});
+setupOrientationHandler();
+resize();
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => app.init());
-} else {
-  app.init();
-}
+// Setup interactions
+setupPointerInteraction();
+setupHammerGestures(canvas);
 
-// Export app instance for debugging/testing
-export default app;
+// Prevent iOS bounce
+document.body.addEventListener('touchmove', (e) => {
+  e.preventDefault();
+}, { passive: false });
+
+// Handle page visibility for performance
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    // Could pause animation here if needed
+  } else {
+    // Could resume animation here if needed
+  }
+});
+
+// Start animation
+requestAnimationFrame(draw);

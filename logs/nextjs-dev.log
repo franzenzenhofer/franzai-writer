@@ -27623,3 +27623,485 @@ Please solve this step by step and show your reasoning process.
   timestamp: '2025-06-15T19:56:27.875Z'
 }
 [FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+ ✓ Compiled in 255ms (877 modules)
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'K06ZrHBjmgLyOodBm7Qh' }
+[WizardPage] Loading existing document: K06ZrHBjmgLyOodBm7Qh
+[DocumentPersistence] Loading document { documentId: 'K06ZrHBjmgLyOodBm7Qh' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'K06ZrHBjmgLyOodBm7Qh' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'K06ZrHBjmgLyOodBm7Qh' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'K06ZrHBjmgLyOodBm7Qh',
+  title: 'test',
+  stageStatesCount: 15,
+  stageStatesKeys: [
+    'document-understanding-test',
+    'thinking-mode-test',
+    'code-execution-python',
+    'function-calling-unit-converter',
+    'image-understanding-test',
+    'test-title',
+    'grounding-url-context',
+    'chat-mode-test',
+    'final-summary',
+    'streaming-test',
+    'multiple-url-grounding',
+    'function-calling-weather',
+    'function-calling-calculator',
+    'combined-features-test',
+    'grounding-google-search'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'K06ZrHBjmgLyOodBm7Qh',
+  title: 'test',
+  stageCount: 15,
+  validatedStageIds: [
+    'document-understanding-test',
+    'thinking-mode-test',
+    'code-execution-python',
+    'function-calling-unit-converter',
+    'image-understanding-test',
+    'test-title',
+    'grounding-url-context',
+    'chat-mode-test',
+    'final-summary',
+    'streaming-test',
+    'multiple-url-grounding',
+    'function-calling-weather',
+    'function-calling-calculator',
+    'combined-features-test',
+    'grounding-google-search'
+  ]
+}
+ GET /w/gemini-test/K06ZrHBjmgLyOodBm7Qh 200 in 200ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T20:00:15.071Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+ ✓ Compiled in 152ms (877 modules)
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'K06ZrHBjmgLyOodBm7Qh' }
+[WizardPage] Loading existing document: K06ZrHBjmgLyOodBm7Qh
+[DocumentPersistence] Loading document { documentId: 'K06ZrHBjmgLyOodBm7Qh' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'K06ZrHBjmgLyOodBm7Qh' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'K06ZrHBjmgLyOodBm7Qh' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'K06ZrHBjmgLyOodBm7Qh',
+  title: 'test',
+  stageStatesCount: 15,
+  stageStatesKeys: [
+    'document-understanding-test',
+    'thinking-mode-test',
+    'code-execution-python',
+    'function-calling-unit-converter',
+    'image-understanding-test',
+    'test-title',
+    'grounding-url-context',
+    'chat-mode-test',
+    'final-summary',
+    'streaming-test',
+    'multiple-url-grounding',
+    'function-calling-weather',
+    'function-calling-calculator',
+    'combined-features-test',
+    'grounding-google-search'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'K06ZrHBjmgLyOodBm7Qh',
+  title: 'test',
+  stageCount: 15,
+  validatedStageIds: [
+    'document-understanding-test',
+    'thinking-mode-test',
+    'code-execution-python',
+    'function-calling-unit-converter',
+    'image-understanding-test',
+    'test-title',
+    'grounding-url-context',
+    'chat-mode-test',
+    'final-summary',
+    'streaming-test',
+    'multiple-url-grounding',
+    'function-calling-weather',
+    'function-calling-calculator',
+    'combined-features-test',
+    'grounding-google-search'
+  ]
+}
+ GET /w/gemini-test/K06ZrHBjmgLyOodBm7Qh 200 in 155ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T20:00:38.312Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+ ✓ Compiled in 507ms (2204 modules)
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T20:01:51.102Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'K06ZrHBjmgLyOodBm7Qh' }
+[WizardPage] Loading existing document: K06ZrHBjmgLyOodBm7Qh
+[DocumentPersistence] Loading document { documentId: 'K06ZrHBjmgLyOodBm7Qh' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'K06ZrHBjmgLyOodBm7Qh' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'K06ZrHBjmgLyOodBm7Qh' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'K06ZrHBjmgLyOodBm7Qh',
+  title: 'test',
+  stageStatesCount: 15,
+  stageStatesKeys: [
+    'grounding-url-context',
+    'streaming-test',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'document-understanding-test',
+    'chat-mode-test',
+    'combined-features-test',
+    'final-summary',
+    'function-calling-weather',
+    'thinking-mode-test',
+    'test-title',
+    'image-understanding-test',
+    'multiple-url-grounding',
+    'function-calling-calculator',
+    'grounding-google-search'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'K06ZrHBjmgLyOodBm7Qh',
+  title: 'test',
+  stageCount: 15,
+  validatedStageIds: [
+    'grounding-url-context',
+    'streaming-test',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'document-understanding-test',
+    'chat-mode-test',
+    'combined-features-test',
+    'final-summary',
+    'function-calling-weather',
+    'thinking-mode-test',
+    'test-title',
+    'image-understanding-test',
+    'multiple-url-grounding',
+    'function-calling-calculator',
+    'grounding-google-search'
+  ]
+}
+ GET /w/gemini-test/K06ZrHBjmgLyOodBm7Qh 200 in 573ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T20:01:51.545Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+ ✓ Compiled /api/documents/save in 309ms (1343 modules)
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T20:01:54.265Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[DocumentPersistence] STEP 1: Starting document save operation {
+  documentId: 'K06ZrHBjmgLyOodBm7Qh',
+  title: 'test',
+  workflowId: 'gemini-tools-test',
+  stageStatesKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'multiple-url-grounding',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  stageStatesCount: 15,
+  hasUserId: true,
+  isNewDocument: false
+}
+[DocumentPersistence] STEP 2: Validation passed
+[DocumentPersistence] STEP 3: Determined user ID {
+  originalUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  effectiveUserId: 'n3eRvofEdpVAMI6Bez2FAPL4MF53',
+  wasGenerated: false
+}
+[DocumentPersistence] STEP 4: Cleaning stage states for Firestore
+[DocumentPersistence] STEP 5: Stage states cleaned {
+  originalKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'multiple-url-grounding',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  originalCount: 15,
+  cleanedKeys: [
+    'test-title',
+    'grounding-google-search',
+    'grounding-url-context',
+    'multiple-url-grounding',
+    'thinking-mode-test',
+    'function-calling-calculator',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'code-execution-python',
+    'streaming-test',
+    'chat-mode-test',
+    'image-understanding-test',
+    'document-understanding-test',
+    'combined-features-test',
+    'final-summary'
+  ],
+  cleanedCount: 15
+}
+[DocumentPersistence] STEP 6: Updating EXISTING document { documentId: 'K06ZrHBjmgLyOodBm7Qh' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'K06ZrHBjmgLyOodBm7Qh' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'K06ZrHBjmgLyOodBm7Qh' }
+[FirestoreAdapter] Updating document { collection: 'documents', id: 'K06ZrHBjmgLyOodBm7Qh' }
+[FirestoreAdapter] Document updated { collection: 'documents', id: 'K06ZrHBjmgLyOodBm7Qh' }
+[DocumentPersistence] Document updated successfully { documentId: 'K06ZrHBjmgLyOodBm7Qh' }
+ POST /api/documents/save 200 in 914ms
+ ✓ Compiled in 256ms (2220 modules)
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T20:01:58.907Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'K06ZrHBjmgLyOodBm7Qh' }
+[WizardPage] Loading existing document: K06ZrHBjmgLyOodBm7Qh
+[DocumentPersistence] Loading document { documentId: 'K06ZrHBjmgLyOodBm7Qh' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'K06ZrHBjmgLyOodBm7Qh' }
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T20:01:59.259Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'K06ZrHBjmgLyOodBm7Qh' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'K06ZrHBjmgLyOodBm7Qh',
+  title: 'test',
+  stageStatesCount: 15,
+  stageStatesKeys: [
+    'function-calling-weather',
+    'grounding-url-context',
+    'multiple-url-grounding',
+    'document-understanding-test',
+    'combined-features-test',
+    'function-calling-unit-converter',
+    'chat-mode-test',
+    'image-understanding-test',
+    'grounding-google-search',
+    'streaming-test',
+    'thinking-mode-test',
+    'test-title',
+    'function-calling-calculator',
+    'final-summary',
+    'code-execution-python'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'K06ZrHBjmgLyOodBm7Qh',
+  title: 'test',
+  stageCount: 15,
+  validatedStageIds: [
+    'function-calling-weather',
+    'grounding-url-context',
+    'multiple-url-grounding',
+    'document-understanding-test',
+    'combined-features-test',
+    'function-calling-unit-converter',
+    'chat-mode-test',
+    'image-understanding-test',
+    'grounding-google-search',
+    'streaming-test',
+    'thinking-mode-test',
+    'test-title',
+    'function-calling-calculator',
+    'final-summary',
+    'code-execution-python'
+  ]
+}
+ GET /w/gemini-test/K06ZrHBjmgLyOodBm7Qh 200 in 482ms
+ ✓ Compiled in 251ms (2220 modules)
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T20:02:06.051Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'K06ZrHBjmgLyOodBm7Qh' }
+[WizardPage] Loading existing document: K06ZrHBjmgLyOodBm7Qh
+[DocumentPersistence] Loading document { documentId: 'K06ZrHBjmgLyOodBm7Qh' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'K06ZrHBjmgLyOodBm7Qh' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'K06ZrHBjmgLyOodBm7Qh' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'K06ZrHBjmgLyOodBm7Qh',
+  title: 'test',
+  stageStatesCount: 15,
+  stageStatesKeys: [
+    'thinking-mode-test',
+    'document-understanding-test',
+    'image-understanding-test',
+    'chat-mode-test',
+    'combined-features-test',
+    'grounding-google-search',
+    'grounding-url-context',
+    'test-title',
+    'code-execution-python',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'multiple-url-grounding',
+    'streaming-test',
+    'function-calling-calculator',
+    'final-summary'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'K06ZrHBjmgLyOodBm7Qh',
+  title: 'test',
+  stageCount: 15,
+  validatedStageIds: [
+    'thinking-mode-test',
+    'document-understanding-test',
+    'image-understanding-test',
+    'chat-mode-test',
+    'combined-features-test',
+    'grounding-google-search',
+    'grounding-url-context',
+    'test-title',
+    'code-execution-python',
+    'function-calling-weather',
+    'function-calling-unit-converter',
+    'multiple-url-grounding',
+    'streaming-test',
+    'function-calling-calculator',
+    'final-summary'
+  ]
+}
+ GET /w/gemini-test/K06ZrHBjmgLyOodBm7Qh 200 in 325ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T20:02:06.419Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+ ✓ Compiled in 233ms (2220 modules)
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T20:02:14.020Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+[WizardPage] Starting page load { shortName: 'gemini-test', documentId: 'K06ZrHBjmgLyOodBm7Qh' }
+[WizardPage] Loading existing document: K06ZrHBjmgLyOodBm7Qh
+[DocumentPersistence] Loading document { documentId: 'K06ZrHBjmgLyOodBm7Qh' }
+[FirestoreAdapter] Getting document { collection: 'documents', id: 'K06ZrHBjmgLyOodBm7Qh' }
+[FirestoreAdapter] Document retrieved { collection: 'documents', id: 'K06ZrHBjmgLyOodBm7Qh' }
+[DocumentPersistence] Document loaded successfully {
+  documentId: 'K06ZrHBjmgLyOodBm7Qh',
+  title: 'test',
+  stageStatesCount: 15,
+  stageStatesKeys: [
+    'final-summary',
+    'multiple-url-grounding',
+    'streaming-test',
+    'test-title',
+    'function-calling-calculator',
+    'code-execution-python',
+    'function-calling-weather',
+    'chat-mode-test',
+    'function-calling-unit-converter',
+    'image-understanding-test',
+    'combined-features-test',
+    'document-understanding-test',
+    'thinking-mode-test',
+    'grounding-google-search',
+    'grounding-url-context'
+  ]
+}
+[WizardPage] Document loaded successfully: {
+  documentId: 'K06ZrHBjmgLyOodBm7Qh',
+  title: 'test',
+  stageCount: 15,
+  validatedStageIds: [
+    'final-summary',
+    'multiple-url-grounding',
+    'streaming-test',
+    'test-title',
+    'function-calling-calculator',
+    'code-execution-python',
+    'function-calling-weather',
+    'chat-mode-test',
+    'function-calling-unit-converter',
+    'image-understanding-test',
+    'combined-features-test',
+    'document-understanding-test',
+    'thinking-mode-test',
+    'grounding-google-search',
+    'grounding-url-context'
+  ]
+}
+ GET /w/gemini-test/K06ZrHBjmgLyOodBm7Qh 200 in 285ms
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T20:02:14.382Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+ ✓ Compiled / in 479ms (1344 modules)
+[FIREBASE INIT] Configuration loaded: {
+  projectId: 'franzai-writer',
+  authDomain: 'franzai-writer.firebaseapp.com',
+  useEmulator: 'false',
+  isServer: true,
+  timestamp: '2025-06-15T20:03:12.618Z'
+}
+[FIREBASE INIT] WARNING: Using PRODUCTION Firebase!
+ GET / 200 in 759ms

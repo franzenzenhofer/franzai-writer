@@ -37,14 +37,12 @@ const AiStageExecutionInputSchema = z.object({
     }).optional(),
     urlContext: z.object({
       enabled: z.boolean(),
-      urls: z.array(z.string()),
+      urls: z.array(z.string()).optional(),
+      extractUrlsFromInput: z.boolean().optional(),
     }).optional(),
   }).optional(),
   functionCallingMode: z.enum(['AUTO', 'ANY', 'NONE']).optional(),
-  streamingSettings: z.object({
-    enabled: z.boolean(),
-    chunkSize: z.number().optional(),
-  }).optional(),
+  // Streaming removed
   // Flag to force Google Search grounding for AI Redo functionality
   forceGoogleSearchGrounding: z.boolean().optional(),
 });
@@ -132,7 +130,7 @@ export async function aiStageExecutionFlow(
       promptTemplate, model, temperature, imageData,
       thinkingSettings, toolNames, fileInputs,
       systemInstructions, chatHistory, groundingSettings,
-      functionCallingMode, streamingSettings, forceGoogleSearchGrounding
+      functionCallingMode, forceGoogleSearchGrounding
     } = input;
 
     console.log('[AI Stage Flow Enhanced] Starting with input:', {
@@ -141,7 +139,7 @@ export async function aiStageExecutionFlow(
       hasGrounding: !!(groundingSettings?.googleSearch?.enabled || groundingSettings?.urlContext?.enabled),
       forceGoogleSearchGrounding: !!forceGoogleSearchGrounding,
       hasThinking: thinkingSettings?.enabled,
-      isStreaming: streamingSettings?.enabled,
+      isStreaming: false, // Streaming removed
       promptTemplate: promptTemplate ? `${promptTemplate.substring(0, 100)}...` : 'EMPTY',
       chatHistory: chatHistory ? `${chatHistory.length} messages` : 'none',
       // CRITICAL: Debug groundingSettings in detail
@@ -254,7 +252,7 @@ export async function aiStageExecutionFlow(
         const extractedUrls = promptTemplate.match(urlRegex) || [];
         urlsToProcess = [...new Set(extractedUrls)]; // Remove duplicates
         console.log('[AI Stage Flow Enhanced] Extracted URLs from input:', urlsToProcess);
-      } else if (groundingSettings.urlContext.urls?.length > 0) {
+      } else if (groundingSettings.urlContext.urls && groundingSettings.urlContext.urls.length > 0) {
         urlsToProcess = groundingSettings.urlContext.urls;
         console.log('[AI Stage Flow Enhanced] Using predefined URLs:', urlsToProcess);
       }
@@ -306,7 +304,7 @@ export async function aiStageExecutionFlow(
         console.log('🔗 URLs to process:', urlsToProcess);
         
         // If URLs were extracted from input, don't add them again to avoid duplication
-        if (groundingSettings.urlContext.extractUrlsFromInput) {
+        if (groundingSettings.urlContext?.extractUrlsFromInput) {
           console.log('🔍 URLs extracted from input text - using as-is for URL Context');
         } else {
           // Add URLs to the prompt for URL Context tool (legacy behavior)
@@ -354,51 +352,12 @@ export async function aiStageExecutionFlow(
       }
     }
 
-    // Use streaming or regular generation
-    const shouldUseStreaming = streamingSettings?.enabled || callHistory.length > 0 || 
-                              generateOptions.tools?.length > 0;
-    
-    console.log('[AI Stage Flow Enhanced] Generation path decision:', {
-      shouldUseStreaming,
-      streamingEnabled: streamingSettings?.enabled,
-      hasHistory: callHistory.length > 0,
-      hasTools: (generateOptions.tools?.length || 0) > 0,
-      googleSearchEnabled: shouldEnableGoogleSearch,
-      modelUsed: modelToUse
-    });
-
-    // 🚨 FINAL TOOLS CHECK: Show exactly what tools are going to the API
-    console.log('🔧🔧🔧 FINAL API REQUEST TOOLS CHECK 🔧🔧🔧');
-    console.log('📋 generateOptions.tools:', JSON.stringify(generateOptions.tools, null, 2));
-    console.log('📋 generateOptions.config:', JSON.stringify(generateOptions.config, null, 2));
-    console.log('📊 Total tools count:', generateOptions.tools?.length || 0);
-    if (generateOptions.tools?.some((tool: any) => tool.google_search !== undefined)) {
-      console.log('✅✅✅ GOOGLE SEARCH TOOL IS PRESENT IN API REQUEST! ✅✅✅');
-      console.log('🎯 Using Gemini 2.0+ Search as Tool approach');
-    } else {
-      console.log('❌❌❌ NO GOOGLE SEARCH GROUNDING CONFIGURED ❌❌❌');
-    }
-    console.log('🔧🔧🔧 ================================= 🔧🔧🔧');
-    
-    if (shouldUseStreaming) {
-      // Use streaming for chat, tools, or when explicitly enabled
-      return await executeWithStreaming(
-        generateOptions,
-        callHistory,
-        availableTools,
-        currentThinkingSteps,
-        streamingCallback,
-        promptTemplate,
-        input
-      );
-    } else {
-      // Use simple generation for non-streaming, non-chat requests
-      return await executeSimpleGeneration(
-        generateOptions,
-        promptTemplate,
-        currentThinkingSteps
-      );
-    }
+    // Always use simple generation (streaming removed)
+    return await executeSimpleGeneration(
+      generateOptions,
+      promptTemplate,
+      currentThinkingSteps
+    );
   }
 
 // Simple generation for non-streaming, non-chat requests
@@ -467,277 +426,7 @@ async function executeSimpleGeneration(
   }
 }
 
-// Streaming generation with tool support
-async function executeWithStreaming(
-  generateOptions: any,
-  callHistory: any[],
-  availableTools: any[],
-  thinkingSteps: ThinkingStep[],
-  streamingCallback?: any,
-  promptTemplate?: string,
-  originalInput?: AiStageExecutionInput
-): Promise<AiStageOutputSchema> {
-  let accumulatedContent = "";
-  let finalOutputImages: any[] = [];
-  let groundingSources: any[] = [];
-  let groundingMetadata: AiStageOutputSchema['groundingMetadata'] = undefined;
-  let functionCalls: any[] = [];
-  let codeExecutionResults: any;
-  
-  const maxLoops = 5;
-  let iterationCount = 0;
-  
-  try {
-    while (iterationCount < maxLoops) {
-      iterationCount++;
-      console.log(`[AI Stage Flow Enhanced] Streaming iteration ${iterationCount}/${maxLoops}`);
-      
-      // Debug: Log exactly what we're sending to the API
-      console.log('[AI Stage Flow Enhanced] ===== API REQUEST DETAILS =====');
-      console.log('[AI Stage Flow Enhanced] Full API Request Configuration:', {
-        model: generateOptions.model,
-        temperature: generateOptions.config?.temperature,
-        hasTools: !!generateOptions.tools?.length,
-        toolsCount: generateOptions.tools?.length || 0,
-        toolNames: generateOptions.tools?.map((t: any) => t.name || Object.keys(t)[0]) || [],
-        hasGoogleSearchTool: !!generateOptions.tools?.some((tool: any) => tool.google_search !== undefined),
-        systemInstruction: generateOptions.config?.systemInstruction,
-        callHistoryLength: callHistory.length,
-        fullCallHistory: callHistory,
-        forceGoogleSearchGrounding: originalInput?.forceGoogleSearchGrounding
-      });
-      
-      // Log the complete request being sent to Google
-      const fullRequest = {
-        model: generateOptions.model,
-        config: generateOptions.config,
-        tools: generateOptions.tools,
-        messages: callHistory
-      };
-      console.log('[AI Stage Flow Enhanced] Complete Google API Request:', JSON.stringify(fullRequest, null, 2));
-      
-      // Convert callHistory to prompt format expected by Genkit
-      const promptParts = [];
-      for (const message of callHistory) {
-        if (message.role === 'user' || message.role === 'model') {
-          for (const part of message.parts) {
-            if (part.text) {
-              promptParts.push({ text: part.text });
-            } else if (part.inlineData) {
-              promptParts.push({ inlineData: part.inlineData });
-            } else if (part.fileData) {
-              promptParts.push({ fileData: part.fileData });
-            }
-          }
-        }
-      }
-      
-      // Use direct Gemini API for streaming
-      console.log('[AI Stage Flow Enhanced] Using streaming generation with @google/genai');
-      
-      // Convert promptParts to a single prompt string
-      const promptString = promptParts.map(part => 
-        typeof part === 'string' ? part : part.text || JSON.stringify(part)
-      ).join('\n\n');
-      
-      const request: DirectGeminiRequest = {
-        model: generateOptions.model,
-        prompt: promptString,
-        temperature: generateOptions.config?.temperature,
-        systemInstruction: generateOptions.config?.systemInstruction,
-        maxOutputTokens: generateOptions.config?.maxOutputTokens,
-        enableGoogleSearch: generateOptions.googleSearchGrounding?.enabled,
-        dynamicRetrievalThreshold: generateOptions.googleSearchGrounding?.dynamicRetrievalThreshold,
-        tools: generateOptions.tools,
-      };
-      
-      // Handle streaming with async iterable
-      let finalResponse: DirectGeminiResponse | null = null;
-      const streamIterator = await generateStreamWithDirectGemini(request);
-      
-      for await (const chunk of streamIterator) {
-        if (chunk.content && streamingCallback) {
-          streamingCallback({ type: 'text', text: chunk.content });
-        }
-        // Keep the last chunk as the final response with all metadata
-        finalResponse = chunk;
-      }
-      
-      const response = finalResponse || { content: '' };
-      
-      // Debug: Log the complete response structure
-      console.log('[AI Stage Flow Enhanced] ===== API RESPONSE DETAILS =====');
-      console.log('[AI Stage Flow Enhanced] Raw API Response Summary:', {
-        hasContent: !!response.content,
-        contentLength: response.content?.length || 0,
-        contentPreview: response.content?.substring(0, 200) + '...',
-        hasGroundingMetadata: !!response.groundingMetadata,
-        groundingMetadataKeys: response.groundingMetadata ? Object.keys(response.groundingMetadata) : [],
-        hasGroundingSources: !!response.groundingSources?.length,
-        groundingSourcesCount: response.groundingSources?.length || 0,
-        hasUsageMetadata: !!response.usageMetadata,
-        modelVersion: response.modelVersion
-      });
-      
-      // Log the complete raw response from Google
-      console.log('[AI Stage Flow Enhanced] Complete Google API Response:', JSON.stringify(response, null, 2));
-      
-      // Direct-gemini already provides grounding metadata in the expected format
-      groundingMetadata = response.groundingMetadata;
-      groundingSources = response.groundingSources?.map(source => ({
-        type: 'search' as const,
-        title: source.title,
-        url: source.uri,
-        snippet: source.snippet,
-      })) || [];
-      
-      if (groundingMetadata || groundingSources.length > 0) {
-        console.log('[AI Stage Flow Enhanced] ===== GOOGLE SEARCH GROUNDING DETECTED =====');
-        console.log('[AI Stage Flow Enhanced] ✅ Google Search Grounding IS WORKING!');
-        console.log('[AI Stage Flow Enhanced] Grounding Data Extracted:', {
-          hasGroundingMetadata: !!groundingMetadata,
-          groundingMetadataKeys: groundingMetadata ? Object.keys(groundingMetadata) : [],
-          groundingSourcesCount: groundingSources.length,
-          groundingSources: groundingSources.map(s => ({ type: s.type, title: s.title, url: s.url })),
-          searchQueries: groundingMetadata?.webSearchQueries || [],
-          groundingChunksCount: groundingMetadata?.groundingChunks?.length || 0,
-          groundingSupportsCount: groundingMetadata?.groundingSupports?.length || 0
-        });
-        console.log('[AI Stage Flow Enhanced] Full Grounding Metadata:', JSON.stringify(groundingMetadata, null, 2));
-      } else {
-        console.log('[AI Stage Flow Enhanced] ===== NO GOOGLE SEARCH GROUNDING FOUND =====');
-        console.log('[AI Stage Flow Enhanced] ❌ Google Search Grounding NOT working - response has no grounding data');
-        console.log('[AI Stage Flow Enhanced] This might indicate:');
-        console.log('[AI Stage Flow Enhanced] 1. Google Search grounding is not properly configured');
-        console.log('[AI Stage Flow Enhanced] 2. The model did not need to search for this query');
-        console.log('[AI Stage Flow Enhanced] 3. There was an issue with the grounding service');
-      }
-      
-      // Handle streaming response
-      const textContent = response.content || '';
-      accumulatedContent = textContent; // Direct-gemini already accumulates content
-      
-      // Note: Direct-gemini doesn't provide output images, code execution results, or tool requests
-      // in the current implementation. These would need to be extracted from candidates if available.
-      
-      // Tool requests are not currently supported with direct-gemini
-      // Skip tool handling for now
-      if (false) {
-        
-        // Log each tool request
-        for (const toolRequest of (response as any).toolRequests) {
-          console.log(`[AI Stage Flow Enhanced] Tool request: ${toolRequest.name}`, toolRequest.input);
-          thinkingSteps.push({
-            type: 'toolRequest',
-            toolName: toolRequest.name,
-            input: toolRequest.input
-          });
-        }
-        
-        // Execute all tool requests
-        const toolResults = [];
-        for (const toolRequest of (response as any).toolRequests) {
-          try {
-            let toolResult;
-            
-            // Handle built-in tools
-            if (toolRequest.name === 'codeInterpreter') {
-              // Code interpreter is handled by Gemini
-              toolResult = `Code interpreter executed for: ${JSON.stringify(toolRequest.input)}`;
-            } else {
-              // Handle custom tools
-              const toolDefinition = availableTools.find(t => t.name === toolRequest.name);
-              if (toolDefinition && toolDefinition.fn) {
-                toolResult = await toolDefinition.fn(toolRequest.input);
-              } else {
-                toolResult = `Tool ${toolRequest.name} not found or not executable`;
-              }
-            }
-            
-            toolResults.push({
-              toolRequestId: toolRequest.toolRequestId,
-              output: toolResult
-            });
-            
-            functionCalls.push({
-              toolName: toolRequest.name,
-              input: toolRequest.input,
-              output: toolResult,
-              timestamp: new Date().toISOString()
-            });
-            
-            thinkingSteps.push({
-              type: 'toolResponse',
-              toolName: toolRequest.name,
-              output: toolResult
-            });
-            
-            console.log(`[AI Stage Flow Enhanced] Tool ${toolRequest.name} executed successfully`);
-          } catch (error) {
-            console.error(`[AI Stage Flow Enhanced] Tool ${toolRequest.name} failed:`, error);
-            const errorMessage = (error as any)?.message || String(error);
-            const errorResult = `Tool execution failed: ${errorMessage}`;
-            
-            toolResults.push({
-              toolRequestId: toolRequest.toolRequestId,
-              output: errorResult
-            });
-            
-            thinkingSteps.push({
-              type: 'toolResponse',
-              toolName: toolRequest.name,
-              output: errorResult
-            });
-          }
-        }
-        
-        // Add tool results to chat history
-        callHistory.push({
-          role: 'model',
-          parts: [{ text: textContent }]
-        });
-        
-        if (toolResults.length > 0) {
-          callHistory.push({
-            role: 'user',
-            parts: toolResults.map(result => ({
-              toolResponse: {
-                toolRequestId: result.toolRequestId,
-                output: result.output
-              }
-            }))
-          });
-        }
-        
-      }
-      
-      // Exit the loop since we're done
-      break;
-    }
-    
-    // Stream the final response if callback provided
-    if (streamingCallback && accumulatedContent) {
-      await streamingCallback(accumulatedContent);
-    }
-    
-    return {
-      content: accumulatedContent,
-      thinkingSteps: thinkingSteps.length > 0 ? thinkingSteps : undefined,
-      outputImages: finalOutputImages.length > 0 ? finalOutputImages : undefined,
-      updatedChatHistory: callHistory,
-      groundingSources: groundingSources.length > 0 ? groundingSources : undefined,
-      groundingMetadata,
-      functionCalls: functionCalls.length > 0 ? functionCalls : undefined,
-      codeExecutionResults
-    };
-    
-  } catch (error: unknown) {
-    console.error('[AI Stage Flow Enhanced] Streaming execution failed:', error);
-    throw error;
-  }
-}
-
-// Direct Gemini API execution for Google Search grounding
+// Streaming removed - use executeSimpleGeneration or executeWithDirectGeminiAPI
 async function executeWithDirectGeminiAPI(
   request: DirectGeminiRequest,
   thinkingSteps: ThinkingStep[],

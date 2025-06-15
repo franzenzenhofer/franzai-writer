@@ -71,7 +71,8 @@ export interface Stage {
     };
     urlContext?: {
       enabled: boolean;
-      urls: string[]; // URLs to ground the response with
+      urls?: string[]; // URLs to ground the response with
+      extractUrlsFromInput?: boolean; // Extract URLs from user input automatically
     };
   };
   codeExecutionSettings?: {
