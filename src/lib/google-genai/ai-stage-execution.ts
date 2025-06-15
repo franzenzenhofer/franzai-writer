@@ -32,6 +32,8 @@ export interface ExecutionResult {
     completionTokens: number;
     totalTokens: number;
   };
+  groundingMetadata?: any;
+  groundingSources?: any[];
 }
 
 export class AIStageExecution {
@@ -53,7 +55,8 @@ export class AIStageExecution {
         model: stage.model || workflow.defaultModel || 'gemini-2.0-flash',
         temperature: stage.temperature ?? workflow.temperature ?? 0.7,
         maxOutputTokens: stage.maxTokens || 8192,
-        systemInstruction: stage.systemInstructions || stage.systemInstruction
+        systemInstruction: stage.systemInstructions || stage.systemInstruction,
+        enableGoogleSearch: stage.groundingSettings?.googleSearch?.enabled === true
       };
 
       let result: any;
@@ -78,6 +81,12 @@ export class AIStageExecution {
           const response = await TextGenerationModule.generate(prompt, modelConfig);
           result = response.text;
           usage = response.usageMetadata;
+          // CRITICAL: Also capture grounding data from the response
+          result = {
+            text: response.text,
+            groundingMetadata: response.groundingMetadata,
+            groundingSources: response.groundingSources
+          };
           break;
       }
 
@@ -93,10 +102,12 @@ export class AIStageExecution {
       }
 
       // Process the output
-      const output = this.processOutput(result, stage.outputType);
+      const output = this.processOutput(result.text || result, stage.outputType);
 
       return {
         output,
+        groundingMetadata: result.groundingMetadata,
+        groundingSources: result.groundingSources,
         usage: usage ? {
           promptTokens: usage.promptTokenCount || 0,
           completionTokens: usage.candidatesTokenCount || 0,

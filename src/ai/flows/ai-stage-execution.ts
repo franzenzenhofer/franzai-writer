@@ -250,6 +250,11 @@ export async function aiStageExecutionFlow(
       console.log('[AI Stage Flow Enhanced] Switched to thinking model:', modelToUse);
     }
 
+    // CRITICAL: Implement proper Google Search grounding using direct API
+    const shouldEnableGoogleSearch = 
+      forceGoogleSearchGrounding || 
+      groundingSettings?.googleSearch?.enabled;
+
     // Configure generation options
     const generateOptions = {
       model: modelToUse,
@@ -263,6 +268,13 @@ export async function aiStageExecutionFlow(
         })
       },
       tools: [] as any[],
+      // CRITICAL: Pass grounding settings through to generateOptions for fallback paths
+      enableGoogleSearch: shouldEnableGoogleSearch,
+      forceGoogleSearchGrounding: forceGoogleSearchGrounding,
+      googleSearchGrounding: {
+        enabled: shouldEnableGoogleSearch,
+        dynamicRetrievalThreshold: groundingSettings?.googleSearch?.dynamicThreshold
+      }
     };
 
     // Add thinking configuration
@@ -273,11 +285,6 @@ export async function aiStageExecutionFlow(
       };
       currentThinkingSteps.push({ type: 'textLog', message: 'Thinking mode enabled' });
     }
-
-    // CRITICAL: Implement proper Google Search grounding using direct API
-    const shouldEnableGoogleSearch = 
-      forceGoogleSearchGrounding || 
-      groundingSettings?.googleSearch?.enabled;
 
     // 🚀 NEW: Use direct Gemini API for Google Search grounding (bypassing Genkit)
     if (shouldEnableGoogleSearch) {
@@ -371,6 +378,17 @@ async function executeSimpleGeneration(
   try {
     console.log('[AI Stage Flow Enhanced] Using simple generation with @google/genai');
     
+    // CRITICAL FIX: Check if grounding is enabled properly
+    const groundingEnabled = generateOptions.enableGoogleSearch || 
+                            generateOptions.googleSearchGrounding?.enabled ||
+                            generateOptions.forceGoogleSearchGrounding;
+
+    console.log('[AI Stage Flow Enhanced] 🔍 Simple Generation Grounding Check:');
+    console.log('[AI Stage Flow Enhanced]   - generateOptions.enableGoogleSearch:', generateOptions.enableGoogleSearch);
+    console.log('[AI Stage Flow Enhanced]   - generateOptions.googleSearchGrounding?.enabled:', generateOptions.googleSearchGrounding?.enabled);
+    console.log('[AI Stage Flow Enhanced]   - generateOptions.forceGoogleSearchGrounding:', generateOptions.forceGoogleSearchGrounding);
+    console.log('[AI Stage Flow Enhanced]   - Final groundingEnabled:', groundingEnabled);
+
     // Use direct Gemini API instead of genkit
     const request: DirectGeminiRequest = {
       model: generateOptions.model,
@@ -378,7 +396,7 @@ async function executeSimpleGeneration(
       temperature: generateOptions.config?.temperature,
       systemInstruction: generateOptions.config?.systemInstruction,
       maxOutputTokens: generateOptions.config?.maxOutputTokens,
-      enableGoogleSearch: generateOptions.googleSearchGrounding?.enabled,
+      enableGoogleSearch: groundingEnabled,
       dynamicRetrievalThreshold: generateOptions.googleSearchGrounding?.dynamicRetrievalThreshold,
       tools: generateOptions.tools,
     };

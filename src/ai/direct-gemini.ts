@@ -178,7 +178,7 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
       contentLength: content.length,
       contentPreview: content.substring(0, 200) + '...',
       hasGroundingMetadata: !!groundingMetadata,
-      groundingSourcesCount: groundingSources.length,
+      groundingSourcesCount: groundingSources?.length || 0,
       usageMetadata: result.usageMetadata,
       fullContent: content,
       groundingSources: groundingSources

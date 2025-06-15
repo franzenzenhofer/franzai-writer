@@ -35,6 +35,7 @@ export interface AiActionResult {
   error?: string;
   groundingMetadata?: any;
   groundingInfo?: any; // Legacy grounding info
+  groundingSources?: any[];
   thinkingSteps?: any[];
   outputImages?: Array<{
     name?: string;
@@ -176,7 +177,8 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
     return {
       content,
       usage: result.usage,
-      groundingMetadata: result.output.json?.groundingMetadata // Pass through grounding metadata if available
+      groundingMetadata: (result as any).groundingMetadata || result.output.json?.groundingMetadata,
+      groundingSources: (result as any).groundingSources
     };
 
   } catch (error) {

@@ -170,26 +170,24 @@ describe('aiStageExecution Flow', () => {
 
     beforeAll(() => {
       // Mock the dynamic import of tools
-      jest.mock('@/ai/tools/sample-tools', () => ({
-        allTools: [
-          {
-            name: 'simpleCalculator',
-            description: 'Test calculator',
-            inputSchema: {} as any, // Mock schema
-            outputSchema: {} as any, // Mock schema
-            fn: mockSimpleCalculatorFn, // Use our jest mock here
-          },
-          {
-            name: 'anotherTool', // For testing tool filtering
-            description: 'Another test tool',
-            fn: jest.fn(),
-          }
-        ],
+      jest.mock('@/ai/tools/tool-definitions', () => ({
+        simpleCalculatorDefinition: {
+          name: 'simpleCalculator',
+          description: 'Test calculator',
+          inputSchema: {} as any, // Mock schema
+          outputSchema: {} as any, // Mock schema
+          fn: mockSimpleCalculatorFn, // Use our jest mock here
+        },
+        weatherToolDefinition: {
+          name: 'weatherTool',
+          description: 'Another test tool',
+          fn: jest.fn(),
+        }
       }));
     });
 
     afterAll(() => {
-      jest.unmock('@/ai/tools/sample-tools'); // Clean up the mock
+      jest.unmock('@/ai/tools/tool-definitions'); // Clean up the mock
     });
 
     beforeEach(() => {
@@ -352,7 +350,7 @@ describe('aiStageExecution Flow', () => {
       // To simulate the tool execution loop correctly for code interpreter,
       // we need to adjust how the history is built or how the `tool.fn` is perceived.
       // The current loop calls `tool.fn(toolRequest.input)`.
-      // For a built-in tool like codeInterpreter, this `fn` isn't one we define in `sample-tools.ts`.
+      // For a built-in tool like codeInterpreter, this `fn` isn't one we define in `tool-definitions.ts`.
       // Let's assume the Genkit `googleAI` plugin handles the execution if `codeInterpreter` is passed.
       // The test for the loop needs to reflect that the response for 'codeInterpreter' comes from the model side after execution.
 
@@ -377,13 +375,11 @@ describe('aiStageExecution Flow', () => {
       // Given the current loop structure, it *will* try to find `codeInterpreter` in `availableTools`.
       // To test the image extraction logic, we need to ensure `codeInterpreter` is "called" and returns image data.
       // So, we add `codeInterpreter` to the `allTools` mock for this test.
-      jest.unmock('@/ai/tools/sample-tools'); // Unmock to re-mock
+      jest.unmock('@/ai/tools/tool-definitions'); // Unmock to re-mock
       const mockCodeInterpreterFn = jest.fn().mockResolvedValue(codeInterpreterToolOutput);
-      jest.mock('@/ai/tools/sample-tools', () => ({
-        allTools: [
-          { name: 'simpleCalculator', fn: jest.fn() }, // Keep other tools if needed
-          { name: 'codeInterpreter', fn: mockCodeInterpreterFn } // Add mock code interpreter
-        ],
+      jest.mock('@/ai/tools/tool-definitions', () => ({
+        simpleCalculatorDefinition: { name: 'simpleCalculator', fn: jest.fn() },
+        codeInterpreterDefinition: { name: 'codeInterpreter', fn: mockCodeInterpreterFn }
       }));
 
 
@@ -407,12 +403,10 @@ describe('aiStageExecution Flow', () => {
       });
 
       // Restore original mock for other tests if any
-      jest.unmock('@/ai/tools/sample-tools');
-       jest.mock('@/ai/tools/sample-tools', () => ({
-        allTools: [
-          { name: 'simpleCalculator', fn: mockSimpleCalculatorFn },
-          { name: 'anotherTool', fn: jest.fn() }
-        ],
+      jest.unmock('@/ai/tools/tool-definitions');
+      jest.mock('@/ai/tools/tool-definitions', () => ({
+        simpleCalculatorDefinition: { name: 'simpleCalculator', fn: mockSimpleCalculatorFn },
+        weatherToolDefinition: { name: 'weatherTool', fn: jest.fn() }
       }));
     });
 
@@ -541,7 +535,7 @@ describe('aiStageExecution Flow', () => {
             .mockResolvedValueOnce(streamForSecondCall);
 
         // Mock the custom tool function (simpleCalculator is now from the mocked module)
-        const mockCalcTool = require('@/ai/tools/sample-tools').allTools.find((t:any) => t.name === 'simpleCalculator');
+        const mockCalcTool = require('@/ai/tools/tool-definitions').simpleCalculatorDefinition;
         mockCalcTool.fn = jest.fn().mockResolvedValue({ result: 12 });
 
 

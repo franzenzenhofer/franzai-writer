@@ -164,6 +164,11 @@ export interface GenerationResponse {
   text: string;
   functionCalls?: any[];
   groundingMetadata?: any;
+  groundingSources?: Array<{
+    title: string;
+    uri: string;
+    snippet?: string;
+  }>;
   usageMetadata?: {
     promptTokenCount: number;
     candidatesTokenCount: number;

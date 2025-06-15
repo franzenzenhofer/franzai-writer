@@ -38,17 +38,24 @@ export class TextGenerationModule {
       }
       contents.push({ text: prompt });
       
+      // Configure tools
+      const tools: any[] = [];
+      if ((modelConfig as any).enableGoogleSearch) {
+        tools.push({ googleSearch: {} });
+      }
+      
       // For @google/genai, use models.generateContent directly
       const result = await genAI.models.generateContent({
         model: modelConfig.model,
-        contents: prompt,
+        contents,
         config: {
           temperature: modelConfig.temperature,
           maxTokens: modelConfig.maxOutputTokens,
           topP: modelConfig.topP,
           topK: modelConfig.topK,
           stopSequences: modelConfig.stopSequences,
-          candidateCount: modelConfig.candidateCount
+          candidateCount: modelConfig.candidateCount,
+          ...(tools.length > 0 ? { tools } : {})
         },
         systemInstruction: modelConfig.systemInstruction
       });
@@ -58,13 +65,30 @@ export class TextGenerationModule {
         usageMetadata: result.usage as any,
         finishReason: result.finishReason,
         safetyRatings: result.safetyRatings,
+        groundingMetadata: result.groundingMetadata || result.candidates?.[0]?.groundingMetadata,
+        groundingSources: (result.groundingMetadata?.groundingChunks || result.candidates?.[0]?.groundingMetadata?.groundingChunks)?.map((chunk: any) => ({
+          title: chunk.web?.title || 'Unknown',
+          uri: chunk.web?.uri || '',
+          snippet: chunk.web?.snippet || ''
+        })) || []
       };
+      
+      // DEBUG: Log grounding status
+      if (response.groundingMetadata) {
+        console.log('✅ [TextGeneration] Grounding metadata found');
+      } else {
+        console.log('❌ [TextGeneration] No grounding metadata - checking raw result structure');
+        console.log('🔍 [TextGeneration] Result keys:', Object.keys(result));
+        console.log('🔍 [TextGeneration] Raw result:', JSON.stringify(result, null, 2).substring(0, 500));
+      }
       
       const responseLog = {
         textLength: response.text.length,
         textPreview: response.text.substring(0, 100) + '...',
         usageMetadata: response.usageMetadata,
-        finishReason: response.finishReason
+        finishReason: response.finishReason,
+        hasGroundingMetadata: !!response.groundingMetadata,
+        groundingSourcesCount: response.groundingSources?.length || 0
       };
       console.log('📥 [AI RESPONSE] Text Generation:', responseLog);
       logAI('RESPONSE', { type: 'Text Generation', ...responseLog, fullText: response.text });
@@ -102,10 +126,16 @@ export class TextGenerationModule {
       }
       contents.push({ text: prompt });
       
+      // Configure tools
+      const tools: any[] = [];
+      if ((modelConfig as any).enableGoogleSearch) {
+        tools.push({ googleSearch: {} });
+      }
+      
       // For @google/genai, use models.generateContentStream directly
       const result = await genAI.models.generateContentStream({
         model: modelConfig.model,
-        contents: prompt,
+        contents,
         config: {
           temperature: modelConfig.temperature,
           maxTokens: modelConfig.maxOutputTokens,
