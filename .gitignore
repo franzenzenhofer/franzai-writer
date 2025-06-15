@@ -45,6 +45,9 @@ next-env.d.ts
 firebase-debug.log
 firestore-debug.log
 
+# logs directory - cleaned on every dev start
+logs/*.log
+
 # closed tickets - no need to track completed work
 closed-tickets/
 obsolete-tickets/
