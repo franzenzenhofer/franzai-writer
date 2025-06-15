@@ -38,7 +38,7 @@
       "promptTemplate": "Answer this question using current information from Google Search: {{grounding-google-search.userInput}}\n\nIMPORTANT: Use Google Search grounding to find real, current information. Provide actual search results with sources and citations. Do not generate code or scripts.",
       "autoRun": false,
       "aiRedoEnabled": true,
-      "showThinking": true
+      "showThinking": false
     },
     {
       "id": "grounding-url-context",
@@ -146,7 +146,7 @@
       "description": "Test Python code execution. Try: 'Create a bar chart of sales data: Q1=100, Q2=150, Q3=120, Q4=180'",
       "inputType": "textarea",
       "outputType": "text",
-      "model": "gemini-2.0-flash-exp",
+      "model": "gemini-2.0-flash",
       "dependencies": ["test-title"],
       "toolNames": ["codeInterpreter"],
       "codeExecutionSettings": {
@@ -154,40 +154,6 @@
         "timeout": 30000
       },
       "promptTemplate": "{{userInput}}\n\nWrite and execute Python code to accomplish this task. If creating visualizations, use matplotlib.",
-      "autoRun": false,
-      "showThinking": true
-    },
-    {
-      "id": "streaming-test",
-      "title": "Streaming Response Test",
-      "description": "Test streaming responses. Ask for a long, detailed explanation.",
-      "inputType": "textarea",
-      "outputType": "text",
-      "model": "gemini-2.0-flash-exp",
-      "dependencies": ["test-title"],
-      "streamingSettings": {
-        "enabled": true,
-        "chunkSize": 10
-      },
-      "promptTemplate": "{{userInput}}\n\nProvide a detailed, comprehensive response.",
-      "autoRun": false,
-      "showThinking": false
-    },
-    {
-      "id": "chat-mode-test",
-      "title": "Chat Mode Test",
-      "description": "Test multi-turn chat. Have a conversation!",
-      "inputType": "textarea",
-      "outputType": "text",
-      "model": "gemini-2.0-flash-exp",
-      "dependencies": ["test-title"],
-      "chatEnabled": true,
-      "chatSettings": {
-        "maxHistory": 10,
-        "temperature": 0.7
-      },
-      "systemInstructions": "You are a helpful AI assistant in a test environment. Be conversational and remember context from previous messages.",
-      "promptTemplate": "{{userInput}}",
       "autoRun": false,
       "showThinking": false
     },
@@ -229,7 +195,7 @@
       "description": "Test multiple features together: grounding + function calling + code execution",
       "inputType": "textarea",
       "outputType": "text",
-      "model": "gemini-2.0-flash",
+      "model": "gemini-2.5-flash-preview",
       "temperature": 0.0,
       "dependencies": ["test-title"],
       "groundingSettings": {
@@ -265,13 +231,11 @@
         "function-calling-weather",
         "function-calling-unit-converter",
         "code-execution-python",
-        "streaming-test",
-        "chat-mode-test",
         "image-understanding-test",
         "document-understanding-test",
         "combined-features-test"
       ],
-      "promptTemplate": "# Gemini Tools Test Summary for '{{test-title.output}}'\n\nSummarize the results of all the tests performed:\n\n## Tests Performed:\n1. **Google Search Grounding**: {{#if grounding-google-search.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n2. **URL Context Grounding**: {{#if grounding-url-context.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n3. **Multiple URL Grounding**: {{#if multiple-url-grounding.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n4. **Thinking Mode**: {{#if thinking-mode-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n5. **Calculator Function**: {{#if function-calling-calculator.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n6. **Weather Function**: {{#if function-calling-weather.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n7. **Unit Converter**: {{#if function-calling-unit-converter.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n8. **Code Execution**: {{#if code-execution-python.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n9. **Streaming**: {{#if streaming-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n10. **Chat Mode**: {{#if chat-mode-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n11. **Image Understanding**: {{#if image-understanding-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n12. **Document Understanding**: {{#if document-understanding-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n13. **Combined Features**: {{#if combined-features-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n\nProvide a comprehensive summary in Markdown format.",
+      "promptTemplate": "# Gemini Tools Test Summary for '{{test-title.output}}'\n\nSummarize the results of all the tests performed:\n\n## Tests Performed:\n1. **Google Search Grounding**: {{#if grounding-google-search.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n2. **URL Context Grounding**: {{#if grounding-url-context.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n3. **Multiple URL Grounding**: {{#if multiple-url-grounding.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n4. **Thinking Mode**: {{#if thinking-mode-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n5. **Calculator Function**: {{#if function-calling-calculator.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n6. **Weather Function**: {{#if function-calling-weather.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n7. **Unit Converter**: {{#if function-calling-unit-converter.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n8. **Code Execution**: {{#if code-execution-python.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n9. **Image Understanding**: {{#if image-understanding-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n10. **Document Understanding**: {{#if document-understanding-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n11. **Combined Features**: {{#if combined-features-test.output}}✓ Tested{{else}}⏭️ Skipped{{/if}}\n\nProvide a comprehensive summary in Markdown format.",
       "autoRun": true,
       "showThinking": false
     }

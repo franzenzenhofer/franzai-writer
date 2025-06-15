@@ -19,7 +19,6 @@ interface RunAiStageParams {
   thinkingSettings?: Stage['thinkingSettings'];
   toolNames?: Stage['toolNames'];
   systemInstructions?: Stage['systemInstructions'];
-  chatHistory?: StageState['chatHistory'];
   contextVars: Record<string, StageState | { userInput: any, output: any }>;
   currentStageInput?: any;
   stageOutputType: Stage['outputType'];
@@ -31,11 +30,6 @@ interface RunAiStageParams {
   // Add JSON schema and fields for structured output
   jsonSchema?: Stage['jsonSchema'];
   jsonFields?: Stage['jsonFields'];
-  // Add streaming settings
-  streamingSettings?: {
-    enabled: boolean;
-    onChunk?: (chunk: string) => void;
-  };
   // Add stage and workflow for compatibility
   stage?: Stage;
   workflow?: any;
@@ -85,7 +79,6 @@ export interface AiActionResult {
     base64Data: string;
     mimeType: string;
   }>;
-  updatedChatHistory?: Array<{role: 'user' | 'model' | 'system', parts: any[]}>;
   usage?: {
     inputTokens?: number;
     outputTokens?: number;
@@ -158,8 +151,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
         groundingSettings: params.groundingSettings,
         model: params.model,
         temperature: params.temperature,
-        stageOutputType: params.stageOutputType,
-        streamingSettings: params.streamingSettings
+        stageOutputType: params.stageOutputType
       }
     });
 
@@ -175,8 +167,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
             hasGroundingSettings: !!params.groundingSettings,
             groundingSettings: params.groundingSettings,
             googleSearchEnabled: params.groundingSettings?.googleSearch?.enabled,
-            googleSearchThreshold: params.groundingSettings?.googleSearch?.dynamicThreshold,
-            streamingEnabled: params.streamingSettings?.enabled,
+            googleSearchThreshold: params.groundingSettings?.googleSearch?.dynamicThreshold
         });
 
         // Create an enhanced context that includes direct userInput reference
@@ -213,7 +204,6 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
       toolNames: params.toolNames,
             fileInputs: [],
       systemInstructions: params.systemInstructions,
-            chatHistory: params.chatHistory,
             // CRITICAL: Force Google Search grounding for AI Redo or when explicitly requested
             forceGoogleSearchGrounding: params.forceGoogleSearchGrounding || !!params.aiRedoNotes,
             // Pass groundingSettings from the workflow stage configuration

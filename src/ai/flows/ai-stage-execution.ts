@@ -123,8 +123,7 @@ export type AiStageOutputSchema = z.infer<typeof AiStageOutputSchema>;
 
 // Enhanced AI stage execution flow with proper Google Search grounding implementation
 export async function aiStageExecutionFlow(
-  input: AiStageExecutionInput, 
-  streamingCallback?: any
+  input: AiStageExecutionInput
 ): Promise<AiStageOutputSchema> {
     let {
       promptTemplate, model, temperature, imageData,
@@ -231,10 +230,17 @@ export async function aiStageExecutionFlow(
     // Determine the model to use
     let modelToUse = model || 'googleai/gemini-2.0-flash';
     
-    // Use thinking model if thinking is enabled
-    if (thinkingSettings?.enabled && modelToUse.includes('gemini-2.0-flash')) {
-      modelToUse = 'googleai/gemini-2.5-flash-preview';
-      console.log('[AI Stage Flow Enhanced] Switched to thinking model:', modelToUse);
+    // Use thinking model if thinking is enabled.
+    // As per the guide, only 2.5 models support thinking.
+    // We will automatically switch to a thinking-capable model if needed.
+    if (thinkingSettings?.enabled) {
+      const isThinkingModel = modelToUse.includes('gemini-2.5-flash') || modelToUse.includes('gemini-2.5-pro');
+      
+      if (!isThinkingModel) {
+         console.log(`[AI Stage Flow Enhanced] Model ${modelToUse} does not support thinking. Switching to googleai/gemini-2.5-flash-preview as requested for thinking jobs.`);
+         modelToUse = 'googleai/gemini-2.5-flash-preview';
+      }
+      console.log('[AI Stage Flow Enhanced] Using thinking model:', modelToUse);
     }
 
     // CRITICAL: Implement proper Google Search grounding using direct API
@@ -333,7 +339,6 @@ export async function aiStageExecutionFlow(
           tools: availableTools
         },
         currentThinkingSteps,
-        streamingCallback,
         input
       );
     }
@@ -364,7 +369,6 @@ export async function aiStageExecutionFlow(
         enableUrlContext: false
       },
       currentThinkingSteps,
-      streamingCallback,
       input
     );
   }
@@ -373,7 +377,6 @@ export async function aiStageExecutionFlow(
 async function executeWithDirectGeminiAPI(
   request: DirectGeminiRequest,
   thinkingSteps: ThinkingStep[],
-  streamingCallback?: any,
   originalInput?: AiStageExecutionInput
 ): Promise<AiStageOutputSchema> {
   console.log('[Direct Gemini API] Starting execution');

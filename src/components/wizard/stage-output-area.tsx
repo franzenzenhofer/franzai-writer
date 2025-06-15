@@ -115,44 +115,7 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
     }
   };
 
-  // If chat is enabled, the primary display is the chat history.
-  // The final "output" field might be used for a summary or not at all for chat.
-  if (stage.chatEnabled) {
-    if (!stageState.chatHistory || stageState.chatHistory.length === 0) {
-      if (stageState.status === "running") {
-        return <p className="text-sm text-muted-foreground">AI is thinking...</p>;
-      }
-      return <p className="text-sm text-muted-foreground">No messages yet. Send a message to start the chat.</p>;
-    }
-    // Render chat history (simplified rendering for now)
-    return (
-      <div className="space-y-4">
-        {stageState.chatHistory.map((msg, index) => (
-          <div key={index} className={cn("p-3 rounded-lg shadow-sm", msg.role === 'user' ? 'bg-secondary text-secondary-foreground ml-auto max-w-[80%]' : 'bg-muted text-muted-foreground mr-auto max-w-[80%]')}>
-            <p className="text-xs font-semibold mb-1 capitalize">{msg.role}</p>
-            {/* Render message parts - assuming parts are simple text for now */}
-            {msg.parts.map((part, pIndex) => (
-              <React.Fragment key={pIndex}>
-                {part.text && <MarkdownRenderer content={part.text} />}
-                {/* TODO: Add rendering for other part types like images, fileData if they appear in chat history parts */}
-              </React.Fragment>
-            ))}
-          </div>
-        ))}
-        {stageState.status === "running" && stageState.currentStreamOutput && (
-           <div className={cn("p-3 rounded-lg shadow-sm animate-pulse", 'bg-muted text-muted-foreground mr-auto max-w-[80%]')}>
-             <p className="text-xs font-semibold mb-1 capitalize">Model</p>
-             <MarkdownRenderer content={stageState.currentStreamOutput + "..."} /> {/* Show streaming output */}
-           </div>
-        )}
-         {stageState.status === "running" && !stageState.currentStreamOutput && (
-            <p className="text-sm text-muted-foreground">AI is thinking...</p>
-        )}
-      </div>
-    );
-  }
-
-  // Original logic for non-chat stages:
+  // Original logic for all stages:
   if (stageState.status !== "completed" || stageState.output === undefined || stageState.output === null) {
     if (stageState.status === "running") {
       return <p className="text-sm text-muted-foreground">AI is generating output...</p>;

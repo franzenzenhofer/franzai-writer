@@ -280,7 +280,7 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
             placeholder={stage.description || "Enter your input here..."}
             value={typeof stageState.userInput === 'string' ? stageState.userInput : ""}
             onChange={handleTextareaChange}
-            rows={stage.chatEnabled ? 3 : 8}
+                         rows={8}
             className="bg-background"
           />
           <TokenCounter text={typeof stageState.userInput === 'string' ? stageState.userInput : ""} />

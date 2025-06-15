@@ -181,7 +181,6 @@
         "enabled": true
       },
       "toolNames": ["codeInterpreter"],
-      "chatEnabled": true,
       "systemInstructions": "You are a helpful AI assistant. When asked to execute code, provide a brief explanation of what the code does before showing the execution results. If the code generates an image, mention it in your text response.",
       "showThinking": false
     }

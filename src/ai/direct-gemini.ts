@@ -94,19 +94,17 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
     config.maxOutputTokens = request.maxOutputTokens;
   }
 
-  // Add thinking configuration for 2.5 series models
-  if (request.enableThinking || request.includeThoughts || request.thinkingBudget) {
-    console.log('🧠 [Direct Gemini] Adding thinking configuration');
-    config.thinkingConfig = {};
+  // CRITICAL FIX: Only add thinkingConfig if thinking is explicitly enabled.
+  // The API will error if thinkingConfig is present on non-thinking models.
+  if (request.enableThinking === true) {
+    console.log('🧠 [Direct Gemini] Adding thinking configuration because enableThinking is true');
+    config.thinkingConfig = {
+      includeThoughts: request.includeThoughts !== false, // Default to true
+      thinkingBudget: request.thinkingBudget,
+    };
     
-    if (request.includeThoughts !== false) { // Default to true if thinking is enabled
-      config.thinkingConfig.includeThoughts = true;
-      console.log('✅ [Direct Gemini] Thought summaries enabled');
-    }
-    
-    if (request.thinkingBudget) {
-      config.thinkingConfig.thinkingBudget = request.thinkingBudget;
-      console.log('🧠 [Direct Gemini] Thinking budget set to:', request.thinkingBudget);
+    if (config.thinkingConfig.thinkingBudget) {
+       console.log('🧠 [Direct Gemini] Thinking budget set to:', config.thinkingConfig.thinkingBudget);
     }
   }
 

@@ -63,7 +63,6 @@ export interface Stage {
   tools?: any[]; // Tool definitions for this stage
   functionCallingMode?: "AUTO" | "ANY" | "NONE"; // How function calling should work
   systemInstructions?: string;
-  chatEnabled?: boolean;
   groundingSettings?: {
     googleSearch?: {
       enabled: boolean;
@@ -78,14 +77,6 @@ export interface Stage {
   codeExecutionSettings?: {
     enabled: boolean;
     timeout?: number; // Timeout in milliseconds (default 30000)
-  };
-  streamingSettings?: {
-    enabled: boolean;
-    chunkSize?: number; // Size of streaming chunks
-  };
-  chatSettings?: {
-    maxHistory?: number; // Maximum number of messages to keep in history
-    temperature?: number; // Override temperature for chat mode
   };
   imageSettings?: {
     maxDimension?: number; // Max width/height for images
@@ -143,7 +134,6 @@ export interface StageState {
   completedAt?: string;
   isEditingInput?: boolean;
   isEditingOutput?: boolean;
-  currentStreamOutput?: string; // For streaming responses
   isStale?: boolean; // Marks content as potentially outdated
   staleDismissed?: boolean; // User dismissed the stale warning
   shouldAutoRun?: boolean;
@@ -197,10 +187,6 @@ export interface StageState {
     name?: string;
     base64Data: string;
     mimeType: string;
-  }>;
-  chatHistory?: Array<{
-    role: 'user' | 'model' | 'system';
-    parts: any[];
   }>;
   usageMetadata?: {
     thoughtsTokenCount?: number;

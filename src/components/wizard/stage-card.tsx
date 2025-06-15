@@ -324,8 +324,8 @@ export function StageCard({
             id={`process-stage-${stage.id}`}
             data-testid={`process-stage-${stage.id}`}
           >
-            {stage.chatEnabled ? <Send className="mr-2 h-4 w-4" /> : <ArrowRight className="mr-2 h-4 w-4" />}
-            {stageState.status === "running" ? "Processing..." : (stage.chatEnabled ? "Send" : (stage.promptTemplate ? "Run AI" : "Continue"))}
+                         <ArrowRight className="mr-2 h-4 w-4" />
+             {stageState.status === "running" ? "Processing..." : (stage.promptTemplate ? "Run AI" : "Continue")}
           </Button>
         )}
       </CardFooter>
