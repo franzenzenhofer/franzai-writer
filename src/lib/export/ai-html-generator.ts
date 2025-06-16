@@ -4,6 +4,7 @@ import { generateWithDirectGemini } from '@/ai/direct-gemini';
 import type { Stage, StageState, ExportConfig } from '@/types';
 import fs from 'fs/promises';
 import path from 'path';
+import { cleanAiResponse } from '@/lib/ai-content-cleaner';
 
 export interface HtmlGenerationOptions {
   stages: Stage[];
@@ -109,7 +110,7 @@ async function generateStyledHtml(
   }
   
   // Clean HTML output - remove code fences and markdown formatting
-  return cleanAiHtmlOutput(result.content);
+  return cleanAiResponse(result.content, 'html');
 }
 
 /**
@@ -164,20 +165,7 @@ async function generateCleanHtml(
   }
   
   // Clean HTML output - remove code fences and markdown formatting
-  return cleanAiHtmlOutput(result.content);
-}
-
-/**
- * Clean AI HTML output by removing code fences and markdown formatting
- */
-function cleanAiHtmlOutput(aiResponse: string): string {
-  return aiResponse
-    .replace(/```html\s*/gi, '') // Remove opening HTML code fences (case insensitive)
-    .replace(/```\s*$/gm, '') // Remove closing code fences
-    .replace(/^```\s*/gm, '') // Remove any remaining code fence markers at line start
-    .replace(/^\s*html\s*$/gm, '') // Remove standalone 'html' language markers
-    .replace(/^[\s]*<!DOCTYPE html>/gm, '<!DOCTYPE html>') // Clean up DOCTYPE formatting
-    .trim(); // Clean whitespace
+  return cleanAiResponse(result.content, 'html');
 }
 
 /**
