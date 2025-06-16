@@ -207,10 +207,43 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
 
         let filledPrompt = substitutePromptVars(params.promptTemplate, enhancedContext);
         
-        // If AI Redo notes are provided, enhance the prompt with additional instructions
-        if (params.aiRedoNotes) {
-            filledPrompt += `\n\nAdditional instructions: ${params.aiRedoNotes}`;
-            console.log("[runAiStage] Enhanced prompt with AI REDO notes");
+        // If AI Redo notes are provided, enhance the prompt with context about the previous attempt
+        if (params.aiRedoNotes !== undefined) {
+            // Find the previous output - it should be the current stage's output
+            let previousOutput = null;
+            
+            // If stage is provided, use its ID
+            if (params.stage?.id) {
+                previousOutput = params.contextVars[params.stage.id]?.output;
+            } else {
+                // Otherwise, look for the most recent output in contextVars
+                // This is a fallback - ideally stage should always be provided
+                for (const [key, value] of Object.entries(params.contextVars)) {
+                    if (value && typeof value === 'object' && 'output' in value) {
+                        previousOutput = value.output;
+                    }
+                }
+            }
+            
+            // Build the AI Redo context
+            let redoContext = `\n\n[AI REDO REQUEST]\n`;
+            redoContext += `This is a regeneration request. `;
+            
+            if (previousOutput) {
+                redoContext += `The previous output was:\n`;
+                redoContext += `${JSON.stringify(previousOutput, null, 2)}\n\n`;
+            }
+            
+            redoContext += `Please generate a better response following the same requirements.\n`;
+            
+            if (params.aiRedoNotes && params.aiRedoNotes.trim()) {
+                redoContext += `User's specific request for improvement: ${params.aiRedoNotes}\n`;
+            }
+            
+            redoContext += `IMPORTANT: Follow the original instructions above but create a different and improved response.`;
+            
+            filledPrompt += redoContext;
+            console.log("[runAiStage] Enhanced prompt with AI REDO context");
         }
         
         console.log("[runAiStage] Filled prompt length:", filledPrompt.length);
@@ -233,8 +266,8 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
       toolNames: params.toolNames,
             fileInputs: [],
       systemInstructions: params.systemInstructions,
-            // CRITICAL: Force Google Search grounding for AI Redo or when explicitly requested
-            forceGoogleSearchGrounding: params.forceGoogleSearchGrounding || !!params.aiRedoNotes,
+            // Only use Google Search grounding when explicitly requested (not for AI Redo)
+            forceGoogleSearchGrounding: params.forceGoogleSearchGrounding,
             // Pass groundingSettings from the workflow stage configuration
       groundingSettings: params.groundingSettings,
             // Add JSON schema support
@@ -242,15 +275,14 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
             // jsonFields: params.jsonFields, // Not supported in this version
         };
 
-        // Enable Google Search grounding if AI Redo is being used or explicitly requested
-        // or if groundingSettings are provided from the workflow
-        if (params.aiRedoNotes || params.forceGoogleSearchGrounding || params.groundingSettings?.googleSearch?.enabled) {
+        // Only enable Google Search grounding if explicitly requested or configured in the stage
+        if (params.forceGoogleSearchGrounding || params.groundingSettings?.googleSearch?.enabled) {
             if (!aiInput.groundingSettings) {
                 aiInput.groundingSettings = {};
             }
             if (!aiInput.groundingSettings.googleSearch) {
                 aiInput.groundingSettings.googleSearch = {
-          enabled: true,
+                    enabled: true,
                     dynamicThreshold: params.groundingSettings?.googleSearch?.dynamicThreshold || 0.3,
                 };
             }

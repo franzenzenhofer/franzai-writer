@@ -165,28 +165,133 @@ export async function htmlToPdf(html: string, options?: any): Promise<ArrayBuffe
 }
 
 /**
- * Generate DOCX from HTML using html-docx-js
+ * Generate DOCX from HTML using modern docx library
+ * This creates a proper DOCX document from HTML content on the server-side only
  */
 export async function htmlToDocx(html: string, options?: any): Promise<ArrayBuffer> {
   try {
     // Dynamic import to avoid bundling in client code
-    const HTMLtoDOCX = (await import('html-docx-js')).default;
+    const { Document, Packer, Paragraph, TextRun, HeadingLevel } = await import('docx');
     
-    // Convert HTML to DOCX
-    const docxBlob = HTMLtoDOCX.asBlob(html, {
-      table: { row: { cantSplit: true } },
-      footer: true,
-      pageNumber: true,
-      ...options
+    console.log('[DOCX Generator] Starting HTML to DOCX conversion');
+    
+    // Extract title from HTML
+    const titleMatch = html.match(/<title[^>]*>(.*?)<\/title>/i);
+    const title = titleMatch ? titleMatch[1].trim() : 'Document';
+    
+    // Extract body content
+    let content = html;
+    const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+    if (bodyMatch) {
+      content = bodyMatch[1];
+    }
+    
+    // Parse HTML content into paragraphs and headings
+    const paragraphs: any[] = [];
+    
+    // Add title as main heading
+    paragraphs.push(
+      new Paragraph({
+        children: [
+          new TextRun({
+            text: title,
+            bold: true,
+            size: 32, // 16pt
+          }),
+        ],
+        heading: HeadingLevel.TITLE,
+        spacing: { after: 400 }, // Add space after title
+      })
+    );
+    
+    // Simple HTML parsing - convert common elements to Word paragraphs
+    content = content
+      // Remove script and style tags
+      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+      .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
+    
+    // Split content by major elements and convert
+    const htmlLines = content.split(/(?=<(?:h[1-6]|p|div|section|article))/i);
+    
+    for (const line of htmlLines) {
+      const trimmedLine = line.trim();
+      if (!trimmedLine) continue;
+      
+      // Extract text content and remove HTML tags
+      const textContent = trimmedLine
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+        
+      if (!textContent) continue;
+      
+      // Determine paragraph type and styling
+      let heading: typeof HeadingLevel[keyof typeof HeadingLevel] | undefined;
+      let bold = false;
+      let size = 24; // 12pt default
+      
+      if (trimmedLine.match(/<h1/i)) {
+        heading = HeadingLevel.HEADING_1;
+        bold = true;
+        size = 32; // 16pt
+      } else if (trimmedLine.match(/<h2/i)) {
+        heading = HeadingLevel.HEADING_2;
+        bold = true;
+        size = 28; // 14pt
+      } else if (trimmedLine.match(/<h3/i)) {
+        heading = HeadingLevel.HEADING_3;
+        bold = true;
+        size = 26; // 13pt
+      } else if (trimmedLine.match(/<h[4-6]/i)) {
+        heading = HeadingLevel.HEADING_4;
+        bold = true;
+        size = 24; // 12pt
+      }
+      
+      // Check for emphasis
+      if (trimmedLine.match(/<(?:strong|b)[^>]*>/i)) {
+        bold = true;
+      }
+      
+      paragraphs.push(
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: textContent,
+              bold,
+              size,
+            }),
+          ],
+          heading,
+          spacing: { after: 200 }, // Add space after each paragraph
+        })
+      );
+    }
+    
+    // Create the document
+    const doc = new Document({
+      sections: [
+        {
+          properties: {},
+          children: paragraphs,
+        },
+      ],
     });
     
-    // Convert blob to ArrayBuffer
-    return await docxBlob.arrayBuffer();
+    console.log('[DOCX Generator] Converting document to buffer');
+    
+    // Generate the DOCX buffer
+    const buffer = await Packer.toBuffer(doc);
+    
+    console.log('[DOCX Generator] DOCX generation successful');
+    
+    return buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength) as ArrayBuffer;
   } catch (error) {
-    console.error('DOCX generation failed:', error);
-    // Fallback to placeholder
+    console.error('[DOCX Generator] DOCX generation failed:', error);
+    // Return a proper error message as a simple text buffer
     const encoder = new TextEncoder();
-    return encoder.encode(`DOCX generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`).buffer as ArrayBuffer;
+    const errorMessage = `DOCX generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`;
+    return encoder.encode(errorMessage).buffer as ArrayBuffer;
   }
 }
 
@@ -243,7 +348,7 @@ export async function processExportFormats(
     };
   }
   
-  // Generate DOCX from clean HTML
+  // Generate DOCX from clean HTML using modern docx library (server-side only)
   try {
     console.log('[Format Converters] Generating DOCX...');
     const docxBuffer = await htmlToDocx(htmlClean);
