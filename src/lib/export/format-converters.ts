@@ -117,7 +117,7 @@ export async function htmlToDocx(html: string, options?: any): Promise<ArrayBuff
     const HTMLtoDOCX = (await import('html-docx-js')).default;
     
     // Convert HTML to DOCX
-    const docxBlob = HTMLtoDOCX(html, {
+    const docxBlob = HTMLtoDOCX.asBlob(html, {
       table: { row: { cantSplit: true } },
       footer: true,
       pageNumber: true,
@@ -169,10 +169,10 @@ export async function processExportFormats(
     };
   }
   
-  // Generate PDF from styled HTML
+  // Generate PDF from clean HTML
   try {
     console.log('[Format Converters] Generating PDF...');
-    const pdfBuffer = await htmlToPdf(htmlStyled);
+    const pdfBuffer = await htmlToPdf(htmlClean);
     const pdfBase64 = Buffer.from(pdfBuffer).toString('base64');
     formats['pdf'] = {
       ready: true,
