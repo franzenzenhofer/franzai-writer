@@ -142,13 +142,13 @@
             }
           },
           "pdf": {
-            "enabled": false,
+            "enabled": true,
             "label": "📕 PDF Poem",
             "description": "Professional PDF with elegant formatting",
             "deriveFrom": "html-styled"
           },
           "docx": {
-            "enabled": false,
+            "enabled": true,
             "label": "📘 Word Document",
             "description": "Microsoft Word format with styles",
             "deriveFrom": "html-styled"
