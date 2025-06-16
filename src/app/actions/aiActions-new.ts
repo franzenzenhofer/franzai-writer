@@ -364,8 +364,11 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
         }
 
         // For text output
+        // Map export-interface to html for proper cleaning
+        const outputType = params.stageOutputType === 'export-interface' ? 'html' : 
+          (params.stageOutputType as 'html' | 'text' | 'json' | 'markdown' | undefined);
         const finalResult: AiActionResult = {
-            content: cleanAiResponse(result.content, params.stageOutputType),
+            content: cleanAiResponse(result.content, outputType),
             groundingMetadata,
             groundingSources,
             thinkingSteps: result.thinkingSteps,

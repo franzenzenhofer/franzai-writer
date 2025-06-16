@@ -11,7 +11,7 @@
  * Clean AI response content by removing code fences and markdown formatting
  * This is the universal cleaner that should be used for ALL AI responses.
  */
-export function cleanAiResponse(content: string, outputType: 'html' | 'text' | 'json' | 'markdown' = 'text'): string {
+export function cleanAiResponse(content: string, outputType: 'html' | 'text' | 'json' | 'markdown' | 'export-interface' = 'text'): string {
   if (!content || typeof content !== 'string') {
     return content;
   }
@@ -24,6 +24,7 @@ export function cleanAiResponse(content: string, outputType: 'html' | 'text' | '
   // Additional cleaning based on output type
   switch (outputType) {
     case 'html':
+    case 'export-interface': // Treat export-interface as HTML
       cleaned = cleanHtmlResponse(cleaned);
       break;
     case 'json':
