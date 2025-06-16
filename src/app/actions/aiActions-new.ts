@@ -11,6 +11,7 @@ import type { StageState, Stage } from "@/types";
 import type { AiStageExecutionInput, ThinkingStep } from "@/ai/flows/ai-stage-execution";
 import { appendFileSync } from 'fs';
 import { join } from 'path';
+import { cleanAiResponse } from '@/lib/ai-content-cleaner';
 
 interface RunAiStageParams {
   promptTemplate: string;
@@ -311,7 +312,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
             try {
                 // Ensure result.content is a string before cleaning
                 const contentString = typeof result.content === 'string' ? result.content : JSON.stringify(result.content);
-                const cleanedJsonString = contentString.replace(/^```json\s*|```$/g, '').trim();
+                const cleanedJsonString = cleanAiResponse(contentString, 'json');
                 const parsedContent = JSON.parse(cleanedJsonString);
                 
                 const finalResult: AiActionResult = {
@@ -364,7 +365,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
 
         // For text output
         const finalResult: AiActionResult = {
-            content: result.content,
+            content: cleanAiResponse(result.content, params.stageOutputType),
             groundingMetadata,
             groundingSources,
             thinkingSteps: result.thinkingSteps,
