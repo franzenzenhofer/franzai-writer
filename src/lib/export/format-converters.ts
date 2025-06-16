@@ -99,12 +99,12 @@ export async function htmlToPdf(html: string, options?: any): Promise<ArrayBuffe
     
     await browser.close();
     
-    return pdf.buffer;
+    return pdf.buffer as ArrayBuffer;
   } catch (error) {
     console.error('PDF generation failed:', error);
     // Fallback to placeholder for now
     const encoder = new TextEncoder();
-    return encoder.encode(`PDF generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`).buffer;
+    return encoder.encode(`PDF generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`).buffer as ArrayBuffer;
   }
 }
 
@@ -114,7 +114,7 @@ export async function htmlToPdf(html: string, options?: any): Promise<ArrayBuffe
 export async function htmlToDocx(html: string, options?: any): Promise<ArrayBuffer> {
   try {
     // Dynamic import to avoid bundling in client code
-    const { default: HTMLtoDOCX } = await import('html-docx-js');
+    const HTMLtoDOCX = (await import('html-docx-js')).default;
     
     // Convert HTML to DOCX
     const docxBlob = HTMLtoDOCX(html, {
@@ -130,7 +130,7 @@ export async function htmlToDocx(html: string, options?: any): Promise<ArrayBuff
     console.error('DOCX generation failed:', error);
     // Fallback to placeholder
     const encoder = new TextEncoder();
-    return encoder.encode(`DOCX generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`).buffer;
+    return encoder.encode(`DOCX generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`).buffer as ArrayBuffer;
   }
 }
 
