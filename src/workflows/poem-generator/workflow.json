@@ -94,7 +94,7 @@
       "stageType": "export",
       "inputType": "none",
       "outputType": "export-interface",
-      "dependencies": ["generate-poem-with-title"],
+      "dependencies": ["generate-html-preview"],
       "autoRun": false,
       "showAsHero": true,
       "triggerButton": {
