@@ -33,20 +33,19 @@ export async function POST(request: NextRequest) {
     
     // Generate URLs
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:9002';
-    const publishedUrl = `${baseUrl}/published/${publishId}/styled`;
-    const shortUrl = `${baseUrl}/p/${publishId}`;
+    const publishedUrl = `${baseUrl}/p/${publishId}`;
     
     // Generate QR code URL if requested
     let qrCodeUrl;
     if (options?.generateQrCode) {
-      // TODO: Implement QR code generation
-      qrCodeUrl = `${baseUrl}/api/qr?url=${encodeURIComponent(shortUrl)}`;
+      // QR code will point to the first selected format, or styled as a fallback
+      const primaryFormat = formats?.[0] || 'html-styled';
+      qrCodeUrl = `${baseUrl}/api/qr?url=${encodeURIComponent(`${baseUrl}/published/${publishId}/${primaryFormat}`)}`;
     }
     
     return NextResponse.json({
       success: true,
       publishedUrl,
-      shortUrl,
       qrCodeUrl,
       publishId,
     });
