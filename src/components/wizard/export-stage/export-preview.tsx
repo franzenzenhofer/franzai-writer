@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Eye, Code } from "lucide-react";
+import { cleanAiResponse } from '@/lib/ai-content-cleaner';
 
 interface ExportPreviewProps {
   htmlStyled?: string;
@@ -22,11 +23,14 @@ export function ExportPreview({ htmlStyled, htmlClean, className = "" }: ExportP
   useEffect(() => {
     if (!shadowRef.current || !currentHtml) return;
     
+    // Clean the HTML content to remove code fences and formatting
+    const cleanedHtml = cleanAiResponse(currentHtml, 'html');
+    
     if (!shadowRootRef.current) {
       shadowRootRef.current = shadowRef.current.attachShadow({ mode: 'closed' });
     }
     
-    shadowRootRef.current.innerHTML = currentHtml;
+    shadowRootRef.current.innerHTML = cleanedHtml;
     
     return () => {
       if (shadowRootRef.current) {

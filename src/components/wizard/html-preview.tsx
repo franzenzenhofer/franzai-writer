@@ -1,41 +1,63 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useEffect } from 'react';
+import { cleanAiResponse } from '@/lib/ai-content-cleaner';
 import { cn } from "@/lib/utils";
 
 interface HtmlPreviewProps {
   content: string;
+  removeBorder?: boolean;
   className?: string;
-  removeBorder?: boolean; // Option to remove border when wrapped in another container
 }
 
-export function HtmlPreview({ content, className, removeBorder = false }: HtmlPreviewProps) {
-  const sanitizeHtml = (html: string) => {
-    // Basic HTML sanitization - in production, consider using DOMPurify
-    return html
-      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-      .replace(/javascript:/gi, '')
-      .replace(/on\w+\s*=/gi, '');
-  };
+/**
+ * Universal HTML Preview Component with Shadow DOM Isolation
+ * 
+ * This component ensures ALL HTML content from external sources 
+ * (AI, user input, etc.) is rendered in a Shadow DOM to prevent 
+ * CSS spillover and security issues.
+ * 
+ * Follows DRY and KISS principles by being the single source 
+ * for HTML rendering across the application.
+ */
+export function HtmlPreview({ content, removeBorder = false, className = "" }: HtmlPreviewProps) {
+  const shadowRef = useRef<HTMLDivElement>(null);
+  const shadowRootRef = useRef<ShadowRoot | null>(null);
 
-  const sanitizedContent = sanitizeHtml(content);
+  useEffect(() => {
+    if (!shadowRef.current) return;
 
-  if (!content?.trim()) {
-    return (
-      <div className={cn("p-4 text-center text-muted-foreground bg-muted/50 rounded-md", className)}>
-        No HTML content to preview
-      </div>
-    );
-  }
+    // Clean the content to remove any code fences
+    const cleanedContent = cleanAiResponse(content, 'html');
+    
+    if (!cleanedContent) return;
+
+    // Create shadow root if not exists
+    if (!shadowRootRef.current) {
+      shadowRootRef.current = shadowRef.current.attachShadow({ mode: 'closed' });
+    }
+
+    // Set the cleaned HTML content in the shadow DOM
+    shadowRootRef.current.innerHTML = cleanedContent;
+
+    // Clean up function
+    return () => {
+      if (shadowRootRef.current) {
+        shadowRootRef.current.innerHTML = '';
+      }
+    };
+  }, [content]);
 
   return (
-    <div 
-      className={cn(
-        "prose prose-sm max-w-none p-4 min-h-[100px]",
-        !removeBorder && "border rounded-md bg-background shadow-sm",
-        className
-      )}
-      dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+    <div
+      ref={shadowRef}
+      className={`html-preview ${removeBorder ? '' : 'border rounded-lg'} ${className}`}
+      style={{
+        minHeight: '200px',
+        width: '100%',
+        backgroundColor: 'white',
+      }}
+      title="HTML Preview (isolated in Shadow DOM)"
     />
   );
 } 
