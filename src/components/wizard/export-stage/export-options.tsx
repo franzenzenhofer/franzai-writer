@@ -4,7 +4,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Download, Copy, Globe, Check, Loader2, AlertCircle } from "lucide-react";
+import { Download, Copy, Globe, Check, Loader2, AlertCircle, FileText, Code, FileDown, FileImage, FileSpreadsheet } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import type { ExportConfig } from "@/types";
 
@@ -18,10 +18,9 @@ interface FormatState {
 interface ExportOptionsProps {
   formats: Record<string, FormatState>;
   exportConfig?: ExportConfig;
-  onPublish: () => void;
 }
 
-export function ExportOptions({ formats, exportConfig, onPublish }: ExportOptionsProps) {
+export function ExportOptions({ formats, exportConfig }: ExportOptionsProps) {
   const { toast } = useToast();
   const [copiedFormat, setCopiedFormat] = React.useState<string | null>(null);
   
@@ -99,29 +98,34 @@ export function ExportOptions({ formats, exportConfig, onPublish }: ExportOption
   
   const formatInfo = {
     'html-styled': {
-      icon: '🎨',
+      icon: FileText,
       title: 'Styled HTML',
       description: 'Beautiful, ready-to-publish HTML with embedded styles',
+      supportsCopy: true,
     },
     'html-clean': {
-      icon: '📝',
+      icon: Code,
       title: 'Clean HTML',
       description: 'Plain HTML without CSS - perfect for WordPress, Medium, etc.',
+      supportsCopy: true,
     },
     'markdown': {
-      icon: '📄',
+      icon: FileDown,
       title: 'Markdown',
       description: 'Universal markdown format for GitHub, Notion, Obsidian',
+      supportsCopy: true,
     },
     'pdf': {
-      icon: '📕',
+      icon: FileImage,
       title: 'PDF Document',
-      description: 'Professional PDF with custom styling',
+      description: 'Professional PDF based on clean HTML structure',
+      supportsCopy: false,
     },
     'docx': {
-      icon: '📘',
+      icon: FileSpreadsheet,
       title: 'Word Document',
-      description: 'Microsoft Word format with styles preserved',
+      description: 'Microsoft Word format based on clean HTML structure',
+      supportsCopy: false,
     },
   };
   
@@ -138,7 +142,7 @@ export function ExportOptions({ formats, exportConfig, onPublish }: ExportOption
             <Card key={format} className="relative">
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center gap-2">
-                  <span className="text-2xl">{info.icon}</span>
+                  <info.icon className="h-5 w-5" />
                   {info.title}
                 </CardTitle>
                 <CardDescription className="text-xs">
@@ -155,19 +159,21 @@ export function ExportOptions({ formats, exportConfig, onPublish }: ExportOption
                   <Download className="mr-2 h-4 w-4" />
                   Download
                 </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => handleCopy(format, state.content!)}
-                  disabled={!state.content}
-                >
-                  {copiedFormat === format ? (
-                    <Check className="mr-2 h-4 w-4 text-green-500" />
-                  ) : (
-                    <Copy className="mr-2 h-4 w-4" />
-                  )}
-                  Copy
-                </Button>
+                {info.supportsCopy && (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => handleCopy(format, state.content!)}
+                    disabled={!state.content}
+                  >
+                    {copiedFormat === format ? (
+                      <Check className="mr-2 h-4 w-4 text-green-500" />
+                    ) : (
+                      <Copy className="mr-2 h-4 w-4" />
+                    )}
+                    Copy
+                  </Button>
+                )}
               </CardContent>
               
               {state.error && (
@@ -182,37 +188,6 @@ export function ExportOptions({ formats, exportConfig, onPublish }: ExportOption
           );
         })}
       </div>
-      
-      {exportConfig?.publishing?.enabled && (
-        <Card className="bg-primary/5 border-primary/20">
-          <CardHeader className="text-center">
-            <CardTitle className="text-xl flex items-center justify-center gap-2">
-              <Globe className="h-5 w-5" />
-              Publish to Web
-            </CardTitle>
-            <CardDescription>
-              Share your content with a permanent, shareable link
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="text-center">
-            <Button
-              size="lg"
-              onClick={onPublish}
-              className="mx-auto"
-              id="publish-button"
-            >
-              <Globe className="mr-2 h-4 w-4" />
-              Publish Now
-            </Button>
-            
-            {exportConfig.publishing.features?.sharing?.qrCode && (
-              <p className="text-xs text-muted-foreground mt-2">
-                Includes QR code for easy sharing
-              </p>
-            )}
-          </CardContent>
-        </Card>
-      )}
     </div>
   );
 }

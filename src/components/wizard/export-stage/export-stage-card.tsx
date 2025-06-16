@@ -4,7 +4,7 @@ import type { Stage, StageState, Workflow, ExportStageState } from "@/types";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, AlertCircle, Sparkles, Loader2 } from "lucide-react";
+import { CheckCircle2, AlertCircle, Sparkles, Loader2, Copy } from "lucide-react";
 import { cn } from "@/lib/utils";
 import React, { useState } from "react";
 import { ExportPreview } from "./export-preview";
@@ -18,6 +18,7 @@ interface ExportStageCardProps {
   isCurrentStage: boolean;
   onRunStage: (stageId: string) => void;
   allStageStates: Record<string, StageState>;
+  onUpdateStageState?: (stageId: string, updates: Partial<ExportStageState>) => void;
 }
 
 export function ExportStageCard({
@@ -27,6 +28,7 @@ export function ExportStageCard({
   isCurrentStage,
   onRunStage,
   allStageStates,
+  onUpdateStageState,
 }: ExportStageCardProps) {
   const [showPublishDialog, setShowPublishDialog] = useState(false);
   
@@ -121,12 +123,12 @@ export function ExportStageCard({
               </Button>
               
               <div className="text-sm text-muted-foreground">
-                <p className="font-semibold mb-2">What you'll get:</p>
+                <p className="font-semibold mb-2">What you&apos;ll get:</p>
                 <ul className="space-y-1">
                   <li>• Professional HTML (styled &amp; clean)</li>
                   <li>• Markdown for GitHub/Notion</li>
-                  <li>• PDF &amp; Word documents</li>
-                  <li>• Instant web publishing</li>
+                  <li>• PDF &amp; Word documents (based on clean HTML)</li>
+                  <li>• Instant web publishing (HTML &amp; Markdown only)</li>
                 </ul>
               </div>
             </div>
@@ -180,6 +182,42 @@ export function ExportStageCard({
                 exportConfig={stage.exportConfig}
                 onPublish={() => setShowPublishDialog(true)}
               />
+              
+              {stageState.output.publishing?.publishedUrl && (
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4 space-y-3">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-green-600" />
+                    <h4 className="font-semibold text-green-800">Published Successfully!</h4>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <p className="text-sm text-green-700">Your content is now available at:</p>
+                    
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <code className="flex-1 bg-white px-3 py-2 rounded border text-sm font-mono">
+                          {stageState.output.publishing.shortUrl || stageState.output.publishing.publishedUrl}
+                        </code>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => {
+                            navigator.clipboard.writeText(stageState.output.publishing?.shortUrl || stageState.output.publishing?.publishedUrl || '');
+                          }}
+                        >
+                          <Copy className="h-4 w-4" />
+                        </Button>
+                      </div>
+                      
+                      {stageState.output.publishing.publishedFormats && (
+                        <p className="text-xs text-green-600">
+                          Published formats: {stageState.output.publishing.publishedFormats.join(', ')}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           )}
           
@@ -206,9 +244,23 @@ export function ExportStageCard({
           formats={stageState.output.formats}
           publishingConfig={stage.exportConfig?.publishing}
           onPublishComplete={(result) => {
-            // Handle publishing result
-            console.log('Published:', result);
-            setShowPublishDialog(false);
+            // Update stage state with publishing information
+            if (onUpdateStageState) {
+              onUpdateStageState(stage.id, {
+                output: {
+                  ...stageState.output,
+                  publishing: {
+                    publishedUrl: result.publishedUrl,
+                    shortUrl: result.shortUrl,
+                    qrCodeUrl: result.qrCodeUrl,
+                    publishedAt: new Date(),
+                    publishedFormats: result.publishedFormats || ['html-styled'],
+                  },
+                },
+              });
+            }
+            // Don't close dialog immediately - let user see the results first
+            // Dialog will close when user clicks "Done" button
           }}
         />
       )}
