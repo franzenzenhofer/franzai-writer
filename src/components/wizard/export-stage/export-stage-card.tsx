@@ -42,7 +42,7 @@ export function ExportStageCard({
   const { toast } = useToast();
   const [isPublishing, setIsPublishing] = useState(false);
   const [publishedData, setPublishedData] = useState<PublishedData | null>(null);
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState<string | null>(null);
 
   // Publishing options
   const [includeSocialButtons, setIncludeSocialButtons] = useState(true);
@@ -116,11 +116,11 @@ export function ExportStageCard({
     }
   };
 
-  const handleCopy = async (url: string) => {
+  const handleCopy = async (url: string, format: string) => {
     try {
       await navigator.clipboard.writeText(url);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setCopied(format);
+      setTimeout(() => setCopied(null), 2000);
       
       toast({
         title: "Copied!",
@@ -382,26 +382,25 @@ export function ExportStageCard({
                           <p className="text-sm text-green-700">Your content is now available at:</p>
                           
                           <div className="space-y-2">
-                            <div className="flex items-center gap-2">
-                              <Input
-                                value={publishedData.publishedUrl}
-                                readOnly
-                                className="font-mono text-sm flex-1 bg-white px-3 py-2 rounded border"
-                              />
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={() => handleCopy(publishedData.publishedUrl)}
-                              >
-                                {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                              </Button>
-                            </div>
-                            
-                            {publishedData.publishedFormats && (
-                              <p className="text-xs text-green-600">
-                                Published formats: {publishedData.publishedFormats.join(', ')}
-                              </p>
-                            )}
+                            {publishedData.publishedFormats && publishedData.publishedFormats.map(format => (
+                              <div key={format} className="flex items-center gap-2">
+                                <a 
+                                  href={`${publishedData.publishedUrl}/${format}`} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer"
+                                  className="font-mono text-sm flex-1 bg-white px-3 py-2 rounded border hover:bg-muted"
+                                >
+                                  {`${publishedData.publishedUrl}/${format}`}
+                                </a>
+                                <Button
+                                  size="icon"
+                                  variant="outline"
+                                  onClick={() => handleCopy(`${publishedData.publishedUrl}/${format}`, format)}
+                                >
+                                  {copied === format ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+                                </Button>
+                              </div>
+                            ))}
                           </div>
                         </div>
 
