@@ -6,15 +6,32 @@ import type { ExportFormat } from '@/types';
  * Convert HTML to Markdown
  */
 export async function htmlToMarkdown(html: string): Promise<string> {
-  // For now, use a simple regex-based conversion
-  // In production, we'd use a proper library like turndown
-  let markdown = html;
+  // Extract body content from clean HTML if it's a complete document
+  let contentHtml = html;
+  
+  // Check if this is a complete HTML document and extract body content
+  const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+  if (bodyMatch) {
+    contentHtml = bodyMatch[1];
+  } else {
+    // If no body tag, remove any DOCTYPE, html, head tags
+    contentHtml = html
+      .replace(/<!DOCTYPE[^>]*>/gi, '')
+      .replace(/<html[^>]*>/gi, '')
+      .replace(/<\/html>/gi, '')
+      .replace(/<head[\s\S]*<\/head>/gi, '')
+      .replace(/<body[^>]*>/gi, '')
+      .replace(/<\/body>/gi, '')
+      .trim();
+  }
+  
+  let markdown = contentHtml;
   
   // Remove script and style tags
   markdown = markdown.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
   markdown = markdown.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
   
-  // Convert headers
+  // Convert headers (preserve hierarchy)
   markdown = markdown.replace(/<h1[^>]*>(.*?)<\/h1>/gi, '# $1\n\n');
   markdown = markdown.replace(/<h2[^>]*>(.*?)<\/h2>/gi, '## $1\n\n');
   markdown = markdown.replace(/<h3[^>]*>(.*?)<\/h3>/gi, '### $1\n\n');
@@ -22,10 +39,26 @@ export async function htmlToMarkdown(html: string): Promise<string> {
   markdown = markdown.replace(/<h5[^>]*>(.*?)<\/h5>/gi, '##### $1\n\n');
   markdown = markdown.replace(/<h6[^>]*>(.*?)<\/h6>/gi, '###### $1\n\n');
   
-  // Convert paragraphs
-  markdown = markdown.replace(/<p[^>]*>(.*?)<\/p>/gi, '$1\n\n');
+  // Convert semantic elements
+  markdown = markdown.replace(/<article[^>]*>/gi, '');
+  markdown = markdown.replace(/<\/article>/gi, '');
+  markdown = markdown.replace(/<header[^>]*>/gi, '');
+  markdown = markdown.replace(/<\/header>/gi, '\n\n');
+  markdown = markdown.replace(/<main[^>]*>/gi, '');
+  markdown = markdown.replace(/<\/main>/gi, '');
+  markdown = markdown.replace(/<section[^>]*>/gi, '\n');
+  markdown = markdown.replace(/<\/section>/gi, '\n\n');
+  markdown = markdown.replace(/<footer[^>]*>/gi, '\n---\n\n');
+  markdown = markdown.replace(/<\/footer>/gi, '');
   
-  // Convert bold and italic
+  // Convert div elements (used for stanzas in poems)
+  markdown = markdown.replace(/<div[^>]*>/gi, '');
+  markdown = markdown.replace(/<\/div>/gi, '\n\n');
+  
+  // Convert paragraphs
+  markdown = markdown.replace(/<p[^>]*>(.*?)<\/p>/gi, '$1\n');
+  
+  // Convert emphasis
   markdown = markdown.replace(/<strong[^>]*>(.*?)<\/strong>/gi, '**$1**');
   markdown = markdown.replace(/<b[^>]*>(.*?)<\/b>/gi, '**$1**');
   markdown = markdown.replace(/<em[^>]*>(.*?)<\/em>/gi, '*$1*');
@@ -52,12 +85,35 @@ export async function htmlToMarkdown(html: string): Promise<string> {
   markdown = markdown.replace(/<br[^>]*>/gi, '\n');
   markdown = markdown.replace(/<hr[^>]*>/gi, '\n---\n\n');
   
+  // Convert figure elements
+  markdown = markdown.replace(/<figure[^>]*>/gi, '\n');
+  markdown = markdown.replace(/<\/figure>/gi, '\n');
+  markdown = markdown.replace(/<figcaption[^>]*>(.*?)<\/figcaption>/gi, '\n*$1*\n');
+  
+  // Handle time elements
+  markdown = markdown.replace(/<time[^>]*>(.*?)<\/time>/gi, '$1');
+  
+  // Handle address elements
+  markdown = markdown.replace(/<address[^>]*>(.*?)<\/address>/gi, '$1\n\n');
+  
   // Remove remaining HTML tags
   markdown = markdown.replace(/<[^>]+>/g, '');
   
-  // Clean up whitespace
-  markdown = markdown.replace(/\n{3,}/g, '\n\n');
-  markdown = markdown.trim();
+  // Clean up HTML entities
+  markdown = markdown
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, ' ');
+  
+  // Clean up whitespace and line breaks
+  markdown = markdown
+    .replace(/\n{3,}/g, '\n\n') // Collapse multiple newlines
+    .replace(/[ \t]+$/gm, '') // Remove trailing spaces
+    .replace(/^[ \t]+/gm, '') // Remove leading spaces from lines
+    .trim();
   
   return markdown;
 }

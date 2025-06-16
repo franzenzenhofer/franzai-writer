@@ -28,17 +28,22 @@ export async function generateExportHtml(options: HtmlGenerationOptions): Promis
   try {
     console.log('[AI HTML Generator] Starting HTML generation');
     
+    // Extract a title for the document
+    const title = extractTitle(stages, stageStates, workflowType);
+
     // Step 1: Generate styled HTML
-    const styledHtml = await generateStyledHtml(stages, stageStates, exportConfig, workflowType);
+    const styledHtmlBody = await generateStyledHtml(stages, stageStates, exportConfig, workflowType);
+    const fullStyledHtml = createFullHtmlDocument(title, styledHtmlBody);
     
     // Step 2: Generate clean HTML
-    const cleanHtml = await generateCleanHtml(stages, stageStates, exportConfig, workflowType);
+    const cleanHtmlBody = await generateCleanHtml(stages, stageStates, exportConfig, workflowType);
+    const fullCleanHtml = createFullHtmlDocument(title, cleanHtmlBody);
     
     console.log('[AI HTML Generator] HTML generation completed successfully');
     
     return {
-      htmlStyled: styledHtml,
-      htmlClean: cleanHtml,
+      htmlStyled: fullStyledHtml,
+      htmlClean: fullCleanHtml,
     };
   } catch (error) {
     console.error('[AI HTML Generator] Error:', error);
@@ -167,10 +172,11 @@ async function generateCleanHtml(
  */
 function cleanAiHtmlOutput(aiResponse: string): string {
   return aiResponse
-    .replace(/```html\s*/g, '') // Remove opening HTML code fences
-    .replace(/```\s*$/g, '') // Remove closing code fences
-    .replace(/^```\s*/gm, '') // Remove any remaining code fence markers
-    .replace(/^\s*html\s*/gm, '') // Remove standalone 'html' language markers
+    .replace(/```html\s*/gi, '') // Remove opening HTML code fences (case insensitive)
+    .replace(/```\s*$/gm, '') // Remove closing code fences
+    .replace(/^```\s*/gm, '') // Remove any remaining code fence markers at line start
+    .replace(/^\s*html\s*$/gm, '') // Remove standalone 'html' language markers
+    .replace(/^[\s]*<!DOCTYPE html>/gm, '<!DOCTYPE html>') // Clean up DOCTYPE formatting
     .trim(); // Clean whitespace
 }
 
@@ -237,27 +243,139 @@ Generate the complete HTML document now. Return ONLY HTML, no markdown.`;
  * Default clean HTML prompt template
  */
 function getDefaultCleanHtmlPrompt(): string {
-  return `You are an expert in semantic HTML. Create perfectly structured HTML optimized for CMS compatibility.
+  return `You are an expert in pure semantic HTML, creating complete documents with perfect structure for CMS import and accessibility.
 
 ## Content to Structure
 {{#each stages}}
 {{this}}
 {{/each}}
 
-## CRITICAL OUTPUT INSTRUCTIONS  
-- Return ONLY clean HTML content
-- DO NOT wrap in code fences (no \`\`\`html or \`\`\`)
-- DO NOT use markdown formatting
-- Start directly with semantic HTML elements
-- NO html/head/body wrapper tags
+## CRITICAL OUTPUT INSTRUCTIONS
+- **Return a COMPLETE HTML document with proper DOCTYPE, html, head, and body tags.**
+- **Include proper meta tags, title, and other head elements.**
+- **The body content must use ONLY pure semantic HTML.**
+- **DO NOT use ANY CSS classes, id attributes, or style attributes in the body.**
+- **DO NOT include any <style> tags or CSS code.**
+- **DO NOT include any <script> tags or JavaScript.**
+- **DO NOT wrap the output in code fences (e.g., \`\`\`html).**
+- **Start the body content with the main content element.**
 
-## Requirements
-1. Use ONLY semantic HTML5 elements
-2. NO inline styles or JavaScript
-3. Proper heading hierarchy (h1-h6)
-4. Clean, predictable structure
-5. Include semantic attributes (id, aria-labels)
-6. Start with content directly (no html/head/body tags)
+## HTML Document Structure Required
+Generate a complete HTML document like this:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[Content Title]</title>
+  <meta name="description" content="[Brief description]">
+</head>
+<body>
+  <article>
+    [Pure semantic HTML content here]
+  </article>
+</body>
+</html>
 
-Generate clean, semantic HTML now. Return ONLY HTML content, no markdown.`;
+## Requirements for Pure Semantic HTML
+
+### Head Section Requirements
+- Include proper DOCTYPE declaration
+- Set charset to UTF-8
+- Include viewport meta tag for responsive design
+- Set appropriate title from content
+- Include meta description
+- Use semantic lang attribute
+
+### Body Content Structure
+1. **Structure:** Use only semantic HTML5 tags in the body:
+   - <article> for the main content wrapper
+   - <header> for introductory content
+   - <main> for primary content
+   - <section> for logical content divisions
+   - <h1>, <h2>, <h3>, etc. for headings (proper hierarchy)
+   - <p> for paragraphs
+   - <ul>, <ol>, <li> for lists
+   - <blockquote> for quotes
+   - <figure>, <figcaption> for figures
+   - <strong>, <em> for emphasis
+   - <time> for dates
+   - <address> for contact information
+
+2. **Body Purity Requirements:**
+   - NO class attributes in body content
+   - NO id attributes in body content (except for accessibility where absolutely necessary)
+   - NO style attributes in body content
+   - NO custom attributes in body content
+   - NO inline CSS in body content
+   - NO JavaScript in body content
+   - NO external dependencies in body content
+
+3. **Content Structure in Body:**
+   - Start with <article> as the main wrapper
+   - Use proper heading hierarchy (only one <h1>)
+   - Group related content in <section> elements
+   - Use semantic markup for all content types
+
+4. **Accessibility:**
+   - Proper heading hierarchy in body
+   - Meaningful semantic structure in body
+   - Standard HTML elements only in body
+
+## Goal
+Create a complete HTML document where:
+1. The full document works perfectly as a standalone HTML file
+2. The body content works perfectly in any CMS without styling conflicts
+3. The body converts flawlessly to markdown
+4. It's fully accessible to screen readers
+5. It requires no cleanup before use
+6. It follows web standards perfectly
+
+Generate the complete HTML document now. Return ONLY the HTML document, no markdown, no code fences.`;
+}
+
+/**
+ * Creates a complete HTML document from body content and a title.
+ */
+function createFullHtmlDocument(title: string, bodyContent: string): string {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${title}</title>
+</head>
+<body>
+  ${bodyContent}
+</body>
+</html>`;
+}
+
+/**
+ * Extracts the title from the content, defaulting to the workflow type.
+ */
+function extractTitle(
+  stages: Stage[], 
+  stageStates: Record<string, StageState>, 
+  workflowType?: string
+): string {
+  // Attempt to find a title in the stage outputs
+  for (const stage of stages) {
+    const output = stageStates[stage.id]?.output;
+    if (output) {
+      if (typeof output === 'object' && output.title) {
+        return output.title;
+      }
+      if (typeof output === 'string') {
+        // Look for the first line that looks like a title
+        const lines = output.split('\\n');
+        const firstLine = lines[0].trim();
+        // Simple heuristic: if it's short and doesn't end with a period, it might be a title.
+        if (firstLine.length > 0 && firstLine.length < 80 && !firstLine.endsWith('.')) {
+          return firstLine;
+        }
+      }
+    }
+  }
+  return workflowType ? workflowType.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Untitled Document';
 }
