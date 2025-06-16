@@ -4,12 +4,15 @@ import type { Stage, StageState, Workflow, ExportStageState } from "@/types";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, AlertCircle, Sparkles, Loader2, Copy } from "lucide-react";
+import { CheckCircle2, AlertCircle, Sparkles, Loader2, Copy, Globe, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ExportPreview } from "./export-preview";
 import { ExportOptions } from "./export-options";
-import { PublishDialog } from "./publish-dialog";
+import { useToast } from "@/hooks/use-toast";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 interface ExportStageCardProps {
   stage: Stage;
@@ -21,6 +24,12 @@ interface ExportStageCardProps {
   onUpdateStageState?: (stageId: string, updates: Partial<ExportStageState>) => void;
 }
 
+interface PublishedData {
+  publishedUrl: string;
+  qrCodeUrl?: string;
+  publishedFormats?: string[];
+}
+
 export function ExportStageCard({
   stage,
   workflow,
@@ -30,8 +39,102 @@ export function ExportStageCard({
   allStageStates,
   onUpdateStageState,
 }: ExportStageCardProps) {
-  const [showPublishDialog, setShowPublishDialog] = useState(false);
-  
+  const { toast } = useToast();
+  const [isPublishing, setIsPublishing] = useState(false);
+  const [publishedData, setPublishedData] = useState<PublishedData | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  // Publishing options
+  const [includeSocialButtons, setIncludeSocialButtons] = useState(true);
+  const [generateQrCode, setGenerateQrCode] = useState(stage.exportConfig?.publishing?.features?.sharing?.qrCode ?? true);
+  const [selectedFormats, setSelectedFormats] = useState<string[]>(['html-styled']);
+
+  useEffect(() => {
+    if (stageState.output?.publishing?.publishedUrl) {
+      setPublishedData({
+        publishedUrl: stageState.output.publishing.publishedUrl,
+        qrCodeUrl: stageState.output.publishing.qrCodeUrl,
+        publishedFormats: stageState.output.publishing.publishedFormats,
+      });
+    }
+  }, [stageState.output?.publishing]);
+
+  const handlePublish = async () => {
+    setIsPublishing(true);
+    try {
+      const response = await fetch('/api/publish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          documentId: workflow.id,
+          formats: selectedFormats,
+          content: stageState.output.formats,
+          options: {
+            includeSocialButtons,
+            generateQrCode,
+          },
+        }),
+      });
+
+      if (!response.ok) throw new Error('Publishing failed');
+
+      const result = await response.json();
+      
+      const newPublishedData = {
+        publishedUrl: result.publishedUrl,
+        qrCodeUrl: result.qrCodeUrl,
+        publishedFormats: selectedFormats,
+      };
+
+      setPublishedData(newPublishedData);
+
+      if (onUpdateStageState) {
+        onUpdateStageState(stage.id, {
+          output: {
+            ...stageState.output,
+            publishing: {
+              ...stageState.output.publishing,
+              ...newPublishedData
+            },
+          },
+        });
+      }
+
+      toast({
+        title: "Published!",
+        description: "Your content is now available online",
+      });
+    } catch (error) {
+      console.error('Publishing error:', error);
+      toast({
+        title: "Publishing failed",
+        description: "Unable to publish your content. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsPublishing(false);
+    }
+  };
+
+  const handleCopy = async (url: string) => {
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+      
+      toast({
+        title: "Copied!",
+        description: "URL copied to clipboard",
+      });
+    } catch (err) {
+      toast({
+        title: "Copy failed",
+        description: "Unable to copy to clipboard",
+        variant: "destructive",
+      });
+    }
+  };
+
   const getDependencyMessage = () => {
     if (stageState.depsAreMet === false && stage.dependencies && stage.dependencies.length > 0) {
       const incompleteDeps = stage.dependencies
@@ -48,6 +151,11 @@ export function ExportStageCard({
   const dependencyMessage = getDependencyMessage();
   const canRun = stageState.depsAreMet !== false && stageState.status !== "running";
   const isReady = stageState.status === "completed" && stageState.output?.htmlStyled;
+  
+  const publishableFormats = ['html-styled', 'html-clean', 'markdown'];
+  const availableFormats = Object.entries(stageState.output?.formats || {})
+    .filter(([format, state]) => state.ready && publishableFormats.includes(format))
+    .map(([format]) => format);
   
   let statusIcon = null;
   let cardClasses = "mb-6 transition-all duration-300 min-h-[400px]";
@@ -180,43 +288,139 @@ export function ExportStageCard({
               <ExportOptions
                 formats={stageState.output.formats}
                 exportConfig={stage.exportConfig}
-                onPublish={() => setShowPublishDialog(true)}
               />
-              
-              {stageState.output.publishing?.publishedUrl && (
-                <div className="bg-green-50 border border-green-200 rounded-lg p-4 space-y-3">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-green-600" />
-                    <h4 className="font-semibold text-green-800">Published Successfully!</h4>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <p className="text-sm text-green-700">Your content is now available at:</p>
-                    
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2">
-                        <code className="flex-1 bg-white px-3 py-2 rounded border text-sm font-mono">
-                          {stageState.output.publishing.shortUrl || stageState.output.publishing.publishedUrl}
-                        </code>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => {
-                            navigator.clipboard.writeText(stageState.output.publishing?.shortUrl || stageState.output.publishing?.publishedUrl || '');
-                          }}
-                        >
-                          <Copy className="h-4 w-4" />
-                        </Button>
+
+              {stage.exportConfig?.publishing?.enabled && (
+                <Card className="bg-primary/5 border-primary/20">
+                  <CardHeader>
+                    <CardTitle className="text-xl flex items-center justify-start gap-2">
+                      <Globe className="h-5 w-5" />
+                      Publish to Web
+                    </CardTitle>
+                    <CardDescription>
+                      Share your content with a permanent, shareable link
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {!publishedData ? (
+                      <div className="space-y-4">
+                        <div className="space-y-3">
+                          <Label>Select formats to publish:</Label>
+                          {availableFormats.map((format) => (
+                            <div key={format} className="flex items-center space-x-2">
+                              <Checkbox
+                                id={`publish-${format}`}
+                                checked={selectedFormats.includes(format)}
+                                onCheckedChange={(checked) => {
+                                  if (checked) {
+                                    setSelectedFormats([...selectedFormats, format]);
+                                  } else {
+                                    setSelectedFormats(selectedFormats.filter(f => f !== format));
+                                  }
+                                }}
+                              />
+                              <Label htmlFor={`publish-${format}`} className="cursor-pointer font-normal">
+                                {format === 'html-styled' && 'Styled HTML'}
+                                {format === 'html-clean' && 'Clean HTML'}
+                                {format === 'markdown' && 'Markdown'}
+                              </Label>
+                            </div>
+                          ))}
+                        </div>
+            
+                        <div className="space-y-3">
+                          <Label>Publishing options:</Label>
+                          
+                          <div className="flex items-center space-x-2">
+                            <Checkbox
+                              id="social-buttons"
+                              checked={includeSocialButtons}
+                              onCheckedChange={(checked) => setIncludeSocialButtons(checked === true)}
+                            />
+                            <Label htmlFor="social-buttons" className="cursor-pointer font-normal">
+                              Include social sharing buttons
+                            </Label>
+                          </div>
+                          
+                          <div className="flex items-center space-x-2">
+                            <Checkbox
+                              id="qr-code"
+                              checked={generateQrCode}
+                              onCheckedChange={(checked) => setGenerateQrCode(checked === true)}
+                            />
+                            <Label htmlFor="qr-code" className="cursor-pointer font-normal">
+                              Generate QR code
+                            </Label>
+                          </div>
+                        </div>
+                         <Button
+                            onClick={handlePublish}
+                            disabled={isPublishing || selectedFormats.length === 0}
+                            className="w-full"
+                          >
+                            {isPublishing ? (
+                              <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                Publishing...
+                              </>
+                            ) : (
+                              <>
+                                <Globe className="mr-2 h-4 w-4" />
+                                Publish Now
+                              </>
+                            )}
+                          </Button>
                       </div>
-                      
-                      {stageState.output.publishing.publishedFormats && (
-                        <p className="text-xs text-green-600">
-                          Published formats: {stageState.output.publishing.publishedFormats.join(', ')}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
+                    ) : (
+                      <div className="bg-green-50 border border-green-200 rounded-lg p-4 space-y-3">
+                        <div className="flex items-center gap-2">
+                          <CheckCircle2 className="h-5 w-5 text-green-600" />
+                          <h4 className="font-semibold text-green-800">Published Successfully!</h4>
+                        </div>
+                        
+                        <div className="space-y-2">
+                          <p className="text-sm text-green-700">Your content is now available at:</p>
+                          
+                          <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                              <Input
+                                value={publishedData.publishedUrl}
+                                readOnly
+                                className="font-mono text-sm flex-1 bg-white px-3 py-2 rounded border"
+                              />
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => handleCopy(publishedData.publishedUrl)}
+                              >
+                                {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                              </Button>
+                            </div>
+                            
+                            {publishedData.publishedFormats && (
+                              <p className="text-xs text-green-600">
+                                Published formats: {publishedData.publishedFormats.join(', ')}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+
+                        {publishedData.qrCodeUrl && (
+                          <div className="text-center pt-4">
+                            <Label>QR Code for easy sharing:</Label>
+                            <img
+                              src={publishedData.qrCodeUrl}
+                              alt="QR Code"
+                              className="mx-auto mt-2 border rounded"
+                              width={200}
+                              height={200}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
               )}
             </div>
           )}
@@ -235,35 +439,6 @@ export function ExportStageCard({
           )}
         </CardContent>
       </Card>
-      
-      {showPublishDialog && (
-        <PublishDialog
-          isOpen={showPublishDialog}
-          onClose={() => setShowPublishDialog(false)}
-          documentId={workflow.id}
-          formats={stageState.output.formats}
-          publishingConfig={stage.exportConfig?.publishing}
-          onPublishComplete={(result) => {
-            // Update stage state with publishing information
-            if (onUpdateStageState) {
-              onUpdateStageState(stage.id, {
-                output: {
-                  ...stageState.output,
-                  publishing: {
-                    publishedUrl: result.publishedUrl,
-                    shortUrl: result.shortUrl,
-                    qrCodeUrl: result.qrCodeUrl,
-                    publishedAt: new Date(),
-                    publishedFormats: result.publishedFormats || ['html-styled'],
-                  },
-                },
-              });
-            }
-            // Don't close dialog immediately - let user see the results first
-            // Dialog will close when user clicks "Done" button
-          }}
-        />
-      )}
     </>
   );
 }
