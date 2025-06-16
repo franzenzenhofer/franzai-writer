@@ -166,7 +166,7 @@ export async function htmlToPdf(html: string, options?: any): Promise<ArrayBuffe
 
 /**
  * Generate DOCX from HTML using modern docx library
- * This creates a proper DOCX document from HTML content on the server-side only
+ * This creates a proper DOCX document from clean HTML content on the server-side only
  */
 export async function htmlToDocx(html: string, options?: any): Promise<ArrayBuffer> {
   try {
@@ -175,83 +175,85 @@ export async function htmlToDocx(html: string, options?: any): Promise<ArrayBuff
     
     console.log('[DOCX Generator] Starting HTML to DOCX conversion');
     
-    // Extract title from HTML
-    const titleMatch = html.match(/<title[^>]*>(.*?)<\/title>/i);
-    const title = titleMatch ? titleMatch[1].trim() : 'Document';
-    
-    // Extract body content
+    // Extract ONLY the body content - ignore title tag to avoid duplication
     let content = html;
     const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
     if (bodyMatch) {
       content = bodyMatch[1];
     }
     
-    // Parse HTML content into paragraphs and headings
-    const paragraphs: any[] = [];
-    
-    // Add title as main heading
-    paragraphs.push(
-      new Paragraph({
-        children: [
-          new TextRun({
-            text: title,
-            bold: true,
-            size: 32, // 16pt
-          }),
-        ],
-        heading: HeadingLevel.TITLE,
-        spacing: { after: 400 }, // Add space after title
-      })
-    );
-    
-    // Simple HTML parsing - convert common elements to Word paragraphs
+    // Remove unwanted elements and clean content
     content = content
       // Remove script and style tags
       .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-      .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
+      .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
+      // Remove HTML comments
+      .replace(/<!--[\s\S]*?-->/g, '')
+      // Remove article and header wrapper tags but keep content
+      .replace(/<\/?article[^>]*>/gi, '')
+      .replace(/<\/?header[^>]*>/gi, '')
+      .replace(/<\/?main[^>]*>/gi, '')
+      .replace(/<\/?section[^>]*>/gi, '')
+      .replace(/<\/?footer[^>]*>/gi, '')
+      .trim();
     
-    // Split content by major elements and convert
-    const htmlLines = content.split(/(?=<(?:h[1-6]|p|div|section|article))/i);
+    // Parse HTML content into paragraphs
+    const paragraphs: any[] = [];
     
-    for (const line of htmlLines) {
-      const trimmedLine = line.trim();
-      if (!trimmedLine) continue;
+    // Split content by HTML elements and process each
+    const htmlElements = content.split(/(?=<(?:h[1-6]|p|div)\b)/i).filter(element => element.trim());
+    
+    for (const element of htmlElements) {
+      const trimmedElement = element.trim();
+      if (!trimmedElement) continue;
       
       // Extract text content and remove HTML tags
-      const textContent = trimmedLine
+      const textContent = trimmedElement
         .replace(/<[^>]+>/g, ' ')
         .replace(/\s+/g, ' ')
         .trim();
         
       if (!textContent) continue;
       
-      // Determine paragraph type and styling
+      // Skip if it's just test content or unwanted text
+      if (textContent.toLowerCase() === 'test' || textContent.length < 2) continue;
+      
+      // Determine paragraph type and styling based on HTML tags
       let heading: typeof HeadingLevel[keyof typeof HeadingLevel] | undefined;
       let bold = false;
       let size = 24; // 12pt default
+      let spacing = { after: 200, before: 0 };
       
-      if (trimmedLine.match(/<h1/i)) {
+      // Check for heading tags
+      if (trimmedElement.match(/<h1\b/i)) {
         heading = HeadingLevel.HEADING_1;
         bold = true;
         size = 32; // 16pt
-      } else if (trimmedLine.match(/<h2/i)) {
+        spacing = { after: 400, before: 200 };
+      } else if (trimmedElement.match(/<h2\b/i)) {
         heading = HeadingLevel.HEADING_2;
         bold = true;
         size = 28; // 14pt
-      } else if (trimmedLine.match(/<h3/i)) {
+        spacing = { after: 300, before: 200 };
+      } else if (trimmedElement.match(/<h3\b/i)) {
         heading = HeadingLevel.HEADING_3;
         bold = true;
         size = 26; // 13pt
-      } else if (trimmedLine.match(/<h[4-6]/i)) {
+        spacing = { after: 250, before: 150 };
+      } else if (trimmedElement.match(/<h[4-6]\b/i)) {
         heading = HeadingLevel.HEADING_4;
         bold = true;
         size = 24; // 12pt
+        spacing = { after: 200, before: 100 };
       }
       
       // Check for emphasis
-      if (trimmedLine.match(/<(?:strong|b)[^>]*>/i)) {
+      if (trimmedElement.match(/<(?:strong|b)\b[^>]*>/i)) {
         bold = true;
       }
+      
+      // Check for italic
+      const italic = trimmedElement.match(/<(?:em|i)\b[^>]*>/i);
       
       paragraphs.push(
         new Paragraph({
@@ -259,20 +261,52 @@ export async function htmlToDocx(html: string, options?: any): Promise<ArrayBuff
             new TextRun({
               text: textContent,
               bold,
+              italics: !!italic,
               size,
             }),
           ],
           heading,
-          spacing: { after: 200 }, // Add space after each paragraph
+          spacing,
         })
       );
     }
     
-    // Create the document
+    // If no paragraphs were created (fallback safety)
+    if (paragraphs.length === 0) {
+      const fallbackText = content
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+        
+      if (fallbackText) {
+        paragraphs.push(
+          new Paragraph({
+            children: [
+              new TextRun({
+                text: fallbackText,
+                size: 24,
+              }),
+            ],
+            spacing: { after: 200 },
+          })
+        );
+      }
+    }
+    
+    // Create the document with proper margins and formatting
     const doc = new Document({
       sections: [
         {
-          properties: {},
+          properties: {
+            page: {
+              margin: {
+                top: 1440,    // 1 inch
+                right: 1440,  // 1 inch
+                bottom: 1440, // 1 inch
+                left: 1440,   // 1 inch
+              },
+            },
+          },
           children: paragraphs,
         },
       ],
