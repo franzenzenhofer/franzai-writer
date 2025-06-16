@@ -19,7 +19,7 @@ export async function runAiStageWrapper(params: any): Promise<AiActionResult> {
       groundingInfo: undefined,
       thinkingSteps: undefined,
       outputImages: undefined,
-      updatedChatHistory: undefined,
+  
     } as AiActionResult;
   }
 }

@@ -29,7 +29,7 @@ function initializeStageStates(workflow: Workflow): Record<string, StageState> {
       completedAt: undefined,
       groundingInfo: undefined,
       thinkingSteps: undefined,
-      chatHistory: undefined,
+
       currentStreamOutput: undefined,
       outputImages: undefined,
       usageMetadata: undefined

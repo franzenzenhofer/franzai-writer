@@ -5,6 +5,7 @@ import {z} from 'zod';
 import { generateWithDirectGemini, type DirectGeminiRequest } from '@/ai/direct-gemini';
 import { appendFileSync } from 'fs';
 import { join } from 'path';
+import { cleanAiResponse } from '@/lib/ai-content-cleaner';
 
 // Input Schema including all Gemini features with proper grounding implementation
 const AiStageExecutionInputSchema = z.object({
@@ -466,8 +467,13 @@ async function executeWithDirectGeminiAPI(
     
     console.log('[Direct Gemini API] Generation completed successfully');
     
+    // Clean the AI response content to remove code fences and formatting
+    const cleanedContent = result.content ? 
+      cleanAiResponse(result.content, originalInput?.stageOutputType as any) : 
+      result.content;
+    
     const processedResult = {
-      content: result.content,
+      content: cleanedContent,
       thinkingSteps: thinkingSteps.length > 0 ? thinkingSteps : undefined,
       groundingMetadata: result.groundingMetadata,
       urlContextMetadata: result.urlContextMetadata,

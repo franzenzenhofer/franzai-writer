@@ -81,10 +81,9 @@ test.describe('Recipe Wizard Workflow', () => {
   });
 
   test('should show finalize button when all stages complete', async ({ page }) => {
-    await expect(page.getByTestId('finalize-document-button')).toBeVisible();
-    await expect(page.getByTestId('finalize-document-button')).toBeDisabled();
-    
-    // This would normally require completing all stages, which would take too long for a test
-    // In a real scenario, you might mock the AI responses or use a simplified workflow
+    // Since finalize document button has been removed, this test is no longer relevant
+    // The export stage should now handle document completion
+    await expect(page.getByTestId('wizard-page-title')).toBeVisible();
+    console.log('Finalize document functionality has been replaced with Export & Publish stage');
   });
 });

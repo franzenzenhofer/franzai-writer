@@ -93,7 +93,7 @@ export async function POST(request: Request) {
       hasThinkingSteps: !!result.thinkingSteps,
       thinkingStepsCount: result.thinkingSteps?.length || 0,
       hasUsage: !!result.usage,
-      hasUpdatedChatHistory: !!result.updatedChatHistory,
+      
       hasOutputImages: !!result.outputImages,
       allResultKeys: Object.keys(result)
     });

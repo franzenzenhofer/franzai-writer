@@ -282,7 +282,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
           hasGroundingMetadata: !!result.groundingMetadata,
           groundingSourcesCount: result.groundingSources?.length || 0,
           hasThinkingSteps: !!result.thinkingSteps?.length,
-          hasUpdatedChatHistory: !!result.updatedChatHistory?.length,
+          
           // usage: result.usage, // Not available in this execution flow
           resultKeys: Object.keys(result)
         });
@@ -299,12 +299,11 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
             groundingSourcesCount: result.groundingSources?.length || 0,
             hasThinkingSteps: !!result.thinkingSteps && result.thinkingSteps.length > 0,
             thinkingStepsCount: result.thinkingSteps?.length || 0,
-            hasUpdatedChatHistory: !!result.updatedChatHistory,
-            chatHistoryLength: result.updatedChatHistory?.length || 0,
+
             // hasUsage: !!result.usage, // Not available in this execution flow
         });
 
-        const updatedChatHistory = result.updatedChatHistory; // Capture updatedChatHistory
+
         const groundingMetadata = result.groundingMetadata; // Capture grounding metadata
         const groundingSources = result.groundingSources; // Capture grounding sources
 
@@ -321,7 +320,6 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
                     groundingSources,
                     thinkingSteps: result.thinkingSteps,
                     outputImages: result.outputImages,
-                    updatedChatHistory,
                     usageMetadata: result.usageMetadata,
                     // usage: result.usage, // Not available in this execution flow
                 };
@@ -332,7 +330,6 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
                   hasGroundingMetadata: !!finalResult.groundingMetadata,
                   groundingSourcesCount: finalResult.groundingSources?.length || 0,
                   hasThinkingSteps: !!finalResult.thinkingSteps?.length,
-                  hasUpdatedChatHistory: !!finalResult.updatedChatHistory?.length,
                   // usage: finalResult.usage, // Not available in this execution flow
                   resultKeys: Object.keys(finalResult)
                 });
@@ -346,7 +343,6 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
                     groundingSources,
                     thinkingSteps: result.thinkingSteps,
                     outputImages: result.outputImages,
-                    updatedChatHistory,
                     usageMetadata: result.usageMetadata,
                     // usage: result.usage, // Not available in this execution flow
                 };
@@ -358,7 +354,6 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
                   hasGroundingMetadata: !!finalResult.groundingMetadata,
                   groundingSourcesCount: finalResult.groundingSources?.length || 0,
                   hasThinkingSteps: !!finalResult.thinkingSteps?.length,
-                  hasUpdatedChatHistory: !!finalResult.updatedChatHistory?.length,
                   // usage: finalResult.usage, // Not available in this execution flow
                   resultKeys: Object.keys(finalResult)
                 });
@@ -374,7 +369,6 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
             groundingSources,
             thinkingSteps: result.thinkingSteps,
             outputImages: result.outputImages,
-            updatedChatHistory,
             usageMetadata: result.usageMetadata,
             // usage: result.usage, // Not available in this execution flow
         };
@@ -385,7 +379,6 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
           hasGroundingMetadata: !!finalResult.groundingMetadata,
           groundingSourcesCount: finalResult.groundingSources?.length || 0,
           hasThinkingSteps: !!finalResult.thinkingSteps?.length,
-          hasUpdatedChatHistory: !!finalResult.updatedChatHistory?.length,
           // usage: finalResult.usage, // Not available in this execution flow
           resultKeys: Object.keys(finalResult)
         });

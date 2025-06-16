@@ -5,10 +5,9 @@ import type { WizardInstance, Stage, StageState } from '@/types';
 import { StageCard } from './stage-card';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { AlertTriangle, Check, Info, Lightbulb, DownloadCloud, FileWarning, Save } from 'lucide-react';
+import { AlertTriangle, Check, Info, Lightbulb, FileWarning, Save } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
-import { FinalDocumentDialog } from './final-document-dialog';
 import { siteConfig } from '@/config/site';
 import { useDocumentPersistence } from '@/hooks/use-document-persistence';
 import { Badge } from '@/components/ui/badge';
@@ -25,10 +24,6 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   const { toast } = useToast();
   const [pageTitle, setPageTitle] = useState(initialInstance.document.title);
   const [aiStageLoaded, setAiStageLoaded] = useState(false);
-
-  const [isFinalizeDialogOpen, setIsFinalizeDialogOpen] = useState(false);
-  const [finalDocumentContent, setFinalDocumentContent] = useState("");
-  const [hasFinalizedOnce, setHasFinalizedOnce] = useState(false);
 
   // Load the AI stage runner dynamically
   useEffect(() => {
@@ -423,7 +418,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         thinkingSettings: stage.thinkingSettings,
         toolNames: stage.toolNames,
         systemInstructions: stage.systemInstructions, // Pass systemInstructions
-        chatHistory: currentStageState.chatHistory, // Pass current chatHistory
+
         contextVars: contextVars,
         currentStageInput: stageInputForRun,
         stageOutputType: stage.outputType,
@@ -452,7 +447,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         groundingSources: result.groundingSources, // CRITICAL FIX: Store grounding sources!
         thinkingSteps: result.thinkingSteps,
         outputImages: result.outputImages,
-        chatHistory: result.updatedChatHistory, // Store updated chat history
+        
         currentStreamOutput: "", // Clear stream output
         completedAt: new Date().toISOString(),
         isStale: false,
@@ -501,7 +496,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       updateStageState(stageId, { status: "error", error: error.message || "AI processing failed." });
       toast({ title: "AI Stage Error", description: error.message || "An error occurred.", variant: "destructive" });
     }
-  }, [aiStageLoaded, instance.workflow.stages, instance.stageStates, instance.workflow.config?.autoScroll, updateStageState, toast, scrollToStageById]);
+  }, [aiStageLoaded, instance.workflow, instance.stageStates, updateStageState, toast, scrollToStageById]);
 
 
   
@@ -541,31 +536,6 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     || instance.workflow.stages[instance.workflow.stages.length - 1]; 
 
   const currentStageId = currentFocusStage?.id || instance.workflow.stages[0].id;
-
-
-  const handleFinalizeDocument = () => {
-    if (!isWizardCompleted) {
-      toast({ title: "Wizard Not Complete", description: "Please complete all stages before finalizing.", variant: "default"});
-      return;
-    }
-    let finalContentStageId = instance.workflow.stages[instance.workflow.stages.length -1].id; 
-    if (instance.workflow.config?.finalOutputStageId) {
-        finalContentStageId = instance.workflow.config.finalOutputStageId;
-    }
-    
-    if (instance.stageStates[finalContentStageId]?.status === 'completed') {
-      const content = instance.stageStates[finalContentStageId]?.output;
-      if (typeof content === 'string' || (typeof content === 'object' && content !== null)) {
-         setFinalDocumentContent(typeof content === 'string' ? content : JSON.stringify(content, null, 2));
-      } else {
-        setFinalDocumentContent("No valid content to display or content is not in expected string/object format.");
-      }
-      setIsFinalizeDialogOpen(true);
-      setHasFinalizedOnce(true);
-    } else {
-      toast({ title: "Final Content Not Ready", description: `The final content stage ('${instance.workflow.stages.find(s=>s.id===finalContentStageId)?.title}') is not yet complete.`, variant: "default"});
-    }
-  };
 
 
   return (
@@ -657,7 +627,6 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
             completedAt: undefined,
             groundingInfo: undefined,
             thinkingSteps: undefined,
-            chatHistory: undefined,
             currentStreamOutput: undefined,
             outputImages: undefined
           }}
@@ -674,27 +643,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         />
       ))}
 
-      <div className="mt-8 flex justify-center md:justify-end">
-        <Button 
-          variant="default" 
-          size="lg" 
-          disabled={!isWizardCompleted}
-          onClick={handleFinalizeDocument}
-          className="bg-accent hover:bg-accent/90 text-accent-foreground w-full md:w-auto"
-          id="finalize-document-button"
-          data-testid="finalize-document-button"
-        >
-          <DownloadCloud className="mr-2 h-5 w-5" />
-          {hasFinalizedOnce ? "View/Export Document" : "Finalize Document"}
-        </Button>
-      </div>
 
-      <FinalDocumentDialog
-        open={isFinalizeDialogOpen}
-        onOpenChange={setIsFinalizeDialogOpen}
-        markdownContent={finalDocumentContent}
-        documentTitle={instance.document.title}
-      />
     </div>
   );
 }

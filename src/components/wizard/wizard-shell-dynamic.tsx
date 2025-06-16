@@ -5,10 +5,9 @@ import type { WizardInstance, Stage, StageState } from '@/types';
 import { StageCard } from './stage-card';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { AlertTriangle, Check, Info, Lightbulb, DownloadCloud, FileWarning, Save } from 'lucide-react';
+import { AlertTriangle, Check, Info, Lightbulb, FileWarning, Save } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
-import { FinalDocumentDialog } from './final-document-dialog';
 import { siteConfig } from '@/config/site';
 import { useDocumentPersistence } from '@/hooks/use-document-persistence';
 import { Badge } from '@/components/ui/badge';
@@ -25,10 +24,6 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   const { toast } = useToast();
   const [pageTitle, setPageTitle] = useState(initialInstance.document.title);
   const [aiStageLoaded, setAiStageLoaded] = useState(false);
-
-  const [isFinalizeDialogOpen, setIsFinalizeDialogOpen] = useState(false);
-  const [finalDocumentContent, setFinalDocumentContent] = useState("");
-  const [hasFinalizedOnce, setHasFinalizedOnce] = useState(false);
 
   // Load the server action dynamically
   useEffect(() => {
@@ -142,7 +137,6 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         thinkingSettings: stage.thinkingSettings,
         toolNames: stage.toolNames,
         systemInstructions: stage.systemInstructions,
-        chatHistory: stageState.chatHistory,
         contextVars,
         currentStageInput: stageState.userInput,
         stageOutputType: stage.outputType,
@@ -151,6 +145,9 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         groundingSettings: stage.groundingSettings,
         jsonSchema: stage.jsonSchema,
         jsonFields: stage.jsonFields,
+        groundingInfo: stageState.groundingInfo,
+        thinkingSteps: stageState.thinkingSteps,
+        currentStreamOutput: stageState.currentStreamOutput,
       });
 
       setInstance(prev => ({
@@ -166,7 +163,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
             groundingInfo: result.groundingInfo || result.groundingMetadata,
             thinkingSteps: result.thinkingSteps,
             outputImages: result.outputImages,
-            updatedChatHistory: result.updatedChatHistory,
+
           }
         }
       }));
@@ -213,12 +210,8 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     }
   }, [instance, toast, scrollToElement, aiStageLoaded]);
 
-  // Rest of the component remains the same...
-  // (I'm including just the key parts to avoid making this too long)
-
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
-      {/* Component JSX remains the same */}
       <div className="mb-6">
         <input
           type="text"
@@ -229,14 +222,12 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         />
       </div>
 
-      {/* Show loading state if AI not loaded */}
       {!aiStageLoaded && (
         <Alert>
           <AlertDescription>Loading AI capabilities...</AlertDescription>
         </Alert>
       )}
 
-      {/* Rest of the UI... */}
       <div className="space-y-6">
         {instance.workflow.stages.map((stage, index) => (
           <StageCard

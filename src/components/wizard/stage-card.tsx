@@ -190,6 +190,7 @@ export function StageCard({
         isCurrentStage={isCurrentStage}
         onRunStage={onRunStage}
         allStageStates={allStageStates}
+        onDismissStaleWarning={onDismissStaleWarning}
       />
     );
   }

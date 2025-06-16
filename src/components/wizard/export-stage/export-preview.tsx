@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -13,13 +13,31 @@ interface ExportPreviewProps {
 }
 
 export function ExportPreview({ htmlStyled, htmlClean, className = "" }: ExportPreviewProps) {
-  const [viewMode, setViewMode] = useState<"styled" | "clean">("styled");
+  const [viewMode, setViewMode] = useState<"styled" | "clean">("clean");
+  const shadowRef = useRef<HTMLDivElement>(null);
+  const shadowRootRef = useRef<ShadowRoot | null>(null);
+  
+  const currentHtml = viewMode === "styled" ? htmlStyled : htmlClean;
+  
+  useEffect(() => {
+    if (!shadowRef.current || !currentHtml) return;
+    
+    if (!shadowRootRef.current) {
+      shadowRootRef.current = shadowRef.current.attachShadow({ mode: 'closed' });
+    }
+    
+    shadowRootRef.current.innerHTML = currentHtml;
+    
+    return () => {
+      if (shadowRootRef.current) {
+        shadowRootRef.current.innerHTML = '';
+      }
+    };
+  }, [currentHtml]);
   
   if (!htmlStyled && !htmlClean) {
     return null;
   }
-  
-  const currentHtml = viewMode === "styled" ? htmlStyled : htmlClean;
   
   return (
     <div className={`space-y-4 ${className}`}>
@@ -58,11 +76,10 @@ export function ExportPreview({ htmlStyled, htmlClean, className = "" }: ExportP
             </Badge>
           )}
           
-          <iframe
-            srcDoc={currentHtml}
-            className="w-full h-[400px] border-0"
+          <div
+            ref={shadowRef}
+            className="w-full h-[400px] border-0 bg-white"
             title={`${viewMode} HTML preview`}
-            sandbox="allow-same-origin"
           />
         </div>
       </Card>

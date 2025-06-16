@@ -32,13 +32,6 @@ test.describe('Complete Poem Generator Workflow', () => {
     await expect(poemOutput).toBeVisible();
     await expect(poemOutput.locator('p')).toHaveCount(1); // Check for at least one paragraph in the poem
 
-    // Finalize document
-    await expect(page.getByTestId('finalize-document-button')).toBeEnabled();
-    await page.getByTestId('finalize-document-button').click();
-
-    // Verify final document dialog
-    await expect(page.locator('text=Your document is ready!')).toBeVisible();
-
     // Verify the title was set from the poem topic
     // Note: The title in the final document dialog might not update immediately
     // or might have a generic title. This depends on implementation.

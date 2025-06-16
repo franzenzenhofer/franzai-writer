@@ -1,4 +1,4 @@
-You are an expert in semantic HTML and poetry markup. Create perfectly structured HTML that preserves the poem's structure and meaning while being optimized for any CMS or platform.
+You are an expert in pure semantic HTML and poetry markup. Create perfectly structured HTML that preserves the poem's structure and meaning while being optimized for any CMS or platform.
 
 ## Content to Structure
 {{#each stages}}
@@ -6,39 +6,69 @@ You are an expert in semantic HTML and poetry markup. Create perfectly structure
 {{this.output}}
 {{/each}}
 
+## CRITICAL OUTPUT INSTRUCTIONS
+- **Return a COMPLETE HTML document with proper DOCTYPE, html, head, and body tags.**
+- **Include proper meta tags, title, and other head elements.**
+- **The body content must use ONLY pure semantic HTML.**
+- **DO NOT use ANY CSS classes, id attributes, or style attributes in the body.**
+- **DO NOT include any <style> tags or CSS code.**
+- **DO NOT include any <script> tags or JavaScript.**
+- **DO NOT wrap the output in code fences (e.g., ```html).**
+- **Start the body content with <article> as the main wrapper.**
+
+## HTML Document Structure Required
+Generate a complete HTML document like this:
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[Poem Title]</title>
+  <meta name="description" content="[Brief description]">
+</head>
+<body>
+  <article>
+    [Pure semantic HTML content here]
+  </article>
+</body>
+</html>
+```
+
 ## Requirements for Poetry HTML
 
-### Semantic Structure for Poems
-1. Use semantic HTML5 elements:
-   - <article> for the complete poem
+### Pure Semantic Structure for Poems (Body Content Only)
+1. Use only semantic HTML5 elements in the body:
+   - <article> for the complete poem (main wrapper)
    - <header> for title and author information
    - <h1> for the poem title (only one)
-   - <h2> for the author name
-   - <div class="stanza"> for each stanza
-   - <p> for each line of poetry (or <div class="line">)
+   - <h2> for the author name or subtitle
+   - <section> for major poem divisions
+   - <div> for stanzas (when logical grouping is needed)
+   - <p> for each line of poetry
    - <footer> for publication info or notes
 
-2. Poetry-Specific Markup:
-   ```html
-   <article class="poem">
+2. Poetry-Specific Markup Structure for Body:
+   ```
+   <article>
      <header>
        <h1>Poem Title</h1>
-       <h2 class="author">by Author Name</h2>
+       <h2>Author Name</h2>
      </header>
      
-     <div class="poem-body">
-       <div class="stanza">
-         <p class="line">First line of the poem</p>
-         <p class="line">Second line of the poem</p>
+     <div>
+       <div>
+         <p>First line of the poem</p>
+         <p>Second line of the poem</p>
        </div>
        
-       <div class="stanza">
-         <p class="line">First line of second stanza</p>
-         <p class="line">Second line of second stanza</p>
+       <div>
+         <p>First line of second stanza</p>
+         <p>Second line of second stanza</p>
        </div>
      </div>
      
-     <footer class="poem-meta">
+     <footer>
        <!-- Any additional metadata -->
      </footer>
    </article>
@@ -46,51 +76,66 @@ You are an expert in semantic HTML and poetry markup. Create perfectly structure
 
 3. Preserve Structure:
    - Maintain line breaks as intended by the poet
-   - Keep stanza separations clear
+   - Keep stanza separations clear using div elements
    - Don't merge or split lines
-   - Preserve any indentation patterns
+   - Preserve any structural patterns
+   - Each line should be its own <p> element
 
-### CMS Optimization
-- Use class names that are descriptive and standard
-- No inline styles whatsoever
-- No JavaScript
-- Clean, predictable structure
-- Include semantic class names:
-  - poem, poem-title, poem-author
-  - poem-body, stanza, line
-  - poem-meta, publication-date
+### Head Section Requirements
+- Include proper DOCTYPE declaration
+- Set charset to UTF-8
+- Include viewport meta tag for responsive design
+- Set appropriate title from poem content
+- Include meta description
+- Use semantic lang attribute
 
-### Accessibility
-- Include proper heading hierarchy
-- Add aria-label="poem" to the article
-- Use semantic HTML throughout
-- Include lang attribute if not English
+### Body Purity Requirements
+- NO class attributes whatsoever in body content
+- NO id attributes in body content
+- NO style attributes in body content
+- NO custom attributes in body content
+- NO inline styles in body content
+- NO CSS code in body
+- NO JavaScript in body
+- Use only standard HTML5 semantic elements in body
 
-### Markdown Readiness
-Structure HTML so it converts perfectly to markdown:
+### Accessibility & Standards
+- Include proper heading hierarchy in body
+- Use semantic HTML throughout body
+- Standard HTML entities only
+- Screen reader friendly structure
+- Valid HTML5 document structure
+
+### Markdown Readiness (Body Content)
+The body structure should convert perfectly to markdown:
 - Clear heading levels
 - Simple paragraph structure
 - Proper line break handling
-- Clean, flat structure
+- Clean, flat structure where possible
 
 ### Output Requirements
-- NO <html>, <head>, or <body> tags
-- Start directly with <article class="poem">
-- Use semantic elements throughout
-- Include descriptive class names
-- Add comments to mark major sections
+- Complete HTML document with DOCTYPE, html, head, and body
+- Proper head section with meta tags and title
+- Body starts with <article>
+- NO classes or styling attributes in body
+- NO CSS or JavaScript anywhere
+- Valid, complete HTML5 document
 
 ## Special Poetry Considerations
-- Each line should be its own element
-- Stanzas should be clearly grouped
-- Title and author must be prominent
-- Any epigraphs or dedications should be marked clearly
-- Footnotes or explanations in footer
+- Each line should be its own <p> element in body
+- Stanzas should be grouped with <div> elements in body
+- Title and author must be in proper heading hierarchy in body
+- Any epigraphs or dedications should be marked with appropriate semantic elements in body
+- Publication info or notes in <footer> in body
 
 ## Goal
-Create HTML so clean and semantic that:
-1. It works perfectly when pasted into any CMS
-2. It converts flawlessly to markdown
-3. The poem's structure is preserved perfectly
-4. It's accessible to screen readers
-5. It maintains all poetic formatting without any styling
+Create a complete HTML document where:
+1. The full document works perfectly as a standalone HTML file
+2. The body content works perfectly when pasted into any CMS
+3. The body converts flawlessly to markdown
+4. The poem's structure is preserved perfectly
+5. It's accessible to screen readers
+6. It maintains all poetic formatting without any styling dependencies
+7. No cleanup is needed before use in any system
+
+Generate the complete HTML document now. Return ONLY the HTML document, no markdown, no code fences.

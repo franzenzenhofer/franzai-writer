@@ -14,8 +14,10 @@ declare module 'html-docx-js' {
   function asBlob(htmlSource: string, options?: ConversionOptions): Blob;
   function asBuffer(htmlSource: string, options?: ConversionOptions): Buffer;
   
-  export default {
+  const htmlDocxJs = {
     asBlob,
     asBuffer,
   };
+  
+  export default htmlDocxJs;
 } 
