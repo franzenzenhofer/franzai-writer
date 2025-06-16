@@ -339,7 +339,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
             } catch (e) {
                 console.warn("AI output was expected to be JSON but failed to parse. Returning as text.", e);
                 const finalResult: AiActionResult = {
-                    content: result.content,
+                    content: cleanAiResponse(result.content, 'text'),
                     groundingMetadata,
                     groundingSources,
                     thinkingSteps: result.thinkingSteps,

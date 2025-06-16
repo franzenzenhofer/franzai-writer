@@ -469,7 +469,7 @@ async function executeWithDirectGeminiAPI(
     
     // Clean the AI response content to remove code fences and formatting
     const cleanedContent = result.content ? 
-      cleanAiResponse(result.content, originalInput?.stageOutputType as any) : 
+      cleanAiResponse(result.content, (originalInput as any)?.stageOutputType || 'text') : 
       result.content;
     
     const processedResult = {
