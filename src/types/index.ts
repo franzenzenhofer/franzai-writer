@@ -283,6 +283,12 @@ export interface StageState {
     totalTokenCount?: number;
     promptTokenCount?: number;
   };
+  currentStreamOutput?: string; // Streaming output for real-time display
+  generationProgress?: {
+    styledHtml?: number;
+    cleanHtml?: number;
+    currentFormat?: string;
+  };
 }
 
 export interface ExportStageState extends StageState {
