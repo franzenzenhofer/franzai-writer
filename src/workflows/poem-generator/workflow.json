@@ -89,7 +89,7 @@
     },
     {
       "id": "export-publish",
-      "title": "Export & Publish ✨",
+      "title": "Export & Publish",
       "description": "Transform your poem into professional formats and publish instantly",
       "stageType": "export",
       "inputType": "none",
@@ -98,7 +98,7 @@
       "autoRun": false,
       "showAsHero": true,
       "triggerButton": {
-        "label": "✨ Export & Publish Poem",
+        "label": "Export & Publish Poem",
         "variant": "hero",
         "size": "large",
         "description": "Create beautiful exports and shareable links"
@@ -109,7 +109,7 @@
         "formats": {
           "html-styled": {
             "enabled": true,
-            "label": "🎨 Beautiful Poem",
+            "label": "Beautiful Poem",
             "description": "Stunning HTML presentation with poetry-focused typography",
             "aiTemplate": "prompts/html-styled-template.md",
             "features": [
@@ -121,7 +121,7 @@
           },
           "html-clean": {
             "enabled": true,
-            "label": "📝 Clean HTML",
+            "label": "Clean HTML",
             "description": "Semantic HTML perfect for poetry blogs and CMS",
             "aiTemplate": "prompts/html-clean-template.md",
             "features": [
@@ -133,7 +133,7 @@
           },
           "markdown": {
             "enabled": true,
-            "label": "📄 Markdown",
+            "label": "Markdown",
             "description": "Formatted markdown for GitHub, Notion, and more",
             "deriveFrom": "html-clean",
             "options": {
@@ -143,13 +143,13 @@
           },
           "pdf": {
             "enabled": true,
-            "label": "📕 PDF Poem",
+            "label": "PDF Poem",
             "description": "Professional PDF with elegant formatting",
             "deriveFrom": "html-styled"
           },
           "docx": {
             "enabled": true,
-            "label": "📘 Word Document",
+            "label": "Word Document",
             "description": "Microsoft Word format with styles",
             "deriveFrom": "html-styled"
           }

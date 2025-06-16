@@ -1,7 +1,7 @@
 "use client";
 
 import type { Stage, StageState, Workflow, ExportStageState } from "@/types";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, AlertCircle, Sparkles, Loader2, Globe, Check, Copy, Clock, RotateCcw } from "lucide-react";
@@ -205,32 +205,35 @@ export function ExportStageCard({
         data-testid={`stage-card-${stage.id}`}
         className={cardClasses}
       >
-        <CardHeader className="text-center">
-          <CardTitle className="font-headline text-2xl flex items-center justify-center">
-            {statusIcon && !dependencyMessage && <span className="mr-2">{statusIcon}</span>}
-            {stage.title}
-            {isStale && (
-              <DismissibleWarningBadge
-                onDismiss={() => onDismissStaleWarning?.(stage.id)}
-                onClick={handleRegenerate}
-                className="ml-2"
-              >
-                Update recommended
-              </DismissibleWarningBadge>
-            )}
-          </CardTitle>
-          <CardDescription className="text-base">{stage.description}</CardDescription>
+        <CardHeader className="flex flex-row justify-between items-start pb-4 pt-2">
+          <div>
+            <CardTitle className="font-headline text-xl flex items-center">
+              {statusIcon && !dependencyMessage && <span className="mr-2">{statusIcon}</span>}
+              {stage.title}
+              {isStale && (
+                <DismissibleWarningBadge
+                  onDismiss={() => onDismissStaleWarning?.(stage.id)}
+                  onClick={handleRegenerate}
+                  className="ml-2"
+                >
+                  Update recommended
+                </DismissibleWarningBadge>
+              )}
+            </CardTitle>
+            <CardDescription>{stage.description}</CardDescription>
+          </div>
         </CardHeader>
         
-        <CardContent className="space-y-6">
-          {dependencyMessage && (
-            <div className="text-center">
-              <Badge variant="secondary" className="text-sm">
-                <Clock className="mr-2 h-4 w-4 text-muted-foreground" />
-                {dependencyMessage}
-              </Badge>
-            </div>
-          )}
+        {dependencyMessage && (
+          <div className="px-6 pt-4 pb-2 text-center">
+            <Badge variant="secondary" className="text-sm whitespace-normal">
+              <Clock className="mr-2 h-4 w-4 text-muted-foreground" />
+              {dependencyMessage}
+            </Badge>
+          </div>
+        )}
+        
+        <CardContent className="space-y-4">
           
           {stageState.status === "idle" && !dependencyMessage && (
             <div className="text-center space-y-6 py-8">
@@ -246,17 +249,16 @@ export function ExportStageCard({
                 id={`trigger-export-${stage.id}`}
                 data-testid={`trigger-export-${stage.id}`}
               >
-                <Sparkles className="mr-2 h-5 w-5" />
                 {stage.triggerButton?.label || "Export & Publish"}
               </Button>
               
               <div className="text-sm text-muted-foreground">
                 <p className="font-semibold mb-2">What you&apos;ll get:</p>
-                <ul className="space-y-1">
-                  <li>• Professional HTML (styled &amp; clean)</li>
-                  <li>• Markdown for GitHub/Notion</li>
-                  <li>• PDF &amp; Word documents (based on clean HTML)</li>
-                  <li>• Instant web publishing (HTML &amp; Markdown only)</li>
+                <ul className="space-y-1 list-disc list-inside">
+                  <li>Professional HTML (styled &amp; clean)</li>
+                  <li>Markdown for GitHub/Notion</li>
+                  <li>PDF &amp; Word documents (based on clean HTML)</li>
+                  <li>Instant web publishing (HTML &amp; Markdown only)</li>
                 </ul>
               </div>
             </div>
@@ -299,7 +301,7 @@ export function ExportStageCard({
           )}
           
           {isReady && (
-            <div className="space-y-6">
+            <div className="space-y-4">
               <ExportPreview
                 htmlStyled={stageState.output.htmlStyled}
                 htmlClean={stageState.output.htmlClean}
@@ -310,27 +312,10 @@ export function ExportStageCard({
                 exportConfig={stage.exportConfig}
               />
 
-              {/* Regenerate Button for Stale Exports */}
-              {isStale && (
-                <div className="text-center">
-                  <Button
-                    variant="outline"
-                    onClick={handleRegenerate}
-                    className="text-amber-600 border-amber-300 hover:bg-amber-50"
-                  >
-                    <RotateCcw className="mr-2 h-4 w-4" />
-                    Regenerate Exports
-                  </Button>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    Dependencies have changed. Click to regenerate with updated content.
-                  </p>
-                </div>
-              )}
-
               {stage.exportConfig?.publishing?.enabled && (
                 <Card className="bg-primary/5 border-primary/20">
                   <CardHeader>
-                    <CardTitle className="text-xl flex items-center justify-start gap-2">
+                    <CardTitle className="text-lg flex items-center justify-start gap-2">
                       <Globe className="h-5 w-5" />
                       Publish to Web
                     </CardTitle>
@@ -442,6 +427,22 @@ export function ExportStageCard({
             </div>
           )}
         </CardContent>
+        
+        {/* CardFooter like other stage cards - Always show regenerate when ready */}
+        {isReady && !dependencyMessage && (
+          <CardFooter className="flex justify-end gap-2 items-center flex-wrap">
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={handleRegenerate}
+              id={`regenerate-${stage.id}`}
+              data-testid={`regenerate-${stage.id}`}
+            >
+              <RotateCcw className="mr-2 h-4 w-4" />
+              Regenerate Exports
+            </Button>
+          </CardFooter>
+        )}
       </Card>
     </>
   );
