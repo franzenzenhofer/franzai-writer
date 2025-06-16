@@ -5,12 +5,39 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Eye, Code } from "lucide-react";
-import { cleanAiResponse } from '@/lib/ai-content-cleaner';
 
 interface ExportPreviewProps {
   htmlStyled?: string;
   htmlClean?: string;
   className?: string;
+}
+
+/**
+ * Client-side content cleaner to avoid server/client boundary issues
+ */
+function cleanHtmlContent(content: string): string {
+  if (!content || typeof content !== 'string') {
+    return content;
+  }
+
+  let cleaned = content;
+
+  // Remove HTML code fences
+  cleaned = cleaned.replace(/^```html\s*/gmi, '');
+  cleaned = cleaned.replace(/^```htm\s*/gmi, '');
+  
+  // Remove generic code fences
+  cleaned = cleaned.replace(/^```\w*\s*/gm, '');
+  cleaned = cleaned.replace(/```\s*$/gm, '');
+  cleaned = cleaned.replace(/^```\s*/gm, '');
+  
+  // Remove standalone language markers
+  cleaned = cleaned.replace(/^\s*(html|json|markdown|md)\s*$/gm, '');
+  
+  // Clean up DOCTYPE formatting
+  cleaned = cleaned.replace(/^[\s]*<!DOCTYPE html>/gm, '<!DOCTYPE html>');
+  
+  return cleaned.trim();
 }
 
 export function ExportPreview({ htmlStyled, htmlClean, className = "" }: ExportPreviewProps) {
@@ -24,7 +51,7 @@ export function ExportPreview({ htmlStyled, htmlClean, className = "" }: ExportP
     if (!shadowRef.current || !currentHtml) return;
     
     // Clean the HTML content to remove code fences and formatting
-    const cleanedHtml = cleanAiResponse(currentHtml, 'html');
+    const cleanedHtml = cleanHtmlContent(currentHtml);
     
     if (!shadowRootRef.current) {
       shadowRootRef.current = shadowRef.current.attachShadow({ mode: 'closed' });

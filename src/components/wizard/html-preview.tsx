@@ -1,13 +1,40 @@
 "use client";
 
 import React, { useRef, useEffect } from 'react';
-import { cleanAiResponse } from '@/lib/ai-content-cleaner';
 import { cn } from "@/lib/utils";
 
 interface HtmlPreviewProps {
   content: string;
   removeBorder?: boolean;
   className?: string;
+}
+
+/**
+ * Client-side content cleaner to avoid server/client boundary issues
+ */
+function cleanHtmlContent(content: string): string {
+  if (!content || typeof content !== 'string') {
+    return content;
+  }
+
+  let cleaned = content;
+
+  // Remove HTML code fences
+  cleaned = cleaned.replace(/^```html\s*/gmi, '');
+  cleaned = cleaned.replace(/^```htm\s*/gmi, '');
+  
+  // Remove generic code fences
+  cleaned = cleaned.replace(/^```\w*\s*/gm, '');
+  cleaned = cleaned.replace(/```\s*$/gm, '');
+  cleaned = cleaned.replace(/^```\s*/gm, '');
+  
+  // Remove standalone language markers
+  cleaned = cleaned.replace(/^\s*(html|json|markdown|md)\s*$/gm, '');
+  
+  // Clean up DOCTYPE formatting
+  cleaned = cleaned.replace(/^[\s]*<!DOCTYPE html>/gm, '<!DOCTYPE html>');
+  
+  return cleaned.trim();
 }
 
 /**
@@ -28,7 +55,7 @@ export function HtmlPreview({ content, removeBorder = false, className = "" }: H
     if (!shadowRef.current) return;
 
     // Clean the content to remove any code fences
-    const cleanedContent = cleanAiResponse(content, 'html');
+    const cleanedContent = cleanHtmlContent(content);
     
     if (!cleanedContent) return;
 
