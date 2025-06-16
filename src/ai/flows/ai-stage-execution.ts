@@ -60,7 +60,7 @@ const AiStageOutputSchema = z.object({
   content: z.string().describe('Final accumulated response if streaming, or direct response.'),
   thinkingSteps: z.array(ThinkingStepSchema).optional(),
   outputImages: z.array(z.object({ name: z.string().optional(), base64Data: z.string(), mimeType: z.string() })).optional(),
-  updatedChatHistory: z.array(z.object({ role: z.enum(['user', 'model', 'system']), parts: z.array(z.any()) })).optional(),
+
   groundingSources: z.array(z.object({
     type: z.enum(['search', 'url']),
     title: z.string(),
