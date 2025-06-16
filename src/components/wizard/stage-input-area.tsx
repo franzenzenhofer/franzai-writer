@@ -409,6 +409,7 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
           {imagePreviewUrl && (
             <div className="mt-4">
               <Label>Image Preview:</Label>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={imagePreviewUrl}
                 alt="Selected preview"

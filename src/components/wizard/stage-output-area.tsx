@@ -488,6 +488,7 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
             {stageState.outputImages.map((image, index) => (
               <div key={index} className="p-2 border rounded bg-background">
                 {image.name && <p className="text-sm font-semibold mb-1">{image.name}</p>}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={`data:${image.mimeType};base64,${image.base64Data}`}
                   alt={image.name || `Generated Image ${index + 1}`}

@@ -211,7 +211,7 @@ export function useDocumentPersistence({
         clearTimeout(saveTimeoutRef.current);
       }
     };
-  }, [instance.stageStates, saveDocument]);
+  }, [instance.stageStates, saveDocument, documentId]);
 
   // Initial save for new documents when user starts working
   useEffect(() => {
