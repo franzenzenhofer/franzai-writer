@@ -123,9 +123,9 @@ export function ExportStageCard({
               <div className="text-sm text-muted-foreground">
                 <p className="font-semibold mb-2">What you'll get:</p>
                 <ul className="space-y-1">
-                  <li>• Professional HTML (styled & clean)</li>
+                  <li>• Professional HTML (styled &amp; clean)</li>
                   <li>• Markdown for GitHub/Notion</li>
-                  <li>• PDF & Word documents</li>
+                  <li>• PDF &amp; Word documents</li>
                   <li>• Instant web publishing</li>
                 </ul>
               </div>
