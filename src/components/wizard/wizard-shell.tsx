@@ -145,10 +145,21 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
 
   // Load the AI stage runner dynamically
   useEffect(() => {
-    import('@/lib/ai-stage-runner').then(module => {
-      runAiStage = module.runAiStage;
-      setAiStageLoaded(true);
-    });
+    console.log('[WizardShell] Starting to load AI stage runner...');
+    import('@/lib/ai-stage-runner')
+      .then(module => {
+        console.log('[WizardShell] AI stage runner loaded successfully:', !!module.runAiStage);
+        runAiStage = module.runAiStage;
+        setAiStageLoaded(true);
+      })
+      .catch(error => {
+        console.error('[WizardShell] Failed to load AI stage runner:', error);
+        toast({
+          title: "AI Module Load Error",
+          description: `Failed to load AI functionality: ${error.message}`,
+          variant: "destructive",
+        });
+      });
   }, []);
 
   // Auto-scroll utility
@@ -397,10 +408,13 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   };
 
   const handleRunStage = useCallback(async (stageId: string, currentInput?: any, aiRedoNotes?: string) => {
+    console.log('[handleRunStage] AI stage loaded:', aiStageLoaded, 'runAiStage exists:', !!runAiStage);
+    
     if (!aiStageLoaded || !runAiStage) {
+      console.error('[handleRunStage] AI not ready - aiStageLoaded:', aiStageLoaded, 'runAiStage:', !!runAiStage);
       toast({
         title: "AI not ready",
-        description: "Please wait for AI to load",
+        description: "Please wait for AI to load and refresh if the issue persists",
         variant: "destructive",
       });
       return;

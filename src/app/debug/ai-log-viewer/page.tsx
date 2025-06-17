@@ -172,7 +172,15 @@ export default function AILogViewerPage() {
         <CardHeader>
           <div className="flex justify-between items-center">
             <div>
-              <CardTitle>AI Log Viewer</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                AI Log Viewer
+                {isStreaming && (
+                  <span className="flex items-center gap-1 text-sm font-normal text-green-600">
+                    <span className="animate-pulse">●</span>
+                    Live
+                  </span>
+                )}
+              </CardTitle>
               <CardDescription>Real-time monitoring of AI operations</CardDescription>
             </div>
             <div className="flex gap-2">
@@ -196,8 +204,8 @@ export default function AILogViewerPage() {
                 variant="outline"
                 disabled={isTestRunning}
               >
-                <TestTube className="w-4 h-4 mr-2" />
-                {isTestRunning ? 'Testing...' : 'Test'}
+                <Zap className="w-4 h-4 mr-2" />
+                {isTestRunning ? 'Testing...' : 'Test AI'}
               </Button>
               <Button onClick={clearLogs} variant="outline">
                 <Trash2 className="w-4 h-4 mr-2" />
@@ -294,8 +302,8 @@ export default function AILogViewerPage() {
             <TabsContent value="stream" className="mt-4">
               <ScrollArea className="h-[600px] w-full rounded-md border p-4" ref={scrollAreaRef}>
                 <div className="space-y-2">
-                  {filteredLogs.map((log, index) => (
-                    <Card key={index} className="p-4">
+                  {filteredLogs.slice().reverse().map((log, index) => (
+                    <Card key={`${log.timestamp}-${index}`} className="p-4">
                       <div className="flex items-start justify-between mb-2">
                         <div className="flex items-center gap-2">
                           {log.level && (
@@ -310,20 +318,75 @@ export default function AILogViewerPage() {
                           {new Date(log.timestamp).toLocaleTimeString()}
                         </span>
                       </div>
-                      <p className="text-sm mb-2">{log.message}</p>
-                      {log.tokenCount && (
-                        <div className="flex gap-4 text-xs text-muted-foreground">
-                          <span>Tokens: {log.tokenCount}</span>
-                          {log.duration && <span>Duration: {log.duration}ms</span>}
-                        </div>
-                      )}
+                      <p className="text-sm mb-2 font-medium">{log.message}</p>
+                      
+                      {/* Enhanced data display */}
                       {log.data && (
-                        <details className="mt-2">
-                          <summary className="cursor-pointer text-xs text-muted-foreground">View Data</summary>
-                          <pre className="mt-2 p-2 bg-muted rounded text-xs overflow-x-auto">
-                            {JSON.stringify(log.data, null, 2)}
-                          </pre>
-                        </details>
+                        <div className="mt-2 space-y-2">
+                          {/* Token usage display */}
+                          {(log.data.promptTokenCount || log.data.candidatesTokenCount) && (
+                            <div className="flex gap-4 text-xs bg-muted/50 p-2 rounded">
+                              {log.data.promptTokenCount && <span>📥 Input: {log.data.promptTokenCount} tokens</span>}
+                              {log.data.candidatesTokenCount && <span>📤 Output: {log.data.candidatesTokenCount} tokens</span>}
+                              {log.data.totalTokenCount && <span>📊 Total: {log.data.totalTokenCount} tokens</span>}
+                            </div>
+                          )}
+                          
+                          {/* Model and temperature */}
+                          {(log.data.model || log.data.temperature !== undefined) && (
+                            <div className="flex gap-4 text-xs">
+                              {log.data.model && <span>🤖 Model: {log.data.model}</span>}
+                              {log.data.temperature !== undefined && <span>🌡️ Temp: {log.data.temperature}</span>}
+                            </div>
+                          )}
+                          
+                          {/* Grounding info */}
+                          {log.data.hasGroundingConfig && (
+                            <div className="text-xs text-green-600">
+                              🔍 Google Search Grounding Enabled
+                            </div>
+                          )}
+                          
+                          {/* Image generation info */}
+                          {log.data.provider === 'imagen' && (
+                            <div className="text-xs space-y-1">
+                              <div>🎨 Image Generation: {log.data.numberOfImages || 1} images</div>
+                              {log.data.aspectRatio && <div>📐 Aspect Ratio: {log.data.aspectRatio}</div>}
+                            </div>
+                          )}
+                          
+                          {/* Error display */}
+                          {log.data.error && (
+                            <div className="text-xs text-destructive bg-destructive/10 p-2 rounded">
+                              ❌ Error: {log.data.error}
+                            </div>
+                          )}
+                          
+                          {/* Response preview */}
+                          {log.data.contentPreview && (
+                            <div className="text-xs bg-muted/30 p-2 rounded">
+                              <div className="font-medium mb-1">Response Preview:</div>
+                              <div className="whitespace-pre-wrap">{log.data.contentPreview}</div>
+                            </div>
+                          )}
+                          
+                          {/* Duration */}
+                          {log.duration && (
+                            <div className="text-xs text-muted-foreground">
+                              ⏱️ Duration: {log.duration}ms
+                            </div>
+                          )}
+                          
+                          {/* Full data view */}
+                          <details className="mt-2">
+                            <summary className="cursor-pointer text-xs text-muted-foreground hover:text-foreground">
+                              View Full Data
+                            </summary>
+                            <pre className="mt-2 p-2 bg-muted rounded text-xs overflow-x-auto max-h-[200px] overflow-y-auto">
+                              {JSON.stringify(log.data, null, 2)}
+                            </pre>
+                          </details>
+                        </div>
                       )}
                     </Card>
                   ))}
