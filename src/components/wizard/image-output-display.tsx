@@ -13,13 +13,15 @@ interface ImageOutputDisplayProps {
   isLoading?: boolean;
   error?: string;
   onImageSelection?: (selectedIndex: number) => void;
+  hideMetadata?: boolean;
 }
 
 export function ImageOutputDisplay({ 
   output, 
   isLoading = false, 
   error,
-  onImageSelection 
+  onImageSelection,
+  hideMetadata = false
 }: ImageOutputDisplayProps) {
   const [selectedIndex, setSelectedIndex] = useState(
     output.selectedImageIndex || 0
@@ -119,19 +121,21 @@ export function ImageOutputDisplay({
           </div>
 
           {/* Image metadata */}
-          <div className="mt-4 space-y-2">
-            <p className="text-sm text-muted-foreground">
-              <span className="font-medium">Prompt:</span> {selectedImage.promptUsed}
-            </p>
-            {selectedImage.width && selectedImage.height && (
+          {!hideMetadata && (
+            <div className="mt-4 space-y-2">
               <p className="text-sm text-muted-foreground">
-                <span className="font-medium">Dimensions:</span> {selectedImage.width} × {selectedImage.height}
+                <span className="font-medium">Prompt:</span> {selectedImage.promptUsed}
               </p>
-            )}
-            <p className="text-sm text-muted-foreground">
-              <span className="font-medium">Provider:</span> {output.provider}
-            </p>
-          </div>
+              {selectedImage.width && selectedImage.height && (
+                <p className="text-sm text-muted-foreground">
+                  <span className="font-medium">Dimensions:</span> {selectedImage.width} × {selectedImage.height}
+                </p>
+              )}
+              <p className="text-sm text-muted-foreground">
+                <span className="font-medium">Provider:</span> {output.provider}
+              </p>
+            </div>
+          )}
         </CardContent>
       </Card>
 

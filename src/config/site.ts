@@ -10,6 +10,10 @@ export const siteConfig = {
       title: "Dashboard",
       href: "/dashboard",
     },
+    {
+      title: "AI Logs",
+      href: "/debug/ai-log-viewer",
+    },
   ],
   links: {
     github: "https://github.com/your-repo/franz-ai-writer", // Updated placeholder

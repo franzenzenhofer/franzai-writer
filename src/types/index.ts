@@ -181,6 +181,7 @@ export interface Stage {
   editEnabled?: boolean; // Enable Edit button for this stage (defaults based on stage type)
   showThinking?: boolean; // Show thinking process for this stage (defaults to false)
   copyable?: boolean; // Enable copy button for text/markdown output (defaults to false)
+  hideImageMetadata?: boolean; // Hide prompt and provider metadata for image outputs (defaults to false)
   jsonSchema?: any; // JSON schema for structured output
   maxTokens?: number; // Maximum tokens for output
   systemInstruction?: string; // Alias for systemInstructions

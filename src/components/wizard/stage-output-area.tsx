@@ -404,7 +404,8 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
         case "image":
           return (
             <ImageOutputDisplay 
-              output={stageState.output} 
+              output={stageState.output}
+              hideMetadata={stage.hideImageMetadata || false}
               onImageSelection={(selectedIndex) => {
                 if (onOutputChange && stageState.output) {
                   const updatedOutput = {

@@ -30,6 +30,20 @@ function writeStructuredLog(entry: {
   fs.appendFileSync(AI_LOG_PATH, logLine);
 }
 
+// Export for error logging
+export function logAIError(message: string, error: any, category: string = 'general') {
+  writeStructuredLog({
+    level: 'error',
+    category,
+    message,
+    data: {
+      error: error?.message || error,
+      stack: error?.stack,
+      code: error?.code
+    }
+  });
+}
+
 export function logAI(type: 'REQUEST' | 'RESPONSE', data: any) {
   const timestamp = new Date().toISOString();
   const emoji = type === 'REQUEST' ? '📤' : '📥';
@@ -144,6 +158,19 @@ export function logAIGeneral(message: string, data?: any) {
 // NEW: Enhanced logging function specifically for grounding metadata
 export function logGroundingMetadata(groundingMetadata: any) {
   const timestamp = new Date().toISOString();
+  
+  // Write structured log for viewer
+  writeStructuredLog({
+    level: 'info',
+    category: 'grounding',
+    message: 'Google Search Grounding Metadata',
+    data: {
+      searchQueries: groundingMetadata?.webSearchQueries,
+      chunksCount: groundingMetadata?.groundingChunks?.length || 0,
+      supportsCount: groundingMetadata?.groundingSupports?.length || 0
+    }
+  });
+  
   let logEntry = `${timestamp} 🌐 [GOOGLE SEARCH SUGGESTIONS & GROUNDING] \n`;
   
   if (groundingMetadata?.searchEntryPoint?.renderedContent) {
@@ -264,6 +291,20 @@ export function logUrlContextMetadata(urlContextMetadata: any) {
 // NEW: Enhanced logging function for thinking steps and metadata
 export function logThinkingMetadata(thinkingSteps: any[], usageMetadata?: any) {
   const timestamp = new Date().toISOString();
+  
+  // Write structured log for viewer
+  writeStructuredLog({
+    level: 'info',
+    category: 'thinking',
+    message: 'Thinking Mode Metadata',
+    data: {
+      stepsCount: thinkingSteps?.length || 0,
+      thinkingTokens: usageMetadata?.thoughtsTokenCount,
+      totalTokens: usageMetadata?.totalTokenCount
+    },
+    tokenCount: usageMetadata?.totalTokenCount
+  });
+  
   let logEntry = `${timestamp} 🧠 [THINKING MODE METADATA DETAILED] \n`;
   
   if (thinkingSteps && thinkingSteps.length > 0) {

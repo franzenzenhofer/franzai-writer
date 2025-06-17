@@ -209,7 +209,8 @@
         }
       },
       "tokenEstimate": 300,
-      "showThinking": false
+      "showThinking": false,
+      "hideImageMetadata": true
     },
     {
       "id": "html-briefing",
