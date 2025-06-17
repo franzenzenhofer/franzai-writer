@@ -286,19 +286,14 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
 
 
   useEffect(() => {
-    // Add a small delay to ensure state updates are complete
-    const timeoutId = setTimeout(() => {
-      instance.workflow.stages.forEach(stage => {
-        const stageState = instance.stageStates[stage.id];
-        // Defensive check: ensure stageState exists before accessing its properties
-        if (stageState && stageState.shouldAutoRun && stageState.status === 'idle' && stageState.depsAreMet && !stageState.isEditingOutput) {
-          console.log(`[Autorun] Triggering autorun for stage ${stage.id}`);
-          handleRunStage(stage.id, stageState.userInput);
-        }
-      });
-    }, 100); // Small delay to ensure state updates propagate
-    
-    return () => clearTimeout(timeoutId);
+    instance.workflow.stages.forEach(stage => {
+      const stageState = instance.stageStates[stage.id];
+      // Defensive check: ensure stageState exists before accessing its properties
+      if (stageState && stageState.shouldAutoRun && stageState.status === 'idle' && stageState.depsAreMet && !stageState.isEditingOutput) {
+        console.log(`[Autorun] Triggering autorun for stage ${stage.id}`);
+        handleRunStage(stage.id, stageState.userInput);
+      }
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [instance.stageStates, instance.workflow.stages]); 
 
@@ -408,26 +403,13 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     const contextVars: Record<string, any> = {};
     instance.workflow.stages.forEach(s => {
         const sState = instance.stageStates[s.id];
-        console.log(`[handleRunStage] Building context for stage ${s.id}:`, {
-            isCurrentStage: s.id === stageId,
-            status: sState?.status,
-            hasUserInput: !!sState?.userInput,
-            hasOutput: !!sState?.output,
-            userInput: sState?.userInput,
-            output: sState?.output
-        });
-        
         if (s.id === stageId) { 
             contextVars[s.id] = { userInput: stageInputForRun, output: sState.output };
         } else if (sState?.status === 'completed') {
             contextVars[s.id] = { userInput: sState.userInput, output: sState.output };
-        } else {
-            // CRITICAL: Don't include incomplete stages in context
-            console.log(`[handleRunStage] Skipping stage ${s.id} - not completed`);
         }
+        // Don't include incomplete stages in context at all
     });
-    
-    console.log('[handleRunStage] Final contextVars:', JSON.stringify(contextVars, null, 2));
 
 
     // Handle export stage type
