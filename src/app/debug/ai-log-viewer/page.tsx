@@ -8,7 +8,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Pause, Play, RefreshCw, Download, Trash2, Search, Filter, ArrowDownToLine } from 'lucide-react';
+import { Pause, Play, RefreshCw, Download, Trash2, Search, Filter, ArrowDownToLine, TestTube } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface LogEntry {
@@ -24,11 +24,12 @@ interface LogEntry {
 
 export default function AILogViewerPage() {
   const [logs, setLogs] = useState<LogEntry[]>([]);
-  const [isStreaming, setIsStreaming] = useState(false);
+  const [isStreaming, setIsStreaming] = useState(true); // Start streaming by default
   const [filter, setFilter] = useState('');
   const [levelFilter, setLevelFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [error, setError] = useState<string | null>(null);
+  const [isTestRunning, setIsTestRunning] = useState(false);
   const eventSourceRef = useRef<EventSource | null>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const [autoScroll, setAutoScroll] = useState(true);
@@ -101,6 +102,43 @@ export default function AILogViewerPage() {
     URL.revokeObjectURL(url);
   };
 
+  const runTestAIRequest = async () => {
+    setIsTestRunning(true);
+    try {
+      const response = await fetch('/api/test-ai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          promptTemplate: 'This is a test request from the AI log viewer. Please respond with a simple greeting and confirm you received this test message.',
+          model: 'gemini-2.0-flash',
+          temperature: 0.7,
+          contextVars: {},
+          currentStageInput: '',
+          stageOutputType: 'text'
+        }),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Test request failed: ${response.statusText}`);
+      }
+      
+      const result = await response.json();
+      console.log('Test AI request completed:', result);
+      
+      // Clear error on success
+      if (result.success) {
+        setError(null);
+      }
+    } catch (err) {
+      console.error('Test AI request failed:', err);
+      setError(`Test request failed: ${err instanceof Error ? err.message : 'Unknown error'}`);
+    } finally {
+      setIsTestRunning(false);
+    }
+  };
+
   const getLevelBadgeVariant = (level: string) => {
     switch (level) {
       case 'error': return 'destructive';
@@ -151,6 +189,14 @@ export default function AILogViewerPage() {
               >
                 <ArrowDownToLine className="w-4 h-4 mr-2" />
                 Auto-scroll {autoScroll ? 'On' : 'Off'}
+              </Button>
+              <Button 
+                onClick={runTestAIRequest} 
+                variant="outline"
+                disabled={isTestRunning}
+              >
+                <TestTube className="w-4 h-4 mr-2" />
+                {isTestRunning ? 'Testing...' : 'Test'}
               </Button>
               <Button onClick={clearLogs} variant="outline">
                 <Trash2 className="w-4 h-4 mr-2" />
