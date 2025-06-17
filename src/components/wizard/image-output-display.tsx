@@ -12,12 +12,14 @@ interface ImageOutputDisplayProps {
   output: ImageOutputData;
   isLoading?: boolean;
   error?: string;
+  onImageSelection?: (selectedIndex: number) => void;
 }
 
 export function ImageOutputDisplay({ 
   output, 
   isLoading = false, 
-  error 
+  error,
+  onImageSelection 
 }: ImageOutputDisplayProps) {
   const [selectedIndex, setSelectedIndex] = useState(
     output.selectedImageIndex || 0
@@ -141,7 +143,10 @@ export function ImageOutputDisplay({
             return (
               <button
                 key={index}
-                onClick={() => setSelectedIndex(index)}
+                onClick={() => {
+                  setSelectedIndex(index);
+                  onImageSelection?.(index);
+                }}
                 className={cn(
                   "relative rounded-lg overflow-hidden border-2 transition-all",
                   selectedIndex === index

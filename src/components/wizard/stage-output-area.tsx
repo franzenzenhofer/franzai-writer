@@ -402,7 +402,20 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
         case "html":
           return <HtmlPreview content={String(stageState.output)} removeBorder={true} />;
         case "image":
-          return <ImageOutputDisplay output={stageState.output} />;
+          return (
+            <ImageOutputDisplay 
+              output={stageState.output} 
+              onImageSelection={(selectedIndex) => {
+                if (onOutputChange && stageState.output) {
+                  const updatedOutput = {
+                    ...stageState.output,
+                    selectedImageIndex: selectedIndex
+                  };
+                  onOutputChange(updatedOutput);
+                }
+              }}
+            />
+          );
         default:
           return <p>Unknown output type: {stage.outputType}</p>;
       }

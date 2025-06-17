@@ -105,21 +105,10 @@ function substitutePromptVars(template: string, context: Record<string, any>): s
   // First, handle Handlebars conditionals like {{#if variable}}...{{/if}}
   const ifRegex = /\{\{#if\s+([\w.-]+)\}\}([\s\S]*?)\{\{\/if\}\}/g;
   finalPrompt = finalPrompt.replace(ifRegex, (match, varPath, content) => {
-    const pathParts = varPath.split('.');
-    let value = context;
-    let found = true;
-    
-    for (const part of pathParts) {
-      if (value && typeof value === 'object' && part in value) {
-        value = value[part];
-      } else {
-        found = false;
-        break;
-      }
-    }
+    const value = resolveVariablePath(varPath, context);
     
     // If variable exists and is truthy, include the content
-    if (found && value) {
+    if (value.found && value.value) {
       return content;
     }
     // Otherwise, remove the entire conditional block
@@ -131,21 +120,10 @@ function substitutePromptVars(template: string, context: Record<string, any>): s
   let match;
   while ((match = regex.exec(finalPrompt)) !== null) {
     const fullPath = match[1];
-    const pathParts = fullPath.split('.');
+    const result = resolveVariablePath(fullPath, context);
     
-    let value = context;
-    let found = true;
-    for (const part of pathParts) {
-      if (value && typeof value === 'object' && part in value) {
-        value = value[part];
-      } else {
-        found = false;
-        break;
-      }
-    }
-    
-    if (found) {
-      const replacement = (typeof value === 'object' && value !== null) ? JSON.stringify(value, null, 2) : String(value);
+    if (result.found) {
+      const replacement = (typeof result.value === 'object' && result.value !== null) ? JSON.stringify(result.value, null, 2) : String(result.value);
       finalPrompt = finalPrompt.replace(match[0], replacement);
     } else {
       // FAIL HARD: No fallbacks, no replacements
@@ -154,6 +132,110 @@ function substitutePromptVars(template: string, context: Record<string, any>): s
   }
   
   return finalPrompt;
+}
+
+/**
+ * Resolve a variable path with support for special image selectors
+ */
+function resolveVariablePath(varPath: string, context: Record<string, any>): { found: boolean; value: any } {
+  const pathParts = varPath.split('.');
+  let value = context;
+  let found = true;
+  
+  for (let i = 0; i < pathParts.length; i++) {
+    const part = pathParts[i];
+    
+    if (value && typeof value === 'object' && part in value) {
+      value = value[part];
+    } else {
+      found = false;
+      break;
+    }
+  }
+  
+  // If the path was found normally, return it
+  if (found) {
+    // Special handling for image outputs with selection logic
+    if (pathParts.length >= 2 && pathParts[pathParts.length - 1] === 'output' && value && typeof value === 'object') {
+      // Check if this is an image output with multiple images
+      if (value.provider && value.images && Array.isArray(value.images) && value.images.length > 0) {
+        return enhanceImageOutput(value);
+      }
+    }
+    return { found: true, value };
+  }
+  
+  // Special handling for image selectors like stage-id.output.image.selected
+  if (pathParts.length >= 4 && pathParts[pathParts.length - 2] === 'image') {
+    const imageSelector = pathParts[pathParts.length - 1]; // 'selected', 'first', 'second', etc.
+    const basePathParts = pathParts.slice(0, -2); // Remove 'image.selector' from the end
+    
+    // Try to resolve the base path (e.g., 'stage-id.output')
+    const baseResult = resolveVariablePath(basePathParts.join('.'), context);
+    
+    if (baseResult.found && baseResult.value && typeof baseResult.value === 'object') {
+      const output = baseResult.value;
+      
+      // Check if this is an image output
+      if (output.provider && output.images && Array.isArray(output.images) && output.images.length > 0) {
+        const selectedImage = getSelectedImage(output, imageSelector);
+        if (selectedImage) {
+          return { found: true, value: selectedImage };
+        }
+      }
+    }
+  }
+  
+  return { found: false, value: undefined };
+}
+
+/**
+ * Enhance image output with additional selectors
+ */
+function enhanceImageOutput(imageOutput: any): { found: boolean; value: any } {
+  const enhanced = {
+    ...imageOutput,
+    image: {
+      selected: getSelectedImage(imageOutput, 'selected'),
+      first: imageOutput.images[0] || null,
+      second: imageOutput.images[1] || null,
+      third: imageOutput.images[2] || null,
+      fourth: imageOutput.images[3] || null,
+      all: imageOutput.images
+    }
+  };
+  
+  return { found: true, value: enhanced };
+}
+
+/**
+ * Get a specific image based on selector
+ */
+function getSelectedImage(imageOutput: any, selector: string): any {
+  if (!imageOutput.images || !Array.isArray(imageOutput.images) || imageOutput.images.length === 0) {
+    return null;
+  }
+  
+  switch (selector) {
+    case 'selected':
+      const selectedIndex = imageOutput.selectedImageIndex || 0;
+      return imageOutput.images[selectedIndex] || imageOutput.images[0];
+    case 'first':
+      return imageOutput.images[0] || null;
+    case 'second':
+      return imageOutput.images[1] || null;
+    case 'third':
+      return imageOutput.images[2] || null;
+    case 'fourth':
+      return imageOutput.images[3] || null;
+    default:
+      // Try to parse as a number (0-indexed)
+      const index = parseInt(selector, 10);
+      if (!isNaN(index) && index >= 0 && index < imageOutput.images.length) {
+        return imageOutput.images[index];
+      }
+      return null;
+  }
 }
 
 function logToAiLog(message: string, data?: any) {
