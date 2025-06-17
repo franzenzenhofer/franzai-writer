@@ -580,7 +580,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       updateStageState(stageId, { status: "error", error: error.message || "AI processing failed." });
       toast({ title: "AI Stage Error", description: error.message || "An error occurred.", variant: "destructive" });
     }
-  }, [aiStageLoaded, instance.workflow, instance.stageStates, updateStageState, toast, scrollToStageById]);
+  }, [aiStageLoaded, instance.workflow, instance.stageStates, updateStageState, toast, scrollToStageById, documentId, user?.uid]);
 
 
   
