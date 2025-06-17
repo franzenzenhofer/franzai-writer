@@ -67,6 +67,7 @@
       "outputType": "json",
       "dependencies": ["generate-poem-with-title"],
       "autoRun": false,
+      "isOptional": true,
       "formFields": [
         {
           "name": "additionalPrompt",
@@ -168,7 +169,7 @@
       "dependencies": ["generate-poem-with-title", "image-briefing"],
       "autoRun": true,
       "model": "imagen-3.0-generate-002",
-      "promptTemplate": "Create a {{image-briefing.output.style}} image that captures the essence and mood of this poem:\n\nTitle: {{generate-poem-with-title.output.title}}\nPoem:\n{{generate-poem-with-title.output.poem}}\n\n{{#if image-briefing.output.additionalPrompt}}Additional instructions: {{image-briefing.output.additionalPrompt}}\n\n{{/if}}Create an image that evokes the same emotions and themes as the poem. Make it {{image-briefing.output.style}} and visually appealing.",
+      "promptTemplate": "Create a {{image-briefing.output.style}} image that captures the essence and mood of this poem:\n\nTitle: {{generate-poem-with-title.output.title}}\nPoem:\n{{generate-poem-with-title.output.poem}}\n\n{{#if image-briefing.output.additionalPrompt}}Additional instructions: {{image-briefing.output.additionalPrompt}}\n\n{{/if}}Create an image that evokes the same emotions and themes as the poem. Make it {{image-briefing.output.style}} and visually appealing.\n\nIMPORTANT: Do NOT include any text, words, letters, or writing in the image. The image should be purely visual without any textual elements.",
       "imageGenerationSettings": {
         "provider": "imagen",
         "aspectRatio": "{{image-briefing.output.aspectRatio}}",

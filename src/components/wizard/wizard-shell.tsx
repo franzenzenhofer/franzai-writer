@@ -657,7 +657,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
 
 
   return (
-    <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
       <h1 
         className="text-2xl md:text-3xl font-bold font-headline mb-2"
         data-testid="wizard-page-title"

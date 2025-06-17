@@ -449,10 +449,62 @@ class DocumentPersistenceManager {
       };
     }
 
+    // Handle export stage state specifically
+    if (cleaned.output && typeof cleaned.output === 'object') {
+      // Check if this is an export stage output
+      if ('formats' in cleaned.output || 'publishing' in cleaned.output) {
+        console.log('[DocumentPersistence] Cleaning export stage output');
+        cleaned.output = this.cleanExportStageOutput(cleaned.output);
+      }
+    }
+    
     // Remove potentially problematic properties
     delete cleaned.currentStreamOutput; // This might contain streaming references
     delete cleaned.generationProgress; // This might contain complex state
 
+    return cleaned;
+  }
+
+  /**
+   * Clean export stage output for Firestore storage
+   */
+  private cleanExportStageOutput(output: any): any {
+    const cleaned: any = {
+      htmlStyled: output.htmlStyled || undefined,
+      htmlClean: output.htmlClean || undefined,
+      markdown: output.markdown || undefined,
+      formats: {}
+    };
+    
+    // Clean formats object
+    if (output.formats && typeof output.formats === 'object') {
+      for (const [format, data] of Object.entries(output.formats)) {
+        if (data && typeof data === 'object') {
+          cleaned.formats[format] = {
+            ready: !!(data as any).ready,
+            content: (data as any).content || undefined,
+            url: (data as any).url || undefined,
+            error: (data as any).error || undefined
+          };
+        }
+      }
+    }
+    
+    // Clean publishing data
+    if (output.publishing && typeof output.publishing === 'object') {
+      cleaned.publishing = {
+        publishedUrl: output.publishing.publishedUrl || undefined,
+        publishedAt: output.publishing.publishedAt ? 
+          (output.publishing.publishedAt instanceof Date ? 
+            output.publishing.publishedAt.toISOString() : 
+            output.publishing.publishedAt) : undefined,
+        publishedFormats: Array.isArray(output.publishing.publishedFormats) ? 
+          output.publishing.publishedFormats : undefined,
+        shortUrl: output.publishing.shortUrl || undefined,
+        qrCodeUrl: output.publishing.qrCodeUrl || undefined
+      };
+    }
+    
     return cleaned;
   }
 
