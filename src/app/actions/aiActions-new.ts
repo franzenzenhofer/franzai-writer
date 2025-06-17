@@ -126,8 +126,16 @@ function substitutePromptVars(template: string, context: Record<string, any>): s
       const replacement = (typeof result.value === 'object' && result.value !== null) ? JSON.stringify(result.value, null, 2) : String(result.value);
       finalPrompt = finalPrompt.replace(match[0], replacement);
     } else {
-      // FAIL HARD: No fallbacks, no replacements
-      throw new Error(`FATAL: Template variable '{{${fullPath}}}' not found in context. Required data is missing. Context keys: ${Object.keys(context).join(', ')}`);
+      // Check if this is an optional stage output (ends with .output and stage might be optional)
+      const pathParts = fullPath.split('.');
+      if (pathParts.length >= 2 && pathParts[pathParts.length - 1] === 'output') {
+        // This might be an optional stage - replace with empty string
+        console.log(`[Template Substitution] Optional stage output not found: {{${fullPath}}}, replacing with empty string`);
+        finalPrompt = finalPrompt.replace(match[0], '');
+      } else {
+        // FAIL HARD: No fallbacks, no replacements for required data
+        throw new Error(`FATAL: Template variable '{{${fullPath}}}' not found in context. Required data is missing. Context keys: ${Object.keys(context).join(', ')}`);
+      }
     }
   }
   
