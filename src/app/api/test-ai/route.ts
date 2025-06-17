@@ -1,21 +1,6 @@
 import { NextResponse } from 'next/server';
 import { runAiStage } from '@/app/actions/aiActions-new';
-import { appendFileSync } from 'fs';
-import { join } from 'path';
-
-function logToAiLog(message: string, data?: any) {
-  const timestamp = new Date().toISOString();
-  const logEntry = data 
-    ? `${timestamp} ${message} ${JSON.stringify(data, null, 2)}\n`
-    : `${timestamp} ${message}\n`;
-  
-  try {
-    const logPath = join(process.cwd(), 'logs', 'ai.log');
-    appendFileSync(logPath, logEntry);
-  } catch (error) {
-    console.error('Failed to write to ai.log:', error);
-  }
-}
+import { logAIGeneral } from '@/lib/ai-logger';
 
 export async function GET() {
   try {
@@ -54,7 +39,7 @@ export async function POST(request: Request) {
     console.log('[TEST-AI] Request body:', body);
     
     // 🔥 LOG COMPLETE TEST API REQUEST
-    logToAiLog('🧪 [TEST-AI REQUEST - COMPLETE]', {
+    logAIGeneral('🧪 [TEST-AI REQUEST - COMPLETE]', {
       body: body,
       url: request.url,
       method: request.method,
@@ -87,7 +72,7 @@ export async function POST(request: Request) {
     console.log('[TEST-AI] Result:', result);
     
     // 🔥 LOG COMPLETE TEST API RESULT BEFORE PROCESSING
-    logToAiLog('🧪 [TEST-AI RAW RESULT FROM runAiStage]', {
+    logAIGeneral('🧪 [TEST-AI RAW RESULT FROM runAiStage]', {
       hasContent: !!result.content,
       contentType: typeof result.content,
       contentLength: typeof result.content === 'string' ? result.content.length : 'N/A',
@@ -111,17 +96,17 @@ export async function POST(request: Request) {
 
     // 🔥 LOG FULL GROUNDING METADATA IF PRESENT
     if (result.groundingMetadata) {
-      logToAiLog('🔍 [TEST-AI GROUNDING METADATA - FULL]', result.groundingMetadata);
+      logAIGeneral('🔍 [TEST-AI GROUNDING METADATA - FULL]', result.groundingMetadata);
     }
 
     // �� LOG FULL GROUNDING SOURCES IF PRESENT
     if (result.groundingSources) {
-      logToAiLog('📖 [TEST-AI GROUNDING SOURCES - FULL]', result.groundingSources);
+      logAIGeneral('📖 [TEST-AI GROUNDING SOURCES - FULL]', result.groundingSources);
     }
 
     // LOG FULL URL CONTEXT METADATA IF PRESENT
     if (result.urlContextMetadata) {
-      logToAiLog('🌐 [TEST-AI URL CONTEXT METADATA - FULL]', result.urlContextMetadata);
+      logAIGeneral('🌐 [TEST-AI URL CONTEXT METADATA - FULL]', result.urlContextMetadata);
     }
     
     // Enhanced logging for grounding metadata and sources
@@ -158,7 +143,7 @@ export async function POST(request: Request) {
     };
 
     // 🔥 LOG FINAL RESPONSE BEING SENT TO CLIENT
-    logToAiLog('🧪 [TEST-AI FINAL RESPONSE TO CLIENT]', {
+    logAIGeneral('🧪 [TEST-AI FINAL RESPONSE TO CLIENT]', {
       response: {
         success: response.success,
         hasContent: !!response.content,
@@ -181,7 +166,7 @@ export async function POST(request: Request) {
     console.error('[TEST-AI] Error:', error);
     
     // 🔥 LOG TEST API ERROR
-    logToAiLog('❌ [TEST-AI ERROR]', {
+    logAIGeneral('❌ [TEST-AI ERROR]', {
       error: error instanceof Error ? error.message : String(error),
       stack: error instanceof Error ? error.stack : undefined
     });

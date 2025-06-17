@@ -9,9 +9,8 @@ import "server-only";
 import type { StageState, Stage } from "@/types";
 // Import only the type, not the implementation, to avoid bundling server code
 import type { AiStageExecutionInput, ThinkingStep } from "@/ai/flows/ai-stage-execution";
-import { appendFileSync } from 'fs';
-import { join } from 'path';
 import { cleanAiResponse } from '@/lib/ai-content-cleaner';
+import { logAIGeneral } from '@/lib/ai-logger';
 
 interface RunAiStageParams {
   promptTemplate: string;
@@ -100,100 +99,190 @@ export interface AiActionResult {
 }
 
 function substitutePromptVars(template: string, context: Record<string, any>): string {
+  console.log('[Template Substitution] STARTING SUBSTITUTION');
+  console.log('[Template Substitution] Template length:', template.length);
+  console.log('[Template Substitution] First 300 chars of template:', template.substring(0, 300));
+  console.log('[Template Substitution] Context keys:', Object.keys(context));
+  console.log('[Template Substitution] Context structure:', Object.keys(context).map(key => ({
+    key,
+    hasOutput: !!(context[key] && typeof context[key] === 'object' && 'output' in context[key]),
+    outputType: context[key]?.output ? typeof context[key].output : 'none',
+    outputKeys: context[key]?.output && typeof context[key].output === 'object' ? Object.keys(context[key].output) : []
+  })));
+
   let finalPrompt = template;
   
   // First, handle Handlebars conditionals like {{#if variable}}...{{/if}}
   const ifRegex = /\{\{#if\s+([\w.-]+)\}\}([\s\S]*?)\{\{\/if\}\}/g;
   finalPrompt = finalPrompt.replace(ifRegex, (match, varPath, content) => {
+    console.log(`[Template Substitution] Processing conditional: {{#if ${varPath}}}`);
     const value = resolveVariablePath(varPath, context);
     
     // If variable exists and is truthy, include the content
     if (value.found && value.value) {
+      console.log(`[Template Substitution] Conditional ${varPath} is truthy, including content`);
       return content;
     }
     // Otherwise, remove the entire conditional block
+    console.log(`[Template Substitution] Conditional ${varPath} is falsy, removing content`);
     return '';
   });
   
-  // Then handle simple variable substitutions
+  // Then handle simple variable substitutions - FIXED: Use a more robust approach
   const regex = /\{\{([\w.-]+)\}\}/g;
-  let match;
-  while ((match = regex.exec(finalPrompt)) !== null) {
+  const unresolved: string[] = [];
+  const resolved: Array<{variable: string, value: any}> = [];
+  
+  // Get all matches first to avoid regex state issues
+  const matches = Array.from(finalPrompt.matchAll(regex));
+  console.log(`[Template Substitution] Found ${matches.length} template variables to process`);
+  
+  // Process each match
+  for (const match of matches) {
     const fullPath = match[1];
+    const fullMatch = match[0]; // The full {{variable}} string
+    
+    console.log(`[Template Substitution] Processing variable: ${fullMatch}`);
     const result = resolveVariablePath(fullPath, context);
     
     if (result.found) {
       const replacement = (typeof result.value === 'object' && result.value !== null) ? JSON.stringify(result.value, null, 2) : String(result.value);
-      finalPrompt = finalPrompt.replace(match[0], replacement);
+      console.log(`[Template Substitution] ✅ Resolved ${fullMatch} -> ${replacement.substring(0, 100)}${replacement.length > 100 ? '...' : ''}`);
+      
+      // Replace ALL occurrences of this variable
+      finalPrompt = finalPrompt.replace(new RegExp(escapeRegExp(fullMatch), 'g'), replacement);
+      resolved.push({ variable: fullPath, value: result.value });
     } else {
       // Check if this is an optional stage output (ends with .output and stage might be optional)
       const pathParts = fullPath.split('.');
       if (pathParts.length >= 2 && pathParts[pathParts.length - 1] === 'output') {
         // This might be an optional stage - replace with empty string
-        console.log(`[Template Substitution] Optional stage output not found: {{${fullPath}}}, replacing with empty string`);
-        finalPrompt = finalPrompt.replace(match[0], '');
+        console.log(`[Template Substitution] ⚠️ Optional stage output not found: ${fullMatch}, replacing with empty string`);
+        finalPrompt = finalPrompt.replace(new RegExp(escapeRegExp(fullMatch), 'g'), '');
+        resolved.push({ variable: fullPath, value: '' });
       } else {
         // FAIL HARD: No fallbacks, no replacements for required data
-        throw new Error(`FATAL: Template variable '{{${fullPath}}}' not found in context. Required data is missing. Context keys: ${Object.keys(context).join(', ')}`);
+        console.error(`[Template Substitution] ❌ FATAL: Template variable '${fullMatch}' not found in context`);
+        console.error(`[Template Substitution] Available context keys:`, Object.keys(context));
+        console.error(`[Template Substitution] Context structure:`, context);
+        unresolved.push(fullPath);
       }
     }
   }
+
+  // FAIL FAST: If any required variables are unresolved, throw error
+  if (unresolved.length > 0) {
+    const errorMsg = `FATAL: Template variables not found: ${unresolved.map(v => `{{${v}}}`).join(', ')}. Required data is missing. Context keys: ${Object.keys(context).join(', ')}`;
+    console.error(`[Template Substitution] ${errorMsg}`);
+    throw new Error(errorMsg);
+  }
+
+  // VALIDATE: Check if there are still template variables in the final prompt (this should NEVER happen)
+  const remainingVars = finalPrompt.match(/\{\{[\w.-]+\}\}/g);
+  if (remainingVars) {
+    const errorMsg = `FATAL: Template substitution incomplete! Remaining variables: ${remainingVars.join(', ')}. This indicates a bug in the substitution logic.`;
+    console.error(`[Template Substitution] ${errorMsg}`);
+    console.error(`[Template Substitution] Final prompt first 500 chars:`, finalPrompt.substring(0, 500));
+    throw new Error(errorMsg);
+  }
+
+  console.log(`[Template Substitution] ✅ SUBSTITUTION COMPLETE`);
+  console.log(`[Template Substitution] Resolved ${resolved.length} variables:`, resolved.map(r => r.variable));
+  console.log(`[Template Substitution] Final prompt length:`, finalPrompt.length);
+  console.log(`[Template Substitution] Final prompt first 300 chars:`, finalPrompt.substring(0, 300));
   
   return finalPrompt;
+}
+
+/**
+ * Escape special regex characters
+ */
+function escapeRegExp(string: string): string {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 /**
  * Resolve a variable path with support for special image selectors
  */
 function resolveVariablePath(varPath: string, context: Record<string, any>): { found: boolean; value: any } {
+  console.log(`[Path Resolution] Resolving: ${varPath}`);
   const pathParts = varPath.split('.');
   let value = context;
   let found = true;
   
+  // CRITICAL: Handle special image selector paths FIRST
+  // Check for paths like 'stage-id.output.image.selected'
+  if (pathParts.length >= 4 && pathParts[pathParts.length - 2] === 'image') {
+    const imageSelector = pathParts[pathParts.length - 1]; // 'selected', 'first', 'second', etc.
+    const basePathParts = pathParts.slice(0, -2); // Remove 'image.selector' from the end
+    
+    console.log(`[Path Resolution] Detected image selector: ${imageSelector}, base path: ${basePathParts.join('.')}`);
+    
+    // Try to resolve the base path (e.g., 'stage-id.output')
+    let baseValue = context;
+    let baseFound = true;
+    for (const part of basePathParts) {
+      if (baseValue && typeof baseValue === 'object' && part in baseValue) {
+        baseValue = baseValue[part];
+      } else {
+        baseFound = false;
+        break;
+      }
+    }
+    
+    if (baseFound && baseValue && typeof baseValue === 'object') {
+      console.log(`[Path Resolution] Base path resolved to:`, typeof baseValue, Object.keys(baseValue));
+      
+      // Check if this is an image output
+      if (baseValue.provider && baseValue.images && Array.isArray(baseValue.images) && baseValue.images.length > 0) {
+        const selectedImage = getSelectedImage(baseValue, imageSelector);
+        if (selectedImage) {
+          console.log(`[Path Resolution] ✅ Image selector resolved:`, selectedImage);
+          return { found: true, value: selectedImage };
+        } else {
+          console.log(`[Path Resolution] ❌ Image selector failed: no image found for selector '${imageSelector}'`);
+        }
+      } else {
+        console.log(`[Path Resolution] ❌ Base path is not an image output:`, baseValue);
+      }
+    } else {
+      console.log(`[Path Resolution] ❌ Base path could not be resolved`);
+    }
+    
+    return { found: false, value: undefined };
+  }
+  
+  // Standard path resolution for non-image paths
   for (let i = 0; i < pathParts.length; i++) {
     const part = pathParts[i];
+    console.log(`[Path Resolution] Checking part '${part}' in:`, typeof value, Array.isArray(value) ? 'array' : (value && typeof value === 'object' ? Object.keys(value) : value));
     
     if (value && typeof value === 'object' && part in value) {
       value = value[part];
+      console.log(`[Path Resolution] Found '${part}', new value type:`, typeof value);
     } else {
+      console.log(`[Path Resolution] ❌ Part '${part}' not found`);
       found = false;
       break;
     }
   }
   
-  // If the path was found normally, return it
+  // If the path was found normally, check for special image enhancement
   if (found) {
-    // Special handling for image outputs with selection logic
+    console.log(`[Path Resolution] ✅ Standard path resolved to:`, typeof value);
+    
+    // Special handling for image outputs - enhance with selectors
     if (pathParts.length >= 2 && pathParts[pathParts.length - 1] === 'output' && value && typeof value === 'object') {
       // Check if this is an image output with multiple images
       if (value.provider && value.images && Array.isArray(value.images) && value.images.length > 0) {
+        console.log(`[Path Resolution] Enhancing image output with selectors`);
         return enhanceImageOutput(value);
       }
     }
     return { found: true, value };
   }
   
-  // Special handling for image selectors like stage-id.output.image.selected
-  if (pathParts.length >= 4 && pathParts[pathParts.length - 2] === 'image') {
-    const imageSelector = pathParts[pathParts.length - 1]; // 'selected', 'first', 'second', etc.
-    const basePathParts = pathParts.slice(0, -2); // Remove 'image.selector' from the end
-    
-    // Try to resolve the base path (e.g., 'stage-id.output')
-    const baseResult = resolveVariablePath(basePathParts.join('.'), context);
-    
-    if (baseResult.found && baseResult.value && typeof baseResult.value === 'object') {
-      const output = baseResult.value;
-      
-      // Check if this is an image output
-      if (output.provider && output.images && Array.isArray(output.images) && output.images.length > 0) {
-        const selectedImage = getSelectedImage(output, imageSelector);
-        if (selectedImage) {
-          return { found: true, value: selectedImage };
-        }
-      }
-    }
-  }
-  
+  console.log(`[Path Resolution] ❌ Path resolution failed for: ${varPath}`);
   return { found: false, value: undefined };
 }
 
@@ -246,18 +335,60 @@ function getSelectedImage(imageOutput: any, selector: string): any {
   }
 }
 
-function logToAiLog(message: string, data?: any) {
-  const timestamp = new Date().toISOString();
-  const logEntry = data 
-    ? `${timestamp} ${message} ${JSON.stringify(data, null, 2)}\n`
-    : `${timestamp} ${message}\n`;
+/**
+ * Diagnostic function to analyze context and identify missing dependencies
+ */
+function diagnoseContextForTemplate(template: string, context: Record<string, any>): void {
+  console.log('[Context Diagnosis] ANALYZING TEMPLATE DEPENDENCIES');
   
-  try {
-    const logPath = join(process.cwd(), 'logs', 'ai.log');
-    appendFileSync(logPath, logEntry);
-  } catch (error) {
-    console.error('Failed to write to ai.log:', error);
-  }
+  // Extract all template variables from the template
+  const allVars = template.match(/\{\{[\w.-]+\}\}/g) || [];
+  const uniqueVars = [...new Set(allVars)];
+  
+  console.log('[Context Diagnosis] Template variables found:', uniqueVars);
+  
+  // Analyze each variable
+  uniqueVars.forEach(varWithBraces => {
+    const varPath = varWithBraces.replace(/[{}]/g, '');
+    console.log(`[Context Diagnosis] Analyzing: ${varPath}`);
+    
+    const pathParts = varPath.split('.');
+    const rootKey = pathParts[0];
+    
+    if (!(rootKey in context)) {
+      console.error(`[Context Diagnosis] ❌ Root key '${rootKey}' missing from context`);
+      return;
+    }
+    
+    const rootValue = context[rootKey];
+    console.log(`[Context Diagnosis] ✅ Root key '${rootKey}' exists, type:`, typeof rootValue);
+    
+    if (pathParts.length > 1) {
+      let current = rootValue;
+      let currentPath = rootKey;
+      
+      for (let i = 1; i < pathParts.length; i++) {
+        const part = pathParts[i];
+        currentPath += '.' + part;
+        
+        if (!current || typeof current !== 'object') {
+          console.error(`[Context Diagnosis] ❌ Cannot traverse '${currentPath}' - current value is not an object:`, current);
+          break;
+        }
+        
+        if (!(part in current)) {
+          console.error(`[Context Diagnosis] ❌ Key '${part}' missing at '${currentPath}'`);
+          console.error(`[Context Diagnosis] Available keys at this level:`, Object.keys(current));
+          break;
+        }
+        
+        current = current[part];
+        console.log(`[Context Diagnosis] ✅ '${currentPath}' exists, type:`, typeof current);
+      }
+    }
+  });
+  
+  console.log('[Context Diagnosis] ANALYSIS COMPLETE');
 }
 
 export async function runAiStage(params: RunAiStageParams): Promise<AiActionResult> {
@@ -292,7 +423,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
     }
     
     // 🔥 LOG COMPLETE REQUEST
-    logToAiLog('🚀 [FULL AI REQUEST STARTING]', {
+    logAIGeneral('🚀 [FULL AI REQUEST STARTING]', {
       params: {
         ...params,
         // Don't log sensitive data but log structure
@@ -326,6 +457,9 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
             ...params.contextVars,
             userInput: params.currentStageInput // Add direct userInput reference
         };
+
+        // DIAGNOSTIC: Analyze context before template substitution
+        diagnoseContextForTemplate(params.promptTemplate, enhancedContext);
 
         let filledPrompt = substitutePromptVars(params.promptTemplate, enhancedContext);
         
@@ -440,7 +574,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
         const result = await aiStageExecutionFlow(aiInput);
         
         // 🔥 LOG AI EXECUTION RESULT
-        logToAiLog('🎯 [AI EXECUTION RESULT - RAW]', {
+        logAIGeneral('🎯 [AI EXECUTION RESULT - RAW]', {
           hasContent: !!result.content,
           contentLength: typeof result.content === 'string' ? result.content.length : 'N/A',
           contentPreview: typeof result.content === 'string' ? result.content.substring(0, 200) + '...' : result.content,
@@ -487,7 +621,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
                 usageMetadata: result.usageMetadata,
             };
 
-            logToAiLog('✅ [FINAL runAiStage RESULT - IMAGE]', {
+            logAIGeneral('✅ [FINAL runAiStage RESULT - IMAGE]', {
                 hasContent: !!finalResult.content,
                 hasOutputImages: !!finalResult.outputImages,
                 outputImagesCount: finalResult.outputImages?.length || 0,
@@ -515,7 +649,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
                 };
 
                 // 🔥 LOG FINAL RESULT
-                logToAiLog('✅ [FINAL runAiStage RESULT - JSON]', {
+                logAIGeneral('✅ [FINAL runAiStage RESULT - JSON]', {
                   hasContent: !!finalResult.content,
                   hasGroundingMetadata: !!finalResult.groundingMetadata,
                   groundingSourcesCount: finalResult.groundingSources?.length || 0,
@@ -538,7 +672,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
                 };
 
                 // 🔥 LOG FINAL RESULT (JSON PARSE FAILED)
-                logToAiLog('⚠️ [FINAL runAiStage RESULT - JSON PARSE FAILED]', {
+                logAIGeneral('⚠️ [FINAL runAiStage RESULT - JSON PARSE FAILED]', {
                   parseError: e instanceof Error ? e.message : String(e),
                   hasContent: !!finalResult.content,
                   hasGroundingMetadata: !!finalResult.groundingMetadata,
@@ -567,7 +701,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
         };
 
         // 🔥 LOG FINAL RESULT
-        logToAiLog('✅ [FINAL runAiStage RESULT - TEXT]', {
+        logAIGeneral('✅ [FINAL runAiStage RESULT - TEXT]', {
           hasContent: !!finalResult.content,
           hasGroundingMetadata: !!finalResult.groundingMetadata,
           groundingSourcesCount: finalResult.groundingSources?.length || 0,
@@ -582,7 +716,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
         console.error("[runAiStage] Error during AI execution:", error);
         
         // 🔥 LOG ERROR
-        logToAiLog('❌ [runAiStage ERROR]', {
+        logAIGeneral('❌ [runAiStage ERROR]', {
           error: {
             message: error?.message,
             stack: error?.stack,
@@ -597,4 +731,5 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
   }
 }
 
+// Streaming removed - use runAiStage instead
 // Streaming removed - use runAiStage instead

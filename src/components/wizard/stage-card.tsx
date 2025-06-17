@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"; // Keep for the primary action 
 import { Badge } from "@/components/ui/badge"; // Keep for non-dismissible badges
 import { StageInputArea, type StageInputAreaRef } from "./stage-input-area";
 import { StageOutputArea } from "./stage-output-area";
-import { CheckCircle2, AlertCircle, ArrowRight, RotateCcw, Loader2, Edit, Save, Check, Clock, X, Send } from "lucide-react"; // X is for DismissibleWarningBadge, others for StageActionButton or status
+import { CheckCircle2, AlertCircle, ArrowRight, RotateCcw, Loader2, Edit, Save, Check, Clock, X, Send, Copy, CheckCheck } from "lucide-react"; // X is for DismissibleWarningBadge, others for StageActionButton or status
 import { cn } from "@/lib/utils";
 import React, { useState, useRef, useEffect } from "react";
 import { DismissibleWarningBadge } from "./dismissible-warning-badge";
@@ -14,6 +14,8 @@ import { StageActionButton } from "./StageActionButton";
 import { AiRedoSection } from "./ai-redo-section";
 import { DynamicProgressBar } from "./dynamic-progress-bar";
 import { ExportStageCard } from "./export-stage/export-stage-card";
+import { StageInfoTrigger } from "./stage-info-overlay";
+import { useToast } from "@/hooks/use-toast";
 
 interface StageCardProps {
   stage: Stage;
@@ -29,6 +31,103 @@ interface StageCardProps {
   onSetEditingOutput: (stageId: string, isEditing: boolean) => void;
   onDismissStaleWarning: (stageId: string) => void; // New handler for dismissing stale warning
   allStageStates: Record<string, StageState>;
+}
+
+// Enhanced error display component with copy functionality
+function StageErrorDisplay({ error, stageTitle }: { error: string; stageTitle: string }) {
+  const { toast } = useToast();
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyError = async () => {
+    try {
+      // Create a more meaningful error message for copying
+      const errorReport = `AI Stage Error Report
+Stage: ${stageTitle}
+Timestamp: ${new Date().toLocaleString()}
+Error: ${error}
+
+Technical Details:
+- This error occurred during AI processing
+- Check browser console for additional details
+- Consider refreshing the page if the error persists`;
+
+      await navigator.clipboard.writeText(errorReport);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+      
+      toast({
+        title: "Error Copied",
+        description: "Error details copied to clipboard for troubleshooting",
+        variant: "default",
+      });
+    } catch (err) {
+      toast({
+        title: "Copy Failed",
+        description: "Unable to copy error details",
+        variant: "destructive",
+      });
+    }
+  };
+
+  // Make error message more user-friendly
+  const getUserFriendlyError = (error: string): { message: string; isTemplate: boolean } => {
+    if (error.includes('Template substitution incomplete') || error.includes('Template variables not found')) {
+      return {
+        message: "Template variable error: Required data from previous stages is missing or invalid. This usually means a dependency stage didn't complete properly.",
+        isTemplate: true
+      };
+    }
+    if (error.includes('AI service not configured')) {
+      return {
+        message: "AI service configuration error: The AI system is not properly configured. Please check your API keys.",
+        isTemplate: false
+      };
+    }
+    if (error.includes('AI not ready') || error.includes('AI system')) {
+      return {
+        message: "AI system not ready: The AI service is still loading or encountered an initialization error. Try refreshing the page.",
+        isTemplate: false
+      };
+    }
+    if (error.includes('Network') || error.includes('fetch')) {
+      return {
+        message: "Network error: Unable to connect to the AI service. Check your internet connection and try again.",
+        isTemplate: false
+      };
+    }
+    return {
+      message: error,
+      isTemplate: false
+    };
+  };
+
+  const { message, isTemplate } = getUserFriendlyError(error);
+
+  return (
+    <div className="border border-destructive/50 rounded-lg p-4 bg-destructive/5 space-y-3">
+      <div className="flex items-start gap-3">
+        <AlertCircle className="h-5 w-5 text-destructive mt-0.5 flex-shrink-0" />
+        <div className="flex-1 space-y-2">
+          <p className="text-destructive font-medium text-sm">AI Stage Error</p>
+          <p className="text-destructive text-sm leading-relaxed">{message}</p>
+          {isTemplate && (
+            <p className="text-muted-foreground text-xs">
+              💡 Tip: Try running previous stages again or check that all required form fields were completed.
+            </p>
+          )}
+        </div>
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={handleCopyError}
+          className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground"
+          title="Copy error details"
+        >
+          {copied ? <CheckCheck className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+        </Button>
+      </div>
+    </div>
+  );
 }
 
 export function StageCard({
@@ -211,7 +310,7 @@ export function StageCard({
         </div>
       )}
       <CardHeader className="flex flex-row justify-between items-start pb-4 pt-2">
-        <div>
+        <div className="flex-1 min-w-0">
           <CardTitle className="font-headline text-xl flex items-center">
             {statusIcon && !dependencyMessage && <span className="mr-2">{statusIcon}</span>}
             {stage.title}
@@ -228,7 +327,9 @@ export function StageCard({
           </CardTitle>
           <CardDescription>{stage.description}</CardDescription>
         </div>
-        {/* Removed the old dependency badge from here */}
+        <div className="flex-shrink-0 ml-2">
+          <StageInfoTrigger stage={stage} workflow={workflow} />
+        </div>
       </CardHeader>
       <CardContent className="space-y-4">
         {isEditingInput && stage.inputType !== 'none' && stageState.status !== 'running' && (
@@ -273,8 +374,8 @@ export function StageCard({
           </div>
         )}
         
-        {stageState.status === "error" && stageState.error && !stageState.output && (
-          <p className="text-destructive text-sm">{stageState.error}</p>
+        {stageState.status === "error" && stageState.error && (
+          <StageErrorDisplay error={stageState.error} stageTitle={stage.title} />
         )}
       </CardContent>
       

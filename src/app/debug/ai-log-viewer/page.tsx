@@ -28,11 +28,13 @@ export default function AILogViewerPage() {
   const [filter, setFilter] = useState('');
   const [levelFilter, setLevelFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
+  const [typeFilter, setTypeFilter] = useState<string>('all'); // all, outgoing, incoming
   const [error, setError] = useState<string | null>(null);
   const [isTestRunning, setIsTestRunning] = useState(false);
   const eventSourceRef = useRef<EventSource | null>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const [autoScroll, setAutoScroll] = useState(true);
+  const [newLogTimestamp, setNewLogTimestamp] = useState<string | null>(null);
 
   useEffect(() => {
     if (isStreaming) {
@@ -47,7 +49,7 @@ export default function AILogViewerPage() {
 
   useEffect(() => {
     if (autoScroll && scrollAreaRef.current) {
-      // For reverse order, scroll to top for newest
+      // Scroll to top where newest logs appear
       scrollAreaRef.current.scrollTop = 0;
     }
   }, [logs, autoScroll]);
@@ -152,9 +154,27 @@ export default function AILogViewerPage() {
   const filteredLogs = logs.filter((log) => {
     if (levelFilter !== 'all' && log.level !== levelFilter) return false;
     if (categoryFilter !== 'all' && log.category !== categoryFilter) return false;
-    if (filter && !JSON.stringify(log).toLowerCase().includes(filter.toLowerCase())) return false;
+    
+    // Type filter for Outgoing/Incoming/Both
+    if (typeFilter !== 'all') {
+      const isOutgoing = log.data?.requestType === 'OUTGOING';
+      const isIncoming = log.data?.responseType === 'INCOMING';
+      
+      if (typeFilter === 'outgoing' && !isOutgoing) return false;
+      if (typeFilter === 'incoming' && !isIncoming) return false;
+      if (typeFilter === 'both' && (!isOutgoing && !isIncoming)) return false;
+    }
+    
+    // Enhanced search that includes full data
+    if (filter) {
+      const searchableText = JSON.stringify(log).toLowerCase() + 
+        (log.data?.fullPrompt || '').toLowerCase() + 
+        (log.data?.fullContent || '').toLowerCase();
+      if (!searchableText.includes(filter.toLowerCase())) return false;
+    }
+    
     return true;
-  });
+  }).reverse(); // Show newest logs first
 
   const categories = Array.from(new Set(logs.map(log => log.category).filter(Boolean)));
 
@@ -162,7 +182,11 @@ export default function AILogViewerPage() {
     totalLogs: logs.length,
     errors: logs.filter(log => log.level === 'error').length,
     warnings: logs.filter(log => log.level === 'warning').length,
-    totalTokens: logs.reduce((sum, log) => sum + (log.tokenCount || 0), 0),
+    totalTokens: logs.reduce((sum, log) => {
+      // Check both tokenCount and nested totalTokenCount
+      const tokens = log.tokenCount || log.data?.totalTokenCount || 0;
+      return sum + tokens;
+    }, 0),
     avgDuration: logs.filter(log => log.duration).reduce((sum, log) => sum + (log.duration || 0), 0) / logs.filter(log => log.duration).length || 0
   };
 
@@ -263,12 +287,23 @@ export default function AILogViewerPage() {
           <div className="flex gap-4 mb-4">
             <div className="flex-1">
               <Input
-                placeholder="Search logs..."
+                placeholder="Search logs (includes full prompts/responses)..."
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
                 className="w-full"
               />
             </div>
+            <Select value={typeFilter} onValueChange={setTypeFilter}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Filter by type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Logs</SelectItem>
+                <SelectItem value="outgoing">🚀 Outgoing Only</SelectItem>
+                <SelectItem value="incoming">✨ Incoming Only</SelectItem>
+                <SelectItem value="both">🚀✨ Request/Response</SelectItem>
+              </SelectContent>
+            </Select>
             <Select value={levelFilter} onValueChange={setLevelFilter}>
               <SelectTrigger className="w-[150px]">
                 <SelectValue placeholder="Filter by level" />
@@ -302,19 +337,19 @@ export default function AILogViewerPage() {
             <TabsContent value="stream" className="mt-4">
               <ScrollArea className="h-[600px] w-full rounded-md border p-4" ref={scrollAreaRef}>
                 <div className="space-y-2">
-                  {filteredLogs.slice().reverse().map((log, index) => (
-                    <Card key={`${log.timestamp}-${index}`} className="p-4">
+                  {filteredLogs.map((log, index) => (
+                    <Card key={`${log.timestamp}-${index}`} className={`p-4 transition-all duration-500 ${index === 0 ? 'animate-slideIn ring-2 ring-blue-500 ring-opacity-50' : ''}`}>
                       <div className="flex items-start justify-between mb-2">
                         <div className="flex items-center gap-2">
                           {/* Show request/response type prominently */}
                           {log.data?.requestType === 'OUTGOING' && (
-                            <Badge variant="default" className="bg-blue-600">
-                              📤 OUTGOING
+                            <Badge variant="default" className="bg-purple-600 hover:bg-purple-700">
+                              🚀 OUTGOING
                             </Badge>
                           )}
                           {log.data?.responseType === 'INCOMING' && (
-                            <Badge variant="default" className="bg-green-600">
-                              📥 INCOMING
+                            <Badge variant="default" className="bg-emerald-600 hover:bg-emerald-700">
+                              ✨ INCOMING
                             </Badge>
                           )}
                           {log.level && (
@@ -335,7 +370,7 @@ export default function AILogViewerPage() {
                           {log.model && <Badge variant="secondary">{log.model}</Badge>}
                         </div>
                         <span className="text-xs text-muted-foreground">
-                          {new Date(log.timestamp).toLocaleTimeString()}
+                          {new Date(log.timestamp).toLocaleString()}
                         </span>
                       </div>
                       <p className="text-sm mb-2 font-medium">{log.message}</p>
@@ -347,7 +382,7 @@ export default function AILogViewerPage() {
                           {log.data.requestType === 'OUTGOING' && (
                             <>
                               {/* Request metadata */}
-                              <div className="flex gap-4 text-xs bg-blue-50 dark:bg-blue-950/30 p-2 rounded">
+                              <div className="flex gap-4 text-xs bg-purple-50 dark:bg-purple-950/30 p-2 rounded">
                                 {log.data.model && <span>🤖 Model: {log.data.model}</span>}
                                 {log.data.temperature !== undefined && <span>🌡️ Temp: {log.data.temperature}</span>}
                                 {log.data.promptLength && <span>📝 Prompt Length: {log.data.promptLength} chars</span>}
@@ -360,16 +395,18 @@ export default function AILogViewerPage() {
                                 </div>
                               )}
                               
-                              {/* Full prompt display */}
+                              {/* Full prompt display - auto expanded */}
                               {log.data.fullPrompt && (
-                                <details className="mt-2">
-                                  <summary className="cursor-pointer text-xs text-blue-600 hover:text-blue-700 font-medium">
-                                    📤 View Full Outgoing Prompt
-                                  </summary>
-                                  <pre className="mt-2 p-3 bg-blue-50 dark:bg-blue-950/30 rounded text-xs overflow-x-auto max-h-[400px] overflow-y-auto whitespace-pre-wrap">
-                                    {log.data.fullPrompt}
-                                  </pre>
-                                </details>
+                                <div className="mt-2">
+                                  <div className="text-xs text-purple-600 font-medium mb-1">
+                                    🚀 Full Outgoing Prompt
+                                  </div>
+                                  <div className="p-3 bg-purple-50 dark:bg-purple-950/30 rounded">
+                                    <div className="text-xs overflow-x-auto max-h-[400px] overflow-y-auto whitespace-pre-wrap font-mono">
+                                      {log.data.fullPrompt}
+                                    </div>
+                                  </div>
+                                </div>
                               )}
                             </>
                           )}
@@ -379,23 +416,25 @@ export default function AILogViewerPage() {
                             <>
                               {/* Token usage display */}
                               {(log.data.promptTokenCount || log.data.candidatesTokenCount) && (
-                                <div className="flex gap-4 text-xs bg-green-50 dark:bg-green-950/30 p-2 rounded">
+                                <div className="flex gap-4 text-xs bg-emerald-50 dark:bg-emerald-950/30 p-2 rounded">
                                   {log.data.promptTokenCount && <span>📥 Input: {log.data.promptTokenCount} tokens</span>}
                                   {log.data.candidatesTokenCount && <span>📤 Output: {log.data.candidatesTokenCount} tokens</span>}
                                   {log.data.totalTokenCount && <span>📊 Total: {log.data.totalTokenCount} tokens</span>}
                                 </div>
                               )}
                               
-                              {/* Full response display */}
+                              {/* Full response display - auto expanded */}
                               {log.data.fullContent && (
-                                <details className="mt-2">
-                                  <summary className="cursor-pointer text-xs text-green-600 hover:text-green-700 font-medium">
-                                    📥 View Full Incoming Response
-                                  </summary>
-                                  <pre className="mt-2 p-3 bg-green-50 dark:bg-green-950/30 rounded text-xs overflow-x-auto max-h-[400px] overflow-y-auto whitespace-pre-wrap">
-                                    {log.data.fullContent}
-                                  </pre>
-                                </details>
+                                <div className="mt-2">
+                                  <div className="text-xs text-emerald-600 font-medium mb-1">
+                                    ✨ Full Incoming Response
+                                  </div>
+                                  <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded">
+                                    <div className="text-xs overflow-x-auto max-h-[400px] overflow-y-auto whitespace-pre-wrap font-mono">
+                                      {log.data.fullContent}
+                                    </div>
+                                  </div>
+                                </div>
                               )}
                             </>
                           )}
@@ -436,9 +475,11 @@ export default function AILogViewerPage() {
                             <summary className="cursor-pointer text-xs text-muted-foreground hover:text-foreground">
                               View Raw Log Data
                             </summary>
-                            <pre className="mt-2 p-2 bg-muted rounded text-xs overflow-x-auto max-h-[200px] overflow-y-auto">
-                              {JSON.stringify(log.data, null, 2)}
-                            </pre>
+                            <div className="mt-2 p-3 bg-muted rounded text-xs font-mono max-h-[200px] overflow-y-auto">
+                              <div className="break-words whitespace-pre-wrap">
+                                {JSON.stringify(log.data, null, 2)}
+                              </div>
+                            </div>
                           </details>
                         </div>
                       )}
@@ -448,11 +489,11 @@ export default function AILogViewerPage() {
               </ScrollArea>
             </TabsContent>
             <TabsContent value="json" className="mt-4">
-              <ScrollArea className="h-[600px] w-full rounded-md border p-4">
-                <pre className="text-xs">
+              <div className="h-[600px] w-full rounded-md border overflow-auto">
+                <pre className="p-4 text-xs whitespace-pre overflow-x-auto min-w-0">
                   {JSON.stringify(filteredLogs, null, 2)}
                 </pre>
-              </ScrollArea>
+              </div>
             </TabsContent>
           </Tabs>
         </CardContent>

@@ -13,6 +13,105 @@ import { useToast } from "@/hooks/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { DismissibleWarningBadge } from "../dismissible-warning-badge";
+import { StageInfoTrigger } from "../stage-info-overlay";
+import { CheckCheck } from "lucide-react";
+
+// Enhanced error display component with copy functionality
+function ExportStageErrorDisplay({ error, stageTitle }: { error: string; stageTitle: string }) {
+  const { toast } = useToast();
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyError = async () => {
+    try {
+      // Create a more meaningful error message for copying
+      const errorReport = `Export Stage Error Report
+Stage: ${stageTitle}
+Timestamp: ${new Date().toLocaleString()}
+Error: ${error}
+
+Technical Details:
+- This error occurred during export processing
+- Check browser console for additional details
+- Consider refreshing the page if the error persists`;
+
+      await navigator.clipboard.writeText(errorReport);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+      
+      toast({
+        title: "Error Copied",
+        description: "Error details copied to clipboard for troubleshooting",
+        variant: "default",
+      });
+    } catch (err) {
+      toast({
+        title: "Copy Failed",
+        description: "Unable to copy error details",
+        variant: "destructive",
+      });
+    }
+  };
+
+  // Make error message more user-friendly
+  const getUserFriendlyError = (error: string): { message: string; isTemplate: boolean } => {
+    if (error.includes('Template substitution incomplete') || error.includes('Template variables not found')) {
+      return {
+        message: "Template variable error: Required data from previous stages is missing or invalid. This usually means a dependency stage didn't complete properly.",
+        isTemplate: true
+      };
+    }
+    if (error.includes('Export failed') || error.includes('failed to generate')) {
+      return {
+        message: "Export generation failed: Unable to create the export formats. This could be due to missing content or a system error.",
+        isTemplate: false
+      };
+    }
+    if (error.includes('Publishing failed') || error.includes('Unable to publish')) {
+      return {
+        message: "Publishing failed: Unable to publish your content online. Check your internet connection and try again.",
+        isTemplate: false
+      };
+    }
+    if (error.includes('Network') || error.includes('fetch')) {
+      return {
+        message: "Network error: Unable to connect to the export service. Check your internet connection and try again.",
+        isTemplate: false
+      };
+    }
+    return {
+      message: error,
+      isTemplate: false
+    };
+  };
+
+  const { message, isTemplate } = getUserFriendlyError(error);
+
+  return (
+    <div className="border border-destructive/50 rounded-lg p-4 bg-destructive/5 space-y-3">
+      <div className="flex items-start gap-3">
+        <AlertCircle className="h-5 w-5 text-destructive mt-0.5 flex-shrink-0" />
+        <div className="flex-1 space-y-2">
+          <p className="text-destructive font-medium text-sm">Export Error</p>
+          <p className="text-destructive text-sm leading-relaxed">{message}</p>
+          {isTemplate && (
+            <p className="text-muted-foreground text-xs">
+              💡 Tip: Try running previous stages again or check that all required form fields were completed.
+            </p>
+          )}
+        </div>
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={handleCopyError}
+          className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground"
+          title="Copy error details"
+        >
+          {copied ? <CheckCheck className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+        </Button>
+      </div>
+    </div>
+  );
+}
 
 interface ExportStageCardProps {
   stage: Stage;
@@ -206,7 +305,7 @@ export function ExportStageCard({
         className={cardClasses}
       >
         <CardHeader className="flex flex-row justify-between items-start pb-4 pt-2">
-          <div>
+          <div className="flex-1 min-w-0">
             <CardTitle className="font-headline text-xl flex items-center">
               {statusIcon && !dependencyMessage && <span className="mr-2">{statusIcon}</span>}
               {stage.title}
@@ -221,6 +320,9 @@ export function ExportStageCard({
               )}
             </CardTitle>
             <CardDescription>{stage.description}</CardDescription>
+          </div>
+          <div className="flex-shrink-0 ml-2">
+            <StageInfoTrigger stage={stage} workflow={workflow} />
           </div>
         </CardHeader>
         
@@ -417,15 +519,17 @@ export function ExportStageCard({
           )}
           
           {stageState.status === "error" && stageState.error && (
-            <div className="text-center space-y-4">
-              <p className="text-destructive">{stageState.error}</p>
-              <Button
-                variant="outline"
-                onClick={() => onRunStage(stage.id)}
-                id={`retry-export-${stage.id}`}
-              >
-                Retry Export
-              </Button>
+            <div className="space-y-4">
+              <ExportStageErrorDisplay error={stageState.error} stageTitle={stage.title} />
+              <div className="text-center">
+                <Button
+                  variant="outline"
+                  onClick={() => onRunStage(stage.id)}
+                  id={`retry-export-${stage.id}`}
+                >
+                  Retry Export
+                </Button>
+              </div>
             </div>
           )}
         </CardContent>

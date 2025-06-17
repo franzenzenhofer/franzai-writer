@@ -405,12 +405,29 @@ class DocumentPersistenceManager {
 
     if (cleaned.thinkingSteps) {
       console.log('[DocumentPersistence] Cleaning thinkingSteps');
-      // Clean thinking steps - convert to simple objects
-      cleaned.thinkingSteps = cleaned.thinkingSteps.map(step => ({
-        step: step.step || '',
-        thought: step.thought || '',
-        timestamp: step.timestamp || new Date().toISOString()
-      }));
+      // Clean thinking steps - handle the actual ThinkingStep structure
+      cleaned.thinkingSteps = cleaned.thinkingSteps.map(step => {
+        const cleanedStep: any = {
+          type: step.type || 'textLog'
+        };
+        
+        if (step.type === 'toolRequest') {
+          cleanedStep.toolName = step.toolName || '';
+          cleanedStep.input = this.cleanUndefinedValues(step.input);
+        } else if (step.type === 'toolResponse') {
+          cleanedStep.toolName = step.toolName || '';
+          cleanedStep.output = this.cleanUndefinedValues(step.output);
+        } else if (step.type === 'textLog') {
+          cleanedStep.message = step.message || '';
+        }
+        
+        // Add timestamp if present (typescript workaround for optional property)
+        if ('timestamp' in step && step.timestamp) {
+          cleanedStep.timestamp = step.timestamp;
+        }
+        
+        return cleanedStep;
+      });
     }
 
     if (cleaned.codeExecutionResults) {
@@ -608,7 +625,7 @@ class DocumentPersistenceManager {
         console.warn('[DocumentPersistence] File/Blob detected, converting to metadata');
         return {
           type: 'file',
-          name: obj.name || 'unnamed',
+          name: obj instanceof File ? obj.name : 'unnamed',
           size: obj.size,
           mimeType: obj.type
         };

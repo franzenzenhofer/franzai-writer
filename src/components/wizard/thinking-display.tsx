@@ -7,14 +7,12 @@ import { Separator } from '@/components/ui/separator';
 import { useState } from 'react';
 
 interface ThinkingStep {
-  type: 'thought' | 'textLog' | 'toolRequest' | 'toolResponse';
-  text?: string;
-  content?: string;
-  thought?: boolean;
+  type: 'textLog' | 'toolRequest' | 'toolResponse';
   message?: string;
   toolName?: string;
   input?: any;
   output?: any;
+  timestamp?: string;
 }
 
 interface ThinkingDisplayProps {
@@ -58,7 +56,7 @@ export function ThinkingDisplay({ thinkingSteps, usageMetadata }: ThinkingDispla
   const totalCost = promptTokens + thinkingTokens + outputTokens;
   
   // Categorize thinking steps
-  const thoughtSteps = thinkingSteps.filter(step => step.type === 'thought' || step.thought);
+  const thoughtSteps = thinkingSteps.filter(step => step.type === 'textLog' && step.message?.includes('Thought'));
   const textLogSteps = thinkingSteps.filter(step => step.type === 'textLog');
   const toolSteps = thinkingSteps.filter(step => step.type === 'toolRequest' || step.type === 'toolResponse');
 
@@ -127,7 +125,7 @@ export function ThinkingDisplay({ thinkingSteps, usageMetadata }: ThinkingDispla
                         Step {index + 1}
                       </Badge>
                       <Badge variant="secondary" className="text-xs shrink-0">
-                        {step.type === 'thought' || step.thought ? 'Thought' : 
+                        {step.type === 'textLog' && step.message?.includes('Thought') ? 'Thought' : 
                          step.type === 'textLog' ? 'Log' : 
                          step.type === 'toolRequest' ? 'Tool Request' : 
                          step.type === 'toolResponse' ? 'Tool Response' : 
@@ -141,11 +139,6 @@ export function ThinkingDisplay({ thinkingSteps, usageMetadata }: ThinkingDispla
                     </div>
                     
                     {/* Display step content */}
-                    {(step.text || step.content) && (
-                      <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
-                        {step.text || step.content}
-                      </p>
-                    )}
                     
                     {step.message && (
                       <p className="text-xs text-muted-foreground mt-1 leading-relaxed">

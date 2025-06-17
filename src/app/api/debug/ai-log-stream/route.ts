@@ -29,25 +29,27 @@ function createSSEStream() {
   return { stream, send, close };
 }
 
-// Parse log line
-function parseLogLine(line: string) {
-  try {
-    // Try to parse as JSON first
-    return JSON.parse(line);
-  } catch {
-    // Fallback to simple text parsing
-    const timestampMatch = line.match(/^\[(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z)\]/);
-    const levelMatch = line.match(/\[(INFO|WARNING|ERROR|DEBUG)\]/);
-    const categoryMatch = line.match(/\[([^\]]+)\](?:\s*\[(?:INFO|WARNING|ERROR|DEBUG)\])?/);
+// Parse structured log entries (JSON only)
+function parseLogEntries(content: string): any[] {
+  const entries: any[] = [];
+  const lines = content.split('\n');
+  
+  for (const line of lines) {
+    if (!line.trim()) continue;
     
-    return {
-      timestamp: timestampMatch ? timestampMatch[1] : new Date().toISOString(),
-      level: levelMatch ? levelMatch[1].toLowerCase() : 'info',
-      category: categoryMatch ? categoryMatch[1] : 'unknown',
-      message: line,
-      raw: true
-    };
+    // Only parse JSON log entries
+    if (line.trim().startsWith('{')) {
+      try {
+        const entry = JSON.parse(line);
+        entries.push(entry);
+      } catch (err) {
+        // Skip invalid JSON lines
+        console.warn('Skipping invalid JSON line:', line.substring(0, 100));
+      }
+    }
   }
+  
+  return entries;
 }
 
 export async function GET(request: NextRequest) {
@@ -70,13 +72,14 @@ export async function GET(request: NextRequest) {
   // Read existing logs
   try {
     const existingLogs = fs.readFileSync(logPath, 'utf-8');
-    const lines = existingLogs.split('\n').filter(line => line.trim());
     
-    // Send last 100 lines as initial data
-    const recentLines = lines.slice(-100);
-    for (const line of recentLines) {
-      const logEntry = parseLogLine(line);
-      send(logEntry);
+    // Parse all log entries
+    const allEntries = parseLogEntries(existingLogs);
+    
+    // Send last 100 entries as initial data
+    const recentEntries = allEntries.slice(-100);
+    for (const entry of recentEntries) {
+      send(entry);
     }
   } catch (err) {
     console.error('Error reading existing logs:', err);
@@ -94,11 +97,11 @@ export async function GET(request: NextRequest) {
         fs.closeSync(fd);
         
         const newContent = buffer.toString('utf-8');
-        const newLines = newContent.split('\n').filter(line => line.trim());
         
-        for (const line of newLines) {
-          const logEntry = parseLogLine(line);
-          send(logEntry);
+        // Parse new entries
+        const newEntries = parseLogEntries(newContent);
+        for (const entry of newEntries) {
+          send(entry);
         }
         
         fileSize = newSize;
