@@ -50,10 +50,18 @@ test.describe('Complete Poem Generator Workflow', () => {
     await page.waitForTimeout(2000);
     
     // Stage 4: Generate Poem Image - should auto-run
-    // Wait for image generation to complete (this tests our image generation fix)
-    await page.waitForSelector('[data-testid="stage-card-generate-poem-image"] img', {
-      timeout: 90000 // Imagen generation can take a while
-    });
+    // Wait for stage to show as completed instead of waiting for image
+    await page.waitForFunction(
+      () => {
+        const stageCard = document.querySelector('[data-testid="stage-card-generate-poem-image"]');
+        const statusText = stageCard?.textContent || '';
+        return statusText.includes('AI Stage Completed') || statusText.includes('Download');
+      },
+      { timeout: 90000 } // Imagen generation can take a while
+    );
+    
+    // Wait a bit for the image to render
+    await page.waitForTimeout(2000);
     
     // Verify image was generated and is displayed
     // Use .first() to get the main image, not the thumbnails
@@ -67,8 +75,18 @@ test.describe('Complete Poem Generator Workflow', () => {
     console.log('Generated image URL:', imageSrc); // Log for verification
 
     // Stage 5: HTML Generation - should auto-run after image generation
-    // Wait for HTML stage to complete
-    await page.waitForTimeout(15000); // HTML generation can take time
+    // Wait for HTML stage to show as completed
+    await page.waitForFunction(
+      () => {
+        const htmlStage = document.querySelector('[data-testid="stage-card-generate-html-preview"]');
+        const statusText = htmlStage?.textContent || '';
+        return statusText.includes('AI Stage Completed') || statusText.includes('Copy');
+      },
+      { timeout: 30000 } // HTML generation
+    );
+    
+    // Wait a bit for content to render
+    await page.waitForTimeout(1000);
     
     // Verify HTML output includes the image
     const htmlOutput = page.getByTestId('stage-card-generate-html-preview');

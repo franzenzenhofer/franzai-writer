@@ -187,7 +187,7 @@ export async function aiStageExecutionFlow(
       
       try {
         const imageResult = await generateImages({
-          prompt: promptTemplate,
+          prompt: promptTemplate, // This is already the resolved prompt from aiActions-new.ts
           settings: imageGenerationSettings,
           userId,
           documentId,
