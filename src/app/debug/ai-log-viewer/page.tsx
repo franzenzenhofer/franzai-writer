@@ -8,7 +8,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Pause, Play, RefreshCw, Download, Trash2, Search, Filter, ArrowDownToLine, TestTube } from 'lucide-react';
+import { Pause, Play, RefreshCw, Download, Trash2, Search, Filter, ArrowDownToLine, Zap } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface LogEntry {
@@ -47,7 +47,8 @@ export default function AILogViewerPage() {
 
   useEffect(() => {
     if (autoScroll && scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
+      // For reverse order, scroll to top for newest
+      scrollAreaRef.current.scrollTop = 0;
     }
   }, [logs, autoScroll]);
 

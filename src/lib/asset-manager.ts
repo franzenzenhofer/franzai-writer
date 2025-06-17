@@ -56,9 +56,19 @@ export class AssetManager {
       // 1. Generate asset ID
       const assetId = nanoid();
       
-      // 2. Upload to standardized path: assets/{assetId}/original.{ext}
+      // 2. Create SEO-optimized storage path using filename
       const ext = params.metadata.mimeType.split('/')[1] || 'png';
-      const storagePath = `assets/${assetId}/original.${ext}`;
+      let storagePath: string;
+      
+      // Extract base filename without extension (if it has one)
+      const fileName = params.metadata.fileName;
+      const baseFileName = fileName.includes('.') ? fileName.split('.').slice(0, -1).join('.') : fileName;
+      
+      // Use custom filename in path for SEO benefits, but keep assetId for uniqueness
+      storagePath = `assets/${assetId}/${baseFileName}.${ext}`;
+      
+      console.log(`[ASSET MANAGER] Using SEO-optimized storage path: ${storagePath}`);
+      
       const storageRef = ref(storage, storagePath);
       
       // 3. Upload file to Firebase Storage with retry logic

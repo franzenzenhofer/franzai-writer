@@ -28,6 +28,7 @@ export function dataURLtoBlob(dataUrl: string): Blob {
  * @param imageIndex Index for multiple images (0, 1, 2...)
  * @param generationPrompt Prompt used to generate the image
  * @param generationModel Model used to generate the image
+ * @param customFilenames Optional array of AI-generated SEO-optimized filenames
  * @returns Object with asset ID, storage path and public URL
  */
 export async function uploadGeneratedImage(
@@ -37,7 +38,8 @@ export async function uploadGeneratedImage(
   stageId: string,
   imageIndex: number = 0,
   generationPrompt?: string,
-  generationModel?: string
+  generationModel?: string,
+  customFilenames?: string[]
 ): Promise<{ assetId: string; storageUrl: string; publicUrl: string }> {
   try {
     console.log(`[IMAGE STORAGE] Creating asset for image ${imageIndex} in stage ${stageId}`);
@@ -45,12 +47,26 @@ export async function uploadGeneratedImage(
     // Convert data URL to blob
     const blob = dataURLtoBlob(dataUrl);
     
+    // Generate SEO-optimized filename
+    let fileName: string;
+    if (customFilenames && customFilenames[imageIndex]) {
+      // Use AI-generated filename with UUID for uniqueness
+      const baseFilename = customFilenames[imageIndex];
+      const uuid = Math.random().toString(36).substr(2, 8); // 8-character UUID
+      fileName = `${baseFilename}-${uuid}.png`;
+    } else {
+      // Fallback to original naming
+      fileName = `generated-${Date.now()}-${imageIndex}.png`;
+    }
+    
+    console.log(`[IMAGE STORAGE] Using SEO-optimized filename: ${fileName}`);
+    
     // Create asset record using Asset Manager
     const asset = await assetManager.createAsset({
       userId,
       file: blob,
       metadata: {
-        fileName: `generated-${Date.now()}-${imageIndex}.png`,
+        fileName,
         mimeType: 'image/png',
         source: 'generated',
         generationPrompt,
@@ -83,12 +99,17 @@ export async function uploadGeneratedImages(
   documentId: string,
   stageId: string,
   generationPrompt?: string,
-  generationModel?: string
+  generationModel?: string,
+  customFilenames?: string[]
 ): Promise<Array<{ assetId: string; storageUrl: string; publicUrl: string }>> {
   console.log(`[IMAGE STORAGE] Creating ${dataUrls.length} assets for stage ${stageId}`);
   
+  if (customFilenames) {
+    console.log(`[IMAGE STORAGE] Using custom SEO-optimized filenames:`, customFilenames);
+  }
+  
   const uploadPromises = dataUrls.map((dataUrl, index) =>
-    uploadGeneratedImage(dataUrl, userId, documentId, stageId, index, generationPrompt, generationModel)
+    uploadGeneratedImage(dataUrl, userId, documentId, stageId, index, generationPrompt, generationModel, customFilenames)
   );
   
   const results = await Promise.all(uploadPromises);

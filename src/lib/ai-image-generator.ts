@@ -124,7 +124,8 @@ async function generateWithImagen(client: GoogleGenAI, request: ImageGenerationR
         request.documentId,
         request.stageId,
         request.prompt,
-        'imagen-3.0-generate-002'
+        'imagen-3.0-generate-002',
+        settings.filenames
       );
 
       if (uploadResults.length === 0) {

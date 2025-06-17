@@ -105,6 +105,30 @@ function resolveImageGenerationSettings(settings: any, contextVars: Record<strin
     resolvedSettings.numberOfImages = numValue;
   }
   
+  // Resolve filenames from template context
+  if (resolvedSettings.filenames) {
+    const resolved = resolveTemplate(resolvedSettings.filenames);
+    // FAIL HARD: If template variables aren't resolved, throw error
+    if (resolved.includes('{{')) {
+      throw new Error(`FATAL: Template variable '${resolvedSettings.filenames}' could not be resolved. AI-generated filenames not available.`);
+    }
+    
+    try {
+      // Parse the JSON array of filenames
+      const parsedFilenames = JSON.parse(resolved);
+      if (Array.isArray(parsedFilenames)) {
+        resolvedSettings.filenames = parsedFilenames;
+        console.log('[resolveImageGenerationSettings] Using AI-generated filenames:', parsedFilenames);
+      } else {
+        console.warn('[resolveImageGenerationSettings] Filenames is not an array, ignoring:', resolved);
+        delete resolvedSettings.filenames;
+      }
+    } catch (parseError) {
+      console.warn('[resolveImageGenerationSettings] Failed to parse filenames JSON, ignoring:', resolved);
+      delete resolvedSettings.filenames;
+    }
+  }
+  
   return resolvedSettings;
 }
 

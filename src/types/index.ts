@@ -360,6 +360,7 @@ export interface ImageGenerationSettings {
   numberOfImages?: number; // For Imagen, 1-4
   style?: string; // Style modifier
   negativePrompt?: string; // What to avoid
+  filenames?: string[]; // AI-generated SEO-optimized filenames
   gemini?: {
     responseModalities?: string[];
   };
