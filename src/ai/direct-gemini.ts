@@ -30,6 +30,11 @@ export interface DirectGeminiRequest {
   enableThinking?: boolean;
   thinkingBudget?: number;
   includeThoughts?: boolean;
+  // Workflow and stage context for logging
+  workflowName?: string;
+  stageName?: string;
+  stageId?: string;
+  contextVars?: any;
 }
 
 export interface DirectGeminiResponse {
@@ -151,10 +156,15 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
   logAI('REQUEST', { 
     type: 'Direct Gemini API', 
     ...directRequestLog, 
-    prompt: request.prompt.substring(0, 500),
+    prompt: request.prompt,
     tools: tools,
     systemInstruction: request.systemInstruction?.substring(0, 200),
-    hasGroundingConfig: !!tools.find((tool: any) => tool.googleSearch)
+    hasGroundingConfig: !!tools.find((tool: any) => tool.googleSearch),
+    // Add workflow/stage context
+    workflowName: request.workflowName,
+    stageName: request.stageName,
+    stageId: request.stageId,
+    contextVars: request.contextVars
   });
 
   try {
@@ -291,16 +301,20 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
     logAI('RESPONSE', { 
       type: 'Direct Gemini API', 
       contentLength: content.length,
-      contentPreview: content.substring(0, 200) + '...',
+      fullContent: content,
       hasGroundingMetadata: !!groundingMetadata,
       hasUrlContextMetadata: !!urlContextMetadata,
       hasThinkingSteps: !!thinkingSteps && thinkingSteps.length > 0,
       groundingSourcesCount: groundingSources?.length || 0,
       urlContextUrlsCount: urlContextMetadata?.urlMetadata?.length || 0,
+      // Add workflow/stage context
+      workflowName: request.workflowName,
+      stageName: request.stageName,
+      stageId: request.stageId,
+      model: request.model,
       thinkingStepsCount: thinkingSteps?.length || 0,
       thoughtsTokenCount: result.usageMetadata?.thoughtsTokenCount,
       usageMetadata: result.usageMetadata,
-      fullContent: content,
       groundingSources: groundingSources,
       urlContextMetadata: urlContextMetadata,
       thinkingSteps: thinkingSteps

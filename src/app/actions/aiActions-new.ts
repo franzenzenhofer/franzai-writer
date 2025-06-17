@@ -402,6 +402,9 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
             userId: params.userId,
             documentId: params.documentId,
             stageId: params.stageId,
+            // Add workflow and stage context for logging
+            workflow: params.workflow,
+            stage: params.stage,
         };
 
         // Only enable Google Search grounding if explicitly requested or configured in the stage

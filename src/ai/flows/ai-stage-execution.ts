@@ -65,6 +65,17 @@ const AiStageExecutionInputSchema = z.object({
   userId: z.string().optional(),
   documentId: z.string().optional(),
   stageId: z.string().optional(),
+  // Add workflow and stage context for logging
+  workflow: z.object({
+    id: z.string().optional(),
+    name: z.string(),
+    description: z.string().optional(),
+  }).optional(),
+  stage: z.object({
+    id: z.string().optional(),
+    name: z.string(),
+    description: z.string().optional(),
+  }).optional(),
 });
 export type AiStageExecutionInput = z.infer<typeof AiStageExecutionInputSchema>;
 
@@ -151,7 +162,8 @@ export async function aiStageExecutionFlow(
       systemInstructions, chatHistory, groundingSettings,
       functionCallingMode, forceGoogleSearchGrounding,
       imageGenerationSettings, stageOutputType,
-      userId, documentId, stageId
+      userId, documentId, stageId,
+      workflow, stage
     } = input;
 
     console.log('[AI Stage Flow Enhanced] Starting with input:', {
@@ -388,7 +400,12 @@ export async function aiStageExecutionFlow(
           enableThinking: thinkingSettings?.enabled,
           thinkingBudget: thinkingSettings?.thinkingBudget,
           includeThoughts: true, // Always include thoughts when thinking is enabled
-          tools: availableTools
+          tools: availableTools,
+          // Add workflow/stage context
+          workflowName: workflow?.name,
+          stageName: stage?.name,
+          stageId: stage?.id || stageId,
+          contextVars: input.contextVars
         },
         currentThinkingSteps,
         input

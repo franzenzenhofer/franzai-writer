@@ -155,7 +155,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     // Show loading toast for first attempt
     if (retryAttempt === 0) {
       toast({
-        title: "⏳ Loading AI System",
+        title: "Loading AI System",
         description: "Initializing AI functionality...",
         variant: "default",
         duration: 10000, // Show while loading
@@ -192,7 +192,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       
       // Success toast
       toast({
-        title: "✅ AI System Ready",
+        title: "AI System Ready",
         description: `Loaded successfully in ${loadTime}ms`,
         variant: "default",
         duration: 3000,
