@@ -8,7 +8,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Pause, Play, RefreshCw, Download, Trash2, Search, Filter, ArrowDownToLine, Zap } from 'lucide-react';
+import { Pause, Play, RefreshCw, Download, Trash2, Search, Filter, ArrowDownToLine, Zap, Copy, Check } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface LogEntry {
@@ -35,6 +35,7 @@ export default function AILogViewerPage() {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const [autoScroll, setAutoScroll] = useState(true);
   const [newLogTimestamp, setNewLogTimestamp] = useState<string | null>(null);
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
   useEffect(() => {
     if (isStreaming) {
@@ -103,6 +104,58 @@ export default function AILogViewerPage() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+  };
+
+  const copyLogEntry = (log: LogEntry, index: number) => {
+    // Create a complete log object with all data
+    const fullLogData = {
+      timestamp: log.timestamp,
+      level: log.level,
+      category: log.category,
+      message: log.message,
+      model: log.model,
+      tokenCount: log.tokenCount,
+      duration: log.duration,
+      data: {
+        ...log.data,
+        // Ensure full prompt and content are included
+        fullPrompt: log.data?.fullPrompt,
+        fullContent: log.data?.fullContent
+      }
+    };
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(JSON.stringify(fullLogData, null, 2)).then(() => {
+      setCopiedIndex(index);
+      // Reset after 2 seconds
+      setTimeout(() => setCopiedIndex(null), 2000);
+    });
+  };
+
+  const copyFilteredView = () => {
+    // Create a complete log array with all data for filtered logs
+    const fullFilteredLogs = filteredLogs.map(log => ({
+      timestamp: log.timestamp,
+      level: log.level,
+      category: log.category,
+      message: log.message,
+      model: log.model,
+      tokenCount: log.tokenCount,
+      duration: log.duration,
+      data: {
+        ...log.data,
+        // Ensure full prompt and content are included
+        fullPrompt: log.data?.fullPrompt,
+        fullContent: log.data?.fullContent
+      }
+    }));
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(JSON.stringify(fullFilteredLogs, null, 2)).then(() => {
+      // Show a temporary success indicator
+      setCopiedIndex(-1); // Special index for filtered view
+      setTimeout(() => setCopiedIndex(null), 2000);
+    });
   };
 
   const runTestAIRequest = async () => {
@@ -231,6 +284,23 @@ export default function AILogViewerPage() {
                 <Zap className="w-4 h-4 mr-2" />
                 {isTestRunning ? 'Testing...' : 'Test AI'}
               </Button>
+              <Button 
+                onClick={copyFilteredView} 
+                variant="outline"
+                disabled={filteredLogs.length === 0}
+              >
+                {copiedIndex === -1 ? (
+                  <>
+                    <Check className="w-4 h-4 mr-2 text-green-600" />
+                    Copied!
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4 mr-2" />
+                    Copy View ({filteredLogs.length})
+                  </>
+                )}
+              </Button>
               <Button onClick={clearLogs} variant="outline">
                 <Trash2 className="w-4 h-4 mr-2" />
                 Clear
@@ -293,6 +363,21 @@ export default function AILogViewerPage() {
                 className="w-full"
               />
             </div>
+            {(filter || typeFilter !== 'all' || levelFilter !== 'all' || categoryFilter !== 'all') && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setFilter('');
+                  setTypeFilter('all');
+                  setLevelFilter('all');
+                  setCategoryFilter('all');
+                }}
+              >
+                <RefreshCw className="h-4 w-4 mr-2" />
+                Reset Filters
+              </Button>
+            )}
             <Select value={typeFilter} onValueChange={setTypeFilter}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Filter by type" />
@@ -340,7 +425,7 @@ export default function AILogViewerPage() {
                   {filteredLogs.map((log, index) => (
                     <Card key={`${log.timestamp}-${index}`} className={`p-4 transition-all duration-500 ${index === 0 ? 'animate-slideIn ring-2 ring-blue-500 ring-opacity-50' : ''}`}>
                       <div className="flex items-start justify-between mb-2">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-1">
                           {/* Show request/response type prominently */}
                           {log.data?.requestType === 'OUTGOING' && (
                             <Badge variant="default" className="bg-purple-600 hover:bg-purple-700">
@@ -369,9 +454,23 @@ export default function AILogViewerPage() {
                           )}
                           {log.model && <Badge variant="secondary">{log.model}</Badge>}
                         </div>
-                        <span className="text-xs text-muted-foreground">
-                          {new Date(log.timestamp).toLocaleString()}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs text-muted-foreground">
+                            {new Date(log.timestamp).toLocaleString()}
+                          </span>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => copyLogEntry(log, index)}
+                            className="h-8 w-8 p-0"
+                          >
+                            {copiedIndex === index ? (
+                              <Check className="h-4 w-4 text-green-600" />
+                            ) : (
+                              <Copy className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </div>
                       </div>
                       <p className="text-sm mb-2 font-medium">{log.message}</p>
                       
