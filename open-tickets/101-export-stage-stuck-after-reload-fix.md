@@ -438,6 +438,73 @@ Adopting this streamlined approach still satisfies all acceptance criteria while
 
 - [ ] Remove any existing timeout/watchdog code related to export stage recovery once utility is verified.
 
+## Clarification: Fix the Root Cause – Make Export Stages _Resume-Able_
+
+> We **do not** want to merely *reset* a broken state.  The real goal is to **prevent** the export stage from getting stuck at all by persisting enough context so that a page reload can seamlessly resume or finish the job without user intervention.
+
+### Design Principles
+1. **Single Source of Truth** – Long-running export generation happens on the **server**, not in the browser tab that might disappear.
+2. **Deterministic State Machine** – Each export stage has states: `idle → queued → running → completed | error`.  These are persisted just like all other stage fields.
+3. **Resumable Jobs** – A `jobId` stored in `stageState.output.formats` lets the UI poll for progress after reload instead of re-running or resetting.
+4. **No Double Logic** – All stage persistence/cleanup rules live in one utility, no scattered patches.
+
+### High-Level Flow
+```
+User clicks "Export & Publish"
+   ↓
+`/api/export/start` -> returns { jobId }
+   ↓ (immediately)
+stageState.status = 'queued', stageState.exportJobId = jobId
+   ↓ (server)
+Cloud task picks jobId, runs export → updates Firestore with progress snapshots
+   ↓ (client polling / SSE)
+WizardShell sees status 'running' + jobId → shows live progress
+   ↓
+When job completes, server sets status 'completed' & final outputs
+   ↓
+WizardShell re-renders ✅
+```
+
+With this architecture, a browser reload is irrelevant—the server owns the long task and the document always reflects true state. A stuck *cannot* happen, because progress/ completion is written by the server regardless of client lifecycle.
+
+### Root-Cause Implementation Tasks (Persist & Resume)
+
+1. **Server-side Export Job**
+   - [ ] **Create** `src/app/api/export/start/route.ts` that:
+     1. Validates input `{ documentId, stageId }`.
+     2. Creates a Firestore sub-collection `documents/{docId}/jobs/{jobId}` with `{ status:'queued', progress:0 }`.
+     3. Returns `{ jobId }`.
+   - [ ] **Move** heavy logic from `executeExportStage` into a **server util** `lib/export/jobs/runExportJob.ts` used by a background worker / Cloud Task.
+
+2. **Background Worker**
+   - [ ] **Create** minimal worker script `scripts/run-export-jobs.ts` (can run via Cloud Run or Firestore trigger) that:
+     - Watches queued jobs, runs `runExportJob`, writes incremental `{ progress, status }` to the job doc, and on completion writes final outputs back to `documents/{docId}` (`stageStates.export-publish.output`).
+
+3. **WizardShell Integration**
+   - [ ] **Update** `handleRunStage` for export stages:
+     ```ts
+     const res = await fetch('/api/export/start', { method:'POST', body: JSON.stringify({ documentId, stageId }) });
+     const { jobId } = await res.json();
+     updateStageState(stageId, { status:'queued', exportJobId: jobId });
+     ```
+   - [ ] **Add** `useExportJobPolling(jobId)` hook that reads the job doc via `onSnapshot` (or SSE) and updates `generationProgress` + status.
+
+4. **Persistence Adjustments**
+   - [ ] **Remove** deletion of `generationProgress` & `exportJobId` from `cleanStageStates`.
+   - [ ] **Update** TS types (`ExportStageState`) to include optional `exportJobId`.
+
+5. **Resume Logic on Page Load**
+   - [ ] In `WizardShell`, if an export stage is `queued` or `running` **and** has `exportJobId`, start polling automatically.
+
+6. **Unit & E2E Tests**
+   - [ ] Unit test `runExportJob` with mock Firestore.
+   - [ ] E2E: Trigger export, reload page, ensure polling resumes and stage completes without manual action.
+
+7. **Cleanup Old Recovery Code**
+   - [ ] Delete/reset utility fallback once server-side flow is stable.
+
+> All new modules should follow existing project conventions, TypeScript strict-null checks, and have clear log statements.
+
 ---
 
 **Definition of Done**: All checkboxes above are complete, CI tests pass, and manual QA verifies export stage behaves correctly across reloads in all supported workflows. 
