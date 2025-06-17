@@ -5,7 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Menu } from "lucide-react"
 
 interface MobileMenuProps {
@@ -47,7 +47,10 @@ export function MobileMenu({ items, isAuthenticated, onSignOut }: MobileMenuProp
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="w-[240px] sm:w-[300px]">
-        <nav className="flex flex-col gap-4">
+        <SheetHeader>
+          <SheetTitle>Navigation Menu</SheetTitle>
+        </SheetHeader>
+        <nav className="flex flex-col gap-4 mt-4">
           <Link
             href="/"
             className="flex items-center space-x-2"
