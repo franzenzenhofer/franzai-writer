@@ -27,9 +27,11 @@ function resolveImageGenerationSettings(settings: any, contextVars: Record<strin
       console.error('[resolveImageGenerationSettings] image-briefing output not available or invalid', {
         imageBriefing,
         hasOutput: !!imageBriefing?.output,
-        outputType: typeof imageBriefing?.output
+        outputType: typeof imageBriefing?.output,
+        imageBriefingUserInput: imageBriefing?.userInput,
+        allContextVarKeys: Object.keys(contextVars)
       });
-      throw new Error('FATAL: Image generation attempted before image-briefing form was submitted or output is invalid');
+      throw new Error('FATAL: Image generation attempted before image-briefing form was submitted or output is invalid. The form data must be saved to state before dependent stages can run.');
     }
   }
   
@@ -346,14 +348,27 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   const handleFormSubmit = (stageId: string, data: any) => {
     // This function is called from StageInputArea when form field values change.
     // It updates the central state with the latest form data.
-    updateStageState(stageId, { 
+    const stage = instance.workflow.stages.find(s => s.id === stageId);
+    if (!stage) return;
+
+    // For form stages without a promptTemplate, immediately mark as completed with the form data as output
+    if (stage.inputType === 'form' && !stage.promptTemplate) {
+      updateStageState(stageId, { 
+        userInput: data,
+        output: data, // Form data becomes the output
+        status: 'completed',
+        completedAt: new Date().toISOString(),
+        isStale: false
+      });
+      // This will trigger dependency evaluation and autoRun stages will execute
+    } else {
+      // For other stages, just update the input
+      updateStageState(stageId, { 
         userInput: data, 
-        status: 'idle', // Keep as idle, don't clear output yet, user might just be editing form
-        // output: undefined, // Clearing output here might be too aggressive if user is just tweaking form
-        // completedAt: undefined, 
-        isStale: true // Mark as stale because input changed
-    });
-    // toast({ title: "Input Updated", description: `Input for stage "${instance.workflow.stages.find(s=>s.id===stageId)?.title}" is being updated.`});
+        status: 'idle',
+        isStale: true
+      });
+    }
   };
 
   const handleRunStage = useCallback(async (stageId: string, currentInput?: any, aiRedoNotes?: string) => {

@@ -65,15 +65,16 @@ export function StageCard({
       // Trigger form submission within StageInputArea, which will call onFormSubmit,
       // which in turn updates stageState.userInput. Then proceed to run the stage.
       stageInputAreaRef.current.triggerSubmit(); 
-      // Use setTimeout to ensure state updates have propagated
-      setTimeout(() => {
-        onRunStage(stage.id);
-      }, 100);
+      // Don't run the stage here - let the form submission complete and update state first
+      setIsEditingInput(false); 
+      onSetEditingOutput(stage.id, false);
+      // The dependent stages with autoRun will be triggered by the useEffect in wizard-shell
+      // once the state is properly updated
     } else {
       onRunStage(stage.id, stageState.userInput);
+      setIsEditingInput(false); 
+      onSetEditingOutput(stage.id, false);
     }
-    setIsEditingInput(false); 
-    onSetEditingOutput(stage.id, false);
   };
 
   const handleEditInputClick = () => {

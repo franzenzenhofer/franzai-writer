@@ -303,7 +303,8 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
                 render={({ field: controllerField }) => {
                   const onChangeHandler = (value: any) => {
                     controllerField.onChange(value);
-                    onFormSubmit(stage.id, { ...form.getValues(), [controllerField.name]: value });
+                    // Don't call onFormSubmit on every change - wait for actual form submission
+                    // This prevents premature state updates and race conditions
                   };
 
                   const finalValue = controllerField.value ?? field.defaultValue ?? (field.type === 'checkbox' ? false : '');

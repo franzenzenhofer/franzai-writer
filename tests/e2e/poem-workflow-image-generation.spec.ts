@@ -131,9 +131,10 @@ test.describe('Poem Workflow with Image Generation', () => {
     // Fill image briefing form with different aspect ratio
     await page.waitForSelector('text=Image Customization', { timeout: 10000 });
     
-    // Select a different aspect ratio (16:9)
-    const aspectRatioSelect = page.locator('select, [role="combobox"]').filter({ hasText: 'Portrait' });
-    await aspectRatioSelect.selectOption('16:9');
+    // Select a different aspect ratio (16:9) - handle shadcn/ui select
+    const aspectRatioButton = page.getByRole('combobox').filter({ hasText: 'Portrait (3:4) - Book Cover' });
+    await aspectRatioButton.click();
+    await page.getByRole('option', { name: 'Widescreen (16:9) - Desktop' }).click();
     
     await page.locator('#process-stage-image-briefing').click();
     
@@ -165,8 +166,10 @@ test.describe('Poem Workflow with Image Generation', () => {
     // Fill image briefing form with 3 images
     await page.waitForSelector('text=Image Customization', { timeout: 10000 });
     
-    const numberOfImagesSelect = page.locator('select, [role="combobox"]').filter({ hasText: '2 Images' });
-    await numberOfImagesSelect.selectOption('3');
+    // Select number of images - handle shadcn/ui select
+    const numberOfImagesButton = page.getByRole('combobox').filter({ hasText: '2 Images' });
+    await numberOfImagesButton.click();
+    await page.getByRole('option', { name: '3 Images' }).click();
     
     await page.locator('#process-stage-image-briefing').click();
     
