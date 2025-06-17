@@ -29,17 +29,25 @@ Implement image generation capabilities in the Franz AI Writer workflow system u
    - Proper aspect ratio support (1:1, 16:9, 9:16, 4:3, 3:4)
    - Images are PNG format, proper dimensions
 
-2. ⚠️ **Gemini native image generation model not available yet**
-   - Model `gemini-2.0-flash-preview-image-generation` returns 404
-   - Regular `gemini-2.0-flash` with responseModalities doesn't generate images
-   - Need to wait for model availability or use alternative approach
+2. ⚠️ **Gemini image generation not available - Regional restriction**
+   - Tested 10+ Gemini models - ALL return: **"Image generation is not available in your country"**
+   - Models tested:
+     - `gemini-2.0-flash-preview-image-generation` - 404 Not Found
+     - `gemini-2.0-flash` - "Model does not support responseModalities: image,text"
+     - `gemini-2.0-flash-exp` - "not available in your country"
+     - `gemini-1.5-flash/pro` - "not available in your country"
+   - This is a **regional/country restriction**, not a technical issue
 
 3. 📋 **API Structure Insights**:
    - Imagen uses `genAI.models.generateImages()` method
    - Response structure: `{ generatedImages: [{ image: { imageBytes: base64 } }] }`
    - Gemini would use `genAI.models.generateContent()` with responseModalities
+   - Region check happens before image generation attempt
 
-4. 💡 **Recommendation**: Start with Imagen 3 for MVP, add Gemini later when available
+4. 💡 **Recommendation**: **Use Imagen 3 exclusively** for image generation
+   - It's the only working option in the current region
+   - High quality output with all required features
+   - Requires paid tier but delivers excellent results
 
 ### 🎯 Milestone 2: Basic Image Generation (Day 1-2)
 **Goal**: Minimal viable image generation in a workflow
