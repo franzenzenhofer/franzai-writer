@@ -12,6 +12,22 @@ declare module "@google/genai" {
     models: {
       generateContent(args: any): Promise<any>;
       generateContentStream(args: any): AsyncIterable<any>;
+      generateImages(params: {
+        model: string;
+        prompt: string;
+        config?: {
+          numberOfImages?: number;
+          aspectRatio?: string;
+          personGeneration?: 'dont_allow' | 'allow_adult' | 'allow_all';
+          negativePrompt?: string;
+        };
+      }): Promise<{
+        generatedImages: Array<{
+          image: {
+            imageBytes: string;
+          };
+        }>;
+      }>;
     };
   }
 

@@ -3,7 +3,7 @@ import 'server-only';
 
 import { GoogleGenAI } from '@google/genai';
 import type { ImageGenerationSettings, ImageOutputData } from '@/types';
-import { logAI } from '@/lib/ai-logger';
+import { logAIGeneral } from '@/lib/ai-logger';
 import { uploadGeneratedImages } from './image-storage';
 
 // Initialize Google Generative AI client
@@ -31,7 +31,7 @@ export interface ImageGenerationRequest {
 export async function generateImages(request: ImageGenerationRequest): Promise<ImageOutputData> {
   const client = initializeGenAI();
   
-  logAI('🎨 [Image Generation] Starting generation', {
+  logAIGeneral('🎨 [Image Generation] Starting generation', {
     provider: request.settings?.provider || 'imagen',
     aspectRatio: request.settings?.aspectRatio || '1:1',
     numberOfImages: request.settings?.numberOfImages || 4,
@@ -45,18 +45,18 @@ export async function generateImages(request: ImageGenerationRequest): Promise<I
   } else {
     // Gemini image generation is not available in many regions
     // We'll default to Imagen even if Gemini is requested
-    logAI('⚠️ [Image Generation] Gemini requested but using Imagen due to regional restrictions');
+    logAIGeneral('⚠️ [Image Generation] Gemini requested but using Imagen due to regional restrictions');
     return await generateWithImagen(client, request);
   }
 }
 
 async function generateWithImagen(client: GoogleGenAI, request: ImageGenerationRequest): Promise<ImageOutputData> {
   try {
-    const settings = request.settings || {};
+    const settings: ImageGenerationSettings = request.settings || {};
     const aspectRatio = settings.aspectRatio || '1:1';
     const numberOfImages = settings.numberOfImages || 4;
     
-    logAI('🖼️ [Imagen] Generating images', {
+    logAIGeneral('🖼️ [Imagen] Generating images', {
       model: 'imagen-3.0-generate-002',
       aspectRatio,
       numberOfImages,
@@ -78,7 +78,7 @@ async function generateWithImagen(client: GoogleGenAI, request: ImageGenerationR
     });
 
     const genTime = Date.now() - startTime;
-    logAI('✅ [Imagen] Generation completed', {
+    logAIGeneral('✅ [Imagen] Generation completed', {
       generationTime: `${genTime}ms`,
       imagesReturned: result.generatedImages?.length || 0
     });
@@ -98,7 +98,7 @@ async function generateWithImagen(client: GoogleGenAI, request: ImageGenerationR
       // Try to upload to Firebase Storage, but fall back to data URLs if it fails
       if (request.userId && request.documentId && request.stageId && dataUrls.length > 0) {
         try {
-          logAI('🚀 [Imagen] Uploading images to asset storage', {
+          logAIGeneral('🚀 [Imagen] Uploading images to asset storage', {
             imageCount: dataUrls.length,
             userId: request.userId,
             documentId: request.documentId,
@@ -127,13 +127,13 @@ async function generateWithImagen(client: GoogleGenAI, request: ImageGenerationR
             });
           }
 
-          logAI('✅ [Imagen] All images uploaded to asset storage', {
+          logAIGeneral('✅ [Imagen] All images uploaded to asset storage', {
             imageCount: images.length,
             assetIds: images.map(img => img.assetId)
           });
         } catch (uploadError) {
           // Fallback to data URLs if storage fails
-          logAI('⚠️ [Imagen] Storage upload failed, using data URLs as fallback', {
+          logAIGeneral('⚠️ [Imagen] Storage upload failed, using data URLs as fallback', {
             error: uploadError instanceof Error ? uploadError.message : 'Unknown error'
           });
           
@@ -148,7 +148,7 @@ async function generateWithImagen(client: GoogleGenAI, request: ImageGenerationR
         }
       } else {
         // Fallback: Use data URLs if missing required fields
-        logAI('⚠️ [Imagen] Missing userId/documentId/stageId - using data URLs', {
+        logAIGeneral('⚠️ [Imagen] Missing userId/documentId/stageId - using data URLs', {
           hasUserId: !!request.userId,
           hasDocumentId: !!request.documentId,
           hasStageId: !!request.stageId
@@ -165,9 +165,9 @@ async function generateWithImagen(client: GoogleGenAI, request: ImageGenerationR
       }
     }
 
-    logAI('📦 [Imagen] Returning asset-based image data', {
+    logAIGeneral('📦 [Imagen] Returning asset-based image data', {
       imageCount: images.length,
-      publicUrls: images.map(img => img.publicUrl)
+      publicUrls: images.map(img => img.publicUrl || 'dataUrl')
     });
 
     return {
@@ -177,7 +177,7 @@ async function generateWithImagen(client: GoogleGenAI, request: ImageGenerationR
     };
     
   } catch (error: any) {
-    logAI('❌ [Imagen] Generation failed', {
+    logAIGeneral('❌ [Imagen] Generation failed', {
       error: error.message,
       code: error.code,
       details: error.details

@@ -49,6 +49,27 @@ export function logAI(type: 'REQUEST' | 'RESPONSE', data: any) {
   fs.appendFileSync(AI_LOG_PATH, logEntry);
 }
 
+// NEW: General purpose enhanced logging function
+export function logAIGeneral(message: string, data?: any) {
+  const timestamp = new Date().toISOString();
+  let logEntry = `${timestamp} 📝 [AI GENERAL] ${message}\n`;
+  
+  if (data) {
+    logEntry += `\n🔗 DATA:\n${JSON.stringify(data, null, 2)}\n`;
+  }
+  
+  logEntry += `\n${'='.repeat(80)}\n`;
+  
+  // Ensure logs directory exists
+  const logsDir = path.dirname(AI_LOG_PATH);
+  if (!fs.existsSync(logsDir)) {
+    fs.mkdirSync(logsDir, { recursive: true });
+  }
+  
+  // Append to ai.log
+  fs.appendFileSync(AI_LOG_PATH, logEntry);
+}
+
 // NEW: Enhanced logging function specifically for grounding metadata
 export function logGroundingMetadata(groundingMetadata: any) {
   const timestamp = new Date().toISOString();

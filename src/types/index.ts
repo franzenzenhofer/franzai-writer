@@ -353,7 +353,7 @@ export interface StageContext {
 export type StageOutput = any; // Can be text, JSON, markdown, HTML etc based on outputType
 
 export interface ImageGenerationSettings {
-  provider: "gemini" | "imagen";
+  provider?: "gemini" | "imagen";
   aspectRatio?: string; // "1:1", "16:9", "9:16", "4:3", "3:4"
   numberOfImages?: number; // For Imagen, 1-4
   style?: string; // Style modifier
@@ -369,10 +369,13 @@ export interface ImageGenerationSettings {
 export interface ImageOutputData {
   provider: "gemini" | "imagen";
   images: Array<{
-    // Asset management - NEVER store dataUrl in documents!
-    assetId: string;        // Asset management ID (REQUIRED)
-    publicUrl: string;      // Public HTTPS URL for the image (REQUIRED)
-    storageUrl: string;     // Firebase Storage URL (REQUIRED)
+    // Asset management - Primary storage method
+    assetId?: string;        // Asset management ID (when stored in Firebase)
+    publicUrl?: string;      // Public HTTPS URL for the image (when stored in Firebase)
+    storageUrl?: string;     // Firebase Storage URL (when stored in Firebase)
+    
+    // Fallback storage method - Used when Firebase Storage fails
+    dataUrl?: string;        // Base64 data URL (fallback when storage fails)
     
     // Generation metadata
     promptUsed: string;     // Actual prompt sent to API

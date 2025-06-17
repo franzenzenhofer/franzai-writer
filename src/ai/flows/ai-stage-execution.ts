@@ -48,7 +48,7 @@ const AiStageExecutionInputSchema = z.object({
   forceGoogleSearchGrounding: z.boolean().optional(),
   // Image generation settings
   imageGenerationSettings: z.object({
-    provider: z.enum(['gemini', 'imagen']),
+    provider: z.enum(['gemini', 'imagen']).optional(),
     aspectRatio: z.string().optional(),
     numberOfImages: z.number().optional(),
     style: z.string().optional(),
