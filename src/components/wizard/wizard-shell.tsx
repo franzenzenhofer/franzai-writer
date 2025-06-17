@@ -598,19 +598,23 @@ ${actionableSteps.map((step, i) => `${i + 1}. ${step}`).join('\n')}
         setTimeout(() => {
           toast({
             title: "🔄 Manual Retry Available",
-            description: "Click here to manually retry loading the AI system",
+            description: "Click the button to manually retry loading the AI system",
             variant: "default",
             duration: 5000,
-            action: {
-              altText: "Retry AI Load",
-              onClick: () => {
-                console.log('[handleRunStage] Manual retry requested');
-                setAiStageLoaded(false);
-                setAiLoadError(null);
-                setAiLoadAttempts(0);
-                loadAiStageRunner();
-              }
-            }
+            action: (
+              <button
+                onClick={() => {
+                  console.log('[handleRunStage] Manual retry requested');
+                  setAiStageLoaded(false);
+                  setAiLoadError(null);
+                  setAiLoadAttempts(0);
+                  loadAiStageRunner();
+                }}
+                className="px-3 py-2 bg-primary text-primary-foreground rounded-md text-sm hover:bg-primary/90 transition-colors"
+              >
+                Retry AI Load
+              </button>
+            )
           });
         }, 2000);
       }
