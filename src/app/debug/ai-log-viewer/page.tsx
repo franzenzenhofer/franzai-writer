@@ -155,7 +155,7 @@ export default function AILogViewerPage() {
     return true;
   });
 
-  const categories = Array.from(new Set(logs.map(log => log.category)));
+  const categories = Array.from(new Set(logs.map(log => log.category).filter(Boolean)));
 
   const stats = {
     totalLogs: logs.length,
@@ -297,10 +297,12 @@ export default function AILogViewerPage() {
                     <Card key={index} className="p-4">
                       <div className="flex items-start justify-between mb-2">
                         <div className="flex items-center gap-2">
-                          <Badge variant={getLevelBadgeVariant(log.level)}>
-                            {log.level.toUpperCase()}
-                          </Badge>
-                          <Badge variant="outline">{log.category}</Badge>
+                          {log.level && (
+                            <Badge variant={getLevelBadgeVariant(log.level)}>
+                              {log.level.toUpperCase()}
+                            </Badge>
+                          )}
+                          {log.category && <Badge variant="outline">{log.category}</Badge>}
                           {log.model && <Badge variant="secondary">{log.model}</Badge>}
                         </div>
                         <span className="text-xs text-muted-foreground">
