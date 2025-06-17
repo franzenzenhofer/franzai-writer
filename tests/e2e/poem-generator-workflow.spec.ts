@@ -56,12 +56,14 @@ test.describe('Complete Poem Generator Workflow', () => {
     });
     
     // Verify image was generated and is displayed
-    const generatedImage = page.locator('[data-testid="stage-card-generate-poem-image"] img');
+    // Use .first() to get the main image, not the thumbnails
+    const generatedImage = page.locator('[data-testid="stage-card-generate-poem-image"] img').first();
     await expect(generatedImage).toBeVisible();
     
     // Check that the image has a proper URL (not base64)
     const imageSrc = await generatedImage.getAttribute('src');
     expect(imageSrc).not.toContain('data:image'); // Should be Firebase Storage URL, not base64
+    expect(imageSrc).toContain('firebasestorage.googleapis.com'); // Should be Firebase Storage URL
     console.log('Generated image URL:', imageSrc); // Log for verification
 
     // Stage 5: HTML Generation - should auto-run after image generation
