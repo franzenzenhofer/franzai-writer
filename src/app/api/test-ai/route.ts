@@ -70,7 +70,18 @@ export async function POST(request: Request) {
       stageOutputType: body.stageOutputType || 'text',
       systemInstructions: body.systemInstructions,
       groundingSettings: body.groundingSettings,
-      forceGoogleSearchGrounding: body.forceGoogleSearchGrounding
+      forceGoogleSearchGrounding: body.forceGoogleSearchGrounding,
+      // Add test workflow/stage context
+      workflow: {
+        id: 'test-workflow',
+        name: 'Test Workflow',
+        description: 'AI Log Viewer Test'
+      },
+      stage: {
+        id: 'test-stage',
+        name: 'Test Stage',
+        description: 'Testing AI logging'
+      }
     });
     
     console.log('[TEST-AI] Result:', result);

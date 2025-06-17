@@ -152,6 +152,16 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     const startTime = Date.now();
     setAiLoadStartTime(startTime);
     
+    // Show loading toast for first attempt
+    if (retryAttempt === 0) {
+      toast({
+        title: "⏳ Loading AI System",
+        description: "Initializing AI functionality...",
+        variant: "default",
+        duration: 10000, // Show while loading
+      });
+    }
+    
     console.log(`[WizardShell] Loading AI stage runner (attempt ${retryAttempt + 1})...`, {
       timestamp: new Date().toISOString(),
       userAgent: navigator.userAgent,
@@ -180,7 +190,14 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       setAiStageLoaded(true);
       setAiLoadError(null);
       
-      // Test the function with a simple call
+      // Success toast
+      toast({
+        title: "✅ AI System Ready",
+        description: `Loaded successfully in ${loadTime}ms`,
+        variant: "default",
+        duration: 3000,
+      });
+      
       console.log('[WizardShell] ✅ AI stage runner function validated successfully');
       
     } catch (error: any) {
@@ -208,13 +225,21 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         const retryDelay = Math.pow(2, retryAttempt) * 1000; // 1s, 2s, 4s
         console.log(`[WizardShell] 🔄 Retrying AI load in ${retryDelay}ms...`);
         
+        // Show retry toast
+        toast({
+          title: `🔄 AI Load Failed - Retrying (${retryAttempt + 1}/3)`,
+          description: `Retrying in ${retryDelay / 1000}s... Error: ${error.message}`,
+          variant: "default",
+          duration: retryDelay + 1000,
+        });
+        
         setTimeout(() => {
           loadAiStageRunner(retryAttempt + 1);
         }, retryDelay);
       } else {
-        // Final failure - show comprehensive error
+        // Final failure - show comprehensive error toast
         const comprehensiveError = `AI Module Load Failed After ${retryAttempt + 1} Attempts
-        
+
 🔍 Technical Details:
 • Error: ${error.message}
 • Load time: ${loadTime}ms
@@ -238,7 +263,20 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
           title: "🚨 AI System Unavailable",
           description: comprehensiveError,
           variant: "destructive",
-          duration: 10000, // Show longer for complex error
+          duration: 15000, // Show longer for complex error
+          action: (
+            <button
+              onClick={() => {
+                setAiStageLoaded(false);
+                setAiLoadError(null);
+                setAiLoadAttempts(0);
+                loadAiStageRunner();
+              }}
+              className="px-3 py-2 bg-primary text-primary-foreground rounded-md text-sm hover:bg-primary/90 transition-colors"
+            >
+              🔄 Retry
+            </button>
+          )
         });
       }
     }
@@ -591,33 +629,21 @@ ${actionableSteps.map((step, i) => `${i + 1}. ${step}`).join('\n')}
         description: detailedError,
         variant: "destructive",
         duration: 15000, // Show longer for complex troubleshooting
+        action: (
+          <button
+            onClick={() => {
+              console.log('[handleRunStage] Manual retry requested from toast');
+              setAiStageLoaded(false);
+              setAiLoadError(null);
+              setAiLoadAttempts(0);
+              loadAiStageRunner();
+            }}
+            className="px-3 py-2 bg-primary text-primary-foreground rounded-md text-sm hover:bg-primary/90 transition-colors"
+          >
+            🔄 Retry AI
+          </button>
+        )
       });
-      
-      // Also offer a manual retry button after some time
-      if (timeSinceLoad > 5000) {
-        setTimeout(() => {
-          toast({
-            title: "🔄 Manual Retry Available",
-            description: "Click the button to manually retry loading the AI system",
-            variant: "default",
-            duration: 5000,
-            action: (
-              <button
-                onClick={() => {
-                  console.log('[handleRunStage] Manual retry requested');
-                  setAiStageLoaded(false);
-                  setAiLoadError(null);
-                  setAiLoadAttempts(0);
-                  loadAiStageRunner();
-                }}
-                className="px-3 py-2 bg-primary text-primary-foreground rounded-md text-sm hover:bg-primary/90 transition-colors"
-              >
-                Retry AI Load
-              </button>
-            )
-          });
-        }, 2000);
-      }
       
       return;
     }
@@ -900,42 +926,7 @@ ${actionableSteps.map((step, i) => `${i + 1}. ${step}`).join('\n')}
 
   return (
     <>
-      {/* AI Status Banner */}
-      {!aiStageLoaded && (
-        <div className={cn(
-          "fixed top-0 left-0 right-0 z-50 p-3 text-center text-sm font-medium border-b",
-          aiLoadError 
-            ? "bg-destructive/10 text-destructive border-destructive/20" 
-            : "bg-yellow-50 text-yellow-800 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-200 dark:border-yellow-800"
-        )}>
-          {aiLoadError ? (
-            <div className="flex items-center justify-center gap-2">
-              <span>🚨 AI System Error: {aiLoadError}</span>
-              <button 
-                onClick={() => {
-                  setAiStageLoaded(false);
-                  setAiLoadError(null);
-                  setAiLoadAttempts(0);
-                  loadAiStageRunner();
-                }}
-                className="ml-2 px-2 py-1 bg-destructive text-destructive-foreground rounded text-xs hover:bg-destructive/90 transition-colors"
-              >
-                🔄 Retry
-              </button>
-            </div>
-          ) : (
-            <div className="flex items-center justify-center gap-2">
-              <div className="animate-spin h-4 w-4 border-2 border-yellow-600 border-t-transparent rounded-full"></div>
-              <span>⏳ Loading AI System... (Attempt {aiLoadAttempts + 1}/3)</span>
-              <span className="text-xs opacity-70">
-                {Math.round((Date.now() - aiLoadStartTime) / 1000)}s
-              </span>
-            </div>
-          )}
-        </div>
-      )}
-      
-      <div className={cn("w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8", !aiStageLoaded ? "pt-20" : "pt-8")}>
+      <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <h1 
           className="text-2xl md:text-3xl font-bold font-headline mb-2"
           data-testid="wizard-page-title"
@@ -944,22 +935,6 @@ ${actionableSteps.map((step, i) => `${i + 1}. ${step}`).join('\n')}
         </h1>
         <p className="text-sm md:text-base text-muted-foreground mb-1">Workflow: {instance.workflow.name}</p>
         
-        {/* AI System Status Debug Info (only show if there are issues) */}
-        {(!aiStageLoaded || aiLoadError) && (
-          <div className="mb-4 p-3 bg-muted/50 rounded-lg border text-xs font-mono space-y-1">
-            <div className="font-semibold text-muted-foreground">🔍 AI System Debug Info:</div>
-            <div>• Status: {aiStageLoaded ? '✅ Loaded' : '❌ Not Loaded'}</div>
-            <div>• Function: {!!runAiStage ? '✅ Available' : '❌ Missing'}</div>
-            <div>• Attempts: {aiLoadAttempts}/3</div>
-            <div>• Load Time: {Math.round((Date.now() - aiLoadStartTime) / 1000)}s</div>
-            <div>• Network: {navigator.onLine ? '🟢 Online' : '🔴 Offline'}</div>
-            {aiLoadError && <div>• Error: {aiLoadError}</div>}
-            <div className="text-xs text-muted-foreground pt-1">
-              💡 Having issues? Check browser console for detailed logs or refresh the page.
-            </div>
-          </div>
-        )}
-
         <div className="mb-6">
           <div className="flex justify-between text-sm text-muted-foreground mb-1">
               <span>Progress</span>
