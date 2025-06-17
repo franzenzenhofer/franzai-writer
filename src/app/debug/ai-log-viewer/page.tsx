@@ -306,12 +306,32 @@ export default function AILogViewerPage() {
                     <Card key={`${log.timestamp}-${index}`} className="p-4">
                       <div className="flex items-start justify-between mb-2">
                         <div className="flex items-center gap-2">
+                          {/* Show request/response type prominently */}
+                          {log.data?.requestType === 'OUTGOING' && (
+                            <Badge variant="default" className="bg-blue-600">
+                              📤 OUTGOING
+                            </Badge>
+                          )}
+                          {log.data?.responseType === 'INCOMING' && (
+                            <Badge variant="default" className="bg-green-600">
+                              📥 INCOMING
+                            </Badge>
+                          )}
                           {log.level && (
                             <Badge variant={getLevelBadgeVariant(log.level)}>
                               {log.level.toUpperCase()}
                             </Badge>
                           )}
-                          {log.category && <Badge variant="outline">{log.category}</Badge>}
+                          {log.data?.workflowName && (
+                            <Badge variant="outline" className="text-xs">
+                              {log.data.workflowName}
+                            </Badge>
+                          )}
+                          {log.data?.stageName && (
+                            <Badge variant="secondary" className="text-xs">
+                              {log.data.stageName}
+                            </Badge>
+                          )}
                           {log.model && <Badge variant="secondary">{log.model}</Badge>}
                         </div>
                         <span className="text-xs text-muted-foreground">
@@ -323,27 +343,69 @@ export default function AILogViewerPage() {
                       {/* Enhanced data display */}
                       {log.data && (
                         <div className="mt-2 space-y-2">
-                          {/* Token usage display */}
-                          {(log.data.promptTokenCount || log.data.candidatesTokenCount) && (
-                            <div className="flex gap-4 text-xs bg-muted/50 p-2 rounded">
-                              {log.data.promptTokenCount && <span>📥 Input: {log.data.promptTokenCount} tokens</span>}
-                              {log.data.candidatesTokenCount && <span>📤 Output: {log.data.candidatesTokenCount} tokens</span>}
-                              {log.data.totalTokenCount && <span>📊 Total: {log.data.totalTokenCount} tokens</span>}
-                            </div>
+                          {/* For OUTGOING requests, show full prompt */}
+                          {log.data.requestType === 'OUTGOING' && (
+                            <>
+                              {/* Request metadata */}
+                              <div className="flex gap-4 text-xs bg-blue-50 dark:bg-blue-950/30 p-2 rounded">
+                                {log.data.model && <span>🤖 Model: {log.data.model}</span>}
+                                {log.data.temperature !== undefined && <span>🌡️ Temp: {log.data.temperature}</span>}
+                                {log.data.promptLength && <span>📝 Prompt Length: {log.data.promptLength} chars</span>}
+                              </div>
+                              
+                              {/* Context variables */}
+                              {log.data.contextVars && log.data.contextVars.length > 0 && (
+                                <div className="text-xs bg-muted/50 p-2 rounded">
+                                  <span className="font-medium">Context Variables:</span> {log.data.contextVars.join(', ')}
+                                </div>
+                              )}
+                              
+                              {/* Full prompt display */}
+                              {log.data.fullPrompt && (
+                                <details className="mt-2">
+                                  <summary className="cursor-pointer text-xs text-blue-600 hover:text-blue-700 font-medium">
+                                    📤 View Full Outgoing Prompt
+                                  </summary>
+                                  <pre className="mt-2 p-3 bg-blue-50 dark:bg-blue-950/30 rounded text-xs overflow-x-auto max-h-[400px] overflow-y-auto whitespace-pre-wrap">
+                                    {log.data.fullPrompt}
+                                  </pre>
+                                </details>
+                              )}
+                            </>
                           )}
                           
-                          {/* Model and temperature */}
-                          {(log.data.model || log.data.temperature !== undefined) && (
-                            <div className="flex gap-4 text-xs">
-                              {log.data.model && <span>🤖 Model: {log.data.model}</span>}
-                              {log.data.temperature !== undefined && <span>🌡️ Temp: {log.data.temperature}</span>}
-                            </div>
+                          {/* For INCOMING responses, show full content */}
+                          {log.data.responseType === 'INCOMING' && (
+                            <>
+                              {/* Token usage display */}
+                              {(log.data.promptTokenCount || log.data.candidatesTokenCount) && (
+                                <div className="flex gap-4 text-xs bg-green-50 dark:bg-green-950/30 p-2 rounded">
+                                  {log.data.promptTokenCount && <span>📥 Input: {log.data.promptTokenCount} tokens</span>}
+                                  {log.data.candidatesTokenCount && <span>📤 Output: {log.data.candidatesTokenCount} tokens</span>}
+                                  {log.data.totalTokenCount && <span>📊 Total: {log.data.totalTokenCount} tokens</span>}
+                                </div>
+                              )}
+                              
+                              {/* Full response display */}
+                              {log.data.fullContent && (
+                                <details className="mt-2">
+                                  <summary className="cursor-pointer text-xs text-green-600 hover:text-green-700 font-medium">
+                                    📥 View Full Incoming Response
+                                  </summary>
+                                  <pre className="mt-2 p-3 bg-green-50 dark:bg-green-950/30 rounded text-xs overflow-x-auto max-h-[400px] overflow-y-auto whitespace-pre-wrap">
+                                    {log.data.fullContent}
+                                  </pre>
+                                </details>
+                              )}
+                            </>
                           )}
+                          
+                          {/* Common fields for both request and response */}
                           
                           {/* Grounding info */}
-                          {log.data.hasGroundingConfig && (
+                          {(log.data.hasGrounding || log.data.hasGroundingMetadata) && (
                             <div className="text-xs text-green-600">
-                              🔍 Google Search Grounding Enabled
+                              🔍 Google Search Grounding {log.data.hasGrounding ? 'Enabled' : 'Detected'}
                             </div>
                           )}
                           
@@ -362,14 +424,6 @@ export default function AILogViewerPage() {
                             </div>
                           )}
                           
-                          {/* Response preview */}
-                          {log.data.contentPreview && (
-                            <div className="text-xs bg-muted/30 p-2 rounded">
-                              <div className="font-medium mb-1">Response Preview:</div>
-                              <div className="whitespace-pre-wrap">{log.data.contentPreview}</div>
-                            </div>
-                          )}
-                          
                           {/* Duration */}
                           {log.duration && (
                             <div className="text-xs text-muted-foreground">
@@ -377,10 +431,10 @@ export default function AILogViewerPage() {
                             </div>
                           )}
                           
-                          {/* Full data view */}
+                          {/* Full raw data view */}
                           <details className="mt-2">
                             <summary className="cursor-pointer text-xs text-muted-foreground hover:text-foreground">
-                              View Full Data
+                              View Raw Log Data
                             </summary>
                             <pre className="mt-2 p-2 bg-muted rounded text-xs overflow-x-auto max-h-[200px] overflow-y-auto">
                               {JSON.stringify(log.data, null, 2)}

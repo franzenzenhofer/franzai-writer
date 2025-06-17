@@ -50,13 +50,18 @@ export class AIStageExecution {
       // Prepare the prompt
       const prompt = this.buildPrompt(stage, input, context);
       
-      // Configure model
+      // Configure model with workflow/stage context
       const modelConfig = {
         model: stage.model || workflow.defaultModel || 'gemini-2.0-flash',
         temperature: stage.temperature ?? workflow.temperature ?? 0.7,
         maxOutputTokens: stage.maxTokens || 8192,
         systemInstruction: stage.systemInstructions || stage.systemInstruction,
-        enableGoogleSearch: stage.groundingSettings?.googleSearch?.enabled === true
+        enableGoogleSearch: stage.groundingSettings?.googleSearch?.enabled === true,
+        // Add workflow/stage context for logging
+        workflowName: workflow.name,
+        stageName: stage.name,
+        stageId: stage.id,
+        contextVars: context
       };
 
       let result: any;

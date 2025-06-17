@@ -18,16 +18,26 @@ export class TextGenerationModule {
    */
   static async generate(
     prompt: string,
-    modelConfig: ModelConfig = { model: 'gemini-2.0-flash' }
+    modelConfig: ModelConfig & { 
+      workflowName?: string; 
+      stageName?: string; 
+      stageId?: string;
+      contextVars?: any;
+    } = { model: 'gemini-2.0-flash' }
   ): Promise<GenerationResponse> {
     const requestLog = {
       model: modelConfig.model,
       promptLength: prompt.length,
       temperature: modelConfig.temperature,
-      systemInstruction: modelConfig.systemInstruction?.substring(0, 100) + '...'
+      systemInstruction: modelConfig.systemInstruction?.substring(0, 100) + '...',
+      workflowName: modelConfig.workflowName,
+      stageName: modelConfig.stageName,
+      stageId: modelConfig.stageId,
+      contextVars: modelConfig.contextVars,
+      hasGroundingConfig: (modelConfig as any).enableGoogleSearch
     };
     console.log('📤 [AI REQUEST] Text Generation:', requestLog);
-    logAI('REQUEST', { type: 'Text Generation', ...requestLog, prompt: prompt.substring(0, 500) });
+    logAI('REQUEST', { type: 'Text Generation', ...requestLog, prompt });
     
     try {
       const genAI = getGoogleGenAI().getRawClient();
@@ -88,7 +98,11 @@ export class TextGenerationModule {
         usageMetadata: response.usageMetadata,
         finishReason: response.finishReason,
         hasGroundingMetadata: !!response.groundingMetadata,
-        groundingSourcesCount: response.groundingSources?.length || 0
+        groundingSourcesCount: response.groundingSources?.length || 0,
+        workflowName: modelConfig.workflowName,
+        stageName: modelConfig.stageName,
+        stageId: modelConfig.stageId,
+        model: modelConfig.model
       };
       console.log('📥 [AI RESPONSE] Text Generation:', responseLog);
       logAI('RESPONSE', { type: 'Text Generation', ...responseLog, fullText: response.text });

@@ -12,6 +12,7 @@ import { siteConfig } from '@/config/site';
 import { useDocumentPersistence } from '@/hooks/use-document-persistence';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/components/layout/app-providers';
+import { cn } from '@/lib/utils';
 
 // Lazy load the AI stage runner to prevent Turbopack static analysis
 let runAiStage: any = null;
@@ -142,25 +143,111 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   const { user } = useAuth();
   const [pageTitle, setPageTitle] = useState(initialInstance.document.title);
   const [aiStageLoaded, setAiStageLoaded] = useState(false);
+  const [aiLoadError, setAiLoadError] = useState<string | null>(null);
+  const [aiLoadAttempts, setAiLoadAttempts] = useState(0);
+  const [aiLoadStartTime, setAiLoadStartTime] = useState<number>(Date.now());
 
-  // Load the AI stage runner dynamically
-  useEffect(() => {
-    console.log('[WizardShell] Starting to load AI stage runner...');
-    import('@/lib/ai-stage-runner')
-      .then(module => {
-        console.log('[WizardShell] AI stage runner loaded successfully:', !!module.runAiStage);
-        runAiStage = module.runAiStage;
-        setAiStageLoaded(true);
-      })
-      .catch(error => {
-        console.error('[WizardShell] Failed to load AI stage runner:', error);
-        toast({
-          title: "AI Module Load Error",
-          description: `Failed to load AI functionality: ${error.message}`,
-          variant: "destructive",
-        });
+  // Enhanced AI stage runner loading with detailed error tracking
+  const loadAiStageRunner = useCallback(async (retryAttempt: number = 0) => {
+    const startTime = Date.now();
+    setAiLoadStartTime(startTime);
+    
+    console.log(`[WizardShell] Loading AI stage runner (attempt ${retryAttempt + 1})...`, {
+      timestamp: new Date().toISOString(),
+      userAgent: navigator.userAgent,
+      url: window.location.href,
+      retryAttempt,
+      aiStageLoaded,
+      runAiStageExists: !!runAiStage,
+    });
+    
+    try {
+      const module = await import('@/lib/ai-stage-runner');
+      const loadTime = Date.now() - startTime;
+      
+      console.log('[WizardShell] ✅ AI stage runner loaded successfully!', {
+        loadTimeMs: loadTime,
+        moduleKeys: Object.keys(module),
+        runAiStageType: typeof module.runAiStage,
+        runAiStageExists: !!module.runAiStage,
       });
-  }, []);
+      
+      if (!module.runAiStage || typeof module.runAiStage !== 'function') {
+        throw new Error(`AI module loaded but runAiStage is ${typeof module.runAiStage}, expected function`);
+      }
+      
+      runAiStage = module.runAiStage;
+      setAiStageLoaded(true);
+      setAiLoadError(null);
+      
+      // Test the function with a simple call
+      console.log('[WizardShell] ✅ AI stage runner function validated successfully');
+      
+    } catch (error: any) {
+      const loadTime = Date.now() - startTime;
+      const errorDetails = {
+        loadTimeMs: loadTime,
+        attempt: retryAttempt + 1,
+        errorMessage: error.message,
+        errorStack: error.stack,
+        errorName: error.name,
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent,
+        url: window.location.href,
+        networkOnline: navigator.onLine,
+        connectionType: (navigator as any).connection?.effectiveType || 'unknown',
+      };
+      
+      console.error('[WizardShell] ❌ Failed to load AI stage runner:', errorDetails);
+      
+      setAiLoadAttempts(retryAttempt + 1);
+      setAiLoadError(error.message);
+      
+      // Auto-retry up to 3 times with exponential backoff
+      if (retryAttempt < 2) {
+        const retryDelay = Math.pow(2, retryAttempt) * 1000; // 1s, 2s, 4s
+        console.log(`[WizardShell] 🔄 Retrying AI load in ${retryDelay}ms...`);
+        
+        setTimeout(() => {
+          loadAiStageRunner(retryAttempt + 1);
+        }, retryDelay);
+      } else {
+        // Final failure - show comprehensive error
+        const comprehensiveError = `AI Module Load Failed After ${retryAttempt + 1} Attempts
+        
+🔍 Technical Details:
+• Error: ${error.message}
+• Load time: ${loadTime}ms
+• Network: ${navigator.onLine ? 'Online' : 'Offline'}
+• Connection: ${(navigator as any).connection?.effectiveType || 'Unknown'}
+• Browser: ${navigator.userAgent.split(' ').pop()}
+
+🔧 Developer Debug Info:
+• URL: ${window.location.href}
+• Timestamp: ${new Date().toISOString()}
+• Stack: ${error.stack?.split('\n')[1] || 'No stack trace'}
+
+💡 Solutions:
+1. Refresh the page (Cmd/Ctrl + R)
+2. Clear browser cache (Cmd/Ctrl + Shift + R)
+3. Check browser console for more details
+4. Try a different browser
+5. Check network connection`;
+
+        toast({
+          title: "🚨 AI System Unavailable",
+          description: comprehensiveError,
+          variant: "destructive",
+          duration: 10000, // Show longer for complex error
+        });
+      }
+    }
+  }, [toast]);
+
+  // Load the AI stage runner dynamically with retries
+  useEffect(() => {
+    loadAiStageRunner();
+  }, [loadAiStageRunner]);
 
   // Auto-scroll utility
   const scrollToStageById = useCallback((stageId: string) => {
@@ -408,20 +495,131 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   };
 
   const handleRunStage = useCallback(async (stageId: string, currentInput?: any, aiRedoNotes?: string) => {
-    console.log('[handleRunStage] AI stage loaded:', aiStageLoaded, 'runAiStage exists:', !!runAiStage);
+    const stage = instance.workflow.stages.find(s => s.id === stageId);
+    const stageTitle = stage?.title || stageId;
+    const currentTime = Date.now();
+    const timeSinceLoad = currentTime - aiLoadStartTime;
+    
+    console.log('[handleRunStage] AI readiness check:', {
+      stageId,
+      stageTitle,
+      aiStageLoaded,
+      runAiStageExists: !!runAiStage,
+      aiLoadError,
+      aiLoadAttempts,
+      timeSinceLoadMs: timeSinceLoad,
+      timestamp: new Date().toISOString(),
+    });
     
     if (!aiStageLoaded || !runAiStage) {
-      console.error('[handleRunStage] AI not ready - aiStageLoaded:', aiStageLoaded, 'runAiStage:', !!runAiStage);
+      const diagnosticInfo = {
+        aiStageLoaded,
+        runAiStageExists: !!runAiStage,
+        aiLoadError,
+        aiLoadAttempts,
+        timeSinceLoadMs: timeSinceLoad,
+        networkOnline: navigator.onLine,
+        connectionType: (navigator as any).connection?.effectiveType || 'unknown',
+        userAgent: navigator.userAgent,
+        url: window.location.href,
+        stageId,
+        stageTitle,
+      };
+      
+      console.error('[handleRunStage] 🚨 AI System Not Ready - Detailed Diagnostics:', diagnosticInfo);
+      
+      // Determine specific error cause and solution
+      let errorTitle = "🚨 AI System Not Ready";
+      let errorDescription = "";
+      let actionableSteps: string[] = [];
+      
+      if (aiLoadError) {
+        errorTitle = "🚨 AI Module Failed to Load";
+        errorDescription = `The AI system encountered an error during initialization and cannot process "${stageTitle}".`;
+        actionableSteps = [
+          "🔄 Refresh the page to retry loading",
+          "🌐 Check your internet connection", 
+          "🧹 Clear browser cache (Cmd/Ctrl + Shift + R)",
+          "🔍 Check browser console for detailed error logs",
+          "🆘 Contact support if the issue persists"
+        ];
+      } else if (timeSinceLoad < 10000) {
+        errorTitle = "⏳ AI System Still Loading";
+        errorDescription = `The AI system is still initializing. Please wait a moment before running "${stageTitle}".`;
+        actionableSteps = [
+          `⏱️ Wait ${Math.ceil((10000 - timeSinceLoad) / 1000)} more seconds`,
+          "🔄 Try again in a few seconds",
+          "🖥️ Ensure stable internet connection",
+          "📱 Try refreshing if loading takes too long"
+        ];
+      } else {
+        errorTitle = "🚨 AI System Load Timeout";
+        errorDescription = `The AI system failed to load after ${Math.round(timeSinceLoad / 1000)} seconds. Cannot process "${stageTitle}".`;
+        actionableSteps = [
+          "🔄 Refresh the page (most likely to fix)",
+          "🧹 Clear browser cache and cookies",
+          "🌐 Check your internet connection speed",
+          "🔍 Open browser console to see detailed errors",
+          "🔧 Try a different browser or incognito mode"
+        ];
+      }
+      
+      const detailedError = `${errorDescription}
+
+📊 Technical Status:
+• AI Module Loaded: ${aiStageLoaded ? '✅' : '❌'}
+• Function Available: ${!!runAiStage ? '✅' : '❌'}
+• Load Attempts: ${aiLoadAttempts}/3
+• Time Since Page Load: ${Math.round(timeSinceLoad / 1000)}s
+• Network Status: ${navigator.onLine ? '🟢 Online' : '🔴 Offline'}
+• Connection: ${(navigator as any).connection?.effectiveType || 'Unknown'}
+
+🔧 Developer Info:
+• Stage ID: ${stageId}
+• Stage Title: ${stageTitle}
+• Error: ${aiLoadError || 'No specific error'}
+• URL: ${window.location.href}
+• Timestamp: ${new Date().toISOString()}
+
+💡 Solutions (try in order):
+${actionableSteps.map((step, i) => `${i + 1}. ${step}`).join('\n')}
+
+🆘 Still having issues? Check the browser console for detailed logs.`;
+
       toast({
-        title: "AI not ready",
-        description: "Please wait for AI to load and refresh if the issue persists",
+        title: errorTitle,
+        description: detailedError,
         variant: "destructive",
+        duration: 15000, // Show longer for complex troubleshooting
       });
+      
+      // Also offer a manual retry button after some time
+      if (timeSinceLoad > 5000) {
+        setTimeout(() => {
+          toast({
+            title: "🔄 Manual Retry Available",
+            description: "Click here to manually retry loading the AI system",
+            variant: "default",
+            duration: 5000,
+            action: {
+              altText: "Retry AI Load",
+              onClick: () => {
+                console.log('[handleRunStage] Manual retry requested');
+                setAiStageLoaded(false);
+                setAiLoadError(null);
+                setAiLoadAttempts(0);
+                loadAiStageRunner();
+              }
+            }
+          });
+        }, 2000);
+      }
+      
       return;
     }
 
+    console.log('[handleRunStage] ✅ AI system ready, proceeding with stage execution');
     console.log('[handleRunStage] Called with:', { stageId, currentInput, hasAiRedoNotes: !!aiRedoNotes });
-    const stage = instance.workflow.stages.find(s => s.id === stageId);
     if (!stage) return;
 
     const currentStageState = instance.stageStates[stageId];
@@ -697,111 +895,165 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
 
 
   return (
-    <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-      <h1 
-        className="text-2xl md:text-3xl font-bold font-headline mb-2"
-        data-testid="wizard-page-title"
-      >
-        {pageTitle}
-      </h1>
-      <p className="text-sm md:text-base text-muted-foreground mb-1">Workflow: {instance.workflow.name}</p>
-      <div className="mb-6">
-        <div className="flex justify-between text-sm text-muted-foreground mb-1">
-            <span>Progress</span>
-            <span>{completedStagesCount} / {totalStages} Stages</span>
-        </div>
-        <Progress 
-          value={progressPercentage} 
-          className="w-full h-3"
-          data-testid="wizard-progress-bar"
-        />
-        <div className="flex items-center justify-end mt-2 gap-2">
-          {isSaving && (
-            <Badge variant="secondary" className="text-xs">
-              <Save className="w-3 h-3 mr-1 animate-pulse" />
-              Saving...
-            </Badge>
-          )}
-          {!isSaving && lastSaved && (
-            <Badge variant="outline" className="text-xs text-muted-foreground">
-              Last saved {lastSaved.toLocaleTimeString()}
-            </Badge>
-          )}
-          {saveError && (
-            <Badge variant="destructive" className="text-xs">
-              <AlertTriangle className="w-3 h-3 mr-1" />
-              Save failed
-            </Badge>
+    <>
+      {/* AI Status Banner */}
+      {!aiStageLoaded && (
+        <div className={cn(
+          "fixed top-0 left-0 right-0 z-50 p-3 text-center text-sm font-medium border-b",
+          aiLoadError 
+            ? "bg-destructive/10 text-destructive border-destructive/20" 
+            : "bg-yellow-50 text-yellow-800 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-200 dark:border-yellow-800"
+        )}>
+          {aiLoadError ? (
+            <div className="flex items-center justify-center gap-2">
+              <span>🚨 AI System Error: {aiLoadError}</span>
+              <button 
+                onClick={() => {
+                  setAiStageLoaded(false);
+                  setAiLoadError(null);
+                  setAiLoadAttempts(0);
+                  loadAiStageRunner();
+                }}
+                className="ml-2 px-2 py-1 bg-destructive text-destructive-foreground rounded text-xs hover:bg-destructive/90 transition-colors"
+              >
+                🔄 Retry
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center gap-2">
+              <div className="animate-spin h-4 w-4 border-2 border-yellow-600 border-t-transparent rounded-full"></div>
+              <span>⏳ Loading AI System... (Attempt {aiLoadAttempts + 1}/3)</span>
+              <span className="text-xs opacity-70">
+                {Math.round((Date.now() - aiLoadStartTime) / 1000)}s
+              </span>
+            </div>
           )}
         </div>
+      )}
+      
+      <div className={cn("w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8", !aiStageLoaded ? "pt-20" : "pt-8")}>
+        <h1 
+          className="text-2xl md:text-3xl font-bold font-headline mb-2"
+          data-testid="wizard-page-title"
+        >
+          {pageTitle}
+        </h1>
+        <p className="text-sm md:text-base text-muted-foreground mb-1">Workflow: {instance.workflow.name}</p>
+        
+        {/* AI System Status Debug Info (only show if there are issues) */}
+        {(!aiStageLoaded || aiLoadError) && (
+          <div className="mb-4 p-3 bg-muted/50 rounded-lg border text-xs font-mono space-y-1">
+            <div className="font-semibold text-muted-foreground">🔍 AI System Debug Info:</div>
+            <div>• Status: {aiStageLoaded ? '✅ Loaded' : '❌ Not Loaded'}</div>
+            <div>• Function: {!!runAiStage ? '✅ Available' : '❌ Missing'}</div>
+            <div>• Attempts: {aiLoadAttempts}/3</div>
+            <div>• Load Time: {Math.round((Date.now() - aiLoadStartTime) / 1000)}s</div>
+            <div>• Network: {navigator.onLine ? '🟢 Online' : '🔴 Offline'}</div>
+            {aiLoadError && <div>• Error: {aiLoadError}</div>}
+            <div className="text-xs text-muted-foreground pt-1">
+              💡 Having issues? Check browser console for detailed logs or refresh the page.
+            </div>
+          </div>
+        )}
+
+        <div className="mb-6">
+          <div className="flex justify-between text-sm text-muted-foreground mb-1">
+              <span>Progress</span>
+              <span>{completedStagesCount} / {totalStages} Stages</span>
+          </div>
+          <Progress 
+            value={progressPercentage} 
+            className="w-full h-3"
+            data-testid="wizard-progress-bar"
+          />
+          <div className="flex items-center justify-end mt-2 gap-2">
+            {isSaving && (
+              <Badge variant="secondary" className="text-xs">
+                <Save className="w-3 h-3 mr-1 animate-pulse" />
+                Saving...
+              </Badge>
+            )}
+            {!isSaving && lastSaved && (
+              <Badge variant="outline" className="text-xs text-muted-foreground">
+                Last saved {lastSaved.toLocaleTimeString()}
+              </Badge>
+            )}
+            {saveError && (
+              <Badge variant="destructive" className="text-xs">
+                <AlertTriangle className="w-3 h-3 mr-1" />
+                Save failed
+              </Badge>
+            )}
+          </div>
+        </div>
+
+        {isWizardCompleted && (
+          <Alert className="mb-6 border-green-500 bg-green-50 dark:bg-green-900/30">
+            <Check className="h-5 w-5 text-green-600 dark:text-green-400" />
+            <AlertTitle className="text-green-700 dark:text-green-300 font-headline">Wizard Completed!</AlertTitle>
+            <AlertDescription className="text-green-600 dark:text-green-500">
+              All stages have been completed. You can now view and export your document.
+            </AlertDescription>
+          </Alert>
+        )}
+
+        {!isWizardCompleted && instance.stageStates[currentStageId]?.depsAreMet === false && (
+           <Alert variant="default" className="mb-6 bg-blue-50 border-blue-300 dark:bg-blue-900/30 dark:border-blue-700">
+            <Info className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+            <AlertTitle className="text-blue-700 dark:text-blue-300 font-headline">Next Steps</AlertTitle>
+            <AlertDescription className="text-blue-600 dark:text-blue-500">
+              Please complete the preceding stages to unlock &apos;{instance.workflow.stages.find(s => s.id === currentStageId)?.title}&apos;.
+            </AlertDescription>
+          </Alert>
+        )}
+        {!isWizardCompleted && instance.stageStates[currentStageId]?.isStale === true && instance.stageStates[currentStageId]?.status === 'completed' && !instance.stageStates[currentStageId]?.staleDismissed && (
+           <Alert variant="default" className="mb-6 bg-amber-50 border-amber-300 dark:bg-amber-900/30 dark:border-amber-700">
+            <FileWarning className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+            <AlertTitle className="text-amber-700 dark:text-amber-300 font-headline">Update Recommended</AlertTitle>
+            <AlertDescription className="text-amber-600 dark:text-amber-500">
+              The input or dependencies for stage &apos;{instance.workflow.stages.find(s => s.id === currentStageId)?.title}&apos; have changed. You may want to re-run or review its output.
+            </AlertDescription>
+          </Alert>
+        )}
+
+
+        {instance.workflow.stages.map(stage => (
+          <StageCard
+            key={stage.id}
+            stage={stage}
+            workflow={instance.workflow}
+            stageState={instance.stageStates[stage.id] || { 
+              stageId: stage.id, 
+              status: 'idle', 
+              depsAreMet: !(stage.dependencies && stage.dependencies.length > 0), 
+              isEditingOutput: false,
+              shouldAutoRun: false,
+              isStale: false,
+              staleDismissed: false,
+              userInput: undefined,
+              output: undefined,
+              error: undefined,
+              completedAt: undefined,
+              groundingInfo: undefined,
+              thinkingSteps: undefined,
+              currentStreamOutput: undefined,
+              outputImages: undefined
+            }}
+            isCurrentStage={stage.id === currentStageId && !isWizardCompleted}
+            onRunStage={handleRunStage}
+            onInputChange={handleInputChange}
+            onFormSubmit={handleFormSubmit}
+            
+            onEditInputRequest={handleEditInputRequest}
+            onOutputEdit={handleOutputEdit}
+            onSetEditingOutput={handleSetEditingOutput}
+            onDismissStaleWarning={handleDismissStaleWarning}
+            allStageStates={instance.stageStates}
+          />
+        ))}
+
+
       </div>
-
-      {isWizardCompleted && (
-        <Alert className="mb-6 border-green-500 bg-green-50 dark:bg-green-900/30">
-          <Check className="h-5 w-5 text-green-600 dark:text-green-400" />
-          <AlertTitle className="text-green-700 dark:text-green-300 font-headline">Wizard Completed!</AlertTitle>
-          <AlertDescription className="text-green-600 dark:text-green-500">
-            All stages have been completed. You can now view and export your document.
-          </AlertDescription>
-        </Alert>
-      )}
-
-      {!isWizardCompleted && instance.stageStates[currentStageId]?.depsAreMet === false && (
-         <Alert variant="default" className="mb-6 bg-blue-50 border-blue-300 dark:bg-blue-900/30 dark:border-blue-700">
-          <Info className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-          <AlertTitle className="text-blue-700 dark:text-blue-300 font-headline">Next Steps</AlertTitle>
-          <AlertDescription className="text-blue-600 dark:text-blue-500">
-            Please complete the preceding stages to unlock &apos;{instance.workflow.stages.find(s => s.id === currentStageId)?.title}&apos;.
-          </AlertDescription>
-        </Alert>
-      )}
-      {!isWizardCompleted && instance.stageStates[currentStageId]?.isStale === true && instance.stageStates[currentStageId]?.status === 'completed' && !instance.stageStates[currentStageId]?.staleDismissed && (
-         <Alert variant="default" className="mb-6 bg-amber-50 border-amber-300 dark:bg-amber-900/30 dark:border-amber-700">
-          <FileWarning className="h-5 w-5 text-amber-600 dark:text-amber-400" />
-          <AlertTitle className="text-amber-700 dark:text-amber-300 font-headline">Update Recommended</AlertTitle>
-          <AlertDescription className="text-amber-600 dark:text-amber-500">
-            The input or dependencies for stage &apos;{instance.workflow.stages.find(s => s.id === currentStageId)?.title}&apos; have changed. You may want to re-run or review its output.
-          </AlertDescription>
-        </Alert>
-      )}
-
-
-      {instance.workflow.stages.map(stage => (
-        <StageCard
-          key={stage.id}
-          stage={stage}
-          workflow={instance.workflow}
-          stageState={instance.stageStates[stage.id] || { 
-            stageId: stage.id, 
-            status: 'idle', 
-            depsAreMet: !(stage.dependencies && stage.dependencies.length > 0), 
-            isEditingOutput: false,
-            shouldAutoRun: false,
-            isStale: false,
-            staleDismissed: false,
-            userInput: undefined,
-            output: undefined,
-            error: undefined,
-            completedAt: undefined,
-            groundingInfo: undefined,
-            thinkingSteps: undefined,
-            currentStreamOutput: undefined,
-            outputImages: undefined
-          }}
-          isCurrentStage={stage.id === currentStageId && !isWizardCompleted}
-          onRunStage={handleRunStage}
-          onInputChange={handleInputChange}
-          onFormSubmit={handleFormSubmit}
-          
-          onEditInputRequest={handleEditInputRequest}
-          onOutputEdit={handleOutputEdit}
-          onSetEditingOutput={handleSetEditingOutput}
-          onDismissStaleWarning={handleDismissStaleWarning}
-          allStageStates={instance.stageStates}
-        />
-      ))}
-
-
-    </div>
+    </>
   );
 }

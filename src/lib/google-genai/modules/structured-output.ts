@@ -23,14 +23,23 @@ export class StructuredOutputModule {
   static async generateJSON<T = any>(
     prompt: string,
     schema: any,
-    modelConfig: ModelConfig = { model: 'gemini-2.0-flash' }
+    modelConfig: ModelConfig & { 
+      workflowName?: string; 
+      stageName?: string; 
+      stageId?: string;
+      contextVars?: any;
+    } = { model: 'gemini-2.0-flash' }
   ): Promise<T> {
     const structuredRequestLog = {
       model: modelConfig.model,
       promptLength: prompt.length,
       temperature: modelConfig.temperature,
       schema: JSON.stringify(schema).substring(0, 100) + '...',
-      systemInstruction: modelConfig.systemInstruction?.substring(0, 100) + '...'
+      systemInstruction: modelConfig.systemInstruction?.substring(0, 100) + '...',
+      workflowName: modelConfig.workflowName,
+      stageName: modelConfig.stageName,
+      stageId: modelConfig.stageId,
+      contextVars: modelConfig.contextVars
     };
     console.log('📤 [AI REQUEST] Structured JSON Generation:', structuredRequestLog);
     logAI('REQUEST', { type: 'Structured JSON Generation', ...structuredRequestLog, prompt: prompt.substring(0, 500), fullSchema: schema });
@@ -64,7 +73,11 @@ export class StructuredOutputModule {
       const structuredResponseLog = {
         textLength: text.length,
         parsedKeys: Object.keys(parsed as any),
-        preview: JSON.stringify(parsed).substring(0, 200) + '...'
+        preview: JSON.stringify(parsed).substring(0, 200) + '...',
+        workflowName: modelConfig.workflowName,
+        stageName: modelConfig.stageName,
+        stageId: modelConfig.stageId,
+        model: modelConfig.model
       };
       console.log('📥 [AI RESPONSE] Structured JSON Generation:', structuredResponseLog);
       logAI('RESPONSE', { type: 'Structured JSON Generation', ...structuredResponseLog, fullResult: parsed });

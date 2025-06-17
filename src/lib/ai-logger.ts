@@ -48,20 +48,31 @@ export function logAI(type: 'REQUEST' | 'RESPONSE', data: any) {
   const timestamp = new Date().toISOString();
   const emoji = type === 'REQUEST' ? '📤' : '📥';
   
+  // Extract workflow/stage context if available
+  const workflowName = data.workflowName || data.workflow?.name || 'unknown-workflow';
+  const stageId = data.stageId || data.stage?.id || 'unknown-stage';
+  const stageName = data.stageName || data.stage?.name || stageId;
+  
   // Write structured log for viewer
   if (type === 'REQUEST') {
     writeStructuredLog({
       level: 'info',
       category: 'ai-request',
-      message: `AI Request to ${data.model || 'unknown model'}`,
+      message: `${emoji} OUTGOING REQUEST: ${workflowName} → ${stageName}`,
       data: {
+        workflowName,
+        stageId,
+        stageName,
         model: data.model,
         temperature: data.temperature,
         promptLength: data.promptLength,
         hasGrounding: data.hasGroundingConfig,
         tools: data.tools?.map((t: any) => Object.keys(t).join(', ')),
         systemInstruction: data.systemInstruction,
-        prompt: data.prompt?.substring(0, 500)
+        prompt: data.prompt?.substring(0, 500),
+        fullPrompt: data.prompt,
+        requestType: 'OUTGOING',
+        contextVars: data.contextVars ? Object.keys(data.contextVars) : []
       },
       model: data.model
     });
@@ -69,13 +80,21 @@ export function logAI(type: 'REQUEST' | 'RESPONSE', data: any) {
     writeStructuredLog({
       level: 'info',
       category: 'ai-response',
-      message: `AI Response from ${data.model || 'unknown model'}`,
+      message: `${emoji} INCOMING RESPONSE: ${workflowName} → ${stageName}`,
       data: {
+        workflowName,
+        stageId,
+        stageName,
         contentLength: data.contentLength || data.textLength,
         hasGroundingMetadata: data.hasGroundingMetadata,
         groundingSourcesCount: data.groundingSourcesCount,
         finishReason: data.finishReason,
-        contentPreview: data.contentPreview?.substring(0, 500) || data.textPreview?.substring(0, 500)
+        contentPreview: data.contentPreview?.substring(0, 500) || data.textPreview?.substring(0, 500),
+        fullContent: data.fullContent || data.fullText,
+        responseType: 'INCOMING',
+        promptTokenCount: data.usageMetadata?.promptTokenCount,
+        candidatesTokenCount: data.usageMetadata?.candidatesTokenCount,
+        totalTokenCount: data.usageMetadata?.totalTokenCount
       },
       model: data.model,
       tokenCount: data.usageMetadata?.totalTokenCount,
@@ -83,37 +102,50 @@ export function logAI(type: 'REQUEST' | 'RESPONSE', data: any) {
     });
   }
   
-  // Enhanced logging with better formatting (keep original format too)
-  let logEntry = `${timestamp} ${emoji} [AI ${type}] `;
+  // Enhanced logging with XML structure for better parsing
+  let logEntry = `${timestamp} ${emoji} [AI ${type}]\n`;
   
   if (type === 'REQUEST') {
-    // Log request data with better structure
-    logEntry += `\n🔧 MODEL: ${data.model || 'Not specified'}`;
-    logEntry += `\n🌡️  TEMPERATURE: ${data.temperature || 'Not specified'}`;
-    logEntry += `\n📝 PROMPT LENGTH: ${data.promptLength || 'Not specified'}`;
-    logEntry += `\n🔍 GROUNDING: ${data.hasGroundingConfig ? 'ENABLED' : 'DISABLED'}`;
+    logEntry += `<AI_REQUEST type="OUTGOING" workflow="${workflowName}" stage="${stageName}" stageId="${stageId}">\n`;
+    logEntry += `  <MODEL>${data.model || 'Not specified'}</MODEL>\n`;
+    logEntry += `  <TEMPERATURE>${data.temperature || 'Not specified'}</TEMPERATURE>\n`;
+    logEntry += `  <GROUNDING>${data.hasGroundingConfig ? 'ENABLED' : 'DISABLED'}</GROUNDING>\n`;
     if (data.tools && data.tools.length > 0) {
-      logEntry += `\n🛠️  TOOLS: ${data.tools.map((t: any) => Object.keys(t).join(', ')).join(', ')}`;
+      logEntry += `  <TOOLS>${data.tools.map((t: any) => Object.keys(t).join(', ')).join(', ')}</TOOLS>\n`;
     }
-    logEntry += `\n💭 SYSTEM INSTRUCTION: ${data.systemInstruction || 'None'}`;
-    logEntry += `\n📊 PROMPT PREVIEW: ${data.prompt || 'Not provided'}`;
-    logEntry += `\n🔗 RAW REQUEST DATA: ${JSON.stringify(data, null, 2)}`;
+    if (data.systemInstruction) {
+      logEntry += `  <SYSTEM_INSTRUCTION><![CDATA[\n${data.systemInstruction}\n  ]]></SYSTEM_INSTRUCTION>\n`;
+    }
+    logEntry += `  <PROMPT_LENGTH>${data.promptLength || 0}</PROMPT_LENGTH>\n`;
+    logEntry += `  <PROMPT><![CDATA[\n${data.prompt || 'Not provided'}\n  ]]></PROMPT>\n`;
+    if (data.contextVars) {
+      logEntry += `  <CONTEXT_VARS>${Object.keys(data.contextVars).join(', ')}</CONTEXT_VARS>\n`;
+    }
+    logEntry += `</AI_REQUEST>\n`;
   } else {
-    // Log response data with better structure
-    logEntry += `\n📄 CONTENT LENGTH: ${data.contentLength || data.textLength || 'Not specified'}`;
-    logEntry += `\n🎯 GROUNDING DETECTED: ${data.hasGroundingMetadata ? 'YES ✅' : 'NO ❌'}`;
+    logEntry += `<AI_RESPONSE type="INCOMING" workflow="${workflowName}" stage="${stageName}" stageId="${stageId}">\n`;
+    logEntry += `  <MODEL>${data.model || 'Not specified'}</MODEL>\n`;
+    logEntry += `  <CONTENT_LENGTH>${data.contentLength || data.textLength || 0}</CONTENT_LENGTH>\n`;
+    logEntry += `  <GROUNDING_DETECTED>${data.hasGroundingMetadata ? 'YES' : 'NO'}</GROUNDING_DETECTED>\n`;
     if (data.groundingSourcesCount > 0) {
-      logEntry += `\n📚 GROUNDING SOURCES: ${data.groundingSourcesCount} sources found`;
+      logEntry += `  <GROUNDING_SOURCES_COUNT>${data.groundingSourcesCount}</GROUNDING_SOURCES_COUNT>\n`;
     }
-    logEntry += `\n🔄 FINISH REASON: ${data.finishReason || 'Not specified'}`;
+    logEntry += `  <FINISH_REASON>${data.finishReason || 'Not specified'}</FINISH_REASON>\n`;
     if (data.usageMetadata) {
-      logEntry += `\n📊 TOKEN USAGE: Input=${data.usageMetadata.promptTokenCount}, Output=${data.usageMetadata.candidatesTokenCount}, Total=${data.usageMetadata.totalTokenCount}`;
+      logEntry += `  <TOKEN_USAGE>\n`;
+      logEntry += `    <INPUT_TOKENS>${data.usageMetadata.promptTokenCount || 0}</INPUT_TOKENS>\n`;
+      logEntry += `    <OUTPUT_TOKENS>${data.usageMetadata.candidatesTokenCount || 0}</OUTPUT_TOKENS>\n`;
+      logEntry += `    <TOTAL_TOKENS>${data.usageMetadata.totalTokenCount || 0}</TOTAL_TOKENS>\n`;
+      logEntry += `  </TOKEN_USAGE>\n`;
     }
-    logEntry += `\n📝 CONTENT PREVIEW: ${data.contentPreview || data.textPreview || 'Not provided'}`;
-    logEntry += `\n🔗 RAW RESPONSE DATA: ${JSON.stringify(data, null, 2)}`;
+    if (data.duration) {
+      logEntry += `  <DURATION>${data.duration}ms</DURATION>\n`;
+    }
+    logEntry += `  <CONTENT><![CDATA[\n${data.fullContent || data.fullText || data.contentPreview || data.textPreview || 'Not provided'}\n  ]]></CONTENT>\n`;
+    logEntry += `</AI_RESPONSE>\n`;
   }
   
-  logEntry += `\n${'='.repeat(80)}\n`;
+  logEntry += `${'='.repeat(80)}\n`;
   
   // Ensure logs directory exists
   const logsDir = path.dirname(AI_LOG_PATH);
