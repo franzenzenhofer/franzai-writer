@@ -217,7 +217,19 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
                   </div>
                 ) : (
                   <div className="font-body">
-                    {value ? value : (
+                    {value ? (
+                      Array.isArray(value) ? (
+                        <div className="space-y-1">
+                          {value.map((item, index) => (
+                            <div key={index} className="px-2 py-1 bg-muted/50 rounded text-sm">
+                              {String(item)}
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        String(value)
+                      )
+                    ) : (
                       <span className="text-destructive font-semibold">
                         ❌ ERROR: AI failed to provide {field.label}
                       </span>
