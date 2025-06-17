@@ -10,6 +10,7 @@ interface ExportPreviewProps {
   htmlStyled?: string;
   htmlClean?: string;
   className?: string;
+  defaultView?: 'styled' | 'clean';
 }
 
 /**
@@ -40,8 +41,8 @@ function cleanHtmlContent(content: string): string {
   return cleaned.trim();
 }
 
-export function ExportPreview({ htmlStyled, htmlClean, className = "" }: ExportPreviewProps) {
-  const [viewMode, setViewMode] = useState<"styled" | "clean">("clean");
+export function ExportPreview({ htmlStyled, htmlClean, className = "", defaultView = "clean" }: ExportPreviewProps) {
+  const [viewMode, setViewMode] = useState<"styled" | "clean">(defaultView);
   const shadowRef = useRef<HTMLDivElement>(null);
   const shadowRootRef = useRef<ShadowRoot | null>(null);
   
@@ -57,7 +58,26 @@ export function ExportPreview({ htmlStyled, htmlClean, className = "" }: ExportP
       shadowRootRef.current = shadowRef.current.attachShadow({ mode: 'closed' });
     }
     
-    shadowRootRef.current.innerHTML = cleanedHtml;
+    // Add scrollable styles to the shadow DOM content
+    const wrappedHtml = `
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+          scroll-behavior: smooth;
+        }
+        body {
+          margin: 0;
+          padding: 16px;
+          width: calc(100% - 32px);
+          box-sizing: border-box;
+        }
+      </style>
+      ${cleanedHtml}`;
+    
+    shadowRootRef.current.innerHTML = wrappedHtml;
     
     return () => {
       if (shadowRootRef.current) {
@@ -109,8 +129,9 @@ export function ExportPreview({ htmlStyled, htmlClean, className = "" }: ExportP
           
           <div
             ref={shadowRef}
-            className="w-full h-[400px] border-0 bg-white"
+            className="w-full h-[400px] border-0 bg-white overflow-auto"
             title={`${viewMode} HTML preview`}
+            style={{ scrollBehavior: 'smooth' }}
           />
         </div>
       </Card>

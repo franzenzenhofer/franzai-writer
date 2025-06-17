@@ -305,6 +305,7 @@ export function ExportStageCard({
               <ExportPreview
                 htmlStyled={stageState.output.htmlStyled}
                 htmlClean={stageState.output.htmlClean}
+                defaultView={stage.exportConfig?.styling?.defaultView || 'clean'}
               />
               
               <ExportOptions

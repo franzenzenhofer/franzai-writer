@@ -306,6 +306,7 @@
           }
         },
         "styling": {
+          "defaultView": "styled",
           "themes": {
             "default": "elegant",
             "options": ["elegant", "minimal", "romantic", "classic"]

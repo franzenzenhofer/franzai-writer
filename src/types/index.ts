@@ -98,6 +98,7 @@ export interface ExportConfig {
     };
   };
   styling?: {
+    defaultView?: 'styled' | 'clean'; // Default view in export preview
     themes?: {
       default?: string;
       options?: string[];
