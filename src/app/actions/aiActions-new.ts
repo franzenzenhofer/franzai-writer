@@ -148,8 +148,8 @@ function substitutePromptVars(template: string, context: Record<string, any>): s
       const replacement = (typeof value === 'object' && value !== null) ? JSON.stringify(value, null, 2) : String(value);
       finalPrompt = finalPrompt.replace(match[0], replacement);
     } else {
-      console.warn(`Prompt variable '{{${fullPath}}}' not found in context. Replacing with empty string.`);
-      finalPrompt = finalPrompt.replace(match[0], "");
+      // FAIL HARD: No fallbacks, no replacements
+      throw new Error(`FATAL: Template variable '{{${fullPath}}}' not found in context. Required data is missing. Context keys: ${Object.keys(context).join(', ')}`);
     }
   }
   
