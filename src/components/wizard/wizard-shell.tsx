@@ -286,13 +286,19 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
 
 
   useEffect(() => {
-    instance.workflow.stages.forEach(stage => {
-      const stageState = instance.stageStates[stage.id];
-      // Defensive check: ensure stageState exists before accessing its properties
-      if (stageState && stageState.shouldAutoRun && stageState.status === 'idle' && stageState.depsAreMet && !stageState.isEditingOutput) {
-        handleRunStage(stage.id, stageState.userInput);
-      }
-    });
+    // Add a small delay to ensure state updates are complete
+    const timeoutId = setTimeout(() => {
+      instance.workflow.stages.forEach(stage => {
+        const stageState = instance.stageStates[stage.id];
+        // Defensive check: ensure stageState exists before accessing its properties
+        if (stageState && stageState.shouldAutoRun && stageState.status === 'idle' && stageState.depsAreMet && !stageState.isEditingOutput) {
+          console.log(`[Autorun] Triggering autorun for stage ${stage.id}`);
+          handleRunStage(stage.id, stageState.userInput);
+        }
+      });
+    }, 100); // Small delay to ensure state updates propagate
+    
+    return () => clearTimeout(timeoutId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [instance.stageStates, instance.workflow.stages]); 
 
