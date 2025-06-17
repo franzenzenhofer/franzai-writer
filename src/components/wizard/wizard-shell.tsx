@@ -20,6 +20,19 @@ let runAiStage: any = null;
 function resolveImageGenerationSettings(settings: any, contextVars: Record<string, any>): any {
   if (!settings) return settings;
   
+  // Check if required context exists before attempting resolution
+  if (settings.aspectRatio?.includes('image-briefing.output')) {
+    const imageBriefing = contextVars['image-briefing'];
+    if (!imageBriefing?.output || typeof imageBriefing.output !== 'object') {
+      console.error('[resolveImageGenerationSettings] image-briefing output not available or invalid', {
+        imageBriefing,
+        hasOutput: !!imageBriefing?.output,
+        outputType: typeof imageBriefing?.output
+      });
+      throw new Error('FATAL: Image generation attempted before image-briefing form was submitted or output is invalid');
+    }
+  }
+  
   // Deep clone the settings to avoid mutations
   const resolvedSettings = JSON.parse(JSON.stringify(settings));
   
@@ -50,7 +63,11 @@ function resolveImageGenerationSettings(settings: any, contextVars: Record<strin
         const replacement = (typeof value === 'object' && value !== null) ? JSON.stringify(value) : String(value);
         result = result.replace(match[0], replacement);
       } else {
-        console.warn(`Image generation template variable '{{${fullPath}}}' not found in context. Using default.`);
+        console.error(`Image generation template variable '{{${fullPath}}}' not found in context.`, {
+          fullPath,
+          contextVars,
+          availableKeys: Object.keys(contextVars).map(k => `${k}: ${Object.keys(contextVars[k] || {}).join(', ')}`)
+        });
         // Don't replace if not found, leave the template
       }
     }
@@ -506,7 +523,9 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         jsonSchema: stage.jsonSchema,
         jsonFields: stage.jsonFields,
         // Add image generation settings with resolved template variables
-        imageGenerationSettings: resolveImageGenerationSettings(stage.imageGenerationSettings, contextVars),
+        imageGenerationSettings: stage.outputType === 'image' && stage.imageGenerationSettings ? 
+          resolveImageGenerationSettings(stage.imageGenerationSettings, contextVars) : 
+          undefined,
         // Pass stage and workflow for export stages
         stage: stage,
         workflow: instance.workflow,
