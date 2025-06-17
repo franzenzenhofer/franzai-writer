@@ -399,7 +399,11 @@ class DocumentPersistenceManager {
           userInputType: typeof state.userInput,
           hasOutput: !!state.output,
           outputType: typeof state.output,
-          keys: Object.keys(state)
+          keys: Object.keys(state),
+          hasGroundingMetadata: !!state.groundingMetadata,
+          hasFunctionCalls: !!state.functionCalls,
+          hasThinkingSteps: !!state.thinkingSteps,
+          hasCodeExecutionResults: !!state.codeExecutionResults
         });
 
         cleaned[stageId] = this.cleanUndefinedValues(state);
