@@ -119,7 +119,15 @@ export function ImageOutputDisplay({
           {/* Image metadata */}
           <div className="mt-4 space-y-2">
             <p className="text-sm text-muted-foreground">
-              <span className="font-medium">Prompt:</span> {selectedImage.promptUsed}
+              <span className="font-medium">Prompt:</span> {
+                // Clean up any remaining template syntax for display
+                selectedImage.promptUsed
+                  ?.replace(/\{\{#if.*?\}\}/g, '')
+                  ?.replace(/\{\{\/if\}\}/g, '')
+                  ?.replace(/\{\{.*?\}\}/g, '')
+                  ?.replace(/\s+/g, ' ')
+                  ?.trim()
+              }
             </p>
             {selectedImage.width && selectedImage.height && (
               <p className="text-sm text-muted-foreground">
