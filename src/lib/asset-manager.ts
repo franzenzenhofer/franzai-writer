@@ -99,7 +99,7 @@ export class AssetManager {
         throw new Error('Failed to get public URL after upload');
       }
       
-      // 4. Create asset record
+      // 4. Create asset record (filter out undefined values)
       const asset: Asset = {
         id: assetId,
         userId: params.userId,
@@ -109,16 +109,16 @@ export class AssetManager {
         publicUrl,
         fileName: params.metadata.fileName,
         fileSize: params.file instanceof Blob ? params.file.size : params.file.length,
-        dimensions: params.metadata.dimensions,
+        ...(params.metadata.dimensions ? { dimensions: params.metadata.dimensions } : {}),
         createdAt: serverTimestamp(),
         source: params.metadata.source,
-        generationPrompt: params.metadata.generationPrompt,
-        generationModel: params.metadata.generationModel,
+        ...(params.metadata.generationPrompt ? { generationPrompt: params.metadata.generationPrompt } : {}),
+        ...(params.metadata.generationModel ? { generationModel: params.metadata.generationModel } : {}),
         documentIds: params.metadata.documentId ? [params.metadata.documentId] : [],
         stageReferences: params.metadata.documentId && params.metadata.stageId ? [{
           documentId: params.metadata.documentId,
           stageId: params.metadata.stageId,
-          addedAt: serverTimestamp()
+          addedAt: new Date()
         }] : [],
         lastAccessedAt: serverTimestamp(),
         isDeleted: false
@@ -150,7 +150,7 @@ export class AssetManager {
         stageReferences: arrayUnion({
           documentId,
           stageId,
-          addedAt: serverTimestamp()
+          addedAt: new Date()
         }),
         lastAccessedAt: serverTimestamp()
       });
