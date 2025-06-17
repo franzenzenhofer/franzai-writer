@@ -236,21 +236,22 @@ export function ExportStageCard({
         <CardContent className="space-y-4">
           
           {stageState.status === "idle" && !dependencyMessage && (
-            <div className="text-center space-y-6 py-8">
+            <div className="space-y-6">
               <p className="text-muted-foreground">
                 Ready to transform your content into professional formats and share it with the world?
               </p>
               
-              <Button
-                size="lg"
-                onClick={() => onRunStage(stage.id)}
-                disabled={!canRun}
-                className="mx-auto"
-                id={`trigger-export-${stage.id}`}
-                data-testid={`trigger-export-${stage.id}`}
-              >
-                {stage.triggerButton?.label || "Export & Publish"}
-              </Button>
+              <div className="flex justify-start">
+                <Button
+                  size="lg"
+                  onClick={() => onRunStage(stage.id)}
+                  disabled={!canRun}
+                  id={`trigger-export-${stage.id}`}
+                  data-testid={`trigger-export-${stage.id}`}
+                >
+                  {stage.triggerButton?.label || "Export & Publish"}
+                </Button>
+              </div>
               
               <div className="text-sm text-muted-foreground">
                 <p className="font-semibold mb-2">What you&apos;ll get:</p>
@@ -266,7 +267,7 @@ export function ExportStageCard({
           
           {stageState.status === "running" && (
             <div className="space-y-4">
-              <h4 className="text-center font-semibold">Creating Your Exports...</h4>
+              <h4 className="font-semibold">Creating Your Exports...</h4>
               
               {stageState.generationProgress?.styledHtml !== undefined && (
                 <div className="space-y-2">
