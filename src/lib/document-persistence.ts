@@ -391,34 +391,114 @@ class DocumentPersistenceManager {
         continue;
       }
 
-      cleaned[stageId] = this.cleanUndefinedValues(state);
+      try {
+        // Log the state being cleaned for debugging
+        console.log(`[DocumentPersistence] Cleaning stage state: ${stageId}`, {
+          status: state.status,
+          hasUserInput: !!state.userInput,
+          userInputType: typeof state.userInput,
+          hasOutput: !!state.output,
+          outputType: typeof state.output,
+          keys: Object.keys(state)
+        });
+
+        cleaned[stageId] = this.cleanUndefinedValues(state);
+
+        // Verify the cleaned state
+        try {
+          JSON.stringify(cleaned[stageId]);
+        } catch (e) {
+          console.error(`[DocumentPersistence] Stage ${stageId} still has non-serializable data after cleaning`, e);
+          // Try to salvage what we can
+          cleaned[stageId] = {
+            stageId: state.stageId,
+            status: state.status || 'idle',
+            error: state.error ? String(state.error) : undefined,
+            completedAt: state.completedAt,
+            // Convert complex objects to simple representations
+            userInput: state.userInput ? JSON.parse(JSON.stringify(state.userInput)) : undefined,
+            output: state.output ? JSON.parse(JSON.stringify(state.output)) : undefined
+          } as StageState;
+        }
+      } catch (error) {
+        console.error(`[DocumentPersistence] Failed to clean stage ${stageId}`, error);
+        // Create a minimal valid state
+        cleaned[stageId] = {
+          stageId: stageId,
+          status: 'error',
+          error: 'Failed to save stage state'
+        } as StageState;
+      }
     }
 
     return cleaned;
   }
 
   /**
-   * Recursively clean undefined values
+   * Recursively clean undefined values and ensure Firebase compatibility
    */
   private cleanUndefinedValues(obj: any): any {
     if (obj === null || obj === undefined) {
       return null;
     }
 
+    // Handle functions (Firebase doesn't accept functions)
+    if (typeof obj === 'function') {
+      console.warn('[DocumentPersistence] Function detected in data, converting to null');
+      return null;
+    }
+
+    // Handle Dates (convert to ISO string for Firebase)
+    if (obj instanceof Date) {
+      return obj.toISOString();
+    }
+
+    // Handle Arrays
     if (Array.isArray(obj)) {
       return obj.map(item => this.cleanUndefinedValues(item));
     }
 
+    // Handle Objects
     if (typeof obj === 'object') {
+      // Check for circular references or DOM nodes
+      try {
+        JSON.stringify(obj);
+      } catch (e) {
+        console.warn('[DocumentPersistence] Non-serializable object detected, converting to string representation', e);
+        return String(obj);
+      }
+
+      // Handle specific known problematic types
+      if (obj instanceof File || obj instanceof Blob) {
+        console.warn('[DocumentPersistence] File/Blob detected, converting to metadata');
+        return {
+          type: 'file',
+          name: obj.name || 'unnamed',
+          size: obj.size,
+          mimeType: obj.type
+        };
+      }
+
+      // Handle ArrayBuffer and typed arrays
+      if (obj instanceof ArrayBuffer || ArrayBuffer.isView(obj)) {
+        console.warn('[DocumentPersistence] ArrayBuffer detected, converting to null');
+        return null;
+      }
+
       const cleaned: any = {};
       for (const [key, value] of Object.entries(obj)) {
-        if (value !== undefined) {
-          cleaned[key] = this.cleanUndefinedValues(value);
+        // Skip undefined values and functions
+        if (value !== undefined && typeof value !== 'function') {
+          // Also skip keys that start with underscore (often internal properties)
+          if (!key.startsWith('_')) {
+            cleaned[key] = this.cleanUndefinedValues(value);
+          }
         }
       }
       return cleaned;
     }
 
+    // Handle primitive values
     return obj;
   }
 
