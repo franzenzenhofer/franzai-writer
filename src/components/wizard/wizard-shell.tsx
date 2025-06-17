@@ -227,7 +227,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         
         // Show retry toast
         toast({
-          title: `🔄 AI Load Failed - Retrying (${retryAttempt + 1}/3)`,
+          title: `AI Load Failed - Retrying (${retryAttempt + 1}/3)`,
           description: `Retrying in ${retryDelay / 1000}s... Error: ${error.message}`,
           variant: "default",
           duration: retryDelay + 1000,
@@ -260,7 +260,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
 5. Check network connection`;
 
         toast({
-          title: "🚨 AI System Unavailable",
+          title: "AI System Unavailable",
           description: comprehensiveError,
           variant: "destructive",
           duration: 15000, // Show longer for complex error
@@ -274,7 +274,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
               }}
               className="px-3 py-2 bg-primary text-primary-foreground rounded-md text-sm hover:bg-primary/90 transition-colors"
             >
-              🔄 Retry
+              Retry
             </button>
           )
         });
@@ -567,62 +567,62 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       console.error('[handleRunStage] 🚨 AI System Not Ready - Detailed Diagnostics:', diagnosticInfo);
       
       // Determine specific error cause and solution
-      let errorTitle = "🚨 AI System Not Ready";
+      let errorTitle = "AI System Not Ready";
       let errorDescription = "";
       let actionableSteps: string[] = [];
       
       if (aiLoadError) {
-        errorTitle = "🚨 AI Module Failed to Load";
+        errorTitle = "AI Module Failed to Load";
         errorDescription = `The AI system encountered an error during initialization and cannot process "${stageTitle}".`;
         actionableSteps = [
-          "🔄 Refresh the page to retry loading",
-          "🌐 Check your internet connection", 
-          "🧹 Clear browser cache (Cmd/Ctrl + Shift + R)",
-          "🔍 Check browser console for detailed error logs",
-          "🆘 Contact support if the issue persists"
+          "Refresh the page to retry loading",
+          "Check your internet connection", 
+          "Clear browser cache (Cmd/Ctrl + Shift + R)",
+          "Check browser console for detailed error logs",
+          "Contact support if the issue persists"
         ];
       } else if (timeSinceLoad < 10000) {
-        errorTitle = "⏳ AI System Still Loading";
+        errorTitle = "AI System Still Loading";
         errorDescription = `The AI system is still initializing. Please wait a moment before running "${stageTitle}".`;
         actionableSteps = [
-          `⏱️ Wait ${Math.ceil((10000 - timeSinceLoad) / 1000)} more seconds`,
-          "🔄 Try again in a few seconds",
-          "🖥️ Ensure stable internet connection",
-          "📱 Try refreshing if loading takes too long"
+          `Wait ${Math.ceil((10000 - timeSinceLoad) / 1000)} more seconds`,
+          "Try again in a few seconds",
+          "Ensure stable internet connection",
+          "Try refreshing if loading takes too long"
         ];
       } else {
-        errorTitle = "🚨 AI System Load Timeout";
+        errorTitle = "AI System Load Timeout";
         errorDescription = `The AI system failed to load after ${Math.round(timeSinceLoad / 1000)} seconds. Cannot process "${stageTitle}".`;
         actionableSteps = [
-          "🔄 Refresh the page (most likely to fix)",
-          "🧹 Clear browser cache and cookies",
-          "🌐 Check your internet connection speed",
-          "🔍 Open browser console to see detailed errors",
-          "🔧 Try a different browser or incognito mode"
+          "Refresh the page (most likely to fix)",
+          "Clear browser cache and cookies",
+          "Check your internet connection speed",
+          "Open browser console to see detailed errors",
+          "Try a different browser or incognito mode"
         ];
       }
       
       const detailedError = `${errorDescription}
 
-📊 Technical Status:
-• AI Module Loaded: ${aiStageLoaded ? '✅' : '❌'}
-• Function Available: ${!!runAiStage ? '✅' : '❌'}
+Technical Status:
+• AI Module Loaded: ${aiStageLoaded ? 'Yes' : 'No'}
+• Function Available: ${!!runAiStage ? 'Yes' : 'No'}
 • Load Attempts: ${aiLoadAttempts}/3
 • Time Since Page Load: ${Math.round(timeSinceLoad / 1000)}s
-• Network Status: ${navigator.onLine ? '🟢 Online' : '🔴 Offline'}
+• Network Status: ${navigator.onLine ? 'Online' : 'Offline'}
 • Connection: ${(navigator as any).connection?.effectiveType || 'Unknown'}
 
-🔧 Developer Info:
+Developer Info:
 • Stage ID: ${stageId}
 • Stage Title: ${stageTitle}
 • Error: ${aiLoadError || 'No specific error'}
 • URL: ${window.location.href}
 • Timestamp: ${new Date().toISOString()}
 
-💡 Solutions (try in order):
+Solutions (try in order):
 ${actionableSteps.map((step, i) => `${i + 1}. ${step}`).join('\n')}
 
-🆘 Still having issues? Check the browser console for detailed logs.`;
+Still having issues? Check the browser console for detailed logs.`;
 
       toast({
         title: errorTitle,
@@ -640,7 +640,7 @@ ${actionableSteps.map((step, i) => `${i + 1}. ${step}`).join('\n')}
             }}
             className="px-3 py-2 bg-primary text-primary-foreground rounded-md text-sm hover:bg-primary/90 transition-colors"
           >
-            🔄 Retry AI
+            Retry AI
           </button>
         )
       });
