@@ -76,6 +76,8 @@ const AiStageExecutionInputSchema = z.object({
     name: z.string(),
     description: z.string().optional(),
   }).optional(),
+  // Add context variables for template resolution
+  contextVars: z.record(z.any()).optional(),
 });
 export type AiStageExecutionInput = z.infer<typeof AiStageExecutionInputSchema>;
 

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { runAiStage } from '@/app/actions/aiActions-new';
 import { logAIGeneral } from '@/lib/ai-logger';
+import type { Stage } from '@/types';
 
 export async function GET() {
   try {
@@ -64,9 +65,11 @@ export async function POST(request: Request) {
       },
       stage: {
         id: 'test-stage',
-        name: 'Test Stage',
-        description: 'Testing AI logging'
-      }
+        title: 'Test Stage',
+        description: 'Testing AI logging',
+        inputType: 'none',
+        outputType: 'text'
+      } as Stage
     });
     
     console.log('[TEST-AI] Result:', result);

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Download, Loader2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -93,9 +94,11 @@ export function ImageOutputDisplay({
       <Card>
         <CardContent className="p-4">
           <div className="relative">
-            <img
-              src={imageUrl}
+            <Image
+              src={imageUrl || '/placeholder-image.png'}
               alt={`Generated image: ${selectedImage.promptUsed}`}
+              width={selectedImage.width || 800}
+              height={selectedImage.height || 600}
               className="w-full h-auto rounded-lg"
               data-aspect-ratio={selectedImage.aspectRatio}
             />
@@ -158,9 +161,11 @@ export function ImageOutputDisplay({
                     : "border-transparent hover:border-muted-foreground/50"
                 )}
               >
-                <img
-                  src={thumbUrl}
+                <Image
+                  src={thumbUrl || '/placeholder-image.png'}
                   alt={`Thumbnail ${index + 1}`}
+                  width={200}
+                  height={150}
                   className="w-full h-auto"
                 />
                 <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-colors" />

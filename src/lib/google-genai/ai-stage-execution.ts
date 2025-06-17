@@ -59,7 +59,7 @@ export class AIStageExecution {
         enableGoogleSearch: stage.groundingSettings?.googleSearch?.enabled === true,
         // Add workflow/stage context for logging
         workflowName: workflow.name,
-        stageName: stage.name,
+        stageName: stage.title, // Use title instead of name
         stageId: stage.id,
         contextVars: context
       };

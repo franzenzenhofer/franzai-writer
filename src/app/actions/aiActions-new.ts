@@ -538,7 +538,11 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
             stageId: params.stageId,
             // Add workflow and stage context for logging
             workflow: params.workflow,
-            stage: params.stage,
+            stage: params.stage ? {
+                id: params.stage.id,
+                name: params.stage.title, // Map title to name for compatibility
+                description: params.stage.description,
+            } : undefined,
         };
 
         // Only enable Google Search grounding if explicitly requested or configured in the stage

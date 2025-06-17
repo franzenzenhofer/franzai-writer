@@ -172,21 +172,21 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     });
     
     try {
-      const module = await import('@/lib/ai-stage-runner');
+      const aiModule = await import('@/lib/ai-stage-runner');
       const loadTime = Date.now() - startTime;
       
       console.log('[WizardShell] ✅ AI stage runner loaded successfully!', {
         loadTimeMs: loadTime,
-        moduleKeys: Object.keys(module),
-        runAiStageType: typeof module.runAiStage,
-        runAiStageExists: !!module.runAiStage,
+        moduleKeys: Object.keys(aiModule),
+        runAiStageType: typeof aiModule.runAiStage,
+        runAiStageExists: !!aiModule.runAiStage,
       });
       
-      if (!module.runAiStage || typeof module.runAiStage !== 'function') {
-        throw new Error(`AI module loaded but runAiStage is ${typeof module.runAiStage}, expected function`);
+      if (!aiModule.runAiStage || typeof aiModule.runAiStage !== 'function') {
+        throw new Error(`AI module loaded but runAiStage is ${typeof aiModule.runAiStage}, expected function`);
       }
       
-      runAiStage = module.runAiStage;
+      runAiStage = aiModule.runAiStage;
       setAiStageLoaded(true);
       setAiLoadError(null);
       
@@ -280,7 +280,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         });
       }
     }
-  }, [toast]);
+  }, [toast, aiStageLoaded]);
 
   // Load the AI stage runner dynamically with retries
   useEffect(() => {
@@ -882,7 +882,7 @@ Still having issues? Check the browser console for detailed logs.`;
       updateStageState(stageId, { status: "error", error: error.message || "AI processing failed." });
       toast({ title: "AI Stage Error", description: error.message || "An error occurred.", variant: "destructive" });
     }
-  }, [aiStageLoaded, instance.workflow, instance.stageStates, updateStageState, toast, scrollToStageById, documentId, user?.uid]);
+  }, [aiStageLoaded, aiLoadAttempts, aiLoadError, aiLoadStartTime, loadAiStageRunner, instance.workflow, instance.stageStates, updateStageState, toast, scrollToStageById, documentId, user?.uid]);
 
 
   
