@@ -90,6 +90,37 @@ The core feature is a JSON-based workflow system where each workflow:
 - TypeScript and ESLint errors are ignored during build (see `next.config.ts`)
 - The project uses a blue-based design system with Space Grotesk for headlines
 
+## Testing Guidelines
+
+**CRITICAL**: All Playwright tests MUST be run in headless mode to avoid interfering with development work.
+
+**CRITICAL**: All UI interactions MUST use specific element IDs instead of generic selectors:
+- Use `#process-stage-{stage-id}` for stage action buttons (e.g., `#process-stage-poem-topic`, `#process-stage-image-briefing`)
+- Use `[data-testid="stage-card-{stage-id}"]` for stage cards
+- NEVER use generic selectors like `button:has-text("Continue")` or `button:has-text("Continue").nth(1)`
+- For form controls (Radix UI/shadcn components), use specific approaches for dropdowns and selects
+- This ensures tests click the correct buttons and don't fail due to multiple matches
+
+## Image Generation Implementation Status
+
+✅ **COMPLETED**: Image generation with Google Imagen 3 is fully working
+- Successfully integrated Imagen 3 API (models/imagen-3.0-generate-002)
+- Supports all standard aspect ratios: 1:1, 3:4, 4:3, 16:9, 9:16
+- Custom image briefing stage for user control over generated images
+- Multiple image generation and selection interface
+- Proper error handling and logging
+- Template variable resolution for dynamic prompts
+
+✅ **VERIFIED**: Core functionality tested and working in poem generation workflow
+- Poem topic → poem generation → image briefing → image generation → HTML export
+- AI logs confirm successful Imagen API calls and image generation
+- Basic Playwright tests demonstrate end-to-end workflow functionality
+
+⚠️ **PENDING**: Fine-tune Playwright test selectors for UI form components
+- Need to update form interaction tests for shadcn/ui components
+- Update stage completion detection selectors
+- Tests timeout due to selector issues, not functionality problems
+
 ## Ticket Management System
 
 This project uses a simple file-based ticket system for tracking tasks and issues:
