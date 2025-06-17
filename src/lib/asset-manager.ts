@@ -73,14 +73,21 @@ export class AssetManager {
           publicUrl = await getDownloadURL(storageRef);
         } catch (uploadError: any) {
           uploadAttempts++;
-          console.error(`[ASSET MANAGER] Upload attempt ${uploadAttempts} failed:`, uploadError);
+          console.error(`[ASSET MANAGER] Upload attempt ${uploadAttempts} failed:`, {
+            code: uploadError.code,
+            message: uploadError.message,
+            serverResponse: uploadError.serverResponse,
+            customData: uploadError.customData,
+            fullError: uploadError
+          });
           
           if (uploadError.code === 'storage/unauthorized' || uploadError.code === 'storage/unauthenticated') {
             console.error('[ASSET MANAGER] ❌ Storage authentication error - check Firebase Auth and Storage rules');
           }
           
           if (uploadAttempts >= 3) {
-            throw new Error(`Failed to upload after ${uploadAttempts} attempts: ${uploadError.message}`);
+            // NO FALLBACKS! Storage MUST work!
+            throw new Error(`FATAL: Firebase Storage upload failed after ${uploadAttempts} attempts: ${uploadError.code || 'unknown'} - ${uploadError.message || 'No error message'}`);
           }
           
           // Wait before retry
@@ -125,8 +132,9 @@ export class AssetManager {
       
       return asset;
     } catch (error) {
-      console.error('[ASSET MANAGER] ❌ Failed to create asset:', error);
-      throw new Error(`Failed to create asset: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      console.error('[ASSET MANAGER] ❌ FATAL: Failed to create asset:', error);
+      // NO FALLBACKS! Fail hard and propagate the full error
+      throw error instanceof Error ? error : new Error(`FATAL: Failed to create asset: ${String(error)}`);
     }
   }
   

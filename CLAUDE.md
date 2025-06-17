@@ -67,12 +67,16 @@ The core feature is a JSON-based workflow system where each workflow:
 
 ## Error Handling Policy - FAIL FAST!
 
-**CRITICAL**: NO FALLBACKS, NO MOCK DATA!
+**CRITICAL**: NO FALLBACKS, NO MOCK DATA, NO DEFENSIVE CODING!
 - If an AI request fails, we FAIL EARLY, we FAIL LOUD, we FAIL HARD!
 - Never use mock data or fallback responses when AI fails
+- NO FALLBACK LOGIC - if something fails, let it fail completely
+- NO DEFENSIVE CODING - don't try to handle every edge case
 - Always propagate errors to the user with clear error messages
 - Log ALL errors with full stack traces
 - This applies EVERYWHERE in the codebase
+- If Firebase Storage fails, FIX IT, don't fall back to data URLs
+- If an API fails, FIX IT, don't add retry logic
 
 ## Firebase Ecosystem Guidelines
 
