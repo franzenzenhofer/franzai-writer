@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -41,6 +42,9 @@ const auth = getAuth(app);
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 
+// Initialize Cloud Storage and get a reference to the service
+const storage = getStorage(app);
+
 // Log Firebase configuration status
 console.log('[FIREBASE INIT] Configuration loaded:', {
   projectId: firebaseConfig.projectId,
@@ -59,6 +63,7 @@ if (process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATOR === 'true') {
     
     const { connectAuthEmulator } = require('firebase/auth');
     const { connectFirestoreEmulator } = require('firebase/firestore');
+    const { connectStorageEmulator } = require('firebase/storage');
     
     // Connect to auth emulator
     const authEmulatorHost = process.env.NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_HOST || 'localhost:9099';
@@ -77,6 +82,15 @@ if (process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATOR === 'true') {
       console.log('[FIREBASE INIT] Firestore emulator connected');
     } catch (e) {
       console.log('[FIREBASE INIT] Firestore emulator already connected');
+    }
+    
+    // Connect to Storage emulator
+    try {
+      console.log('[FIREBASE INIT] Connecting to Storage emulator at: localhost:9199');
+      connectStorageEmulator(storage, 'localhost', 9199);
+      console.log('[FIREBASE INIT] Storage emulator connected');
+    } catch (e) {
+      console.log('[FIREBASE INIT] Storage emulator already connected');
     }
   } else {
     console.log('[FIREBASE INIT] Running on server, skipping emulator connection');
@@ -152,4 +166,4 @@ const onAuthStateChange = (callback: (user: User | null) => void) => {
   return onAuthStateChanged(auth, callback);
 };
 
-export { app, auth, db, signUp, signIn, signInWithGoogle, resetPassword, logOut, onAuthStateChange };
+export { app, auth, db, storage, signUp, signIn, signInWithGoogle, resetPassword, logOut, onAuthStateChange };

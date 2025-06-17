@@ -36,6 +36,10 @@ interface RunAiStageParams {
   workflow?: any;
   // Add image generation settings
   imageGenerationSettings?: Stage['imageGenerationSettings'];
+  // CRITICAL: Add user/document context for asset management
+  userId?: string;
+  documentId?: string;
+  stageId?: string;
 }
 
 export interface AiActionResult {
@@ -278,6 +282,10 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
             // Add image generation settings
             imageGenerationSettings: params.imageGenerationSettings,
             stageOutputType: params.stageOutputType,
+            // CRITICAL: Pass user/document context for asset management
+            userId: params.userId,
+            documentId: params.documentId,
+            stageId: params.stageId,
         };
 
         // Only enable Google Search grounding if explicitly requested or configured in the stage

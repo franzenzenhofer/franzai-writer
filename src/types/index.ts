@@ -369,10 +369,12 @@ export interface ImageGenerationSettings {
 export interface ImageOutputData {
   provider: "gemini" | "imagen";
   images: Array<{
-    dataUrl?: string;       // Base64 data URL (temporary, for immediate display)
-    storageUrl?: string;    // Firebase Storage URL (permanent, for cross-stage use)
-    publicUrl?: string;     // Public HTTPS URL for the image
-    assetId?: string;       // Asset management ID
+    // Asset management - NEVER store dataUrl in documents!
+    assetId: string;        // Asset management ID (REQUIRED)
+    publicUrl: string;      // Public HTTPS URL for the image (REQUIRED)
+    storageUrl: string;     // Firebase Storage URL (REQUIRED)
+    
+    // Generation metadata
     promptUsed: string;     // Actual prompt sent to API
     mimeType: string;       // e.g., "image/png"
     width?: number;         // Image dimensions
@@ -388,5 +390,49 @@ export interface AiStageExecutionParams {
   model: string; // model will be resolved before passing to AiStageExecutionInput
   temperature: number; // temperature will be resolved before passing
   contextVars?: Record<string, any>; 
+}
+
+// Asset Management System
+export interface Asset {
+  id: string;                     // Auto-generated asset ID
+  userId: string;                 // Owner of the asset
+  type: 'image' | 'video' | 'file';
+  mimeType: string;               // e.g., "image/png"
+  
+  // Storage information
+  storageUrl: string;             // Firebase Storage path: "assets/{assetId}/original.{ext}"
+  publicUrl: string;              // Public HTTPS URL
+  thumbnailUrl?: string;          // Optional thumbnail for images
+  
+  // Metadata
+  fileName: string;               // Original or generated filename
+  fileSize: number;               // Size in bytes
+  dimensions?: {                  // For images/videos
+    width: number;
+    height: number;
+  };
+  
+  // Creation details
+  createdAt: any;                 // Firestore Timestamp
+  source: 'generated' | 'uploaded';
+  generationPrompt?: string;      // If AI-generated
+  generationModel?: string;       // e.g., "imagen-3.0-generate-002"
+  
+  // Document associations
+  documentIds: string[];          // Array of document IDs using this asset
+  stageReferences: Array<{        // Detailed usage tracking
+    documentId: string;
+    stageId: string;
+    addedAt: any;                 // Firestore Timestamp
+  }>;
+  
+  // Lifecycle
+  lastAccessedAt: any;            // Firestore Timestamp
+  isDeleted: boolean;             // Soft delete flag
+  deletedAt?: any;                // Firestore Timestamp
+  
+  // Optional metadata
+  tags?: string[];                // User-defined tags
+  description?: string;           // User-provided description
 }
 

@@ -4,6 +4,7 @@ import 'server-only';
 import { GoogleGenAI } from '@google/genai';
 import type { ImageGenerationSettings, ImageOutputData } from '@/types';
 import { logAI } from '@/lib/ai-logger';
+import { uploadGeneratedImages } from './image-storage';
 
 // Initialize Google Generative AI client
 let genAI: GoogleGenAI | null = null;
@@ -82,27 +83,91 @@ async function generateWithImagen(client: GoogleGenAI, request: ImageGenerationR
       imagesReturned: result.generatedImages?.length || 0
     });
 
-    // Convert Imagen response to our format
+    // Convert Imagen response to our format and immediately upload to storage
     const images: ImageOutputData['images'] = [];
     
     if (result.generatedImages && result.generatedImages.length > 0) {
-      for (let i = 0; i < result.generatedImages.length; i++) {
-        const imagenImage = result.generatedImages[i];
+      // Create data URLs first
+      const dataUrls: string[] = [];
+      for (const imagenImage of result.generatedImages) {
         if (imagenImage.image?.imageBytes) {
+          dataUrls.push(`data:image/png;base64,${imagenImage.image.imageBytes}`);
+        }
+      }
+
+      // Try to upload to Firebase Storage, but fall back to data URLs if it fails
+      if (request.userId && request.documentId && request.stageId && dataUrls.length > 0) {
+        try {
+          logAI('🚀 [Imagen] Uploading images to asset storage', {
+            imageCount: dataUrls.length,
+            userId: request.userId,
+            documentId: request.documentId,
+            stageId: request.stageId
+          });
+
+          const uploadResults = await uploadGeneratedImages(
+            dataUrls,
+            request.userId,
+            request.documentId,
+            request.stageId,
+            request.prompt,
+            'imagen-3.0-generate-002'
+          );
+
+          // Build ImageOutputData with asset URLs
+          for (let i = 0; i < uploadResults.length; i++) {
+            const uploadResult = uploadResults[i];
+            images.push({
+              assetId: uploadResult.assetId,
+              publicUrl: uploadResult.publicUrl,
+              storageUrl: uploadResult.storageUrl,
+              promptUsed: request.prompt,
+              mimeType: 'image/png',
+              aspectRatio
+            });
+          }
+
+          logAI('✅ [Imagen] All images uploaded to asset storage', {
+            imageCount: images.length,
+            assetIds: images.map(img => img.assetId)
+          });
+        } catch (uploadError) {
+          // Fallback to data URLs if storage fails
+          logAI('⚠️ [Imagen] Storage upload failed, using data URLs as fallback', {
+            error: uploadError instanceof Error ? uploadError.message : 'Unknown error'
+          });
+          
+          for (let i = 0; i < dataUrls.length; i++) {
+            images.push({
+              dataUrl: dataUrls[i],
+              promptUsed: request.prompt,
+              mimeType: 'image/png',
+              aspectRatio
+            });
+          }
+        }
+      } else {
+        // Fallback: Use data URLs if missing required fields
+        logAI('⚠️ [Imagen] Missing userId/documentId/stageId - using data URLs', {
+          hasUserId: !!request.userId,
+          hasDocumentId: !!request.documentId,
+          hasStageId: !!request.stageId
+        });
+        
+        for (const dataUrl of dataUrls) {
           images.push({
-            dataUrl: `data:image/png;base64,${imagenImage.image.imageBytes}`,
+            dataUrl,
             promptUsed: request.prompt,
             mimeType: 'image/png',
-            aspectRatio,
-            // Storage URLs will be added after upload
+            aspectRatio
           });
         }
       }
     }
 
-    logAI('📦 [Imagen] Returning image data', {
+    logAI('📦 [Imagen] Returning asset-based image data', {
       imageCount: images.length,
-      firstImageSize: images[0]?.dataUrl?.length || 0
+      publicUrls: images.map(img => img.publicUrl)
     });
 
     return {

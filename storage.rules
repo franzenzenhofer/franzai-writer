@@ -1,8 +1,21 @@
 rules_version = "2";
 service firebase.storage {
   match /b/{bucket}/o {
+    // Allow public read/write for assets folder (temporary for testing)
+    match /assets/{assetId}/{fileName} {
+      allow read: if true;
+      allow write: if true;
+    }
+    
+    // Allow public read/write for test folder (temporary for testing)
+    match /test/{fileName} {
+      allow read: if true;
+      allow write: if true;
+    }
+    
+    // Require auth for everything else
     match /{allPaths=**} {
-      allow read, write: if request.auth \!= null;
+      allow read, write: if request.auth != null;
     }
   }
 }

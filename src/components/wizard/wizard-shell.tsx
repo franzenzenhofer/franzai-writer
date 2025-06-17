@@ -11,6 +11,7 @@ import { Progress } from "@/components/ui/progress";
 import { siteConfig } from '@/config/site';
 import { useDocumentPersistence } from '@/hooks/use-document-persistence';
 import { Badge } from '@/components/ui/badge';
+import { useAuth } from '@/components/layout/app-providers';
 
 // Lazy load the AI stage runner to prevent Turbopack static analysis
 let runAiStage: any = null;
@@ -60,21 +61,29 @@ function resolveImageGenerationSettings(settings: any, contextVars: Record<strin
   // Resolve aspectRatio and numberOfImages if they are template strings
   if (resolvedSettings.aspectRatio) {
     const resolved = resolveTemplate(resolvedSettings.aspectRatio);
-    // Only use resolved value if it doesn't contain template variables
-    if (!resolved.includes('{{')) {
-      resolvedSettings.aspectRatio = resolved;
+    // FAIL HARD: If template variables aren't resolved, throw error
+    if (resolved.includes('{{')) {
+      throw new Error(`FATAL: Template variable '${resolvedSettings.aspectRatio}' could not be resolved. Required context data is missing.`);
     }
+    // Validate that the aspect ratio is one of the supported values
+    const validAspectRatios = ['1:1', '3:4', '4:3', '9:16', '16:9'];
+    if (!validAspectRatios.includes(resolved)) {
+      throw new Error(`FATAL: Invalid aspect ratio '${resolved}'. Must be one of: ${validAspectRatios.join(', ')}`);
+    }
+    resolvedSettings.aspectRatio = resolved;
   }
   
   if (resolvedSettings.numberOfImages) {
     const resolved = resolveTemplate(resolvedSettings.numberOfImages);
-    // Only use resolved value if it doesn't contain template variables and convert to number
-    if (!resolved.includes('{{')) {
-      const numValue = parseInt(resolved, 10);
-      if (!isNaN(numValue)) {
-        resolvedSettings.numberOfImages = numValue;
-      }
+    // FAIL HARD: If template variables aren't resolved, throw error
+    if (resolved.includes('{{')) {
+      throw new Error(`FATAL: Template variable '${resolvedSettings.numberOfImages}' could not be resolved. Required context data is missing.`);
     }
+    const numValue = parseInt(resolved, 10);
+    if (isNaN(numValue) || numValue < 1 || numValue > 4) {
+      throw new Error(`FATAL: Invalid numberOfImages '${resolved}'. Must be a number between 1 and 4.`);
+    }
+    resolvedSettings.numberOfImages = numValue;
   }
   
   return resolvedSettings;
@@ -87,6 +96,7 @@ interface WizardShellProps {
 export function WizardShell({ initialInstance }: WizardShellProps) {
   const [instance, setInstance] = useState<WizardInstance>(initialInstance);
   const { toast } = useToast();
+  const { user } = useAuth();
   const [pageTitle, setPageTitle] = useState(initialInstance.document.title);
   const [aiStageLoaded, setAiStageLoaded] = useState(false);
 
@@ -500,6 +510,10 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         // Pass stage and workflow for export stages
         stage: stage,
         workflow: instance.workflow,
+        // CRITICAL: Pass user/document context for asset management
+        userId: user?.uid,
+        documentId: documentId,
+        stageId: stageId,
       });
 
       if (result.error) {

@@ -61,6 +61,10 @@ const AiStageExecutionInputSchema = z.object({
     }).optional(),
   }).optional(),
   stageOutputType: z.string().optional(), // To know if this is an image generation stage
+  // CRITICAL: Asset management parameters for image generation
+  userId: z.string().optional(),
+  documentId: z.string().optional(),
+  stageId: z.string().optional(),
 });
 export type AiStageExecutionInput = z.infer<typeof AiStageExecutionInputSchema>;
 
@@ -146,7 +150,8 @@ export async function aiStageExecutionFlow(
       thinkingSettings, toolNames, fileInputs,
       systemInstructions, chatHistory, groundingSettings,
       functionCallingMode, forceGoogleSearchGrounding,
-      imageGenerationSettings, stageOutputType
+      imageGenerationSettings, stageOutputType,
+      userId, documentId, stageId
     } = input;
 
     console.log('[AI Stage Flow Enhanced] Starting with input:', {
@@ -172,14 +177,21 @@ export async function aiStageExecutionFlow(
 
     // Check if this is an image generation stage
     if (stageOutputType === 'image' && imageGenerationSettings) {
-      console.log('[AI Stage Flow Enhanced] Image generation requested');
+      console.log('[AI Stage Flow Enhanced] Image generation requested', {
+        hasUserId: !!userId,
+        hasDocumentId: !!documentId,
+        hasStageId: !!stageId
+      });
       
       const { generateImages } = await import('@/lib/ai-image-generator');
       
       try {
         const imageResult = await generateImages({
           prompt: promptTemplate,
-          settings: imageGenerationSettings
+          settings: imageGenerationSettings,
+          userId,
+          documentId,
+          stageId
         });
         
         // Return the image data as content

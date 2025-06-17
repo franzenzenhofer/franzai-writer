@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-06-17T08:38:56.318Z",
+  "timestamp": "2025-06-17T10:15:19.010Z",
   "summary": {
     "gemini": {
       "total": 5,
@@ -20,37 +20,27 @@
       {
         "model": "gemini",
         "testCase": "landscape",
-        "aspectRatio": "1:1",
-        "success": false,
-        "error": "Cannot read properties of undefined (reading 'text')"
+        "success": false
       },
       {
         "model": "gemini",
         "testCase": "robot",
-        "aspectRatio": "16:9",
-        "success": false,
-        "error": "Cannot read properties of undefined (reading 'text')"
+        "success": false
       },
       {
         "model": "gemini",
         "testCase": "abstract",
-        "aspectRatio": "9:16",
-        "success": false,
-        "error": "Cannot read properties of undefined (reading 'text')"
+        "success": false
       },
       {
         "model": "gemini",
         "testCase": "interior",
-        "aspectRatio": "4:3",
-        "success": false,
-        "error": "Cannot read properties of undefined (reading 'text')"
+        "success": false
       },
       {
         "model": "gemini",
         "testCase": "nature",
-        "aspectRatio": "3:4",
-        "success": false,
-        "error": "Cannot read properties of undefined (reading 'text')"
+        "success": false
       }
     ],
     "imagenResults": [
@@ -59,7 +49,7 @@
         "testCase": "landscape",
         "aspectRatio": "1:1",
         "success": true,
-        "genTime": 8770,
+        "genTime": 9578,
         "imageCount": 2
       },
       {
@@ -67,7 +57,7 @@
         "testCase": "robot",
         "aspectRatio": "16:9",
         "success": true,
-        "genTime": 8763,
+        "genTime": 8730,
         "imageCount": 2
       }
     ],
