@@ -173,7 +173,7 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
                   // For select fields, show the label instead of the value
                   field.options.find(opt => opt.value === value)?.label || value || 'Not selected'
                 ) : (
-                  value || '❌ ERROR: AI failed to provide value'
+                  value || 'Not provided'
                 )}
               </div>
             </div>

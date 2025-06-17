@@ -4,6 +4,7 @@ import { NavItem } from "@/types";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { FranzAILogo } from "@/components/franzai-logo";
+import { useAuth } from "./app-providers";
 
 interface MainNavProps {
   items?: NavItem[];
@@ -11,10 +12,12 @@ interface MainNavProps {
 }
 
 export function MainNav({ items, className }: MainNavProps) {
+  const { user } = useAuth();
+  
   return (
     <div className={cn("flex gap-6 md:gap-10", className)}>
       <Link 
-        href="/" 
+        href={user ? "/dashboard" : "/"} 
         className="flex items-center"
         id="main-nav-logo"
         data-testid="main-nav-logo"
