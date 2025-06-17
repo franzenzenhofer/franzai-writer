@@ -380,6 +380,83 @@ class DocumentPersistenceManager {
   }
 
   /**
+   * Clean specific stage state properties that might cause Firestore nested entity errors
+   */
+  private cleanStageStateSpecific(state: StageState): StageState {
+    const cleaned = { ...state };
+
+    // Handle complex nested objects that often cause issues
+    if (cleaned.groundingMetadata) {
+      console.log('[DocumentPersistence] Cleaning groundingMetadata');
+      // Ensure grounding metadata is properly serializable
+      cleaned.groundingMetadata = this.cleanUndefinedValues(cleaned.groundingMetadata);
+    }
+
+    if (cleaned.functionCalls) {
+      console.log('[DocumentPersistence] Cleaning functionCalls');
+      // Clean function calls array
+      cleaned.functionCalls = cleaned.functionCalls.map(call => ({
+        toolName: call.toolName || '',
+        input: this.cleanUndefinedValues(call.input),
+        output: this.cleanUndefinedValues(call.output),
+        timestamp: call.timestamp || new Date().toISOString()
+      }));
+    }
+
+    if (cleaned.thinkingSteps) {
+      console.log('[DocumentPersistence] Cleaning thinkingSteps');
+      // Clean thinking steps - convert to simple objects
+      cleaned.thinkingSteps = cleaned.thinkingSteps.map(step => ({
+        step: step.step || '',
+        thought: step.thought || '',
+        timestamp: step.timestamp || new Date().toISOString()
+      }));
+    }
+
+    if (cleaned.codeExecutionResults) {
+      console.log('[DocumentPersistence] Cleaning codeExecutionResults');
+      // Clean code execution results
+      cleaned.codeExecutionResults = {
+        code: cleaned.codeExecutionResults.code || '',
+        stdout: cleaned.codeExecutionResults.stdout || '',
+        stderr: cleaned.codeExecutionResults.stderr || '',
+        images: (cleaned.codeExecutionResults.images || []).map(img => ({
+          name: img.name || '',
+          base64Data: img.base64Data || '',
+          mimeType: img.mimeType || ''
+        }))
+      };
+    }
+
+    if (cleaned.outputImages) {
+      console.log('[DocumentPersistence] Cleaning outputImages');
+      // Clean output images array
+      cleaned.outputImages = cleaned.outputImages.map(img => ({
+        name: img.name || '',
+        base64Data: img.base64Data || '',
+        mimeType: img.mimeType || ''
+      }));
+    }
+
+    if (cleaned.usageMetadata) {
+      console.log('[DocumentPersistence] Cleaning usageMetadata');
+      // Clean usage metadata
+      cleaned.usageMetadata = {
+        thoughtsTokenCount: Number(cleaned.usageMetadata.thoughtsTokenCount) || 0,
+        candidatesTokenCount: Number(cleaned.usageMetadata.candidatesTokenCount) || 0,
+        totalTokenCount: Number(cleaned.usageMetadata.totalTokenCount) || 0,
+        promptTokenCount: Number(cleaned.usageMetadata.promptTokenCount) || 0
+      };
+    }
+
+    // Remove potentially problematic properties
+    delete cleaned.currentStreamOutput; // This might contain streaming references
+    delete cleaned.generationProgress; // This might contain complex state
+
+    return cleaned;
+  }
+
+  /**
    * Clean stage states for Firestore storage
    */
   private cleanStageStates(stageStates: Record<string, StageState>): Record<string, StageState> {
@@ -406,7 +483,9 @@ class DocumentPersistenceManager {
           hasCodeExecutionResults: !!state.codeExecutionResults
         });
 
-        cleaned[stageId] = this.cleanUndefinedValues(state);
+        // Clean the stage state with special handling for known complex properties
+        const cleanedState = this.cleanStageStateSpecific(state);
+        cleaned[stageId] = this.cleanUndefinedValues(cleanedState);
 
         // Verify the cleaned state
         try {
@@ -459,7 +538,7 @@ class DocumentPersistenceManager {
 
     // Handle Arrays
     if (Array.isArray(obj)) {
-      return obj.map(item => this.cleanUndefinedValues(item));
+      return obj.map(item => this.cleanUndefinedValues(item)).filter(item => item !== null && item !== undefined);
     }
 
     // Handle Objects
@@ -489,13 +568,43 @@ class DocumentPersistenceManager {
         return null;
       }
 
+      // Handle Map objects
+      if (obj instanceof Map) {
+        console.warn('[DocumentPersistence] Map detected, converting to plain object');
+        const mapObj: any = {};
+        obj.forEach((value, key) => {
+          mapObj[String(key)] = this.cleanUndefinedValues(value);
+        });
+        return mapObj;
+      }
+
+      // Handle Set objects
+      if (obj instanceof Set) {
+        console.warn('[DocumentPersistence] Set detected, converting to array');
+        return Array.from(obj).map(item => this.cleanUndefinedValues(item));
+      }
+
+      // Handle Error objects
+      if (obj instanceof Error) {
+        return {
+          name: obj.name,
+          message: obj.message,
+          stack: obj.stack
+        };
+      }
+
+      // Handle complex nested objects that might cause Firestore issues
       const cleaned: any = {};
       for (const [key, value] of Object.entries(obj)) {
         // Skip undefined values and functions
         if (value !== undefined && typeof value !== 'function') {
           // Also skip keys that start with underscore (often internal properties)
           if (!key.startsWith('_')) {
-            cleaned[key] = this.cleanUndefinedValues(value);
+            const cleanedValue = this.cleanUndefinedValues(value);
+            // Only add non-null, non-undefined values
+            if (cleanedValue !== null && cleanedValue !== undefined) {
+              cleaned[key] = cleanedValue;
+            }
           }
         }
       }
