@@ -131,11 +131,27 @@ Implement image generation capabilities in the Franz AI Writer workflow system u
 
 **Deliverable**: Fully tested and documented feature
 
+## Milestone 1 Summary
+
+**Status**: ✅ COMPLETED (2025-01-17)
+
+**Key Decisions Based on M1**:
+- **Use Imagen 3 exclusively** for all image generation
+- **Remove Gemini from scope** due to regional restrictions
+- **Paid tier requirement** acknowledged and accepted
+- **All 5 aspect ratios** confirmed working
+
+**Test Results**:
+- Generated 4+ test images successfully
+- Verified data structure and API patterns
+- Confirmed ~8-9s generation time is acceptable
+- Created reusable test scripts for future verification
+
 ## Success Metrics
 
 ### Per Milestone Success Criteria:
 
-1. **M1 - API Verification**: ✅ when test script generates 3+ different images
+1. **M1 - API Verification**: ✅ PASSED - Imagen 3 generates images perfectly
 2. **M2 - Basic Generation**: ✅ when user can generate and see an image in workflow
 3. **M3 - Storage**: ✅ when images survive page refresh
 4. **M4 - Asset Management**: ✅ when every image has an asset record
