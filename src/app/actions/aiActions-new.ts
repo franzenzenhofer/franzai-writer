@@ -102,6 +102,10 @@ export interface AiActionResult {
 function substitutePromptVars(template: string, context: Record<string, any>): string {
   let finalPrompt = template;
   
+  // Log context for debugging
+  console.log('[substitutePromptVars] Context keys:', Object.keys(context));
+  console.log('[substitutePromptVars] Full context:', JSON.stringify(context, null, 2));
+  
   // First, handle Handlebars conditionals like {{#if variable}}...{{/if}}
   const ifRegex = /\{\{#if\s+([\w.-]+)\}\}([\s\S]*?)\{\{\/if\}\}/g;
   finalPrompt = finalPrompt.replace(ifRegex, (match, varPath, content) => {
@@ -127,7 +131,10 @@ function substitutePromptVars(template: string, context: Record<string, any>): s
       finalPrompt = finalPrompt.replace(match[0], replacement);
     } else {
       // FAIL HARD: No fallbacks, no replacements
-      throw new Error(`FATAL: Template variable '{{${fullPath}}}' not found in context. Required data is missing. Context keys: ${Object.keys(context).join(', ')}`);
+      // Enhanced error message to show what's in the context for the problematic stage
+      const stageName = fullPath.split('.')[0];
+      const stageContext = context[stageName];
+      throw new Error(`FATAL: Template variable '{{${fullPath}}}' not found in context. Required data is missing. Context keys: ${Object.keys(context).join(', ')}. Stage '${stageName}' context: ${JSON.stringify(stageContext)}`);
     }
   }
   

@@ -402,12 +402,26 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     const contextVars: Record<string, any> = {};
     instance.workflow.stages.forEach(s => {
         const sState = instance.stageStates[s.id];
+        console.log(`[handleRunStage] Building context for stage ${s.id}:`, {
+            isCurrentStage: s.id === stageId,
+            status: sState?.status,
+            hasUserInput: !!sState?.userInput,
+            hasOutput: !!sState?.output,
+            userInput: sState?.userInput,
+            output: sState?.output
+        });
+        
         if (s.id === stageId) { 
             contextVars[s.id] = { userInput: stageInputForRun, output: sState.output };
         } else if (sState?.status === 'completed') {
             contextVars[s.id] = { userInput: sState.userInput, output: sState.output };
+        } else {
+            // CRITICAL: Don't include incomplete stages in context
+            console.log(`[handleRunStage] Skipping stage ${s.id} - not completed`);
         }
     });
+    
+    console.log('[handleRunStage] Final contextVars:', JSON.stringify(contextVars, null, 2));
 
 
     // Handle export stage type
