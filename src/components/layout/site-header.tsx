@@ -43,6 +43,12 @@ export function SiteHeader() {
         </div>
         <MainNav items={siteConfig.mainNav} className="hidden md:flex" />
         <div className="flex flex-1 items-center justify-end space-x-4">
+          <Link 
+            href="/debug/ai-log-viewer" 
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            ai.log
+          </Link>
           <nav className="flex items-center space-x-1">
             {loading ? (
               <div className="h-8 w-8 bg-muted rounded-full animate-pulse"></div>

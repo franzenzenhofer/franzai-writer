@@ -8,7 +8,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Pause, Play, RefreshCw, Download, Trash2, Search, Filter } from 'lucide-react';
+import { Pause, Play, RefreshCw, Download, Trash2, Search, Filter, ArrowDownToLine } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface LogEntry {
@@ -143,6 +143,14 @@ export default function AILogViewerPage() {
               >
                 {isStreaming ? <Pause className="w-4 h-4 mr-2" /> : <Play className="w-4 h-4 mr-2" />}
                 {isStreaming ? 'Pause' : 'Start'}
+              </Button>
+              <Button 
+                onClick={() => setAutoScroll(!autoScroll)} 
+                variant={autoScroll ? 'default' : 'outline'}
+                title={autoScroll ? 'Disable auto-scroll' : 'Enable auto-scroll'}
+              >
+                <ArrowDownToLine className="w-4 h-4 mr-2" />
+                Auto-scroll {autoScroll ? 'On' : 'Off'}
               </Button>
               <Button onClick={clearLogs} variant="outline">
                 <Trash2 className="w-4 h-4 mr-2" />
