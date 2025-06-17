@@ -101,10 +101,35 @@ export interface AiActionResult {
 
 function substitutePromptVars(template: string, context: Record<string, any>): string {
   let finalPrompt = template;
+  
+  // First, handle Handlebars conditionals like {{#if variable}}...{{/if}}
+  const ifRegex = /\{\{#if\s+([\w.-]+)\}\}([\s\S]*?)\{\{\/if\}\}/g;
+  finalPrompt = finalPrompt.replace(ifRegex, (match, varPath, content) => {
+    const pathParts = varPath.split('.');
+    let value = context;
+    let found = true;
+    
+    for (const part of pathParts) {
+      if (value && typeof value === 'object' && part in value) {
+        value = value[part];
+      } else {
+        found = false;
+        break;
+      }
+    }
+    
+    // If variable exists and is truthy, include the content
+    if (found && value) {
+      return content;
+    }
+    // Otherwise, remove the entire conditional block
+    return '';
+  });
+  
+  // Then handle simple variable substitutions
   const regex = /\{\{([\w.-]+)\}\}/g;
-
   let match;
-  while ((match = regex.exec(template)) !== null) {
+  while ((match = regex.exec(finalPrompt)) !== null) {
     const fullPath = match[1];
     const pathParts = fullPath.split('.');
     
@@ -127,6 +152,7 @@ function substitutePromptVars(template: string, context: Record<string, any>): s
       finalPrompt = finalPrompt.replace(match[0], "");
     }
   }
+  
   return finalPrompt;
 }
 
