@@ -12,6 +12,12 @@ First, analyze the poem content:
 {{this.output}}
 {{/each}}
 
+## Available Image
+{{#if generate-poem-image.output.images}}
+Poem Illustration URL: {{generate-poem-image.output.images[0].publicUrl}}
+Use this image prominently in your design - it was created specifically to complement this poem.
+{{/if}}
+
 ## Design Requirements
 
 ### Visual Hierarchy for Poetry
@@ -53,6 +59,11 @@ First, analyze the poem content:
 - Consider background patterns or textures
 - Include publication date if available
 - Add subtle hover effects on stanzas
+- Integrate the poem illustration beautifully:
+  - Consider as a hero image at the top
+  - Or as a subtle background with overlay
+  - Or alongside the poem with proper spacing
+  - Ensure the image enhances, not distracts from the poem
 
 ### Interactive Elements
 - Smooth fade-in on load

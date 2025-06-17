@@ -60,6 +60,128 @@
       "copyable": true
     },
     {
+      "id": "image-briefing",
+      "title": "Image Customization",
+      "description": "Customize how your poem should be illustrated",
+      "inputType": "form",
+      "outputType": "json",
+      "dependencies": ["generate-poem-with-title"],
+      "autoRun": false,
+      "formFields": [
+        {
+          "name": "additionalPrompt",
+          "label": "Additional Image Instructions (Optional)",
+          "type": "textarea",
+          "placeholder": "Add any specific details you'd like in the image (e.g., 'warm colors', 'dramatic lighting', 'peaceful mood')",
+          "validation": {
+            "required": false,
+            "maxLength": 500
+          }
+        },
+        {
+          "name": "aspectRatio",
+          "label": "Image Format",
+          "type": "select",
+          "defaultValue": "3:4",
+          "options": [
+            { "value": "1:1", "label": "Square (1:1) - Social Media" },
+            { "value": "3:4", "label": "Portrait (3:4) - Book Cover" },
+            { "value": "4:3", "label": "Landscape (4:3) - Classic" },
+            { "value": "16:9", "label": "Widescreen (16:9) - Desktop" },
+            { "value": "9:16", "label": "Mobile (9:16) - Stories" }
+          ],
+          "validation": {
+            "required": true
+          }
+        },
+        {
+          "name": "style",
+          "label": "Artistic Style",
+          "type": "select",
+          "defaultValue": "artistic",
+          "options": [
+            { "value": "artistic", "label": "Artistic & Creative" },
+            { "value": "photorealistic", "label": "Photorealistic" },
+            { "value": "watercolor", "label": "Watercolor Painting" },
+            { "value": "oil-painting", "label": "Oil Painting" },
+            { "value": "digital-art", "label": "Digital Art" },
+            { "value": "impressionist", "label": "Impressionist" },
+            { "value": "minimalist", "label": "Minimalist" },
+            { "value": "fantasy", "label": "Fantasy Art" },
+            { "value": "vintage", "label": "Vintage Illustration" }
+          ],
+          "validation": {
+            "required": true
+          }
+        },
+        {
+          "name": "numberOfImages",
+          "label": "Number of Variations",
+          "type": "select",
+          "defaultValue": "2",
+          "options": [
+            { "value": "1", "label": "1 Image" },
+            { "value": "2", "label": "2 Images" },
+            { "value": "3", "label": "3 Images" },
+            { "value": "4", "label": "4 Images" }
+          ],
+          "validation": {
+            "required": true
+          }
+        }
+      ],
+      "jsonFields": [
+        {
+          "key": "additionalPrompt",
+          "label": "Additional Instructions",
+          "type": "textarea",
+          "displayOrder": 1
+        },
+        {
+          "key": "aspectRatio",
+          "label": "Aspect Ratio",
+          "type": "text",
+          "displayOrder": 2
+        },
+        {
+          "key": "style",
+          "label": "Style",
+          "type": "text",
+          "displayOrder": 3
+        },
+        {
+          "key": "numberOfImages",
+          "label": "Number of Images",
+          "type": "text",
+          "displayOrder": 4
+        }
+      ],
+      "tokenEstimate": 0,
+      "showThinking": false
+    },
+    {
+      "id": "generate-poem-image",
+      "title": "Generate Poem Illustration",
+      "description": "AI will create an image that complements your poem.",
+      "inputType": "none",
+      "outputType": "image",
+      "dependencies": ["generate-poem-with-title", "image-briefing"],
+      "autoRun": true,
+      "model": "imagen-3.0-generate-002",
+      "promptTemplate": "Create a {{image-briefing.output.style}} image that captures the essence and mood of this poem:\n\nTitle: {{generate-poem-with-title.output.title}}\nPoem:\n{{generate-poem-with-title.output.poem}}\n\n{{#if image-briefing.output.additionalPrompt}}Additional instructions: {{image-briefing.output.additionalPrompt}}\n\n{{/if}}Create an image that evokes the same emotions and themes as the poem. Make it {{image-briefing.output.style}} and visually appealing.",
+      "imageGenerationSettings": {
+        "provider": "imagen",
+        "aspectRatio": "{{image-briefing.output.aspectRatio}}",
+        "numberOfImages": "{{image-briefing.output.numberOfImages}}",
+        "imagen": {
+          "personGeneration": "allow_adult"
+        }
+      },
+      "tokenEstimate": 300,
+      "aiRedoEnabled": true,
+      "showThinking": false
+    },
+    {
       "id": "html-briefing",
       "title": "HTML Briefing",
       "description": "Special instructions for HTML formatting (optional)",
@@ -76,12 +198,12 @@
       "title": "Generate HTML Preview",
       "description": "AI will convert your poem into beautiful HTML based on your briefing.",
       "inputType": "none",
-      "promptTemplate": "Convert this poem into beautiful HTML with proper formatting and styling:\n\nTitle: {{generate-poem-with-title.output.title}}\nPoem:\n{{generate-poem-with-title.output.poem}}\n\nSpecial instructions: {{html-briefing.output}}\n\nIMPORTANT: Output ONLY the clean HTML content without any markdown code blocks, backticks, or explanatory text. Do not include ```html or ``` markers. Just return the pure HTML that can be directly rendered.\n\nCreate clean, semantic HTML with inline CSS for styling. Make it visually appealing and readable. Use proper HTML structure with headings, paragraphs, and styling for a poem presentation. Include the title as an H1 heading.",
+      "promptTemplate": "Convert this poem into beautiful HTML with proper formatting and styling, including the generated image:\n\nTitle: {{generate-poem-with-title.output.title}}\nPoem:\n{{generate-poem-with-title.output.poem}}\n\nImage URL: {{generate-poem-image.output.images[0].publicUrl}}\n\nSpecial instructions: {{html-briefing.output}}\n\nIMPORTANT: Output ONLY the clean HTML content without any markdown code blocks, backticks, or explanatory text. Do not include ```html or ``` markers. Just return the pure HTML that can be directly rendered.\n\nCreate clean, semantic HTML with inline CSS for styling. Include the image prominently in the design - consider placing it at the top, as a background element, or alongside the poem. Make it visually appealing and ensure the image and poem work together harmoniously. Use proper HTML structure with headings, paragraphs, and styling for a poem presentation. Include the title as an H1 heading.",
       "model": "gemini-2.0-flash",
       "temperature": 0.3,
       "outputType": "html",
-      "dependencies": ["generate-poem-with-title"],
-      "autorunDependsOn": ["generate-poem-with-title", "html-briefing"],
+      "dependencies": ["generate-poem-with-title", "generate-poem-image"],
+      "autorunDependsOn": ["generate-poem-with-title", "generate-poem-image", "html-briefing"],
       "autoRun": true,
       "tokenEstimate": 800,
       "aiRedoEnabled": true,

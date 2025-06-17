@@ -15,6 +15,71 @@ import { Badge } from '@/components/ui/badge';
 // Lazy load the AI stage runner to prevent Turbopack static analysis
 let runAiStage: any = null;
 
+// Template variable resolution utility for image generation settings
+function resolveImageGenerationSettings(settings: any, contextVars: Record<string, any>): any {
+  if (!settings) return settings;
+  
+  // Deep clone the settings to avoid mutations
+  const resolvedSettings = JSON.parse(JSON.stringify(settings));
+  
+  // Helper function to resolve template variables
+  const resolveTemplate = (template: string): string => {
+    if (typeof template !== 'string') return template;
+    
+    const regex = /\{\{([\w.-]+)\}\}/g;
+    let result = template;
+    let match;
+    
+    while ((match = regex.exec(template)) !== null) {
+      const fullPath = match[1];
+      const pathParts = fullPath.split('.');
+      
+      let value = contextVars;
+      let found = true;
+      for (const part of pathParts) {
+        if (value && typeof value === 'object' && part in value) {
+          value = value[part];
+        } else {
+          found = false;
+          break;
+        }
+      }
+      
+      if (found) {
+        const replacement = (typeof value === 'object' && value !== null) ? JSON.stringify(value) : String(value);
+        result = result.replace(match[0], replacement);
+      } else {
+        console.warn(`Image generation template variable '{{${fullPath}}}' not found in context. Using default.`);
+        // Don't replace if not found, leave the template
+      }
+    }
+    
+    return result;
+  };
+  
+  // Resolve aspectRatio and numberOfImages if they are template strings
+  if (resolvedSettings.aspectRatio) {
+    const resolved = resolveTemplate(resolvedSettings.aspectRatio);
+    // Only use resolved value if it doesn't contain template variables
+    if (!resolved.includes('{{')) {
+      resolvedSettings.aspectRatio = resolved;
+    }
+  }
+  
+  if (resolvedSettings.numberOfImages) {
+    const resolved = resolveTemplate(resolvedSettings.numberOfImages);
+    // Only use resolved value if it doesn't contain template variables and convert to number
+    if (!resolved.includes('{{')) {
+      const numValue = parseInt(resolved, 10);
+      if (!isNaN(numValue)) {
+        resolvedSettings.numberOfImages = numValue;
+      }
+    }
+  }
+  
+  return resolvedSettings;
+}
+
 interface WizardShellProps {
   initialInstance: WizardInstance;
 }
@@ -430,6 +495,11 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         // Add JSON schema and fields for structured output
         jsonSchema: stage.jsonSchema,
         jsonFields: stage.jsonFields,
+        // Add image generation settings with resolved template variables
+        imageGenerationSettings: resolveImageGenerationSettings(stage.imageGenerationSettings, contextVars),
+        // Pass stage and workflow for export stages
+        stage: stage,
+        workflow: instance.workflow,
       });
 
       if (result.error) {

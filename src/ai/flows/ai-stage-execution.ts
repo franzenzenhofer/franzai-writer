@@ -46,6 +46,21 @@ const AiStageExecutionInputSchema = z.object({
   // Streaming removed
   // Flag to force Google Search grounding for AI Redo functionality
   forceGoogleSearchGrounding: z.boolean().optional(),
+  // Image generation settings
+  imageGenerationSettings: z.object({
+    provider: z.enum(['gemini', 'imagen']),
+    aspectRatio: z.string().optional(),
+    numberOfImages: z.number().optional(),
+    style: z.string().optional(),
+    negativePrompt: z.string().optional(),
+    gemini: z.object({
+      responseModalities: z.array(z.string()).optional(),
+    }).optional(),
+    imagen: z.object({
+      personGeneration: z.enum(['dont_allow', 'allow_adult', 'allow_all']).optional(),
+    }).optional(),
+  }).optional(),
+  stageOutputType: z.string().optional(), // To know if this is an image generation stage
 });
 export type AiStageExecutionInput = z.infer<typeof AiStageExecutionInputSchema>;
 
@@ -58,7 +73,7 @@ export type ThinkingStep = z.infer<typeof ThinkingStepSchema>;
 
 // Output Schema including proper grounding metadata structure
 const AiStageOutputSchema = z.object({
-  content: z.string().describe('Final accumulated response if streaming, or direct response.'),
+  content: z.any().describe('Final accumulated response if streaming, or direct response. Can be string or ImageOutputData.'),
   thinkingSteps: z.array(ThinkingStepSchema).optional(),
   outputImages: z.array(z.object({ name: z.string().optional(), base64Data: z.string(), mimeType: z.string() })).optional(),
 
@@ -130,7 +145,8 @@ export async function aiStageExecutionFlow(
       promptTemplate, model, temperature, imageData,
       thinkingSettings, toolNames, fileInputs,
       systemInstructions, chatHistory, groundingSettings,
-      functionCallingMode, forceGoogleSearchGrounding
+      functionCallingMode, forceGoogleSearchGrounding,
+      imageGenerationSettings, stageOutputType
     } = input;
 
     console.log('[AI Stage Flow Enhanced] Starting with input:', {
@@ -153,6 +169,29 @@ export async function aiStageExecutionFlow(
     console.log('🔍 groundingSettings?.googleSearch?.enabled:', groundingSettings?.googleSearch?.enabled);
     console.log('🔍 Full groundingSettings object:', JSON.stringify(groundingSettings, null, 2));
     console.log('🚨🚨🚨 ================================== 🚨🚨🚨');
+
+    // Check if this is an image generation stage
+    if (stageOutputType === 'image' && imageGenerationSettings) {
+      console.log('[AI Stage Flow Enhanced] Image generation requested');
+      
+      const { generateImages } = await import('@/lib/ai-image-generator');
+      
+      try {
+        const imageResult = await generateImages({
+          prompt: promptTemplate,
+          settings: imageGenerationSettings
+        });
+        
+        // Return the image data as content
+        return {
+          content: imageResult,
+          thinkingSteps: []
+        };
+      } catch (error: any) {
+        console.error('[AI Stage Flow Enhanced] Image generation failed:', error);
+        throw new Error(`Image generation failed: ${error.message}`);
+      }
+    }
 
     // Initialize response tracking
     let currentThinkingSteps: ThinkingStep[] = [];

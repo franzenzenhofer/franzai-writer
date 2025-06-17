@@ -129,7 +129,7 @@ export interface Stage {
   prompt?: string; // Resolved prompt after template substitution
   model?: string; // Optional: Specific AI model for this stage
   temperature?: number; // Optional: Specific temperature for this stage
-  outputType: "text" | "json" | "markdown" | "html" | "export-interface"; // Added export-interface
+  outputType: "text" | "json" | "markdown" | "html" | "export-interface" | "image"; // Added export-interface and image
   dependencies?: string[]; 
   autoRun?: boolean; 
   autorunDependsOn?: string[]; // Optional: Separate dependencies for autorun behavior
@@ -186,6 +186,7 @@ export interface Stage {
   showAsHero?: boolean; // Show stage with hero UI treatment
   triggerButton?: ExportTriggerButton; // Custom trigger button for export stage
   exportConfig?: ExportConfig; // Export stage configuration
+  imageGenerationSettings?: ImageGenerationSettings; // Settings for image generation stages
 }
 
 export interface WorkflowConfig {
@@ -350,6 +351,37 @@ export interface StageContext {
 }
 
 export type StageOutput = any; // Can be text, JSON, markdown, HTML etc based on outputType
+
+export interface ImageGenerationSettings {
+  provider: "gemini" | "imagen";
+  aspectRatio?: string; // "1:1", "16:9", "9:16", "4:3", "3:4"
+  numberOfImages?: number; // For Imagen, 1-4
+  style?: string; // Style modifier
+  negativePrompt?: string; // What to avoid
+  gemini?: {
+    responseModalities?: string[];
+  };
+  imagen?: {
+    personGeneration?: "dont_allow" | "allow_adult" | "allow_all";
+  };
+}
+
+export interface ImageOutputData {
+  provider: "gemini" | "imagen";
+  images: Array<{
+    dataUrl?: string;       // Base64 data URL (temporary, for immediate display)
+    storageUrl?: string;    // Firebase Storage URL (permanent, for cross-stage use)
+    publicUrl?: string;     // Public HTTPS URL for the image
+    assetId?: string;       // Asset management ID
+    promptUsed: string;     // Actual prompt sent to API
+    mimeType: string;       // e.g., "image/png"
+    width?: number;         // Image dimensions
+    height?: number;
+    aspectRatio: string;    // e.g., "16:9"
+  }>;
+  selectedImageIndex?: number; // For multi-image generation
+  accompanyingText?: string;   // Gemini's text response
+}
 
 export interface AiStageExecutionParams {
   promptTemplate: string;

@@ -13,16 +13,25 @@ async function listModels() {
   console.log('📋 Listing all available models...\n');
   
   try {
-    // List all models
-    const models = await genAI.models.list();
+    // Try the correct API method
+    const response = await genAI.models.list();
     
-    console.log('Available models:');
+    console.log('API Response type:', typeof response);
+    console.log('Response:', response);
+    
+    // Check if response has models property
+    const models = response.models || response;
+    
+    console.log('\nAvailable models:');
     console.log('=' .repeat(60));
     
     const imageModels = [];
     const textModels = [];
     
-    for (const model of models) {
+    // Handle both array and iterable responses
+    const modelList = Array.isArray(models) ? models : Array.from(models || []);
+    
+    for (const model of modelList) {
       console.log(`\n📦 ${model.name}`);
       console.log(`   Display Name: ${model.displayName}`);
       console.log(`   Description: ${model.description || 'N/A'}`);
@@ -49,7 +58,7 @@ async function listModels() {
     console.log('\n' + '=' .repeat(60));
     console.log('📊 SUMMARY:\n');
     
-    console.log(`Total models: ${models.length}`);
+    console.log(`Total models: ${modelList.length}`);
     console.log(`\n🖼️  Models with image generation (generateImages):`);
     if (imageModels.length > 0) {
       imageModels.forEach(m => console.log(`   - ${m}`));

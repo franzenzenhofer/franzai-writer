@@ -6,6 +6,12 @@ You are an expert in pure semantic HTML and poetry markup. Create perfectly stru
 {{this.output}}
 {{/each}}
 
+## Available Image
+{{#if generate-poem-image.output.images}}
+Poem Illustration URL: {{generate-poem-image.output.images[0].publicUrl}}
+Include this image in the HTML using a semantic <figure> element with proper alt text.
+{{/if}}
+
 ## CRITICAL OUTPUT INSTRUCTIONS
 - **Return a COMPLETE HTML document with proper DOCTYPE, html, head, and body tags.**
 - **Include proper meta tags, title, and other head elements.**
@@ -43,6 +49,9 @@ Generate a complete HTML document like this:
    - <header> for title and author information
    - <h1> for the poem title (only one)
    - <h2> for the author name or subtitle
+   - <figure> for the poem illustration (if available)
+   - <img> for the actual image with proper alt text
+   - <figcaption> for image caption if needed
    - <section> for major poem divisions
    - <div> for stanzas (when logical grouping is needed)
    - <p> for each line of poetry
@@ -55,6 +64,11 @@ Generate a complete HTML document like this:
        <h1>Poem Title</h1>
        <h2>Author Name</h2>
      </header>
+     
+     <figure>
+       <img src="[image-url]" alt="Illustration for [poem title]">
+       <figcaption>Illustration for the poem</figcaption>
+     </figure>
      
      <div>
        <div>

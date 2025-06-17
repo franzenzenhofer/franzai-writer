@@ -34,6 +34,8 @@ interface RunAiStageParams {
   // Add stage and workflow for compatibility
   stage?: Stage;
   workflow?: any;
+  // Add image generation settings
+  imageGenerationSettings?: Stage['imageGenerationSettings'];
 }
 
 export interface AiActionResult {
@@ -273,6 +275,9 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
             // Add JSON schema support
       // jsonSchema: params.jsonSchema, // Not supported in this version
             // jsonFields: params.jsonFields, // Not supported in this version
+            // Add image generation settings
+            imageGenerationSettings: params.imageGenerationSettings,
+            stageOutputType: params.stageOutputType,
         };
 
         // Only enable Google Search grounding if explicitly requested or configured in the stage
@@ -339,6 +344,31 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
 
         const groundingMetadata = result.groundingMetadata; // Capture grounding metadata
         const groundingSources = result.groundingSources; // Capture grounding sources
+
+        // Handle image generation output type
+        if (params.stageOutputType === 'image') {
+            console.log("[runAiStage] Processing image generation output");
+            
+            // For image generation, we expect the AI to return image data
+            // The actual image generation will happen in the AI execution flow
+            const finalResult: AiActionResult = {
+                content: result.content, // This should be ImageOutputData from the AI flow
+                groundingMetadata,
+                groundingSources,
+                thinkingSteps: result.thinkingSteps,
+                outputImages: result.outputImages,
+                usageMetadata: result.usageMetadata,
+            };
+
+            logToAiLog('✅ [FINAL runAiStage RESULT - IMAGE]', {
+                hasContent: !!finalResult.content,
+                hasOutputImages: !!finalResult.outputImages,
+                outputImagesCount: finalResult.outputImages?.length || 0,
+                resultKeys: Object.keys(finalResult)
+            });
+
+            return finalResult;
+        }
 
         if (params.stageOutputType === 'json') {
             try {

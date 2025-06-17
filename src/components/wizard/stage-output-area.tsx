@@ -14,6 +14,7 @@ import { GroundingSourcesDisplay } from "./grounding-sources-display";
 import { FunctionCallsDisplay } from "./function-calls-display";
 import { CodeExecutionDisplay } from "./code-execution-display";
 import { ThinkingDisplay } from "./thinking-display";
+import { ImageOutputDisplay } from "./image-output-display";
 // Button and Save icon removed as they are now handled by StageCard
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
@@ -372,6 +373,8 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
               onChange={onOutputChange}
             />
           );
+        case "image":
+          return <p>Image editing is not supported. Use AI Redo to regenerate.</p>;
         default:
           return <p>Editing not supported for this output type.</p>;
       }
@@ -398,6 +401,8 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
           return <MarkdownRenderer content={String(stageState.output)} />;
         case "html":
           return <HtmlPreview content={String(stageState.output)} removeBorder={true} />;
+        case "image":
+          return <ImageOutputDisplay output={stageState.output} />;
         default:
           return <p>Unknown output type: {stage.outputType}</p>;
       }
