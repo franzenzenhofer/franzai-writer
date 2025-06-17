@@ -3,11 +3,73 @@ import path from 'path';
 
 const AI_LOG_PATH = path.join(process.cwd(), 'logs', 'ai.log');
 
+// Helper to write structured log entry for the viewer
+function writeStructuredLog(entry: {
+  level: 'info' | 'warning' | 'error' | 'debug';
+  category: string;
+  message: string;
+  data?: any;
+  model?: string;
+  tokenCount?: number;
+  duration?: number;
+}) {
+  const logEntry = {
+    timestamp: new Date().toISOString(),
+    ...entry
+  };
+  
+  const logLine = JSON.stringify(logEntry) + '\n';
+  
+  // Ensure logs directory exists
+  const logsDir = path.dirname(AI_LOG_PATH);
+  if (!fs.existsSync(logsDir)) {
+    fs.mkdirSync(logsDir, { recursive: true });
+  }
+  
+  // Append to ai.log
+  fs.appendFileSync(AI_LOG_PATH, logLine);
+}
+
 export function logAI(type: 'REQUEST' | 'RESPONSE', data: any) {
   const timestamp = new Date().toISOString();
   const emoji = type === 'REQUEST' ? '📤' : '📥';
   
-  // Enhanced logging with better formatting
+  // Write structured log for viewer
+  if (type === 'REQUEST') {
+    writeStructuredLog({
+      level: 'info',
+      category: 'ai-request',
+      message: `AI Request to ${data.model || 'unknown model'}`,
+      data: {
+        model: data.model,
+        temperature: data.temperature,
+        promptLength: data.promptLength,
+        hasGrounding: data.hasGroundingConfig,
+        tools: data.tools?.map((t: any) => Object.keys(t).join(', ')),
+        systemInstruction: data.systemInstruction,
+        prompt: data.prompt?.substring(0, 500)
+      },
+      model: data.model
+    });
+  } else {
+    writeStructuredLog({
+      level: 'info',
+      category: 'ai-response',
+      message: `AI Response from ${data.model || 'unknown model'}`,
+      data: {
+        contentLength: data.contentLength || data.textLength,
+        hasGroundingMetadata: data.hasGroundingMetadata,
+        groundingSourcesCount: data.groundingSourcesCount,
+        finishReason: data.finishReason,
+        contentPreview: data.contentPreview?.substring(0, 500) || data.textPreview?.substring(0, 500)
+      },
+      model: data.model,
+      tokenCount: data.usageMetadata?.totalTokenCount,
+      duration: data.duration
+    });
+  }
+  
+  // Enhanced logging with better formatting (keep original format too)
   let logEntry = `${timestamp} ${emoji} [AI ${type}] `;
   
   if (type === 'REQUEST') {
@@ -52,6 +114,15 @@ export function logAI(type: 'REQUEST' | 'RESPONSE', data: any) {
 // NEW: General purpose enhanced logging function
 export function logAIGeneral(message: string, data?: any) {
   const timestamp = new Date().toISOString();
+  
+  // Write structured log for viewer
+  writeStructuredLog({
+    level: 'info',
+    category: 'general',
+    message,
+    data
+  });
+  
   let logEntry = `${timestamp} 📝 [AI GENERAL] ${message}\n`;
   
   if (data) {
