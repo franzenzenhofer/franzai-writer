@@ -59,27 +59,34 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
     const shape: Record<string, z.ZodTypeAny> = {};
     stage.formFields.forEach(field => {
       let fieldSchema: z.ZodTypeAny;
+      const isRequired = field.validation?.required !== false; // Default to true unless explicitly false
+      
       switch (field.type) {
         case 'text':
-          fieldSchema = z.string().min(1, `${field.label} is required.`);
+          fieldSchema = isRequired 
+            ? z.string().min(1, `${field.label} is required.`)
+            : z.string().optional().or(z.literal(''));
           break;
         case 'textarea':
-          fieldSchema = z.string().min(1, `${field.label} is required.`);
+          fieldSchema = isRequired 
+            ? z.string().min(1, `${field.label} is required.`)
+            : z.string().optional().or(z.literal(''));
           break;
         case 'checkbox':
           fieldSchema = z.boolean().default(field.defaultValue as boolean || false);
           break;
         case 'select':
-          fieldSchema = z.string().min(1, `${field.label} is required.`);
+          fieldSchema = isRequired 
+            ? z.string().min(1, `${field.label} is required.`)
+            : z.string().optional().or(z.literal(''));
           break;
         default:
           fieldSchema = z.any();
       }
+      
+      // Handle legacy validation.optional flag
       if (field.validation?.optional) {
         fieldSchema = fieldSchema.optional();
-      }
-      if (!field.validation?.required && field.type !== 'checkbox') {
-        fieldSchema = fieldSchema.optional().or(z.literal('')); 
       }
       shape[field.name] = fieldSchema;
     });
