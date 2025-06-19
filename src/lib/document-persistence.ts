@@ -1,5 +1,7 @@
 import { firestoreAdapter } from './firestore-adapter';
 import type { WizardDocument, StageState } from '@/types';
+import { resetStuckExportStages } from './export-stage-recovery';
+import { getWorkflowById } from '@/workflows';
 
 /**
  * CRITICAL: Document Persistence with FAIL-HARD semantics
@@ -307,7 +309,18 @@ class DocumentPersistenceManager {
       }
 
       const document = this.firestoreToWizardDocument(data);
-      const stageStates = data.stageStates;
+      let stageStates = data.stageStates;
+
+      // Apply export stage recovery to fix stuck export stages after reload
+      try {
+        const workflow = getWorkflowById(document.workflowId);
+        if (workflow) {
+          stageStates = resetStuckExportStages(stageStates, workflow);
+        }
+      } catch (error) {
+        this.log('Export stage recovery failed (non-critical)', error);
+        // Continue with original stageStates - recovery failure is not fatal
+      }
 
       this.log('Document loaded successfully', {
         documentId,

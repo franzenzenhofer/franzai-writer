@@ -287,7 +287,6 @@ export interface StageState {
     promptTokenCount?: number;
   };
   currentStreamOutput?: string; // Streaming output for real-time display
-  exportJobId?: string; // ID of background export job if applicable
   generationProgress?: {
     styledHtml?: number;
     cleanHtml?: number;
@@ -443,53 +442,4 @@ export interface Asset {
   description?: string;           // User-provided description
 }
 
-// Export Job System Types
-interface ExportJobBase {
-  id: string;
-  documentId: string;
-  stageId: string;
-  progress?: number;
-  createdAt: string;
-  updatedAt: string;
-  createdBy: string;
-}
-
-export interface ExportJobQueued extends ExportJobBase {
-  status: 'queued';
-  progress?: 0;
-  error?: undefined;
-  output?: undefined;
-}
-
-export interface ExportJobRunning extends ExportJobBase {
-  status: 'running';
-  error?: undefined;
-  output?: undefined;
-}
-
-export interface ExportJobCompleted extends ExportJobBase {
-  status: 'completed';
-  progress: 100;
-  output: ExportStageState['output'];
-  error?: undefined;
-}
-
-export interface ExportJobError extends ExportJobBase {
-  status: 'error';
-  error: string;
-  output?: undefined;
-}
-
-export interface ExportJobCancelled extends ExportJobBase {
-  status: 'cancelled';
-  error?: string;
-  output?: undefined;
-}
-
-export type ExportJob =
-  | ExportJobQueued
-  | ExportJobRunning
-  | ExportJobCompleted
-  | ExportJobError
-  | ExportJobCancelled;
 
