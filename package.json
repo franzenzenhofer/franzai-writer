@@ -98,7 +98,7 @@
     "eslint": "^9.28.0",
     "eslint-config-next": "^15.3.3",
     "eslint-plugin-boundaries": "^5.0.1",
-    "jest": "^30.0.1",
+    "jest": "^30.0.2",
     "knip": "^5.60.2",
     "madge": "^8.0.0",
     "postcss": "^8",

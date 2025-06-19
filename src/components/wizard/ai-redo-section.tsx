@@ -32,38 +32,38 @@ export function AiRedoSection({
   }
 
   return (
-    <div className={cn("flex items-start gap-3 py-3", className)}>
-      {/* Notes textarea on the left */}
-      <div className="flex-1">
-        <Textarea
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          placeholder="Optional notes for AI regeneration..."
-          rows={1}
-          className="min-h-[2.5rem] resize-none text-sm bg-background"
-          disabled={isRunning}
-          id={`ai-redo-notes-${stageId}`}
-          data-testid={`ai-redo-notes-${stageId}`}
-        />
-      </div>
-      
-      {/* AI REDO button on the super right */}
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={handleAiRedo}
+    <div className={cn("flex flex-col gap-2 py-3", className)}>
+      {/* Full-width multiline textarea */}
+      <Textarea
+        value={notes}
+        onChange={(e) => setNotes(e.target.value)}
+        placeholder="Optional notes for AI regeneration..."
+        rows={3}
+        className="w-full min-h-[5rem] text-sm bg-background"
         disabled={isRunning}
-        className="shrink-0 bg-background hover:bg-accent"
-        id={`ai-redo-${stageId}`}
-        data-testid={`ai-redo-${stageId}`}
-      >
-        {isRunning ? (
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-        ) : (
-          <RotateCcw className="mr-2 h-4 w-4" />
-        )}
-        {isRunning ? "Regenerating..." : "AI REDO"}
-      </Button>
+        id={`ai-redo-notes-${stageId}`}
+        data-testid={`ai-redo-notes-${stageId}`}
+      />
+      
+      {/* AI REDO button below and to the right */}
+      <div className="flex justify-end">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleAiRedo}
+          disabled={isRunning}
+          className="bg-background hover:bg-accent"
+          id={`ai-redo-${stageId}`}
+          data-testid={`ai-redo-${stageId}`}
+        >
+          {isRunning ? (
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          ) : (
+            <RotateCcw className="mr-2 h-4 w-4" />
+          )}
+          {isRunning ? "Regenerating..." : "AI REDO"}
+        </Button>
+      </div>
     </div>
   );
 } 
