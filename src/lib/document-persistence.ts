@@ -1,5 +1,6 @@
 import { firestoreAdapter } from './firestore-adapter';
-import type { WizardDocument, StageState } from '@/types';
+import type { WizardDocument, StageState, Stage } from '@/types';
+import { getWorkflowById } from '@/lib/workflow-loader';
 
 /**
  * CRITICAL: Document Persistence with FAIL-HARD semantics
@@ -137,8 +138,14 @@ class DocumentPersistenceManager {
       });
 
       // Clean stage states to ensure Firestore compatibility
-      console.log('[DocumentPersistence] STEP 4: Cleaning stage states for Firestore');
-      const cleanedStageStates = this.cleanStageStates(stageStates);
+      console.log('[DocumentPersistence] STEP 4: Fetching workflow for deep cleaning stage states');
+      const workflow = await getWorkflowById(workflowId);
+      if (!workflow) {
+        console.error(`[DocumentPersistence] CRITICAL: Workflow ${workflowId} not found during save. Aborting.`);
+        throw new Error(`FATAL: Workflow ${workflowId} not found.`);
+      }
+      console.log('[DocumentPersistence] STEP 4.1: Workflow fetched. Cleaning stage states for Firestore.');
+      const cleanedStageStates = this.cleanStageStates(stageStates, workflow.stages);
       console.log('[DocumentPersistence] STEP 5: Stage states cleaned', {
         originalKeys: Object.keys(stageStates),
         originalCount: Object.keys(stageStates).length,
@@ -383,6 +390,8 @@ class DocumentPersistenceManager {
    * Clean specific stage state properties that might cause Firestore nested entity errors
    */
   private cleanStageStateSpecific(state: StageState): StageState {
+    // Preserve all top-level properties by default, clean specific nested ones.
+    // The main cleanStageStates will handle exportJobId and generationProgress specifically.
     const cleaned = { ...state };
 
     // Handle complex nested objects that often cause issues
@@ -475,9 +484,9 @@ class DocumentPersistenceManager {
       }
     }
     
-    // Remove potentially problematic properties
-    delete cleaned.currentStreamOutput; // This might contain streaming references
-    delete cleaned.generationProgress; // This might contain complex state
+    // Remove potentially problematic properties that are transient
+    delete cleaned.currentStreamOutput; // This is for live streaming, should not be persisted.
+    // generationProgress is handled in cleanStageStates based on stage type and status.
 
     return cleaned;
   }
@@ -528,57 +537,91 @@ class DocumentPersistenceManager {
   /**
    * Clean stage states for Firestore storage
    */
-  private cleanStageStates(stageStates: Record<string, StageState>): Record<string, StageState> {
+  private cleanStageStates(
+    stageStates: Record<string, StageState>,
+    workflowStages: Stage[] // Pass workflow stages to determine stageType
+  ): Record<string, StageState> {
     const cleaned: Record<string, StageState> = {};
 
-    for (const [stageId, state] of Object.entries(stageStates)) {
+    for (const [_stageId, state] of Object.entries(stageStates)) {
       if (!state || typeof state !== 'object') {
-        this.log('Skipping invalid stage state', { stageId, state });
+        this.log('Skipping invalid stage state', { _stageId, state });
         continue;
       }
+
+      // Ensure stageId from state object is preferred, fallback to key
+      const stageId = state.stageId || _stageId;
 
       try {
         // Log the state being cleaned for debugging
         console.log(`[DocumentPersistence] Cleaning stage state: ${stageId}`, {
-          status: state.status,
-          hasUserInput: !!state.userInput,
-          userInputType: typeof state.userInput,
-          hasOutput: !!state.output,
-          outputType: typeof state.output,
+          originalStatus: state.status,
+          hasExportJobId: !!state.exportJobId,
+          hasGenerationProgress: !!state.generationProgress,
           keys: Object.keys(state),
-          hasGroundingMetadata: !!state.groundingMetadata,
-          hasFunctionCalls: !!state.functionCalls,
-          hasThinkingSteps: !!state.thinkingSteps,
-          hasCodeExecutionResults: !!state.codeExecutionResults
         });
 
-        // Clean the stage state with special handling for known complex properties
-        const cleanedState = this.cleanStageStateSpecific(state);
+        let cleanedState = this.cleanStageStateSpecific(state);
+
+        // Preserve exportJobId explicitly if it exists on the original state
+        if (state.exportJobId) {
+          cleanedState.exportJobId = state.exportJobId;
+        } else {
+          // Ensure it's not present if not in original state (cleanStageStateSpecific might have spread it)
+          delete cleanedState.exportJobId;
+        }
+
+        const stageDefinition = workflowStages.find(s => s.id === stageId);
+
+        if (stageDefinition && stageDefinition.stageType === 'export') {
+          // For active export jobs, don't save client-side generationProgress to the main stage state.
+          // The authoritative progress is in the separate ExportJob document.
+          if (cleanedState.status === 'queued' || cleanedState.status === 'running') {
+            delete cleanedState.generationProgress;
+            console.log(`[DocumentPersistence] Removed generationProgress for active export stage: ${stageId}`);
+          }
+          // If status is 'completed' or 'error', generationProgress might represent a final summary.
+          // cleanStageStateSpecific might have already deleted it if it's generally problematic.
+          // If it's still there, we'll let cleanUndefinedValues handle it.
+        } else if (cleanedState.generationProgress && Object.keys(cleanedState.generationProgress).length === 0) {
+          // For non-export stages, or export stages in terminal state, if generationProgress is empty, remove it.
+          delete cleanedState.generationProgress;
+        }
+
+
         cleaned[stageId] = this.cleanUndefinedValues(cleanedState);
 
         // Verify the cleaned state
         try {
           JSON.stringify(cleaned[stageId]);
-        } catch (e) {
-          console.error(`[DocumentPersistence] Stage ${stageId} still has non-serializable data after cleaning`, e);
-          // Try to salvage what we can
-          cleaned[stageId] = {
-            stageId: state.stageId,
-            status: state.status || 'idle',
-            error: state.error ? String(state.error) : undefined,
-            completedAt: state.completedAt,
-            // Convert complex objects to simple representations
-            userInput: state.userInput ? JSON.parse(JSON.stringify(state.userInput)) : undefined,
-            output: state.output ? JSON.parse(JSON.stringify(state.output)) : undefined
-          } as StageState;
+        } catch (e: any) {
+          console.error(`[DocumentPersistence] Stage ${stageId} still has non-serializable data after cleaning: ${e.message}`, { error: e, stateBeforeJsonParse: cleaned[stageId] });
+          // Try to salvage what we can by converting complex parts to strings
+          const minimallyCleaned: any = {
+            stageId: stageId,
+            status: cleanedState.status || 'idle',
+            error: cleanedState.error ? String(cleanedState.error) : undefined,
+            completedAt: cleanedState.completedAt ? String(cleanedState.completedAt) : undefined,
+          };
+          if (cleanedState.exportJobId) minimallyCleaned.exportJobId = cleanedState.exportJobId;
+
+          // Attempt to stringify potentially complex fields individually
+          try { minimallyCleaned.userInput = cleanedState.userInput ? JSON.parse(JSON.stringify(cleanedState.userInput)) : undefined; }
+          catch { minimallyCleaned.userInput = '[Unserializable User Input]'; }
+
+          try { minimallyCleaned.output = cleanedState.output ? JSON.parse(JSON.stringify(cleanedState.output)) : undefined; }
+          catch { minimallyCleaned.output = '[Unserializable Output]'; }
+
+          cleaned[stageId] = minimallyCleaned as StageState;
+           console.warn(`[DocumentPersistence] Stage ${stageId} was force-cleaned due to serialization issues. Some data might be lost or stringified.`);
         }
-      } catch (error) {
-        console.error(`[DocumentPersistence] Failed to clean stage ${stageId}`, error);
+      } catch (error: any) {
+        console.error(`[DocumentPersistence] Failed to clean stage ${stageId}: ${error.message}`, error);
         // Create a minimal valid state
         cleaned[stageId] = {
           stageId: stageId,
           status: 'error',
-          error: 'Failed to save stage state'
+          error: 'Failed to save stage state due to cleaning error.'
         } as StageState;
       }
     }

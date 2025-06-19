@@ -2,6 +2,17 @@
 
 import type { ExportFormat } from '@/types';
 
+// Define the structure for individual format conversion results
+export interface FormatConversionResult {
+  ready: boolean;
+  content?: string; // Usually base64 for binary, raw for text
+  url?: string; // Optional URL if content is stored elsewhere (e.g. for large PDFs)
+  error?: string;
+}
+
+// Define the overall structure for all processed formats
+export type ProcessedFormats = Record<string, FormatConversionResult>;
+
 /**
  * Convert HTML to Markdown
  */
@@ -335,68 +346,81 @@ export async function htmlToDocx(html: string, options?: any): Promise<ArrayBuff
 export async function processExportFormats(
   htmlStyled: string,
   htmlClean: string,
-  exportConfig?: any
-): Promise<Record<string, { ready: boolean; content?: string; error?: string }>> {
-  const formats: Record<string, { ready: boolean; content?: string; error?: string }> = {};
+  exportConfig?: any // TODO: Type this more strictly if possible, e.g., ExportConfig
+): Promise<ProcessedFormats> {
+  const formats: ProcessedFormats = {};
   
   // HTML formats are already ready
+  // For HTML, content is the HTML string itself, not base64
   formats['html-styled'] = {
     ready: true,
-    content: htmlStyled,
+    content: htmlStyled, // Raw HTML string
   };
   
   formats['html-clean'] = {
     ready: true,
-    content: htmlClean,
+    content: htmlClean, // Raw HTML string
   };
   
   // Generate Markdown from clean HTML
   try {
-    const markdown = await htmlToMarkdown(htmlClean);
+    const markdownContent = await htmlToMarkdown(htmlClean);
     formats['markdown'] = {
       ready: true,
-      content: markdown,
+      content: markdownContent, // Raw Markdown string
     };
   } catch (error) {
     formats['markdown'] = {
       ready: false,
-      error: 'Failed to generate Markdown',
+      error: error instanceof Error ? error.message : 'Failed to generate Markdown',
     };
   }
   
   // Generate PDF from clean HTML
+  // For binary formats like PDF, 'content' will store base64 string
   try {
     console.log('[Format Converters] Generating PDF...');
-    const pdfBuffer = await htmlToPdf(htmlClean);
+    const pdfBuffer = await htmlToPdf(htmlClean); // htmlToPdf returns ArrayBuffer
+    // Check if pdfBuffer indicates an error (as per htmlToPdf error handling)
+    const pdfErrorCheck = new TextDecoder().decode(pdfBuffer.slice(0, 20)); // Check first few bytes for error string
+    if (pdfErrorCheck.startsWith('PDF generation failed:')) {
+        throw new Error(pdfErrorCheck);
+    }
     const pdfBase64 = Buffer.from(pdfBuffer).toString('base64');
     formats['pdf'] = {
       ready: true,
-      content: pdfBase64,
+      content: pdfBase64, // Base64 encoded string
     };
     console.log('[Format Converters] PDF generation successful');
   } catch (error) {
     console.error('[Format Converters] PDF generation failed:', error);
     formats['pdf'] = {
       ready: false,
-      error: 'PDF generation failed',
+      error: error instanceof Error ? error.message : 'PDF generation failed',
     };
   }
   
   // Generate DOCX from clean HTML using modern docx library (server-side only)
+  // For binary formats like DOCX, 'content' will store base64 string
   try {
     console.log('[Format Converters] Generating DOCX...');
-    const docxBuffer = await htmlToDocx(htmlClean);
+    const docxBuffer = await htmlToDocx(htmlClean); // htmlToDocx returns ArrayBuffer
+    // Check if docxBuffer indicates an error
+    const docxErrorCheck = new TextDecoder().decode(docxBuffer.slice(0, 22)); // Check first few bytes
+    if (docxErrorCheck.startsWith('DOCX generation failed:')) {
+        throw new Error(docxErrorCheck);
+    }
     const docxBase64 = Buffer.from(docxBuffer).toString('base64');
     formats['docx'] = {
       ready: true,
-      content: docxBase64,
+      content: docxBase64, // Base64 encoded string
     };
     console.log('[Format Converters] DOCX generation successful');
   } catch (error) {
     console.error('[Format Converters] DOCX generation failed:', error);
     formats['docx'] = {
       ready: false,
-      error: 'DOCX generation failed',
+      error: error instanceof Error ? error.message : 'DOCX generation failed',
     };
   }
   

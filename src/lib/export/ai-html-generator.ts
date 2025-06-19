@@ -15,8 +15,8 @@ export interface HtmlGenerationOptions {
 }
 
 export interface HtmlGenerationResult {
-  htmlStyled: string;
-  htmlClean: string;
+  htmlStyled?: string; // Allow undefined for error cases or if not generated
+  htmlClean?: string;  // Allow undefined for error cases or if not generated
   error?: string;
 }
 
