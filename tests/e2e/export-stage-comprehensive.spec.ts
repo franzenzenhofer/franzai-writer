@@ -32,38 +32,35 @@ test.describe('Export Stage - Comprehensive Testing', () => {
     // Step 1: Complete poem topic stage
     console.log('Step 1: Filling poem topic...');
     await page.fill('textarea', 'A magical forest at midnight with glowing mushrooms');
-    await page.click('button:has-text("Continue")');
+    await page.click('#process-stage-poem-topic');
     
     // Wait for AI to complete poem generation
     console.log('Step 2: Waiting for poem generation...');
-    await expect(page.locator('[data-testid="stage-card-generate-poem-with-title"]')).toContainText('✅', { timeout: 60000 });
+    await expect(page.locator('[data-testid="stage-card-generate-poem-with-title"]')).toHaveClass(/border-green-500/, { timeout: 90000 });
     
     // Step 3: Skip HTML briefing (optional stage)
     console.log('Step 3: Skipping HTML briefing...');
-    await page.click('button:has-text("Continue")');
+    await page.click('#process-stage-html-briefing');
     
     // Wait for HTML preview generation
     console.log('Step 4: Waiting for HTML preview generation...');
-    await expect(page.locator('[data-testid="stage-card-generate-html-preview"]')).toContainText('✅', { timeout: 60000 });
+    await expect(page.locator('[data-testid="stage-card-generate-html-preview"]')).toHaveClass(/border-green-500/, { timeout: 90000 });
     
     // Step 5: Test export stage
     console.log('Step 5: Testing export stage...');
     const exportStage = page.locator('[data-testid="stage-card-export-publish"]');
-    await exportStage.scrollIntoView();
+    await exportStage.scrollIntoViewIfNeeded();
     
     // Verify export stage is visible and has correct title
     await expect(exportStage).toBeVisible();
     await expect(exportStage).toContainText('Export & Publish ✨');
     
-    // Click the export trigger button
-    const exportButton = exportStage.locator('button', { hasText: 'Generate Export Formats' }).or(
-      exportStage.locator('button', { hasText: 'Retry Export' })
-    );
-    await exportButton.click();
+    // Click the export trigger button using specific ID
+    await page.click('#process-stage-export-publish');
     
     // Wait for export to complete
     console.log('Step 6: Waiting for export completion...');
-    await expect(exportStage).toContainText('✅', { timeout: 120000 });
+    await expect(exportStage).toHaveClass(/border-green-500/, { timeout: 120000 });
     
     console.log('✅ Export stage completed successfully!');
   });
@@ -74,7 +71,7 @@ test.describe('Export Stage - Comprehensive Testing', () => {
     await page.waitForLoadState('networkidle');
     
     const exportStage = page.locator('[data-testid="stage-card-export-publish"]');
-    await exportStage.scrollIntoView();
+    await exportStage.scrollIntoViewIfNeeded();
     
     // Test styled view (should be default)
     console.log('Testing styled HTML preview...');
@@ -109,7 +106,7 @@ test.describe('Export Stage - Comprehensive Testing', () => {
     await page.waitForLoadState('networkidle');
     
     const exportStage = page.locator('[data-testid="stage-card-export-publish"]');
-    await exportStage.scrollIntoView();
+    await exportStage.scrollIntoViewIfNeeded();
     
     // Test HTML (Styled) download
     console.log('Testing HTML (Styled) download...');
@@ -216,7 +213,7 @@ test.describe('Export Stage - Comprehensive Testing', () => {
     await page.waitForLoadState('networkidle');
     
     const exportStage = page.locator('[data-testid="stage-card-export-publish"]');
-    await exportStage.scrollIntoView();
+    await exportStage.scrollIntoViewIfNeeded();
     
     // Verify styled iframe content is properly formatted
     console.log('Validating styled HTML content...');
@@ -248,23 +245,25 @@ test.describe('Export Stage - Comprehensive Testing', () => {
     
     // Complete poem topic with something that might cause issues
     await page.fill('textarea', 'Test error handling scenario');
-    await page.click('button:has-text("Continue")');
+    await page.click('#process-stage-poem-topic');
     
     // Wait for completion and try export
-    await expect(page.locator('[data-testid="stage-card-generate-poem-with-title"]')).toContainText('✅', { timeout: 60000 });
+    await expect(page.locator('[data-testid="stage-card-generate-poem-with-title"]')).toHaveClass(/border-green-500/, { timeout: 90000 });
+    
+    // Complete image workflow
+    await page.click('#process-stage-image-briefing');
+    await expect(page.locator('[data-testid="stage-card-create-image-prompt"]')).toHaveClass(/border-green-500/, { timeout: 60000 });
+    await expect(page.locator('[data-testid="stage-card-generate-poem-image"]')).toHaveClass(/border-green-500/, { timeout: 120000 });
     
     // Skip HTML briefing
-    await page.click('button:has-text("Continue")');
-    await expect(page.locator('[data-testid="stage-card-generate-html-preview"]')).toContainText('✅', { timeout: 60000 });
+    await page.click('#process-stage-html-briefing');
+    await expect(page.locator('[data-testid="stage-card-generate-html-preview"]')).toHaveClass(/border-green-500/, { timeout: 90000 });
     
     // Test export stage error handling
     const exportStage = page.locator('[data-testid="stage-card-export-publish"]');
-    await exportStage.scrollIntoView();
+    await exportStage.scrollIntoViewIfNeeded();
     
-    const exportButton = exportStage.locator('button', { hasText: 'Generate Export Formats' }).or(
-      exportStage.locator('button', { hasText: 'Retry Export' })
-    );
-    await exportButton.click();
+    await page.click('#process-stage-export-publish');
     
     // If error occurs, test retry functionality
     const retryButton = exportStage.locator('button', { hasText: 'Retry Export' });
@@ -273,7 +272,7 @@ test.describe('Export Stage - Comprehensive Testing', () => {
       await retryButton.click();
       
       // Wait for retry to complete
-      await expect(exportStage).toContainText('✅', { timeout: 120000 });
+      await expect(exportStage).toHaveClass(/border-green-500/, { timeout: 120000 });
       console.log('✅ Retry functionality working!');
     } else {
       console.log('✅ Export completed without errors!');
