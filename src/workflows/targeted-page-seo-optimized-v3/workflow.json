@@ -48,7 +48,7 @@
       "title": "Content Angle Identification",
       "description": "Based on your topic and audience, the AI will suggest unique content angles.",
       "inputType": "none",
-      "promptTemplate": "Given the topic '{{topic-definition.output}}' and target audience described as {{audience-analysis.userInput}}, suggest 3 unique content angles. Consider the following competitor research context if provided: '{{competitor-research.userInput.dropped}} {{competitor-research.userInput.manual}}'. Format your response as a JSON object with a single key 'angles', which is an array of 3 strings representing the content angles. Ensure the output is valid JSON. Example: {\"angles\": [\"Angle 1: Focus on X\", \"Angle 2: Explore Y\", \"Angle 3: Compare Z\"]}",
+      "promptTemplate": "Given the topic '{{topic-definition.output}}' and considering a target audience with:\n- Demographics: {{audience-analysis.output.demographics}}\n- Interests and Pain Points: {{audience-analysis.output.interests}}\n- Knowledge Level: {{audience-analysis.output.knowledgeLevel}}\nSuggest 3 unique content angles. Consider the following competitor research context if provided: '{{competitor-research.userInput.dropped}} {{competitor-research.userInput.manual}}'. Format your response as a JSON object with a single key 'angles', which is an array of 3 strings representing the content angles. Ensure the output is valid JSON. Example: {\"angles\": [\"Angle 1: Focus on X\", \"Angle 2: Explore Y\", \"Angle 3: Compare Z\"]}",
       "model": "gemini-2.0-flash", 
       "temperature": 0.6,
       "outputType": "json",
