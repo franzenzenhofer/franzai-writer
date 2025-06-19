@@ -32,21 +32,23 @@ export function AiRedoSection({
   }
 
   return (
-    <div className={cn("flex flex-col gap-2 py-3", className)}>
+    <div className={cn("block space-y-3 py-3", className)}>
       {/* Full-width multiline textarea */}
-      <Textarea
-        value={notes}
-        onChange={(e) => setNotes(e.target.value)}
-        placeholder="Optional notes for AI regeneration..."
-        rows={3}
-        className="w-full min-h-[5rem] text-sm bg-background"
-        disabled={isRunning}
-        id={`ai-redo-notes-${stageId}`}
-        data-testid={`ai-redo-notes-${stageId}`}
-      />
+      <div className="w-full">
+        <Textarea
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          placeholder="Optional notes for AI regeneration..."
+          rows={3}
+          className="w-full min-h-[5rem] text-sm bg-background"
+          disabled={isRunning}
+          id={`ai-redo-notes-${stageId}`}
+          data-testid={`ai-redo-notes-${stageId}`}
+        />
+      </div>
       
       {/* AI REDO button below and to the right */}
-      <div className="flex justify-end">
+      <div className="w-full flex justify-end">
         <Button
           variant="outline"
           size="sm"
