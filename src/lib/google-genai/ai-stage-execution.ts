@@ -97,13 +97,19 @@ export class AIStageExecution {
 
       // Handle tool usage if specified
       if (stage.tools && stage.tools.length > 0) {
-        const toolResult = await this.executeWithTools(
+        const toolResponse = await this.executeWithTools(
           prompt,
           stage.tools,
           modelConfig
         );
-        result = toolResult.text;
-        usage = toolResult.usageMetadata;
+        // Assuming toolResponse is an object like { text: '...', usageMetadata: {...}, groundingMetadata: {...}, groundingSources: [...] }
+        // If toolResponse is just text, then this won't add much, but it's safer.
+        result = {
+          text: typeof toolResponse === 'string' ? toolResponse : toolResponse.text,
+          groundingMetadata: toolResponse.groundingMetadata, // Will be undefined if not present
+          groundingSources: toolResponse.groundingSources   // Will be undefined if not present
+        };
+        usage = toolResponse.usageMetadata;
       }
 
       // Process the output
