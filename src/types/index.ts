@@ -292,6 +292,7 @@ export interface StageState {
     cleanHtml?: number;
     currentFormat?: string;
   };
+  exportJobId?: string;
 }
 
 export interface ExportStageState extends StageState {
@@ -442,3 +443,57 @@ export interface Asset {
   description?: string;           // User-provided description
 }
 
+// Base interface for common export job properties
+interface ExportJobBase {
+  id: string; // same as jobId
+  documentId: string;
+  stageId: string;
+  progress?: number; // Optional here, can be refined by specific status types
+  createdAt: string; // ISO timestamp
+  updatedAt: string; // ISO timestamp
+  createdBy: string; // user ID
+}
+
+// Specific interfaces for each job status
+interface ExportJobQueued extends ExportJobBase {
+  status: 'queued';
+  progress?: 0; // Typically 0 when queued
+  error?: undefined;
+  output?: undefined;
+}
+
+interface ExportJobRunning extends ExportJobBase {
+  status: 'running';
+  // progress is typically between 0 and 100 for this state
+  error?: undefined;
+  output?: undefined;
+}
+
+interface ExportJobCompleted extends ExportJobBase {
+  status: 'completed';
+  progress: 100; // Must be 100 for completed
+  output: ExportStageState['output']; // Specific output type
+  error?: undefined;
+}
+
+interface ExportJobError extends ExportJobBase {
+  status: 'error';
+  error: string; // Error message is required
+  // progress reflects value at time of error, so it's optional from base
+  output?: undefined;
+}
+
+interface ExportJobCancelled extends ExportJobBase {
+  status: 'cancelled';
+  error?: string; // Optional reason for cancellation
+  // progress reflects value at time of cancellation, so it's optional from base
+  output?: undefined;
+}
+
+// Discriminated union type for ExportJob
+export type ExportJob =
+  | ExportJobQueued
+  | ExportJobRunning
+  | ExportJobCompleted
+  | ExportJobError
+  | ExportJobCancelled;

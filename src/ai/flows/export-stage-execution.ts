@@ -17,8 +17,9 @@ export async function executeExportStage({
   allStageStates,
   progressCallback,
 }: ExportStageExecutionParams): Promise<ExportStageState['output']> {
+  console.warn('[executeExportStage] DEPRECATED: This client-side export execution is deprecated. The export process has been moved to a server-side background job. See /api/export/start and the runExportJob system. This function may be removed in a future version.');
   try {
-    console.log('[Export Stage Execution] Starting export generation');
+    console.log('[Export Stage Execution] Starting export generation (DEPRECATED FLOW)');
     
     // Step 1: Generate HTML with dual AI passes
     const htmlResult = await generateExportHtml({

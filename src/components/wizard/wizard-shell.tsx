@@ -13,6 +13,7 @@ import { useDocumentPersistence } from '@/hooks/use-document-persistence';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/components/layout/app-providers';
 import { cn } from '@/lib/utils';
+import { useExportJobPolling } from '@/hooks/use-export-job-polling';
 
 // Lazy load the AI stage runner to prevent Turbopack static analysis
 let runAiStage: any = null;
@@ -680,44 +681,66 @@ Still having issues? Check the browser console for detailed logs.`;
 
     // Handle export stage type
     if (stage.stageType === 'export') {
+      updateStageState(stageId, {
+        status: "running", // Optimistic update to running
+        error: undefined,
+        isEditingOutput: false,
+        generationProgress: { currentFormat: 'Requesting export job...' },
+        exportJobId: undefined, // Clear any previous job ID
+        output: undefined // Clear previous output
+      });
       try {
-        const { executeExportStage } = await import('@/ai/flows/export-stage-execution');
-        
-        const result = await executeExportStage({
-          stage,
-          workflow: instance.workflow,
-          allStageStates: instance.stageStates,
-          progressCallback: (progress) => {
-            updateStageState(stageId, {
-              generationProgress: progress,
-            });
-          },
+        console.log(`[handleRunStage] Starting export for stage ${stageId}, document ${instance.document.id}`);
+        const response = await fetch('/api/export/start', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ documentId: instance.document.id, stageId: stageId }),
         });
-        
+
+        if (!response.ok) {
+          let errorData;
+          try {
+            errorData = await response.json();
+          } catch (e) {
+            errorData = { error: `Server responded with ${response.status}. Failed to parse error message.` };
+          }
+          console.error('[handleRunStage] API error starting export:', errorData);
+          throw new Error(errorData.error || `Failed to start export job. Status: ${response.status}`);
+        }
+
+        const { jobId } = await response.json();
+        if (!jobId) {
+          console.error('[handleRunStage] No jobId received from server.');
+          throw new Error('No jobId received from server.');
+        }
+
+        console.log(`[handleRunStage] Export job ${jobId} started for stage ${stageId}.`);
         updateStageState(stageId, {
-          status: "completed",
-          output: result,
-          completedAt: new Date().toISOString(),
-          isStale: false,
+          status: 'queued', // Initial status from server, polling will update
+          exportJobId: jobId,
+          generationProgress: { currentFormat: 'Export job created. Waiting for worker...' }
         });
-        
         toast({ 
-          title: "Export Complete", 
-          description: "Your content has been exported successfully!",
+          title: "Export Job Started",
+          description: `Job ${jobId} created. Monitoring progress...`,
           variant: "default"
         });
-      } catch (error) {
-        updateStageState(stageId, { 
-          status: "error", 
-          error: error instanceof Error ? error.message : "Export failed" 
+
+      } catch (error: any) {
+        console.error('[handleRunStage] Error starting export job:', error);
+        updateStageState(stageId, {
+          status: "error",
+          error: error.message || "Failed to start export job.",
+          exportJobId: undefined,
+          generationProgress: { currentFormat: 'Error starting job' }
         });
         toast({ 
-          title: "Export Error", 
-          description: error instanceof Error ? error.message : "Export failed", 
+          title: "Export Start Error",
+          description: error.message || "Could not start the export process.",
           variant: "destructive" 
         });
       }
-      return;
+      return; // Important to return after handling export stage
     }
 
     if (!stage.promptTemplate) { 
@@ -923,6 +946,18 @@ Still having issues? Check the browser console for detailed logs.`;
 
   const currentStageId = currentFocusStage?.id || instance.workflow.stages[0].id;
 
+  // Integrate useExportJobPolling for each export stage
+  instance.workflow.stages.forEach(stage => {
+    if (stage.stageType === 'export') {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useExportJobPolling(
+        instance.stageStates[stage.id]?.exportJobId,
+        instance.document.id,
+        stage.id,
+        updateStageState
+      );
+    }
+  });
 
   return (
     <>

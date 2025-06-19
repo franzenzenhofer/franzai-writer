@@ -61,11 +61,42 @@ test.describe('Export Stage - Comprehensive Testing', () => {
     );
     await exportButton.click();
     
-    // Wait for export to complete
-    console.log('Step 6: Waiting for export completion...');
-    await expect(exportStage).toContainText('✅', { timeout: 120000 });
+    // Wait for a brief moment for the API call to be made and the job to be created in Firestore.
+    // The UI should update to an initial "queued" or "processing" state.
+    console.log('Step 6a: Waiting for initial export job state...');
+    await page.waitForTimeout(2000); // Adjust as necessary, depends on API response time.
+
+    const exportStageStatusMessageLocator = exportStage.locator('[data-testid="stage-status-message"]'); // Assuming such a test ID exists or can be added to where currentFormat is displayed
+
+    // Check for an initial status like "Queued", "Processing: 0%", "Initializing...", or "Export job created..."
+    // This text comes from useExportJobPolling's mapping of jobData.status and jobData.progress to generationProgress.currentFormat
+    await expect(exportStageStatusMessageLocator)
+      .toHaveText(/Queued for processing...|Processing: 0%|Export job created. Waiting for worker...|Requesting export job.../i, { timeout: 10000 });
+    console.log('Step 6b: Initial job status detected in UI.');
+
+    // Simulate page reload
+    console.log('Step 6c: Simulating page reload...');
+    await page.reload();
+    await page.waitForLoadState('networkidle'); // Wait for the page to be fully interactive after reload
+
+    // Re-locate the export stage element after reload
+    const exportStageAfterReload = page.locator('[data-testid="stage-card-export-publish"]');
+    await exportStageAfterReload.scrollIntoView(); // Ensure it's in view
+    const exportStageStatusMessageLocatorAfterReload = exportStageAfterReload.locator('[data-testid="stage-status-message"]');
+
+    // After reload, useExportJobPolling should pick up the jobId and listen for updates.
+    // The UI should reflect the ongoing (or completed) job status.
+    // This requires the background job (Firebase Function) to actually run and update Firestore.
+    console.log('Step 6d: Waiting for export completion after page reload...');
+
+    // Wait for the "Export completed" status message from useExportJobPolling's generationProgress.currentFormat
+    await expect(exportStageStatusMessageLocatorAfterReload)
+      .toHaveText('Export completed', { timeout: 60000 }); // Increased timeout for async server job
+
+    // After the status message confirms completion, the checkmark should also appear.
+    await expect(exportStageAfterReload).toContainText('✅', { timeout: 5000 }); // Short timeout as status is already completed.
     
-    console.log('✅ Export stage completed successfully!');
+    console.log('✅ Export stage completed successfully after page reload!');
   });
 
   test('should test live preview functionality', async () => {
