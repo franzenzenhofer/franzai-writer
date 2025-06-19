@@ -73,8 +73,8 @@ test.describe('Export Stage Reload Recovery - Critical Bug Fix', () => {
     await expect(exportStage).toBeVisible();
     await expect(exportStage).toContainText('Export & Publish');
     
-    // Click the export trigger button using specific ID
-    await page.click('#process-stage-export-publish');
+    // Click the export trigger button
+    await page.locator('button', { hasText: 'Export & Publish Poem' }).click();
     
     // Verify export stage status changes to "running"
     console.log('⏳ Step 10: Export stage should be running...');
@@ -98,29 +98,38 @@ test.describe('Export Stage Reload Recovery - Critical Bug Fix', () => {
     await expect(exportStageAfterReload).not.toHaveClass(/border-primary/);
     await expect(exportStageAfterReload).toBeVisible();
     
+    // Check if HTML preview needs to be re-completed after recovery
+    console.log('🔍 Step 13: Checking if HTML preview needs completion after recovery...');
+    const runAiButton = page.locator('button', { hasText: 'Run AI' });
+    if (await runAiButton.isVisible({ timeout: 5000 })) {
+      console.log('💡 Triggering HTML preview completion...');
+      await runAiButton.click();
+      await expect(page.locator('[data-testid="stage-card-generate-html-preview"]')).toHaveClass(/border-green-500/, { timeout: 120000 });
+    }
+
     // Should show the export button again (not stuck or errored)
-    await expect(page.locator('#process-stage-export-publish')).toBeVisible();
+    await expect(page.locator('button', { hasText: 'Export & Publish Poem' })).toBeVisible();
     console.log('✅ Export stage successfully recovered to idle state');
 
-    // Step 13: Re-run export after recovery
-    console.log('🔁 Step 13: Re-running export after recovery...');
-    await page.click('#process-stage-export-publish');
+    // Step 14: Re-run export after recovery
+    console.log('🔁 Step 14: Re-running export after recovery...');
+    await page.locator('button', { hasText: 'Export & Publish Poem' }).click();
     
     // Wait for export to complete this time
-    console.log('⏱️ Step 14: Waiting for export completion...');
+    console.log('⏱️ Step 15: Waiting for export completion...');
     await expect(exportStageAfterReload).toHaveClass(/border-green-500/, { timeout: 120000 });
     
     // Verify export completed successfully
     await expect(exportStageAfterReload).toContainText('Ready');
     console.log('✅ Export completed successfully after recovery');
 
-    // Step 15: FINAL CRITICAL TEST - Reload again with completed export
-    console.log('🎯 Step 15: FINAL TEST - Reloading with completed export...');
+    // Step 16: FINAL CRITICAL TEST - Reload again with completed export
+    console.log('🎯 Step 16: FINAL TEST - Reloading with completed export...');
     await page.reload();
     await page.waitForLoadState('networkidle');
     
     // Verify all stages remain in completed state - NO NEW AI REQUESTS
-    console.log('🔍 Step 16: Verifying all stages remain completed without new AI requests...');
+    console.log('🔍 Step 17: Verifying all stages remain completed without new AI requests...');
     
     // Poem stage should remain completed
     await expect(page.locator('[data-testid="stage-card-generate-poem-with-title"]')).toHaveClass(/border-green-500/);
@@ -171,7 +180,7 @@ test.describe('Export Stage Reload Recovery - Critical Bug Fix', () => {
     await expect(page.locator('[data-testid="stage-card-generate-html-preview"]')).toHaveClass(/border-green-500/, { timeout: 90000 });
     
     // Start export and immediately reload (simulating interruption)
-    await page.click('#process-stage-export-publish');
+    await page.locator('button', { hasText: 'Export & Publish Poem' }).click();
     
     // Reload immediately to simulate the stuck scenario
     await page.reload();
@@ -212,7 +221,7 @@ test.describe('Export Stage Reload Recovery - Critical Bug Fix', () => {
       await page.click('#process-stage-html-briefing');
       await expect(page.locator('[data-testid="stage-card-generate-html-preview"]')).toHaveClass(/border-green-500/, { timeout: 90000 });
       
-      await page.click('#process-stage-export-publish');
+      await page.locator('button', { hasText: 'Export & Publish Poem' }).click();
       await expect(page.locator('[data-testid="stage-card-export-publish"]')).toHaveClass(/border-green-500/, { timeout: 120000 });
     }
     
