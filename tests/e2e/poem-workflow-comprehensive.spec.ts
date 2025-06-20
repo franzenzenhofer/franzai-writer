@@ -18,9 +18,10 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
   test('Complete poem workflow - basic flow', async ({ page }) => {
     console.log('🧪 Testing basic poem workflow...');
     
-    // Start poem generator
-    await page.click('a[href*="poem-generator"]');
-    await page.click('a:has-text("Start Poem Generator")');
+    // Start poem generator - use correct selectors
+    await page.click('a[href*="/workflow-details/poem-generator"]');
+    await page.waitForLoadState('networkidle');
+    await page.click('a[href*="/w/poem/new"]');
     await page.waitForSelector('textarea', { timeout: 10000 });
     
     // Stage 1: Poem Topic
@@ -75,9 +76,10 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
   test('Test different image format variations', async ({ page }) => {
     console.log('🧪 Testing different image formats...');
     
-    // Start workflow
-    await page.click('a[href*="poem-generator"]');
-    await page.click('a:has-text("Start Poem Generator")');
+    // Start workflow - use correct selectors
+    await page.click('a[href*="/workflow-details/poem-generator"]');
+    await page.waitForLoadState('networkidle');
+    await page.click('a[href*="/w/poem/new"]');
     await page.waitForSelector('textarea');
     
     // Quick poem topic
@@ -116,9 +118,10 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
   test('Test different artistic styles', async ({ page }) => {
     console.log('🧪 Testing different artistic styles...');
     
-    // Start workflow
-    await page.click('a[href*="poem-generator"]');
-    await page.click('a:has-text("Start Poem Generator")');
+    // Start workflow - use correct selectors
+    await page.click('a[href*="/workflow-details/poem-generator"]');
+    await page.waitForLoadState('networkidle');
+    await page.click('a[href*="/w/poem/new"]');
     await page.waitForSelector('textarea');
     
     await page.fill('textarea', 'Abstract geometric patterns');
@@ -152,8 +155,9 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     console.log('🧪 Testing export content verification...');
     
     // Complete a basic workflow first
-    await page.click('a[href*="poem-generator"]');
-    await page.click('a:has-text("Start Poem Generator")');
+    await page.click('a[href*="/workflow-details/poem-generator"]');
+    await page.waitForLoadState('networkidle');
+    await page.click('a[href*="/w/poem/new"]');
     await page.waitForSelector('textarea');
     
     const testTopic = 'Testing export content verification';
@@ -201,8 +205,9 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     console.log('🧪 Testing publishing functionality...');
     
     // Complete workflow to export stage
-    await page.click('a[href*="poem-generator"]');
-    await page.click('a:has-text("Start Poem Generator")');
+    await page.click('a[href*="/workflow-details/poem-generator"]');
+    await page.waitForLoadState('networkidle');
+    await page.click('a[href*="/w/poem/new"]');
     await page.waitForSelector('textarea');
     
     await page.fill('textarea', 'Testing publishing functionality');
@@ -230,8 +235,9 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     console.log('🧪 Testing document persistence and reload...');
     
     // Start a workflow
-    await page.click('a[href*="poem-generator"]');
-    await page.click('a:has-text("Start Poem Generator")');
+    await page.click('a[href*="/workflow-details/poem-generator"]');
+    await page.waitForLoadState('networkidle');
+    await page.click('a[href*="/w/poem/new"]');
     await page.waitForSelector('textarea');
     
     const uniqueTopic = `Persistence test ${Date.now()}`;
@@ -271,8 +277,9 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     // Test special characters and unicode
     const specialCharacterTopic = 'Special chars: äöü, 中文, 🌟, émojis, ñoño, & symbols <>"\'';
     
-    await page.click('a[href*="poem-generator"]');
-    await page.click('a:has-text("Start Poem Generator")');
+    await page.click('a[href*="/workflow-details/poem-generator"]');
+    await page.waitForLoadState('networkidle');
+    await page.click('a[href*="/w/poem/new"]');
     await page.waitForSelector('textarea');
     
     await page.fill('textarea', specialCharacterTopic);
@@ -285,8 +292,9 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     
     // Start new workflow for long content test
     await page.goto(`${BASE_URL}/dashboard`);
-    await page.click('a[href*="poem-generator"]');
-    await page.click('a:has-text("Start Poem Generator")');
+    await page.click('a[href*="/workflow-details/poem-generator"]');
+    await page.waitForLoadState('networkidle');
+    await page.click('a[href*="/w/poem/new"]');
     await page.waitForSelector('textarea');
     
     await page.fill('textarea', longTopic);
@@ -299,8 +307,9 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     console.log('🧪 Testing error recovery...');
     
     // Test with minimal input
-    await page.click('a[href*="poem-generator"]');
-    await page.click('a:has-text("Start Poem Generator")');
+    await page.click('a[href*="/workflow-details/poem-generator"]');
+    await page.waitForLoadState('networkidle');
+    await page.click('a[href*="/w/poem/new"]');
     await page.waitForSelector('textarea');
     
     // Try with very short input
@@ -317,8 +326,9 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     
     // Test with empty input
     await page.goto(`${BASE_URL}/dashboard`);
-    await page.click('a[href*="poem-generator"]');
-    await page.click('a:has-text("Start Poem Generator")');
+    await page.click('a[href*="/workflow-details/poem-generator"]');
+    await page.waitForLoadState('networkidle');
+    await page.click('a[href*="/w/poem/new"]');
     await page.waitForSelector('textarea');
     
     // Try to continue with empty textarea
@@ -396,8 +406,9 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     });
     
     // Run a complete workflow while monitoring console
-    await page.click('a[href*="poem-generator"]');
-    await page.click('a:has-text("Start Poem Generator")');
+    await page.click('a[href*="/workflow-details/poem-generator"]');
+    await page.waitForLoadState('networkidle');
+    await page.click('a[href*="/w/poem/new"]');
     await page.waitForSelector('textarea');
     
     await page.fill('textarea', 'Console error test');
