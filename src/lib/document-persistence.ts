@@ -986,10 +986,10 @@ class DocumentPersistenceManager {
         // Create reconstructed state
         reconstructed[stageId] = {
           stageId: state.stageId || stageId,
-          status: (state as any).exportCompleted ? 'idle' : (state.status || 'idle'), // Reset to idle so it can be regenerated
+          status: (state as any).exportCompleted ? 'completed' : (state.status || 'idle'), // Keep completed status
           error: state.error,
           completedAt: state.completedAt,
-          output: undefined, // Export data will be regenerated when needed
+          output: Object.keys(output).length > 0 ? output : undefined, // Preserve reconstructed output
           // Try to parse userInput if it was stringified
           userInput: (state as any).userInput_string ? 
             (() => {
