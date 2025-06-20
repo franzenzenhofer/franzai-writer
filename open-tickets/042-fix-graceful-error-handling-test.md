@@ -6,6 +6,8 @@
 **Related Test**: `tests/e2e/article-workflow-complete.spec.ts` (Test name: "should handle errors gracefully")
 **Related Ticket**: `open-tickets/031-fix-ai-stage-500-error.md`
 
+**Status**: 2025-06-20 - TEST FAILING - 0% COMPLETE
+
 ## Description
 The Playwright E2E test `article-workflow-complete.spec.ts` for "should handle errors gracefully" is failing.
 The test simulates a 500 Internal Server Error from the API during workflow processing.

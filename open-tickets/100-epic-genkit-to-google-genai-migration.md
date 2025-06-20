@@ -4,7 +4,9 @@
 **Priority:** CRITICAL
 **Status:** In Progress (Branch: backup/genkit-to-genai-attempt-1)
 **Estimated Time:** 8-10 hours
-**Last Updated:** 2025-06-15
+**Last Updated:** 2025-06-20
+
+## NOTE: Consolidated with ticket 095 (duplicate epic)
 
 ## Status Update (2025-06-15)
 - Migration is actively being worked on in branch `backup/genkit-to-genai-attempt-1`

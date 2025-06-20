@@ -6,6 +6,8 @@
 **Related Test**: `tests/e2e/article-workflow-complete.spec.ts` (Test name: "should create article from start to finish")
 **Related Ticket**: `open-tickets/035-fix-audience-analysis-stage-completion-issue.md`
 
+**Status**: 2025-06-20 - TEST FAILING - 0% COMPLETE
+
 ## Description
 The Playwright E2E test `article-workflow-complete.spec.ts` for "should create article from start to finish" is failing.
 The failure occurs when trying to fill the "Key Demographics" input field in the Audience Analysis stage.

@@ -6,6 +6,8 @@
 **Related Test**: `tests/e2e/article-workflow-complete.spec.ts` (Test name: "should save progress automatically")
 **Related Ticket**: `open-tickets/038-fix-autosave-after-url-change.md`
 
+**Status**: 2025-06-20 - TEST FAILING - 0% COMPLETE
+
 ## Description
 The Playwright E2E test `article-workflow-complete.spec.ts` for "should save progress automatically" is failing.
 The test fills the first stage of a workflow and then waits for an auto-save indicator (text "Saving" or "Last saved") to become visible. The test times out, meaning this indicator does not appear.

@@ -915,7 +915,7 @@ Still having issues? Check the browser console for detailed logs.`;
               }).replace(',', '')}`}
             </span>
           )}
-          {!isSaving && lastSaved && <span className="hidden md:inline">|</span>}
+          {!isSaving && lastSaved && <span className="px-1">|</span>}
           <p>Workflow: {instance.workflow.name}</p>
         </div>
         
