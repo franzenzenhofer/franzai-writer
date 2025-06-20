@@ -88,8 +88,23 @@ mrodriguez@techpr.com
       timeout: 120000 
     });
     
+    // Wait a bit more to ensure rendering is complete
+    await page.waitForTimeout(2000);
+    
+    // Check for any error messages
+    const errorToast = await page.locator('[role="alert"]').textContent().catch(() => null);
+    if (errorToast) {
+      console.log('ERROR TOAST:', errorToast);
+    }
+    
     // Extract the press release content
     console.log('\n=== ATTEMPTING TO EXTRACT PRESS RELEASE CONTENT ===\n');
+    
+    // First, check if there's an error message in the stage
+    const stageError = await page.locator('[data-testid="stage-card-final-press-release"] .text-destructive, [data-testid="stage-card-final-press-release"] .text-red-500').textContent().catch(() => null);
+    if (stageError) {
+      console.log('STAGE ERROR:', stageError);
+    }
     
     // Try different selectors to find the content
     const possibleSelectors = [
@@ -99,7 +114,8 @@ mrodriguez@techpr.com
       '[data-testid="stage-card-final-press-release"] pre',
       '[data-testid="stage-card-final-press-release"] .whitespace-pre-wrap',
       '[data-testid="stage-card-final-press-release"] [class*="output"]',
-      '[data-testid="stage-card-final-press-release"] [class*="content"]'
+      '[data-testid="stage-card-final-press-release"] [class*="content"]',
+      '[data-testid="stage-card-final-press-release"] p'
     ];
     
     let pressReleaseContent = null;
