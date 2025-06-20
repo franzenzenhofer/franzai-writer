@@ -59,13 +59,11 @@ export function AiRedoSection({
       
       {/* AI REDO button below and to the right */}
       <div className="w-full flex justify-end items-center gap-2">
-        <KeyboardHint className="text-xs text-muted-foreground" />
         <Button
           variant="outline"
           size="sm"
           onClick={handleAiRedo}
           disabled={isRunning}
-          className="bg-background hover:bg-accent"
           id={`ai-redo-${stageId}`}
           data-testid={`ai-redo-${stageId}`}
         >

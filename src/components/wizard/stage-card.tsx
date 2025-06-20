@@ -246,8 +246,16 @@ export function StageCard({
   // Accept Continue: Only for manual AI stages that need user confirmation
   const showAcceptContinueButton = stageState.status === 'completed' && stageState.output !== undefined && !isEditingInput && isManualAiStage;
 
+  // Determine which action is "primary" for CMD+Enter
+  const getPrimaryAction = () => {
+    if (isEditingInput && stage.inputType !== 'none') return 'submit-form';
+    if (stageState.isEditingOutput) return 'save-edits';
+    if (showPrimaryActionButton) return 'run-stage';
+    return null;
+  };
 
-
+  const primaryAction = getPrimaryAction();
+  const showKeyboardHint = primaryAction !== null;
 
   let statusIcon = null;
   let cardClasses = "mb-4 transition-all duration-200"; // Reduced margin, faster transitions
@@ -433,7 +441,9 @@ export function StageCard({
         {/* Primary Action Button: Kept as direct Button due to complex icon/text logic and custom styling */}
         {showPrimaryActionButton && !stageState.isEditingOutput && !dependencyMessage && (
           <>
-            <KeyboardHint className="text-xs text-muted-foreground" />
+            {showKeyboardHint && primaryAction === 'run-stage' && (
+              <KeyboardHint className="text-xs text-muted-foreground" />
+            )}
             <Button 
               size="sm" 
               onClick={handlePrimaryAction} 
