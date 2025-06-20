@@ -32,7 +32,7 @@ export function SiteHeader() {
 
   return (
     <header className="bg-card sticky top-0 z-40 w-full border-b">
-      <div className="container flex h-14 items-center px-4 md:px-6">
+      <div className="flex h-14 w-full items-center px-4 md:px-6">
         <div className="flex items-center gap-2 md:hidden">
           <MobileMenu 
             items={siteConfig.mainNav} 

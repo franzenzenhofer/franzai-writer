@@ -103,9 +103,14 @@
   * {
     @apply border-border;
   }
+  html {
+    font-size: 16px; /* Base font size - all rem units will be relative to this */
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+    font-size: 1rem; /* Body text at base size (16px) */
   }
   
   /* Google Docs-like focus states */
@@ -117,11 +122,6 @@
   /* Clean button transitions */
   button {
     @apply transition-all duration-150;
-  }
-  
-  /* Smooth scrolling */
-  html {
-    scroll-behavior: smooth;
   }
   
   /* Clean card shadows */
