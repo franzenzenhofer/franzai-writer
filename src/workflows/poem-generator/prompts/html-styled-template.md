@@ -7,10 +7,24 @@ First, analyze the poem content:
 - Reading Context: Web presentation of poetry
 
 ## Available Content
-{{#each stages}}
-### {{this.name}}
-{{this.output}}
-{{/each}}
+### Poem Topic
+{{poem-topic.output}}
+
+### Generate Poem & Title
+{{generate-poem-with-title.output.title}}
+{{generate-poem-with-title.output.poem}}
+
+### Image Customization
+{{image-briefing.output}}
+
+### Create Image Prompt
+{{create-image-prompt.output}}
+
+### Generate Poem Illustration
+{{generate-poem-image.output}}
+
+### Generate HTML Preview
+{{generate-html-preview.output}}
 
 ## Available Image
 {{#if generate-poem-image.output.images}}

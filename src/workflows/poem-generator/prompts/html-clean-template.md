@@ -1,10 +1,24 @@
 You are an expert in pure semantic HTML and poetry markup. Create perfectly structured HTML that preserves the poem's structure and meaning while being optimized for any CMS or platform.
 
 ## Content to Structure
-{{#each stages}}
-### {{this.name}}
-{{this.output}}
-{{/each}}
+### Poem Topic
+{{poem-topic.output}}
+
+### Generate Poem & Title
+{{generate-poem-with-title.output.title}}
+{{generate-poem-with-title.output.poem}}
+
+### Image Customization
+{{image-briefing.output}}
+
+### Create Image Prompt
+{{create-image-prompt.output}}
+
+### Generate Poem Illustration
+{{generate-poem-image.output}}
+
+### Generate HTML Preview
+{{generate-html-preview.output}}
 
 ## Available Image
 {{#if generate-poem-image.output.images}}
@@ -17,6 +31,7 @@ Include this image in the HTML using a semantic <figure> element with proper alt
 - **Include proper meta tags, title, and other head elements.**
 - **The body content must use ONLY pure semantic HTML.**
 - **DO NOT use ANY CSS classes, id attributes, or style attributes in the body.**
+- **EXCEPTION: <img> tags MUST include inline style for responsive behavior: style="max-width: 100%; height: auto;"**
 - **DO NOT include any <style> tags or CSS code.**
 - **DO NOT include any <script> tags or JavaScript.**
 - **DO NOT wrap the output in code fences (e.g., ```html).**
@@ -66,7 +81,7 @@ Generate a complete HTML document like this:
      </header>
      
      <figure>
-       <img src="[image-url]" alt="Illustration for [poem title]">
+       <img src="[image-url]" alt="Illustration for [poem title]" style="max-width: 100%; height: auto;">
        <figcaption>Illustration for the poem</figcaption>
      </figure>
      
@@ -106,9 +121,9 @@ Generate a complete HTML document like this:
 ### Body Purity Requirements
 - NO class attributes whatsoever in body content
 - NO id attributes in body content
-- NO style attributes in body content
+- NO style attributes in body content (EXCEPTION: <img> tags must have style="max-width: 100%; height: auto;")
 - NO custom attributes in body content
-- NO inline styles in body content
+- NO inline styles in body content (EXCEPTION: responsive image styles on <img> tags)
 - NO CSS code in body
 - NO JavaScript in body
 - Use only standard HTML5 semantic elements in body
