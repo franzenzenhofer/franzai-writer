@@ -284,7 +284,7 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
       return (
         <div className="space-y-2">
           <Textarea
-            placeholder={stage.description || "Enter your input here..."}
+            placeholder={stage.placeholder ?? stage.description ?? "Enter your input here..."}
             value={typeof stageState.userInput === 'string' ? stageState.userInput : ""}
             onChange={handleTextareaChange}
                          rows={8}

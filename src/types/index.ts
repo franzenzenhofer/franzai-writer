@@ -122,6 +122,12 @@ export interface Stage {
   id: string;
   title: string;
   description: string;
+  /**
+   * Optional UX enhancement: custom placeholder text for the primary input
+   * of the stage (applies to `text` and `textarea` input types). If omitted,
+   * the UI will fall back to `description` or a generic placeholder.
+   */
+  placeholder?: string;
   stageType?: 'default' | 'export'; // New stage type for export functionality
   inputType: StageInputType;
   formFields?: FormField[]; // Only if inputType is 'form'

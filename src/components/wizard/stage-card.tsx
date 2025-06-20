@@ -249,32 +249,32 @@ export function StageCard({
 
 
   let statusIcon = null;
-  let cardClasses = "mb-6 transition-all duration-300";
+  let cardClasses = "mb-4 transition-all duration-200"; // Reduced margin, faster transitions
 
   switch (stageState.status) {
     case "completed":
-      statusIcon = <CheckCircle2 className="text-green-500" />;
-      cardClasses = cn(cardClasses, "border-green-500");
+      statusIcon = <CheckCircle2 className="text-primary h-5 w-5" />;
+      cardClasses = cn(cardClasses, "border-border");
       break;
     case "running":
-      statusIcon = <Loader2 className="animate-spin text-primary" />;
+      statusIcon = <Loader2 className="animate-spin text-primary h-5 w-5" />;
       cardClasses = cn(cardClasses, "border-primary");
       break;
     case "error":
-      statusIcon = <AlertCircle className="text-destructive" />;
+      statusIcon = <AlertCircle className="text-destructive h-5 w-5" />;
       cardClasses = cn(cardClasses, "border-destructive");
       break;
 
     default: // idle
       if (stageState.depsAreMet === false) {
-        cardClasses = cn(cardClasses, "opacity-70 bg-muted/30");
+        cardClasses = cn(cardClasses, "opacity-60");
       } else if (isCurrentStage) {
-        cardClasses = cn(cardClasses, "border-accent shadow-lg");
+        cardClasses = cn(cardClasses, "border-primary");
       } else {
         cardClasses = cn(cardClasses, "border-border");
       }
   }
-  if (isCurrentStage && stageState.depsAreMet !== false) cardClasses = cn(cardClasses, "shadow-accent/30 shadow-xl ring-2 ring-accent");
+  if (isCurrentStage && stageState.depsAreMet !== false) cardClasses = cn(cardClasses, "shadow-sm");
 
   // Handle export stage type separately
   if (stage.stageType === 'export') {
