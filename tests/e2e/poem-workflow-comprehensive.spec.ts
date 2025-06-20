@@ -19,9 +19,7 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     console.log('🧪 Testing basic poem workflow...');
     
     // Start poem generator - use correct selectors
-    await page.click('a[href*="/workflow-details/poem-generator"]');
-    await page.waitForLoadState('networkidle');
-    await page.click('a[href*="/w/poem/new"]');
+    await page.click('#workflow-start-poem-generator');
     await page.waitForSelector('textarea', { timeout: 10000 });
     
     // Stage 1: Poem Topic
@@ -53,7 +51,7 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     await page.waitForSelector('text=Export & Publish Poem', { timeout: 30000 });
     
     // Stage 5: Export & Publish
-    await page.click('button:has-text("Export & Publish Poem")');
+    await page.click('#trigger-export-export-publish');
     await page.waitForSelector('text=Styled HTML', { timeout: 30000 });
     
     // Verify all export formats are available
@@ -77,9 +75,7 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     console.log('🧪 Testing different image formats...');
     
     // Start workflow - use correct selectors
-    await page.click('a[href*="/workflow-details/poem-generator"]');
-    await page.waitForLoadState('networkidle');
-    await page.click('a[href*="/w/poem/new"]');
+    await page.click('#workflow-start-poem-generator');
     await page.waitForSelector('textarea');
     
     // Quick poem topic
@@ -98,11 +94,12 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     for (const format of imageFormats) {
       console.log(`Testing image format: ${format}`);
       
-      // Select the format
-      await page.selectOption('select:has-option:text("Image Format")', { label: format });
+      // Select the format using proper data-testid
+      await page.click('[data-testid="select-imageFormat"]');
+      await page.click(`[data-testid="option-imageFormat-${format.split(' ')[0].toLowerCase()}"]`);
       
       // Continue with image generation
-      await page.click('div:has-text("Image Customization") button:has-text("Continue")');
+      await page.click('#process-stage-image-briefing');
       
       // Wait for image generation
       await page.waitForSelector('text=Download', { timeout: 60000 });
@@ -119,9 +116,7 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     console.log('🧪 Testing different artistic styles...');
     
     // Start workflow - use correct selectors
-    await page.click('a[href*="/workflow-details/poem-generator"]');
-    await page.waitForLoadState('networkidle');
-    await page.click('a[href*="/w/poem/new"]');
+    await page.click('#workflow-start-poem-generator');
     await page.waitForSelector('textarea');
     
     await page.fill('textarea', 'Abstract geometric patterns');
@@ -140,7 +135,9 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     for (const style of artisticStyles) {
       console.log(`Testing artistic style: ${style}`);
       
-      await page.selectOption('select:has-option:text("Artistic Style")', { label: style });
+      // Select artistic style using proper data-testid
+      await page.click('[data-testid="select-artisticStyle"]');
+      await page.click(`[data-testid="option-artisticStyle-${style.toLowerCase().replace(' ', '-')}"]`);
       await page.click('div:has-text("Image Customization") button:has-text("Continue")');
       await page.waitForSelector('text=Download', { timeout: 60000 });
       console.log(`✅ ${style} style generated successfully`);
@@ -169,11 +166,11 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     const poemTitle = await page.locator('h3:has-text("Poem Title") + *').first().textContent();
     
     // Continue to export
-    await page.click('div:has-text("Image Customization") button:has-text("Continue")');
+    await page.click('#process-stage-image-briefing');
     await page.waitForSelector('text=Download', { timeout: 60000 });
-    await page.click('div:has-text("HTML Briefing") button:has-text("Continue")');
+    await page.click('#process-stage-html-briefing');
     await page.waitForSelector('text=Export & Publish Poem', { timeout: 30000 });
-    await page.click('button:has-text("Export & Publish Poem")');
+    await page.click('#trigger-export-export-publish');
     await page.waitForSelector('text=Styled HTML', { timeout: 30000 });
     
     // Test copy functionality for each export format
