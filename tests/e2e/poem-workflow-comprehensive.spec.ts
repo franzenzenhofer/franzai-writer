@@ -27,7 +27,7 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     // Stage 1: Poem Topic
     const poemTopic = 'A serene lake at sunset with mountains in the background';
     await page.fill('textarea', poemTopic);
-    await page.click('button:has-text("Continue")');
+    await page.click('#process-stage-poem-topic');
     
     // Wait for poem generation (Stage 2)
     await page.waitForSelector('text=Poem Title', { timeout: 30000 });
@@ -40,14 +40,14 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     expect(poemContentExists).toBe(true);
     
     // Stage 3: Image Customization (use defaults)
-    await page.click('div:has-text("Image Customization") button:has-text("Continue")');
+    await page.click('#process-stage-image-briefing');
     
     // Wait for image generation
     await page.waitForSelector('text=Download', { timeout: 60000 });
     console.log('✅ Image generation completed');
     
     // Stage 4: HTML Briefing (skip optional)
-    await page.click('div:has-text("HTML Briefing") button:has-text("Continue")');
+    await page.click('#process-stage-html-briefing');
     
     // Wait for HTML generation
     await page.waitForSelector('text=Export & Publish Poem', { timeout: 30000 });
@@ -84,7 +84,7 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     
     // Quick poem topic
     await page.fill('textarea', 'Modern city skyline at night');
-    await page.click('button:has-text("Continue")');
+    await page.click('#process-stage-poem-topic');
     await page.waitForSelector('text=Poem Title', { timeout: 30000 });
     
     // Test different image formats
@@ -125,7 +125,7 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     await page.waitForSelector('textarea');
     
     await page.fill('textarea', 'Abstract geometric patterns');
-    await page.click('button:has-text("Continue")');
+    await page.click('#process-stage-poem-topic');
     await page.waitForSelector('text=Poem Title', { timeout: 30000 });
     
     // Test different artistic styles
@@ -162,7 +162,7 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     
     const testTopic = 'Testing export content verification';
     await page.fill('textarea', testTopic);
-    await page.click('button:has-text("Continue")');
+    await page.click('#process-stage-poem-topic');
     await page.waitForSelector('text=Poem Title', { timeout: 30000 });
     
     // Get poem details for verification
@@ -211,7 +211,7 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     await page.waitForSelector('textarea');
     
     await page.fill('textarea', 'Testing publishing functionality');
-    await page.click('button:has-text("Continue")');
+    await page.click('#process-stage-poem-topic');
     await page.waitForSelector('text=Poem Title', { timeout: 30000 });
     
     await page.click('div:has-text("Image Customization") button:has-text("Continue")');
@@ -242,7 +242,7 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     
     const uniqueTopic = `Persistence test ${Date.now()}`;
     await page.fill('textarea', uniqueTopic);
-    await page.click('button:has-text("Continue")');
+    await page.click('#process-stage-poem-topic');
     await page.waitForSelector('text=Poem Title', { timeout: 30000 });
     
     // Get the document title for later verification
@@ -283,7 +283,7 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     await page.waitForSelector('textarea');
     
     await page.fill('textarea', specialCharacterTopic);
-    await page.click('button:has-text("Continue")');
+    await page.click('#process-stage-poem-topic');
     await page.waitForSelector('text=Poem Title', { timeout: 30000 });
     console.log('✅ Special characters handled correctly');
     
@@ -298,7 +298,7 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     await page.waitForSelector('textarea');
     
     await page.fill('textarea', longTopic);
-    await page.click('button:has-text("Continue")');
+    await page.click('#process-stage-poem-topic');
     await page.waitForSelector('text=Poem Title', { timeout: 30000 });
     console.log('✅ Long content handled correctly');
   });
@@ -314,7 +314,7 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     
     // Try with very short input
     await page.fill('textarea', 'x');
-    await page.click('button:has-text("Continue")');
+    await page.click('#process-stage-poem-topic');
     
     // Should still work or show appropriate error
     try {
@@ -332,7 +332,7 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     await page.waitForSelector('textarea');
     
     // Try to continue with empty textarea
-    await page.click('button:has-text("Continue")');
+    await page.click('#process-stage-poem-topic');
     // Should either prevent continuation or handle gracefully
     console.log('✅ Empty input handling tested');
   });
@@ -412,7 +412,7 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     await page.waitForSelector('textarea');
     
     await page.fill('textarea', 'Console error test');
-    await page.click('button:has-text("Continue")');
+    await page.click('#process-stage-poem-topic');
     await page.waitForSelector('text=Poem Title', { timeout: 30000 });
     
     await page.click('div:has-text("Image Customization") button:has-text("Continue")');
