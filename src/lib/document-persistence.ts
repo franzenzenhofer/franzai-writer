@@ -311,6 +311,9 @@ class DocumentPersistenceManager {
       const document = this.firestoreToWizardDocument(data);
       let stageStates = data.stageStates;
 
+      // Reconstruct export stage data from flattened format
+      stageStates = this.reconstructExportStages(stageStates);
+
       // Apply export stage recovery to fix stuck export stages after reload
       try {
         const workflow = getWorkflowById(document.workflowId);
@@ -605,18 +608,58 @@ class DocumentPersistenceManager {
           
           // Extract only the essential data as flat strings
           const exportOutput = state.output as any;
+          
+          // Store HTML content separately as flat strings
+          if (exportOutput.htmlStyled) {
+            firestore_safe_state.htmlStyled_truncated = String(exportOutput.htmlStyled).substring(0, 1000);
+          }
+          if (exportOutput.htmlClean) {
+            firestore_safe_state.htmlClean_truncated = String(exportOutput.htmlClean).substring(0, 1000);
+          }
+          if (exportOutput.markdown) {
+            firestore_safe_state.markdown_truncated = String(exportOutput.markdown).substring(0, 1000);
+          }
+          
+          // Flatten formats data
           if (exportOutput.formats) {
             firestore_safe_state.hasFormats = true;
             firestore_safe_state.formatsReady = !!(exportOutput.formats['html-styled']?.ready && 
                                                    exportOutput.formats['html-clean']?.ready && 
                                                    exportOutput.formats['markdown']?.ready);
+            
+            // Store format URLs as flat strings
+            if (exportOutput.formats['html-styled']?.url) {
+              firestore_safe_state.htmlStyledUrl = String(exportOutput.formats['html-styled'].url);
+            }
+            if (exportOutput.formats['html-clean']?.url) {
+              firestore_safe_state.htmlCleanUrl = String(exportOutput.formats['html-clean'].url);
+            }
+            if (exportOutput.formats['markdown']?.url) {
+              firestore_safe_state.markdownUrl = String(exportOutput.formats['markdown'].url);
+            }
+            if (exportOutput.formats['pdf']?.url) {
+              firestore_safe_state.pdfUrl = String(exportOutput.formats['pdf'].url);
+            }
+            if (exportOutput.formats['docx']?.url) {
+              firestore_safe_state.docxUrl = String(exportOutput.formats['docx'].url);
+            }
           }
           
+          // Flatten publishing data
           if (exportOutput.publishing) {
             firestore_safe_state.hasPublishing = true;
-            firestore_safe_state.publishedUrl = exportOutput.publishing.publishedUrl || '';
+            firestore_safe_state.publishedUrl = String(exportOutput.publishing.publishedUrl || '');
             firestore_safe_state.publishedFormats = Array.isArray(exportOutput.publishing.publishedFormats) ? 
               exportOutput.publishing.publishedFormats.join(',') : '';
+            if (exportOutput.publishing.publishedAt) {
+              firestore_safe_state.publishedAt = String(exportOutput.publishing.publishedAt);
+            }
+            if (exportOutput.publishing.shortUrl) {
+              firestore_safe_state.shortUrl = String(exportOutput.publishing.shortUrl);
+            }
+            if (exportOutput.publishing.qrCodeUrl) {
+              firestore_safe_state.qrCodeUrl = String(exportOutput.publishing.qrCodeUrl);
+            }
           }
           
           // Don't store the complex nested output
@@ -818,6 +861,161 @@ class DocumentPersistenceManager {
     });
 
     return lastStage;
+  }
+
+  /**
+   * Reconstruct export stage data from flattened Firestore format
+   */
+  private reconstructExportStages(stageStates: Record<string, StageState>): Record<string, StageState> {
+    const reconstructed: Record<string, StageState> = {};
+
+    for (const [stageId, state] of Object.entries(stageStates)) {
+      if (!state || typeof state !== 'object') {
+        reconstructed[stageId] = state;
+        continue;
+      }
+
+      // Check if this is a flattened export stage
+      if ((state as any).isExportStage) {
+        console.log(`[DocumentPersistence] Reconstructing export stage: ${stageId}`);
+        
+        // Reconstruct the output object from flattened data
+        const output: any = {};
+        
+        // Reconstruct HTML content
+        if ((state as any).htmlStyled_truncated) {
+          output.htmlStyled = (state as any).htmlStyled_truncated;
+        }
+        if ((state as any).htmlClean_truncated) {
+          output.htmlClean = (state as any).htmlClean_truncated;
+        }
+        if ((state as any).markdown_truncated) {
+          output.markdown = (state as any).markdown_truncated;
+        }
+        
+        // Reconstruct formats object
+        if ((state as any).hasFormats) {
+          output.formats = {};
+          
+          if ((state as any).htmlStyledUrl) {
+            output.formats['html-styled'] = {
+              ready: true,
+              url: (state as any).htmlStyledUrl
+            };
+          }
+          if ((state as any).htmlCleanUrl) {
+            output.formats['html-clean'] = {
+              ready: true,
+              url: (state as any).htmlCleanUrl
+            };
+          }
+          if ((state as any).markdownUrl) {
+            output.formats['markdown'] = {
+              ready: true,
+              url: (state as any).markdownUrl
+            };
+          }
+          if ((state as any).pdfUrl) {
+            output.formats['pdf'] = {
+              ready: true,
+              url: (state as any).pdfUrl
+            };
+          }
+          if ((state as any).docxUrl) {
+            output.formats['docx'] = {
+              ready: true,
+              url: (state as any).docxUrl
+            };
+          }
+        }
+        
+        // Reconstruct publishing object
+        if ((state as any).hasPublishing && (state as any).publishedUrl) {
+          output.publishing = {
+            publishedUrl: (state as any).publishedUrl,
+            publishedFormats: (state as any).publishedFormats ? 
+              (state as any).publishedFormats.split(',') : []
+          };
+          
+          if ((state as any).publishedAt) {
+            output.publishing.publishedAt = (state as any).publishedAt;
+          }
+          if ((state as any).shortUrl) {
+            output.publishing.shortUrl = (state as any).shortUrl;
+          }
+          if ((state as any).qrCodeUrl) {
+            output.publishing.qrCodeUrl = (state as any).qrCodeUrl;
+          }
+        }
+        
+        // Create reconstructed state
+        reconstructed[stageId] = {
+          stageId: state.stageId || stageId,
+          status: state.status || 'idle',
+          error: state.error,
+          completedAt: state.completedAt,
+          output: Object.keys(output).length > 0 ? output : undefined,
+          // Try to parse userInput if it was stringified
+          userInput: (state as any).userInput_string ? 
+            (() => {
+              try {
+                return JSON.parse((state as any).userInput_string);
+              } catch {
+                return (state as any).userInput_string;
+              }
+            })() : state.userInput
+        } as StageState;
+        
+        // Clean up flattened properties
+        const cleanState = { ...reconstructed[stageId] };
+        delete (cleanState as any).isExportStage;
+        delete (cleanState as any).htmlStyled_truncated;
+        delete (cleanState as any).htmlClean_truncated;
+        delete (cleanState as any).markdown_truncated;
+        delete (cleanState as any).hasFormats;
+        delete (cleanState as any).formatsReady;
+        delete (cleanState as any).htmlStyledUrl;
+        delete (cleanState as any).htmlCleanUrl;
+        delete (cleanState as any).markdownUrl;
+        delete (cleanState as any).pdfUrl;
+        delete (cleanState as any).docxUrl;
+        delete (cleanState as any).hasPublishing;
+        delete (cleanState as any).publishedUrl;
+        delete (cleanState as any).publishedFormats;
+        delete (cleanState as any).publishedAt;
+        delete (cleanState as any).shortUrl;
+        delete (cleanState as any).qrCodeUrl;
+        delete (cleanState as any).userInput_string;
+        delete (cleanState as any).output_string;
+        
+        reconstructed[stageId] = cleanState;
+      } else {
+        // Non-export stage - try to parse stringified data
+        const cleanState = { ...state };
+        
+        if ((cleanState as any).userInput_string) {
+          try {
+            cleanState.userInput = JSON.parse((cleanState as any).userInput_string);
+          } catch {
+            cleanState.userInput = (cleanState as any).userInput_string;
+          }
+          delete (cleanState as any).userInput_string;
+        }
+        
+        if ((cleanState as any).output_string) {
+          try {
+            cleanState.output = JSON.parse((cleanState as any).output_string);
+          } catch {
+            cleanState.output = (cleanState as any).output_string;
+          }
+          delete (cleanState as any).output_string;
+        }
+        
+        reconstructed[stageId] = cleanState;
+      }
+    }
+
+    return reconstructed;
   }
 }
 
