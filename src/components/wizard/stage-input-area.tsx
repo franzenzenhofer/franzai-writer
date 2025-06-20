@@ -337,12 +337,16 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
                           onChange={(e) => onChangeHandler(e.target.value)}
                           onKeyDown={handleTextareaKeyDown}
                           value={finalValue as string} 
-                          className="bg-background"/>
+                          className="bg-background"
+                          data-testid={`textarea-${field.name}`}
+                          id={`textarea-${field.name}`}/>
                       ) : field.type === "checkbox" ? (
                         <div className="flex items-center space-x-2">
                            <Checkbox 
                             checked={finalValue as boolean} 
                             onCheckedChange={(checked) => onChangeHandler(checked)}
+                            data-testid={`checkbox-${field.name}`}
+                            id={`checkbox-${field.name}`}
                            />
                            <Label htmlFor={field.name} className="text-sm font-normal">{field.placeholder || field.label}</Label>
                         </div>
@@ -352,12 +356,22 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
                           value={finalValue || ""} 
                           defaultValue={field.defaultValue as string || ""}
                         >
-                          <SelectTrigger className="bg-background">
+                          <SelectTrigger 
+                            className="bg-background"
+                            data-testid={`select-${field.name}`}
+                            id={`select-${field.name}`}
+                          >
                             <SelectValue placeholder={field.placeholder || "Select an option"} />
                           </SelectTrigger>
-                          <SelectContent>
+                          <SelectContent
+                            data-testid={`select-content-${field.name}`}
+                          >
                             {getSelectOptions(field).map(option => (
-                              <SelectItem key={option.value} value={option.value}>
+                              <SelectItem 
+                                key={option.value} 
+                                value={option.value}
+                                data-testid={`option-${field.name}-${option.value}`}
+                              >
                                 {option.label}
                               </SelectItem>
                             ))}
@@ -370,7 +384,9 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
                           {...controllerField} 
                           onChange={(e) => onChangeHandler(e.target.value)}
                           value={finalValue as string} 
-                          className="bg-background"/>
+                          className="bg-background"
+                          data-testid={`input-${field.name}`}
+                          id={`input-${field.name}`}/>
                       )}
                     </FormControl>
                     {field.placeholder && field.type !== 'checkbox' && <FormDescription>{/* Add description if needed */}</FormDescription>}

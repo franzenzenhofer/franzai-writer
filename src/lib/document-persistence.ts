@@ -612,9 +612,60 @@ class DocumentPersistenceManager {
           firestore_safe_state.isExportStage = true;
           firestore_safe_state.exportCompleted = true;
           
-          // For export stages, store ONLY the completion status
-          // The actual export data is too complex for Firestore
-          // It will be regenerated when needed
+          // CRITICAL FIX: Store export data as completely flat strings
+          if (state.output && typeof state.output === 'object') {
+            const output = state.output as any;
+            
+            // Store HTML content as separate truncated strings
+            if (output.htmlStyled) {
+              firestore_safe_state.htmlStyled_truncated = String(output.htmlStyled).substring(0, 1000);
+            }
+            if (output.htmlClean) {
+              firestore_safe_state.htmlClean_truncated = String(output.htmlClean).substring(0, 1000);
+            }
+            if (output.markdown) {
+              firestore_safe_state.markdown_truncated = String(output.markdown).substring(0, 1000);
+            }
+            
+            // Store format URLs as flat strings (not nested objects!)
+            if (output.formats && typeof output.formats === 'object') {
+              firestore_safe_state.hasFormats = true;
+              // CRITICAL: Flatten each format to avoid nested objects
+              for (const [formatKey, formatData] of Object.entries(output.formats)) {
+                if (formatData && typeof formatData === 'object') {
+                  const fd = formatData as any;
+                  if (fd.url) {
+                    firestore_safe_state[`${formatKey}Url`] = String(fd.url);
+                  }
+                  if (fd.ready) {
+                    firestore_safe_state[`${formatKey}Ready`] = true;
+                  }
+                }
+              }
+            }
+            
+            // Store publishing data as flat strings
+            if (output.publishing && typeof output.publishing === 'object') {
+              firestore_safe_state.hasPublishing = true;
+              const pub = output.publishing as any;
+              if (pub.publishedUrl) {
+                firestore_safe_state.publishedUrl = String(pub.publishedUrl);
+              }
+              if (pub.publishedAt) {
+                firestore_safe_state.publishedAt = pub.publishedAt instanceof Date ? 
+                  pub.publishedAt.toISOString() : String(pub.publishedAt);
+              }
+              if (pub.publishedFormats && Array.isArray(pub.publishedFormats)) {
+                firestore_safe_state.publishedFormats = pub.publishedFormats.join(',');
+              }
+              if (pub.shortUrl) {
+                firestore_safe_state.shortUrl = String(pub.shortUrl);
+              }
+              if (pub.qrCodeUrl) {
+                firestore_safe_state.qrCodeUrl = String(pub.qrCodeUrl);
+              }
+            }
+          }
           
           // Don't store the complex nested output
           delete firestore_safe_state.output_string;
@@ -898,35 +949,18 @@ class DocumentPersistenceManager {
         if ((state as any).hasFormats) {
           output.formats = {};
           
-          if ((state as any).htmlStyledUrl) {
-            output.formats['html-styled'] = {
-              ready: true,
-              url: (state as any).htmlStyledUrl
-            };
-          }
-          if ((state as any).htmlCleanUrl) {
-            output.formats['html-clean'] = {
-              ready: true,
-              url: (state as any).htmlCleanUrl
-            };
-          }
-          if ((state as any).markdownUrl) {
-            output.formats['markdown'] = {
-              ready: true,
-              url: (state as any).markdownUrl
-            };
-          }
-          if ((state as any).pdfUrl) {
-            output.formats['pdf'] = {
-              ready: true,
-              url: (state as any).pdfUrl
-            };
-          }
-          if ((state as any).docxUrl) {
-            output.formats['docx'] = {
-              ready: true,
-              url: (state as any).docxUrl
-            };
+          // Reconstruct from flattened format data
+          const formatTypes = ['html-styled', 'html-clean', 'markdown', 'pdf', 'docx'];
+          for (const formatType of formatTypes) {
+            const urlKey = `${formatType.replace('-', '')}Url`;
+            const readyKey = `${formatType.replace('-', '')}Ready`;
+            
+            if ((state as any)[urlKey] || (state as any)[readyKey]) {
+              output.formats[formatType] = {
+                ready: (state as any)[readyKey] || false,
+                url: (state as any)[urlKey] || undefined
+              };
+            }
           }
         }
         
