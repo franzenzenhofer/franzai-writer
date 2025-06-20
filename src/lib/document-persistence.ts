@@ -539,7 +539,7 @@ class DocumentPersistenceManager {
   }
 
   /**
-   * Clean stage states for Firestore storage
+   * Clean stage states for Firestore storage with robust nested entity handling
    */
   private cleanStageStates(stageStates: Record<string, StageState>): Record<string, StageState> {
     const cleaned: Record<string, StageState> = {};
@@ -565,38 +565,205 @@ class DocumentPersistenceManager {
           hasCodeExecutionResults: !!state.codeExecutionResults
         });
 
-        // Clean the stage state with special handling for known complex properties
-        const cleanedState = this.cleanStageStateSpecific(state);
-        cleaned[stageId] = this.cleanUndefinedValues(cleanedState);
+        // Use aggressive cleaning to prevent nested entity errors
+        const aggressivelyCleaned = this.aggressiveCleanForFirestore(state);
+        cleaned[stageId] = aggressivelyCleaned;
 
-        // Verify the cleaned state
+        // Final verification - if it still fails, create minimal state
         try {
-          JSON.stringify(cleaned[stageId]);
+          const testJson = JSON.stringify(cleaned[stageId]);
+          if (testJson.length > 1000000) { // 1MB limit check
+            console.warn(`[DocumentPersistence] Stage ${stageId} exceeds size limit, creating minimal state`);
+            cleaned[stageId] = this.createMinimalStageState(stageId, state);
+          }
         } catch (e) {
-          console.error(`[DocumentPersistence] Stage ${stageId} still has non-serializable data after cleaning`, e);
-          // Try to salvage what we can
-          cleaned[stageId] = {
-            stageId: state.stageId,
-            status: state.status || 'idle',
-            error: state.error ? String(state.error) : undefined,
-            completedAt: state.completedAt,
-            // Convert complex objects to simple representations
-            userInput: state.userInput ? JSON.parse(JSON.stringify(state.userInput)) : undefined,
-            output: state.output ? JSON.parse(JSON.stringify(state.output)) : undefined
-          } as StageState;
+          console.error(`[DocumentPersistence] Stage ${stageId} still has non-serializable data after aggressive cleaning`, e);
+          cleaned[stageId] = this.createMinimalStageState(stageId, state);
         }
       } catch (error) {
         console.error(`[DocumentPersistence] Failed to clean stage ${stageId}`, error);
-        // Create a minimal valid state
-        cleaned[stageId] = {
-          stageId: stageId,
-          status: 'error',
-          error: 'Failed to save stage state'
-        } as StageState;
+        cleaned[stageId] = this.createMinimalStageState(stageId, state);
       }
     }
 
     return cleaned;
+  }
+
+  /**
+   * Create minimal stage state that's guaranteed to be Firestore-compatible
+   */
+  private createMinimalStageState(stageId: string, originalState: StageState): StageState {
+    const minimalState: StageState = {
+      stageId: stageId,
+      status: originalState.status || 'idle',
+      completedAt: originalState.completedAt,
+      error: originalState.error ? String(originalState.error).substring(0, 1000) : undefined,
+      depsAreMet: originalState.depsAreMet,
+      isEditingInput: originalState.isEditingInput,
+      isEditingOutput: originalState.isEditingOutput,
+      isStale: originalState.isStale,
+      staleDismissed: originalState.staleDismissed,
+      shouldAutoRun: originalState.shouldAutoRun
+    };
+
+    // Add simple userInput if present
+    if (originalState.userInput) {
+      try {
+        if (typeof originalState.userInput === 'string') {
+          minimalState.userInput = originalState.userInput.substring(0, 10000); // Limit size
+        } else if (typeof originalState.userInput === 'object' && originalState.userInput !== null) {
+          minimalState.userInput = this.simplifyObject(originalState.userInput);
+        } else {
+          minimalState.userInput = originalState.userInput;
+        }
+      } catch {
+        minimalState.userInput = '[Complex object - preserved state failed]';
+      }
+    }
+
+    // Add simple output if present
+    if (originalState.output) {
+      try {
+        if (typeof originalState.output === 'string') {
+          minimalState.output = originalState.output.substring(0, 50000); // Limit size
+        } else if (typeof originalState.output === 'object' && originalState.output !== null) {
+          minimalState.output = this.simplifyObject(originalState.output);
+        } else {
+          minimalState.output = originalState.output;
+        }
+      } catch {
+        minimalState.output = '[Complex object - preserved state failed]';
+      }
+    }
+
+    return minimalState;
+  }
+
+  /**
+   * Simplify complex objects to basic structures
+   */
+  private simplifyObject(obj: any, depth: number = 0): any {
+    if (depth > 3) return '[Object too deep]'; // Prevent infinite recursion
+    if (obj === null || obj === undefined) return obj;
+    if (typeof obj !== 'object') return obj;
+    if (obj instanceof Date) return obj.toISOString();
+    
+    if (Array.isArray(obj)) {
+      return obj.slice(0, 10).map(item => this.simplifyObject(item, depth + 1)); // Limit array size
+    }
+    
+    const simplified: any = {};
+    let keyCount = 0;
+    
+    for (const [key, value] of Object.entries(obj)) {
+      if (keyCount >= 20) break; // Limit number of keys
+      if (key.startsWith('_')) continue; // Skip private properties
+      
+      try {
+        simplified[key] = this.simplifyObject(value, depth + 1);
+        keyCount++;
+      } catch {
+        simplified[key] = '[Value could not be simplified]';
+      }
+    }
+    
+    return simplified;
+  }
+
+  /**
+   * Aggressive cleaning for Firestore compatibility
+   */
+  private aggressiveCleanForFirestore(state: StageState): StageState {
+    // Start with a fresh object to avoid any prototype chain issues
+    const cleaned: StageState = {
+      stageId: state.stageId,
+      status: state.status,
+      depsAreMet: state.depsAreMet,
+      isEditingInput: state.isEditingInput,
+      isEditingOutput: state.isEditingOutput,
+      isStale: state.isStale,
+      staleDismissed: state.staleDismissed,
+      shouldAutoRun: state.shouldAutoRun,
+      completedAt: state.completedAt,
+      error: state.error ? String(state.error).substring(0, 1000) : undefined
+    };
+
+    // Handle userInput with size limits
+    if (state.userInput !== undefined) {
+      cleaned.userInput = this.deepCleanValue(state.userInput, 3);
+    }
+
+    // Handle output with size limits  
+    if (state.output !== undefined) {
+      cleaned.output = this.deepCleanValue(state.output, 3);
+    }
+
+    // Clean specific complex properties with strict limits
+    if (state.usageMetadata && typeof state.usageMetadata === 'object') {
+      cleaned.usageMetadata = {
+        thoughtsTokenCount: Number(state.usageMetadata.thoughtsTokenCount) || 0,
+        candidatesTokenCount: Number(state.usageMetadata.candidatesTokenCount) || 0,
+        totalTokenCount: Number(state.usageMetadata.totalTokenCount) || 0,
+        promptTokenCount: Number(state.usageMetadata.promptTokenCount) || 0
+      };
+    }
+
+    // Skip problematic properties that can cause nested entity errors
+    // Do NOT include: groundingMetadata, functionCalls, thinkingSteps, 
+    // codeExecutionResults, outputImages, currentStreamOutput, generationProgress
+
+    return cleaned;
+  }
+
+  /**
+   * Deep clean values with strict depth and size limits
+   */
+  private deepCleanValue(value: any, maxDepth: number): any {
+    if (maxDepth <= 0) return '[Nested too deep]';
+    if (value === null || value === undefined) return value;
+    
+    // Handle primitives
+    if (typeof value === 'string') {
+      return value.length > 50000 ? value.substring(0, 50000) + '[Truncated]' : value;
+    }
+    if (typeof value === 'number' || typeof value === 'boolean') {
+      return value;
+    }
+    if (value instanceof Date) {
+      return value.toISOString();
+    }
+    
+    // Handle functions and other non-serializable types
+    if (typeof value === 'function' || value instanceof RegExp || value instanceof Error) {
+      return String(value);
+    }
+    
+    // Handle arrays with size limits
+    if (Array.isArray(value)) {
+      return value.slice(0, 20).map(item => this.deepCleanValue(item, maxDepth - 1));
+    }
+    
+    // Handle objects with key limits
+    if (typeof value === 'object') {
+      const cleaned: any = {};
+      let keyCount = 0;
+      
+      for (const [key, val] of Object.entries(value)) {
+        if (keyCount >= 30) break; // Strict key limit
+        if (typeof key !== 'string' || key.startsWith('_')) continue;
+        
+        try {
+          cleaned[key] = this.deepCleanValue(val, maxDepth - 1);
+          keyCount++;
+        } catch {
+          // Skip values that can't be cleaned
+        }
+      }
+      
+      return cleaned;
+    }
+    
+    return String(value);
   }
 
   /**
