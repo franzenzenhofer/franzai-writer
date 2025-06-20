@@ -48,16 +48,21 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     
     // Stage 5: Export & Publish
     await page.click('#trigger-export-export-publish');
-    await page.waitForSelector('text=Styled HTML', { timeout: 30000 });
+    // Wait for export formats to appear - use more specific selector
+    await page.waitForSelector('h3:has-text("Styled HTML")', { timeout: 30000 });
     
-    // Verify all export formats are available
-    const styledHtml = page.locator('text=Styled HTML');
-    const cleanHtml = page.locator('text=Clean HTML');
-    const markdown = page.locator('text=Markdown');
+    // Verify all export formats are available using heading selectors
+    const styledHtml = page.locator('h3:has-text("Styled HTML")');
+    const cleanHtml = page.locator('h3:has-text("Clean HTML")');
+    const markdown = page.locator('h3:has-text("Markdown")');
+    const pdf = page.locator('h3:has-text("PDF Document")');
+    const word = page.locator('h3:has-text("Word Document")');
     
     await expect(styledHtml).toBeVisible();
     await expect(cleanHtml).toBeVisible();
     await expect(markdown).toBeVisible();
+    await expect(pdf).toBeVisible();
+    await expect(word).toBeVisible();
     
     console.log('✅ All export formats generated successfully');
     

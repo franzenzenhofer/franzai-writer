@@ -1,20 +1,16 @@
 # Test info
 
-- Name: Poem Workflow - Comprehensive E2E Tests >> Complete poem workflow - basic flow
-- Location: /Users/franzenzenhofer/dev/franzai-writer/worktree-firestore-nested-fix/tests/e2e/poem-workflow-comprehensive.spec.ts:19:7
+- Name: Poem Workflow - Comprehensive E2E Tests >> Test different image format variations
+- Location: /Users/franzenzenhofer/dev/franzai-writer/worktree-firestore-nested-fix/tests/e2e/poem-workflow-comprehensive.spec.ts:70:7
 
 # Error details
 
 ```
-Error: expect.toBeVisible: Error: strict mode violation: locator('text=Styled HTML') resolved to 2 elements:
-    1) <h3 class="font-semibold text-sm">Styled HTML</h3> aka getByRole('heading', { name: 'Styled HTML' })
-    2) <label for="publish-html-styled" class="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer font-normal">Styled HTML</label> aka locator('label').filter({ hasText: 'Styled HTML' })
-
+Error: page.click: Test timeout of 60000ms exceeded.
 Call log:
-  - expect.toBeVisible with timeout 5000ms
-  - waiting for locator('text=Styled HTML')
+  - waiting for locator('#process-stage-image-briefing')
 
-    at /Users/franzenzenhofer/dev/franzai-writer/worktree-firestore-nested-fix/tests/e2e/poem-workflow-comprehensive.spec.ts:58:30
+    at /Users/franzenzenhofer/dev/franzai-writer/worktree-firestore-nested-fix/tests/e2e/poem-workflow-comprehensive.spec.ts:97:18
 ```
 
 # Page snapshot
@@ -32,37 +28,30 @@ Call log:
     - link "Login":
       - /url: /login
 - main:
-  - heading "Embers on Still Water" [level=1]
+  - heading "Chromium Constellations" [level=1]
   - text: Last saved 21 Jun 2025 01:50 |
   - paragraph: "Workflow: Poem Generator"
-  - text: Progress 8 / 8 Stages
+  - text: Progress 4 / 8 Stages
   - progressbar
-  - alert:
-    - img
-    - heading "Wizard Completed!" [level=5]
-    - text: All stages have been completed. You can now view and export your document.
-  - img
   - text: Poem Topic What is the topic of your poem?
   - button:
     - img
-  - paragraph: A serene lake at sunset with mountains in the background
-  - button "Edit":
+  - textbox "Compose a heartfelt poem about the sun and moon's timeless dance—describe the scene, emotions it evokes, and why this celestial love story matters to you.": Modern city skyline at night
+  - text: ~7 tokens
+  - button "Continue":
     - img
-    - text: Edit
+    - text: Continue
   - img
-  - text: Generate Poem & Title AI will generate a poem and title based on your topic.
+  - text: "Waiting for: Poem Topic Generate Poem & Title AI will generate a poem and title based on your topic."
   - button:
     - img
-  - text: Poem Title Embers on Still Water Poem Content The sun descends, a fiery kiss, Upon the lake, a tranquil bliss. Golden hues on waters gleam, A mirrored canvas, like a dream. Mountains rise, in silhouette, A jagged crown, where shadows met. Their peaks ignite with fading light, A silent watch throughout the night. The air is still, a gentle sigh, As day surrenders to the sky. Reflections dance, a shimmering show, Where heaven meets the earth below. A painted scene, serene and deep, Where weary souls their secrets keep. In this quiet, peace takes hold, A story in the sunset told.
+  - text: Poem Title Chromium Constellations Poem Content A velvet drape, embroidered bright, With chromium constellations hung, Each window pane, a pixel light, A silent story, softly sung. Steel giants pierce the inky blue, A jagged edge against the night, Their hollow hearts, reflecting through, A dazzling, artificial light. Below, a river, dark and deep, Reflects the gleam with fractured grace, Where secrets sleep, and shadows creep, Across the city's hurried face. And in this hush, a fragile peace, Descends upon the concrete maze, Until the dawn, brings no release, But shifts the light in hazy ways.
   - button:
     - img
   - textbox "Optional notes for AI regeneration..."
   - button "AI REDO":
     - img
     - text: AI REDO
-  - button "Edit":
-    - img
-    - text: Edit
   - img
   - text: Image Customization Optional Customize how your poem should be illustrated
   - button:
@@ -75,7 +64,7 @@ Call log:
   - text: Create Image Prompt AI will create optimized imagen prompts and unique filenames for your poem illustrations.
   - button:
     - img
-  - text: Optimized Imagen Prompt Artistic painting of a sunset over a tranquil lake, golden light reflecting on the water's surface, silhouetted mountains in the background, fading light igniting the peaks, creating a dreamlike, serene atmosphere, reflections shimmer on the water, capturing the meeting of heaven and earth, deep colors, peaceful and quiet scene. Generated Filenames embers-still-reflection sunset-mountain-silhouette
+  - text: "Optimized Imagen Prompt Artistic interpretation of a cityscape at night: A velvet drape of deep blue sky studded with chromium constellations, their light reflecting off steel giants piercing the darkness. Window panes glow like pixel lights, illuminating a dark river below, its surface fractured with reflections. Shadows creep across the city's face, creating a fragile peace in the concrete maze. Style: artistic. Generated Filenames nocturnal-chromium-dreams steel-azure-reflections"
   - textbox "Optional notes for AI regeneration..."
   - button "AI REDO":
     - img
@@ -87,7 +76,7 @@ Call log:
   - text: Generate Poem Illustration AI will create an image that complements your poem.
   - button:
     - img
-  - 'img "Generated image: Artistic painting of a sunset over a tranquil lake, golden light reflecting on the water''s surface, silhouetted mountains in the background, fading light igniting the peaks, creating a dreamlike, serene atmosphere, reflections shimmer on the water, capturing the meeting of heaven and earth, deep colors, peaceful and quiet scene."'
+  - 'img "Generated image: Artistic interpretation of a cityscape at night: A velvet drape of deep blue sky studded with chromium constellations, their light reflecting off steel giants piercing the darkness. Window panes glow like pixel lights, illuminating a dark river below, its surface fractured with reflections. Shadows creep across the city''s face, creating a fragile peace in the concrete maze. Style: artistic."'
   - text: 3:4
   - button "Download":
     - img
@@ -99,90 +88,26 @@ Call log:
   - button "Edit":
     - img
     - text: Edit
-  - img
   - text: HTML Briefing Optional Special instructions for HTML formatting (optional)
   - button:
     - img
-  - button "Edit":
+  - textbox "Special instructions for HTML formatting (optional)"
+  - button "Continue":
     - img
-    - text: Edit
-  - img
+    - text: Continue
   - text: Generate HTML Preview AI will convert your poem into beautiful HTML based on your briefing.
   - button:
     - img
-  - textbox "Optional notes for AI regeneration..."
-  - button "AI REDO":
+  - paragraph: This stage runs automatically when dependencies are complete.
+  - text: ⌘+Enter
+  - button "Run AI":
     - img
-    - text: AI REDO
-  - button "Edit":
-    - img
-    - text: Edit
-  - img
+    - text: Run AI
   - text: Export & Publish Transform your poem into professional formats and publish instantly
   - button:
     - img
-  - heading "Live Preview" [level=3]
-  - button "Styled":
-    - img
-    - text: Styled
-  - button "Clean":
-    - img
-    - text: Clean
-  - text: Styled Preview
   - img
-  - heading "Styled HTML" [level=3]
-  - paragraph: Beautiful, ready-to-publish HTML with embedded styles
-  - button "Download":
-    - img
-    - text: Download
-  - button "Copy":
-    - img
-    - text: Copy
-  - img
-  - heading "Clean HTML" [level=3]
-  - paragraph: Plain HTML without CSS - perfect for WordPress, Medium, etc.
-  - button "Download":
-    - img
-    - text: Download
-  - button "Copy":
-    - img
-    - text: Copy
-  - img
-  - heading "Markdown" [level=3]
-  - paragraph: Universal markdown format for GitHub, Notion, Obsidian
-  - button "Download":
-    - img
-    - text: Download
-  - button "Copy":
-    - img
-    - text: Copy
-  - img
-  - heading "PDF Document" [level=3]
-  - paragraph: Professional PDF based on clean HTML structure
-  - button "Download":
-    - img
-    - text: Download
-  - img
-  - heading "Word Document" [level=3]
-  - paragraph: Microsoft Word format based on clean HTML structure
-  - button "Download":
-    - img
-    - text: Download
-  - img
-  - text: "Publish to Web Share your content with a permanent, shareable link Select formats to publish:"
-  - checkbox "Styled HTML" [checked]:
-    - img
-  - text: Styled HTML
-  - checkbox "Clean HTML"
-  - text: Clean HTML
-  - checkbox "Markdown"
-  - text: Markdown
-  - button "Publish Now":
-    - img
-    - text: Publish Now
-  - button "Regenerate Exports":
-    - img
-    - text: Regenerate Exports
+  - text: "Waiting for: Generate HTML Preview"
 - contentinfo:
   - paragraph: © 2025 Franz AI Writer. All rights reserved.
   - paragraph:
@@ -198,15 +123,10 @@ Call log:
     - img
     - text: GitHub
 - region "Notifications (F8)":
-  - list:
-    - status:
-      - text: Export Complete Your content has been exported successfully!
-      - button:
-        - img
+  - list
 - alert
 - button "Open Next.js Dev Tools":
   - img
-- status: Notification Export CompleteYour content has been exported successfully!
 ```
 
 # Test source
@@ -269,8 +189,7 @@ Call log:
    55 |     const cleanHtml = page.locator('text=Clean HTML');
    56 |     const markdown = page.locator('text=Markdown');
    57 |     
->  58 |     await expect(styledHtml).toBeVisible();
-      |                              ^ Error: expect.toBeVisible: Error: strict mode violation: locator('text=Styled HTML') resolved to 2 elements:
+   58 |     await expect(styledHtml).toBeVisible();
    59 |     await expect(cleanHtml).toBeVisible();
    60 |     await expect(markdown).toBeVisible();
    61 |     
@@ -309,7 +228,8 @@ Call log:
    94 |       // For now, skip format selection
    95 |       
    96 |       // Continue with image generation
-   97 |       await page.click('#process-stage-image-briefing');
+>  97 |       await page.click('#process-stage-image-briefing');
+      |                  ^ Error: page.click: Test timeout of 60000ms exceeded.
    98 |       
    99 |       // Wait for image generation
   100 |       await page.waitForSelector('text=Download', { timeout: 60000 });
@@ -371,4 +291,43 @@ Call log:
   156 |     await page.click('#process-stage-poem-topic');
   157 |     await page.waitForSelector('text=Poem Title', { timeout: 30000 });
   158 |     
+  159 |     // Get poem details for verification (skip for now)
+  160 |     
+  161 |     // Continue to export
+  162 |     await page.click('#process-stage-image-briefing');
+  163 |     await page.waitForSelector('text=Download', { timeout: 60000 });
+  164 |     await page.click('#process-stage-html-briefing');
+  165 |     await page.waitForSelector('text=Export & Publish Poem', { timeout: 30000 });
+  166 |     await page.click('#trigger-export-export-publish');
+  167 |     await page.waitForSelector('text=Styled HTML', { timeout: 30000 });
+  168 |     
+  169 |     // Test copy functionality for each export format
+  170 |     const formats = ['Styled HTML', 'Clean HTML', 'Markdown'];
+  171 |     
+  172 |     for (const format of formats) {
+  173 |       console.log(`Testing ${format} export...`);
+  174 |       
+  175 |       // Click copy button for this format
+  176 |       const copyButton = page.locator(`div:has-text("${format}") button:has-text("Copy")`);
+  177 |       await copyButton.click();
+  178 |       
+  179 |       // Verify copy success (look for success message or similar)
+  180 |       // Note: Actual clipboard testing requires special permissions
+  181 |       console.log(`✅ ${format} copy button clicked successfully`);
+  182 |     }
+  183 |     
+  184 |     // Test download functionality
+  185 |     for (const format of ['PDF Document', 'Word Document']) {
+  186 |       console.log(`Testing ${format} download...`);
+  187 |       
+  188 |       const downloadButton = page.locator(`div:has-text("${format}") button:has-text("Download")`);
+  189 |       await downloadButton.click();
+  190 |       console.log(`✅ ${format} download initiated`);
+  191 |     }
+  192 |   });
+  193 |
+  194 |   test('Test publishing functionality', async ({ page }) => {
+  195 |     console.log('🧪 Testing publishing functionality...');
+  196 |     
+  197 |     // Complete workflow to export stage
 ```

@@ -1,35 +1,36 @@
 
-Running 1 test using 1 worker
+Running 10 tests using 4 workers
 
+🧪 Testing different artistic styles...
+🧪 Testing export content verification...
 🧪 Testing basic poem workflow...
+🧪 Testing different image formats...
 ✅ Poem generated successfully
+Testing artistic style: Photorealistic
+Testing image format: Square (1:1) - Social Media
 ✅ Image generation completed
-  ✘  1 [chromium] › tests/e2e/poem-workflow-comprehensive.spec.ts:19:7 › Poem Workflow - Comprehensive E2E Tests › Complete poem workflow - basic flow (30.1s)
-
-
-  1) [chromium] › tests/e2e/poem-workflow-comprehensive.spec.ts:19:7 › Poem Workflow - Comprehensive E2E Tests › Complete poem workflow - basic flow 
-
-    [31mTest timeout of 30000ms exceeded.[39m
-
-    Error: page.waitForSelector: Test timeout of 30000ms exceeded.
-    Call log:
-    [2m  - waiting for locator('text=Styled HTML') to be visible[22m
-
-
-      49 |     // Stage 5: Export & Publish
-      50 |     await page.click('#trigger-export-export-publish');
-    > 51 |     await page.waitForSelector('text=Styled HTML', { timeout: 30000 });
-         |                ^
-      52 |     
-      53 |     // Verify all export formats are available
-      54 |     const styledHtml = page.locator('text=Styled HTML');
-        at /Users/franzenzenhofer/dev/franzai-writer/worktree-firestore-nested-fix/tests/e2e/poem-workflow-comprehensive.spec.ts:51:16
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    test-results/poem-workflow-comprehensiv-2dfca--poem-workflow---basic-flow-chromium/test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: test-results/poem-workflow-comprehensiv-2dfca--poem-workflow---basic-flow-chromium/error-context.md
-
-  1 failed
-    [chromium] › tests/e2e/poem-workflow-comprehensive.spec.ts:19:7 › Poem Workflow - Comprehensive E2E Tests › Complete poem workflow - basic flow 
+✅ Square (1:1) - Social Media format generated successfully
+Testing image format: Landscape (4:3) - Classic
+✅ Photorealistic style generated successfully
+Testing artistic style: Watercolor Painting
+✅ Watercolor Painting style generated successfully
+Testing artistic style: Oil Painting
+✅ Oil Painting style generated successfully
+Testing artistic style: Digital Art
+✅ Digital Art style generated successfully
+Testing artistic style: Minimalist
+✅ Minimalist style generated successfully
+  ✓  1 [chromium] › tests/e2e/poem-workflow-comprehensive.spec.ts:110:7 › Poem Workflow - Comprehensive E2E Tests › Test different artistic styles (24.4s)
+🧪 Testing publishing functionality...
+  ✘  4 [chromium] › tests/e2e/poem-workflow-comprehensive.spec.ts:19:7 › Poem Workflow - Comprehensive E2E Tests › Complete poem workflow - basic flow (38.8s)
+🧪 Testing document persistence and reload...
+  ✘  2 [chromium] › tests/e2e/poem-workflow-comprehensive.spec.ts:70:7 › Poem Workflow - Comprehensive E2E Tests › Test different image format variations (1.0m)
+  ✘  3 [chromium] › tests/e2e/poem-workflow-comprehensive.spec.ts:145:7 › Poem Workflow - Comprehensive E2E Tests › Test export content verification (1.0m)
+🧪 Testing error recovery...
+🧪 Testing edge cases...
+  ✘  5 [chromium] › tests/e2e/poem-workflow-comprehensive.spec.ts:194:7 › Poem Workflow - Comprehensive E2E Tests › Test publishing functionality (1.0m)
+🧪 Testing multiple concurrent workflows...
+✅ Multiple concurrent workflows handled successfully
+  ✓  9 [chromium] › tests/e2e/poem-workflow-comprehensive.spec.ts:330:7 › Poem Workflow - Comprehensive E2E Tests › Test multiple workflows simultaneously (5.0s)
+🧪 Checking for console errors...
+  ✘  6 [chromium] › tests/e2e/poem-workflow-comprehensive.spec.ts:224:7 › Poem Workflow - Comprehensive E2E Tests › Test document persistence and reload (1.0m)
