@@ -1,3 +1,22 @@
+/**
+ * RECOMMENDED MODELS FOR PRODUCTION USE:
+ * 
+ * For general stages (cost-effective):
+ * - gemini-2.5-flash (newest, stable, cheapest with full features)
+ * - gemini-2.0-flash (stable, good balance)
+ * 
+ * For export/complex stages (higher quality):
+ * - gemini-2.5-pro (newest, highest quality)
+ * - gemini-2.5-flash (can also work well for exports)
+ * 
+ * For image generation:
+ * - imagen-3.0-generate-002 (latest)
+ * 
+ * AVOID using:
+ * - Preview/experimental versions in production
+ * - Gemini 1.5 models (older generation)
+ */
+
 export interface ModelAbilities {
   toolUse?: boolean; // Corresponds to 'toolNames' or general function calling
   thinking?: boolean; // Corresponds to 'thinkingSettings.enabled'
@@ -33,14 +52,14 @@ export const modelCapabilities: Record<string, ModelAbilities> = {
   // --- Gemini 2.0 Series ---
   'gemini-2.0-flash': {
     toolUse: true,
-    thinking: false,
+    thinking: false, // Experimental in 2.0, full support in 2.5
     grounding: true,
     codeExecution: true,
     imageGeneration: false,
   },
   'gemini-2.0-flash-exp': {
     toolUse: true,
-    thinking: true,
+    thinking: true, // Experimental thinking mode
     grounding: true,
     codeExecution: true,
     imageGeneration: false,
@@ -84,10 +103,49 @@ export const modelCapabilities: Record<string, ModelAbilities> = {
     codeExecution: true,
     imageGeneration: false,
   },
-   'gemini-2.5-flash-preview': { // Maps to gemini-2.5-flash
+  'gemini-2.5-flash-preview': { // Maps to gemini-2.5-flash
     toolUse: true,
     thinking: true,
     grounding: true,
+    codeExecution: true,
+    imageGeneration: false,
+  },
+  'gemini-2.5-pro-preview-03-25': { // Specific preview version
+    toolUse: true,
+    thinking: true,
+    grounding: true,
+    codeExecution: true,
+    imageGeneration: false,
+  },
+  
+  // --- Imagen Models ---
+  'imagen-3.0-generate-002': {
+    toolUse: false,
+    thinking: false,
+    grounding: false,
+    codeExecution: false,
+    imageGeneration: true,
+  },
+  'imagen-3.0-generate-001': {
+    toolUse: false,
+    thinking: false,
+    grounding: false,
+    codeExecution: false,
+    imageGeneration: true,
+  },
+
+  // --- Legacy/Deprecated Models ---
+  'gemini-1.5-pro-002': {
+    toolUse: true,
+    thinking: false,
+    grounding: false,
+    codeExecution: true,
+    imageGeneration: false,
+  },
+  'gemini-1.5-flash-002': {
+    toolUse: true,
+    thinking: false,
+    grounding: false,
     codeExecution: true,
     imageGeneration: false,
   },

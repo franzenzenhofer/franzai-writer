@@ -902,10 +902,9 @@ Still having issues? Check the browser console for detailed logs.`;
         >
           {pageTitle}
         </h1>
-        <div className="flex items-center justify-between mb-1">
-          <p className="text-sm md:text-base text-muted-foreground">Workflow: {instance.workflow.name}</p>
+        <div className="flex items-center gap-2 mb-1 text-sm md:text-base text-muted-foreground">
           {!isSaving && lastSaved && (
-            <span className="text-xs md:text-sm text-muted-foreground" data-testid="last-saved-text">
+            <span className="text-xs md:text-sm" data-testid="last-saved-text">
               {`Last saved ${lastSaved.toLocaleString('en-GB', {
                 day: '2-digit',
                 month: 'short',
@@ -916,6 +915,8 @@ Still having issues? Check the browser console for detailed logs.`;
               }).replace(',', '')}`}
             </span>
           )}
+          {!isSaving && lastSaved && <span className="hidden md:inline">|</span>}
+          <p>Workflow: {instance.workflow.name}</p>
         </div>
         
         <div className="mb-6">

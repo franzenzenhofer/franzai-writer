@@ -3,6 +3,7 @@
   "shortName": "poem",
   "name": "Poem Generator",
   "description": "Create a poem with AI assistance.",
+  "defaultModel": "gemini-2.5-flash",
   "config": {
     "setTitleFromStageOutput": "generate-poem-with-title",
     "finalOutputStageId": "generate-html-preview",
