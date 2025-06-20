@@ -1,9 +1,10 @@
 module.exports = {
   preset: 'ts-jest',
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
-    'server-only': '<rootDir>/tests/mocks/empty-module.js', // Or a more specific mock if needed
+    'server-only': '<rootDir>/tests/mocks/empty-module.js',
+    'lucide-react': '<rootDir>/tests/mocks/lucide-react.js',
   },
   testPathIgnorePatterns: [
     '/node_modules/',
@@ -19,4 +20,14 @@ module.exports = {
     '**/*.spec.tsx',
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
+  transform: {
+    '^.+\\.(ts|tsx)$': ['ts-jest', {
+      tsconfig: {
+        jsx: 'react',
+      },
+    }],
+  },
+  transformIgnorePatterns: [
+    'node_modules/(?!(lucide-react)/)',
+  ],
 };

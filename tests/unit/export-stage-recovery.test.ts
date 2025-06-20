@@ -34,7 +34,7 @@ describe('Export Stage Recovery', () => {
     expect(result['regular-stage'].status).toBe('completed'); // Not affected
   });
 
-  test('leaves non-export stages unchanged', () => {
+  test('resets non-export stages in running state without output', () => {
     const stageStates: Record<string, StageState> = {
       'ai-stage': {
         stageId: 'ai-stage',
@@ -53,7 +53,7 @@ describe('Export Stage Recovery', () => {
 
     const result = resetStuckExportStages(stageStates, workflow);
 
-    expect(result['ai-stage'].status).toBe('running'); // Should not be changed
+    expect(result['ai-stage'].status).toBe('idle'); // Should be reset to idle
   });
 
   test('leaves completed export stages unchanged', () => {
