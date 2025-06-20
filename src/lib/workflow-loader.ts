@@ -6,18 +6,21 @@ import targetedPageSeoOptimizedV3WorkflowData from "@/workflows/targeted-page-se
 import recipeSeoOptimizedWorkflowData from "@/workflows/recipe-seo-optimized/workflow.json";
 import poemGeneratorWorkflowData from "@/workflows/poem-generator/workflow.json";
 import geminiToolsTestWorkflowData from "@/workflows/gemini-tools-test/workflow.json";
+import pressReleaseWorkflowData from "@/workflows/press-release/workflow.json";
 
 // Cast the imported JSON data to the Workflow type
 const targetedPageSeoOptimizedV3Workflow: Workflow = targetedPageSeoOptimizedV3WorkflowData as Workflow;
 const recipeSeoOptimizedWorkflow: Workflow = recipeSeoOptimizedWorkflowData as Workflow;
 const poemGeneratorWorkflow: Workflow = poemGeneratorWorkflowData as Workflow;
 const geminiToolsTestWorkflow: Workflow = geminiToolsTestWorkflowData as Workflow;
+const pressReleaseWorkflow: Workflow = pressReleaseWorkflowData as Workflow;
 
 export const allWorkflows: Workflow[] = [
   targetedPageSeoOptimizedV3Workflow,
   recipeSeoOptimizedWorkflow,
   poemGeneratorWorkflow,
   geminiToolsTestWorkflow,
+  pressReleaseWorkflow,
   // Add other imported workflows here
 ];
 
