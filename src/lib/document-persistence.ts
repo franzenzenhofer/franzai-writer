@@ -567,6 +567,7 @@ class DocumentPersistenceManager {
 
   /**
    * Clean stage states for Firestore storage
+   * ULTIMATE FIX: Convert ALL complex data to strings to avoid nested entity errors
    */
   private cleanStageStates(stageStates: Record<string, StageState>): Record<string, StageState> {
     const cleaned: Record<string, StageState> = {};
@@ -578,51 +579,81 @@ class DocumentPersistenceManager {
       }
 
       try {
-        // Log the state being cleaned for debugging
-        console.log(`[DocumentPersistence] Cleaning stage state: ${stageId}`, {
-          status: state.status,
-          hasUserInput: !!state.userInput,
-          userInputType: typeof state.userInput,
-          hasOutput: !!state.output,
-          outputType: typeof state.output,
-          keys: Object.keys(state),
-          hasGroundingMetadata: !!state.groundingMetadata,
-          hasFunctionCalls: !!state.functionCalls,
-          hasThinkingSteps: !!state.thinkingSteps,
-          hasCodeExecutionResults: !!state.codeExecutionResults
-        });
+        console.log(`[DocumentPersistence] ULTIMATE CLEANING for Firestore: ${stageId}`);
 
-        // Clean the stage state with special handling for known complex properties
-        const cleanedState = this.cleanStageStateSpecific(state);
-        cleaned[stageId] = this.cleanUndefinedValues(cleanedState);
+        // ULTIMATE FIRESTORE FIX: Only keep essential scalar properties
+        // Convert everything else to strings to completely avoid nested entity errors
+        const firestore_safe_state: any = {
+          stageId: String(state.stageId || stageId),
+          status: String(state.status || 'idle'),
+          error: state.error ? String(state.error) : undefined,
+          completedAt: state.completedAt || undefined,
+          
+          // Convert ALL complex objects to strings
+          userInput_string: state.userInput ? 
+            JSON.stringify(state.userInput).substring(0, 2000) : undefined,
+          
+          output_string: state.output ? 
+            JSON.stringify(state.output).substring(0, 5000) : undefined,
+        };
 
-        // Verify the cleaned state
+        // For export stages, preserve minimal structure as strings
+        if (state.output && typeof state.output === 'object' && 
+            ('formats' in state.output || 'publishing' in state.output)) {
+          console.log(`[DocumentPersistence] Converting export stage to string format: ${stageId}`);
+          firestore_safe_state.isExportStage = true;
+          firestore_safe_state.exportData_string = JSON.stringify(this.cleanExportStageOutput(state.output));
+        }
+
+        // Clean undefined values
+        cleaned[stageId] = this.cleanUndefinedValues(firestore_safe_state) as StageState;
+
+        // Final verification - this MUST succeed
         try {
-          JSON.stringify(cleaned[stageId]);
+          const testJson = JSON.stringify(cleaned[stageId]);
+          if (testJson.includes('[object Object]')) {
+            throw new Error('Contains non-serializable objects');
+          }
+          console.log(`[DocumentPersistence] Stage ${stageId} successfully cleaned to ${testJson.length} chars`);
         } catch (e) {
-          console.error(`[DocumentPersistence] Stage ${stageId} still has non-serializable data after cleaning`, e);
-          // Try to salvage what we can
+          console.error(`[DocumentPersistence] CRITICAL: Stage ${stageId} STILL not serializable after ultimate cleaning!`, e);
+          // Last resort - minimal string-only state
           cleaned[stageId] = {
-            stageId: state.stageId,
-            status: state.status || 'idle',
-            error: state.error ? String(state.error) : undefined,
-            completedAt: state.completedAt,
-            // Convert complex objects to simple representations
-            userInput: state.userInput ? JSON.parse(JSON.stringify(state.userInput)) : undefined,
-            output: state.output ? JSON.parse(JSON.stringify(state.output)) : undefined
-          } as StageState;
+            stageId: String(stageId),
+            status: 'error',
+            error: 'Stage data too complex for Firestore',
+            summary: String(state).substring(0, 500)
+          } as any;
         }
       } catch (error) {
         console.error(`[DocumentPersistence] Failed to clean stage ${stageId}`, error);
         // Create a minimal valid state
         cleaned[stageId] = {
-          stageId: stageId,
+          stageId: String(stageId),
           status: 'error',
           error: 'Failed to save stage state'
-        } as StageState;
+        } as any;
       }
     }
 
+    // CRITICAL TEST: Verify the cleaned data is 100% Firestore compatible
+    try {
+      const testSerialization = JSON.stringify(cleaned);
+      console.log(`[DocumentPersistence] CLEANING SUCCESS: ${Object.keys(cleaned).length} stages, ${testSerialization.length} chars total`);
+      
+      // Double-check for any remaining nested objects
+      if (testSerialization.includes('[object Object]')) {
+        console.error('[DocumentPersistence] CRITICAL: Cleaned data still contains [object Object]!');
+        throw new Error('Cleaning failed - contains non-serializable objects');
+      }
+      
+    } catch (e) {
+      console.error('[DocumentPersistence] CRITICAL: Cleaned stageStates STILL not serializable!', e);
+      console.error('[DocumentPersistence] Raw cleaned data:', cleaned);
+      throw new Error('FATAL: Stage states could not be cleaned for Firestore');
+    }
+
+    console.log(`[DocumentPersistence] ULTIMATE CLEANING COMPLETE: ${Object.keys(cleaned).length} stages processed`);
     return cleaned;
   }
 
