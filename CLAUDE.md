@@ -155,3 +155,69 @@ The highest priority ticket should be at the top of the numerical order in open-
 - Push to GitHub regularly
 - Never batch multiple unrelated changes in one commit
 - Commit frequently to maintain a clear history
+
+## Git Worktrees - MANDATORY for Parallel Development
+
+**CRITICAL**: Use git worktrees BEFORE starting any big task to prevent conflicts between multiple Claude instances.
+
+### Why This Is Required
+Multiple Claude sessions may be working on different features simultaneously. Without worktrees, they would conflict and overwrite each other's changes. Worktrees provide isolated working directories for each task.
+
+### Workflow Requirements
+
+1. **BEFORE starting a big task**: Create a new worktree
+2. **DURING development**: Work in the isolated worktree
+3. **AFTER task completion**: IMMEDIATELY merge and clean up
+
+### How to Use Git Worktrees
+
+```bash
+# From main repository directory
+# Create a new worktree for your feature
+git worktree add ../franzai-writer-[feature-name] feature/[feature-name]
+
+# Example:
+git worktree add ../franzai-writer-auth feature/auth-improvements
+
+# List all worktrees
+git worktree list
+
+# After task completion and merge:
+git worktree remove ../franzai-writer-[feature-name]
+```
+
+### Complete Workflow Example
+
+```bash
+# 1. Start: Create worktree for new feature
+cd ~/dev/franzai-writer
+git checkout master
+git pull origin master
+git worktree add ../franzai-writer-api-fixes feature/api-fixes
+
+# 2. Work: Develop in the worktree
+cd ../franzai-writer-api-fixes
+npm install
+npm run dev
+# ... make changes, commit frequently ...
+
+# 3. Finish: Merge and cleanup
+git push origin feature/api-fixes
+cd ../franzai-writer
+git checkout master
+git merge feature/api-fixes
+git push origin master
+git branch -d feature/api-fixes
+git worktree remove ../franzai-writer-api-fixes
+```
+
+### Benefits
+- **Isolation**: Each Claude session works in its own directory
+- **No conflicts**: Changes don't interfere until explicitly merged
+- **Parallel work**: Multiple features can progress simultaneously
+- **Clean history**: Each feature has its own branch
+
+### Reference
+See the official documentation: https://docs.anthropic.com/claude-code/worktrees
+
+**REMEMBER**: Always create a worktree for tasks that will take more than 30 minutes or involve significant changes!
