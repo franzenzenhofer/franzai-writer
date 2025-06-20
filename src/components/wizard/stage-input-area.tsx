@@ -16,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 // Save icon removed as button is removed
 import { FileText } from "lucide-react";
+import { isSubmitShortcut } from "@/lib/platform-utils";
 
 export interface StageInputAreaProps {
   stage: Stage;
@@ -23,6 +24,7 @@ export interface StageInputAreaProps {
   onInputChange: (stageId: string, fieldName: string, value: any) => void;
   onFormSubmit: (stageId: string, data: any) => void; 
   allStageStates: Record<string, StageState>;
+  onSubmit?: () => void; // For triggering parent's primary action
 }
 
 export interface StageInputAreaRef {
@@ -30,7 +32,7 @@ export interface StageInputAreaRef {
 }
 
 export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>(
-  ({ stage, stageState, onInputChange, onFormSubmit, allStageStates }, ref) => {
+  ({ stage, stageState, onInputChange, onFormSubmit, allStageStates, onSubmit }, ref) => {
   const [contextManualInput, setContextManualInput] = useState(
     typeof stageState.userInput?.manual === 'string' ? stageState.userInput.manual : ""
   );
@@ -138,6 +140,13 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
 
   const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     onInputChange(stage.id, "userInput", e.target.value);
+  };
+
+  const handleTextareaKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (isSubmitShortcut(e.nativeEvent) && onSubmit) {
+      e.preventDefault();
+      onSubmit();
+    }
   };
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -287,7 +296,8 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
             placeholder={stage.placeholder ?? stage.description ?? "Enter your input here..."}
             value={typeof stageState.userInput === 'string' ? stageState.userInput : ""}
             onChange={handleTextareaChange}
-                         rows={8}
+            onKeyDown={handleTextareaKeyDown}
+            rows={8}
             className="bg-background"
           />
           <TokenCounter text={typeof stageState.userInput === 'string' ? stageState.userInput : ""} />
@@ -325,6 +335,7 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
                           placeholder={field.placeholder} 
                           {...controllerField} 
                           onChange={(e) => onChangeHandler(e.target.value)}
+                          onKeyDown={handleTextareaKeyDown}
                           value={finalValue as string} 
                           className="bg-background"/>
                       ) : field.type === "checkbox" ? (
@@ -382,6 +393,7 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
               placeholder="Paste relevant text or type your context here..."
               value={contextManualInput}
               onChange={handleContextManualChange}
+              onKeyDown={handleTextareaKeyDown}
               rows={6}
               className="bg-background"
             />

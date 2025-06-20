@@ -16,6 +16,7 @@ import { DynamicProgressBar } from "./dynamic-progress-bar";
 import { ExportStageCard } from "./export-stage/export-stage-card";
 import { StageInfoTrigger } from "./stage-info-overlay";
 import { useToast } from "@/hooks/use-toast";
+import { KeyboardHint } from "@/components/ui/keyboard-hint";
 
 interface StageCardProps {
   stage: Stage;
@@ -327,7 +328,7 @@ export function StageCard({
           <StageInfoTrigger stage={stage} workflow={workflow} />
         </div>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-2">
         {isEditingInput && stage.inputType !== 'none' && stageState.status !== 'running' && (
           <div>
             <StageInputArea
@@ -337,6 +338,7 @@ export function StageCard({
               onInputChange={onInputChange}
               onFormSubmit={onFormSubmit} 
               allStageStates={allStageStates}
+              onSubmit={handlePrimaryAction}
             />
           </div>
         )}
@@ -430,17 +432,20 @@ export function StageCard({
         
         {/* Primary Action Button: Kept as direct Button due to complex icon/text logic and custom styling */}
         {showPrimaryActionButton && !stageState.isEditingOutput && !dependencyMessage && (
-          <Button 
-            size="sm" 
-            onClick={handlePrimaryAction} 
-            disabled={!canRun || stageState.status === "running"}
-            className="bg-accent hover:bg-accent/90 text-accent-foreground" // Unique styling
-            id={`process-stage-${stage.id}`}
-            data-testid={`process-stage-${stage.id}`}
-          >
-                         <ArrowRight className="mr-2 h-4 w-4" />
-             {stageState.status === "running" ? "Processing..." : (stage.promptTemplate ? "Run AI" : "Continue")}
-          </Button>
+          <>
+            <KeyboardHint className="text-xs text-muted-foreground" />
+            <Button 
+              size="sm" 
+              onClick={handlePrimaryAction} 
+              disabled={!canRun || stageState.status === "running"}
+              className="bg-accent hover:bg-accent/90 text-accent-foreground" // Unique styling
+              id={`process-stage-${stage.id}`}
+              data-testid={`process-stage-${stage.id}`}
+            >
+              <ArrowRight className="mr-2 h-4 w-4" />
+              {stageState.status === "running" ? "Processing..." : (stage.promptTemplate ? "Run AI" : "Continue")}
+            </Button>
+          </>
         )}
       </CardFooter>
     </Card>

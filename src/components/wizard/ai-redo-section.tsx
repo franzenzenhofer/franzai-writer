@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { RotateCcw, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { isSubmitShortcut } from "@/lib/platform-utils";
+import { KeyboardHint } from "@/components/ui/keyboard-hint";
 
 interface AiRedoSectionProps {
   stageId: string;
@@ -27,6 +29,13 @@ export function AiRedoSection({
     onAiRedo(notes.trim() || undefined);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (isSubmitShortcut(e.nativeEvent)) {
+      e.preventDefault();
+      handleAiRedo();
+    }
+  };
+
   if (!enabled) {
     return null;
   }
@@ -38,6 +47,7 @@ export function AiRedoSection({
         <Textarea
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder="Optional notes for AI regeneration..."
           rows={3}
           className="w-full min-h-[5rem] text-sm bg-background"
@@ -48,7 +58,8 @@ export function AiRedoSection({
       </div>
       
       {/* AI REDO button below and to the right */}
-      <div className="w-full flex justify-end">
+      <div className="w-full flex justify-end items-center gap-2">
+        <KeyboardHint className="text-xs text-muted-foreground" />
         <Button
           variant="outline"
           size="sm"
