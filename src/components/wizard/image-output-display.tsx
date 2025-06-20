@@ -86,7 +86,25 @@ export function ImageOutputDisplay({
   }
 
   const selectedImage = output.images[selectedIndex];
-  const imageUrl = selectedImage.publicUrl || selectedImage.storageUrl || selectedImage.dataUrl;
+  
+  // Safely extract image URL with validation
+  let imageUrl = '';
+  try {
+    if (selectedImage && typeof selectedImage === 'object') {
+      imageUrl = selectedImage.publicUrl || selectedImage.storageUrl || selectedImage.dataUrl || '';
+    }
+    
+    // Validate URL format
+    if (imageUrl && typeof imageUrl === 'string' && (imageUrl.startsWith('http') || imageUrl.startsWith('data:'))) {
+      // Valid URL
+    } else {
+      console.warn('[ImageOutputDisplay] Invalid image URL detected:', imageUrl);
+      imageUrl = '';
+    }
+  } catch (error) {
+    console.error('[ImageOutputDisplay] Error extracting image URL:', error);
+    imageUrl = '';
+  }
 
   return (
     <div className="space-y-4">
@@ -94,49 +112,66 @@ export function ImageOutputDisplay({
       <Card>
         <CardContent className="p-4">
           <div className="relative">
-            <Image
-              src={imageUrl || '/placeholder-image.png'}
-              alt={`Generated image: ${selectedImage.promptUsed}`}
-              width={selectedImage.width || 800}
-              height={selectedImage.height || 600}
-              className="w-full h-auto rounded-lg"
-              data-aspect-ratio={selectedImage.aspectRatio}
-            />
+            {imageUrl ? (
+              <Image
+                src={imageUrl}
+                alt={`Generated image: ${selectedImage?.promptUsed || 'Generated image'}`}
+                width={selectedImage?.width || 800}
+                height={selectedImage?.height || 600}
+                className="w-full h-auto rounded-lg"
+                data-aspect-ratio={selectedImage?.aspectRatio}
+              />
+            ) : (
+              <div className="w-full h-48 bg-muted rounded-lg flex items-center justify-center">
+                <div className="text-center text-muted-foreground">
+                  <AlertCircle className="h-8 w-8 mx-auto mb-2" />
+                  <p className="text-sm">Image URL not available</p>
+                </div>
+              </div>
+            )}
             
             {/* Aspect ratio badge */}
-            <Badge 
-              variant="secondary" 
-              className="absolute top-2 left-2"
-            >
-              {selectedImage.aspectRatio}
-            </Badge>
+            {selectedImage?.aspectRatio && (
+              <Badge 
+                variant="secondary" 
+                className="absolute top-2 left-2"
+              >
+                {selectedImage.aspectRatio}
+              </Badge>
+            )}
             
             {/* Download button */}
-            <Button
-              size="sm"
-              variant="secondary"
-              className="absolute top-2 right-2"
-              onClick={() => handleDownload(selectedImage, selectedIndex)}
-            >
-              <Download className="h-4 w-4 mr-1" />
-              Download
-            </Button>
+            {imageUrl && selectedImage && (
+              <Button
+                size="sm"
+                variant="secondary"
+                className="absolute top-2 right-2"
+                onClick={() => handleDownload(selectedImage, selectedIndex)}
+              >
+                <Download className="h-4 w-4 mr-1" />
+                Download
+              </Button>
+            )}
           </div>
 
           {/* Image metadata */}
-          {!hideMetadata && (
+          {!hideMetadata && selectedImage && (
             <div className="mt-4 space-y-2">
-              <p className="text-sm text-muted-foreground">
-                <span className="font-medium">Prompt:</span> {selectedImage.promptUsed}
-              </p>
+              {selectedImage.promptUsed && (
+                <p className="text-sm text-muted-foreground">
+                  <span className="font-medium">Prompt:</span> {selectedImage.promptUsed}
+                </p>
+              )}
               {selectedImage.width && selectedImage.height && (
                 <p className="text-sm text-muted-foreground">
                   <span className="font-medium">Dimensions:</span> {selectedImage.width} × {selectedImage.height}
                 </p>
               )}
-              <p className="text-sm text-muted-foreground">
-                <span className="font-medium">Provider:</span> {output.provider}
-              </p>
+              {output?.provider && (
+                <p className="text-sm text-muted-foreground">
+                  <span className="font-medium">Provider:</span> {output.provider}
+                </p>
+              )}
             </div>
           )}
         </CardContent>
