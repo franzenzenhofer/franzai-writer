@@ -186,6 +186,35 @@ function substitutePromptVars(template: string, context: Record<string, any>): s
     throw new Error(errorMsg);
   }
 
+  // CRITICAL VALIDATION: Check for base64 data in the final prompt
+  const base64Patterns = [
+    /data:[^;]+;base64,[A-Za-z0-9+/]+=*/g,  // data URLs with base64
+    /iVBORw0KGgo/g,                         // PNG header in base64
+    /\/9j\/[A-Za-z0-9+/]+=*/g,             // JPEG header in base64
+    /UklGR[A-Za-z0-9+/]+=*/g,              // WEBP header in base64
+    /R0lGOD[A-Za-z0-9+/]+=*/g,             // GIF header in base64
+  ];
+  
+  for (const pattern of base64Patterns) {
+    const matches = finalPrompt.match(pattern);
+    if (matches) {
+      const errorMsg = `CRITICAL: Base64 encoded content detected in AI prompt! This will cause massive token usage and poor performance. Found ${matches.length} base64 patterns. First 100 chars: ${matches[0].substring(0, 100)}...`;
+      console.error(`[Template Substitution] ${errorMsg}`);
+      throw new Error(errorMsg);
+    }
+  }
+  
+  // Additional validation for excessive prompt length (likely due to embedded data)
+  if (finalPrompt.length > 50000) {
+    console.warn(`[Template Substitution] WARNING: Very large prompt detected (${finalPrompt.length} chars). This may indicate embedded content.`);
+    // Check for patterns that suggest embedded images
+    if (finalPrompt.includes('dataUrl') || finalPrompt.includes('base64') || finalPrompt.includes('data:image')) {
+      const errorMsg = `CRITICAL: Prompt contains embedded image data (${finalPrompt.length} chars). Use only image URLs, never embed images in prompts!`;
+      console.error(`[Template Substitution] ${errorMsg}`);
+      throw new Error(errorMsg);
+    }
+  }
+
   console.log(`[Template Substitution] ✅ SUBSTITUTION COMPLETE`);
   console.log(`[Template Substitution] Resolved ${resolved.length} variables:`, resolved.map(r => r.variable));
   console.log(`[Template Substitution] Final prompt length:`, finalPrompt.length);
