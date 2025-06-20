@@ -18,38 +18,42 @@
       "outputType": "json",
       "model": "gemini-2.0-flash",
       "temperature": 0.3,
-      "fields": [
+      "formFields": [
         {
-          "id": "topic",
+          "name": "topic",
           "label": "Press Release Topic",
-          "description": "What is the main topic or announcement?",
           "type": "text",
-          "required": true,
-          "placeholder": "e.g., New Product Launch, Partnership Announcement"
+          "placeholder": "e.g., New Product Launch, Partnership Announcement",
+          "validation": {
+            "required": true
+          }
         },
         {
-          "id": "message",
+          "name": "message",
           "label": "Key Message",
-          "description": "What is the core message you want to convey?",
           "type": "textarea",
-          "required": true,
-          "placeholder": "e.g., We're launching an innovative AI tool that helps businesses..."
+          "placeholder": "e.g., We're launching an innovative AI tool that helps businesses...",
+          "validation": {
+            "required": true
+          }
         },
         {
-          "id": "company",
+          "name": "company",
           "label": "Company Name",
-          "description": "Name of the company issuing the press release",
           "type": "text",
-          "required": true,
-          "placeholder": "e.g., TechCorp Inc."
+          "placeholder": "e.g., TechCorp Inc.",
+          "validation": {
+            "required": true
+          }
         },
         {
-          "id": "website",
+          "name": "website",
           "label": "Company Website (Optional)",
-          "description": "Company website for additional context",
           "type": "text",
-          "required": false,
-          "placeholder": "e.g., https://example.com"
+          "placeholder": "e.g., https://example.com",
+          "validation": {
+            "required": false
+          }
         }
       ],
       "outputFields": [
@@ -113,46 +117,51 @@
       "model": "gemini-2.0-flash",
       "temperature": 0.2,
       "dependencies": ["research"],
-      "fields": [
+      "formFields": [
         {
-          "id": "headline",
+          "name": "headline",
           "label": "Headline",
-          "description": "Main headline for the press release",
           "type": "text",
-          "required": true,
-          "defaultFromStage": "research"
+          "placeholder": "Main headline for the press release",
+          "validation": {
+            "required": true
+          }
         },
         {
-          "id": "subheadline",
+          "name": "subheadline",
           "label": "Subheadline",
-          "description": "Supporting subheadline",
           "type": "text",
-          "required": false,
-          "defaultFromStage": "research"
+          "placeholder": "Supporting subheadline (optional)",
+          "validation": {
+            "required": false
+          }
         },
         {
-          "id": "key_points",
+          "name": "key_points",
           "label": "Key Points",
-          "description": "Main points to include (one per line)",
           "type": "textarea",
-          "required": true,
-          "defaultFromStage": "research"
+          "placeholder": "Main points to include (one per line)",
+          "validation": {
+            "required": true
+          }
         },
         {
-          "id": "quotes",
+          "name": "quotes",
           "label": "Quotes",
-          "description": "Key quotes from executives or stakeholders",
           "type": "textarea",
-          "required": false,
-          "placeholder": "e.g., \"This launch represents...\" - CEO John Doe"
+          "placeholder": "e.g., \"This launch represents...\" - CEO John Doe",
+          "validation": {
+            "required": false
+          }
         },
         {
-          "id": "statistics",
+          "name": "statistics",
           "label": "Statistics & Data",
-          "description": "Important numbers, statistics, or data points",
           "type": "textarea",
-          "required": false,
-          "defaultFromStage": "research"
+          "placeholder": "Important numbers, statistics, or data points",
+          "validation": {
+            "required": false
+          }
         }
       ],
       "outputFields": [
@@ -174,45 +183,51 @@
       "model": "gemini-2.0-flash",
       "temperature": 0.1,
       "dependencies": ["key-facts"],
-      "fields": [
+      "formFields": [
         {
-          "id": "contact_name",
+          "name": "contact_name",
           "label": "Contact Name",
-          "description": "Primary media contact person",
           "type": "text",
-          "required": true,
-          "placeholder": "e.g., Jane Smith"
+          "placeholder": "e.g., Jane Smith",
+          "validation": {
+            "required": true
+          }
         },
         {
-          "id": "contact_title",
+          "name": "contact_title",
           "label": "Contact Title",
-          "description": "Title of the contact person",
           "type": "text",
-          "required": true,
-          "placeholder": "e.g., Director of Communications"
+          "placeholder": "e.g., Director of Communications",
+          "validation": {
+            "required": true
+          }
         },
         {
-          "id": "contact_email",
+          "name": "contact_email",
           "label": "Contact Email",
-          "description": "Email for media inquiries",
           "type": "text",
-          "required": true,
-          "placeholder": "e.g., press@company.com"
+          "placeholder": "e.g., press@company.com",
+          "validation": {
+            "required": true
+          }
         },
         {
-          "id": "contact_phone",
+          "name": "contact_phone",
           "label": "Contact Phone",
-          "description": "Phone number for media inquiries",
           "type": "text",
-          "required": true,
-          "placeholder": "e.g., +1 (555) 123-4567"
+          "placeholder": "e.g., +1 (555) 123-4567",
+          "validation": {
+            "required": true
+          }
         },
         {
-          "id": "additional_contacts",
+          "name": "additional_contacts",
           "label": "Additional Contacts (Optional)",
-          "description": "Secondary contacts or PR agency details",
           "type": "textarea",
-          "required": false
+          "placeholder": "Secondary contacts or PR agency details",
+          "validation": {
+            "required": false
+          }
         }
       ],
       "outputFields": [
@@ -249,40 +264,45 @@
       "provider": "imagen",
       "dependencies": ["final-press-release"],
       "isOptional": true,
-      "fields": [
+      "formFields": [
         {
-          "id": "image_description",
+          "name": "image_description",
           "label": "Image Description",
-          "description": "Describe the image you want to generate",
           "type": "textarea",
-          "required": true,
-          "placeholder": "e.g., Professional photo of a modern office building with company logo"
+          "placeholder": "e.g., Professional photo of a modern office building with company logo",
+          "validation": {
+            "required": true
+          }
         },
         {
-          "id": "style",
+          "name": "style",
           "label": "Image Style",
-          "description": "Choose the visual style",
           "type": "select",
-          "required": true,
+          "defaultValue": "photorealistic",
           "options": [
             { "value": "photorealistic", "label": "Photorealistic" },
             { "value": "professional", "label": "Professional Corporate" },
             { "value": "modern", "label": "Modern Business" },
             { "value": "minimal", "label": "Minimalist" }
-          ]
+          ],
+          "validation": {
+            "required": true
+          }
         },
         {
-          "id": "aspect_ratio",
+          "name": "aspect_ratio",
           "label": "Aspect Ratio",
-          "description": "Choose image dimensions",
           "type": "select",
-          "required": true,
+          "defaultValue": "16:9",
           "options": [
             { "value": "16:9", "label": "16:9 (Landscape)" },
             { "value": "1:1", "label": "1:1 (Square)" },
             { "value": "4:3", "label": "4:3 (Standard)" },
             { "value": "3:4", "label": "3:4 (Portrait)" }
-          ]
+          ],
+          "validation": {
+            "required": true
+          }
         }
       ],
       "imageSettings": {
