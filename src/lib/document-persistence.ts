@@ -604,8 +604,10 @@ class DocumentPersistenceManager {
         };
 
         // For export stages, flatten EVERYTHING to prevent nested entity errors
-        if (state.output && typeof state.output === 'object' && 
-            ('formats' in state.output || 'publishing' in state.output)) {
+        // Also check by stage ID since export stages might be named 'export-publish'
+        if ((state.output && typeof state.output === 'object' && 
+            ('formats' in state.output || 'publishing' in state.output)) ||
+            stageId.includes('export')) {
           console.log(`[DocumentPersistence] FLATTENING export stage completely: ${stageId}`);
           firestore_safe_state.isExportStage = true;
           
@@ -640,20 +642,8 @@ class DocumentPersistenceManager {
                                                    exportOutput.formats['html-clean']?.ready && 
                                                    exportOutput.formats['markdown']?.ready);
             
-            // DO NOT store format content - it's too large for Firestore
-            // Only store metadata about what's ready
-            for (const [formatKey, formatData] of Object.entries(exportOutput.formats)) {
-              if (formatData && typeof formatData === 'object') {
-                const fd = formatData as any;
-                if (fd.ready) {
-                  firestore_safe_state[`${formatKey}_ready`] = true;
-                  if (fd.error) {
-                    firestore_safe_state[`${formatKey}_error`] = String(fd.error);
-                  }
-                  // DO NOT store content or URLs that might contain data URLs
-                }
-              }
-            }
+            // DO NOT store the formats object at all - it causes nested entity errors
+            // We'll reconstruct it on load from the ready flags
           }
           
           // Flatten publishing data
@@ -719,7 +709,7 @@ class DocumentPersistenceManager {
         throw new Error('Cleaning failed - contains non-serializable objects');
       }
       
-      // Additional check for export stages
+      // Additional check for export stages and deep nesting
       const exportStage = Object.entries(cleaned).find(([id, state]) => 
         id.includes('export') || (state as any).isExportStage
       );
@@ -727,6 +717,42 @@ class DocumentPersistenceManager {
         console.log('[DocumentPersistence] Export stage found after cleaning:', {
           stageId: exportStage[0],
           cleanedState: exportStage[1]
+        });
+      }
+      
+      // Deep check for nested objects
+      const checkForNestedObjects = (obj: any, path: string = 'root'): string[] => {
+        const issues: string[] = [];
+        
+        if (obj && typeof obj === 'object' && !Array.isArray(obj) && !(obj instanceof Date)) {
+          for (const [key, value] of Object.entries(obj)) {
+            if (value && typeof value === 'object') {
+              if (Array.isArray(value)) {
+                // Check array items
+                value.forEach((item, index) => {
+                  if (item && typeof item === 'object') {
+                    issues.push(`${path}.${key}[${index}] contains object`);
+                    issues.push(...checkForNestedObjects(item, `${path}.${key}[${index}]`));
+                  }
+                });
+              } else if (!(value instanceof Date)) {
+                // Found a nested object
+                issues.push(`${path}.${key} is a nested object`);
+                issues.push(...checkForNestedObjects(value, `${path}.${key}`));
+              }
+            }
+          }
+        }
+        
+        return issues;
+      };
+      
+      const nestedIssues = checkForNestedObjects(cleaned);
+      if (nestedIssues.length > 0) {
+        console.error('[DocumentPersistence] CRITICAL: Found nested objects after cleaning:', nestedIssues);
+        // Log sample of problematic data
+        nestedIssues.slice(0, 5).forEach(path => {
+          console.error(`[DocumentPersistence] Nested object at ${path}`);
         });
       }
       

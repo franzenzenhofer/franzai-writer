@@ -120,6 +120,23 @@ export class FirestoreAdapter {
         updatedAt: serverTimestamp()
       };
       
+      // DEBUG: Log the exact data being sent to Firestore
+      if (updates.stageStates) {
+        console.log('[FirestoreAdapter] DEBUG: stageStates structure being sent to Firestore:', {
+          stageCount: Object.keys(updates.stageStates).length,
+          stageKeys: Object.keys(updates.stageStates),
+          // Check each stage for complex objects
+          stageDetails: Object.entries(updates.stageStates).map(([id, state]: [string, any]) => ({
+            id,
+            hasOutput: !!state.output,
+            outputType: typeof state.output,
+            outputKeys: state.output && typeof state.output === 'object' ? Object.keys(state.output) : null,
+            hasFormats: state.output && typeof state.output === 'object' && 'formats' in state.output,
+            isExportStage: state.isExportStage || (id.includes('export'))
+          }))
+        });
+      }
+      
       await updateDoc(docRef, updateData);
       this.log('Document updated', { collection: collectionName, id: documentId });
     } catch (error) {

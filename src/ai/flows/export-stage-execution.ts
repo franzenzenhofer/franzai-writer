@@ -46,7 +46,6 @@ export async function executeExportStage({
     console.log('[Export Stage Execution] Format processing complete');
     
     // Return the complete export output
-    // CRITICAL: Keep the structure simple for Firestore compatibility
     return {
       htmlStyled: htmlResult.htmlStyled,
       htmlClean: htmlResult.htmlClean,
