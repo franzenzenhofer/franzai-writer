@@ -8,7 +8,7 @@ import { allWorkflows } from "@/lib/workflow-loader";
 import type { WizardDocument, Workflow } from "@/types";
 import { FileText, ArrowRight, AlertCircle, PlusCircle, Info, LogIn, User, Loader2, Trash2, Edit, Clock, ChevronRight } from "lucide-react";
 import { useAuth } from "@/components/layout/app-providers";
-import { documentPersistence } from '@/lib/document-persistence';
+import { clientDocumentPersistence } from '@/lib/document-persistence-client';
 import { useToast } from "@/hooks/use-toast";
 import { 
   AlertDialog, 
@@ -51,7 +51,7 @@ export default function DashboardPage() {
     try {
       log('Loading documents', { hasUser: !!user });
       
-      const userDocs = await documentPersistence.listUserDocuments(user?.uid);
+      const userDocs = await clientDocumentPersistence.listUserDocuments(user?.uid);
       
       if (!Array.isArray(userDocs)) {
         throw new Error('FATAL: Invalid documents data received');
@@ -100,7 +100,7 @@ export default function DashboardPage() {
     try {
       log('Deleting document', { documentId: documentToDelete });
       
-      const success = await documentPersistence.deleteDocument(documentToDelete);
+      const success = await clientDocumentPersistence.deleteDocument(documentToDelete);
       
       if (!success) {
         throw new Error('Delete operation returned false');

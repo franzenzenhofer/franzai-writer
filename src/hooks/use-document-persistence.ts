@@ -23,7 +23,7 @@ export function useDocumentPersistence({
   instance,
   updateInstance,
 }: UseDocumentPersistenceProps): UseDocumentPersistenceReturn {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const { toast } = useToast();
   const [isSaving, setIsSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
@@ -49,12 +49,19 @@ export function useDocumentPersistence({
 
   // Save the document - FAIL HARD on critical errors
   const saveDocument = useCallback(async () => {
+    // Don't save while authentication is loading to prevent server-side user ID generation
+    if (authLoading) {
+      log('Skipping save - authentication is loading');
+      return;
+    }
+
     log('Starting save operation', {
       documentId,
       title: instance.document.title,
       workflowId: instance.workflow.id,
       stageStatesCount: Object.keys(instance.stageStates).length,
-      hasUser: !!user
+      hasUser: !!user,
+      authLoading
     });
 
     setIsSaving(true);
@@ -71,13 +78,17 @@ export function useDocumentPersistence({
       if (!instance.stageStates || typeof instance.stageStates !== 'object') {
         throw new Error('FATAL: Stage states are invalid');
       }
+      // FAIL HARD if no authenticated user - NO FALLBACKS!
+      if (!user?.uid) {
+        throw new Error('FATAL: User must be authenticated before saving documents. NO FALLBACKS ALLOWED!');
+      }
 
       const result = await clientDocumentPersistence.saveDocument(
         documentId,
         instance.document.title,
         instance.workflow.id,
         instance.stageStates,
-        user?.uid
+        user.uid
       );
 
       if (!result.success) {
@@ -128,7 +139,7 @@ export function useDocumentPersistence({
     } finally {
       setIsSaving(false);
     }
-  }, [documentId, instance, updateInstance, user, toast]);
+  }, [documentId, instance, updateInstance, user, authLoading, toast]);
 
   // Load a document - FAIL HARD on critical errors
   const loadDocument = useCallback(async (docId: string) => {
@@ -218,7 +229,7 @@ export function useDocumentPersistence({
 
   // Initial save for new documents when user starts working
   useEffect(() => {
-    if (!hasInitialSaveRef.current && !documentId) {
+    if (!hasInitialSaveRef.current && !documentId && !authLoading) {
       // Check if user has actually made changes (any stage has meaningful input)
       const hasUserInput = Object.values(instance.stageStates).some(state => {
         if (!state.userInput) return false;
@@ -241,7 +252,7 @@ export function useDocumentPersistence({
         saveDocument();
       }
     }
-  }, [instance.stageStates, documentId, saveDocument]);
+  }, [instance.stageStates, documentId, authLoading, saveDocument]);
 
   return {
     isSaving,
