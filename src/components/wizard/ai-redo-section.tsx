@@ -59,7 +59,6 @@ export function AiRedoSection({
       
       {/* AI REDO button below and to the right */}
       <div className="w-full flex justify-end items-center gap-2">
-        <KeyboardHint className="text-xs text-muted-foreground" />
         <Button
           variant="outline"
           size="sm"
