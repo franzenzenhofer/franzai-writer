@@ -16,22 +16,29 @@
     --card: 0 0% 100%; /* White cards */
     --card-foreground: 0 0% 13%;
 
-    --border: 0 0% 80%; /* Visible border #CCCCCC */
+    --border: 214 32% 91%; /* Visible border #E2E8F0 from design guidelines */
     --input: 0 0% 100%; /* White input background */
 
-    --primary: 217 89% 50%; /* Google Blue #1A73E8 */
+    /* DESIGN GUIDELINE COLORS - EXACT VALUES */
+    --primary: 224 76% 48%; /* Royal Blue #1d4ed8 - THE ONLY COLOR for active clickable buttons */
     --primary-foreground: 0 0% 100%; /* White */
 
-    --secondary: 0 0% 98%; /* Light gray for secondary elements */
-    --secondary-foreground: 0 0% 13%;
+    --secondary: 210 40% 98%; /* Light background */
+    --secondary-foreground: 224 76% 48%; /* Royal Blue text */
 
-    --accent: 217 89% 96%; /* Light blue hover #F0F7FF */
-    --accent-foreground: 217 89% 40%; /* Darker blue text */
+    --accent: 258 90% 66%; /* Accent Violet #8B5CF6 - Secondary accent color for special elements */
+    --accent-foreground: 0 0% 100%; /* White text on accent */
 
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 100%;
+    --success: 158 64% 52%; /* Success Green #10B981 - Emerald green for success states, checkmarks */
+    --success-foreground: 0 0% 100%; /* White text on success */
 
-    --ring: 217 89% 50%; /* Ring focus color same as primary */
+    --warning: 38 92% 50%; /* Warning Orange #F59E0B - Amber orange for warnings */
+    --warning-foreground: 0 0% 100%; /* White text on warning */
+
+    --destructive: 0 84% 60%; /* Destructive Red #EF4444 - Rose red for errors and destructive actions */
+    --destructive-foreground: 0 0% 100%; /* White text on destructive */
+
+    --ring: 224 76% 48%; /* Ring focus color same as primary (Royal Blue) */
 
     --radius: 0.5rem; /* Balanced radius - not too sharp, not too round */
 
@@ -43,12 +50,12 @@
 
     --sidebar-background: 0 0% 100%; /* White sidebar like Google Docs */
     --sidebar-foreground: 0 0% 13%;
-    --sidebar-primary: 217 89% 50%;
+    --sidebar-primary: 224 76% 48%; /* Royal Blue for sidebar primary */
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 217 89% 93%;
-    --sidebar-accent-foreground: 217 89% 35%;
-    --sidebar-border: 0 0% 87%;
-    --sidebar-ring: 217 89% 50%;
+    --sidebar-accent: 224 76% 93%; /* Light Royal Blue for sidebar accent */
+    --sidebar-accent-foreground: 224 76% 35%; /* Darker Royal Blue for sidebar accent text */
+    --sidebar-border: 214 32% 91%; /* Same as border */
+    --sidebar-ring: 224 76% 48%; /* Royal Blue for sidebar ring */
   }
 
   .dark {
@@ -68,19 +75,26 @@
     --border: 220 15% 25%;
     --input: 220 15% 22%;
 
-    --primary: 217 75% 60%; /* Slightly brighter Google Blue for dark mode */
-    --primary-foreground: 0 0% 100%;
+    /* DESIGN GUIDELINE COLORS - SAME EXACT VALUES IN DARK MODE */
+    --primary: 224 76% 48%; /* Royal Blue #1d4ed8 - THE ONLY COLOR for active clickable buttons */
+    --primary-foreground: 0 0% 100%; /* White */
 
     --secondary: 220 15% 25%;
-    --secondary-foreground: 210 17% 75%;
+    --secondary-foreground: 224 76% 48%; /* Royal Blue text */
 
-    --accent: 217 75% 30%; /* Darker accent for dark mode */
-    --accent-foreground: 210 17% 85%;
+    --accent: 258 90% 66%; /* Accent Violet #8B5CF6 - Secondary accent color for special elements */
+    --accent-foreground: 0 0% 100%; /* White text on accent */
 
-    --destructive: 0 63% 40%;
-    --destructive-foreground: 0 0% 100%;
+    --success: 158 64% 52%; /* Success Green #10B981 - Emerald green for success states, checkmarks */
+    --success-foreground: 0 0% 100%; /* White text on success */
 
-    --ring: 217 75% 60%;
+    --warning: 38 92% 50%; /* Warning Orange #F59E0B - Amber orange for warnings */
+    --warning-foreground: 0 0% 100%; /* White text on warning */
+
+    --destructive: 0 84% 60%; /* Destructive Red #EF4444 - Rose red for errors and destructive actions */
+    --destructive-foreground: 0 0% 100%; /* White text on destructive */
+
+    --ring: 224 76% 48%; /* Ring focus color same as primary (Royal Blue) */
 
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
@@ -90,12 +104,12 @@
 
     --sidebar-background: 220 15% 14%;
     --sidebar-foreground: 210 17% 80%;
-    --sidebar-primary: 217 75% 60%;
+    --sidebar-primary: 224 76% 48%; /* Royal Blue for sidebar primary */
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 217 75% 30%;
+    --sidebar-accent: 224 76% 30%; /* Darker Royal Blue for sidebar accent in dark mode */
     --sidebar-accent-foreground: 210 17% 85%;
     --sidebar-border: 220 15% 28%;
-    --sidebar-ring: 217 75% 60%;
+    --sidebar-ring: 224 76% 48%; /* Royal Blue for sidebar ring */
   }
 }
 

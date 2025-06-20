@@ -678,12 +678,12 @@ class DocumentPersistenceManager {
     const cleaned: StageState = {
       stageId: state.stageId,
       status: state.status,
-      depsAreMet: state.depsAreMet,
-      isEditingInput: state.isEditingInput,
-      isEditingOutput: state.isEditingOutput,
-      isStale: state.isStale,
-      staleDismissed: state.staleDismissed,
-      shouldAutoRun: state.shouldAutoRun,
+      depsAreMet: state.depsAreMet ?? false,
+      isEditingInput: state.isEditingInput ?? false,
+      isEditingOutput: state.isEditingOutput ?? false,
+      isStale: state.isStale ?? false,
+      staleDismissed: state.staleDismissed ?? false,
+      shouldAutoRun: state.shouldAutoRun ?? false,
       completedAt: state.completedAt,
       error: state.error ? String(state.error).substring(0, 1000) : undefined
     };

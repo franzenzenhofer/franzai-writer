@@ -60,7 +60,7 @@ export default function ResetPasswordPage() {
           )}
 
           {success && (
-            <Alert className="bg-green-50 text-green-900 border-green-200">
+            <Alert className="bg-success/10 text-success border-success/30">
               <CheckCircle2 className="h-4 w-4" />
               <AlertDescription>
                 Password reset email sent! Check your inbox for instructions.

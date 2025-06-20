@@ -62,7 +62,7 @@ export function CodeExecutionDisplay({ results }: CodeExecutionDisplayProps) {
                       <Terminal className="h-3 w-3" />
                       Standard Output
                     </h5>
-                    <pre className="text-sm bg-green-50 text-green-900 dark:bg-green-950 dark:text-green-100 rounded-lg p-3 overflow-x-auto">
+                    <pre className="text-sm bg-success/10 text-success dark:bg-success/10 dark:text-success rounded-lg p-3 overflow-x-auto">
                       {results.stdout}
                     </pre>
                   </div>
@@ -73,7 +73,7 @@ export function CodeExecutionDisplay({ results }: CodeExecutionDisplayProps) {
                       <Terminal className="h-3 w-3" />
                       Standard Error
                     </h5>
-                    <pre className="text-sm bg-red-50 text-red-900 dark:bg-red-950 dark:text-red-100 rounded-lg p-3 overflow-x-auto">
+                    <pre className="text-sm bg-destructive/10 text-destructive dark:bg-destructive/10 dark:text-destructive rounded-lg p-3 overflow-x-auto">
                       {results.stderr}
                     </pre>
                   </div>

@@ -610,7 +610,7 @@ Still having issues? Check the browser console for detailed logs.`;
         variant: "destructive",
         duration: 15000, // Show longer for complex troubleshooting
         action: (
-          <button
+          <Button
             onClick={() => {
               console.log('[handleRunStage] Manual retry requested from toast');
               setAiStageLoaded(false);
@@ -618,10 +618,11 @@ Still having issues? Check the browser console for detailed logs.`;
               setAiLoadAttempts(0);
               loadAiStageRunner();
             }}
-            className="px-3 py-2 bg-primary text-primary-foreground rounded-md text-sm hover:bg-primary/90 transition-colors"
+            variant="default"
+            size="sm"
           >
             Retry AI
-          </button>
+          </Button>
         )
       });
       
@@ -946,7 +947,7 @@ Still having issues? Check the browser console for detailed logs.`;
         </div>
 
         {isWizardCompleted && (
-          <Alert className="mb-6 border-green-500 bg-green-50 dark:bg-green-900/30">
+          <Alert className="mb-6 border-success bg-success/10 dark:bg-success/10">
             <Check className="h-5 w-5 text-green-600 dark:text-green-400" />
             <AlertTitle className="text-green-700 dark:text-green-300 font-headline">Wizard Completed!</AlertTitle>
             <AlertDescription className="text-green-600 dark:text-green-500">
@@ -956,7 +957,7 @@ Still having issues? Check the browser console for detailed logs.`;
         )}
 
         {!isWizardCompleted && instance.stageStates[currentStageId]?.depsAreMet === false && (
-           <Alert variant="default" className="mb-6 bg-blue-50 border-blue-300 dark:bg-blue-900/30 dark:border-blue-700">
+           <Alert variant="default" className="mb-6 bg-primary/5 border-primary/30 dark:bg-primary/5 dark:border-primary/30">
             <Info className="h-5 w-5 text-blue-600 dark:text-blue-400" />
             <AlertTitle className="text-blue-700 dark:text-blue-300 font-headline">Next Steps</AlertTitle>
             <AlertDescription className="text-blue-600 dark:text-blue-500">
@@ -965,7 +966,7 @@ Still having issues? Check the browser console for detailed logs.`;
           </Alert>
         )}
         {!isWizardCompleted && instance.stageStates[currentStageId]?.isStale === true && instance.stageStates[currentStageId]?.status === 'completed' && !instance.stageStates[currentStageId]?.staleDismissed && (
-           <Alert variant="default" className="mb-6 bg-amber-50 border-amber-300 dark:bg-amber-900/30 dark:border-amber-700">
+           <Alert variant="default" className="mb-6 bg-primary/5 border-primary/30 dark:bg-primary/5 dark:border-primary/30">
             <FileWarning className="h-5 w-5 text-amber-600 dark:text-amber-400" />
             <AlertTitle className="text-amber-700 dark:text-amber-300 font-headline">Update Recommended</AlertTitle>
             <AlertDescription className="text-amber-600 dark:text-amber-500">

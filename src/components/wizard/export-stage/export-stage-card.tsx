@@ -410,7 +410,7 @@ export function ExportStageCard({
               />
 
               {stage.exportConfig?.publishing?.enabled && (
-                <Card className="bg-primary/5 border-primary/20">
+                <Card className="bg-success/10 border border-success/30 rounded-lg p-4 space-y-3 mt-4">
                   <CardHeader>
                     <CardTitle className="text-lg flex items-center justify-start gap-2">
                       <Globe className="h-5 w-5" />

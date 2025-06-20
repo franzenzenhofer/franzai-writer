@@ -22,7 +22,7 @@ export function FranzAILogo({ className, size = "md" }: FranzAILogoProps) {
         <span className="text-gray-700">AI</span>
       </div>
       <div className={cn(
-        "w-2 h-2 rounded-full bg-blue-600 animate-pulse",
+        "w-2 h-2 rounded-full bg-primary animate-pulse",
         size === "sm" && "w-1.5 h-1.5",
         size === "lg" && "w-3 h-3"
       )} />

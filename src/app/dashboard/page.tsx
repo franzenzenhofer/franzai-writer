@@ -163,7 +163,7 @@ export default function DashboardPage() {
                   >
                     <TableCell className="font-medium">
                       <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-blue-600" />
+                        <div className="w-2 h-2 rounded-full bg-primary" />
                         {workflow.name}
                       </div>
                     </TableCell>

@@ -83,7 +83,7 @@ export function ThinkingDisplay({ thinkingSteps, usageMetadata }: ThinkingDispla
             AI Reasoning & Analysis
           </h5>
           <div className="flex flex-wrap gap-1">
-            <Badge variant="default" className="text-xs bg-purple-600">
+            <Badge variant="default" className="text-xs bg-accent text-accent-foreground">
               Thinking Mode Enabled
             </Badge>
             {thinkingTokens > 0 && (
@@ -117,7 +117,7 @@ export function ThinkingDisplay({ thinkingSteps, usageMetadata }: ThinkingDispla
           </h5>
           <div className="space-y-3">
             {thinkingSteps.map((step, index) => (
-              <div key={index} className="border-l-2 border-purple-400 pl-3 py-2 bg-purple-50/30 rounded-r">
+              <div key={index} className="border-l-2 border-accent/60 pl-3 py-2 bg-accent/5 rounded-r">
                 <div className="flex items-start gap-2">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">

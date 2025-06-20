@@ -106,7 +106,7 @@ export default async function WorkflowDetailsPage({ params }: { params: Promise<
               {workflow.stages.map((stage, index) => (
                 <div key={stage.id} className="flex items-center gap-3">
                   {/* Stage Number */}
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-medium">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm font-medium">
                     {index + 1}
                   </div>
                   
@@ -153,7 +153,7 @@ export default async function WorkflowDetailsPage({ params }: { params: Promise<
 
         {/* CTA */}
         <div className="flex justify-center pt-4">
-          <Button size="lg" asChild className="bg-blue-600 hover:bg-blue-700 text-white">
+                      <Button size="lg" asChild variant="default">
             <Link href={workflow.shortName ? `/w/${workflow.shortName}/new` : `/w/new/${workflow.id}`}>
               Start {workflow.name}
               <ArrowRight className="ml-2 h-5 w-5" />

@@ -448,7 +448,7 @@ export function StageCard({
               size="sm" 
               onClick={handlePrimaryAction} 
               disabled={!canRun || stageState.status === "running"}
-              className="bg-accent hover:bg-accent/90 text-accent-foreground" // Unique styling
+              variant="default"
               id={`process-stage-${stage.id}`}
               data-testid={`process-stage-${stage.id}`}
             >

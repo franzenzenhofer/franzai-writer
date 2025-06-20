@@ -428,12 +428,12 @@ export default function AILogViewerPage() {
                         <div className="flex items-center gap-2 flex-1">
                           {/* Show request/response type prominently */}
                           {log.data?.requestType === 'OUTGOING' && (
-                            <Badge variant="default" className="bg-purple-600 hover:bg-purple-700">
+                            <Badge variant="default" className="bg-accent text-accent-foreground hover:bg-accent/90">
                               🚀 OUTGOING
                             </Badge>
                           )}
                           {log.data?.responseType === 'INCOMING' && (
-                            <Badge variant="default" className="bg-emerald-600 hover:bg-emerald-700">
+                            <Badge variant="default" className="bg-accent text-accent-foreground hover:bg-accent/90">
                               ✨ INCOMING
                             </Badge>
                           )}
@@ -481,7 +481,7 @@ export default function AILogViewerPage() {
                           {log.data.requestType === 'OUTGOING' && (
                             <>
                               {/* Request metadata */}
-                              <div className="flex gap-4 text-xs bg-purple-50 dark:bg-purple-950/30 p-2 rounded">
+                              <div className="flex gap-4 text-xs bg-accent/5 dark:bg-accent/5 p-2 rounded">
                                 {log.data.model && <span>🤖 Model: {log.data.model}</span>}
                                 {log.data.temperature !== undefined && <span>🌡️ Temp: {log.data.temperature}</span>}
                                 {log.data.promptLength && <span>📝 Prompt Length: {log.data.promptLength} chars</span>}
@@ -497,10 +497,10 @@ export default function AILogViewerPage() {
                               {/* Full prompt display - auto expanded */}
                               {log.data.fullPrompt && (
                                 <div className="mt-2">
-                                  <div className="text-xs text-purple-600 font-medium mb-1">
+                                  <div className="text-xs text-accent-foreground font-medium mb-1">
                                     🚀 Full Outgoing Prompt
                                   </div>
-                                  <div className="p-3 bg-purple-50 dark:bg-purple-950/30 rounded">
+                                  <div className="p-3 bg-accent/5 dark:bg-accent/5 rounded">
                                     <div className="text-xs overflow-x-auto max-h-[400px] overflow-y-auto whitespace-pre-wrap font-mono">
                                       {log.data.fullPrompt}
                                     </div>
@@ -515,7 +515,7 @@ export default function AILogViewerPage() {
                             <>
                               {/* Token usage display */}
                               {(log.data.promptTokenCount || log.data.candidatesTokenCount) && (
-                                <div className="flex gap-4 text-xs bg-emerald-50 dark:bg-emerald-950/30 p-2 rounded">
+                                <div className="flex gap-4 text-xs bg-accent/5 dark:bg-accent/5 p-2 rounded">
                                   {log.data.promptTokenCount && <span>📥 Input: {log.data.promptTokenCount} tokens</span>}
                                   {log.data.candidatesTokenCount && <span>📤 Output: {log.data.candidatesTokenCount} tokens</span>}
                                   {log.data.totalTokenCount && <span>📊 Total: {log.data.totalTokenCount} tokens</span>}
@@ -525,10 +525,10 @@ export default function AILogViewerPage() {
                               {/* Full response display - auto expanded */}
                               {log.data.fullContent && (
                                 <div className="mt-2">
-                                  <div className="text-xs text-emerald-600 font-medium mb-1">
+                                  <div className="text-xs text-accent-foreground font-medium mb-1">
                                     ✨ Full Incoming Response
                                   </div>
-                                  <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded">
+                                  <div className="p-3 bg-accent/5 dark:bg-accent/5 rounded">
                                     <div className="text-xs overflow-x-auto max-h-[400px] overflow-y-auto whitespace-pre-wrap font-mono">
                                       {log.data.fullContent}
                                     </div>
@@ -542,7 +542,7 @@ export default function AILogViewerPage() {
                           
                           {/* Grounding info */}
                           {(log.data.hasGrounding || log.data.hasGroundingMetadata) && (
-                            <div className="text-xs text-green-600">
+                            <div className="text-xs text-accent-foreground">
                               🔍 Google Search Grounding {log.data.hasGrounding ? 'Enabled' : 'Detected'}
                             </div>
                           )}

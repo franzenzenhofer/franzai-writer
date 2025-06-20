@@ -42,7 +42,7 @@ export default function HomePage() {
           
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold font-headline tracking-tight">
             Write Better, Faster with{" "}
-            <span className="text-blue-600">AI Guidance</span>
+            <span className="text-primary">AI Guidance</span>
           </h1>
           
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
@@ -51,7 +51,7 @@ export default function HomePage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <Button size="lg" asChild className="bg-blue-600 hover:bg-blue-700 text-white px-8">
+            <Button size="lg" asChild variant="default" className="px-8">
               <Link 
                 href="/dashboard"
                 id="home-get-started-button"
@@ -106,8 +106,8 @@ export default function HomePage() {
                   "bg-background border hover:shadow-md transition-shadow"
                 )}
               >
-                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-4">
-                  <feature.icon className="h-6 w-6 text-blue-600" />
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <feature.icon className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
@@ -121,7 +121,7 @@ export default function HomePage() {
           <div className="mt-12 flex flex-wrap justify-center gap-4">
             {benefits.map((benefit, index) => (
               <div key={index} className="flex items-center gap-2 text-sm">
-                <Sparkles className="h-4 w-4 text-blue-600" />
+                <Sparkles className="h-4 w-4 text-primary" />
                 <span>{benefit}</span>
               </div>
             ))}
@@ -138,7 +138,7 @@ export default function HomePage() {
           <p className="text-muted-foreground">
             Join writers who are creating better content with AI assistance.
           </p>
-          <Button size="lg" asChild className="bg-blue-600 hover:bg-blue-700 text-white px-8">
+          <Button size="lg" asChild variant="default" className="px-8">
             <Link href="/dashboard">
               <FileText className="mr-2 h-5 w-5" />
               Start Writing Now

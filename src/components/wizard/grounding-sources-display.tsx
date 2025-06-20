@@ -85,7 +85,7 @@ export function GroundingSourcesDisplay({ sources, groundingMetadata, functionCa
           </h5>
           <div className="flex flex-wrap gap-1">
             {hasGoogleSearch && (
-              <Badge variant="default" className="text-xs bg-blue-600">
+              <Badge variant="default" className="text-xs bg-primary text-primary-foreground">
                 <Globe className="h-3 w-3 mr-1" />
                 Google Search Grounding
               </Badge>
@@ -136,7 +136,7 @@ export function GroundingSourcesDisplay({ sources, groundingMetadata, functionCa
           </h5>
           <div className="space-y-3">
             {sources.map((source, index) => (
-              <div key={index} className="border-l-2 border-blue-400 pl-3 py-2 bg-blue-50/30 rounded-r">
+              <div key={index} className="border-l-2 border-primary/60 pl-3 py-2 bg-primary/5 rounded-r">
                 <div className="flex items-start gap-2">
                   {source.type === 'search' ? (
                     <Globe className="h-3 w-3 mt-1 text-blue-600 flex-shrink-0" />
@@ -186,9 +186,9 @@ export function GroundingSourcesDisplay({ sources, groundingMetadata, functionCa
                 {groundingMetadata.groundingSupports.map((support, index) => {
                   const avgScore = support.confidenceScores.reduce((a, b) => a + b, 0) / (support.confidenceScores.length || 1);
                   const confidenceLevel = avgScore > 0.8 ? 'High' : avgScore > 0.6 ? 'Medium' : 'Low';
-                  const confidenceColor = avgScore > 0.8 ? 'bg-green-100 text-green-800' : 
-                                        avgScore > 0.6 ? 'bg-yellow-100 text-yellow-800' : 
-                                        'bg-red-100 text-red-800';
+                  const confidenceColor = avgScore > 0.8 ? 'bg-success/10 text-success' :
+                                        avgScore > 0.6 ? 'bg-warning/10 text-warning' :
+                                        'bg-destructive/10 text-destructive';
                   
                   return (
                     <div key={index} className="bg-muted/20 rounded-lg p-3">
@@ -240,7 +240,7 @@ export function GroundingSourcesDisplay({ sources, groundingMetadata, functionCa
           </>
         )}
 
-        <div className="bg-blue-50/50 rounded-lg p-3 mt-4">
+        <div className="bg-primary/5 rounded-lg p-3 mt-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
             <div>
               <div className="text-lg font-semibold text-blue-600">{sources.length}</div>
