@@ -740,6 +740,18 @@ class DocumentPersistenceManager {
   }
 
   /**
+   * Check if an object has deep nesting (more than 2 levels)
+   */
+  private hasDeepNesting(obj: any, depth: number = 0): boolean {
+    if (depth > 2) return true;
+    if (!obj || typeof obj !== 'object' || obj instanceof Date) return false;
+    if (Array.isArray(obj)) {
+      return obj.some(item => this.hasDeepNesting(item, depth + 1));
+    }
+    return Object.values(obj).some(value => this.hasDeepNesting(value, depth + 1));
+  }
+
+  /**
    * Find the last edited stage
    */
   private findLastEditedStage(stageStates: Record<string, StageState>): string | undefined {
