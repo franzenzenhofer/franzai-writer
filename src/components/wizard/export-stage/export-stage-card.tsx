@@ -281,7 +281,7 @@ export function ExportStageCard({
       } else if (isCurrentStage) {
         cardClasses = cn(cardClasses, "border-accent shadow-lg");
       } else {
-        cardClasses = cn(cardClasses, "border-2 border-border");
+        cardClasses = cn(cardClasses, "border-border");
       }
   }
   

@@ -14,9 +14,9 @@
     --popover-foreground: 0 0% 13%;
 
     --card: 0 0% 100%; /* White cards */
-    --card-foreground: 0 0% 13%; /* Dark text on white cards - high contrast */
+    --card-foreground: 0 0% 13%;
 
-    --border: 214 32% 75%; /* Much darker border for visibility - no subtle gray! */
+    --border: 214 32% 91%; /* Visible border #E2E8F0 from design guidelines */
     --input: 0 0% 100%; /* White input background */
 
     /* DESIGN GUIDELINE COLORS - EXACT VALUES */

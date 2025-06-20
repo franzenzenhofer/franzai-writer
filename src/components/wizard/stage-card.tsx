@@ -263,24 +263,24 @@ export function StageCard({
   switch (stageState.status) {
     case "completed":
       statusIcon = <CheckCircle2 className="text-primary h-5 w-5" />;
-      cardClasses = cn(cardClasses, "border-2 border-border");
+      cardClasses = cn(cardClasses, "border-border");
       break;
     case "running":
       statusIcon = <Loader2 className="animate-spin text-primary h-5 w-5" />;
-      cardClasses = cn(cardClasses, "border-2 border-primary");
+      cardClasses = cn(cardClasses, "border-primary");
       break;
     case "error":
       statusIcon = <AlertCircle className="text-destructive h-5 w-5" />;
-      cardClasses = cn(cardClasses, "border-2 border-destructive");
+      cardClasses = cn(cardClasses, "border-destructive");
       break;
 
     default: // idle
       if (stageState.depsAreMet === false) {
         cardClasses = cn(cardClasses, "opacity-60");
       } else if (isCurrentStage) {
-        cardClasses = cn(cardClasses, "border-2 border-primary");
+        cardClasses = cn(cardClasses, "border-primary");
       } else {
-        cardClasses = cn(cardClasses, "border-2 border-border");
+        cardClasses = cn(cardClasses, "border-border");
       }
   }
   if (isCurrentStage && stageState.depsAreMet !== false) cardClasses = cn(cardClasses, "shadow-sm");
