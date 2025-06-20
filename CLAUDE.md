@@ -165,9 +165,18 @@ Multiple Claude sessions may be working on different features simultaneously. Wi
 
 ### Workflow Requirements
 
-1. **BEFORE starting a big task**: Create a new worktree
-2. **DURING development**: Work in the isolated worktree
-3. **AFTER task completion**: IMMEDIATELY merge and clean up
+1. **BEFORE starting a big task**: 
+   - Create a new worktree
+   - Claude MUST create a task list using TodoWrite tool
+   
+2. **DURING development**: 
+   - Work in the isolated worktree
+   - Track progress using the todo list
+   
+3. **AFTER task completion**: 
+   - When ALL todos are marked as completed
+   - IMMEDIATELY merge and clean up the worktree
+   - This is MANDATORY - do not leave worktrees hanging around
 
 ### How to Use Git Worktrees
 
@@ -199,9 +208,11 @@ git worktree add ../franzai-writer-api-fixes feature/api-fixes
 cd ../franzai-writer-api-fixes
 npm install
 npm run dev
+# Claude creates todo list with TodoWrite tool
 # ... make changes, commit frequently ...
+# ... mark todos as completed as you progress ...
 
-# 3. Finish: Merge and cleanup
+# 3. Finish: When ALL todos are completed
 git push origin feature/api-fixes
 cd ../franzai-writer
 git checkout master
@@ -210,6 +221,19 @@ git push origin master
 git branch -d feature/api-fixes
 git worktree remove ../franzai-writer-api-fixes
 ```
+
+### CRITICAL: Cleanup Trigger
+
+**The worktree MUST be cleaned up when:**
+- All items in the TodoWrite task list are marked as "completed"
+- The feature/fix is fully implemented and tested
+- Changes have been committed and pushed
+
+**Claude MUST:**
+1. Always create a todo list at the start of a worktree task
+2. Track progress by updating todo statuses
+3. Initiate cleanup immediately when all todos are completed
+4. Never leave worktrees active after task completion
 
 ### Benefits
 - **Isolation**: Each Claude session works in its own directory
@@ -221,3 +245,47 @@ git worktree remove ../franzai-writer-api-fixes
 See the official documentation: https://docs.anthropic.com/claude-code/worktrees
 
 **REMEMBER**: Always create a worktree for tasks that will take more than 30 minutes or involve significant changes!
+
+## Task Management with TodoWrite/TodoRead
+
+**MANDATORY**: Claude MUST use the TodoWrite tool to create and manage task lists for every significant piece of work.
+
+### When to Use TodoWrite
+- ALWAYS at the start of a new worktree
+- For any task requiring multiple steps
+- When working on features, bug fixes, or refactoring
+- To track progress and ensure nothing is missed
+
+### Task List Lifecycle
+
+1. **Start of Work**: Create comprehensive todo list
+   ```
+   TodoWrite with items like:
+   - Set up worktree environment
+   - Implement feature X
+   - Add tests for feature X
+   - Update documentation
+   - Run linting and type checks
+   - Merge and cleanup worktree
+   ```
+
+2. **During Work**: Update statuses
+   - Mark items as "in_progress" when starting
+   - Mark as "completed" when done
+   - Add new todos if discovering additional work
+
+3. **Completion Trigger**: When ALL todos are "completed"
+   - This triggers the MANDATORY worktree cleanup
+   - No exceptions - completed todos = cleanup time
+
+### Example Integration with Worktrees
+
+```
+1. Create worktree for feature
+2. Use TodoWrite to create task list (including "cleanup worktree" as final task)
+3. Work through todos, updating statuses
+4. When all todos are completed → Immediately execute cleanup
+5. The "cleanup worktree" todo ensures this happens
+```
+
+**CRITICAL**: The todo list is the CONTRACT. When it's complete, the worktree MUST be cleaned up!
