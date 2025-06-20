@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { getWorkflowByShortName } from '@/lib/workflow-loader';
 import { documentPersistence } from '@/lib/document-persistence';
+import { resetStuckExportStages } from '@/lib/export-stage-recovery';
 import ClientWrapper from './client-wrapper';
 import type { WizardDocument, WizardInstance, StageState, Workflow } from '@/types';
 
@@ -160,10 +161,13 @@ export default async function WizardPage({
       }
     });
     
+    // Apply recovery for any stages stuck in "running" state after page reload
+    const recoveredStageStates = resetStuckExportStages(mergedStageStates, workflow);
+    
     wizardInstance = {
       workflow,
       document: loadResult.document,
-      stageStates: mergedStageStates,
+      stageStates: recoveredStageStates,
     };
   }
 

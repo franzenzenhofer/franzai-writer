@@ -1,0 +1,312 @@
+{
+  "id": "press-release",
+  "shortName": "press-release",
+  "name": "Press Release Generator",
+  "description": "Create professional press releases with AI-powered research, tone analysis, and fact-checking",
+  "config": {
+    "setTitleFromStageOutput": "basic-info",
+    "finalOutputStageId": "final-press-release",
+    "autoScroll": true,
+    "progressAnimation": true
+  },
+  "stages": [
+    {
+      "id": "basic-info",
+      "name": "Basic Information",
+      "description": "Provide the topic, key message, and company name for your press release",
+      "inputType": "form",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.3,
+      "fields": [
+        {
+          "id": "topic",
+          "label": "Press Release Topic",
+          "description": "What is the main topic or announcement?",
+          "type": "text",
+          "required": true,
+          "placeholder": "e.g., New Product Launch, Partnership Announcement"
+        },
+        {
+          "id": "message",
+          "label": "Key Message",
+          "description": "What is the core message you want to convey?",
+          "type": "textarea",
+          "required": true,
+          "placeholder": "e.g., We're launching an innovative AI tool that helps businesses..."
+        },
+        {
+          "id": "company",
+          "label": "Company Name",
+          "description": "Name of the company issuing the press release",
+          "type": "text",
+          "required": true,
+          "placeholder": "e.g., TechCorp Inc."
+        },
+        {
+          "id": "website",
+          "label": "Company Website (Optional)",
+          "description": "Company website for additional context",
+          "type": "text",
+          "required": false,
+          "placeholder": "e.g., https://example.com"
+        }
+      ],
+      "outputFields": [
+        { "id": "topic", "type": "string" },
+        { "id": "message", "type": "string" },
+        { "id": "company", "type": "string" },
+        { "id": "website", "type": "string" },
+        { "id": "title", "type": "string" }
+      ],
+      "copyable": true
+    },
+    {
+      "id": "tone-briefing",
+      "name": "Tone of Voice Analysis",
+      "description": "Analyze company's existing press releases to match their tone and style",
+      "inputType": "context",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.4,
+      "dependencies": ["basic-info"],
+      "autoRun": true,
+      "aiRedoEnabled": true,
+      "editEnabled": true,
+      "outputFields": [
+        { "id": "tone", "type": "string" },
+        { "id": "style_guidelines", "type": "string" },
+        { "id": "key_phrases", "type": "string" },
+        { "id": "formatting_notes", "type": "string" }
+      ],
+      "copyable": true
+    },
+    {
+      "id": "research",
+      "name": "Company & Industry Research",
+      "description": "Research company background and industry context",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.3,
+      "dependencies": ["basic-info", "tone-briefing"],
+      "autoRun": true,
+      "aiRedoEnabled": true,
+      "editEnabled": true,
+      "grounding": {
+        "googleSearch": true
+      },
+      "outputFields": [
+        { "id": "company_background", "type": "string" },
+        { "id": "industry_context", "type": "string" },
+        { "id": "recent_developments", "type": "string" },
+        { "id": "competitive_landscape", "type": "string" }
+      ],
+      "copyable": true
+    },
+    {
+      "id": "key-facts",
+      "name": "Edit Key Facts",
+      "description": "Review and edit the key facts for your press release",
+      "inputType": "form",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.2,
+      "dependencies": ["research"],
+      "fields": [
+        {
+          "id": "headline",
+          "label": "Headline",
+          "description": "Main headline for the press release",
+          "type": "text",
+          "required": true,
+          "defaultFromStage": "research"
+        },
+        {
+          "id": "subheadline",
+          "label": "Subheadline",
+          "description": "Supporting subheadline",
+          "type": "text",
+          "required": false,
+          "defaultFromStage": "research"
+        },
+        {
+          "id": "key_points",
+          "label": "Key Points",
+          "description": "Main points to include (one per line)",
+          "type": "textarea",
+          "required": true,
+          "defaultFromStage": "research"
+        },
+        {
+          "id": "quotes",
+          "label": "Quotes",
+          "description": "Key quotes from executives or stakeholders",
+          "type": "textarea",
+          "required": false,
+          "placeholder": "e.g., \"This launch represents...\" - CEO John Doe"
+        },
+        {
+          "id": "statistics",
+          "label": "Statistics & Data",
+          "description": "Important numbers, statistics, or data points",
+          "type": "textarea",
+          "required": false,
+          "defaultFromStage": "research"
+        }
+      ],
+      "outputFields": [
+        { "id": "headline", "type": "string" },
+        { "id": "subheadline", "type": "string" },
+        { "id": "key_points", "type": "string" },
+        { "id": "quotes", "type": "string" },
+        { "id": "statistics", "type": "string" }
+      ],
+      "editEnabled": true,
+      "copyable": true
+    },
+    {
+      "id": "contact-info",
+      "name": "Edit Contact Information",
+      "description": "Provide contact details for media inquiries",
+      "inputType": "form",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.1,
+      "dependencies": ["key-facts"],
+      "fields": [
+        {
+          "id": "contact_name",
+          "label": "Contact Name",
+          "description": "Primary media contact person",
+          "type": "text",
+          "required": true,
+          "placeholder": "e.g., Jane Smith"
+        },
+        {
+          "id": "contact_title",
+          "label": "Contact Title",
+          "description": "Title of the contact person",
+          "type": "text",
+          "required": true,
+          "placeholder": "e.g., Director of Communications"
+        },
+        {
+          "id": "contact_email",
+          "label": "Contact Email",
+          "description": "Email for media inquiries",
+          "type": "text",
+          "required": true,
+          "placeholder": "e.g., press@company.com"
+        },
+        {
+          "id": "contact_phone",
+          "label": "Contact Phone",
+          "description": "Phone number for media inquiries",
+          "type": "text",
+          "required": true,
+          "placeholder": "e.g., +1 (555) 123-4567"
+        },
+        {
+          "id": "additional_contacts",
+          "label": "Additional Contacts (Optional)",
+          "description": "Secondary contacts or PR agency details",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "outputFields": [
+        { "id": "contact_name", "type": "string" },
+        { "id": "contact_title", "type": "string" },
+        { "id": "contact_email", "type": "string" },
+        { "id": "contact_phone", "type": "string" },
+        { "id": "additional_contacts", "type": "string" }
+      ],
+      "editEnabled": true,
+      "copyable": true
+    },
+    {
+      "id": "final-press-release",
+      "name": "Generate Press Release",
+      "description": "Create the final press release following official standards",
+      "inputType": "none",
+      "outputType": "markdown",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.3,
+      "dependencies": ["key-facts", "contact-info", "tone-briefing"],
+      "autoRun": true,
+      "aiRedoEnabled": true,
+      "editEnabled": true,
+      "copyable": true
+    },
+    {
+      "id": "press-photo",
+      "name": "Generate Press Photo (Optional)",
+      "description": "Create a professional image to accompany the press release",
+      "inputType": "form",
+      "outputType": "image",
+      "model": "imagen-3.0-generate-002",
+      "provider": "imagen",
+      "dependencies": ["final-press-release"],
+      "isOptional": true,
+      "fields": [
+        {
+          "id": "image_description",
+          "label": "Image Description",
+          "description": "Describe the image you want to generate",
+          "type": "textarea",
+          "required": true,
+          "placeholder": "e.g., Professional photo of a modern office building with company logo"
+        },
+        {
+          "id": "style",
+          "label": "Image Style",
+          "description": "Choose the visual style",
+          "type": "select",
+          "required": true,
+          "options": [
+            { "value": "photorealistic", "label": "Photorealistic" },
+            { "value": "professional", "label": "Professional Corporate" },
+            { "value": "modern", "label": "Modern Business" },
+            { "value": "minimal", "label": "Minimalist" }
+          ]
+        },
+        {
+          "id": "aspect_ratio",
+          "label": "Aspect Ratio",
+          "description": "Choose image dimensions",
+          "type": "select",
+          "required": true,
+          "options": [
+            { "value": "16:9", "label": "16:9 (Landscape)" },
+            { "value": "1:1", "label": "1:1 (Square)" },
+            { "value": "4:3", "label": "4:3 (Standard)" },
+            { "value": "3:4", "label": "3:4 (Portrait)" }
+          ]
+        }
+      ],
+      "imageSettings": {
+        "numberOfImages": 2,
+        "aspectRatio": "16:9"
+      },
+      "editEnabled": true
+    },
+    {
+      "id": "export",
+      "name": "Export Press Release",
+      "description": "Export your press release in various formats",
+      "stageType": "export",
+      "inputType": "none",
+      "outputType": "export-interface",
+      "dependencies": ["final-press-release"],
+      "exportConfig": {
+        "formats": ["html-styled", "html-clean", "markdown", "pdf", "docx"],
+        "publishing": {
+          "enabled": true,
+          "seo": true,
+          "themes": ["professional", "minimal", "modern"]
+        }
+      }
+    }
+  ]
+}
