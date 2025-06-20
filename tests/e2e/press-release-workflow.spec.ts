@@ -72,11 +72,18 @@ test.describe('Press Release Workflow', () => {
       
       // The form should be pre-populated from research, but we can edit
       // Fill headline if empty
-      const headlineInput = page.locator('input[id*="headline"]').first();
+      const headlineInput = page.locator('input[placeholder="Main headline for the press release"]');
       const headlineValue = await headlineInput.inputValue();
       if (!headlineValue) {
         await headlineInput.fill('InnovateTech Solutions Unveils Game-Changing AI Platform for Predictive Customer Analytics');
       }
+      
+      // Fill key points textarea
+      const keyPointsTextarea = page.locator('textarea[placeholder="Main points to include (one per line)"]');
+      await keyPointsTextarea.fill(`• Revolutionary AI platform launch
+• Advanced predictive customer analytics
+• Machine learning algorithms for business intelligence
+• Real-time insights and decision-making capabilities`);
       
       // Add quotes if empty
       const quotesTextarea = page.locator('textarea[placeholder*="This launch represents"]');

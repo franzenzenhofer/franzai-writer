@@ -6,12 +6,12 @@
 # Error details
 
 ```
-Error: locator.fill: Test timeout of 30000ms exceeded.
+Error: locator.inputValue: Test timeout of 30000ms exceeded.
 Call log:
-  - waiting for locator('input[placeholder*="New Product Launch"]')
+  - waiting for locator('input[id*="headline"]').first()
 
-    at /Users/franzenzenhofer/dev/franzai-writer/tests/e2e/press-release-workflow.spec.ts:17:70
-    at /Users/franzenzenhofer/dev/franzai-writer/tests/e2e/press-release-workflow.spec.ts:13:16
+    at /Users/franzenzenhofer/dev/franzai-writer/tests/e2e/press-release-workflow.spec.ts:76:49
+    at /Users/franzenzenhofer/dev/franzai-writer/tests/e2e/press-release-workflow.spec.ts:70:16
 ```
 
 # Page snapshot
@@ -31,49 +31,85 @@ Call log:
 - main:
   - heading "New Press Release Generator" [level=1]
   - paragraph: "Workflow: Press Release Generator"
-  - text: Progress 0 / 8 Stages
+  - text: Progress 3 / 8 Stages
   - progressbar
-  - text: Last saved 7:51:06 AM Provide the topic, key message, and company name for your press release
+  - text: Last saved 7:54:23 AM
+  - img
+  - text: Provide the topic, key message, and company name for your press release
   - button:
     - img
-  - paragraph: Form fields not configured for this stage.
+  - text: Press Release Topic Revolutionary AI Platform Launch Key Message We are excited to announce the launch of our groundbreaking AI platform that revolutionizes how businesses analyze and predict customer behavior using advanced machine learning algorithms. Company Name InnovateTech Solutions Company Website (Optional) https://innovatetech.com
+  - button:
+    - img
+  - button "Edit":
+    - img
+    - text: Edit
+  - img
+  - text: Analyze company's existing press releases to match their tone and style
+  - button:
+    - img
+  - button "Edit":
+    - img
+    - text: Edit
+  - img
+  - text: Research company background and industry context
+  - button:
+    - img
+  - text: Review and edit the key facts for your press release
+  - button:
+    - img
+  - text: Headline
+  - textbox "Headline"
+  - paragraph
+  - text: Subheadline
+  - textbox "Subheadline"
+  - paragraph
+  - text: Key Points
+  - textbox "Key Points"
+  - paragraph
+  - text: Quotes
+  - textbox "Quotes"
+  - paragraph
+  - text: Statistics & Data
+  - textbox "Statistics & Data"
+  - paragraph
   - button "Continue":
     - img
     - text: Continue
   - img
-  - text: "Waiting for: basic-info Analyze company's existing press releases to match their tone and style"
-  - button:
-    - img
-  - text: Manual Context Input
-  - textbox "Manual Context Input"
-  - text: Or Upload File Content (Smart Dropzone)
-  - button "Choose File"
-  - img
-  - paragraph: Drag 'n' drop files here, or click to select
-  - paragraph: Supports .txt, .md, .html. (Limited support for .docx, .pdf, .csv, .xlsx)
-  - img
-  - text: "Waiting for: basic-info, tone-briefing Research company background and industry context"
-  - button:
-    - img
-  - img
-  - text: "Waiting for: research Review and edit the key facts for your press release"
-  - button:
-    - img
-  - paragraph: Form fields not configured for this stage.
-  - img
   - text: "Waiting for: key-facts Provide contact details for media inquiries"
   - button:
     - img
-  - paragraph: Form fields not configured for this stage.
+  - text: Contact Name
+  - textbox "Contact Name"
+  - paragraph
+  - text: Contact Title
+  - textbox "Contact Title"
+  - paragraph
+  - text: Contact Email
+  - textbox "Contact Email"
+  - paragraph
+  - text: Contact Phone
+  - textbox "Contact Phone"
+  - paragraph
+  - text: Additional Contacts (Optional)
+  - textbox "Additional Contacts (Optional)"
+  - paragraph
   - img
-  - text: "Waiting for: key-facts, contact-info, tone-briefing Create the final press release following official standards"
+  - text: "Waiting for: key-facts, contact-info Create the final press release following official standards"
   - button:
     - img
   - img
   - text: "Waiting for: final-press-release Optional Create a professional image to accompany the press release"
   - button:
     - img
-  - paragraph: Form fields not configured for this stage.
+  - text: Image Description
+  - textbox "Image Description"
+  - paragraph
+  - text: Image Style
+  - combobox: Photorealistic
+  - text: Aspect Ratio
+  - combobox: 16:9 (Landscape)
   - text: Export your press release in various formats
   - button:
     - img
@@ -119,8 +155,7 @@ Call log:
    14 |       console.log('Filling basic information form');
    15 |       
    16 |       // Fill topic
->  17 |       await page.locator('input[placeholder*="New Product Launch"]').fill('Revolutionary AI Platform Launch');
-      |                                                                      ^ Error: locator.fill: Test timeout of 30000ms exceeded.
+   17 |       await page.locator('input[placeholder*="New Product Launch"]').fill('Revolutionary AI Platform Launch');
    18 |       
    19 |       // Fill message
    20 |       await page.locator('textarea[placeholder*="We\'re launching"]').fill(
@@ -179,7 +214,8 @@ Call log:
    73 |       // The form should be pre-populated from research, but we can edit
    74 |       // Fill headline if empty
    75 |       const headlineInput = page.locator('input[id*="headline"]').first();
-   76 |       const headlineValue = await headlineInput.inputValue();
+>  76 |       const headlineValue = await headlineInput.inputValue();
+      |                                                 ^ Error: locator.inputValue: Test timeout of 30000ms exceeded.
    77 |       if (!headlineValue) {
    78 |         await headlineInput.fill('InnovateTech Solutions Unveils Game-Changing AI Platform for Predictive Customer Analytics');
    79 |       }
@@ -221,4 +257,63 @@ Call log:
   115 |         timeout: 30000 
   116 |       });
   117 |       console.log('Contact information completed');
+  118 |     });
+  119 |
+  120 |     // Stage 6: Final Press Release (auto-runs)
+  121 |     await test.step('Wait for final press release generation', async () => {
+  122 |       console.log('Waiting for final press release to generate');
+  123 |       
+  124 |       await expect(page.locator('[data-testid="stage-card-final-press-release"]')).toHaveClass(/border-green-500/, { 
+  125 |         timeout: 90000 
+  126 |       });
+  127 |       
+  128 |       // Verify press release content
+  129 |       const pressReleaseOutput = page.locator('[data-testid="stage-card-final-press-release"] [data-testid="stage-output-area"]');
+  130 |       await expect(pressReleaseOutput).toContainText('FOR IMMEDIATE RELEASE');
+  131 |       await expect(pressReleaseOutput).toContainText('InnovateTech Solutions');
+  132 |       await expect(pressReleaseOutput).toContainText('###');
+  133 |       
+  134 |       console.log('Final press release generated successfully');
+  135 |     });
+  136 |
+  137 |     // Stage 7: Optional Photo Generation (skip in basic test)
+  138 |     await test.step('Check optional photo stage', async () => {
+  139 |       console.log('Checking optional photo generation stage');
+  140 |       
+  141 |       const photoStage = page.locator('[data-testid="stage-card-press-photo"]');
+  142 |       await expect(photoStage).toBeVisible();
+  143 |       
+  144 |       // Verify it's marked as optional
+  145 |       await expect(photoStage).toContainText('Optional');
+  146 |       
+  147 |       console.log('Optional photo stage available but skipping');
+  148 |     });
+  149 |
+  150 |     // Stage 8: Export
+  151 |     await test.step('Test export functionality', async () => {
+  152 |       console.log('Testing export stage');
+  153 |       
+  154 |       // Click export button
+  155 |       const exportButton = page.locator('button', { hasText: 'Export Press Release' });
+  156 |       await exportButton.click();
+  157 |       
+  158 |       // Wait for export interface
+  159 |       await expect(page.locator('text=Live Preview')).toBeVisible({ timeout: 30000 });
+  160 |       
+  161 |       // Verify export formats
+  162 |       await expect(page.locator('text=HTML (Styled)')).toBeVisible();
+  163 |       await expect(page.locator('text=HTML (Clean)')).toBeVisible();
+  164 |       await expect(page.locator('text=Markdown')).toBeVisible();
+  165 |       await expect(page.locator('text=PDF')).toBeVisible();
+  166 |       await expect(page.locator('text=DOCX')).toBeVisible();
+  167 |       
+  168 |       console.log('Export functionality verified');
+  169 |     });
+  170 |
+  171 |     console.log('Press release workflow completed successfully!');
+  172 |   });
+  173 |
+  174 |   test('should handle editing and AI redo functionality', async ({ page }) => {
+  175 |     console.log('Testing editing and AI redo features');
+  176 |
 ```
