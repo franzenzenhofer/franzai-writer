@@ -39,7 +39,7 @@ test.describe('Press Release Workflow - Unconventional Usage', () => {
       await page.waitForTimeout(1000);
       
       // First AI redo
-      const aiRedoButton = toneStage.locator('button[title="AI Redo"]');
+      const aiRedoButton = page.locator('[data-testid="ai-redo-tone-briefing"]');
       await expect(aiRedoButton).toBeVisible({ timeout: 5000 });
       await aiRedoButton.click();
       await page.waitForSelector('[role="dialog"]:has-text("AI Redo")');
@@ -48,14 +48,14 @@ test.describe('Press Release Workflow - Unconventional Usage', () => {
       await expect(toneStage).toHaveClass(/border-green-500/, { timeout: 60000 });
       
       // Second AI redo
-      await toneStage.locator('button[title="AI Redo"]').click();
+      await page.locator('[data-testid="ai-redo-tone-briefing"]').click();
       await page.waitForSelector('[role="dialog"]:has-text("AI Redo")');
       await page.locator('[role="dialog"] textarea').fill('Actually, make it very casual and startup-like');
       await page.locator('[role="dialog"] button:has-text("Redo with AI")').click();
       await expect(toneStage).toHaveClass(/border-green-500/, { timeout: 60000 });
       
       // Third AI redo
-      await toneStage.locator('button[title="AI Redo"]').click();
+      await page.locator('[data-testid="ai-redo-tone-briefing"]').click();
       await page.waitForSelector('[role="dialog"]:has-text("AI Redo")');
       await page.locator('[role="dialog"] textarea').fill('Find a balance between formal and casual, professional but approachable');
       await page.locator('[role="dialog"] button:has-text("Redo with AI")').click();
@@ -74,7 +74,7 @@ test.describe('Press Release Workflow - Unconventional Usage', () => {
       
       // Click edit button
       const researchStage = page.locator('[data-testid="stage-card-research"]');
-      await researchStage.locator('button[title="Edit"]').click();
+      await researchStage.locator('button:has-text("Edit")').click();
       
       // Wait for edit mode
       await page.waitForTimeout(1000);
@@ -109,7 +109,7 @@ test.describe('Press Release Workflow - Unconventional Usage', () => {
       console.log('Going back to edit basic info');
       
       const basicInfoStage = page.locator('[data-testid="stage-card-basic-info"]');
-      await basicInfoStage.locator('button[title="Edit"]').click();
+      await basicInfoStage.locator('button:has-text("Edit")').click();
       
       // Wait for edit mode
       await page.waitForTimeout(1000);
@@ -156,14 +156,14 @@ test.describe('Press Release Workflow - Unconventional Usage', () => {
       const finalStage = page.locator('[data-testid="stage-card-final-press-release"]');
       
       // First redo - make it shorter
-      await finalStage.locator('button[title="AI Redo"]').click();
+      await page.locator('[data-testid="ai-redo-final-press-release"]').click();
       await page.waitForSelector('[role="dialog"]:has-text("AI Redo")');
       await page.locator('[role="dialog"] textarea').fill('Make this much shorter, under 200 words');
       await page.locator('[role="dialog"] button:has-text("Redo with AI")').click();
       await expect(finalStage).toHaveClass(/border-green-500/, { timeout: 90000 });
       
       // Second redo - make it longer
-      await finalStage.locator('button[title="AI Redo"]').click();
+      await page.locator('[data-testid="ai-redo-final-press-release"]').click();
       await page.waitForSelector('[role="dialog"]:has-text("AI Redo")');
       await page.locator('[role="dialog"] textarea').fill('Actually make it longer with more details, around 800 words');
       await page.locator('[role="dialog"] button:has-text("Redo with AI")').click();

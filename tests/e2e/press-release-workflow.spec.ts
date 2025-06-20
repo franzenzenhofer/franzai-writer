@@ -201,7 +201,7 @@ test.describe('Press Release Workflow', () => {
       
       // Find and click AI Redo button
       const toneStage = page.locator('[data-testid="stage-card-tone-briefing"]');
-      const aiRedoButton = toneStage.locator('button[title="AI Redo"]');
+      const aiRedoButton = page.locator('[data-testid="ai-redo-tone-briefing"]');
       await aiRedoButton.click();
       
       // Fill redo instructions
@@ -225,7 +225,7 @@ test.describe('Press Release Workflow', () => {
       
       // Find and click Edit button on research stage
       const researchStage = page.locator('[data-testid="stage-card-research"]');
-      const editButton = researchStage.locator('button[title="Edit"]');
+      const editButton = researchStage.locator('button:has-text("Edit")');
       await editButton.click();
       
       // Wait for edit mode

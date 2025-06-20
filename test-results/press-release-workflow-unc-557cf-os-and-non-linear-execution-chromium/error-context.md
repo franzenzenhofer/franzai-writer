@@ -6,11 +6,16 @@
 # Error details
 
 ```
-Error: locator.click: Test timeout of 30000ms exceeded.
+Error: Timed out 5000ms waiting for expect(locator).toBeVisible()
+
+Locator: locator('[data-testid="stage-card-tone-briefing"]').locator('button[title="AI Redo"]')
+Expected: visible
+Received: <element(s) not found>
 Call log:
+  - expect.toBeVisible with timeout 5000ms
   - waiting for locator('[data-testid="stage-card-tone-briefing"]').locator('button[title="AI Redo"]')
 
-    at /Users/franzenzenhofer/dev/franzai-writer/tests/e2e/press-release-workflow-unconventional.spec.ts:39:58
+    at /Users/franzenzenhofer/dev/franzai-writer/tests/e2e/press-release-workflow-unconventional.spec.ts:43:34
     at /Users/franzenzenhofer/dev/franzai-writer/tests/e2e/press-release-workflow-unconventional.spec.ts:29:5
 ```
 
@@ -33,7 +38,7 @@ Call log:
   - paragraph: "Workflow: Press Release Generator"
   - text: Progress 3 / 8 Stages
   - progressbar
-  - text: Last saved 9:57:55 AM
+  - text: Last saved 10:07:26 AM
   - img
   - text: Provide the topic, key message, and company name for your press release
   - button:
@@ -130,7 +135,11 @@ Call log:
     - img
     - text: GitHub
 - region "Notifications (F8)":
-  - list
+  - list:
+    - status:
+      - text: Stage Processed Stage "undefined" marked as complete.
+      - button:
+        - img
 - alert
 - button "Open Next.js Dev Tools":
   - img
@@ -171,112 +180,116 @@ Call log:
    30 |       console.log('Testing multiple AI redos on tone analysis');
    31 |       
    32 |       // Wait for initial completion
-   33 |       await expect(page.locator('[data-testid="stage-card-tone-briefing"]')).toHaveClass(/border-green-500/, { 
-   34 |         timeout: 60000 
-   35 |       });
-   36 |       
-   37 |       // First AI redo
-   38 |       const toneStage = page.locator('[data-testid="stage-card-tone-briefing"]');
->  39 |       await toneStage.locator('button[title="AI Redo"]').click();
-      |                                                          ^ Error: locator.click: Test timeout of 30000ms exceeded.
-   40 |       await page.waitForSelector('[role="dialog"]:has-text("AI Redo")');
-   41 |       await page.locator('[role="dialog"] textarea').fill('Make it extremely formal and corporate');
-   42 |       await page.locator('[role="dialog"] button:has-text("Redo with AI")').click();
-   43 |       await expect(toneStage).toHaveClass(/border-green-500/, { timeout: 60000 });
-   44 |       
-   45 |       // Second AI redo
-   46 |       await toneStage.locator('button[title="AI Redo"]').click();
-   47 |       await page.waitForSelector('[role="dialog"]:has-text("AI Redo")');
-   48 |       await page.locator('[role="dialog"] textarea').fill('Actually, make it very casual and startup-like');
-   49 |       await page.locator('[role="dialog"] button:has-text("Redo with AI")').click();
-   50 |       await expect(toneStage).toHaveClass(/border-green-500/, { timeout: 60000 });
-   51 |       
-   52 |       // Third AI redo
-   53 |       await toneStage.locator('button[title="AI Redo"]').click();
-   54 |       await page.waitForSelector('[role="dialog"]:has-text("AI Redo")');
-   55 |       await page.locator('[role="dialog"] textarea').fill('Find a balance between formal and casual, professional but approachable');
-   56 |       await page.locator('[role="dialog"] button:has-text("Redo with AI")').click();
-   57 |       await expect(toneStage).toHaveClass(/border-green-500/, { timeout: 60000 });
-   58 |       
-   59 |       console.log('Completed 3 AI redos on tone analysis');
-   60 |     });
-   61 |
-   62 |     // Stage 3: Edit research after it completes
-   63 |     await test.step('Edit auto-generated research', async () => {
-   64 |       console.log('Waiting for research to complete, then editing');
-   65 |       
-   66 |       await expect(page.locator('[data-testid="stage-card-research"]')).toHaveClass(/border-green-500/, { 
-   67 |         timeout: 90000 
-   68 |       });
-   69 |       
-   70 |       // Click edit button
-   71 |       const researchStage = page.locator('[data-testid="stage-card-research"]');
-   72 |       await researchStage.locator('button[title="Edit"]').click();
-   73 |       
-   74 |       // Wait for edit mode
-   75 |       await page.waitForTimeout(1000);
-   76 |       
-   77 |       // Find the textarea in edit mode and modify content
-   78 |       const editTextarea = researchStage.locator('textarea').first();
-   79 |       const currentContent = await editTextarea.inputValue();
-   80 |       await editTextarea.fill(currentContent + '\n\nEDITED: Added custom research notes about competitors.');
+   33 |       const toneStage = page.locator('[data-testid="stage-card-tone-briefing"]');
+   34 |       await expect(toneStage).toHaveClass(/border-green-500/, { 
+   35 |         timeout: 60000 
+   36 |       });
+   37 |       
+   38 |       // Add a small delay to ensure UI is ready
+   39 |       await page.waitForTimeout(1000);
+   40 |       
+   41 |       // First AI redo
+   42 |       const aiRedoButton = toneStage.locator('button[title="AI Redo"]');
+>  43 |       await expect(aiRedoButton).toBeVisible({ timeout: 5000 });
+      |                                  ^ Error: Timed out 5000ms waiting for expect(locator).toBeVisible()
+   44 |       await aiRedoButton.click();
+   45 |       await page.waitForSelector('[role="dialog"]:has-text("AI Redo")');
+   46 |       await page.locator('[role="dialog"] textarea').fill('Make it extremely formal and corporate');
+   47 |       await page.locator('[role="dialog"] button:has-text("Redo with AI")').click();
+   48 |       await expect(toneStage).toHaveClass(/border-green-500/, { timeout: 60000 });
+   49 |       
+   50 |       // Second AI redo
+   51 |       await toneStage.locator('button[title="AI Redo"]').click();
+   52 |       await page.waitForSelector('[role="dialog"]:has-text("AI Redo")');
+   53 |       await page.locator('[role="dialog"] textarea').fill('Actually, make it very casual and startup-like');
+   54 |       await page.locator('[role="dialog"] button:has-text("Redo with AI")').click();
+   55 |       await expect(toneStage).toHaveClass(/border-green-500/, { timeout: 60000 });
+   56 |       
+   57 |       // Third AI redo
+   58 |       await toneStage.locator('button[title="AI Redo"]').click();
+   59 |       await page.waitForSelector('[role="dialog"]:has-text("AI Redo")');
+   60 |       await page.locator('[role="dialog"] textarea').fill('Find a balance between formal and casual, professional but approachable');
+   61 |       await page.locator('[role="dialog"] button:has-text("Redo with AI")').click();
+   62 |       await expect(toneStage).toHaveClass(/border-green-500/, { timeout: 60000 });
+   63 |       
+   64 |       console.log('Completed 3 AI redos on tone analysis');
+   65 |     });
+   66 |
+   67 |     // Stage 3: Edit research after it completes
+   68 |     await test.step('Edit auto-generated research', async () => {
+   69 |       console.log('Waiting for research to complete, then editing');
+   70 |       
+   71 |       await expect(page.locator('[data-testid="stage-card-research"]')).toHaveClass(/border-green-500/, { 
+   72 |         timeout: 90000 
+   73 |       });
+   74 |       
+   75 |       // Click edit button
+   76 |       const researchStage = page.locator('[data-testid="stage-card-research"]');
+   77 |       await researchStage.locator('button[title="Edit"]').click();
+   78 |       
+   79 |       // Wait for edit mode
+   80 |       await page.waitForTimeout(1000);
    81 |       
-   82 |       // Save edits
-   83 |       await researchStage.locator('button:has-text("Save")').click();
-   84 |       
-   85 |       console.log('Research edited after auto-generation');
-   86 |     });
-   87 |
-   88 |     // Stage 4: Leave key facts mostly empty
-   89 |     await test.step('Submit key facts with minimal data', async () => {
-   90 |       console.log('Testing with mostly empty key facts');
-   91 |       
-   92 |       // Only fill headline, leave everything else empty
-   93 |       await page.locator('input[placeholder="Main headline for the press release"]').fill('Minimal Test Headline');
-   94 |       
-   95 |       // Process with mostly empty fields
-   96 |       await page.click('#process-stage-key-facts');
-   97 |       await expect(page.locator('[data-testid="stage-card-key-facts"]')).toHaveClass(/border-green-500/, { 
-   98 |         timeout: 30000 
-   99 |       });
-  100 |     });
-  101 |
-  102 |     // Go back and edit basic info AFTER other stages completed
-  103 |     await test.step('Edit basic info after progression', async () => {
-  104 |       console.log('Going back to edit basic info');
-  105 |       
-  106 |       const basicInfoStage = page.locator('[data-testid="stage-card-basic-info"]');
-  107 |       await basicInfoStage.locator('button[title="Edit"]').click();
-  108 |       
-  109 |       // Wait for edit mode
-  110 |       await page.waitForTimeout(1000);
-  111 |       
-  112 |       // Update the company name
-  113 |       const companyInput = page.locator('input[placeholder*="TechCorp Inc."]');
-  114 |       await companyInput.clear();
-  115 |       await companyInput.fill('Updated Company Name LLC');
+   82 |       // Find the textarea in edit mode and modify content
+   83 |       const editTextarea = researchStage.locator('textarea').first();
+   84 |       const currentContent = await editTextarea.inputValue();
+   85 |       await editTextarea.fill(currentContent + '\n\nEDITED: Added custom research notes about competitors.');
+   86 |       
+   87 |       // Save edits
+   88 |       await researchStage.locator('button:has-text("Save")').click();
+   89 |       
+   90 |       console.log('Research edited after auto-generation');
+   91 |     });
+   92 |
+   93 |     // Stage 4: Leave key facts mostly empty
+   94 |     await test.step('Submit key facts with minimal data', async () => {
+   95 |       console.log('Testing with mostly empty key facts');
+   96 |       
+   97 |       // Only fill headline, leave everything else empty
+   98 |       await page.locator('input[placeholder="Main headline for the press release"]').fill('Minimal Test Headline');
+   99 |       
+  100 |       // Process with mostly empty fields
+  101 |       await page.click('#process-stage-key-facts');
+  102 |       await expect(page.locator('[data-testid="stage-card-key-facts"]')).toHaveClass(/border-green-500/, { 
+  103 |         timeout: 30000 
+  104 |       });
+  105 |     });
+  106 |
+  107 |     // Go back and edit basic info AFTER other stages completed
+  108 |     await test.step('Edit basic info after progression', async () => {
+  109 |       console.log('Going back to edit basic info');
+  110 |       
+  111 |       const basicInfoStage = page.locator('[data-testid="stage-card-basic-info"]');
+  112 |       await basicInfoStage.locator('button[title="Edit"]').click();
+  113 |       
+  114 |       // Wait for edit mode
+  115 |       await page.waitForTimeout(1000);
   116 |       
-  117 |       // Save changes
-  118 |       await basicInfoStage.locator('button:has-text("Save")').click();
-  119 |       
-  120 |       console.log('Basic info updated after other stages completed');
-  121 |     });
-  122 |
-  123 |     // Stage 5: Skip contact info initially, then fill later
-  124 |     await test.step('Skip and return to contact info', async () => {
-  125 |       console.log('Testing non-linear stage completion');
-  126 |       
-  127 |       // Skip contact info for now
-  128 |       const contactStage = page.locator('[data-testid="stage-card-contact-info"]');
-  129 |       
-  130 |       // Try to proceed without filling contact info
-  131 |       // The final press release should wait for this dependency
-  132 |       
-  133 |       // Fill contact info after attempting to skip
-  134 |       await page.locator('input[placeholder*="Jane Smith"]').fill('J');
-  135 |       await page.locator('input[placeholder*="Director of Communications"]').fill('CEO');
-  136 |       await page.locator('input[placeholder*="press@company.com"]').fill('x@y.z');
-  137 |       await page.locator('input[placeholder*="+1 (555)"]').fill('1');
-  138 |       
-  139 |       await page.click('#process-stage-contact-info');
+  117 |       // Update the company name
+  118 |       const companyInput = page.locator('input[placeholder*="TechCorp Inc."]');
+  119 |       await companyInput.clear();
+  120 |       await companyInput.fill('Updated Company Name LLC');
+  121 |       
+  122 |       // Save changes
+  123 |       await basicInfoStage.locator('button:has-text("Save")').click();
+  124 |       
+  125 |       console.log('Basic info updated after other stages completed');
+  126 |     });
+  127 |
+  128 |     // Stage 5: Skip contact info initially, then fill later
+  129 |     await test.step('Skip and return to contact info', async () => {
+  130 |       console.log('Testing non-linear stage completion');
+  131 |       
+  132 |       // Skip contact info for now
+  133 |       const contactStage = page.locator('[data-testid="stage-card-contact-info"]');
+  134 |       
+  135 |       // Try to proceed without filling contact info
+  136 |       // The final press release should wait for this dependency
+  137 |       
+  138 |       // Fill contact info after attempting to skip
+  139 |       await page.locator('input[placeholder*="Jane Smith"]').fill('J');
+  140 |       await page.locator('input[placeholder*="Director of Communications"]').fill('CEO');
+  141 |       await page.locator('input[placeholder*="press@company.com"]').fill('x@y.z');
+  142 |       await page.locator('input[placeholder*="+1 (555)"]').fill('1');
+  143 |       
 ```
