@@ -597,12 +597,30 @@ class DocumentPersistenceManager {
             JSON.stringify(state.output).substring(0, 5000) : undefined,
         };
 
-        // For export stages, preserve minimal structure as strings
+        // For export stages, flatten EVERYTHING to prevent nested entity errors
         if (state.output && typeof state.output === 'object' && 
             ('formats' in state.output || 'publishing' in state.output)) {
-          console.log(`[DocumentPersistence] Converting export stage to string format: ${stageId}`);
+          console.log(`[DocumentPersistence] FLATTENING export stage completely: ${stageId}`);
           firestore_safe_state.isExportStage = true;
-          firestore_safe_state.exportData_string = JSON.stringify(this.cleanExportStageOutput(state.output));
+          
+          // Extract only the essential data as flat strings
+          const exportOutput = state.output as any;
+          if (exportOutput.formats) {
+            firestore_safe_state.hasFormats = true;
+            firestore_safe_state.formatsReady = !!(exportOutput.formats['html-styled']?.ready && 
+                                                   exportOutput.formats['html-clean']?.ready && 
+                                                   exportOutput.formats['markdown']?.ready);
+          }
+          
+          if (exportOutput.publishing) {
+            firestore_safe_state.hasPublishing = true;
+            firestore_safe_state.publishedUrl = exportOutput.publishing.publishedUrl || '';
+            firestore_safe_state.publishedFormats = Array.isArray(exportOutput.publishing.publishedFormats) ? 
+              exportOutput.publishing.publishedFormats.join(',') : '';
+          }
+          
+          // Don't store the complex nested output
+          delete firestore_safe_state.output_string;
         }
 
         // Clean undefined values
