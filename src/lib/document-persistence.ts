@@ -683,10 +683,18 @@ class DocumentPersistenceManager {
       isEditingOutput: state.isEditingOutput ?? false,
       isStale: state.isStale ?? false,
       staleDismissed: state.staleDismissed ?? false,
-      shouldAutoRun: state.shouldAutoRun ?? false,
-      completedAt: state.completedAt,
-      error: state.error ? String(state.error).substring(0, 1000) : undefined
+      shouldAutoRun: state.shouldAutoRun ?? false
     };
+
+    // Only add completedAt if it has a valid value
+    if (state.completedAt) {
+      cleaned.completedAt = state.completedAt;
+    }
+
+    // Only add error if it has a valid value
+    if (state.error) {
+      cleaned.error = String(state.error).substring(0, 1000);
+    }
 
     // Handle userInput with size limits
     if (state.userInput !== undefined) {
