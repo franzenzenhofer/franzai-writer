@@ -152,15 +152,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     const startTime = Date.now();
     setAiLoadStartTime(startTime);
     
-    // Show loading toast for first attempt
-    if (retryAttempt === 0) {
-      toast({
-        title: "Loading AI System",
-        description: "Initializing AI functionality...",
-        variant: "default",
-        duration: 10000, // Show while loading
-      });
-    }
+    // Skip loading toast - users don't need to see this
     
     console.log(`[WizardShell] Loading AI stage runner (attempt ${retryAttempt + 1})...`, {
       timestamp: new Date().toISOString(),
@@ -190,13 +182,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       setAiStageLoaded(true);
       setAiLoadError(null);
       
-      // Success toast
-      toast({
-        title: "AI System Ready",
-        description: `Loaded successfully in ${loadTime}ms`,
-        variant: "default",
-        duration: 3000,
-      });
+      // Skip success toast - AI loading is expected behavior
       
       console.log('[WizardShell] ✅ AI stage runner function validated successfully');
       
@@ -225,13 +211,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         const retryDelay = Math.pow(2, retryAttempt) * 1000; // 1s, 2s, 4s
         console.log(`[WizardShell] 🔄 Retrying AI load in ${retryDelay}ms...`);
         
-        // Show retry toast
-        toast({
-          title: `AI Load Failed - Retrying (${retryAttempt + 1}/3)`,
-          description: `Retrying in ${retryDelay / 1000}s... Error: ${error.message}`,
-          variant: "default",
-          duration: retryDelay + 1000,
-        });
+        // Silent retry - no need to show toast for automatic retries
         
         setTimeout(() => {
           loadAiStageRunner(retryAttempt + 1);
@@ -731,7 +711,7 @@ Still having issues? Check the browser console for detailed logs.`;
         completedAt: new Date().toISOString(),
         isStale: false,
       });
-      toast({ title: "Stage Processed", description: `Stage "${stage.title}" marked as complete.` });
+      // Silent completion for non-AI stages
       
       // Auto-scroll to next stage after a brief delay (configurable)
       const autoScrollConfig = instance.workflow.config?.autoScroll;
@@ -840,18 +820,7 @@ Still having issues? Check the browser console for detailed logs.`;
         usageMetadata: result.usageMetadata, // Store usage metadata for thinking display
       });
       
-      // Show specific toast message for AI Redo with grounding
-      if (aiRedoNotes) {
-        toast({ 
-          title: "AI Redo Completed", 
-          description: `AI regeneration for "${stage.title}" finished with Google Search grounding.` 
-        });
-      } else {
-        toast({ 
-          title: "AI Stage Completed", 
-          description: `AI processing for "${stage.title}" finished.` 
-        });
-      }
+      // Silent completion for AI stages - users can see the output
       
       // Auto-scroll to next stage after a brief delay (configurable)
       const autoScrollConfig = instance.workflow.config?.autoScroll;
@@ -888,7 +857,7 @@ Still having issues? Check the browser console for detailed logs.`;
   
   const handleEditInputRequest = (stageId: string) => {
     updateStageState(stageId, { status: "idle", output: undefined, completedAt: undefined, isEditingOutput: false });
-    toast({ title: "Editing Input", description: `Input for stage "${instance.workflow.stages.find(s=>s.id===stageId)?.title}" is now editable. Previous output cleared.` });
+    // Silent - UI already shows editing state
   };
 
   const handleSetEditingOutput = (stageId: string, isEditing: boolean) => {
@@ -901,7 +870,7 @@ Still having issues? Check the browser console for detailed logs.`;
 
   const handleDismissStaleWarning = (stageId: string) => {
     updateStageState(stageId, { staleDismissed: true });
-    toast({ title: "Warning Dismissed", description: `Update recommendation for "${instance.workflow.stages.find(s=>s.id===stageId)?.title}" has been dismissed.` });
+    // Silent - dismissal is visible in UI
   };
   
   const completedStagesCount = instance.workflow.stages.filter(
@@ -933,7 +902,21 @@ Still having issues? Check the browser console for detailed logs.`;
         >
           {pageTitle}
         </h1>
-        <p className="text-sm md:text-base text-muted-foreground mb-1">Workflow: {instance.workflow.name}</p>
+        <div className="flex items-center justify-between mb-1">
+          <p className="text-sm md:text-base text-muted-foreground">Workflow: {instance.workflow.name}</p>
+          {!isSaving && lastSaved && (
+            <span className="text-xs md:text-sm text-muted-foreground" data-testid="last-saved-text">
+              {`Last saved ${lastSaved.toLocaleString('en-GB', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+              }).replace(',', '')}`}
+            </span>
+          )}
+        </div>
         
         <div className="mb-6">
           <div className="flex justify-between text-sm text-muted-foreground mb-1">
@@ -950,11 +933,6 @@ Still having issues? Check the browser console for detailed logs.`;
               <Badge variant="secondary" className="text-xs">
                 <Save className="w-3 h-3 mr-1 animate-pulse" />
                 Saving...
-              </Badge>
-            )}
-            {!isSaving && lastSaved && (
-              <Badge variant="outline" className="text-xs text-muted-foreground">
-                Last saved {lastSaved.toLocaleTimeString()}
               </Badge>
             )}
             {saveError && (

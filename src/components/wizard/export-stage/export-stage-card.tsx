@@ -38,11 +38,7 @@ Technical Details:
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
       
-      toast({
-        title: "Error Copied",
-        description: "Error details copied to clipboard for troubleshooting",
-        variant: "default",
-      });
+      // Silent copy - visual feedback is enough
     } catch (err) {
       toast({
         title: "Copy Failed",
@@ -169,10 +165,7 @@ export function ExportStageCard({
       setCopied(format);
       setTimeout(() => setCopied(null), 2000);
       
-      toast({
-        title: "Copied!",
-        description: "URL copied to clipboard",
-      });
+      // Silent copy - visual feedback is enough
     } catch (err) {
       toast({
         title: "Copy failed",

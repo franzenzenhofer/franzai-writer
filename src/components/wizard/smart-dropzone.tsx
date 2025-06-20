@@ -72,10 +72,7 @@ export function SmartDropzone({ onTextExtracted, className, label = "Drag 'n' dr
       try {
         const extractedText = await extractTextFromFile(file);
         onTextExtracted(extractedText);
-        toast({
-          title: "File Processed",
-          description: `${file.name} content has been loaded.`,
-        });
+        // Silent - file content is visible immediately
       } catch (err: any) {
         setError(err.message || "An unknown error occurred during file processing.");
         toast({

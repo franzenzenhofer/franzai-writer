@@ -49,10 +49,7 @@ export function ExportOptions({ formats, exportConfig }: ExportOptionsProps) {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
     
-    toast({
-      title: "Downloaded!",
-      description: `${format} file downloaded successfully`,
-    });
+    // Silent download - file save dialog is feedback enough
   };
   
   const handleCopy = async (format: string, content: string) => {
@@ -61,10 +58,7 @@ export function ExportOptions({ formats, exportConfig }: ExportOptionsProps) {
       setCopiedFormat(format);
       setTimeout(() => setCopiedFormat(null), 2000);
       
-      toast({
-        title: "Copied!",
-        description: `${format} content copied to clipboard`,
-      });
+      // Silent copy - visual feedback in UI is enough
     } catch (err) {
       toast({
         title: "Copy failed",

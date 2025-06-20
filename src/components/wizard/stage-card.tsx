@@ -55,11 +55,7 @@ Technical Details:
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
       
-      toast({
-        title: "Error Copied",
-        description: "Error details copied to clipboard for troubleshooting",
-        variant: "default",
-      });
+      // Silent copy - visual feedback (checkmark) is enough
     } catch (err) {
       toast({
         title: "Copy Failed",

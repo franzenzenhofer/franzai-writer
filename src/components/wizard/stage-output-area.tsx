@@ -101,10 +101,7 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
         
         await navigator.clipboard.writeText(textToCopy);
         setCopied(true);
-        toast({
-          title: "Copied!",
-          description: "Content copied to clipboard",
-        });
+        // Silent copy - visual feedback (checkmark) is enough
         setTimeout(() => setCopied(false), 2000);
       } catch (err) {
         toast({
