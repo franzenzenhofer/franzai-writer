@@ -155,7 +155,6 @@ export function ExportOptions({ formats, exportConfig }: ExportOptionsProps) {
                       variant="outline"
                       onClick={() => handleDownload(format, state.content!)}
                       disabled={!state.content}
-                      className="h-8"
                     >
                       <Download className="mr-2 h-4 w-4" />
                       Download
@@ -166,7 +165,6 @@ export function ExportOptions({ formats, exportConfig }: ExportOptionsProps) {
                         variant="outline"
                         onClick={() => handleCopy(format, state.content!)}
                         disabled={!state.content}
-                        className="h-8"
                       >
                         {copiedFormat === format ? (
                           <Check className="mr-2 h-4 w-4 text-green-500" />

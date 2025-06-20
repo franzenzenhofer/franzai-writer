@@ -65,7 +65,6 @@ export function AiRedoSection({
           size="sm"
           onClick={handleAiRedo}
           disabled={isRunning}
-          className="bg-background hover:bg-accent"
           id={`ai-redo-${stageId}`}
           data-testid={`ai-redo-${stageId}`}
         >

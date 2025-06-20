@@ -148,17 +148,19 @@ export function ImageOutputDisplay({
           {output.images.map((image, index) => {
             const thumbUrl = image.publicUrl || image.storageUrl || image.dataUrl;
             return (
-              <button
+              <Button
                 key={index}
+                variant="ghost"
+                size="sm"
                 onClick={() => {
                   setSelectedIndex(index);
                   onImageSelection?.(index);
                 }}
                 className={cn(
-                  "relative rounded-lg overflow-hidden border-2 transition-all",
+                  "relative rounded-lg overflow-hidden p-0 h-auto",
                   selectedIndex === index
-                    ? "border-primary ring-2 ring-primary ring-offset-2"
-                    : "border-transparent hover:border-muted-foreground/50"
+                    ? "ring-2 ring-primary ring-offset-2"
+                    : ""
                 )}
               >
                 <Image
@@ -169,7 +171,7 @@ export function ImageOutputDisplay({
                   className="w-full h-auto"
                 />
                 <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-colors" />
-              </button>
+              </Button>
             );
           })}
         </div>

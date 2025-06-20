@@ -45,7 +45,7 @@ export function DismissibleWarningBadge({ children, onDismiss, onClick, classNam
           e.stopPropagation(); // Prevent any parent click handlers
           onDismiss();
         }}
-        className="ml-1 hover:bg-amber-200 dark:hover:bg-amber-700 rounded-full h-4 w-4 p-0"
+        className="ml-1"
         aria-label="Dismiss warning"
       >
         <XIcon className="h-3 w-3" />
