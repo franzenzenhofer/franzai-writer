@@ -596,8 +596,11 @@ class DocumentPersistenceManager {
           userInput_string: state.userInput ? 
             JSON.stringify(state.userInput).substring(0, 2000) : undefined,
           
-          output_string: state.output ? 
-            JSON.stringify(state.output).substring(0, 5000) : undefined,
+          // DO NOT include output_string for export stages - it's too large
+          output_string: (state.output && typeof state.output === 'object' && 
+                         ('formats' in state.output || 'publishing' in state.output)) ? 
+            undefined : // Skip output_string for export stages
+            (state.output ? JSON.stringify(state.output).substring(0, 5000) : undefined),
         };
 
         // For export stages, flatten EVERYTHING to prevent nested entity errors
@@ -622,26 +625,34 @@ class DocumentPersistenceManager {
           
           // Flatten formats data
           if (exportOutput.formats) {
+            console.log(`[DocumentPersistence] Export formats structure:`, {
+              formatKeys: Object.keys(exportOutput.formats),
+              sampleFormat: exportOutput.formats['html-styled'] ? {
+                ready: exportOutput.formats['html-styled'].ready,
+                hasContent: !!exportOutput.formats['html-styled'].content,
+                contentLength: exportOutput.formats['html-styled'].content?.length,
+                hasUrl: !!exportOutput.formats['html-styled'].url
+              } : null
+            });
+            
             firestore_safe_state.hasFormats = true;
             firestore_safe_state.formatsReady = !!(exportOutput.formats['html-styled']?.ready && 
                                                    exportOutput.formats['html-clean']?.ready && 
                                                    exportOutput.formats['markdown']?.ready);
             
-            // Store format URLs as flat strings
-            if (exportOutput.formats['html-styled']?.url) {
-              firestore_safe_state.htmlStyledUrl = String(exportOutput.formats['html-styled'].url);
-            }
-            if (exportOutput.formats['html-clean']?.url) {
-              firestore_safe_state.htmlCleanUrl = String(exportOutput.formats['html-clean'].url);
-            }
-            if (exportOutput.formats['markdown']?.url) {
-              firestore_safe_state.markdownUrl = String(exportOutput.formats['markdown'].url);
-            }
-            if (exportOutput.formats['pdf']?.url) {
-              firestore_safe_state.pdfUrl = String(exportOutput.formats['pdf'].url);
-            }
-            if (exportOutput.formats['docx']?.url) {
-              firestore_safe_state.docxUrl = String(exportOutput.formats['docx'].url);
+            // DO NOT store format content - it's too large for Firestore
+            // Only store metadata about what's ready
+            for (const [formatKey, formatData] of Object.entries(exportOutput.formats)) {
+              if (formatData && typeof formatData === 'object') {
+                const fd = formatData as any;
+                if (fd.ready) {
+                  firestore_safe_state[`${formatKey}_ready`] = true;
+                  if (fd.error) {
+                    firestore_safe_state[`${formatKey}_error`] = String(fd.error);
+                  }
+                  // DO NOT store content or URLs that might contain data URLs
+                }
+              }
             }
           }
           
