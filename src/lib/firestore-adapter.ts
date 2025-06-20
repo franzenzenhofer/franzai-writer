@@ -135,6 +135,15 @@ export class FirestoreAdapter {
             isExportStage: state.isExportStage || (id.includes('export'))
           }))
         });
+        
+        // Try to identify the problematic nested entity
+        try {
+          // Attempt to stringify to find circular references or problematic objects
+          const testStringify = JSON.stringify(updates.stageStates);
+          console.log('[FirestoreAdapter] StageStates stringify test passed, length:', testStringify.length);
+        } catch (stringifyError) {
+          console.error('[FirestoreAdapter] StageStates contains non-serializable data:', stringifyError);
+        }
       }
       
       await updateDoc(docRef, updateData);

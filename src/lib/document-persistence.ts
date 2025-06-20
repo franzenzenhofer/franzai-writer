@@ -608,60 +608,13 @@ class DocumentPersistenceManager {
         if ((state.output && typeof state.output === 'object' && 
             ('formats' in state.output || 'publishing' in state.output)) ||
             stageId.includes('export')) {
-          console.log(`[DocumentPersistence] FLATTENING export stage completely: ${stageId}`);
+          console.log(`[DocumentPersistence] EXPORT STAGE DETECTED - MINIMAL STORAGE: ${stageId}`);
           firestore_safe_state.isExportStage = true;
+          firestore_safe_state.exportCompleted = true;
           
-          // Extract only the essential data as flat strings
-          const exportOutput = state.output as any;
-          
-          // Store HTML content separately as flat strings
-          if (exportOutput.htmlStyled) {
-            firestore_safe_state.htmlStyled_truncated = String(exportOutput.htmlStyled).substring(0, 1000);
-          }
-          if (exportOutput.htmlClean) {
-            firestore_safe_state.htmlClean_truncated = String(exportOutput.htmlClean).substring(0, 1000);
-          }
-          if (exportOutput.markdown) {
-            firestore_safe_state.markdown_truncated = String(exportOutput.markdown).substring(0, 1000);
-          }
-          
-          // Flatten formats data
-          if (exportOutput.formats) {
-            console.log(`[DocumentPersistence] Export formats structure:`, {
-              formatKeys: Object.keys(exportOutput.formats),
-              sampleFormat: exportOutput.formats['html-styled'] ? {
-                ready: exportOutput.formats['html-styled'].ready,
-                hasContent: !!exportOutput.formats['html-styled'].content,
-                contentLength: exportOutput.formats['html-styled'].content?.length,
-                hasUrl: !!exportOutput.formats['html-styled'].url
-              } : null
-            });
-            
-            firestore_safe_state.hasFormats = true;
-            firestore_safe_state.formatsReady = !!(exportOutput.formats['html-styled']?.ready && 
-                                                   exportOutput.formats['html-clean']?.ready && 
-                                                   exportOutput.formats['markdown']?.ready);
-            
-            // DO NOT store the formats object at all - it causes nested entity errors
-            // We'll reconstruct it on load from the ready flags
-          }
-          
-          // Flatten publishing data
-          if (exportOutput.publishing) {
-            firestore_safe_state.hasPublishing = true;
-            firestore_safe_state.publishedUrl = String(exportOutput.publishing.publishedUrl || '');
-            firestore_safe_state.publishedFormats = Array.isArray(exportOutput.publishing.publishedFormats) ? 
-              exportOutput.publishing.publishedFormats.join(',') : '';
-            if (exportOutput.publishing.publishedAt) {
-              firestore_safe_state.publishedAt = String(exportOutput.publishing.publishedAt);
-            }
-            if (exportOutput.publishing.shortUrl) {
-              firestore_safe_state.shortUrl = String(exportOutput.publishing.shortUrl);
-            }
-            if (exportOutput.publishing.qrCodeUrl) {
-              firestore_safe_state.qrCodeUrl = String(exportOutput.publishing.qrCodeUrl);
-            }
-          }
+          // For export stages, store ONLY the completion status
+          // The actual export data is too complex for Firestore
+          // It will be regenerated when needed
           
           // Don't store the complex nested output
           delete firestore_safe_state.output_string;
@@ -999,10 +952,10 @@ class DocumentPersistenceManager {
         // Create reconstructed state
         reconstructed[stageId] = {
           stageId: state.stageId || stageId,
-          status: state.status || 'idle',
+          status: (state as any).exportCompleted ? 'idle' : (state.status || 'idle'), // Reset to idle so it can be regenerated
           error: state.error,
           completedAt: state.completedAt,
-          output: Object.keys(output).length > 0 ? output : undefined,
+          output: undefined, // Export data will be regenerated when needed
           // Try to parse userInput if it was stringified
           userInput: (state as any).userInput_string ? 
             (() => {
