@@ -708,6 +708,17 @@ class DocumentPersistenceManager {
         throw new Error('Cleaning failed - contains non-serializable objects');
       }
       
+      // Additional check for export stages
+      const exportStage = Object.entries(cleaned).find(([id, state]) => 
+        id.includes('export') || (state as any).isExportStage
+      );
+      if (exportStage) {
+        console.log('[DocumentPersistence] Export stage found after cleaning:', {
+          stageId: exportStage[0],
+          cleanedState: exportStage[1]
+        });
+      }
+      
     } catch (e) {
       console.error('[DocumentPersistence] CRITICAL: Cleaned stageStates STILL not serializable!', e);
       console.error('[DocumentPersistence] Raw cleaned data:', cleaned);
