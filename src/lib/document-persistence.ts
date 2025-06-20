@@ -435,33 +435,33 @@ class DocumentPersistenceManager {
     
     if (cleaned.groundingMetadata) {
       console.log('[DocumentPersistence] FLATTENING groundingMetadata to string');
-      cleaned.groundingMetadata = `Summary: ${JSON.stringify(cleaned.groundingMetadata).substring(0, 1000)}`;
+      (cleaned as any).groundingMetadata = `Summary: ${JSON.stringify(cleaned.groundingMetadata).substring(0, 1000)}`;
     }
 
     if (cleaned.functionCalls) {
       console.log('[DocumentPersistence] FLATTENING functionCalls to string');
-      cleaned.functionCalls = `${cleaned.functionCalls.length} function calls: ${JSON.stringify(cleaned.functionCalls).substring(0, 1000)}`;
+      (cleaned as any).functionCalls = `${cleaned.functionCalls.length} function calls: ${JSON.stringify(cleaned.functionCalls).substring(0, 1000)}`;
     }
 
     if (cleaned.thinkingSteps) {
       console.log('[DocumentPersistence] FLATTENING thinkingSteps to string');
-      cleaned.thinkingSteps = `${cleaned.thinkingSteps.length} thinking steps: ${JSON.stringify(cleaned.thinkingSteps).substring(0, 1000)}`;
+      (cleaned as any).thinkingSteps = `${cleaned.thinkingSteps.length} thinking steps: ${JSON.stringify(cleaned.thinkingSteps).substring(0, 1000)}`;
     }
 
     if (cleaned.codeExecutionResults) {
       console.log('[DocumentPersistence] FLATTENING codeExecutionResults to string');
-      cleaned.codeExecutionResults = `Code results: ${JSON.stringify(cleaned.codeExecutionResults).substring(0, 1000)}`;
+      (cleaned as any).codeExecutionResults = `Code results: ${JSON.stringify(cleaned.codeExecutionResults).substring(0, 1000)}`;
     }
 
     if (cleaned.outputImages) {
       console.log('[DocumentPersistence] FLATTENING outputImages to string');
-      cleaned.outputImages = `${cleaned.outputImages.length} output images`;
+      (cleaned as any).outputImages = `${cleaned.outputImages.length} output images`;
     }
 
     if (cleaned.usageMetadata) {
       console.log('[DocumentPersistence] FLATTENING usageMetadata to simple object');
-      cleaned.usageMetadata = {
-        totalTokens: Number(cleaned.usageMetadata.totalTokenCount) || 0,
+      (cleaned as any).usageMetadata = {
+        totalTokenCount: Number(cleaned.usageMetadata.totalTokenCount) || 0,
         summary: `${cleaned.usageMetadata.candidatesTokenCount || 0} candidates, ${cleaned.usageMetadata.promptTokenCount || 0} prompt`
       };
     }

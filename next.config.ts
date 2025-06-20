@@ -40,7 +40,7 @@ const nextConfig: NextConfig = {
     if (config.watchOptions && config.watchOptions.ignored) {
       // Get existing ignored paths, filtering out empty values
       const existingIgnored = Array.isArray(config.watchOptions.ignored) 
-        ? config.watchOptions.ignored.filter(path => path && path.length > 0)
+        ? config.watchOptions.ignored.filter((path: any) => path && path.length > 0)
         : (config.watchOptions.ignored && config.watchOptions.ignored.length > 0 ? [config.watchOptions.ignored] : []);
       
       // Create a new watchOptions object to avoid mutating the read-only property
