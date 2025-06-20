@@ -57,11 +57,26 @@
         }
       ],
       "outputFields": [
-        { "id": "topic", "type": "string" },
-        { "id": "message", "type": "string" },
-        { "id": "company", "type": "string" },
-        { "id": "website", "type": "string" },
-        { "id": "title", "type": "string" }
+        {
+          "id": "topic",
+          "type": "string"
+        },
+        {
+          "id": "message",
+          "type": "string"
+        },
+        {
+          "id": "company",
+          "type": "string"
+        },
+        {
+          "id": "website",
+          "type": "string"
+        },
+        {
+          "id": "title",
+          "type": "string"
+        }
       ],
       "copyable": true
     },
@@ -73,15 +88,30 @@
       "outputType": "json",
       "model": "gemini-2.0-flash",
       "temperature": 0.4,
-      "dependencies": ["basic-info"],
+      "dependencies": [
+        "basic-info"
+      ],
       "autoRun": true,
       "aiRedoEnabled": true,
       "editEnabled": true,
+      "promptTemplate": "You are a tone of voice analyst specializing in corporate communications. Your task is to analyze the provided press release examples or company communications to extract tone and style guidelines.\n\nCompany Information:\n- Company: {{basic-info.output.company}}\n- Topic: {{basic-info.output.topic}}\n- Website: {{basic-info.output.website}}\n\nBased on the uploaded examples (or if no examples provided, based on the company website and industry standards), analyze and provide:\n\n1. **tone**: Describe the overall tone of voice (e.g., \"Professional yet approachable\", \"Formal and authoritative\", \"Innovative and forward-thinking\")\n\n2. **style_guidelines**: List specific style guidelines observed, such as:\n   - Sentence structure preferences\n   - Use of active vs passive voice\n   - Technical language level\n   - Paragraph length preferences\n\n3. **key_phrases**: Identify recurring phrases, terminology, or expressions that are characteristic of this company's communications\n\n4. **formatting_notes**: Note any specific formatting preferences such as:\n   - How quotes are introduced\n   - Use of bullet points or numbered lists\n   - Boilerplate structure\n   - How data/statistics are presented\n\nIf no examples are provided, research the company's industry and provide standard press release guidelines for that sector.\n\nProvide your analysis in JSON format with the four fields listed above.",
       "outputFields": [
-        { "id": "tone", "type": "string" },
-        { "id": "style_guidelines", "type": "string" },
-        { "id": "key_phrases", "type": "string" },
-        { "id": "formatting_notes", "type": "string" }
+        {
+          "id": "tone",
+          "type": "string"
+        },
+        {
+          "id": "style_guidelines",
+          "type": "string"
+        },
+        {
+          "id": "key_phrases",
+          "type": "string"
+        },
+        {
+          "id": "formatting_notes",
+          "type": "string"
+        }
       ],
       "copyable": true
     },
@@ -93,18 +123,34 @@
       "outputType": "json",
       "model": "gemini-2.0-flash",
       "temperature": 0.3,
-      "dependencies": ["basic-info", "tone-briefing"],
+      "dependencies": [
+        "basic-info",
+        "tone-briefing"
+      ],
       "autoRun": true,
       "aiRedoEnabled": true,
       "editEnabled": true,
       "grounding": {
         "googleSearch": true
       },
+      "promptTemplate": "You are a research analyst preparing background information for a press release. Use web search to gather current, accurate information.\n\nCompany and Topic Information:\n- Company: {{basic-info.output.company}}\n- Website: {{basic-info.output.website}}\n- Topic: {{basic-info.output.topic}}\n- Message: {{basic-info.output.message}}\n\nTone Guidelines from Analysis:\n{{tone-briefing.output.tone}}\n\nConduct thorough research and provide the following in JSON format:\n\n1. **company_background**: \n   - Brief company history and mission\n   - Key products/services\n   - Recent achievements or milestones\n   - Company size and locations (if available)\n\n2. **industry_context**:\n   - Current industry trends relevant to the announcement\n   - Market size and growth projections\n   - Key challenges or opportunities in the sector\n\n3. **recent_developments**:\n   - Recent company news or announcements\n   - Product launches or updates\n   - Strategic initiatives or partnerships\n   - Any relevant context for this announcement\n\n4. **competitive_landscape**:\n   - Main competitors in this space\n   - How this announcement positions the company\n   - Unique value propositions\n   - Market differentiation\n\nUse web search to find the most current and relevant information. Focus on facts that will strengthen the press release and provide important context for journalists.",
       "outputFields": [
-        { "id": "company_background", "type": "string" },
-        { "id": "industry_context", "type": "string" },
-        { "id": "recent_developments", "type": "string" },
-        { "id": "competitive_landscape", "type": "string" }
+        {
+          "id": "company_background",
+          "type": "string"
+        },
+        {
+          "id": "industry_context",
+          "type": "string"
+        },
+        {
+          "id": "recent_developments",
+          "type": "string"
+        },
+        {
+          "id": "competitive_landscape",
+          "type": "string"
+        }
       ],
       "copyable": true
     },
@@ -116,8 +162,10 @@
       "outputType": "json",
       "model": "gemini-2.0-flash",
       "temperature": 0.2,
-      "dependencies": ["research"],
-      "promptTemplate": "prompts/key-facts.md",
+      "dependencies": [
+        "research"
+      ],
+      "promptTemplate": "You are a press release editor. Review the provided information and generate appropriate content for any empty fields.\n\nCurrent Information:\n- Topic: {{basic-info.output.topic}}\n- Message: {{basic-info.output.message}}\n- Company: {{basic-info.output.company}}\n\nResearch Findings:\n{{research.output.company_background}}\n{{research.output.recent_developments}}\n{{research.output.competitive_landscape}}\n\nUser's Input:\n- Headline: {{headline}}\n- Subheadline: {{subheadline}}\n- Key Points: {{key_points}}\n- Quotes: {{quotes}}\n- Statistics: {{statistics}}\n\nFor any fields that are empty or need enhancement:\n1. Generate appropriate content based on the research and context\n2. Ensure all content aligns with press release best practices\n3. Make the headline compelling and newsworthy\n4. Key points should be clear, concise bullet points\n5. If quotes are empty, suggest placeholder quotes that would be typical for this type of announcement\n6. Statistics should be relevant and impactful\n\nReturn a JSON object with all five fields (headline, subheadline, key_points, quotes, statistics), preserving user input where provided and generating appropriate content where needed.",
       "autoRun": true,
       "formFields": [
         {
@@ -167,11 +215,26 @@
         }
       ],
       "outputFields": [
-        { "id": "headline", "type": "string" },
-        { "id": "subheadline", "type": "string" },
-        { "id": "key_points", "type": "string" },
-        { "id": "quotes", "type": "string" },
-        { "id": "statistics", "type": "string" }
+        {
+          "id": "headline",
+          "type": "string"
+        },
+        {
+          "id": "subheadline",
+          "type": "string"
+        },
+        {
+          "id": "key_points",
+          "type": "string"
+        },
+        {
+          "id": "quotes",
+          "type": "string"
+        },
+        {
+          "id": "statistics",
+          "type": "string"
+        }
       ],
       "editEnabled": true,
       "copyable": true
@@ -184,8 +247,10 @@
       "outputType": "json",
       "model": "gemini-2.0-flash",
       "temperature": 0.1,
-      "dependencies": ["key-facts"],
-      "promptTemplate": "prompts/contact-info.md",
+      "dependencies": [
+        "key-facts"
+      ],
+      "promptTemplate": "You are formatting contact information for a press release. Process the user's input and ensure all fields are properly formatted.\n\nUser Input:\n- Contact Name: {{contact_name}}\n- Contact Title: {{contact_title}}\n- Contact Email: {{contact_email}}\n- Contact Phone: {{contact_phone}}\n- Additional Contacts: {{additional_contacts}}\n\nCompany: {{basic-info.output.company}}\n\nFormat and validate the contact information:\n1. Ensure the email format is valid\n2. Format the phone number consistently\n3. If additional contacts are provided, format them clearly\n4. Maintain professional standards\n\nReturn a JSON object with all five fields, properly formatted and validated. All fields should be returned even if empty.",
       "autoRun": true,
       "formFields": [
         {
@@ -235,11 +300,26 @@
         }
       ],
       "outputFields": [
-        { "id": "contact_name", "type": "string" },
-        { "id": "contact_title", "type": "string" },
-        { "id": "contact_email", "type": "string" },
-        { "id": "contact_phone", "type": "string" },
-        { "id": "additional_contacts", "type": "string" }
+        {
+          "id": "contact_name",
+          "type": "string"
+        },
+        {
+          "id": "contact_title",
+          "type": "string"
+        },
+        {
+          "id": "contact_email",
+          "type": "string"
+        },
+        {
+          "id": "contact_phone",
+          "type": "string"
+        },
+        {
+          "id": "additional_contacts",
+          "type": "string"
+        }
       ],
       "editEnabled": true,
       "copyable": true
@@ -252,11 +332,16 @@
       "outputType": "markdown",
       "model": "gemini-2.0-flash",
       "temperature": 0.3,
-      "dependencies": ["key-facts", "contact-info", "tone-briefing"],
+      "dependencies": [
+        "key-facts",
+        "contact-info",
+        "tone-briefing"
+      ],
       "autoRun": true,
       "aiRedoEnabled": true,
       "editEnabled": true,
-      "copyable": true
+      "copyable": true,
+      "promptTemplate": "You are a professional press release writer. Create a complete, publication-ready press release following AP style and industry standards.\n\nUse the following information:\n\n**Basic Information:**\n- Company: {{basic-info.output.company}}\n- Topic: {{basic-info.output.topic}}\n- Message: {{basic-info.output.message}}\n\n**Tone Guidelines:**\n- Tone: {{tone-briefing.output.tone}}\n- Style Guidelines: {{tone-briefing.output.style_guidelines}}\n- Key Phrases: {{tone-briefing.output.key_phrases}}\n- Formatting Notes: {{tone-briefing.output.formatting_notes}}\n\n**Key Facts:**\n- Headline: {{key-facts.output.headline}}\n- Subheadline: {{key-facts.output.subheadline}}\n- Key Points: {{key-facts.output.key_points}}\n- Quotes: {{key-facts.output.quotes}}\n- Statistics: {{key-facts.output.statistics}}\n\n**Research Context:**\n- Company Background: {{research.output.company_background}}\n- Industry Context: {{research.output.industry_context}}\n- Recent Developments: {{research.output.recent_developments}}\n\n**Contact Information:**\n- {{contact-info.output.contact_name}}, {{contact-info.output.contact_title}}\n- Email: {{contact-info.output.contact_email}}\n- Phone: {{contact-info.output.contact_phone}}\n- Additional: {{contact-info.output.additional_contacts}}\n\nCreate a professional press release that includes:\n\n1. **Header**: Include \"FOR IMMEDIATE RELEASE\" and date\n2. **Headline**: Bold, compelling headline (use the provided headline)\n3. **Subheadline**: Supporting subheadline if provided\n4. **Dateline**: City, State/Country - Date\n5. **Lead Paragraph**: Answer who, what, when, where, why in first paragraph\n6. **Body Paragraphs**: \n   - Expand on the announcement with context and details\n   - Include relevant statistics and data points\n   - Incorporate quotes naturally\n   - Provide industry context where appropriate\n7. **Boilerplate**: \"About [Company Name]\" section with company background\n8. **Contact Information**: Media contact details\n9. **End Notation**: ### or -30-\n\nFormat in Markdown with proper structure. Ensure the release:\n- Follows inverted pyramid structure\n- Uses third person\n- Maintains objective, journalistic tone\n- Is between 400-600 words\n- Includes all key points\n- Flows naturally and tells a compelling story\n\nReady for distribution to major news outlets like Reuters, DPA, or News Aktuell."
     },
     {
       "id": "press-photo",
@@ -266,7 +351,9 @@
       "outputType": "image",
       "model": "imagen-3.0-generate-002",
       "provider": "imagen",
-      "dependencies": ["final-press-release"],
+      "dependencies": [
+        "final-press-release"
+      ],
       "isOptional": true,
       "formFields": [
         {
@@ -284,10 +371,22 @@
           "type": "select",
           "defaultValue": "photorealistic",
           "options": [
-            { "value": "photorealistic", "label": "Photorealistic" },
-            { "value": "professional", "label": "Professional Corporate" },
-            { "value": "modern", "label": "Modern Business" },
-            { "value": "minimal", "label": "Minimalist" }
+            {
+              "value": "photorealistic",
+              "label": "Photorealistic"
+            },
+            {
+              "value": "professional",
+              "label": "Professional Corporate"
+            },
+            {
+              "value": "modern",
+              "label": "Modern Business"
+            },
+            {
+              "value": "minimal",
+              "label": "Minimalist"
+            }
           ],
           "validation": {
             "required": true
@@ -299,10 +398,22 @@
           "type": "select",
           "defaultValue": "16:9",
           "options": [
-            { "value": "16:9", "label": "16:9 (Landscape)" },
-            { "value": "1:1", "label": "1:1 (Square)" },
-            { "value": "4:3", "label": "4:3 (Standard)" },
-            { "value": "3:4", "label": "3:4 (Portrait)" }
+            {
+              "value": "16:9",
+              "label": "16:9 (Landscape)"
+            },
+            {
+              "value": "1:1",
+              "label": "1:1 (Square)"
+            },
+            {
+              "value": "4:3",
+              "label": "4:3 (Standard)"
+            },
+            {
+              "value": "3:4",
+              "label": "3:4 (Portrait)"
+            }
           ],
           "validation": {
             "required": true
@@ -322,13 +433,25 @@
       "stageType": "export",
       "inputType": "none",
       "outputType": "export-interface",
-      "dependencies": ["final-press-release"],
+      "dependencies": [
+        "final-press-release"
+      ],
       "exportConfig": {
-        "formats": ["html-styled", "html-clean", "markdown", "pdf", "docx"],
+        "formats": [
+          "html-styled",
+          "html-clean",
+          "markdown",
+          "pdf",
+          "docx"
+        ],
         "publishing": {
           "enabled": true,
           "seo": true,
-          "themes": ["professional", "minimal", "modern"]
+          "themes": [
+            "professional",
+            "minimal",
+            "modern"
+          ]
         }
       }
     }
