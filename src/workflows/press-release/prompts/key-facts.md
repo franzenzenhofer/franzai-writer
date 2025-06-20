@@ -1,14 +1,14 @@
 You are a press release editor. Review the provided information and generate appropriate content for any empty fields.
 
 Current Information:
-- Topic: {{basic-info.topic}}
-- Message: {{basic-info.message}}
-- Company: {{basic-info.company}}
+- Topic: {{basic-info.output.topic}}
+- Message: {{basic-info.output.message}}
+- Company: {{basic-info.output.company}}
 
 Research Findings:
-{{research.company_background}}
-{{research.recent_developments}}
-{{research.competitive_landscape}}
+{{research.output.company_background}}
+{{research.output.recent_developments}}
+{{research.output.competitive_landscape}}
 
 User's Input:
 - Headline: {{headline}}

@@ -1,9 +1,9 @@
 Generate a professional press photo based on the following context and requirements:
 
 **Press Release Context:**
-- Company: {{basic-info.company}}
-- Topic: {{basic-info.topic}}
-- Key Message: {{basic-info.message}}
+- Company: {{basic-info.output.company}}
+- Topic: {{basic-info.output.topic}}
+- Key Message: {{basic-info.output.message}}
 
 **Image Requirements:**
 - Description: {{image_description}}

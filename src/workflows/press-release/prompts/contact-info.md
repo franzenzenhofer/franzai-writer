@@ -7,7 +7,7 @@ User Input:
 - Contact Phone: {{contact_phone}}
 - Additional Contacts: {{additional_contacts}}
 
-Company: {{basic-info.company}}
+Company: {{basic-info.output.company}}
 
 Format and validate the contact information:
 1. Ensure the email format is valid

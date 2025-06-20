@@ -1,9 +1,9 @@
 You are a tone of voice analyst specializing in corporate communications. Your task is to analyze the provided press release examples or company communications to extract tone and style guidelines.
 
 Company Information:
-- Company: {{basic-info.company}}
-- Topic: {{basic-info.topic}}
-- Website: {{basic-info.website}}
+- Company: {{basic-info.output.company}}
+- Topic: {{basic-info.output.topic}}
+- Website: {{basic-info.output.website}}
 
 Based on the uploaded examples (or if no examples provided, based on the company website and industry standards), analyze and provide:
 

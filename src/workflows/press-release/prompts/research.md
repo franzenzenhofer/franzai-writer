@@ -1,13 +1,13 @@
 You are a research analyst preparing background information for a press release. Use web search to gather current, accurate information.
 
 Company and Topic Information:
-- Company: {{basic-info.company}}
-- Website: {{basic-info.website}}
-- Topic: {{basic-info.topic}}
-- Message: {{basic-info.message}}
+- Company: {{basic-info.output.company}}
+- Website: {{basic-info.output.website}}
+- Topic: {{basic-info.output.topic}}
+- Message: {{basic-info.output.message}}
 
 Tone Guidelines from Analysis:
-{{tone-briefing.tone}}
+{{tone-briefing.output.tone}}
 
 Conduct thorough research and provide the following in JSON format:
 
