@@ -30,13 +30,18 @@ test.describe('Press Release Workflow - Unconventional Usage', () => {
       console.log('Testing multiple AI redos on tone analysis');
       
       // Wait for initial completion
-      await expect(page.locator('[data-testid="stage-card-tone-briefing"]')).toHaveClass(/border-green-500/, { 
+      const toneStage = page.locator('[data-testid="stage-card-tone-briefing"]');
+      await expect(toneStage).toHaveClass(/border-green-500/, { 
         timeout: 60000 
       });
       
+      // Add a small delay to ensure UI is ready
+      await page.waitForTimeout(1000);
+      
       // First AI redo
-      const toneStage = page.locator('[data-testid="stage-card-tone-briefing"]');
-      await toneStage.locator('button[title="AI Redo"]').click();
+      const aiRedoButton = toneStage.locator('button[title="AI Redo"]');
+      await expect(aiRedoButton).toBeVisible({ timeout: 5000 });
+      await aiRedoButton.click();
       await page.waitForSelector('[role="dialog"]:has-text("AI Redo")');
       await page.locator('[role="dialog"] textarea').fill('Make it extremely formal and corporate');
       await page.locator('[role="dialog"] button:has-text("Redo with AI")').click();
