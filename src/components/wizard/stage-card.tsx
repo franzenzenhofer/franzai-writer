@@ -305,7 +305,7 @@ export function StageCard({
           </Badge>
         </div>
       )}
-      <CardHeader className="flex flex-row justify-between items-start pb-4 pt-2">
+      <CardHeader className="flex flex-row justify-between items-start">
         <div className="flex-1 min-w-0">
           <CardTitle className="font-headline text-xl flex items-center">
             {statusIcon && !dependencyMessage && <span className="mr-2">{statusIcon}</span>}
@@ -382,7 +382,7 @@ export function StageCard({
           enabled={true}
           isRunning={false}
           onAiRedo={handleAiRedo}
-          className="mx-6 mb-4"
+          className="mx-5 mb-3"
         />
       )}
       
