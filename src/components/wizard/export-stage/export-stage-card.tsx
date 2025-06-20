@@ -189,7 +189,16 @@ export function ExportStageCard({
         }),
       });
 
-      if (!response.ok) throw new Error('Publishing failed');
+      if (!response.ok) {
+        let errorMessage = 'Publishing failed';
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorData.message || `Publishing failed: ${response.status} ${response.statusText}`;
+        } catch {
+          errorMessage = `Publishing failed: ${response.status} ${response.statusText}`;
+        }
+        throw new Error(errorMessage);
+      }
 
       const result = await response.json();
       

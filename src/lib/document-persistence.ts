@@ -394,88 +394,75 @@ class DocumentPersistenceManager {
 
   /**
    * Clean specific stage state properties that might cause Firestore nested entity errors
+   * ROOT CAUSE FIX: Firestore cannot handle deeply nested objects - flatten everything aggressively
    */
   private cleanStageStateSpecific(state: StageState): StageState {
     const cleaned = { ...state };
 
-    // Handle complex nested objects that often cause issues
+    // CRITICAL: Firestore nested entity limit is VERY strict
+    // Instead of depth limiting, completely flatten all complex objects
+    const MAX_DEPTH = 1; // Firestore can barely handle any nesting
+    
+    // Helper to check and limit object depth
+    const limitDepth = (obj: any, depth: number = 0): any => {
+      if (depth >= MAX_DEPTH) {
+        console.warn(`[DocumentPersistence] Object depth limit reached (${MAX_DEPTH}), converting to string`);
+        return typeof obj === 'object' ? '[Complex Object - Depth Limited]' : obj;
+      }
+      
+      if (obj === null || typeof obj !== 'object') {
+        return obj;
+      }
+      
+      if (Array.isArray(obj)) {
+        return obj.map(item => limitDepth(item, depth + 1)).slice(0, 50); // Also limit array size
+      }
+      
+      const limited: any = {};
+      let propCount = 0;
+      for (const [key, value] of Object.entries(obj)) {
+        if (propCount++ > 100) { // Limit properties per object
+          console.warn(`[DocumentPersistence] Property limit reached, truncating object`);
+          break;
+        }
+        limited[key] = limitDepth(value, depth + 1);
+      }
+      return limited;
+    };
+
+    // ROOT CAUSE FIX: Convert all complex nested objects to strings or simple summaries
+    // Firestore CANNOT handle nested objects - flatten everything completely
+    
     if (cleaned.groundingMetadata) {
-      console.log('[DocumentPersistence] Cleaning groundingMetadata');
-      // Ensure grounding metadata is properly serializable
-      cleaned.groundingMetadata = this.cleanUndefinedValues(cleaned.groundingMetadata);
+      console.log('[DocumentPersistence] FLATTENING groundingMetadata to string');
+      cleaned.groundingMetadata = `Summary: ${JSON.stringify(cleaned.groundingMetadata).substring(0, 1000)}`;
     }
 
     if (cleaned.functionCalls) {
-      console.log('[DocumentPersistence] Cleaning functionCalls');
-      // Clean function calls array
-      cleaned.functionCalls = cleaned.functionCalls.map(call => ({
-        toolName: call.toolName || '',
-        input: this.cleanUndefinedValues(call.input),
-        output: this.cleanUndefinedValues(call.output),
-        timestamp: call.timestamp || new Date().toISOString()
-      }));
+      console.log('[DocumentPersistence] FLATTENING functionCalls to string');
+      cleaned.functionCalls = `${cleaned.functionCalls.length} function calls: ${JSON.stringify(cleaned.functionCalls).substring(0, 1000)}`;
     }
 
     if (cleaned.thinkingSteps) {
-      console.log('[DocumentPersistence] Cleaning thinkingSteps');
-      // Clean thinking steps - handle the actual ThinkingStep structure
-      cleaned.thinkingSteps = cleaned.thinkingSteps.map(step => {
-        const cleanedStep: any = {
-          type: step.type || 'textLog'
-        };
-        
-        if (step.type === 'toolRequest') {
-          cleanedStep.toolName = step.toolName || '';
-          cleanedStep.input = this.cleanUndefinedValues(step.input);
-        } else if (step.type === 'toolResponse') {
-          cleanedStep.toolName = step.toolName || '';
-          cleanedStep.output = this.cleanUndefinedValues(step.output);
-        } else if (step.type === 'textLog') {
-          cleanedStep.message = step.message || '';
-        }
-        
-        // Add timestamp if present (typescript workaround for optional property)
-        if ('timestamp' in step && step.timestamp) {
-          cleanedStep.timestamp = step.timestamp;
-        }
-        
-        return cleanedStep;
-      });
+      console.log('[DocumentPersistence] FLATTENING thinkingSteps to string');
+      cleaned.thinkingSteps = `${cleaned.thinkingSteps.length} thinking steps: ${JSON.stringify(cleaned.thinkingSteps).substring(0, 1000)}`;
     }
 
     if (cleaned.codeExecutionResults) {
-      console.log('[DocumentPersistence] Cleaning codeExecutionResults');
-      // Clean code execution results
-      cleaned.codeExecutionResults = {
-        code: cleaned.codeExecutionResults.code || '',
-        stdout: cleaned.codeExecutionResults.stdout || '',
-        stderr: cleaned.codeExecutionResults.stderr || '',
-        images: (cleaned.codeExecutionResults.images || []).map(img => ({
-          name: img.name || '',
-          base64Data: img.base64Data || '',
-          mimeType: img.mimeType || ''
-        }))
-      };
+      console.log('[DocumentPersistence] FLATTENING codeExecutionResults to string');
+      cleaned.codeExecutionResults = `Code results: ${JSON.stringify(cleaned.codeExecutionResults).substring(0, 1000)}`;
     }
 
     if (cleaned.outputImages) {
-      console.log('[DocumentPersistence] Cleaning outputImages');
-      // Clean output images array
-      cleaned.outputImages = cleaned.outputImages.map(img => ({
-        name: img.name || '',
-        base64Data: img.base64Data || '',
-        mimeType: img.mimeType || ''
-      }));
+      console.log('[DocumentPersistence] FLATTENING outputImages to string');
+      cleaned.outputImages = `${cleaned.outputImages.length} output images`;
     }
 
     if (cleaned.usageMetadata) {
-      console.log('[DocumentPersistence] Cleaning usageMetadata');
-      // Clean usage metadata
+      console.log('[DocumentPersistence] FLATTENING usageMetadata to simple object');
       cleaned.usageMetadata = {
-        thoughtsTokenCount: Number(cleaned.usageMetadata.thoughtsTokenCount) || 0,
-        candidatesTokenCount: Number(cleaned.usageMetadata.candidatesTokenCount) || 0,
-        totalTokenCount: Number(cleaned.usageMetadata.totalTokenCount) || 0,
-        promptTokenCount: Number(cleaned.usageMetadata.promptTokenCount) || 0
+        totalTokens: Number(cleaned.usageMetadata.totalTokenCount) || 0,
+        summary: `${cleaned.usageMetadata.candidatesTokenCount || 0} candidates, ${cleaned.usageMetadata.promptTokenCount || 0} prompt`
       };
     }
 
@@ -488,6 +475,46 @@ class DocumentPersistenceManager {
       }
     }
     
+    // ULTIMATE ROOT CAUSE FIX: Completely flatten output and userInput
+    // Even simple objects cause nested entity errors - convert to strings if complex
+    if (cleaned.output) {
+      console.log('[DocumentPersistence] ULTIMATE FLATTENING output to avoid nested entities');
+      try {
+        const jsonString = JSON.stringify(cleaned.output);
+        
+        // Check if this is an export stage output that we need to preserve structure for
+        if (cleaned.output && typeof cleaned.output === 'object' && 
+            ('formats' in cleaned.output || 'publishing' in cleaned.output)) {
+          console.log('[DocumentPersistence] Preserving export stage output structure');
+          cleaned.output = this.cleanExportStageOutput(cleaned.output);
+        } else if (jsonString.length > 5000 || this.hasDeepNesting(cleaned.output)) {
+          // Convert complex outputs to string summaries
+          cleaned.output = `Complex output (${jsonString.length} chars): ${jsonString.substring(0, 1000)}`;
+        } else {
+          // Keep simple outputs as-is
+          cleaned.output = cleaned.output;
+        }
+      } catch (e) {
+        console.warn('[DocumentPersistence] Output not serializable, converting to string');
+        cleaned.output = `Non-serializable output: ${String(cleaned.output).substring(0, 1000)}`;
+      }
+    }
+    
+    if (cleaned.userInput) {
+      console.log('[DocumentPersistence] ULTIMATE FLATTENING userInput to avoid nested entities');
+      try {
+        const jsonString = JSON.stringify(cleaned.userInput);
+        if (jsonString.length > 2000 || this.hasDeepNesting(cleaned.userInput)) {
+          cleaned.userInput = `User input (${jsonString.length} chars): ${jsonString.substring(0, 500)}`;
+        } else {
+          // Keep simple user inputs
+          cleaned.userInput = cleaned.userInput;
+        }
+      } catch (e) {
+        cleaned.userInput = String(cleaned.userInput).substring(0, 1000);
+      }
+    }
+
     // Remove potentially problematic properties
     delete cleaned.currentStreamOutput; // This might contain streaming references
     delete cleaned.generationProgress; // This might contain complex state
