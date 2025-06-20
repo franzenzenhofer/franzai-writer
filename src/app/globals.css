@@ -7,7 +7,7 @@
     --background: 0 0% 100%; /* Pure white like Google Docs */
     --foreground: 0 0% 13%; /* Near black text #202124 */
 
-    --muted: 0 0% 98%; /* Very light gray for backgrounds */
+    --muted: 0 0% 98%; /* Very light gray for subtle backgrounds */
     --muted-foreground: 0 0% 60%; /* Lighter gray for placeholders #999999 */
 
     --popover: 0 0% 100%; /* White popovers */
@@ -23,8 +23,8 @@
     --primary: 224 76% 48%; /* Royal Blue #1d4ed8 - THE ONLY COLOR for active clickable buttons */
     --primary-foreground: 0 0% 100%; /* White */
 
-    --secondary: 210 40% 98%; /* Light background */
-    --secondary-foreground: 224 76% 48%; /* Royal Blue text */
+    --secondary: 220 15% 96%; /* Light gray background for secondary buttons */
+    --secondary-foreground: 220 15% 30%; /* Dark gray #374151 for secondary button text */
 
     --accent: 258 90% 66%; /* Accent Violet #8B5CF6 - Secondary accent color for special elements */
     --accent-foreground: 0 0% 100%; /* White text on accent */
@@ -79,8 +79,8 @@
     --primary: 224 76% 48%; /* Royal Blue #1d4ed8 - THE ONLY COLOR for active clickable buttons */
     --primary-foreground: 0 0% 100%; /* White */
 
-    --secondary: 220 15% 25%;
-    --secondary-foreground: 224 76% 48%; /* Royal Blue text */
+    --secondary: 220 15% 25%; /* Dark gray background for secondary buttons in dark mode */
+    --secondary-foreground: 220 15% 75%; /* Light gray #374151 for secondary button text in dark mode */
 
     --accent: 258 90% 66%; /* Accent Violet #8B5CF6 - Secondary accent color for special elements */
     --accent-foreground: 0 0% 100%; /* White text on accent */

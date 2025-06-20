@@ -514,15 +514,15 @@ export function ExportStageCard({
           {stageState.status === "error" && stageState.error && (
             <div className="space-y-4">
               <ExportStageErrorDisplay error={stageState.error} stageTitle={stage.title} />
-              <div className="text-center">
-                <Button
-                  variant="outline"
-                  onClick={() => onRunStage(stage.id)}
-                  id={`retry-export-${stage.id}`}
-                >
-                  Retry Export
-                </Button>
-              </div>
+                          <div className="text-center">
+              <Button
+                variant="secondary"
+                onClick={() => onRunStage(stage.id)}
+                id={`retry-export-${stage.id}`}
+              >
+                Retry Export
+              </Button>
+            </div>
             </div>
           )}
         </CardContent>
@@ -532,7 +532,7 @@ export function ExportStageCard({
           <CardFooter className="flex justify-end gap-2 items-center flex-wrap">
             <Button
               size="sm"
-              variant="outline"
+              variant="secondary"
               onClick={handleRegenerate}
               id={`regenerate-${stage.id}`}
               data-testid={`regenerate-${stage.id}`}

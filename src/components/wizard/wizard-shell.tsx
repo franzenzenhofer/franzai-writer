@@ -290,7 +290,8 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     lastSaved, 
     saveError, 
     documentId,
-    saveDocument 
+    saveDocument,
+    saveOnMeaningfulAction
   } = useDocumentPersistence({
     instance,
     updateInstance: updateInstanceForPersistence,
@@ -904,8 +905,8 @@ Still having issues? Check the browser console for detailed logs.`;
           {pageTitle}
         </h1>
         <div className="flex items-center gap-2 mb-1 text-sm md:text-base text-muted-foreground">
-          {!isSaving && lastSaved && (
-            <span className="text-xs md:text-sm" data-testid="last-saved-text">
+          {lastSaved && (
+            <span data-testid="last-saved-text">
               {`Last saved ${lastSaved.toLocaleString('en-GB', {
                 day: '2-digit',
                 month: 'short',
@@ -916,7 +917,7 @@ Still having issues? Check the browser console for detailed logs.`;
               }).replace(',', '')}`}
             </span>
           )}
-          {!isSaving && lastSaved && <span className="px-1">|</span>}
+          {lastSaved && <span className="px-1">|</span>}
           <p>Workflow: {instance.workflow.name}</p>
         </div>
         
@@ -931,12 +932,6 @@ Still having issues? Check the browser console for detailed logs.`;
             data-testid="wizard-progress-bar"
           />
           <div className="flex items-center justify-end mt-2 gap-2">
-            {isSaving && (
-              <Badge variant="secondary" className="text-xs">
-                <Save className="w-3 h-3 mr-1 animate-pulse" />
-                Saving...
-              </Badge>
-            )}
             {saveError && (
               <Badge variant="destructive" className="text-xs">
                 <AlertTriangle className="w-3 h-3 mr-1" />

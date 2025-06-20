@@ -402,7 +402,7 @@ export function StageCard({
         {/* Edit Button: Unified edit functionality */}
         {showEditButton && !dependencyMessage && (
           <StageActionButton
-            variant="outline"
+            variant="secondary"
             onClick={stage.promptTemplate && stageState.output ? handleEditOutputClick : handleEditInputClick}
             id={`edit-${stage.id}`}
             datatestid={`edit-${stage.id}`}

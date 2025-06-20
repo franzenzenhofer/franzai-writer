@@ -16,6 +16,7 @@ interface UseDocumentPersistenceReturn {
   documentId: string | null;
   saveDocument: () => Promise<void>;
   loadDocument: (documentId: string) => Promise<void>;
+  saveOnMeaningfulAction: () => Promise<void>;
 }
 
 export function useDocumentPersistence({
@@ -185,33 +186,35 @@ export function useDocumentPersistence({
     }
   }, [user, updateInstance, toast]);
 
-  // Auto-save on stage state changes - NOW WORKS FOR NEW DOCUMENTS
-  useEffect(() => {
-    // Skip if no meaningful changes yet
-    if (!hasInitialSaveRef.current && (!documentId && Object.keys(instance.stageStates).length === 0)) {
-      return;
-    }
-
-    // Clear existing timeout
-    if (saveTimeoutRef.current) {
-      clearTimeout(saveTimeoutRef.current);
-    }
-
-    // Set new timeout for auto-save (debounced)
-    saveTimeoutRef.current = setTimeout(() => {
-      log('Auto-save triggered', {
-        documentId,
-        stageStatesCount: Object.keys(instance.stageStates).length
+  // Manual save for meaningful actions - no auto-save on every state change
+  const saveOnMeaningfulAction = useCallback(async () => {
+    // Only save if we have meaningful content or this is an existing document
+    if (!hasInitialSaveRef.current && !documentId) {
+      const hasUserInput = Object.values(instance.stageStates).some(state => {
+        if (!state.userInput) return false;
+        
+        if (typeof state.userInput === 'string') {
+          return state.userInput.trim().length > 0;
+        }
+        
+        if (typeof state.userInput === 'object') {
+          return Object.values(state.userInput).some(val => 
+            typeof val === 'string' ? val.trim().length > 0 : !!val
+          );
+        }
+        
+        return false;
       });
-      saveDocument();
-    }, 2000); // 2 second debounce
 
-    return () => {
-      if (saveTimeoutRef.current) {
-        clearTimeout(saveTimeoutRef.current);
+      if (!hasUserInput) {
+        log('Skipping save - no meaningful user input yet');
+        return;
       }
-    };
-  }, [instance.stageStates, saveDocument, documentId]);
+    }
+
+    log('Manual save triggered by meaningful action');
+    await saveDocument();
+  }, [documentId, saveDocument, instance.stageStates]);
 
   // Initial save for new documents when user starts working
   useEffect(() => {
@@ -247,5 +250,6 @@ export function useDocumentPersistence({
     documentId,
     saveDocument,
     loadDocument,
+    saveOnMeaningfulAction,
   };
 }
