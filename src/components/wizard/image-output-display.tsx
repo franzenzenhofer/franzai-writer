@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Download, Loader2, AlertCircle } from "lucide-react";
+import { Download, Loader2, AlertCircle, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -56,6 +56,31 @@ export function ImageOutputDisplay({
       }
     } catch (err) {
       console.error("Error downloading image:", err);
+    }
+  };
+
+  const handleOpenInNewTab = (imageUrl: string) => {
+    if (!imageUrl) {
+      console.error("No URL available to open");
+      return;
+    }
+    
+    // For data URLs, we need to create a blob URL for the new tab
+    if (imageUrl.startsWith("data:")) {
+      fetch(imageUrl)
+        .then(response => response.blob())
+        .then(blob => {
+          const blobUrl = URL.createObjectURL(blob);
+          window.open(blobUrl, '_blank');
+          // Clean up after a delay
+          setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+        })
+        .catch(err => {
+          console.error("Error opening image in new tab:", err);
+        });
+    } else {
+      // Direct HTTP URLs can be opened directly
+      window.open(imageUrl, '_blank');
     }
   };
 
@@ -140,17 +165,30 @@ export function ImageOutputDisplay({
               </Badge>
             )}
             
-            {/* Download button */}
+            {/* Action buttons */}
             {imageUrl && selectedImage && (
-              <Button
-                size="sm"
-                variant="outline"
-                className="absolute top-2 right-2"
-                onClick={() => handleDownload(selectedImage, selectedIndex)}
-              >
-                <Download className="h-4 w-4 mr-1" />
-                Download
-              </Button>
+              <div className="absolute top-2 right-2 flex gap-1">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => handleDownload(selectedImage, selectedIndex)}
+                  id="image-download-btn"
+                >
+                  <Download className="h-4 w-4 mr-1" />
+                  Download
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="px-2"
+                  onClick={() => handleOpenInNewTab(imageUrl)}
+                  title="Open image in new tab"
+                  id="image-open-new-tab-btn"
+                  aria-label="Open image in new tab"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                </Button>
+              </div>
             )}
           </div>
 
