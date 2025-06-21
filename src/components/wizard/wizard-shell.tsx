@@ -660,25 +660,42 @@ Still having issues? Check the browser console for detailed logs.`;
 
     // Handle export stage type
     if (stage.stageType === 'export') {
+      console.log('[handleRunStage] Starting export stage execution');
       try {
         const { executeExportStage } = await import('@/ai/flows/export-stage-execution');
         
-        const result = await executeExportStage({
+        console.log('[handleRunStage] executeExportStage imported successfully');
+        
+        // Set a timeout for export generation (30 seconds)
+        const exportPromise = executeExportStage({
           stage,
           workflow: instance.workflow,
           allStageStates: instance.stageStates,
           progressCallback: (progress) => {
+            console.log('[handleRunStage] Export progress:', progress);
             updateStageState(stageId, {
               generationProgress: progress,
             });
           },
         });
         
+        const timeoutPromise = new Promise((_, reject) => {
+          setTimeout(() => reject(new Error('Export generation timed out after 30 seconds')), 30000);
+        });
+        
+        console.log('[handleRunStage] Waiting for export to complete...');
+        const result = await Promise.race([exportPromise, timeoutPromise]) as any;
+        
+        console.log('[handleRunStage] Export completed successfully');
+        console.log('[handleRunStage] Export result keys:', Object.keys(result || {}));
+        console.log('[handleRunStage] Export formats:', Object.keys(result?.formats || {}));
+        
         updateStageState(stageId, {
           status: "completed",
           output: result,
           completedAt: new Date().toISOString(),
           isStale: false,
+          generationProgress: undefined, // Clear progress
         });
         
         toast({ 
@@ -687,10 +704,15 @@ Still having issues? Check the browser console for detailed logs.`;
           variant: "default"
         });
       } catch (error) {
+        console.error('[handleRunStage] Export error:', error);
+        console.error('[handleRunStage] Export error stack:', error instanceof Error ? error.stack : 'No stack');
+        
         updateStageState(stageId, { 
           status: "error", 
-          error: error instanceof Error ? error.message : "Export failed" 
+          error: error instanceof Error ? error.message : "Export failed",
+          generationProgress: undefined, // Clear progress
         });
+        
         toast({ 
           title: "Export Error", 
           description: error instanceof Error ? error.message : "Export failed", 
@@ -1001,6 +1023,7 @@ Still having issues? Check the browser console for detailed logs.`;
             onRunStage={handleRunStage}
             onInputChange={handleInputChange}
             onFormSubmit={handleFormSubmit}
+            documentId={documentId || undefined}
             
             onEditInputRequest={handleEditInputRequest}
             onOutputEdit={handleOutputEdit}

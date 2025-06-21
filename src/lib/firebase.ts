@@ -25,11 +25,14 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
+// Check if we're in demo mode
+const isDemoMode = process.env.NEXT_PUBLIC_DEMO_MODE === 'true';
+
 // Validate configuration - log warnings instead of throwing at module level
-if (!firebaseConfig.apiKey || firebaseConfig.apiKey === 'demo-api-key') {
+if (!isDemoMode && (!firebaseConfig.apiKey || firebaseConfig.apiKey === 'demo-api-key')) {
   console.error('FATAL: Firebase API key not configured');
 }
-if (!firebaseConfig.projectId || firebaseConfig.projectId === 'demo-project') {
+if (!isDemoMode && (!firebaseConfig.projectId || firebaseConfig.projectId === 'demo-project')) {
   console.error('FATAL: Firebase project ID not configured');
 }
 

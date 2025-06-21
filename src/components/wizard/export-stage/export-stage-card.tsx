@@ -118,6 +118,7 @@ interface ExportStageCardProps {
   allStageStates: Record<string, StageState>;
   onUpdateStageState?: (stageId: string, updates: Partial<ExportStageState>) => void;
   onDismissStaleWarning?: (stageId: string) => void;
+  documentId?: string;
 }
 
 interface PublishedData {
@@ -134,6 +135,7 @@ export function ExportStageCard({
   allStageStates,
   onUpdateStageState,
   onDismissStaleWarning,
+  documentId,
 }: ExportStageCardProps) {
   const { toast } = useToast();
   const [isPublishing, setIsPublishing] = useState(false);
@@ -182,14 +184,24 @@ export function ExportStageCard({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          documentId: workflow.id,
+          documentId: documentId || workflow.id, // Use actual document ID if available
+          workflowId: workflow.id,
           formats: selectedFormats,
           content: stageState.output.formats,
           options: {},
         }),
       });
 
-      if (!response.ok) throw new Error('Publishing failed');
+      if (!response.ok) {
+        let errorMessage = 'Publishing failed';
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorData.message || `Publishing failed: ${response.status} ${response.statusText}`;
+        } catch {
+          errorMessage = `Publishing failed: ${response.status} ${response.statusText}`;
+        }
+        throw new Error(errorMessage);
+      }
 
       const result = await response.json();
       

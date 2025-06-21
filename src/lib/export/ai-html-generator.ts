@@ -24,23 +24,44 @@ export interface HtmlGenerationResult {
  * Generate both styled and clean HTML using dual AI passes
  */
 export async function generateExportHtml(options: HtmlGenerationOptions): Promise<HtmlGenerationResult> {
-  const { stages, stageStates, exportConfig, workflowType } = options;
+  const { stages, stageStates, exportConfig, workflowType, progressCallback } = options;
   
   try {
     console.log('[AI HTML Generator] Starting HTML generation');
+    console.log('[AI HTML Generator] Stages:', stages.map(s => s.id));
+    console.log('[AI HTML Generator] Stage states available:', Object.keys(stageStates));
     
     // Extract a title for the document
     const title = extractTitle(stages, stageStates, workflowType);
+    console.log('[AI HTML Generator] Document title:', title);
+
+    // Report progress
+    if (progressCallback) {
+      progressCallback({ styledHtml: 20, currentFormat: 'Generating styled HTML...' });
+    }
 
     // Step 1: Generate styled HTML
     const styledHtmlBody = await generateStyledHtml(stages, stageStates, exportConfig, workflowType);
     const fullStyledHtml = createFullHtmlDocument(title, styledHtmlBody);
     
+    console.log('[AI HTML Generator] Styled HTML generated, length:', fullStyledHtml.length);
+    
+    // Report progress
+    if (progressCallback) {
+      progressCallback({ styledHtml: 60, cleanHtml: 20, currentFormat: 'Generating clean HTML...' });
+    }
+    
     // Step 2: Generate clean HTML
     const cleanHtmlBody = await generateCleanHtml(stages, stageStates, exportConfig, workflowType);
     const fullCleanHtml = createFullHtmlDocument(title, cleanHtmlBody);
     
+    console.log('[AI HTML Generator] Clean HTML generated, length:', fullCleanHtml.length);
     console.log('[AI HTML Generator] HTML generation completed successfully');
+    
+    // Report completion
+    if (progressCallback) {
+      progressCallback({ styledHtml: 100, cleanHtml: 100, currentFormat: 'HTML generation complete' });
+    }
     
     return {
       htmlStyled: fullStyledHtml,
@@ -48,6 +69,7 @@ export async function generateExportHtml(options: HtmlGenerationOptions): Promis
     };
   } catch (error) {
     console.error('[AI HTML Generator] Error:', error);
+    console.error('[AI HTML Generator] Error stack:', error instanceof Error ? error.stack : 'No stack');
     return {
       htmlStyled: '',
       htmlClean: '',

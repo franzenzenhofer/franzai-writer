@@ -32,6 +32,7 @@ interface StageCardProps {
   onSetEditingOutput: (stageId: string, isEditing: boolean) => void;
   onDismissStaleWarning: (stageId: string) => void; // New handler for dismissing stale warning
   allStageStates: Record<string, StageState>;
+  documentId?: string;
 }
 
 // Enhanced error display component with copy functionality
@@ -141,6 +142,7 @@ export function StageCard({
   onSetEditingOutput,
   onDismissStaleWarning,
   allStageStates,
+  documentId,
 }: StageCardProps) {
   
   const [isEditingInput, setIsEditingInput] = useState(
@@ -296,6 +298,7 @@ export function StageCard({
         onRunStage={onRunStage}
         allStageStates={allStageStates}
         onDismissStaleWarning={onDismissStaleWarning}
+        documentId={documentId}
       />
     );
   }
