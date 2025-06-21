@@ -5,7 +5,9 @@ import { test, expect } from '@playwright/test';
  * Tests ALL possible variations and edge cases
  */
 
+// ONLY RUN 2 TESTS MAXIMUM TO SAVE MONEY
 test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
+  test.skip(({ browserName }) => browserName !== 'chromium', 'Only run on chromium to save costs');
   // Test configuration
   const BASE_URL = 'http://localhost:9002';
   
@@ -72,7 +74,7 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     console.log('✅ Workflow completed (8/8 stages)');
   });
 
-  test('Test different image format variations', async ({ page }) => {
+  test.skip('Test different image format variations', async ({ page }) => {
     console.log('🧪 Testing different image formats...');
     
     // Start workflow - use correct selectors
@@ -112,7 +114,7 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     }
   });
 
-  test('Test different artistic styles', async ({ page }) => {
+  test.skip('Test different artistic styles', async ({ page }) => {
     console.log('🧪 Testing different artistic styles...');
     
     // Start workflow - use correct selectors

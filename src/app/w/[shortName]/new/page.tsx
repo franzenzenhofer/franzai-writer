@@ -2,6 +2,7 @@ import { getWorkflowByShortName } from "@/lib/workflow-loader";
 import { notFound, redirect } from "next/navigation";
 import { generateUniqueId } from "@/lib/utils";
 import { documentPersistence } from "@/lib/document-persistence";
+import { cookies } from 'next/headers';
 
 // Force dynamic rendering since this page creates documents
 export const dynamic = 'force-dynamic';
@@ -41,6 +42,25 @@ export default async function NewDocumentPage({
   try {
     console.log('[NewDocumentPage] STEP 4: Starting document creation in Firestore');
     
+    // Get effective user ID from cookies or generate temp user
+    const cookieStore = await cookies();
+    let userId = cookieStore.get('auth-user-id')?.value;
+    
+    if (!userId) {
+      // No authenticated user, check for temp user
+      userId = cookieStore.get('temp-user-id')?.value;
+      
+      if (!userId) {
+        // Generate temp user ID server-side
+        const timestamp = Date.now();
+        const randomId = Math.random().toString(36).substring(2, 15);
+        userId = `temp_user_${timestamp}_${randomId}`;
+        console.log('[NewDocumentPage] Generated temp user ID:', userId);
+      }
+    }
+    
+    console.log('[NewDocumentPage] Using user ID:', userId);
+    
     // Create the document in Firestore BEFORE redirecting
     // This ensures the document exists when WizardPage tries to load it
     const result = await documentPersistence.saveDocument(
@@ -48,7 +68,7 @@ export default async function NewDocumentPage({
       `New ${workflow.name}`, // title
       workflow.id, // workflowId
       {}, // empty stageStates - will be initialized by WizardPage
-      undefined // userId - will be determined by persistence layer
+      userId // Pass the effective user ID
     );
 
     console.log('[NewDocumentPage] STEP 5: Document creation result', { 

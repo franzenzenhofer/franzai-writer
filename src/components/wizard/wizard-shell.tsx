@@ -140,7 +140,7 @@ interface WizardShellProps {
 export function WizardShell({ initialInstance }: WizardShellProps) {
   const [instance, setInstance] = useState<WizardInstance>(initialInstance);
   const { toast } = useToast();
-  const { user } = useAuth();
+  const { user, effectiveUser } = useAuth();
   const [pageTitle, setPageTitle] = useState(initialInstance.document.title);
   const [aiStageLoaded, setAiStageLoaded] = useState(false);
   const [aiLoadError, setAiLoadError] = useState<string | null>(null);

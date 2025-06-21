@@ -16,13 +16,25 @@ From analysis of the `origin/fix/webpack-module-resolution` branch:
 - This enforces the FAIL HARD policy - no fallbacks!
 - However, we need a proper "Try It Out" mode implementation
 
+**IMPORTANT CLARIFICATION**: 
+- Currently, the app automatically creates temp users whenever someone is not logged in
+- This is EXACTLY what the generateUserId() fallback does
+- For now, the "Try It Out" mode will work the same way - temp login users automatically
+- In the future, this behavior will change to require explicit "Try it out" button click
+- But for this ticket, we're just replacing generateUserId() with the temporary session logic
+
 ## Requirements
 
 ### "Try It Out" Mode Specification
 
-1. **Entry Point**: 
-   - The homepage has a "Try it" button (right button)
-   - This should navigate to the dashboard with a temporary user session
+1. **Entry Point** (Phase 1 - Current Implementation): 
+   - Automatic temporary session when user is not authenticated
+   - This replaces the generateUserId() fallback behavior
+   - No explicit "Try it" button needed for now
+   
+   **Future Phase 2** (not in this ticket):
+   - The homepage "Try it" button will explicitly create temp session
+   - Users will need to click button to access without login
 
 2. **Temporary User Implementation**:
    - Generate a temporary user ID (e.g., `temp_user_[timestamp]_[random]`)

@@ -50,27 +50,6 @@ class DocumentPersistenceManager {
     console.error(`[DocumentPersistence] FAILED: ${operation}`, error);
   }
 
-  /**
-   * Generate user ID for development - FAIL if localStorage not available in browser
-   */
-  private generateUserId(): string {
-    if (typeof window === 'undefined') {
-      // Server-side: generate unique ID per request
-      return `server_user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    }
-
-    if (typeof localStorage === 'undefined') {
-      throw new Error('FATAL: localStorage not available in browser environment');
-    }
-
-    let userId = localStorage.getItem('temp_user_id');
-    if (!userId) {
-      userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-      localStorage.setItem('temp_user_id', userId);
-      this.log('Generated new user ID', { userId });
-    }
-    return userId;
-  }
 
   /**
    * Convert Firestore document to WizardDocument
@@ -131,11 +110,13 @@ class DocumentPersistenceManager {
 
       console.log('[DocumentPersistence] STEP 2: Validation passed');
 
-      const effectiveUserId = userId || this.generateUserId();
-      console.log('[DocumentPersistence] STEP 3: Determined user ID', { 
-        originalUserId: userId,
-        effectiveUserId,
-        wasGenerated: !userId
+      // FAIL HARD if no user ID provided
+      if (!userId) {
+        throw new Error('FATAL: User ID is required for saving documents. No fallbacks allowed!');
+      }
+      
+      console.log('[DocumentPersistence] STEP 3: Using provided user ID', { 
+        userId
       });
 
       // Clean stage states to ensure Firestore compatibility
@@ -153,7 +134,7 @@ class DocumentPersistenceManager {
         
         // CREATE new document
         const documentData = {
-          userId: effectiveUserId,
+          userId: userId,
           title: title.trim(),
           workflowId: workflowId.trim(),
           status: 'draft' as const,
@@ -198,7 +179,7 @@ class DocumentPersistenceManager {
             this.log('Document not found for update, creating new instead', { documentId });
             // Document doesn't exist, create it instead
             const documentData = {
-              userId: effectiveUserId,
+              userId: userId,
               title: title.trim(),
               workflowId: workflowId.trim(),
               status: 'draft' as const,
@@ -222,7 +203,7 @@ class DocumentPersistenceManager {
           this.log('Error verifying document existence, creating new instead', { documentId, error: verifyError.message });
           // If we can't verify existence, create new document
           const documentData = {
-            userId: effectiveUserId,
+            userId: userId,
             title: title.trim(),
             workflowId: workflowId.trim(),
             status: 'draft' as const,
@@ -351,19 +332,23 @@ class DocumentPersistenceManager {
    */
   async listUserDocuments(userId?: string): Promise<WizardDocument[]> {
     try {
-      const effectiveUserId = userId || this.generateUserId();
-      this.log('Listing documents for user', { userId: effectiveUserId });
+      // FAIL HARD if no user ID provided
+      if (!userId) {
+        throw new Error('FATAL: User ID is required for listing documents. No fallbacks allowed!');
+      }
+      
+      this.log('Listing documents for user', { userId });
 
       const documents = await firestoreAdapter.queryDocuments(
         this.COLLECTION_NAME,
-        { field: 'userId', operator: '==', value: effectiveUserId },
+        { field: 'userId', operator: '==', value: userId },
         { field: 'updatedAt', direction: 'desc' }
       );
 
       const wizardDocuments = documents.map(data => this.firestoreToWizardDocument(data));
 
       this.log('Documents listed successfully', {
-        userId: effectiveUserId,
+        userId: userId,
         count: wizardDocuments.length
       });
 

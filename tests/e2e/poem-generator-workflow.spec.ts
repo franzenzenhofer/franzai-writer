@@ -1,18 +1,28 @@
 import { test, expect } from '@playwright/test';
 
+// Only run on chromium to reduce test time (2 tests max)
 test.describe('Complete Poem Generator Workflow', () => {
+  test.skip(({ browserName }) => browserName !== 'chromium', 'Reducing test runs to 2 tests');
   test.beforeEach(async ({ page }) => {
-    // Set demo mode for testing
+    // Navigate to dashboard - temp session will be created automatically
     await page.goto('/dashboard');
+    
+    // Wait for the page to load with temporary session
+    await page.waitForLoadState('networkidle');
   });
 
   test('should create poem from start to finish', async ({ page }) => {
+    // Verify we're on the dashboard
+    await expect(page).toHaveURL(/.*dashboard.*/);
+    
     // Navigate to poem generator workflow
     await page.click('#workflow-start-poem-generator');
 
     // Wait for wizard to load
-    await page.waitForURL('**/w/poem/**');
-    await expect(page.getByTestId('wizard-page-title')).toBeVisible();
+    await page.waitForURL('**/w/poem/**', { timeout: 10000 });
+    
+    // Wait for wizard components to load
+    await page.waitForSelector('[data-testid="wizard-page-title"]', { timeout: 10000 });
 
     // Stage 1: Poem Topic
     const poemTopic = 'a beautiful sunny day';

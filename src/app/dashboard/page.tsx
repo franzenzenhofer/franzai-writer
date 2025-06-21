@@ -31,7 +31,7 @@ function getWorkflowName(workflowId: string) {
 }
 
 export default function DashboardPage() {
-  const { user, loading: authLoading } = useAuth(); 
+  const { user, effectiveUser, loading: authLoading } = useAuth(); 
   const { toast } = useToast();
   const [documents, setDocuments] = useState<WizardDocument[]>([]);
   const [documentsLoading, setDocumentsLoading] = useState(false);
@@ -49,9 +49,9 @@ export default function DashboardPage() {
   const loadDocuments = useCallback(async () => {
     setDocumentsLoading(true);
     try {
-      log('Loading documents', { hasUser: !!user });
+      log('Loading documents', { hasUser: !!effectiveUser, isTemp: effectiveUser?.isTemporary });
       
-      const userDocs = await clientDocumentPersistence.listUserDocuments(user?.uid);
+      const userDocs = await clientDocumentPersistence.listUserDocuments(effectiveUser?.uid);
       
       if (!Array.isArray(userDocs)) {
         throw new Error('FATAL: Invalid documents data received');
@@ -75,7 +75,7 @@ export default function DashboardPage() {
     } finally {
       setDocumentsLoading(false);
     }
-  }, [user, toast]);
+  }, [effectiveUser, toast]);
 
   // Load documents on mount - FAIL HARD if error
   useEffect(() => {

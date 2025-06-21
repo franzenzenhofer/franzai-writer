@@ -102,7 +102,7 @@ export default async function WizardPage({
         status: 'draft',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-        userId: 'temp_user',
+        userId: tempId, // Use the temp ID as userId for in-memory temp documents
       },
       stageStates: initializeStageStates(workflow),
     };

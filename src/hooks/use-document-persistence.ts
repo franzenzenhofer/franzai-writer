@@ -22,7 +22,7 @@ export function useDocumentPersistence({
   instance,
   updateInstance,
 }: UseDocumentPersistenceProps): UseDocumentPersistenceReturn {
-  const { user } = useAuth();
+  const { user, effectiveUser } = useAuth();
   const { toast } = useToast();
   const [isSaving, setIsSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
@@ -53,7 +53,8 @@ export function useDocumentPersistence({
       title: instance.document.title,
       workflowId: instance.workflow.id,
       stageStatesCount: Object.keys(instance.stageStates).length,
-      hasUser: !!user
+      hasUser: !!effectiveUser,
+      isTemp: effectiveUser?.isTemporary
     });
 
     setIsSaving(true);
@@ -76,7 +77,7 @@ export function useDocumentPersistence({
         instance.document.title,
         instance.workflow.id,
         instance.stageStates,
-        user?.uid
+        effectiveUser?.uid
       );
 
       if (!result.success) {
@@ -96,7 +97,7 @@ export function useDocumentPersistence({
           document: {
             ...instance.document,
             id: result.documentId,
-            userId: user?.uid || 'temp_user',
+            userId: effectiveUser?.uid || '',
           },
         });
 
@@ -127,7 +128,7 @@ export function useDocumentPersistence({
     } finally {
       setIsSaving(false);
     }
-  }, [documentId, instance, updateInstance, user, toast]);
+  }, [documentId, instance, updateInstance, effectiveUser, toast]);
 
   // Load a document - FAIL HARD on critical errors
   const loadDocument = useCallback(async (docId: string) => {
@@ -150,8 +151,8 @@ export function useDocumentPersistence({
 
       const { document, stageStates } = result;
       
-      // Verify ownership for authenticated users
-      if (user && document.userId !== user.uid) {
+      // Verify ownership - check against effective user
+      if (effectiveUser && document.userId !== effectiveUser.uid) {
         throw new Error('FATAL: Access denied - document belongs to another user');
       }
 
@@ -183,7 +184,7 @@ export function useDocumentPersistence({
         variant: 'destructive',
       });
     }
-  }, [user, updateInstance, toast]);
+  }, [effectiveUser, updateInstance, toast]);
 
   // Auto-save on stage state changes - NOW WORKS FOR NEW DOCUMENTS
   useEffect(() => {

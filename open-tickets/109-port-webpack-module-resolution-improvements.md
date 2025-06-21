@@ -33,8 +33,9 @@ function generateUserId(): string {
 **Implementation:**
 1. Find ALL instances of `generateUserId()` 
 2. DELETE the function completely
-3. Ensure code FAILS if no authentication present
-4. ONLY allow temporary users through explicit "Try it out" flow (see ticket 108)
+3. Replace with proper temporary session management (see ticket 108)
+4. For now, temp sessions are created automatically when no auth (same behavior)
+5. In future, will require explicit "Try it out" button click
 
 ## Nice-to-Have Improvements (Lower Priority)
 
