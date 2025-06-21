@@ -115,10 +115,9 @@ Technical Details:
           )}
         </div>
         <Button
-          size="sm"
+          size="icon"
           variant="ghost"
           onClick={handleCopyError}
-          className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground"
           title="Copy error details"
         >
           {copied ? <CheckCheck className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
@@ -444,14 +443,14 @@ export function StageCard({
         {/* Primary Action Button: Kept as direct Button due to complex icon/text logic and custom styling */}
         {showPrimaryActionButton && !stageState.isEditingOutput && !dependencyMessage && (
           <>
-            {showKeyboardHint && primaryAction === 'run-stage' && (
+            {showKeyboardHint && (
               <KeyboardHint className="text-xs text-muted-foreground" />
             )}
             <Button 
               size="sm" 
+              variant="default"
               onClick={handlePrimaryAction} 
               disabled={!canRun || stageState.status === "running"}
-              className="bg-accent hover:bg-accent/90 text-accent-foreground" // Unique styling
               id={`process-stage-${stage.id}`}
               data-testid={`process-stage-${stage.id}`}
             >

@@ -20,8 +20,8 @@ export function buildContext(
   return {
     workflow: {
       id: workflow.id,
-      type: workflow.type || workflow.id,
-      title: workflow.title,
+      type: workflow.id, // Use id as type since there's no type property
+      title: workflow.name, // Use name instead of title
     },
     stages: Object.fromEntries(
       Object.entries(stageStates).map(([id, stageState]) => [

@@ -82,11 +82,11 @@ export function StageInfoOverlay({
             </div>
             <Button
               variant="ghost"
-              size="sm"
+              size="icon"
               onClick={onClose}
-              className="h-4 w-4 p-0 hover:bg-muted rounded-full -mt-0.5"
+              className="rounded-full -mt-0.5"
             >
-              <X className="h-2.5 w-2.5" />
+              <X className="h-3 w-3" />
             </Button>
           </div>
         </CardHeader>
@@ -215,14 +215,14 @@ export function StageInfoTrigger({ stage, workflow, className }: StageInfoTrigge
       <Button
         ref={triggerRef}
         variant="ghost"
-        size="sm"
+        size="icon"
         onClick={() => setIsOpen(true)}
         className={cn(
-          "h-5 w-5 p-0 hover:bg-muted/70 rounded-full text-muted-foreground hover:text-foreground transition-colors",
+          "rounded-full text-muted-foreground hover:text-foreground transition-colors",
           className
         )}
       >
-        <Info className="h-3.5 w-3.5 stroke-[2.5]" />
+        <Info className="h-4 w-4" />
       </Button>
       
       <StageInfoOverlay

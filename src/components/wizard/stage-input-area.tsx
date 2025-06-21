@@ -299,6 +299,8 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
             onKeyDown={handleTextareaKeyDown}
             rows={8}
             className="bg-background"
+            data-testid={`textarea-${stage.id}`}
+            id={`textarea-${stage.id}`}
           />
           <TokenCounter text={typeof stageState.userInput === 'string' ? stageState.userInput : ""} />
         </div>
@@ -406,6 +408,7 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
             <Label htmlFor={`${stage.id}-manual-input`}>Manual Context Input</Label>
             <Textarea
               id={`${stage.id}-manual-input`}
+              data-testid={`context-manual-${stage.id}`}
               placeholder="Paste relevant text or type your context here..."
               value={contextManualInput}
               onChange={handleContextManualChange}
@@ -437,6 +440,7 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
           <Label htmlFor={`${stage.id}-image-input`}>Upload Image</Label>
           <Input
             id={`${stage.id}-image-input`}
+            data-testid={`image-input-${stage.id}`}
             type="file"
             accept="image/*"
             onChange={handleImageChange}
@@ -462,6 +466,7 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
           <Label htmlFor={`${stage.id}-document-input`}>Upload Document</Label>
           <Input
             id={`${stage.id}-document-input`}
+            data-testid={`document-input-${stage.id}`}
             type="file"
             accept=".pdf,.doc,.docx,.txt,.md"
             onChange={handleDocumentChange}

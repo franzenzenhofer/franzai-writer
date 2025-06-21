@@ -224,10 +224,10 @@ export async function htmlToDocx(html: string, options?: any): Promise<ArrayBuff
               new Paragraph({
                 children: [
                   new ImageRun({
+                    type: 'png',
                     data: Buffer.from(arrayBuffer),
-                    transformation: { width: 600, height: 400 },
-                    altText: alt || 'image',
-                  }),
+                    transformation: { width: 600, height: 400 }
+                  } as any),
                 ],
                 spacing: { after: 200 },
               })
@@ -253,7 +253,9 @@ export async function htmlToDocx(html: string, options?: any): Promise<ArrayBuff
       if (headingMatch) {
         const tag = headingMatch[1].toLowerCase();
         const { HeadingLevel } = await import('docx');
-        headingLevel = HeadingLevel[`HEADING_${tag.substring(1)}` as any];
+        const levelNum = tag.substring(1); // Extract number from h1, h2, etc.
+        const levelKey = `HEADING_${levelNum}` as keyof typeof HeadingLevel;
+        headingLevel = HeadingLevel[levelKey];
       }
       
       paragraphs.push(
