@@ -197,100 +197,83 @@ export async function htmlToDocx(html: string, options?: any): Promise<ArrayBuff
       .replace(/<\/?footer[^>]*>/gi, '')
       .trim();
     
-    // Parse HTML content into paragraphs
+    // Collect paragraphs for DOCX
     const paragraphs: any[] = [];
     
-    // Split content by HTML elements and process each
-    const htmlElements = content.split(/(?=<(?:h[1-6]|p|div)\b)/i).filter(element => element.trim());
+    // Regex utilities
+    const headingRegex = /<(h[1-6])[^>]*>([\s\S]*?)<\/h[1-6]>/i;
+    const imgRegexGlobal = /<img[^>]+src="([^"]+)"[^>]*alt="?([^">]*)"?[^>]*>/gi;
     
-    for (const element of htmlElements) {
-      const trimmedElement = element.trim();
-      if (!trimmedElement) continue;
+    // Split content into blocks on headings, paragraphs and images
+    const htmlBlocks = content.split(/(?=<(?:h[1-6]|p|div|img)\b)/i).filter(b => b.trim());
+    
+    for (const block of htmlBlocks) {
+      const trimmedElement = block.trim();
       
-      // Extract text content and remove HTML tags
-      const textContent = trimmedElement
-        .replace(/<[^>]+>/g, ' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-        
+      // --- Handle images ---------------------------------------------------
+      if (trimmedElement.startsWith('<img')) {
+        const imgMatch = /<img[^>]+src="([^"]+)"[^>]*alt="?([^">]*)"?[^>]*>/i.exec(trimmedElement);
+        if (imgMatch) {
+          const [, src, alt] = imgMatch;
+          try {
+            const fetch = (await import('node-fetch')).default as any;
+            const response = await fetch(src);
+            const arrayBuffer = await response.arrayBuffer();
+            const ImageRun = (await import('docx')).ImageRun;
+            paragraphs.push(
+              new Paragraph({
+                children: [
+                  new ImageRun({
+                    data: Buffer.from(arrayBuffer),
+                    transformation: { width: 600, height: 400 },
+                    altText: alt || 'image',
+                  }),
+                ],
+                spacing: { after: 200 },
+              })
+            );
+            continue;
+          } catch (err) {
+            console.warn('[DOCX Generator] Failed to embed image, skipping', src, err);
+            // fall through to treat as text alt
+          }
+        }
+      }
+      
+      // --- Handle textual blocks ------------------------------------------
+      
+      // Extract text content and strip HTML tags
+      const textContent = trimmedElement.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+      
       if (!textContent) continue;
       
-      // Skip if it's just test content or unwanted text
-      if (textContent.toLowerCase() === 'test' || textContent.length < 2) continue;
-      
-      // Determine paragraph type and styling based on HTML tags
-      let heading: typeof HeadingLevel[keyof typeof HeadingLevel] | undefined;
-      let bold = false;
-      let size = 24; // 12pt default
-      let spacing = { after: 200, before: 0 };
-      
-      // Check for heading tags
-      if (trimmedElement.match(/<h1\b/i)) {
-        heading = HeadingLevel.HEADING_1;
-        bold = true;
-        size = 32; // 16pt
-        spacing = { after: 400, before: 200 };
-      } else if (trimmedElement.match(/<h2\b/i)) {
-        heading = HeadingLevel.HEADING_2;
-        bold = true;
-        size = 28; // 14pt
-        spacing = { after: 300, before: 200 };
-      } else if (trimmedElement.match(/<h3\b/i)) {
-        heading = HeadingLevel.HEADING_3;
-        bold = true;
-        size = 26; // 13pt
-        spacing = { after: 250, before: 150 };
-      } else if (trimmedElement.match(/<h[4-6]\b/i)) {
-        heading = HeadingLevel.HEADING_4;
-        bold = true;
-        size = 24; // 12pt
-        spacing = { after: 200, before: 100 };
+      // Determine heading level and styling
+      let headingLevel;
+      const headingMatch = headingRegex.exec(trimmedElement);
+      if (headingMatch) {
+        const tag = headingMatch[1].toLowerCase();
+        const { HeadingLevel } = await import('docx');
+        headingLevel = HeadingLevel[`HEADING_${tag.substring(1)}` as any];
       }
-      
-      // Check for emphasis
-      if (trimmedElement.match(/<(?:strong|b)\b[^>]*>/i)) {
-        bold = true;
-      }
-      
-      // Check for italic
-      const italic = trimmedElement.match(/<(?:em|i)\b[^>]*>/i);
       
       paragraphs.push(
         new Paragraph({
-          children: [
-            new TextRun({
-              text: textContent,
-              bold,
-              italics: !!italic,
-              size,
-            }),
-          ],
-          heading,
-          spacing,
+          children: [new TextRun({ text: textContent, bold: !!headingLevel })],
+          heading: headingLevel,
+          spacing: { after: 200 },
         })
       );
     }
     
-    // If no paragraphs were created (fallback safety)
-    if (paragraphs.length === 0) {
-      const fallbackText = content
-        .replace(/<[^>]+>/g, ' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-        
-      if (fallbackText) {
-        paragraphs.push(
-          new Paragraph({
-            children: [
-              new TextRun({
-                text: fallbackText,
-                size: 24,
-              }),
-            ],
-            spacing: { after: 200 },
-          })
-        );
-      }
+    // End for blocks loop
+    
+    // If no content captured, fallback to plain text paragraph
+    if (paragraphs.length === 0 && content) {
+      paragraphs.push(
+        new Paragraph({
+          children: [new TextRun({ text: content })],
+        })
+      );
     }
     
     // Create the document with proper margins and formatting
