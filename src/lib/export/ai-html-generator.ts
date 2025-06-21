@@ -46,8 +46,10 @@ export async function generateExportHtml(options: HtmlGenerationOptions): Promis
     }
 
     // Step 1: Generate styled HTML
-    const styledHtmlBody = await generateStyledHtml(templateContext, exportConfig, workflow);
-    const fullStyledHtml = createFullHtmlDocument(title, styledHtmlBody);
+    const styledHtmlRaw = await generateStyledHtml(templateContext, exportConfig, workflow);
+    const fullStyledHtml = isCompleteHtml(styledHtmlRaw)
+      ? styledHtmlRaw
+      : createFullHtmlDocument(title, styledHtmlRaw);
     
     console.log('[AI HTML Generator] Styled HTML generated, length:', fullStyledHtml.length);
     
@@ -57,8 +59,10 @@ export async function generateExportHtml(options: HtmlGenerationOptions): Promis
     }
     
     // Step 2: Generate clean HTML
-    const cleanHtmlBody = await generateCleanHtml(templateContext, exportConfig, workflow);
-    const fullCleanHtml = createFullHtmlDocument(title, cleanHtmlBody);
+    const cleanHtmlRaw = await generateCleanHtml(templateContext, exportConfig, workflow);
+    const fullCleanHtml = isCompleteHtml(cleanHtmlRaw)
+      ? cleanHtmlRaw
+      : createFullHtmlDocument(title, cleanHtmlRaw);
     
     console.log('[AI HTML Generator] Clean HTML generated, length:', fullCleanHtml.length);
     console.log('[AI HTML Generator] HTML generation completed successfully');
@@ -369,4 +373,12 @@ function extractTitle(
     }
   }
   return workflowType ? workflowType.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Untitled Document';
+}
+
+/**
+ * Quick heuristic: treat response as complete doc if it contains both
+ * <!DOCTYPE html> and <html> tags.
+ */
+function isCompleteHtml(html: string): boolean {
+  return /<!DOCTYPE html>/i.test(html) && /<html[\s\S]*<\/html>/i.test(html);
 }
