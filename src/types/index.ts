@@ -298,7 +298,6 @@ export interface StageState {
     cleanHtml?: number;
     currentFormat?: string;
   };
-  exportJobId?: string; // ID of the export job for progress tracking
 }
 
 export interface ExportStageState extends StageState {

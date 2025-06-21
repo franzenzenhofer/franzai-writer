@@ -108,28 +108,6 @@ export class FirestoreAdapter {
   }
 
   /**
-   * Set a document with a specific ID (create or overwrite)
-   */
-  async setDocument(collectionName: string, documentId: string, data: any): Promise<void> {
-    this.log('Setting document', { collection: collectionName, id: documentId });
-    
-    try {
-      const docRef = doc(db, collectionName, documentId);
-      const documentData = {
-        ...data,
-        createdAt: data.createdAt || serverTimestamp(),
-        updatedAt: serverTimestamp()
-      };
-      
-      await setDoc(docRef, documentData);
-      this.log('Document set', { collection: collectionName, id: documentId });
-    } catch (error) {
-      this.logError(`setDocument ${documentId} in ${collectionName}`, error);
-      throw new Error(`FATAL: Failed to set document ${documentId} in ${collectionName}: ${error}`);
-    }
-  }
-
-  /**
    * Update an existing document by ID
    */
   async updateDocument(collectionName: string, documentId: string, updates: any): Promise<void> {

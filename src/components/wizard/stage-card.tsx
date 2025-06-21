@@ -14,7 +14,6 @@ import { StageActionButton } from "./StageActionButton";
 import { AiRedoSection } from "./ai-redo-section";
 import { DynamicProgressBar } from "./dynamic-progress-bar";
 import { ExportStageCard } from "./export-stage/export-stage-card";
-import { ExportStageCardEnhanced } from "./export-stage/export-stage-card-enhanced";
 import { StageInfoTrigger } from "./stage-info-overlay";
 import { useToast } from "@/hooks/use-toast";
 import { KeyboardHint } from "@/components/ui/keyboard-hint";
@@ -288,14 +287,18 @@ export function StageCard({
   }
   if (isCurrentStage && stageState.depsAreMet !== false) cardClasses = cn(cardClasses, "shadow-sm");
 
-  // Handle export stage type separately with enhanced job-based component
+  // Handle export stage type separately
   if (stage.stageType === 'export') {
     return (
-      <ExportStageCardEnhanced
+      <ExportStageCard
         stage={stage}
-        stageState={stageState}
-        onRun={onRunStage}
-        className={cardClasses}
+        workflow={workflow}
+        stageState={stageState as ExportStageState}
+        isCurrentStage={isCurrentStage}
+        onRunStage={onRunStage}
+        allStageStates={allStageStates}
+        onDismissStaleWarning={onDismissStaleWarning}
+        documentId={documentId}
       />
     );
   }
