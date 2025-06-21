@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "npm run clean:logs && npm run kill && npm run dev:start",
-    "dev:start": "NEXT_PUBLIC_DEMO_MODE=true NEXT_PUBLIC_USE_FIREBASE_EMULATOR=false DEBUG=genkit*,ai*,google* GENKIT_LOG_LEVEL=debug next dev -p 9002 2>&1 | tee -a logs/nextjs-dev.log",
+    "dev:start": "NEXT_PUBLIC_DEMO_MODE=true DEBUG=genkit*,ai*,google* GENKIT_LOG_LEVEL=debug next dev -p 9002 2>&1 | tee -a logs/nextjs-dev.log",
     "clean:logs": "node scripts/clean-logs.js",
     "dev:debug": "npm run clean:logs && NODE_OPTIONS='--inspect' next dev -p 9002",
     "dev:verbose": "npm run clean:logs && NEXT_PUBLIC_DEMO_MODE=true NEXT_PUBLIC_USE_FIREBASE_EMULATOR=false DEBUG='*' next dev -p 9002 2>&1 | tee -a logs/nextjs-verbose.log",

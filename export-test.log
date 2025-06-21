@@ -1,0 +1,37 @@
+
+> nextn@0.1.0 test:e2e
+> playwright test tests/e2e/debug-export.spec.ts --project=chromium --reporter=list
+
+
+Running 1 test using 1 worker
+
+🧪 Debugging export stage...
+❌ BROWSER ERROR: FATAL: Firebase API key not configured
+❌ BROWSER ERROR: FATAL: Firebase project ID not configured
+  ✘  1 [chromium] › tests/e2e/debug-export.spec.ts:10:7 › Debug Export Stage › Debug export stage execution (13.9s)
+
+
+  1) [chromium] › tests/e2e/debug-export.spec.ts:10:7 › Debug Export Stage › Debug export stage execution 
+
+    TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('textarea') to be visible[22m
+
+
+      37 |     // Start workflow
+      38 |     await page.click('#workflow-start-poem-generator');
+    > 39 |     await page.waitForSelector('textarea', { timeout: 10000 });
+         |                ^
+      40 |     
+      41 |     // Enter poem topic
+      42 |     await page.fill('textarea', 'Debug export test');
+        at /Users/franzenzenhofer/dev/franzai-writer/worktree-firestore-nested-fix/tests/e2e/debug-export.spec.ts:39:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/debug-export-Debug-Export-Stage-Debug-export-stage-execution-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/debug-export-Debug-Export-Stage-Debug-export-stage-execution-chromium/error-context.md
+
+  1 failed
+    [chromium] › tests/e2e/debug-export.spec.ts:10:7 › Debug Export Stage › Debug export stage execution 
