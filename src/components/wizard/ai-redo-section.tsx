@@ -57,10 +57,10 @@ export function AiRedoSection({
         />
       </div>
       
-      {/* AI REDO button below and to the right */}
+      {/* AI REDO button below and to the right - SECONDARY VARIANT (dark gray text) */}
       <div className="w-full flex justify-end items-center gap-2">
         <Button
-          variant="outline"
+          variant="secondary"
           size="sm"
           onClick={handleAiRedo}
           disabled={isRunning}

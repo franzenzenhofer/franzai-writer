@@ -1,0 +1,71 @@
+:root {
+  --color-primary-blue: #2563EB;
+  --color-primary-hover: #2563EB/90;
+  --color-accent-violet: #8B5CF6;
+  --color-success-green: #10B981;
+  --color-destructive-red: #EF4444;
+  --color-warning-orange: #F59E0B;
+  --color-background: #FFFFFF;
+  --color-foreground: #0F172A;
+  --color-dark-gray: #374151;
+  --color-muted: #F8FAFC;
+  --color-border: #E2E8F0;
+}
+
+/* Button variant colors */
+/* Primary actions - Royal Blue with white text */
+.btn-default {
+  background-color: #2563EB;
+  color: #FFFFFF;
+  border-color: #2563EB;
+}
+
+/* Secondary actions - Light background with DARK GRAY text (AI REDO, Edit) */
+.btn-secondary {
+  background-color: #F8FAFC;
+  color: #374151;
+  border-color: #E2E8F0;
+}
+
+/* Export actions - White background with blue border and text (Download, Copy) */
+.btn-outline {
+  background-color: #FFFFFF;
+  color: #2563EB;
+  border-color: #2563EB;
+}
+
+/* Dangerous actions - Red background with white text */
+.btn-destructive {
+  background-color: #EF4444;
+  color: #FFFFFF;
+  border-color: #EF4444;
+}
+
+/* Positive actions - Green background with white text */
+.btn-success {
+  background-color: #10B981;
+  color: #FFFFFF;
+  border-color: #10B981;
+}
+
+/* Caution actions - Orange background with white text */
+.btn-warning {
+  background-color: #F59E0B;
+  color: #FFFFFF;
+  border-color: #F59E0B;
+}
+
+/* Special features - Violet background with white text */
+.btn-accent {
+  background-color: #8B5CF6;
+  color: #FFFFFF;
+  border-color: #8B5CF6;
+}
+
+/* Tertiary actions - Transparent with subtle hover */
+.btn-ghost {
+  background-color: transparent;
+  color: #374151;
+  border-color: transparent;
+}
+

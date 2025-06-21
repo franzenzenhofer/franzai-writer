@@ -245,17 +245,17 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
           variant: "destructive",
           duration: 15000, // Show longer for complex error
           action: (
-            <button
+            <Button
               onClick={() => {
                 setAiStageLoaded(false);
                 setAiLoadError(null);
                 setAiLoadAttempts(0);
                 loadAiStageRunner();
               }}
-              className="px-3 py-2 bg-primary text-primary-foreground rounded-md text-sm hover:bg-primary/90 transition-colors"
+              size="sm"
             >
               Retry
-            </button>
+            </Button>
           )
         });
       }
@@ -610,7 +610,7 @@ Still having issues? Check the browser console for detailed logs.`;
         variant: "destructive",
         duration: 15000, // Show longer for complex troubleshooting
         action: (
-          <button
+          <Button
             onClick={() => {
               console.log('[handleRunStage] Manual retry requested from toast');
               setAiStageLoaded(false);
@@ -618,10 +618,10 @@ Still having issues? Check the browser console for detailed logs.`;
               setAiLoadAttempts(0);
               loadAiStageRunner();
             }}
-            className="px-3 py-2 bg-primary text-primary-foreground rounded-md text-sm hover:bg-primary/90 transition-colors"
+            size="sm"
           >
             Retry AI
-          </button>
+          </Button>
         )
       });
       

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -46,7 +46,7 @@ export default function AILogViewerPage() {
     return () => {
       stopStreaming();
     };
-  }, [isStreaming]);
+  }, [isStreaming, startStreaming]);
 
   useEffect(() => {
     if (autoScroll && scrollAreaRef.current) {
@@ -55,7 +55,7 @@ export default function AILogViewerPage() {
     }
   }, [logs, autoScroll]);
 
-  const startStreaming = () => {
+  const startStreaming = useCallback(() => {
     try {
       const eventSource = new EventSource('/api/debug/ai-log-stream');
       eventSourceRef.current = eventSource;
@@ -79,7 +79,7 @@ export default function AILogViewerPage() {
       console.error('Failed to start streaming:', err);
       setError('Failed to start log streaming');
     }
-  };
+  }, []);
 
   const stopStreaming = () => {
     if (eventSourceRef.current) {

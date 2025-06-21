@@ -532,6 +532,7 @@ export function ExportStageCard({
                   onClick={() => onRunStage(stage.id)}
                   id={`retry-export-${stage.id}`}
                 >
+                  <RotateCcw className="mr-2 h-4 w-4" />
                   Retry Export
                 </Button>
               </div>

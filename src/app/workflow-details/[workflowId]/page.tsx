@@ -153,7 +153,7 @@ export default async function WorkflowDetailsPage({ params }: { params: Promise<
 
         {/* CTA */}
         <div className="flex justify-center pt-4">
-          <Button size="lg" asChild className="bg-blue-600 hover:bg-blue-700 text-white">
+          <Button size="lg" asChild>
             <Link href={workflow.shortName ? `/w/${workflow.shortName}/new` : `/w/new/${workflow.id}`}>
               Start {workflow.name}
               <ArrowRight className="ml-2 h-5 w-5" />

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { allWorkflows } from "@/lib/workflow-loader";
 import type { WizardDocument, Workflow } from "@/types";
@@ -189,7 +189,6 @@ export default function DashboardPage() {
                         <Button 
                           asChild 
                           size="sm"
-                          className="bg-primary text-primary-foreground hover:bg-primary/90"
                         >
                           <Link 
                             href={workflow.shortName ? `/w/${workflow.shortName}/new` : `/w/new/${workflow.id}`}
@@ -341,7 +340,10 @@ export default function DashboardPage() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmDelete} className="bg-destructive text-destructive-foreground">
+            <AlertDialogAction 
+              onClick={confirmDelete} 
+              className={cn(buttonVariants({ variant: "destructive" }))}
+            >
               Delete
             </AlertDialogAction>
           </AlertDialogFooter>

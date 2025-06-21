@@ -144,7 +144,7 @@ export function ImageOutputDisplay({
             {imageUrl && selectedImage && (
               <Button
                 size="sm"
-                variant="secondary"
+                variant="outline"
                 className="absolute top-2 right-2"
                 onClick={() => handleDownload(selectedImage, selectedIndex)}
               >

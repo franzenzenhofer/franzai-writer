@@ -401,10 +401,10 @@ export function StageCard({
       <CardFooter className="flex justify-end gap-2 items-center flex-wrap">
 
 
-        {/* Edit Button: Unified edit functionality */}
+        {/* Edit Button: Unified edit functionality - SECONDARY VARIANT (dark gray text) */}
         {showEditButton && !dependencyMessage && (
           <StageActionButton
-            variant="outline"
+            variant="secondary"
             onClick={stage.promptTemplate && stageState.output ? handleEditOutputClick : handleEditInputClick}
             id={`edit-${stage.id}`}
             datatestid={`edit-${stage.id}`}
