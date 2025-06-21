@@ -628,19 +628,23 @@ class DocumentPersistenceManager {
             }
             
             // Store format URLs as flat strings (not nested objects!)
-            if (output.formats && typeof output.formats === 'object') {
-              firestore_safe_state.hasFormats = true;
-              // CRITICAL: Flatten each format to avoid nested objects
-              for (const [formatKey, formatData] of Object.entries(output.formats)) {
-                if (formatData && typeof formatData === 'object') {
-                  const fd = formatData as any;
-                  if (fd.url) {
-                    firestore_safe_state[`${formatKey}Url`] = String(fd.url);
-                  }
-                  if (fd.ready) {
-                    firestore_safe_state[`${formatKey}Ready`] = true;
-                  }
-                }
+            firestore_safe_state.hasFormats = true;
+
+            // Always derive flattened property names directly from the
+            // actual format keys present in the output so we never fall out
+            // of sync when new formats are introduced.
+            for (const [formatKey, formatData] of Object.entries(output.formats)) {
+              if (!formatData || typeof formatData !== 'object') continue;
+              const fd = formatData as any;
+
+              const urlKey = `${formatKey}Url`;
+              const readyKey = `${formatKey}Ready`;
+
+              if (fd.url) {
+                firestore_safe_state[urlKey] = String(fd.url);
+              }
+              if (fd.ready) {
+                firestore_safe_state[readyKey] = true;
               }
             }
             
@@ -952,13 +956,13 @@ class DocumentPersistenceManager {
           // Reconstruct from flattened format data
           const formatTypes = ['html-styled', 'html-clean', 'markdown', 'pdf', 'docx'];
           for (const formatType of formatTypes) {
-            const urlKey = `${formatType.replace('-', '')}Url`;
-            const readyKey = `${formatType.replace('-', '')}Ready`;
+            const urlKey = `${formatType}Url`;
+            const readyKey = `${formatType}Ready`;
             
             if ((state as any)[urlKey] || (state as any)[readyKey]) {
               output.formats[formatType] = {
-                ready: (state as any)[readyKey] || false,
-                url: (state as any)[urlKey] || undefined
+                ready: Boolean((state as any)[readyKey]),
+                url: (state as any)[urlKey] || undefined,
               };
             }
           }
