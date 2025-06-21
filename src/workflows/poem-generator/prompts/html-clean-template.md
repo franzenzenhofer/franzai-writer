@@ -26,6 +26,15 @@ Poem Illustration URL: {{stages.generate-poem-image.images.[0].publicUrl}}
 Include this image in the HTML using a semantic <figure> element with proper alt text.
 {{/if}}
 
+## CRITICAL: WHAT NOT TO INCLUDE
+- **NO figcaption elements** - images should not have captions
+- **NO author information** unless explicitly provided in the content
+- **NO publication dates or metadata** unless explicitly provided
+- **NO "Illustration for the poem" or similar generic text**
+- **NO footer elements** unless there's actual footer content
+- **NO explanatory text about the image**
+- **NO extra descriptive text** - only include the poem title, image, and poem content
+
 ## CRITICAL OUTPUT INSTRUCTIONS
 - **Return a COMPLETE HTML document with proper DOCTYPE, html, head, and body tags.**
 - **Include proper meta tags, title, and other head elements.**
@@ -66,7 +75,7 @@ Generate a complete HTML document like this:
    - <h2> for the author name or subtitle
    - <figure> for the poem illustration (if available)
    - <img> for the actual image with proper alt text
-   - <figcaption> for image caption if needed
+   - **DO NOT use <figcaption> - the image should speak for itself**
    - <section> for major poem divisions
    - <div> for stanzas (when logical grouping is needed)
    - <p> for each line of poetry
@@ -76,30 +85,24 @@ Generate a complete HTML document like this:
    ```
    <article>
      <header>
-       <h1>Poem Title</h1>
-       <h2>Author Name</h2>
+       <h1>[Poem Title]</h1>
      </header>
      
      <figure>
-       <img src="[image-url]" alt="Illustration for [poem title]" style="max-width: 100%; height: auto;">
-       <figcaption>Illustration for the poem</figcaption>
+       <img src="[image-url]" alt="[Descriptive alt text based on the poem's visual theme]" style="max-width: 100%; height: auto;">
      </figure>
      
      <div>
        <div>
-         <p>First line of the poem</p>
-         <p>Second line of the poem</p>
+         <p>[First line of the poem]</p>
+         <p>[Second line of the poem]</p>
        </div>
        
        <div>
-         <p>First line of second stanza</p>
-         <p>Second line of second stanza</p>
+         <p>[First line of second stanza]</p>
+         <p>[Second line of second stanza]</p>
        </div>
      </div>
-     
-     <footer>
-       <!-- Any additional metadata -->
-     </footer>
    </article>
    ```
 
@@ -153,9 +156,12 @@ The body structure should convert perfectly to markdown:
 ## Special Poetry Considerations
 - Each line should be its own <p> element in body
 - Stanzas should be grouped with <div> elements in body
-- Title and author must be in proper heading hierarchy in body
-- Any epigraphs or dedications should be marked with appropriate semantic elements in body
-- Publication info or notes in <footer> in body
+- Title must be in H1 in body
+- **CONTENT FOCUS - ONLY INCLUDE**:
+  1. **Poem Title** - as H1 heading
+  2. **Poem Image** - single img tag in figure element, NO caption
+  3. **Poem Content** - properly structured verse lines
+  4. **NOTHING ELSE** - no metadata, no author bio, no image descriptions
 
 ## Goal
 Create a complete HTML document where:
