@@ -7,15 +7,19 @@ export const siteConfig = {
     "Generate documents using an AI-powered, multi-step wizard.",
   mainNav: [
     {
+      title: "Home",
+      href: "/",
+    },
+    {
       title: "Dashboard",
       href: "/dashboard",
     },
     {
       title: "AI Logs",
-      href: "/debug/ai-log-viewer",
+      href: "/admin/debug/ai-log-viewer",
     },
   ],
   links: {
-    github: "https://github.com/your-repo/franz-ai-writer", // Updated placeholder
+    website: "https://www.franzai.com",
   },
 };
