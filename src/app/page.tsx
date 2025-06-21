@@ -51,7 +51,7 @@ export default function HomePage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <Button size="lg" asChild className="px-8">
+            <Button asChild>
               <Link 
                 href="/dashboard"
                 id="home-get-started-button"
@@ -61,7 +61,7 @@ export default function HomePage() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
-            <Button size="lg" variant="outline" asChild>
+            <Button variant="outline" asChild>
               <Link 
                 href="/login"
                 id="home-login-button"
@@ -138,7 +138,7 @@ export default function HomePage() {
           <p className="text-muted-foreground">
             Join writers who are creating better content with AI assistance.
           </p>
-          <Button size="lg" asChild className="px-8">
+          <Button asChild>
             <Link href="/dashboard">
               <FileText className="mr-2 h-5 w-5" />
               Start Writing Now

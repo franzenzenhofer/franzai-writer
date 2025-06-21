@@ -182,15 +182,15 @@ export const BUTTON_VARIANTS = {
 // BUTTON SIZE CONFIGURATIONS (44px minimum touch targets)
 export const BUTTON_SIZES = {
   sm: {
-    classes: 'h-8 px-3 text-xs min-w-11',
+    classes: 'h-8 px-4 text-xs min-w-11',
     description: 'Small - 32px height, meets 44px with padding'
   },
   default: {
-    classes: 'h-10 px-5 py-2 text-sm min-w-11',
+    classes: 'h-10 px-8 py-2 text-sm min-w-11',
     description: 'Default - 40px height, meets 44px touch target'
   },
   lg: {
-    classes: 'h-11 px-8 text-base min-w-11',
+    classes: 'h-11 px-10 text-base min-w-11',
     description: 'Large - 44px+ height, exceeds touch target'
   },
   icon: {

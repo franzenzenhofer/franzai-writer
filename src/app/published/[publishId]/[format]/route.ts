@@ -37,10 +37,22 @@ export async function GET(
     }
     
     // For HTML formats, return raw HTML
-    if (format === 'html-styled' || format === 'html-clean') {
+    if (format === 'html-styled') {
       return new NextResponse(formatContent.content, {
         headers: {
           'Content-Type': 'text/html; charset=utf-8',
+        },
+      });
+    }
+    
+    // For clean HTML, add minimal CSS via Link header
+    if (format === 'html-clean') {
+      // Note: The Link header with data URI is the standard way to include CSS via HTTP headers
+      // However, browser support may vary. The CSS rule makes all images responsive.
+      return new NextResponse(formatContent.content, {
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Link': '<data:text/css,img%7Bmax-width%3A100%25%3Bheight%3Aauto%3B%7D>; rel="stylesheet"',
         },
       });
     }

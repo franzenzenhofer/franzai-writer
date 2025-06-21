@@ -350,7 +350,6 @@ export function ExportStageCard({
               
               <div className="flex justify-start">
                 <Button
-                  size="lg"
                   onClick={() => onRunStage(stage.id)}
                   disabled={!canRun}
                   id={`trigger-export-${stage.id}`}

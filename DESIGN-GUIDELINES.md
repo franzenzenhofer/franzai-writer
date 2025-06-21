@@ -93,9 +93,9 @@ className="hover:bg-slate-100 hover:text-slate-900 border border-transparent hov
 ### Button Sizes & Touch Targets
 
 ```tsx
-size="sm"      // h-8 px-3 text-xs min-w-11  (minimum 44px total with padding)
-size="default" // h-10 px-5 py-2 text-sm min-w-11  (44px minimum touch target)
-size="lg"      // h-11 px-8 text-base min-w-11  (larger than 44px)
+size="sm"      // h-8 px-4 text-xs min-w-11  (minimum 44px total with padding)
+size="default" // h-10 px-8 py-2 text-sm min-w-11  (44px minimum touch target)
+size="lg"      // h-11 px-10 text-base min-w-11  (larger than 44px)
 size="icon"    // h-10 w-10 p-0 min-w-10  (exactly 40px, close to 44px for icons)
 ```
 
