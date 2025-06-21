@@ -30,8 +30,8 @@ export default function TermsPage() {
           </p>
           <ul className="list-disc pl-6 mb-4">
             <li>Multi-stage workflow wizards for document creation</li>
-            <li>AI content generation using Google's Gemini models</li>
-            <li>Image generation capabilities using Google's Imagen AI</li>
+            <li>AI content generation using Google&apos;s Gemini models</li>
+            <li>Image generation capabilities using Google&apos;s Imagen AI</li>
             <li>Document export in multiple formats (HTML, DOCX, Markdown, PDF)</li>
             <li>Document management and storage</li>
             <li>Collaborative features and sharing options</li>
@@ -65,7 +65,7 @@ export default function TermsPage() {
           <h2 className="text-2xl font-semibold mb-4">Acceptable Use</h2>
           <p className="mb-4">You agree not to use Franz AI Writer to:</p>
           <ul className="list-disc pl-6 mb-4">
-            <li>Generate content that is illegal, harmful, or violates others' rights</li>
+            <li>Generate content that is illegal, harmful, or violates others&apos; rights</li>
             <li>Create misleading, defamatory, or fraudulent content</li>
             <li>Generate content that infringes on intellectual property rights</li>
             <li>Produce spam, malware, or other malicious content</li>
@@ -97,7 +97,7 @@ export default function TermsPage() {
           <ul className="list-disc pl-6 mb-4">
             <li>You grant us a license to process and store your content for service delivery</li>
             <li>AI-generated content may not be eligible for copyright protection</li>
-            <li>You are responsible for ensuring your content doesn't infringe others' rights</li>
+            <li>You are responsible for ensuring your content doesn&apos;t infringe others&apos; rights</li>
             <li>We may use aggregated, anonymized data to improve our services</li>
           </ul>
         </section>
