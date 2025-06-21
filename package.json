@@ -71,6 +71,7 @@
     "firebase": "^11.9.0",
     "firebaseui": "^6.1.0",
     "hammerjs": "^2.0.8",
+    "handlebars": "^4.7.8",
     "lucide-react": "^0.475.0",
     "nanoid": "^5.1.5",
     "next": "15.3.3",

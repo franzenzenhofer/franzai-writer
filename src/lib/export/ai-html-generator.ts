@@ -1,16 +1,17 @@
 'use server';
 
 import { generateWithDirectGemini } from '@/ai/direct-gemini';
-import type { Stage, StageState, ExportConfig } from '@/types';
+import type { Stage, StageState, ExportConfig, Workflow } from '@/types';
 import fs from 'fs/promises';
 import path from 'path';
 import { cleanAiResponse } from '@/lib/ai-content-cleaner';
+import { buildContext, renderTemplate } from '@/lib/template';
 
 export interface HtmlGenerationOptions {
   stages: Stage[];
   stageStates: Record<string, StageState>;
   exportConfig?: ExportConfig;
-  workflowType?: string;
+  workflow: Workflow;
   progressCallback?: (progress: { styledHtml?: number; cleanHtml?: number; currentFormat?: string }) => void;
 }
 
@@ -24,15 +25,19 @@ export interface HtmlGenerationResult {
  * Generate both styled and clean HTML using dual AI passes
  */
 export async function generateExportHtml(options: HtmlGenerationOptions): Promise<HtmlGenerationResult> {
-  const { stages, stageStates, exportConfig, workflowType, progressCallback } = options;
+  const { stages, stageStates, exportConfig, workflow, progressCallback } = options;
   
   try {
     console.log('[AI HTML Generator] Starting HTML generation');
     console.log('[AI HTML Generator] Stages:', stages.map(s => s.id));
     console.log('[AI HTML Generator] Stage states available:', Object.keys(stageStates));
     
+    // Build template context for consistent processing
+    const templateContext = buildContext(workflow, stageStates);
+    console.log('[AI HTML Generator] Template context built for workflow:', workflow.id);
+    
     // Extract a title for the document
-    const title = extractTitle(stages, stageStates, workflowType);
+    const title = extractTitle(stages, stageStates, workflow.id);
     console.log('[AI HTML Generator] Document title:', title);
 
     // Report progress
@@ -41,7 +46,7 @@ export async function generateExportHtml(options: HtmlGenerationOptions): Promis
     }
 
     // Step 1: Generate styled HTML
-    const styledHtmlBody = await generateStyledHtml(stages, stageStates, exportConfig, workflowType);
+    const styledHtmlBody = await generateStyledHtml(templateContext, exportConfig, workflow);
     const fullStyledHtml = createFullHtmlDocument(title, styledHtmlBody);
     
     console.log('[AI HTML Generator] Styled HTML generated, length:', fullStyledHtml.length);
@@ -52,7 +57,7 @@ export async function generateExportHtml(options: HtmlGenerationOptions): Promis
     }
     
     // Step 2: Generate clean HTML
-    const cleanHtmlBody = await generateCleanHtml(stages, stageStates, exportConfig, workflowType);
+    const cleanHtmlBody = await generateCleanHtml(templateContext, exportConfig, workflow);
     const fullCleanHtml = createFullHtmlDocument(title, cleanHtmlBody);
     
     console.log('[AI HTML Generator] Clean HTML generated, length:', fullCleanHtml.length);
@@ -79,45 +84,32 @@ export async function generateExportHtml(options: HtmlGenerationOptions): Promis
 }
 
 /**
- * Generate styled HTML with beautiful formatting
+ * Generate styled HTML with beautiful formatting using template processing
  */
 async function generateStyledHtml(
-  stages: Stage[],
-  stageStates: Record<string, StageState>,
+  templateContext: any,
   exportConfig?: ExportConfig,
-  workflowType?: string
+  workflow?: Workflow
 ): Promise<string> {
   
   // Load the styled HTML template
-  const templatePath = path.join(process.cwd(), 'src/workflows', workflowType || 'default', 'prompts/html-styled-template.md');
+  const templatePath = path.join(process.cwd(), 'src/workflows', workflow?.id || 'default', 'prompts/html-styled-template.md');
   let promptTemplate: string;
   
   try {
     promptTemplate = await fs.readFile(templatePath, 'utf-8');
+    console.log('[AI HTML Generator] Loaded workflow-specific styled template from:', templatePath);
   } catch {
     // Use default template if workflow-specific template doesn't exist
     promptTemplate = getDefaultStyledHtmlPrompt();
+    console.log('[AI HTML Generator] Using default styled template');
   }
   
-  // Prepare content for AI
-  const contentSections = stages
-    .filter(stage => stageStates[stage.id]?.status === 'completed' && stageStates[stage.id]?.output)
-    .map(stage => ({
-      stageName: stage.title,
-      stageId: stage.id,
-      content: formatStageOutput(stageStates[stage.id].output),
-    }));
+  // Process the template with proper handlebars rendering
+  const prompt = renderTemplate(promptTemplate, templateContext);
   
-  // Build the AI prompt
-  const prompt = promptTemplate
-    .replace('{{workflow.type}}', workflowType || 'content')
-    .replace('{{workflow.audience}}', 'general readers')
-    .replace('{{#each stages}}', contentSections.map(section => 
-      `### ${section.stageName}\n${section.content}`
-    ).join('\n\n'))
-    .replace('{{/each}}', '');
-  
-  console.log('[AI HTML Generator] Generating styled HTML with AI');
+  console.log('[AI HTML Generator] Template processed, generating styled HTML with AI');
+  console.log('[AI HTML Generator] Prompt length:', prompt.length);
   
   // Generate HTML with AI
   const result = await generateWithDirectGemini({
@@ -136,43 +128,32 @@ async function generateStyledHtml(
 }
 
 /**
- * Generate clean semantic HTML for CMS compatibility
+ * Generate clean semantic HTML for CMS compatibility using template processing
  */
 async function generateCleanHtml(
-  stages: Stage[],
-  stageStates: Record<string, StageState>,
+  templateContext: any,
   exportConfig?: ExportConfig,
-  workflowType?: string
+  workflow?: Workflow
 ): Promise<string> {
   
   // Load the clean HTML template
-  const templatePath = path.join(process.cwd(), 'src/workflows', workflowType || 'default', 'prompts/html-clean-template.md');
+  const templatePath = path.join(process.cwd(), 'src/workflows', workflow?.id || 'default', 'prompts/html-clean-template.md');
   let promptTemplate: string;
   
   try {
     promptTemplate = await fs.readFile(templatePath, 'utf-8');
+    console.log('[AI HTML Generator] Loaded workflow-specific clean template from:', templatePath);
   } catch {
     // Use default template if workflow-specific template doesn't exist
     promptTemplate = getDefaultCleanHtmlPrompt();
+    console.log('[AI HTML Generator] Using default clean template');
   }
   
-  // Prepare content for AI
-  const contentSections = stages
-    .filter(stage => stageStates[stage.id]?.status === 'completed' && stageStates[stage.id]?.output)
-    .map(stage => ({
-      stageName: stage.title,
-      stageId: stage.id,
-      content: formatStageOutput(stageStates[stage.id].output),
-    }));
+  // Process the template with proper handlebars rendering
+  const prompt = renderTemplate(promptTemplate, templateContext);
   
-  // Build the AI prompt
-  const prompt = promptTemplate
-    .replace('{{#each stages}}', contentSections.map(section => 
-      `### ${section.stageName}\n${section.content}`
-    ).join('\n\n'))
-    .replace('{{/each}}', '');
-  
-  console.log('[AI HTML Generator] Generating clean HTML with AI');
+  console.log('[AI HTML Generator] Template processed, generating clean HTML with AI');
+  console.log('[AI HTML Generator] Prompt length:', prompt.length);
   
   // Generate HTML with AI
   const result = await generateWithDirectGemini({

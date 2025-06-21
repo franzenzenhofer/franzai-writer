@@ -8,27 +8,27 @@ First, analyze the poem content:
 
 ## Available Content
 ### Poem Topic
-{{poem-topic.output}}
+{{stages.poem-topic}}
 
 ### Generate Poem & Title
-{{generate-poem-with-title.output.title}}
-{{generate-poem-with-title.output.poem}}
+Title: {{stages.generate-poem-with-title.title}}
+Poem: {{stages.generate-poem-with-title.poem}}
 
 ### Image Customization
-{{image-briefing.output}}
+{{stages.image-briefing}}
 
 ### Create Image Prompt
-{{create-image-prompt.output}}
+{{stages.create-image-prompt}}
 
 ### Generate Poem Illustration
-{{generate-poem-image.output}}
+{{stages.generate-poem-image}}
 
 ### Generate HTML Preview
-{{generate-html-preview.output}}
+{{stages.generate-html-preview}}
 
 ## Available Image
-{{#if generate-poem-image.output.images}}
-Poem Illustration URL: {{generate-poem-image.output.images[0].publicUrl}}
+{{#if stages.generate-poem-image.images}}
+Poem Illustration URL: {{stages.generate-poem-image.images.[0].publicUrl}}
 Use this image prominently in your design - it was created specifically to complement this poem.
 {{/if}}
 

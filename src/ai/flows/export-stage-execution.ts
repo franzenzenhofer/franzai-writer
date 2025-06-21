@@ -32,7 +32,7 @@ export async function executeExportStage({
       stages: workflow.stages,
       stageStates: allStageStates,
       exportConfig: stage.exportConfig,
-      workflowType: workflow.id,
+      workflow: workflow,
       progressCallback: (progress) => {
         console.log('[Export Stage Execution] HTML generation progress:', progress);
         if (progressCallback) {
