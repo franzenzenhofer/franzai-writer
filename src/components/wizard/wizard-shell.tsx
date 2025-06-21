@@ -1023,6 +1023,7 @@ Still having issues? Check the browser console for detailed logs.`;
             onRunStage={handleRunStage}
             onInputChange={handleInputChange}
             onFormSubmit={handleFormSubmit}
+            documentId={documentId}
             
             onEditInputRequest={handleEditInputRequest}
             onOutputEdit={handleOutputEdit}

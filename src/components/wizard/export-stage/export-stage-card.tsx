@@ -118,6 +118,7 @@ interface ExportStageCardProps {
   allStageStates: Record<string, StageState>;
   onUpdateStageState?: (stageId: string, updates: Partial<ExportStageState>) => void;
   onDismissStaleWarning?: (stageId: string) => void;
+  documentId?: string;
 }
 
 interface PublishedData {
@@ -134,6 +135,7 @@ export function ExportStageCard({
   allStageStates,
   onUpdateStageState,
   onDismissStaleWarning,
+  documentId,
 }: ExportStageCardProps) {
   const { toast } = useToast();
   const [isPublishing, setIsPublishing] = useState(false);
@@ -182,7 +184,8 @@ export function ExportStageCard({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          documentId: workflow.id,
+          documentId: documentId || workflow.id, // Use actual document ID if available
+          workflowId: workflow.id,
           formats: selectedFormats,
           content: stageState.output.formats,
           options: {},
