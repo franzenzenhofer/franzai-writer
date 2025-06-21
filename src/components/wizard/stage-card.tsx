@@ -328,7 +328,6 @@ export function StageCard({
         <div className="flex-shrink-0 ml-2 flex items-center gap-2">
           {stageState.isStale && stageState.status === 'completed' && !stageState.staleDismissed && (
             <UpdateRecommendedButton
-              onDismiss={() => onDismissStaleWarning(stage.id)}
               onRegenerate={() => handleAiRedo()}
               size="sm"
             />

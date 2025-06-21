@@ -13,15 +13,15 @@ export interface ContentValidation {
 }
 
 /**
- * Basic content moderation to prevent publishing harmful material
- * This is a simple implementation - in production, consider using
- * a proper content moderation API service
+ * AI-powered content moderation using Gemini Flash
+ * Only flags truly harmful content, not poetry with metaphorical language
  */
 export async function validateContent(content: string): Promise<ContentValidation> {
   const violations: string[] = [];
   const publishingViolations: string[] = [];
   
-  // Check for obvious security issues
+  // FIRST: Check for obvious security issues (code injection)
+  // BUT: Don't flag legitimate HTML structure tags
   const securityPatterns = [
     /<script[^>]*>/gi,
     /javascript:/gi,
@@ -32,33 +32,88 @@ export async function validateContent(content: string): Promise<ContentValidatio
     /data:text\/html/gi
   ];
   
+  // Check if this is legitimate HTML content (has DOCTYPE or html tag)
+  const isLegitimateHtml = content.includes('<!DOCTYPE') || 
+                          content.includes('<html') || 
+                          content.includes('<article') ||
+                          content.includes('<figure');
+  
   let hasSecurityIssues = false;
-  for (const pattern of securityPatterns) {
-    if (pattern.test(content)) {
+  
+  // Only check for security issues if it's NOT legitimate HTML
+  // Or if it's HTML, only flag actual script tags
+  if (!isLegitimateHtml) {
+    for (const pattern of securityPatterns) {
+      if (pattern.test(content)) {
+        hasSecurityIssues = true;
+        violations.push('Content contains potentially malicious code');
+        break;
+      }
+    }
+  } else {
+    // For HTML content, only check for actual script injection
+    if (/<script[^>]*>/gi.test(content) || /javascript:/gi.test(content)) {
       hasSecurityIssues = true;
-      violations.push('Content contains potentially malicious code');
-      break;
+      violations.push('HTML contains script tags or javascript: protocol');
     }
   }
   
-  // Check for harmful content patterns (basic check)
-  const harmfulPatterns = [
-    /\b(violence|harm|illegal|criminal)\b/gi,
-    /\b(dangerous|weapon|explosive)\b/gi,
-    /\b(hate|discrimination|harassment)\b/gi
-  ];
-  
+  // SECOND: Use AI for content safety check (only for truly harmful content)
   let isSafe = true;
-  for (const pattern of harmfulPatterns) {
-    const matches = content.match(pattern);
-    if (matches && matches.length > 2) { // Allow some words in poetry context
-      isSafe = false;
-      publishingViolations.push(`Content may contain harmful material: ${matches[0]}`);
-    }
-  }
+  let isLegal = true;
   
-  // For now, assume content is legal unless it has security issues
-  const isLegal = !hasSecurityIssues;
+  try {
+    // Import Gemini SDK
+    const { GoogleGenAI } = await import('@google/genai');
+    const genAI = new GoogleGenAI({ apiKey: process.env.GOOGLE_GENAI_API_KEY! });
+    
+    // Use Gemini 2.0 Flash (stable) for super fast, cheap moderation
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+    
+    const prompt = `You are a content moderator. Analyze this content and determine if it contains ACTUALLY harmful material.
+
+IMPORTANT: Poetry often uses metaphorical language about dark themes. This is ALLOWED.
+Only flag content that:
+1. Explicitly promotes real violence or harm to real people
+2. Contains explicit instructions for illegal activities
+3. Contains hate speech targeting real groups
+4. Contains explicit adult content inappropriate for general audiences
+
+Poetry about death, darkness, violence in metaphorical/artistic context is ALLOWED.
+
+Content to analyze:
+${content.substring(0, 2000)}
+
+Respond with JSON only:
+{
+  "isSafe": true/false,
+  "isLegal": true/false,
+  "violations": ["list any serious violations, or empty array if none"]
+}`;
+
+    const result = await model.generateContent(prompt);
+    const response = result.response.text();
+    
+    try {
+      const moderation = JSON.parse(response);
+      isSafe = moderation.isSafe !== false; // Default to safe
+      isLegal = moderation.isLegal !== false; // Default to legal
+      
+      if (moderation.violations && moderation.violations.length > 0) {
+        publishingViolations.push(...moderation.violations);
+      }
+    } catch (parseError) {
+      // If AI response can't be parsed, default to safe
+      console.warn('[ContentModeration] Failed to parse AI response, defaulting to safe', parseError);
+      isSafe = true;
+      isLegal = true;
+    }
+  } catch (error) {
+    // If AI moderation fails, default to safe (don't block users)
+    console.error('[ContentModeration] AI moderation failed, defaulting to safe', error);
+    isSafe = true;
+    isLegal = true;
+  }
   
   // Compile all violations
   if (!isLegal) violations.push('Content may contain illegal elements');

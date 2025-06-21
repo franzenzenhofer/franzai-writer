@@ -28,16 +28,28 @@ export async function executeExportStage({
       progressCallback({ styledHtml: 5, currentFormat: 'Validating content...' });
     }
     
-    // Step 1: Content Moderation - Validate content before export
-    const contentToValidate = Object.values(allStageStates)
-      .map(state => state.output)
-      .filter(output => output && typeof output === 'string')
-      .join('\n');
+    // Step 1: Content Moderation - Only validate non-HTML content (poem text, not generated HTML)
+    const stageStatesToValidate = Object.entries(allStageStates)
+      .filter(([stageId, state]) => {
+        // Find the stage definition
+        const stageDef = workflow.stages.find(s => s.id === stageId);
+        // Only validate stages that produce text content, NOT HTML or export stages
+        return stageDef && 
+               stageDef.outputType === 'text' && 
+               stageDef.stageType !== 'export' &&
+               !stageId.includes('html') &&
+               state.output && 
+               typeof state.output === 'string';
+      })
+      .map(([_, state]) => state.output);
     
-    const validation = await validateContent(contentToValidate);
-    if (!validation.passed) {
-      console.error('[Export Stage Execution] Content validation failed:', validation.violations);
-      throw new Error(`Content validation failed: ${validation.violations.join(', ')}`);
+    if (stageStatesToValidate.length > 0) {
+      const contentToValidate = stageStatesToValidate.join('\n');
+      const validation = await validateContent(contentToValidate);
+      if (!validation.passed) {
+        console.error('[Export Stage Execution] Content validation failed:', validation.violations);
+        throw new Error(`Content validation failed: ${validation.violations.join(', ')}`);
+      }
     }
     
     if (progressCallback) {
@@ -82,7 +94,10 @@ export async function executeExportStage({
     const formats = await processExportFormats(
       sanitizedHtmlStyled,
       sanitizedHtmlClean,
-      stage.exportConfig
+      {
+        ...stage.exportConfig,
+        contextVars: allStageStates
+      }
     );
     
     console.log('[Export Stage Execution] Format processing complete');

@@ -320,7 +320,6 @@ export function ExportStageCard({
           <div className="flex-shrink-0 ml-2 flex items-center gap-2">
             {isStale && (
               <UpdateRecommendedButton
-                onDismiss={() => onDismissStaleWarning?.(stage.id)}
                 onRegenerate={handleRegenerate}
                 size="sm"
               />

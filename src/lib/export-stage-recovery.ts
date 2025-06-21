@@ -23,20 +23,33 @@ export function resetStuckExportStages(
     
     // Handle export stages specially - ensure they're never in invalid states
     if (stage.stageType === 'export') {
-      // Export stages should ALWAYS reset to clean idle state if no valid output
-      if (!state || !state.output || !state.completedAt || state.status === 'running') {
-        result[stage.id] = {
-          ...state,
-          status: 'idle',
-          isStale: false,
-          staleDismissed: false,
-          output: undefined,
-          completedAt: undefined,
-          generationProgress: undefined,
-          error: undefined,
-        };
-        console.warn('[ExportRecovery] Reset export stage to clean idle state:', stage.id);
+      // Only reset export stages if they're stuck in running state
+      if (state?.status === 'running') {
+        // If there's output, preserve it and mark as completed
+        if (state.output && state.output.htmlStyled) {
+          result[stage.id] = {
+            ...state,
+            status: 'completed',
+            generationProgress: undefined,
+            error: undefined,
+          };
+          console.warn('[ExportRecovery] Reset stuck export stage to completed (had output):', stage.id);
+        } else {
+          // No output, reset to idle
+          result[stage.id] = {
+            ...state,
+            status: 'idle',
+            isStale: false,
+            staleDismissed: false,
+            output: undefined,
+            completedAt: undefined,
+            generationProgress: undefined,
+            error: undefined,
+          };
+          console.warn('[ExportRecovery] Reset export stage to clean idle state:', stage.id);
+        }
       }
+      // If export stage is completed with output, leave it alone!
     } else if (state?.status === 'running') {
       if (state.output) {
         // Non-export stages with output: Reset to completed to preserve results

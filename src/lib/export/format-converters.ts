@@ -212,21 +212,60 @@ export async function htmlToDocx(html: string, options?: any): Promise<ArrayBuff
       
       // --- Handle images ---------------------------------------------------
       if (trimmedElement.startsWith('<img')) {
-        const imgMatch = /<img[^>]+src="([^"]+)"[^>]*alt="?([^">]*)"?[^>]*>/i.exec(trimmedElement);
+        // Enhanced regex to capture aspect ratio from data attribute
+        const imgMatch = /<img[^>]+src="([^"]+)"[^>]*(?:data-aspect-ratio="([^"]*)"[^>]*)?alt="?([^">]*)"?[^>]*>/i.exec(trimmedElement);
         if (imgMatch) {
-          const [, src, alt] = imgMatch;
+          const [, src, aspectRatio, alt] = imgMatch;
           try {
             const fetch = (await import('node-fetch')).default as any;
             const response = await fetch(src);
             const arrayBuffer = await response.arrayBuffer();
             const ImageRun = (await import('docx')).ImageRun;
+            
+            // Calculate dimensions based on aspect ratio
+            let transformation: { width: number; height: number };
+            
+            if (aspectRatio) {
+              // Parse aspect ratio (e.g., "16:9", "3:4", "1:1")
+              const [widthRatio, heightRatio] = aspectRatio.split(':').map(Number);
+              if (widthRatio && heightRatio) {
+                const ratio = widthRatio / heightRatio;
+                
+                // Calculate dimensions maintaining aspect ratio
+                // Portrait images get height-constrained, landscape get width-constrained
+                let width: number;
+                let height: number;
+                
+                if (ratio < 1) {
+                  // Portrait image (taller than wide)
+                  height = 600;
+                  width = Math.round(height * ratio);
+                } else {
+                  // Landscape or square image
+                  width = 600;
+                  height = Math.round(width / ratio);
+                }
+                
+                transformation = { width, height };
+                console.log(`[DOCX] Using aspect ratio ${aspectRatio} → ${width}x${height}`);
+              } else {
+                // Invalid aspect ratio format, use fallback
+                transformation = { width: 600, height: 400 };
+                console.warn(`[DOCX] Invalid aspect ratio format: ${aspectRatio}`);
+              }
+            } else {
+              // No aspect ratio available, use default
+              transformation = { width: 600, height: 400 };
+              console.warn('[DOCX] No aspect ratio data attribute found, using default dimensions');
+            }
+            
             paragraphs.push(
               new Paragraph({
                 children: [
                   new ImageRun({
                     type: 'png',
                     data: Buffer.from(arrayBuffer),
-                    transformation: { width: 600, height: 400 }
+                    transformation
                   } as any),
                 ],
                 spacing: { after: 200 },
@@ -315,6 +354,26 @@ export async function htmlToDocx(html: string, options?: any): Promise<ArrayBuff
 }
 
 /**
+ * Post-process HTML to add data-aspect-ratio attribute to images
+ */
+function postProcessHtml(html: string, aspectRatio?: string): string {
+  if (!aspectRatio) return html;
+  
+  // Add data-aspect-ratio to all img tags that don't already have it
+  return html.replace(
+    /<img([^>]+)src="([^"]+)"([^>]*)>/gi,
+    (match, before, src, after) => {
+      // Check if data-aspect-ratio already exists
+      if (match.includes('data-aspect-ratio')) {
+        return match;
+      }
+      // Add data-aspect-ratio attribute
+      return `<img${before}src="${src}"${after} data-aspect-ratio="${aspectRatio}">`;
+    }
+  );
+}
+
+/**
  * Process all export formats
  */
 export async function processExportFormats(
@@ -324,20 +383,27 @@ export async function processExportFormats(
 ): Promise<Record<string, { ready: boolean; content?: string; error?: string }>> {
   const formats: Record<string, { ready: boolean; content?: string; error?: string }> = {};
   
+  // Extract aspect ratio from context if available
+  const aspectRatio = exportConfig?.contextVars?.['image-briefing']?.output?.aspectRatio;
+  
+  // Post-process HTML to include aspect ratio data attributes
+  const processedHtmlStyled = postProcessHtml(htmlStyled, aspectRatio);
+  const processedHtmlClean = postProcessHtml(htmlClean, aspectRatio);
+  
   // HTML formats are already ready
   formats['html-styled'] = {
     ready: true,
-    content: htmlStyled,
+    content: processedHtmlStyled,
   };
   
   formats['html-clean'] = {
     ready: true,
-    content: htmlClean,
+    content: processedHtmlClean,
   };
   
   // Generate Markdown from clean HTML
   try {
-    const markdown = await htmlToMarkdown(htmlClean);
+    const markdown = await htmlToMarkdown(processedHtmlClean);
     formats['markdown'] = {
       ready: true,
       content: markdown,
@@ -349,10 +415,10 @@ export async function processExportFormats(
     };
   }
   
-  // Generate PDF from clean HTML
+  // Generate PDF from styled HTML (with aspect ratio data)
   try {
     console.log('[Format Converters] Generating PDF...');
-    const pdfBuffer = await htmlToPdf(htmlClean);
+    const pdfBuffer = await htmlToPdf(processedHtmlStyled);
     const pdfBase64 = Buffer.from(pdfBuffer).toString('base64');
     formats['pdf'] = {
       ready: true,
@@ -367,10 +433,10 @@ export async function processExportFormats(
     };
   }
   
-  // Generate DOCX from clean HTML using modern docx library (server-side only)
+  // Generate DOCX from styled HTML (with aspect ratio data) using modern docx library (server-side only)
   try {
-    console.log('[Format Converters] Generating DOCX...');
-    const docxBuffer = await htmlToDocx(htmlClean);
+    console.log('[Format Converters] Generating DOCX with aspect ratio:', aspectRatio);
+    const docxBuffer = await htmlToDocx(processedHtmlStyled);
     const docxBase64 = Buffer.from(docxBuffer).toString('base64');
     formats['docx'] = {
       ready: true,
