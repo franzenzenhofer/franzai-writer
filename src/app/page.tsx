@@ -1,9 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { FranzAILogo } from "@/components/franzai-logo";
-import { ArrowRight, FileText, Sparkles, Wand2, Brain, Layers, CheckCircle } from "lucide-react";
+import { ArrowRight, FileText, Sparkles, Wand2, Brain, Layers } from "lucide-react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 
 export default function HomePage() {
   const features = [
@@ -24,130 +23,105 @@ export default function HomePage() {
     }
   ];
 
-  const benefits = [
-    "SEO-optimized content creation",
-    "Recipe and article workflows",
-    "Real-time collaboration ready",
-    "Export to multiple formats"
-  ];
-
   return (
-    <div className="flex flex-col min-h-[calc(100vh-10rem)]">
-      {/* Hero Section */}
-      <section className="flex-1 flex flex-col items-center justify-center px-4 py-12 md:py-24">
-        <div className="max-w-3xl mx-auto text-center space-y-6">
+    <div>
+      {/* Hero Section - Top Aligned with More Breathing Room */}
+      <section className="px-6 py-12">
+        <div className="w-full max-w-2xl mx-auto text-center space-y-8">
+          
+          {/* Logo - Centered */}
           <div className="flex justify-center mb-8">
             <FranzAILogo size="lg" />
           </div>
           
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold font-headline tracking-tight">
-            Write Better, Faster with{" "}
-            <span className="text-blue-600">AI Guidance</span>
-          </h1>
-          
-          <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed">
-            Create professional documents through intelligent workflows. 
-            From SEO articles to recipes, let AI help you craft perfect content every time.
-          </p>
+          {/* Main Heading */}
+          <div className="space-y-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
+              Write Better, Faster with{" "}
+              <span className="text-blue-600">AI Guidance</span>
+            </h1>
+            
+            <p className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-lg mx-auto">
+              Create professional documents through intelligent workflows. 
+              From SEO articles to recipes, let AI help you craft perfect content.
+            </p>
+          </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-            <div className="flex flex-col items-center gap-1">
+          {/* Buttons - Centered */}
+          <div className="space-y-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild>
-                <Link 
-                  href="/dashboard"
-                  id="home-get-started-button"
-                  data-testid="home-get-started-button"
-                >
+                <Link href="/dashboard">
                   Get Started
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <span className="text-xs text-gray-700">Free Account</span>
-            </div>
-            <span className="text-sm text-gray-700">- or -</span>
-            <div className="flex flex-col items-center gap-1">
+              
               <Button variant="outline" asChild>
-                <Link 
-                  href="/dashboard"
-                  id="home-try-it-out-button"
-                  data-testid="home-try-it-out-button"
-                >
+                <Link href="/dashboard">
                   Try it out
                 </Link>
               </Button>
-              <span className="text-xs text-gray-700">No Login needed</span>
             </div>
-          </div>
-
-          {/* Trust indicators */}
-          <div className="flex items-center justify-center gap-8 pt-8 text-sm text-gray-700">
-            <div className="flex items-center gap-2">
-              <CheckCircle className="h-4 w-4 text-green-600" />
-              <span>Free to start</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="h-4 w-4 text-green-600" />
-              <span>No credit card</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="h-4 w-4 text-green-600" />
-              <span>Export anytime</span>
-            </div>
+            
+            <p className="text-sm text-gray-500">
+              Free to start • No credit card required
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="border-t bg-gray-50 px-4 py-12 md:py-16">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
+      {/* Features Section - With More Breathing Room */}
+      <section className="bg-gray-50 px-6 py-16">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-12">
             Everything you need to write professionally
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {features.map((feature, index) => (
               <div 
                 key={index}
-                className={cn(
-                  "flex flex-col items-center text-center p-6 rounded-lg",
-                  "bg-background border hover:shadow-md transition-shadow"
-                )}
+                className="text-center space-y-4 p-6 bg-white rounded-lg border hover:shadow-md transition-shadow"
               >
-                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mx-auto">
                   <feature.icon className="h-6 w-6 text-blue-600" />
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                <p className="text-sm text-gray-700 leading-relaxed">
+                <h3 className="text-lg font-semibold">{feature.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
                   {feature.description}
                 </p>
               </div>
             ))}
           </div>
 
-          {/* Benefits List */}
-          <div className="mt-12 flex flex-wrap justify-center gap-4">
-            {benefits.map((benefit, index) => (
-              <div key={index} className="flex items-center gap-2 text-sm">
-                <Sparkles className="h-4 w-4 text-blue-600" />
-                <span>{benefit}</span>
-              </div>
-            ))}
+          {/* Quick Benefits - With More Space */}
+          <div className="mt-12 flex flex-wrap justify-center gap-6 text-sm text-gray-600">
+            <div className="flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-blue-600" />
+              <span>SEO-optimized content</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-blue-600" />
+              <span>Multiple workflows</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-blue-600" />
+              <span>Export ready</span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="px-4 py-12 md:py-16">
-        <div className="max-w-2xl mx-auto text-center space-y-6">
-          <h2 className="text-2xl md:text-3xl font-bold">
-            Ready to transform your writing?
+      {/* Final CTA - With More Breathing Room */}
+      <section className="px-6 py-16">
+        <div className="max-w-md mx-auto text-center space-y-6">
+          <h2 className="text-2xl font-bold">
+            Ready to start writing?
           </h2>
-          <p className="text-gray-700">
-            Join writers who are creating better content with AI assistance.
-          </p>
           <Button asChild>
             <Link href="/dashboard">
-              <FileText className="mr-2 h-5 w-5" />
+              <FileText className="mr-2 h-4 w-4" />
               Start Writing Now
             </Link>
           </Button>

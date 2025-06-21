@@ -123,10 +123,7 @@
     @apply outline-none ring-1 ring-primary ring-offset-0;
   }
   
-  /* Clean button transitions */
-  button {
-    @apply transition-all duration-100;
-  }
+  /* Button transitions are handled by the Button component */
   
   /* Google Docs card style - consistent shadow */
   .card {
