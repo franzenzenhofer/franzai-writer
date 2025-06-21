@@ -671,12 +671,8 @@ Still having issues? Check the browser console for detailed logs.`;
           stage,
           workflow: instance.workflow,
           allStageStates: instance.stageStates,
-          progressCallback: (progress) => {
-            console.log('[handleRunStage] Export progress:', progress);
-            updateStageState(stageId, {
-              generationProgress: progress,
-            });
-          },
+          // NOTE: Progress updates are now handled server-side and persisted;
+          // we no longer pass a client callback to avoid the RSC boundary issue.
         });
         
         const timeoutPromise = new Promise((_, reject) => {
