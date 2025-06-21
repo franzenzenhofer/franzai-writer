@@ -20,17 +20,25 @@ export function resetStuckExportStages(
 
   workflow.stages.forEach((stage) => {
     const state = result[stage.id];
-    if (state?.status === 'running') {
-      if (stage.stageType === 'export') {
-        // Export stages: Reset to idle so they can be re-triggered
+    
+    // Handle export stages specially - ensure they're never in invalid states
+    if (stage.stageType === 'export') {
+      // Export stages should ALWAYS reset to clean idle state if no valid output
+      if (!state || !state.output || !state.completedAt || state.status === 'running') {
         result[stage.id] = {
           ...state,
           status: 'idle',
+          isStale: false,
+          staleDismissed: false,
+          output: undefined,
+          completedAt: undefined,
           generationProgress: undefined,
           error: undefined,
         };
-        console.warn('[ExportRecovery] Reset stuck export stage to idle:', stage.id);
-      } else if (state.output) {
+        console.warn('[ExportRecovery] Reset export stage to clean idle state:', stage.id);
+      }
+    } else if (state?.status === 'running') {
+      if (state.output) {
         // Non-export stages with output: Reset to completed to preserve results
         result[stage.id] = {
           ...state,

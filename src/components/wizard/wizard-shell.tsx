@@ -345,8 +345,9 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       }
       
       let isStale = false;
-      if (currentState.status === 'completed') {
-        const stageCompletedAt = currentState.completedAt ? new Date(currentState.completedAt).getTime() : 0;
+      if (currentState.status === 'completed' && currentState.output && currentState.completedAt) {
+        // ONLY check staleness for truly completed stages
+        const stageCompletedAt = new Date(currentState.completedAt).getTime();
         
         // Check staleness based on basic dependencies
         if (stage.dependencies && stage.dependencies.length > 0) {

@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { getWorkflowByShortName } from '@/lib/workflow-loader';
 import { documentPersistence } from '@/lib/document-persistence';
 import { resetStuckExportStages } from '@/lib/export-stage-recovery';
+import { validateStageState } from '@/lib/stage-state-validation';
 import ClientWrapper from './client-wrapper';
 import type { WizardDocument, WizardInstance, StageState, Workflow } from '@/types';
 
@@ -154,10 +155,11 @@ export default async function WizardPage({
     const initializedStageStates = initializeStageStates(workflow);
     const mergedStageStates: Record<string, StageState> = { ...initializedStageStates };
     
-    // Only merge stage states that passed validation
+    // Only merge stage states that passed validation AND are in valid state
     validation.validIds.forEach(stageId => {
       if (loadResult.stageStates) {
-        mergedStageStates[stageId] = loadResult.stageStates[stageId];
+        const loadedState = loadResult.stageStates[stageId];
+        mergedStageStates[stageId] = validateStageState(loadedState);
       }
     });
     
