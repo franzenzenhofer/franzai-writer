@@ -1,109 +1,66 @@
-# Port Improvements from webpack-module-resolution Branch
+# Critical Authentication Fix from webpack-module-resolution Branch
 
 **Created:** 2025-06-21
-**Priority:** Medium-High
-**Component:** Build System, Documentation, UI/UX
-**Type:** Enhancement
+**Priority:** CRITICAL
+**Component:** Authentication, Security
+**Type:** Security Fix
 
 ## Overview
 
-The `origin/fix/webpack-module-resolution` branch contains several improvements that should be ported to our codebase. Note: Despite its name, this branch doesn't actually fix webpack issues but contains other valuable improvements.
+The `origin/fix/webpack-module-resolution` branch contains a CRITICAL authentication fix that we absolutely need. This branch removes the dangerous `generateUserId()` fallback that violates our FAIL HARD policy.
 
-## Changes to Port
+## CRITICAL Change We MUST Port
 
-### 1. Build Info System
+### Remove generateUserId() Fallback - FAIL HARD Policy
 
-**What it adds:**
-- `scripts/generate-build-info.js` - Generates build metadata
-- Version info component for tracking deployments
-- Build timestamp and git commit info
+**What needs to be removed:**
+```typescript
+// This MUST be deleted - NO FALLBACKS!
+function generateUserId(): string {
+  const prefix = typeof window !== 'undefined' ? 'client' : 'server';
+  const timestamp = Date.now();
+  const randomStr = Math.random().toString(36).substring(2, 12);
+  return `${prefix}_user_${timestamp}_${randomStr}`;
+}
+```
 
-**Why we need it:**
-- Track which version is deployed in production
-- Debug issues with specific builds
-- Know when the last deployment happened
+**Why this is CRITICAL:**
+- Violates FAIL HARD policy - we don't want fallbacks
+- Server-generated user IDs break document retrieval
+- Creates inconsistent state in the application
+- This is a SECURITY/CONSISTENCY issue
 
-**Files to create/modify:**
-- `scripts/generate-build-info.js`
-- `src/components/build-info.tsx`
-- Update `package.json` build scripts
+**Implementation:**
+1. Find ALL instances of `generateUserId()` 
+2. DELETE the function completely
+3. Ensure code FAILS if no authentication present
+4. ONLY allow temporary users through explicit "Try it out" flow (see ticket 108)
 
-### 2. Design Guidelines Documentation
+## Nice-to-Have Improvements (Lower Priority)
 
-**What it adds:**
-- Comprehensive design system documentation
-- Color palette definitions
-- Typography guidelines
-- Component design patterns
+### Build Info System (Optional)
+- Adds version tracking for deployments
+- Useful for debugging production issues
+- Can be implemented later if needed
 
-**Why we need it:**
-- Ensure consistent UI across the application
-- Guide future development
-- Document design decisions
+### Design Guidelines Documentation (Optional)
+- Documents the design system
+- Good for team consistency
+- Can be added incrementally
 
-**Files to create:**
-- `docs/design-guidelines.md`
-- `src/styles/design-tokens.ts` (if applicable)
+## Implementation Priority
 
-### 3. Autosave UX Improvements
+1. **IMMEDIATE**: Remove `generateUserId()` fallback
+2. **Later**: Consider build info system if deployment tracking needed
+3. **Later**: Add design documentation as team grows
 
-**Changes made:**
-- Removed visual autosave indicators
-- Made autosave more subtle
-- Reduced UI noise
+## Success Criteria
 
-**Why we need it:**
-- Less distracting user experience
-- Cleaner interface
-- Users don't need constant save confirmations
-
-### 4. Firestore Data Cleaning Improvements
-
-**Current approach:** Convert everything to strings (ULTIMATE FIX)
-**Branch approach:** Aggressive cleaning with depth/size limits
-
-**Recommendation:**
-- Keep our current approach as it works
-- Consider adding size limits from the branch
-- Add the depth checking for nested objects
-
-## Implementation Plan
-
-1. **Phase 1 - Build Info**:
-   - Port the build info generation script
-   - Add to build pipeline
-   - Create UI component to display version
-
-2. **Phase 2 - Documentation**:
-   - Port design guidelines
-   - Review and update for current design
-   - Add to developer docs
-
-3. **Phase 3 - UX Improvements**:
-   - Carefully review autosave changes
-   - Test with users before removing indicators
-   - Ensure save status is still discoverable
-
-4. **Phase 4 - Firestore Enhancements** (Optional):
-   - Evaluate if we need the depth/size limits
-   - Our current solution works, so low priority
-
-## Files from Branch
-
-Key files that were modified:
-- `src/lib/document-persistence.ts` (Firestore cleaning)
-- `src/components/wizard/wizard-shell.tsx` (Autosave UX)
-- `scripts/generate-build-info.js` (NEW)
-- `docs/design-guidelines.md` (NEW)
-
-## Testing Requirements
-
-- Ensure build info generation works in CI/CD
-- Test autosave changes don't confuse users
-- Verify no regression in Firestore data handling
+- [ ] `generateUserId()` function COMPLETELY REMOVED
+- [ ] Application FAILS HARD if no authentication
+- [ ] No defensive coding or fallbacks
+- [ ] "Try it out" mode is the ONLY way to use app without auth
 
 ## Notes
 
-- This branch name is misleading - no webpack fixes included
-- Cherry-pick only the improvements we need
-- Our Firestore fix is already working, so be careful with those changes
+The authentication fix is MANDATORY and must be done immediately. The other improvements are nice-to-have and can be implemented later based on actual needs.
