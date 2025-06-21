@@ -305,11 +305,17 @@ export interface ExportStageState extends StageState {
     htmlStyled?: string;
     htmlClean?: string;
     markdown?: string;
+    htmlStyledUrl?: string;
+    htmlCleanUrl?: string;
+    markdownUrl?: string;
     formats: {
       [format: string]: {
         ready: boolean;
         content?: string;
         url?: string;
+        storageUrl?: string;
+        assetId?: string;
+        sizeBytes?: number;
         error?: string;
       };
     };
@@ -340,6 +346,7 @@ export interface WizardDocument {
 
 export interface WizardInstance {
   document: WizardDocument;
+  documentId?: string; // Document ID for storage operations
   workflow: Workflow;
   stageStates: Record<string, StageState>; 
   currentStageId?: string; 

@@ -4,11 +4,14 @@ import type { Stage, StageState, ExportStageState, Workflow } from '@/types';
 import { generateExportHtml } from '@/lib/export/ai-html-generator';
 import { processExportFormats } from '@/lib/export/format-converters';
 import { validateContent, sanitizeHtml } from '@/lib/content-moderation';
+import { uploadExportArtifacts } from '@/lib/export-storage';
 
 export interface ExportStageExecutionParams {
   stage: Stage;
   workflow: Workflow;
   allStageStates: Record<string, StageState>;
+  documentId: string;
+  userId: string;
   progressCallback?: (progress: any) => void;
 }
 
@@ -16,6 +19,8 @@ export async function executeExportStage({
   stage,
   workflow,
   allStageStates,
+  documentId,
+  userId,
   progressCallback,
 }: ExportStageExecutionParams): Promise<ExportStageState['output']> {
   try {
@@ -105,18 +110,48 @@ export async function executeExportStage({
     
     // Report completion
     if (progressCallback) {
-      progressCallback({ styledHtml: 100, cleanHtml: 100, currentFormat: 'Export complete!' });
+      progressCallback({ styledHtml: 100, cleanHtml: 100, currentFormat: 'Uploading to storage...' });
     }
     
-    // Return the complete export output with sanitized HTML
-    const result = {
-      htmlStyled: sanitizedHtmlStyled,
-      htmlClean: sanitizedHtmlClean,
-      markdown: formats.markdown?.content,
+    // Upload all export artifacts to Firebase Storage
+    console.log('[Export Stage Execution] Uploading artifacts to Firebase Storage');
+    const storageResults = await uploadExportArtifacts(
       formats,
+      userId,
+      documentId,
+      stage.id
+    );
+    
+    // Update formats with storage URLs
+    const formatsWithUrls: any = {};
+    for (const [format, data] of Object.entries(formats)) {
+      const storageResult = storageResults[format as keyof typeof storageResults];
+      if (storageResult) {
+        formatsWithUrls[format] = {
+          ready: data.ready,
+          url: storageResult.publicUrl,
+          storageUrl: storageResult.storageUrl,
+          assetId: storageResult.assetId,
+          sizeBytes: storageResult.sizeBytes,
+          error: data.error
+        };
+      } else {
+        formatsWithUrls[format] = data;
+      }
+    }
+    
+    // Return the complete export output with storage URLs
+    const result = {
+      htmlStyled: undefined, // Don't store inline - fetch from URL
+      htmlClean: undefined, // Don't store inline - fetch from URL
+      markdown: undefined, // Don't store inline - fetch from URL
+      htmlStyledUrl: storageResults['html-styled']?.publicUrl,
+      htmlCleanUrl: storageResults['html-clean']?.publicUrl,
+      markdownUrl: storageResults['markdown']?.publicUrl,
+      formats: formatsWithUrls,
     };
     
-    console.log('[Export Stage Execution] Returning result with formats:', Object.keys(result.formats || {}));
+    console.log('[Export Stage Execution] Returning result with storage URLs');
     
     return result;
   } catch (error) {

@@ -33,11 +33,12 @@ interface RunAiStageParams {
   // Add stage and workflow for compatibility
   stage?: Stage;
   workflow?: any;
+  // Add documentId for export storage and asset management
+  documentId?: string;
   // Add image generation settings
   imageGenerationSettings?: Stage['imageGenerationSettings'];
   // CRITICAL: Add user/document context for asset management
   userId?: string;
-  documentId?: string;
   stageId?: string;
 }
 
@@ -435,6 +436,8 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
                 stage: params.stage,
                 workflow: params.workflow,
                 allStageStates: params.contextVars as Record<string, any>,
+                documentId: params.documentId || 'temp-export', // Fallback for legacy calls
+                userId: params.userId || 'anonymous',
                 progressCallback: undefined, // Don't pass progress callback to avoid client reference error
             });
             

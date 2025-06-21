@@ -512,23 +512,27 @@ class DocumentPersistenceManager {
 
   /**
    * Clean export stage output for Firestore storage
+   * Now stores only lightweight metadata with Storage URLs
    */
   private cleanExportStageOutput(output: any): any {
     const cleaned: any = {
-      htmlStyled: output.htmlStyled || undefined,
-      htmlClean: output.htmlClean || undefined,
-      markdown: output.markdown || undefined,
+      // Store URLs instead of content
+      htmlStyledUrl: output.htmlStyledUrl || undefined,
+      htmlCleanUrl: output.htmlCleanUrl || undefined,
+      markdownUrl: output.markdownUrl || undefined,
       formats: {}
     };
     
-    // Clean formats object
+    // Clean formats object - store only metadata and URLs
     if (output.formats && typeof output.formats === 'object') {
       for (const [format, data] of Object.entries(output.formats)) {
         if (data && typeof data === 'object') {
           cleaned.formats[format] = {
             ready: !!(data as any).ready,
-            content: (data as any).content || undefined,
             url: (data as any).url || undefined,
+            storageUrl: (data as any).storageUrl || undefined,
+            assetId: (data as any).assetId || undefined,
+            sizeBytes: (data as any).sizeBytes || undefined,
             error: (data as any).error || undefined
           };
         }
@@ -601,35 +605,49 @@ class DocumentPersistenceManager {
           if (state.output && typeof state.output === 'object') {
             const output = state.output as any;
             
-            // Store HTML content as separate truncated strings
-            if (output.htmlStyled) {
-              firestore_safe_state.htmlStyled_truncated = String(output.htmlStyled).substring(0, 1000);
+            // Store Storage URLs instead of content
+            if (output.htmlStyledUrl) {
+              firestore_safe_state.htmlStyledUrl = String(output.htmlStyledUrl);
             }
-            if (output.htmlClean) {
-              firestore_safe_state.htmlClean_truncated = String(output.htmlClean).substring(0, 1000);
+            if (output.htmlCleanUrl) {
+              firestore_safe_state.htmlCleanUrl = String(output.htmlCleanUrl);
             }
-            if (output.markdown) {
-              firestore_safe_state.markdown_truncated = String(output.markdown).substring(0, 1000);
+            if (output.markdownUrl) {
+              firestore_safe_state.markdownUrl = String(output.markdownUrl);
             }
             
-            // Store format URLs as flat strings (not nested objects!)
-            firestore_safe_state.hasFormats = true;
+            // Store format metadata as flat strings (not nested objects!)
+            if (output.formats && typeof output.formats === 'object') {
+              firestore_safe_state.hasFormats = true;
 
-            // Always derive flattened property names directly from the
-            // actual format keys present in the output so we never fall out
-            // of sync when new formats are introduced.
-            for (const [formatKey, formatData] of Object.entries(output.formats)) {
-              if (!formatData || typeof formatData !== 'object') continue;
-              const fd = formatData as any;
+              // Always derive flattened property names directly from the
+              // actual format keys present in the output so we never fall out
+              // of sync when new formats are introduced.
+              for (const [formatKey, formatData] of Object.entries(output.formats)) {
+                if (!formatData || typeof formatData !== 'object') continue;
+                const fd = formatData as any;
 
-              const urlKey = `${formatKey}Url`;
-              const readyKey = `${formatKey}Ready`;
+                const urlKey = `${formatKey}Url`;
+                const readyKey = `${formatKey}Ready`;
+                const storageUrlKey = `${formatKey}StorageUrl`;
+                const assetIdKey = `${formatKey}AssetId`;
+                const sizeKey = `${formatKey}SizeBytes`;
 
-              if (fd.url) {
-                firestore_safe_state[urlKey] = String(fd.url);
-              }
-              if (fd.ready) {
-                firestore_safe_state[readyKey] = true;
+                if (fd.url) {
+                  firestore_safe_state[urlKey] = String(fd.url);
+                }
+                if (fd.ready) {
+                  firestore_safe_state[readyKey] = true;
+                }
+                if (fd.storageUrl) {
+                  firestore_safe_state[storageUrlKey] = String(fd.storageUrl);
+                }
+                if (fd.assetId) {
+                  firestore_safe_state[assetIdKey] = String(fd.assetId);
+                }
+                if (fd.sizeBytes) {
+                  firestore_safe_state[sizeKey] = Number(fd.sizeBytes);
+                }
               }
             }
             
@@ -923,15 +941,15 @@ class DocumentPersistenceManager {
         // Reconstruct the output object from flattened data
         const output: any = {};
         
-        // Reconstruct HTML content
-        if ((state as any).htmlStyled_truncated) {
-          output.htmlStyled = (state as any).htmlStyled_truncated;
+        // Reconstruct Storage URLs
+        if ((state as any).htmlStyledUrl) {
+          output.htmlStyledUrl = (state as any).htmlStyledUrl;
         }
-        if ((state as any).htmlClean_truncated) {
-          output.htmlClean = (state as any).htmlClean_truncated;
+        if ((state as any).htmlCleanUrl) {
+          output.htmlCleanUrl = (state as any).htmlCleanUrl;
         }
-        if ((state as any).markdown_truncated) {
-          output.markdown = (state as any).markdown_truncated;
+        if ((state as any).markdownUrl) {
+          output.markdownUrl = (state as any).markdownUrl;
         }
         
         // Reconstruct formats object
@@ -943,11 +961,17 @@ class DocumentPersistenceManager {
           for (const formatType of formatTypes) {
             const urlKey = `${formatType}Url`;
             const readyKey = `${formatType}Ready`;
+            const storageUrlKey = `${formatType}StorageUrl`;
+            const assetIdKey = `${formatType}AssetId`;
+            const sizeKey = `${formatType}SizeBytes`;
             
             if ((state as any)[urlKey] || (state as any)[readyKey]) {
               output.formats[formatType] = {
                 ready: Boolean((state as any)[readyKey]),
                 url: (state as any)[urlKey] || undefined,
+                storageUrl: (state as any)[storageUrlKey] || undefined,
+                assetId: (state as any)[assetIdKey] || undefined,
+                sizeBytes: (state as any)[sizeKey] || undefined,
               };
             }
           }
@@ -993,16 +1017,22 @@ class DocumentPersistenceManager {
         // Clean up flattened properties
         const cleanState = { ...reconstructed[stageId] };
         delete (cleanState as any).isExportStage;
-        delete (cleanState as any).htmlStyled_truncated;
-        delete (cleanState as any).htmlClean_truncated;
-        delete (cleanState as any).markdown_truncated;
-        delete (cleanState as any).hasFormats;
-        delete (cleanState as any).formatsReady;
         delete (cleanState as any).htmlStyledUrl;
         delete (cleanState as any).htmlCleanUrl;
         delete (cleanState as any).markdownUrl;
-        delete (cleanState as any).pdfUrl;
-        delete (cleanState as any).docxUrl;
+        delete (cleanState as any).hasFormats;
+        delete (cleanState as any).formatsReady;
+        
+        // Clean up format-specific flattened properties
+        const formatTypes = ['html-styled', 'html-clean', 'markdown', 'pdf', 'docx'];
+        for (const formatType of formatTypes) {
+          delete (cleanState as any)[`${formatType}Url`];
+          delete (cleanState as any)[`${formatType}Ready`];
+          delete (cleanState as any)[`${formatType}StorageUrl`];
+          delete (cleanState as any)[`${formatType}AssetId`];
+          delete (cleanState as any)[`${formatType}SizeBytes`];
+        }
+        
         delete (cleanState as any).hasPublishing;
         delete (cleanState as any).publishedUrl;
         delete (cleanState as any).publishedFormats;

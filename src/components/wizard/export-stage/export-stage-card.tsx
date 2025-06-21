@@ -409,6 +409,8 @@ export function ExportStageCard({
               <ExportPreview
                 htmlStyled={stageState.output.htmlStyled}
                 htmlClean={stageState.output.htmlClean}
+                htmlStyledUrl={stageState.output.htmlStyledUrl}
+                htmlCleanUrl={stageState.output.htmlCleanUrl}
                 defaultView={stage.exportConfig?.styling?.defaultView || 'clean'}
               />
               

@@ -94,17 +94,19 @@ export default async function WizardPage({
     
     const tempId = documentId === 'new' ? `temp-${Date.now()}` : documentId;
     
+    const tempDocument = {
+      id: tempId,
+      title: `New ${workflow.name}`,
+      workflowId: workflow.id,
+      status: 'draft' as const,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      userId: tempId, // Use the temp ID as userId for in-memory temp documents
+    };
     wizardInstance = {
       workflow,
-      document: {
-        id: tempId,
-        title: `New ${workflow.name}`,
-        workflowId: workflow.id,
-        status: 'draft',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        userId: tempId, // Use the temp ID as userId for in-memory temp documents
-      },
+      document: tempDocument,
+      documentId: tempId,
       stageStates: initializeStageStates(workflow),
     };
   } else {
@@ -169,6 +171,7 @@ export default async function WizardPage({
     wizardInstance = {
       workflow,
       document: loadResult.document,
+      documentId: loadResult.document.id,
       stageStates: recoveredStageStates,
     };
   }

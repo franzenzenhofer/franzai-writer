@@ -24,7 +24,39 @@ export function ExportOptions({ formats, exportConfig }: ExportOptionsProps) {
   const { toast } = useToast();
   const [copiedFormat, setCopiedFormat] = React.useState<string | null>(null);
   
-  const handleDownload = (format: string, content: string) => {
+  const handleDownload = async (format: string, formatData: any) => {
+    let content = formatData.content || formatData;
+    
+    // If no inline content, fetch from URL
+    if (!content && formatData.url) {
+      try {
+        const response = await fetch(formatData.url);
+        if (!response.ok) throw new Error('Failed to fetch content');
+        
+        // For binary formats, get as blob
+        if (format === 'pdf' || format === 'docx') {
+          const blob = await response.blob();
+          const reader = new FileReader();
+          content = await new Promise((resolve) => {
+            reader.onloadend = () => resolve(reader.result as string);
+            reader.readAsDataURL(blob);
+          });
+          // Extract base64 part
+          content = content.split(',')[1];
+        } else {
+          content = await response.text();
+        }
+      } catch (error) {
+        console.error(`Failed to download ${format}:`, error);
+        return;
+      }
+    }
+    
+    if (!content) {
+      console.error(`No content available for ${format}`);
+      return;
+    }
+    
     let blob: Blob;
     
     // Handle binary formats (PDF, DOCX) that are base64 encoded
@@ -52,7 +84,31 @@ export function ExportOptions({ formats, exportConfig }: ExportOptionsProps) {
     // Silent download - file save dialog is feedback enough
   };
   
-  const handleCopy = async (format: string, content: string) => {
+  const handleCopy = async (format: string, formatData: any) => {
+    let content = formatData.content || formatData;
+    
+    // If no inline content, fetch from URL
+    if (!content && formatData.url) {
+      try {
+        const response = await fetch(formatData.url);
+        if (!response.ok) throw new Error('Failed to fetch content');
+        content = await response.text();
+      } catch (error) {
+        console.error(`Failed to fetch ${format} for copy:`, error);
+        toast({
+          title: "Copy failed",
+          description: "Unable to fetch content",
+          variant: "destructive",
+        });
+        return;
+      }
+    }
+    
+    if (!content) {
+      console.error(`No content available for ${format}`);
+      return;
+    }
+    
     try {
       await navigator.clipboard.writeText(content);
       setCopiedFormat(format);
@@ -153,8 +209,8 @@ export function ExportOptions({ formats, exportConfig }: ExportOptionsProps) {
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={() => handleDownload(format, state.content!)}
-                      disabled={!state.content}
+                      onClick={() => handleDownload(format, state)}
+                      disabled={!state.content && !state.url}
                     >
                       <Download className="mr-2 h-4 w-4" />
                       Download
@@ -163,8 +219,8 @@ export function ExportOptions({ formats, exportConfig }: ExportOptionsProps) {
                       <Button
                         size="sm"
                         variant="outline"
-                        onClick={() => handleCopy(format, state.content!)}
-                        disabled={!state.content}
+                        onClick={() => handleCopy(format, state)}
+                        disabled={!state.content && !state.url}
                       >
                         {copiedFormat === format ? (
                           <Check className="mr-2 h-4 w-4 text-green-500" />

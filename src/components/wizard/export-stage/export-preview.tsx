@@ -9,6 +9,8 @@ import { Eye, Code } from "lucide-react";
 interface ExportPreviewProps {
   htmlStyled?: string;
   htmlClean?: string;
+  htmlStyledUrl?: string;
+  htmlCleanUrl?: string;
   className?: string;
   defaultView?: 'styled' | 'clean';
 }
@@ -41,12 +43,44 @@ function cleanHtmlContent(content: string): string {
   return cleaned.trim();
 }
 
-export function ExportPreview({ htmlStyled, htmlClean, className = "", defaultView = "clean" }: ExportPreviewProps) {
+export function ExportPreview({ htmlStyled, htmlClean, htmlStyledUrl, htmlCleanUrl, className = "", defaultView = "clean" }: ExportPreviewProps) {
   const [viewMode, setViewMode] = useState<"styled" | "clean">(defaultView);
+  const [loadedHtmlStyled, setLoadedHtmlStyled] = useState<string | undefined>(htmlStyled);
+  const [loadedHtmlClean, setLoadedHtmlClean] = useState<string | undefined>(htmlClean);
+  const [isLoading, setIsLoading] = useState(false);
   const shadowRef = useRef<HTMLDivElement>(null);
   const shadowRootRef = useRef<ShadowRoot | null>(null);
   
-  const currentHtml = viewMode === "styled" ? htmlStyled : htmlClean;
+  // Load content from URLs if not provided directly
+  useEffect(() => {
+    async function loadContent() {
+      if (!htmlStyled && htmlStyledUrl) {
+        setIsLoading(true);
+        try {
+          const response = await fetch(htmlStyledUrl);
+          const content = await response.text();
+          setLoadedHtmlStyled(content);
+        } catch (error) {
+          console.error('Failed to load styled HTML:', error);
+        }
+      }
+      
+      if (!htmlClean && htmlCleanUrl) {
+        try {
+          const response = await fetch(htmlCleanUrl);
+          const content = await response.text();
+          setLoadedHtmlClean(content);
+        } catch (error) {
+          console.error('Failed to load clean HTML:', error);
+        }
+        setIsLoading(false);
+      }
+    }
+    
+    loadContent();
+  }, [htmlStyled, htmlClean, htmlStyledUrl, htmlCleanUrl]);
+  
+  const currentHtml = viewMode === "styled" ? loadedHtmlStyled : loadedHtmlClean;
   
   useEffect(() => {
     if (!shadowRef.current || !currentHtml) return;
@@ -86,8 +120,16 @@ export function ExportPreview({ htmlStyled, htmlClean, className = "", defaultVi
     };
   }, [currentHtml]);
   
-  if (!htmlStyled && !htmlClean) {
+  if (!loadedHtmlStyled && !loadedHtmlClean && !isLoading) {
     return null;
+  }
+  
+  if (isLoading) {
+    return (
+      <div className={`space-y-4 ${className}`}>
+        <div className="text-center text-muted-foreground">Loading preview...</div>
+      </div>
+    );
   }
   
   return (
@@ -99,7 +141,7 @@ export function ExportPreview({ htmlStyled, htmlClean, className = "", defaultVi
             variant={viewMode === "styled" ? "default" : "outline"}
             size="sm"
             onClick={() => setViewMode("styled")}
-            disabled={!htmlStyled}
+            disabled={!loadedHtmlStyled}
           >
             <Eye className="mr-2 h-4 w-4" />
             Styled
@@ -108,7 +150,7 @@ export function ExportPreview({ htmlStyled, htmlClean, className = "", defaultVi
             variant={viewMode === "clean" ? "default" : "outline"}
             size="sm"
             onClick={() => setViewMode("clean")}
-            disabled={!htmlClean}
+            disabled={!loadedHtmlClean}
           >
             <Code className="mr-2 h-4 w-4" />
             Clean

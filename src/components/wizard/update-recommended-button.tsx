@@ -20,7 +20,6 @@ interface UpdateRecommendedButtonProps {
  */
 export function UpdateRecommendedButton({
   onRegenerate,
-  onDismiss,
   size = 'sm',
   className
 }: UpdateRecommendedButtonProps) {

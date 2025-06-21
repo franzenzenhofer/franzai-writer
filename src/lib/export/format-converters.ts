@@ -3,9 +3,12 @@
 import type { ExportFormat } from '@/types';
 
 /**
- * Convert HTML to Markdown
+ * Convert HTML to Markdown using Turndown library
  */
 export async function htmlToMarkdown(html: string): Promise<string> {
+  // Dynamic import to avoid bundling in client code
+  const TurndownService = (await import('turndown')).default;
+  
   // Extract body content from clean HTML if it's a complete document
   let contentHtml = html;
   
@@ -25,94 +28,50 @@ export async function htmlToMarkdown(html: string): Promise<string> {
       .trim();
   }
   
-  let markdown = contentHtml;
+  // Create a new Turndown instance with poetry-friendly options
+  const turndownService = new TurndownService({
+    headingStyle: 'atx',
+    hr: '---',
+    bulletListMarker: '-',
+    codeBlockStyle: 'fenced',
+    fence: '```',
+    emDelimiter: '*',
+    strongDelimiter: '**',
+    linkStyle: 'inlined'
+  });
   
-  // Remove script and style tags
-  markdown = markdown.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
-  markdown = markdown.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
+  // Customize rules for better poetry handling
+  turndownService.addRule('poetryParagraphs', {
+    filter: 'p',
+    replacement: function (content: string) {
+      // For poetry lines, preserve line breaks with double spaces
+      return content.trim() + '  \n';
+    }
+  });
   
-  // Convert headers (preserve hierarchy)
-  markdown = markdown.replace(/<h1[^>]*>(.*?)<\/h1>/gi, '# $1\n\n');
-  markdown = markdown.replace(/<h2[^>]*>(.*?)<\/h2>/gi, '## $1\n\n');
-  markdown = markdown.replace(/<h3[^>]*>(.*?)<\/h3>/gi, '### $1\n\n');
-  markdown = markdown.replace(/<h4[^>]*>(.*?)<\/h4>/gi, '#### $1\n\n');
-  markdown = markdown.replace(/<h5[^>]*>(.*?)<\/h5>/gi, '##### $1\n\n');
-  markdown = markdown.replace(/<h6[^>]*>(.*?)<\/h6>/gi, '###### $1\n\n');
+  // Handle divs (stanzas) with single line break
+  turndownService.addRule('stanzas', {
+    filter: 'div',
+    replacement: function (content: string) {
+      return content + '\n';
+    }
+  });
   
-  // Convert semantic elements
-  markdown = markdown.replace(/<article[^>]*>/gi, '');
-  markdown = markdown.replace(/<\/article>/gi, '');
-  markdown = markdown.replace(/<header[^>]*>/gi, '');
-  markdown = markdown.replace(/<\/header>/gi, '\n\n');
-  markdown = markdown.replace(/<main[^>]*>/gi, '');
-  markdown = markdown.replace(/<\/main>/gi, '');
-  markdown = markdown.replace(/<section[^>]*>/gi, '\n');
-  markdown = markdown.replace(/<\/section>/gi, '\n\n');
-  markdown = markdown.replace(/<footer[^>]*>/gi, '\n---\n\n');
-  markdown = markdown.replace(/<\/footer>/gi, '');
+  // Remove any figure captions (we don't want them in markdown)
+  turndownService.addRule('removeFigcaption', {
+    filter: 'figcaption',
+    replacement: () => ''
+  });
   
-  // Convert div elements (used for stanzas in poems)
-  markdown = markdown.replace(/<div[^>]*>/gi, '');
-  markdown = markdown.replace(/<\/div>/gi, '\n\n');
+  // Convert the HTML to Markdown
+  let markdown = turndownService.turndown(contentHtml);
   
-  // Convert paragraphs
-  markdown = markdown.replace(/<p[^>]*>(.*?)<\/p>/gi, '$1\n');
-  
-  // Convert emphasis
-  markdown = markdown.replace(/<strong[^>]*>(.*?)<\/strong>/gi, '**$1**');
-  markdown = markdown.replace(/<b[^>]*>(.*?)<\/b>/gi, '**$1**');
-  markdown = markdown.replace(/<em[^>]*>(.*?)<\/em>/gi, '*$1*');
-  markdown = markdown.replace(/<i[^>]*>(.*?)<\/i>/gi, '*$1*');
-  
-  // Convert links
-  markdown = markdown.replace(/<a[^>]+href="([^"]*)"[^>]*>(.*?)<\/a>/gi, '[$2]($1)');
-  
-  // Convert lists
-  markdown = markdown.replace(/<ul[^>]*>/gi, '\n');
-  markdown = markdown.replace(/<\/ul>/gi, '\n');
-  markdown = markdown.replace(/<ol[^>]*>/gi, '\n');
-  markdown = markdown.replace(/<\/ol>/gi, '\n');
-  markdown = markdown.replace(/<li[^>]*>(.*?)<\/li>/gi, '- $1\n');
-  
-  // Convert blockquotes
-  markdown = markdown.replace(/<blockquote[^>]*>(.*?)<\/blockquote>/gi, '> $1\n\n');
-  
-  // Convert code blocks
-  markdown = markdown.replace(/<pre[^>]*><code[^>]*>(.*?)<\/code><\/pre>/gi, '```\n$1\n```\n\n');
-  markdown = markdown.replace(/<code[^>]*>(.*?)<\/code>/gi, '`$1`');
-  
-  // Convert line breaks
-  markdown = markdown.replace(/<br[^>]*>/gi, '\n');
-  markdown = markdown.replace(/<hr[^>]*>/gi, '\n---\n\n');
-  
-  // Convert figure elements
-  markdown = markdown.replace(/<figure[^>]*>/gi, '\n');
-  markdown = markdown.replace(/<\/figure>/gi, '\n');
-  markdown = markdown.replace(/<figcaption[^>]*>(.*?)<\/figcaption>/gi, '\n*$1*\n');
-  
-  // Handle time elements
-  markdown = markdown.replace(/<time[^>]*>(.*?)<\/time>/gi, '$1');
-  
-  // Handle address elements
-  markdown = markdown.replace(/<address[^>]*>(.*?)<\/address>/gi, '$1\n\n');
-  
-  // Remove remaining HTML tags
-  markdown = markdown.replace(/<[^>]+>/g, '');
-  
-  // Clean up HTML entities
+  // Clean up any artifacts
   markdown = markdown
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&nbsp;/g, ' ');
-  
-  // Clean up whitespace and line breaks
-  markdown = markdown
-    .replace(/\n{3,}/g, '\n\n') // Collapse multiple newlines
-    .replace(/[ \t]+$/gm, '') // Remove trailing spaces
-    .replace(/^[ \t]+/gm, '') // Remove leading spaces from lines
+    .replace(/\n{3,}/g, '\n\n') // Collapse triple+ newlines to double
+    .replace(/^```html\s*$/gm, '') // Remove any HTML code fence markers
+    .replace(/^```\s*$/gm, '')
+    .replace(/^\s*html\s*$/gm, '')
     .trim();
   
   return markdown;

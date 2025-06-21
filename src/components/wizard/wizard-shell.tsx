@@ -672,6 +672,8 @@ Still having issues? Check the browser console for detailed logs.`;
           stage,
           workflow: instance.workflow,
           allStageStates: instance.stageStates,
+          documentId: instance.documentId || 'temp-export',
+          userId: effectiveUser?.uid || 'anonymous',
           // NOTE: Progress updates are now handled server-side and persisted;
           // we no longer pass a client callback to avoid the RSC boundary issue.
         });
