@@ -25,27 +25,33 @@ export function ExportOptions({ formats, exportConfig }: ExportOptionsProps) {
   const [copiedFormat, setCopiedFormat] = React.useState<string | null>(null);
   
   const handleDownload = async (format: string, formatData: any) => {
-    let content = formatData.content || formatData;
+    /**
+     * For binary formats (PDF, DOCX) we no longer base64-encode content.  If a
+     * Storage/public URL is present we stream it directly in the browser.
+     */
+    if ((format === 'pdf' || format === 'docx') && formatData.url) {
+      const anchor = document.createElement('a');
+      anchor.href = formatData.url;
+      anchor.download = `export.${getFileExtension(format)}`;
+      anchor.target = '_blank';
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+      return; // Done
+    }
+
+    // Only treat inline value as content when it is a string.  After reload the
+    // object usually contains only metadata (url, ready, sizeBytes …) and we
+    // must fetch the actual payload instead of copying "[object Object]".
+    let content: string | undefined =
+      typeof formatData.content === 'string' ? formatData.content : undefined;
     
     // If no inline content, fetch from URL
     if (!content && formatData.url) {
       try {
         const response = await fetch(formatData.url);
         if (!response.ok) throw new Error('Failed to fetch content');
-        
-        // For binary formats, get as blob
-        if (format === 'pdf' || format === 'docx') {
-          const blob = await response.blob();
-          const reader = new FileReader();
-          content = await new Promise((resolve) => {
-            reader.onloadend = () => resolve(reader.result as string);
-            reader.readAsDataURL(blob);
-          });
-          // Extract base64 part
-          content = content.split(',')[1];
-        } else {
-          content = await response.text();
-        }
+        content = await response.text();
       } catch (error) {
         console.error(`Failed to download ${format}:`, error);
         return;
@@ -85,7 +91,11 @@ export function ExportOptions({ formats, exportConfig }: ExportOptionsProps) {
   };
   
   const handleCopy = async (format: string, formatData: any) => {
-    let content = formatData.content || formatData;
+    // Only treat inline value as content when it is a string.  After reload the
+    // object usually contains only metadata (url, ready, sizeBytes …) and we
+    // must fetch the actual payload instead of copying "[object Object]".
+    let content: string | undefined =
+      typeof formatData.content === 'string' ? formatData.content : undefined;
     
     // If no inline content, fetch from URL
     if (!content && formatData.url) {

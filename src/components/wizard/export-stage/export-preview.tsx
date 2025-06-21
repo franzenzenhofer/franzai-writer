@@ -51,33 +51,56 @@ export function ExportPreview({ htmlStyled, htmlClean, htmlStyledUrl, htmlCleanU
   const shadowRef = useRef<HTMLDivElement>(null);
   const shadowRootRef = useRef<ShadowRoot | null>(null);
   
-  // Load content from URLs if not provided directly
+  /**
+   * Fetch remote HTML (if URLs are provided) *once* on mount.
+   *
+   *  – Runs both fetches in parallel.
+   *  – Always clears the `isLoading` flag – even on errors or when no fetch is needed.
+   *  – Uses `Promise.allSettled` so one failed fetch does not block the other.
+   */
   useEffect(() => {
-    async function loadContent() {
-      if (!htmlStyled && htmlStyledUrl) {
-        setIsLoading(true);
-        try {
-          const response = await fetch(htmlStyledUrl);
-          const content = await response.text();
-          setLoadedHtmlStyled(content);
-        } catch (error) {
-          console.error('Failed to load styled HTML:', error);
-        }
-      }
-      
-      if (!htmlClean && htmlCleanUrl) {
-        try {
-          const response = await fetch(htmlCleanUrl);
-          const content = await response.text();
-          setLoadedHtmlClean(content);
-        } catch (error) {
-          console.error('Failed to load clean HTML:', error);
-        }
-        setIsLoading(false);
-      }
+    // Nothing to load if inline HTML is already present
+    const needsStyled = !htmlStyled && !!htmlStyledUrl;
+    const needsClean  = !htmlClean  && !!htmlCleanUrl;
+
+    if (!needsStyled && !needsClean) {
+      return; // All data already available – no network activity required
     }
-    
-    loadContent();
+
+    setIsLoading(true);
+
+    const tasks: Promise<void>[] = [];
+
+    const proxyFetch = async (remoteUrl: string): Promise<string> => {
+      console.log('[ExportPreview] Proxy fetching:', remoteUrl);
+      const resp = await fetch('/api/fetch-url', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: remoteUrl, raw: true }),
+      });
+      if (!resp.ok) throw new Error(`Proxy HTTP ${resp.status}`);
+      const json = await resp.json();
+      return json.content ?? '';
+    };
+
+    if (needsStyled) {
+      tasks.push(
+        proxyFetch(htmlStyledUrl!)
+          .then(setLoadedHtmlStyled)
+          .catch(err => console.error('[ExportPreview] Styled HTML fetch error:', err))
+      );
+    }
+
+    if (needsClean) {
+      tasks.push(
+        proxyFetch(htmlCleanUrl!)
+          .then(setLoadedHtmlClean)
+          .catch(err => console.error('[ExportPreview] Clean HTML fetch error:', err))
+      );
+    }
+
+    // Whatever happens – stop the spinner once every attempt finished
+    Promise.allSettled(tasks).finally(() => setIsLoading(false));
   }, [htmlStyled, htmlClean, htmlStyledUrl, htmlCleanUrl]);
   
   const currentHtml = viewMode === "styled" ? loadedHtmlStyled : loadedHtmlClean;

@@ -425,8 +425,9 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
     console.log('[runAiStage] Starting with new SDK');
     
     // Check if this is an export stage and handle it differently
+    console.log('🚨 [runAiStage] Checking stage type:', params.stage?.stageType, 'Stage ID:', params.stage?.id);
     if (params.stage?.stageType === 'export') {
-        console.log('[runAiStage] Detected export stage, using export execution flow');
+        console.log('🚨🚨🚨 [runAiStage] DETECTED EXPORT STAGE, using export execution flow 🚨🚨🚨');
         
         try {
             // Use dynamic import to avoid bundling server code in the browser

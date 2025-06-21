@@ -280,11 +280,12 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     }
   }, []);
 
-  // Document persistence
+  // Callback to sync instance changes from persistence layer
   const updateInstanceForPersistence = useCallback((updates: Partial<WizardInstance>) => {
     setInstance(prev => ({ ...prev, ...updates }));
   }, []);
 
+  // Document persistence
   const { 
     isSaving, 
     lastSaved, 
@@ -296,9 +297,9 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     updateInstance: updateInstanceForPersistence,
   });
 
-
   const updateStageState = useCallback((stageId: string, updates: Partial<StageState>) => {
-    setInstance(prevInstance => {
+    let needsImmediateSave = false;
+    const resultState = setInstance(prevInstance => {
       const newStageStates = {
         ...prevInstance.stageStates,
         [stageId]: {
@@ -306,11 +307,25 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
           ...updates,
         },
       };
-      // After updating state, re-evaluate dependencies
+      // Decide persistence before returning (so we can capture final merged state)
+      if (prevInstance.stageStates[stageId]?.stageId === stageId) {
+        const upd = updates as any;
+        needsImmediateSave =
+          !!upd.output?.publishing ||
+          !!upd.output?.formats ||
+          upd.status === 'completed';
+      }
       const evaluatedStageStates = evaluateDependenciesLogic(newStageStates, prevInstance.workflow.stages);
       return { ...prevInstance, stageStates: evaluatedStageStates };
     });
-  }, []); // Removed evaluateDependencies from here, it's called internally by updateStageState
+
+    if (needsImmediateSave) {
+      // Next tick save so React state has committed
+      setTimeout(() => {
+        saveDocument();
+      }, 0);
+    }
+  }, [saveDocument]);
 
   // Enhanced dependency evaluation logic with support for autoRunConditions
   const evaluateDependenciesLogic = (currentStageStates: Record<string, StageState>, stages: Stage[]): Record<string, StageState> => {
@@ -660,7 +675,9 @@ Still having issues? Check the browser console for detailed logs.`;
 
 
     // Handle export stage type
+    console.log('🚨🚨🚨 [handleRunStage] EXPORT STAGE CHECK - stageType:', stage.stageType, 'stageId:', stageId);
     if (stage.stageType === 'export') {
+      console.log('🚨🚨🚨 [handleRunStage] DETECTED EXPORT STAGE - USING DEDICATED EXPORT FLOW 🚨🚨🚨');
       console.log('[handleRunStage] Starting export stage execution');
       try {
         const { executeExportStage } = await import('@/ai/flows/export-stage-execution');
@@ -1028,6 +1045,7 @@ Still having issues? Check the browser console for detailed logs.`;
             onOutputEdit={handleOutputEdit}
             onSetEditingOutput={handleSetEditingOutput}
             onDismissStaleWarning={handleDismissStaleWarning}
+            onUpdateStageState={updateStageState}
             allStageStates={instance.stageStates}
           />
         ))}

@@ -24,6 +24,7 @@ export async function executeExportStage({
   progressCallback,
 }: ExportStageExecutionParams): Promise<ExportStageState['output']> {
   try {
+    console.log('🚨🚨🚨 [Export Stage Execution] FUNCTION CALLED - STARTING EXPORT GENERATION 🚨🚨🚨');
     console.log('[Export Stage Execution] Starting export generation');
     console.log('[Export Stage Execution] Stage config:', stage);
     console.log('[Export Stage Execution] All stage states:', Object.keys(allStageStates));
@@ -113,47 +114,109 @@ export async function executeExportStage({
       progressCallback({ styledHtml: 100, cleanHtml: 100, currentFormat: 'Uploading to storage...' });
     }
     
-    // Upload all export artifacts to Firebase Storage
-    console.log('[Export Stage Execution] Uploading artifacts to Firebase Storage');
-    const storageResults = await uploadExportArtifacts(
-      formats,
-      userId,
-      documentId,
-      stage.id
-    );
+    // Step 5: Upload all export artifacts to Firebase Storage
+    console.log('[Export Stage Execution] Uploading export artifacts to Firebase Storage');
     
-    // Update formats with storage URLs
-    const formatsWithUrls: any = {};
-    for (const [format, data] of Object.entries(formats)) {
-      const storageResult = storageResults[format as keyof typeof storageResults];
-      if (storageResult) {
-        formatsWithUrls[format] = {
-          ready: data.ready,
-          url: storageResult.publicUrl,
-          storageUrl: storageResult.storageUrl,
-          assetId: storageResult.assetId,
-          sizeBytes: storageResult.sizeBytes,
-          error: data.error
+    try {
+      // Prepare exports in the format expected by uploadExportArtifacts
+      const exportsToUpload: Record<string, { ready: boolean; content?: string; error?: string }> = {
+        'html-styled': {
+          ready: true,
+          content: sanitizedHtmlStyled
+        },
+        'html-clean': {
+          ready: true,
+          content: sanitizedHtmlClean
+        }
+      };
+      
+      // Add markdown if available
+      if (formats.markdown?.content) {
+        exportsToUpload.markdown = {
+          ready: true,
+          content: formats.markdown.content
         };
-      } else {
-        formatsWithUrls[format] = data;
       }
+      
+      // Add PDF if available
+      if (formats.pdf?.content) {
+        exportsToUpload.pdf = {
+          ready: true,
+          content: formats.pdf.content
+        } as any;
+      }
+      
+      // Add DOCX if available
+      if (formats.docx?.content) {
+        exportsToUpload.docx = {
+          ready: true,
+          content: formats.docx.content
+        } as any;
+      }
+      
+      const uploadResults = await uploadExportArtifacts(exportsToUpload, userId, documentId, stage.id);
+      
+      console.log('[Export Stage Execution] Storage upload successful');
+      console.log('[Export Stage Execution] Returning result with storage URLs');
+      
+      // Return the expected ExportStageState output format with URLs instead of inline content
+      const result = {
+        htmlStyledUrl: uploadResults['html-styled']?.publicUrl,
+        htmlCleanUrl: uploadResults['html-clean']?.publicUrl,
+        markdownUrl: uploadResults.markdown?.publicUrl,
+        formats: {
+          ...formats,
+          // Update formats with storage URLs
+          'html-styled': uploadResults['html-styled'] ? {
+            ...formats['html-styled'],
+            ready: true,
+            url: uploadResults['html-styled'].publicUrl,
+            storageUrl: uploadResults['html-styled'].storageUrl,
+            assetId: uploadResults['html-styled'].assetId,
+            sizeBytes: uploadResults['html-styled'].sizeBytes
+          } : formats['html-styled'],
+          'html-clean': uploadResults['html-clean'] ? {
+            ...formats['html-clean'],
+            ready: true,
+            url: uploadResults['html-clean'].publicUrl,
+            storageUrl: uploadResults['html-clean'].storageUrl,
+            assetId: uploadResults['html-clean'].assetId,
+            sizeBytes: uploadResults['html-clean'].sizeBytes
+          } : formats['html-clean'],
+          markdown: uploadResults.markdown ? {
+            ...formats.markdown,
+            ready: true,
+            url: uploadResults.markdown.publicUrl,
+            storageUrl: uploadResults.markdown.storageUrl,
+            assetId: uploadResults.markdown.assetId,
+            sizeBytes: uploadResults.markdown.sizeBytes
+          } : formats.markdown,
+          pdf: uploadResults.pdf ? {
+            ...formats.pdf,
+            ready: true,
+            url: uploadResults.pdf.publicUrl,
+            storageUrl: uploadResults.pdf.storageUrl,
+            assetId: uploadResults.pdf.assetId,
+            sizeBytes: uploadResults.pdf.sizeBytes
+          } : formats.pdf,
+          docx: uploadResults.docx ? {
+            ...formats.docx,
+            ready: true,
+            url: uploadResults.docx.publicUrl,
+            storageUrl: uploadResults.docx.storageUrl,
+            assetId: uploadResults.docx.assetId,
+            sizeBytes: uploadResults.docx.sizeBytes
+          } : formats.docx
+        }
+      };
+      
+      return result;
+    } catch (storageError) {
+      console.error('[Export Stage Execution] Storage upload failed:', storageError);
+      // FAIL HARD - do not fall back to inline content
+      const errorMessage = storageError instanceof Error ? storageError.message : String(storageError);
+      throw new Error(`Storage upload failed: ${errorMessage}`);
     }
-    
-    // Return the complete export output with storage URLs
-    const result = {
-      htmlStyled: undefined, // Don't store inline - fetch from URL
-      htmlClean: undefined, // Don't store inline - fetch from URL
-      markdown: undefined, // Don't store inline - fetch from URL
-      htmlStyledUrl: storageResults['html-styled']?.publicUrl,
-      htmlCleanUrl: storageResults['html-clean']?.publicUrl,
-      markdownUrl: storageResults['markdown']?.publicUrl,
-      formats: formatsWithUrls,
-    };
-    
-    console.log('[Export Stage Execution] Returning result with storage URLs');
-    
-    return result;
   } catch (error) {
     console.error('[Export Stage Execution] Error:', error);
     console.error('[Export Stage Execution] Error stack:', error instanceof Error ? error.stack : 'No stack');

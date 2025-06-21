@@ -105,6 +105,14 @@ The core feature is a JSON-based workflow system where each workflow:
 - For form controls (Radix UI/shadcn components), use specific approaches for dropdowns and selects
 - This ensures tests click the correct buttons and don't fail due to multiple matches
 
+**MAIN TEST**: Use `tests/e2e/export-simple-test.spec.ts` as the primary test for the poem workflow. This test verifies:
+- Complete workflow execution from poem topic to export
+- Export stage functionality and completion
+- Live Preview generation
+- Publishing functionality with HTML formats
+- Export persistence across page reloads
+- Uses robust selectors that actually work
+
 ## Image Generation Implementation Status
 
 ✅ **COMPLETED**: Image generation with Google Imagen 3 is fully working

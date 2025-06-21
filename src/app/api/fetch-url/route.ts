@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   try {
-    const { url } = await request.json();
+    const { url, raw } = await request.json();
     
     if (!url) {
       return NextResponse.json(
@@ -44,6 +44,17 @@ export async function POST(request: NextRequest) {
       
       const contentType = response.headers.get('content-type') || '';
       const text = await response.text();
+      
+      // If raw flag set, return full text unmodified
+      if (raw === true) {
+        return NextResponse.json({
+          url,
+          content: text,
+          contentType,
+          contentLength: text.length,
+          fetchedAt: new Date().toISOString(),
+        });
+      }
       
       // Extract meaningful content based on content type
       let content = text;

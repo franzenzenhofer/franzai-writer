@@ -156,6 +156,9 @@ export function ExportStageCard({
         publishedUrl: stageState.output.publishing.publishedUrl,
         publishedFormats: stageState.output.publishing.publishedFormats,
       });
+      if (stageState.output.publishing.publishedFormats?.length) {
+        setSelectedFormats(stageState.output.publishing.publishedFormats);
+      }
     } else {
       setPublishedData(null);
     }
@@ -255,7 +258,27 @@ export function ExportStageCard({
 
   const dependencyMessage = getDependencyMessage();
   const canRun = stageState.depsAreMet !== false && stageState.status !== "running";
-  const isReady = stageState.status === "completed" && stageState.output?.htmlStyled;
+  /**
+   * A stage is considered "ready" (i.e. export completed successfully) when the
+   * backend has produced at least one usable representation of the styled HTML.
+   *
+   * Historically the backend returned the full HTML string in `output.htmlStyled`.
+   * After the storage-upload refactor it now returns only storage/public URLs and
+   * places the readiness flag inside `output.formats['html-styled'].ready`.
+   *
+   * To stay backwards-compatible *and* support the new contract we treat the
+   * stage as ready when **any** of the following is true:
+   *   1. `output.htmlStyled`  – legacy inline content
+   *   2. `output.htmlStyledUrl` – new storage URL
+   *   3. `output.formats['html-styled'].ready === true` – new format map flag
+   */
+  const isReady =
+    stageState.status === "completed" &&
+    (
+      !!stageState.output?.htmlStyled ||
+      !!stageState.output?.htmlStyledUrl ||
+      !!stageState.output?.formats?.["html-styled"]?.ready
+    );
 
   // Check if stage is stale (dependencies have changed)
   const isStale = stageState.isStale && stageState.status === 'completed' && !stageState.staleDismissed;
@@ -347,7 +370,11 @@ export function ExportStageCard({
               
               <div className="flex justify-start">
                 <Button
-                  onClick={() => onRunStage(stage.id)}
+                  onClick={() => {
+                    console.log('🚨🚨🚨 [ExportStageCard] EXPORT BUTTON CLICKED - Stage ID:', stage.id);
+                    console.log('🚨🚨🚨 [ExportStageCard] Calling onRunStage with stage ID:', stage.id);
+                    onRunStage(stage.id);
+                  }}
                   disabled={!canRun}
                   id={`trigger-export-${stage.id}`}
                   data-testid={`trigger-export-${stage.id}`}
@@ -407,10 +434,26 @@ export function ExportStageCard({
           {isReady && (
             <div className="space-y-4">
               <ExportPreview
-                htmlStyled={stageState.output.htmlStyled}
-                htmlClean={stageState.output.htmlClean}
-                htmlStyledUrl={stageState.output.htmlStyledUrl}
-                htmlCleanUrl={stageState.output.htmlCleanUrl}
+                /*
+                 * Provide both legacy and new data sources so the preview works
+                 * regardless of how the backend populated the state.
+                 */
+                htmlStyled={
+                  stageState.output.htmlStyled ||
+                  stageState.output.formats?.["html-styled"]?.content
+                }
+                htmlClean={
+                  stageState.output.htmlClean ||
+                  stageState.output.formats?.["html-clean"]?.content
+                }
+                htmlStyledUrl={
+                  stageState.output.htmlStyledUrl ||
+                  stageState.output.formats?.["html-styled"]?.url
+                }
+                htmlCleanUrl={
+                  stageState.output.htmlCleanUrl ||
+                  stageState.output.formats?.["html-clean"]?.url
+                }
                 defaultView={stage.exportConfig?.styling?.defaultView || 'clean'}
               />
               
