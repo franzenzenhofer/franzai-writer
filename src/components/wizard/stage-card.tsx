@@ -9,7 +9,7 @@ import { StageOutputArea } from "./stage-output-area";
 import { CheckCircle2, AlertCircle, ArrowRight, RotateCcw, Loader2, Edit, Save, Check, Clock, X, Send, Copy, CheckCheck } from "lucide-react"; // X is for DismissibleWarningBadge, others for StageActionButton or status
 import { cn } from "@/lib/utils";
 import React, { useState, useRef, useEffect } from "react";
-import { DismissibleWarningBadge } from "./dismissible-warning-badge";
+import { UpdateRecommendedButton } from "./update-recommended-button";
 import { StageActionButton } from "./StageActionButton";
 import { AiRedoSection } from "./ai-redo-section";
 import { DynamicProgressBar } from "./dynamic-progress-bar";
@@ -322,19 +322,17 @@ export function StageCard({
             {statusIcon && !dependencyMessage && <span className="mr-2">{statusIcon}</span>}
             {stage.title}
             {stage.isOptional && <Badge variant="outline" className="ml-2 text-xs">Optional</Badge>}
-            {stageState.isStale && stageState.status === 'completed' && !stageState.staleDismissed && (
-              <DismissibleWarningBadge
-                onDismiss={() => onDismissStaleWarning(stage.id)}
-                onClick={() => handleAiRedo()}
-                className="ml-2"
-              >
-                Update recommended
-              </DismissibleWarningBadge>
-            )}
           </CardTitle>
           <CardDescription>{stage.description}</CardDescription>
         </div>
-        <div className="flex-shrink-0 ml-2">
+        <div className="flex-shrink-0 ml-2 flex items-center gap-2">
+          {stageState.isStale && stageState.status === 'completed' && !stageState.staleDismissed && (
+            <UpdateRecommendedButton
+              onDismiss={() => onDismissStaleWarning(stage.id)}
+              onRegenerate={() => handleAiRedo()}
+              size="sm"
+            />
+          )}
           <StageInfoTrigger stage={stage} workflow={workflow} />
         </div>
       </CardHeader>

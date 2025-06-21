@@ -12,7 +12,7 @@ import { ExportOptions } from "./export-options";
 import { useToast } from "@/hooks/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { DismissibleWarningBadge } from "../dismissible-warning-badge";
+import { UpdateRecommendedButton } from "../update-recommended-button";
 import { StageInfoTrigger } from "../stage-info-overlay";
 import { CheckCheck } from "lucide-react";
 
@@ -314,19 +314,17 @@ export function ExportStageCard({
             <CardTitle className="font-headline text-xl flex items-center">
               {statusIcon && !dependencyMessage && <span className="mr-2">{statusIcon}</span>}
               {stage.title}
-              {isStale && (
-                <DismissibleWarningBadge
-                  onDismiss={() => onDismissStaleWarning?.(stage.id)}
-                  onClick={handleRegenerate}
-                  className="ml-2"
-                >
-                  Update recommended
-                </DismissibleWarningBadge>
-              )}
             </CardTitle>
             <CardDescription>{stage.description}</CardDescription>
           </div>
-          <div className="flex-shrink-0 ml-2">
+          <div className="flex-shrink-0 ml-2 flex items-center gap-2">
+            {isStale && (
+              <UpdateRecommendedButton
+                onDismiss={() => onDismissStaleWarning?.(stage.id)}
+                onRegenerate={handleRegenerate}
+                size="sm"
+              />
+            )}
             <StageInfoTrigger stage={stage} workflow={workflow} />
           </div>
         </CardHeader>
