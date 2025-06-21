@@ -25,6 +25,18 @@ export function ExportOptions({ formats, exportConfig }: ExportOptionsProps) {
   const [copiedFormat, setCopiedFormat] = React.useState<string | null>(null);
   
   const handleDownload = async (format: string, formatData: any) => {
+    // Helper to fetch text through same-origin proxy (bypasses CORS)
+    const fetchViaProxy = async (remoteUrl: string): Promise<string> => {
+      const resp = await fetch('/api/fetch-url', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: remoteUrl, raw: true }),
+      });
+      if (!resp.ok) throw new Error('Proxy fetch failed');
+      const json = await resp.json();
+      return json.content as string;
+    };
+
     /**
      * For binary formats (PDF, DOCX) we no longer base64-encode content.  If a
      * Storage/public URL is present we stream it directly in the browser.
@@ -49,9 +61,7 @@ export function ExportOptions({ formats, exportConfig }: ExportOptionsProps) {
     // If no inline content, fetch from URL
     if (!content && formatData.url) {
       try {
-        const response = await fetch(formatData.url);
-        if (!response.ok) throw new Error('Failed to fetch content');
-        content = await response.text();
+        content = await fetchViaProxy(formatData.url);
       } catch (error) {
         console.error(`Failed to download ${format}:`, error);
         return;
@@ -91,6 +101,18 @@ export function ExportOptions({ formats, exportConfig }: ExportOptionsProps) {
   };
   
   const handleCopy = async (format: string, formatData: any) => {
+    // Helper to fetch text through same-origin proxy (bypasses CORS)
+    const fetchViaProxy = async (remoteUrl: string): Promise<string> => {
+      const resp = await fetch('/api/fetch-url', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: remoteUrl, raw: true }),
+      });
+      if (!resp.ok) throw new Error('Proxy fetch failed');
+      const json = await resp.json();
+      return json.content as string;
+    };
+
     // Only treat inline value as content when it is a string.  After reload the
     // object usually contains only metadata (url, ready, sizeBytes …) and we
     // must fetch the actual payload instead of copying "[object Object]".
@@ -100,9 +122,7 @@ export function ExportOptions({ formats, exportConfig }: ExportOptionsProps) {
     // If no inline content, fetch from URL
     if (!content && formatData.url) {
       try {
-        const response = await fetch(formatData.url);
-        if (!response.ok) throw new Error('Failed to fetch content');
-        content = await response.text();
+        content = await fetchViaProxy(formatData.url);
       } catch (error) {
         console.error(`Failed to fetch ${format} for copy:`, error);
         toast({
