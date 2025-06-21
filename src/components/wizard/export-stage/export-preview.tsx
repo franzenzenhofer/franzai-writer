@@ -44,12 +44,27 @@ function cleanHtmlContent(content: string): string {
 }
 
 export function ExportPreview({ htmlStyled, htmlClean, htmlStyledUrl, htmlCleanUrl, className = "", defaultView = "clean" }: ExportPreviewProps) {
-  const [viewMode, setViewMode] = useState<"styled" | "clean">(defaultView);
   const [loadedHtmlStyled, setLoadedHtmlStyled] = useState<string | undefined>(htmlStyled);
   const [loadedHtmlClean, setLoadedHtmlClean] = useState<string | undefined>(htmlClean);
   const [isLoading, setIsLoading] = useState(false);
   const shadowRef = useRef<HTMLDivElement>(null);
   const shadowRootRef = useRef<ShadowRoot | null>(null);
+  
+  // Smart defaultView logic: use the requested default only if content is available
+  const getInitialViewMode = (): "styled" | "clean" => {
+    if (defaultView === "styled" && (htmlStyled || htmlStyledUrl)) {
+      return "styled";
+    }
+    if (defaultView === "clean" && (htmlClean || htmlCleanUrl)) {
+      return "clean";
+    }
+    // Fallback: use whichever content is available
+    if (htmlStyled || htmlStyledUrl) return "styled";
+    if (htmlClean || htmlCleanUrl) return "clean";
+    return defaultView; // Last resort
+  };
+  
+  const [viewMode, setViewMode] = useState<"styled" | "clean">(getInitialViewMode());
   
   /**
    * Fetch remote HTML (if URLs are provided) *once* on mount.
@@ -99,9 +114,17 @@ export function ExportPreview({ htmlStyled, htmlClean, htmlStyledUrl, htmlCleanU
       );
     }
 
-    // Whatever happens – stop the spinner once every attempt finished
-    Promise.allSettled(tasks).finally(() => setIsLoading(false));
-  }, [htmlStyled, htmlClean, htmlStyledUrl, htmlCleanUrl]);
+      // Whatever happens – stop the spinner once every attempt finished
+  Promise.allSettled(tasks).finally(() => setIsLoading(false));
+}, [htmlStyled, htmlClean, htmlStyledUrl, htmlCleanUrl]);
+
+// Update viewMode when props change (e.g., after reload when data becomes available)
+useEffect(() => {
+  const newViewMode = getInitialViewMode();
+  if (newViewMode !== viewMode) {
+    setViewMode(newViewMode);
+  }
+}, [htmlStyled, htmlClean, htmlStyledUrl, htmlCleanUrl, defaultView]);
   
   const currentHtml = viewMode === "styled" ? loadedHtmlStyled : loadedHtmlClean;
   
