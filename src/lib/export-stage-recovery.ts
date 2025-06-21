@@ -49,6 +49,15 @@ export function resetStuckExportStages(
           console.warn('[ExportRecovery] Reset export stage to clean idle state:', stage.id);
         }
       }
+      // If export stage is idle but marked as stale, clear the stale flag
+      else if (state?.status === 'idle' && state?.isStale) {
+        result[stage.id] = {
+          ...state,
+          isStale: false,
+          staleDismissed: false,
+        };
+        console.warn('[ExportRecovery] Cleared invalid stale flag from idle export stage:', stage.id);
+      }
       // If export stage is completed with output, leave it alone!
     } else if (state?.status === 'running') {
       if (state.output) {

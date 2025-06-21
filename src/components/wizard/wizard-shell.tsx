@@ -367,24 +367,45 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         // Check staleness based on basic dependencies
         if (stage.dependencies && stage.dependencies.length > 0) {
           isStale = stage.dependencies.some(depId => {
-            const depCompletedAt = newStageStates[depId]?.completedAt ? new Date(newStageStates[depId].completedAt).getTime() : 0;
-            return depCompletedAt > stageCompletedAt || newStageStates[depId]?.isStale === true;
+            const depState = newStageStates[depId];
+            // Only consider a dependency if it has been completed
+            if (depState?.status === 'completed' && depState?.completedAt) {
+              const depCompletedAt = new Date(depState.completedAt).getTime();
+              // Stage is stale if dependency was completed AFTER this stage
+              return depCompletedAt > stageCompletedAt;
+            }
+            // Incomplete dependencies don't make a stage stale
+            return false;
           });
         }
         
         // Also check staleness based on autorun conditions
         if (!isStale && stage.autoRunConditions?.requiresAll) {
           isStale = stage.autoRunConditions.requiresAll.some(depId => {
-            const depCompletedAt = newStageStates[depId]?.completedAt ? new Date(newStageStates[depId].completedAt).getTime() : 0;
-            return depCompletedAt > stageCompletedAt || newStageStates[depId]?.isStale === true;
+            const depState = newStageStates[depId];
+            // Only consider a dependency if it has been completed
+            if (depState?.status === 'completed' && depState?.completedAt) {
+              const depCompletedAt = new Date(depState.completedAt).getTime();
+              // Stage is stale if dependency was completed AFTER this stage
+              return depCompletedAt > stageCompletedAt;
+            }
+            // Incomplete dependencies don't make a stage stale
+            return false;
           });
         }
         
         // Also check staleness based on autorun dependencies
         if (!isStale && stage.autorunDependsOn && stage.autorunDependsOn.length > 0) {
           isStale = stage.autorunDependsOn.some(depId => {
-            const depCompletedAt = newStageStates[depId]?.completedAt ? new Date(newStageStates[depId].completedAt).getTime() : 0;
-            return depCompletedAt > stageCompletedAt || newStageStates[depId]?.isStale === true;
+            const depState = newStageStates[depId];
+            // Only consider a dependency if it has been completed
+            if (depState?.status === 'completed' && depState?.completedAt) {
+              const depCompletedAt = new Date(depState.completedAt).getTime();
+              // Stage is stale if dependency was completed AFTER this stage
+              return depCompletedAt > stageCompletedAt;
+            }
+            // Incomplete dependencies don't make a stage stale
+            return false;
           });
         }
       }
