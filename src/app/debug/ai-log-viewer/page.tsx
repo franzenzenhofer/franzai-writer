@@ -37,23 +37,13 @@ export default function AILogViewerPage() {
   const [newLogTimestamp, setNewLogTimestamp] = useState<string | null>(null);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
-  useEffect(() => {
-    if (isStreaming) {
-      startStreaming();
-    } else {
-      stopStreaming();
+  const stopStreaming = useCallback(() => {
+    if (eventSourceRef.current) {
+      eventSourceRef.current.close();
+      eventSourceRef.current = null;
     }
-    return () => {
-      stopStreaming();
-    };
-  }, [isStreaming, startStreaming]);
-
-  useEffect(() => {
-    if (autoScroll && scrollAreaRef.current) {
-      // Scroll to top where newest logs appear
-      scrollAreaRef.current.scrollTop = 0;
-    }
-  }, [logs, autoScroll]);
+    setIsStreaming(false);
+  }, []);
 
   const startStreaming = useCallback(() => {
     try {
@@ -79,15 +69,25 @@ export default function AILogViewerPage() {
       console.error('Failed to start streaming:', err);
       setError('Failed to start log streaming');
     }
-  }, []);
+  }, [stopStreaming]);
 
-  const stopStreaming = () => {
-    if (eventSourceRef.current) {
-      eventSourceRef.current.close();
-      eventSourceRef.current = null;
+  useEffect(() => {
+    if (isStreaming) {
+      startStreaming();
+    } else {
+      stopStreaming();
     }
-    setIsStreaming(false);
-  };
+    return () => {
+      stopStreaming();
+    };
+  }, [isStreaming, startStreaming, stopStreaming]);
+
+  useEffect(() => {
+    if (autoScroll && scrollAreaRef.current) {
+      // Scroll to top where newest logs appear
+      scrollAreaRef.current.scrollTop = 0;
+    }
+  }, [logs, autoScroll]);
 
   const clearLogs = () => {
     setLogs([]);
