@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     const { documentId, formats, content, options } = body;
 
     // Validate required fields
-    if (\!documentId || \!formats || \!content) {
+    if (!documentId || !formats || !content) {
       return NextResponse.json(
         { error: 'Missing required fields: documentId, formats, content' },
         { status: 400 }
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     // Create base URL for published content
     // In production, this would save to a database or storage service
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
-                   (typeof window \!== 'undefined' ? window.location.origin : 'http://localhost:9002');
+                   (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:9002');
     
     const publishedUrl = `${baseUrl}/published/${publishId}`;
 
@@ -62,4 +62,3 @@ export async function POST(request: NextRequest) {
     );
   }
 }
-EOF < /dev/null
