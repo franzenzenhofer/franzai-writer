@@ -147,15 +147,6 @@ Each ticket is a markdown file with:
 ### Current Priority
 The highest priority ticket should be at the top of the numerical order in open-tickets/
 
-## Git Workflow - Atomic Commits
-
-**IMPORTANT**: Make atomic commits after every small to medium change:
-- Commit after implementing each feature or fixing each bug
-- Use descriptive commit messages
-- Push to GitHub regularly
-- Never batch multiple unrelated changes in one commit
-- Commit frequently to maintain a clear history
-
 ## Git Worktrees - MANDATORY for Parallel Development
 
 **CRITICAL**: Use git worktrees BEFORE starting any big task to prevent conflicts between multiple Claude instances.
