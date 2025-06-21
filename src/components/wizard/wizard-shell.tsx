@@ -658,64 +658,62 @@ Still having issues? Check the browser console for detailed logs.`;
     });
 
 
-    // Handle export stage type
+    // Handle export stage type with new job-based system
     if (stage.stageType === 'export') {
-      console.log('[handleRunStage] Starting export stage execution');
+      console.log('[handleRunStage] Starting export stage with job system');
       try {
-        const { executeExportStage } = await import('@/ai/flows/export-stage-execution');
+        const { startExportJob } = await import('@/ai/flows/export-stage-execution-new');
         
-        console.log('[handleRunStage] executeExportStage imported successfully');
+        console.log('[handleRunStage] startExportJob imported successfully');
         
-        // Set a timeout for export generation (30 seconds)
-        const exportPromise = executeExportStage({
+        // Start the export job (no callback needed)
+        const result = await startExportJob({
+          documentId: documentId || 'temp_doc',
+          stageId,
           stage,
           workflow: instance.workflow,
           allStageStates: instance.stageStates,
-          progressCallback: (progress) => {
-            console.log('[handleRunStage] Export progress:', progress);
-            updateStageState(stageId, {
-              generationProgress: progress,
-            });
-          },
+          userId: user?.uid
         });
         
-        const timeoutPromise = new Promise((_, reject) => {
-          setTimeout(() => reject(new Error('Export generation timed out after 30 seconds')), 30000);
-        });
+        if (!result.success) {
+          throw new Error(result.error || 'Failed to start export job');
+        }
         
-        console.log('[handleRunStage] Waiting for export to complete...');
-        const result = await Promise.race([exportPromise, timeoutPromise]) as any;
+        console.log('[handleRunStage] Export job started successfully:', result.jobId);
         
-        console.log('[handleRunStage] Export completed successfully');
-        console.log('[handleRunStage] Export result keys:', Object.keys(result || {}));
-        console.log('[handleRunStage] Export formats:', Object.keys(result?.formats || {}));
-        
+        // Update stage state to indicate export is running
+        // The progress will be handled by the export stage component via useExportJobProgress
         updateStageState(stageId, {
-          status: "completed",
-          output: result,
-          completedAt: new Date().toISOString(),
+          status: "running",
+          exportJobId: result.jobId, // Store job ID for progress tracking
+          generationProgress: {
+            styledHtml: 0,
+            cleanHtml: 0,
+            currentFormat: 'Starting export...'
+          },
+          completedAt: undefined,
           isStale: false,
-          generationProgress: undefined, // Clear progress
         });
         
         toast({ 
-          title: "Export Complete", 
-          description: "Your content has been exported successfully!",
+          title: "Export Started", 
+          description: "Your export is being processed in the background. You can safely reload the page.",
           variant: "default"
         });
       } catch (error) {
-        console.error('[handleRunStage] Export error:', error);
+        console.error('[handleRunStage] Export job start error:', error);
         console.error('[handleRunStage] Export error stack:', error instanceof Error ? error.stack : 'No stack');
         
         updateStageState(stageId, { 
           status: "error", 
-          error: error instanceof Error ? error.message : "Export failed",
-          generationProgress: undefined, // Clear progress
+          error: error instanceof Error ? error.message : "Failed to start export",
+          generationProgress: undefined,
         });
         
         toast({ 
           title: "Export Error", 
-          description: error instanceof Error ? error.message : "Export failed", 
+          description: error instanceof Error ? error.message : "Failed to start export", 
           variant: "destructive" 
         });
       }
