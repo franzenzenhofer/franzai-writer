@@ -454,7 +454,7 @@ export function ExportStageCard({
                   stageState.output.htmlCleanUrl ||
                   stageState.output.formats?.["html-clean"]?.url
                 }
-                defaultView={stage.exportConfig?.styling?.defaultView || 'clean'}
+                defaultView={stage.exportConfig?.styling?.defaultView || 'styled'}
               />
               
               <ExportOptions

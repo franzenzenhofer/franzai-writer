@@ -8,7 +8,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Pause, Play, RefreshCw, Download, Trash2, Search, Filter, ArrowDownToLine, Zap, Copy, Check } from 'lucide-react';
+import { Pause, Play, RefreshCw, Download, Trash2, Search, Filter, ArrowDownToLine, Zap, Copy, Check, Loader2 } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface LogEntry {
@@ -197,10 +197,10 @@ export default function AILogViewerPage() {
 
   const getLevelBadgeVariant = (level: string) => {
     switch (level) {
-      case 'error': return 'destructive';
-      case 'warning': return 'secondary';
-      case 'debug': return 'outline';
-      default: return 'default';
+      case 'error': return 'destructive';     // Red - follows design guidelines
+      case 'warning': return 'warning';       // Amber - follows design guidelines  
+      case 'debug': return 'secondary';       // Gray - follows design guidelines
+      default: return 'default';              // Blue - follows design guidelines
     }
   };
 
@@ -263,51 +263,87 @@ export default function AILogViewerPage() {
             <div className="flex gap-2">
               <Button
                 onClick={() => setIsStreaming(!isStreaming)}
-                variant={isStreaming ? 'destructive' : 'default'}
+                variant={isStreaming ? 'warning' : 'default'}
+                size="default"
+                className="min-w-11"
               >
-                {isStreaming ? <Pause className="w-4 h-4 mr-2" /> : <Play className="w-4 h-4 mr-2" />}
-                {isStreaming ? 'Pause' : 'Start'}
+                {isStreaming ? (
+                  <>
+                    <Pause className="h-4 w-4 mr-2" />
+                    Pause Stream
+                  </>
+                ) : (
+                  <>
+                    <Play className="h-4 w-4 mr-2" />
+                    Start Stream
+                  </>
+                )}
               </Button>
               <Button 
                 onClick={() => setAutoScroll(!autoScroll)} 
-                variant={autoScroll ? 'default' : 'outline'}
+                variant="secondary"
+                size="default"
                 title={autoScroll ? 'Disable auto-scroll' : 'Enable auto-scroll'}
+                className="text-gray-700 min-w-11"
               >
-                <ArrowDownToLine className="w-4 h-4 mr-2" />
+                <ArrowDownToLine className="h-4 w-4 mr-2" />
                 Auto-scroll {autoScroll ? 'On' : 'Off'}
               </Button>
               <Button 
                 onClick={runTestAIRequest} 
-                variant="outline"
+                variant="accent"
+                size="default"
                 disabled={isTestRunning}
+                className="min-w-11"
               >
-                <Zap className="w-4 h-4 mr-2" />
-                {isTestRunning ? 'Testing...' : 'Test AI'}
+                {isTestRunning ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    Testing...
+                  </>
+                ) : (
+                  <>
+                    <Zap className="h-4 w-4 mr-2" />
+                    Test AI
+                  </>
+                )}
               </Button>
               <Button 
                 onClick={copyFilteredView} 
                 variant="outline"
+                size="default"
                 disabled={filteredLogs.length === 0}
+                className="min-w-11"
               >
                 {copiedIndex === -1 ? (
                   <>
-                    <Check className="w-4 h-4 mr-2 text-green-600" />
+                    <Check className="h-4 w-4 mr-2 text-emerald-600" />
                     Copied!
                   </>
                 ) : (
                   <>
-                    <Copy className="w-4 h-4 mr-2" />
+                    <Copy className="h-4 w-4 mr-2" />
                     Copy View ({filteredLogs.length})
                   </>
                 )}
               </Button>
-              <Button onClick={clearLogs} variant="outline">
-                <Trash2 className="w-4 h-4 mr-2" />
-                Clear
+              <Button 
+                onClick={clearLogs} 
+                variant="destructive"
+                size="default"
+                className="min-w-11"
+              >
+                <Trash2 className="h-4 w-4 mr-2" />
+                Clear Logs
               </Button>
-              <Button onClick={downloadLogs} variant="outline">
-                <Download className="w-4 h-4 mr-2" />
-                Export
+              <Button 
+                onClick={downloadLogs} 
+                variant="secondary"
+                size="default"
+                className="text-gray-700 min-w-11"
+              >
+                <Download className="h-4 w-4 mr-2" />
+                Export JSON
               </Button>
             </div>
           </div>
@@ -428,12 +464,12 @@ export default function AILogViewerPage() {
                         <div className="flex items-center gap-2 flex-1">
                           {/* Show request/response type prominently */}
                           {log.data?.requestType === 'OUTGOING' && (
-                            <Badge variant="default" className="bg-purple-600 hover:bg-purple-700">
+                            <Badge variant="accent" className="bg-violet-500 text-white hover:bg-violet-600">
                               🚀 OUTGOING
                             </Badge>
                           )}
                           {log.data?.responseType === 'INCOMING' && (
-                            <Badge variant="default" className="bg-emerald-600 hover:bg-emerald-700">
+                            <Badge variant="success" className="bg-emerald-500 text-white hover:bg-emerald-600">
                               ✨ INCOMING
                             </Badge>
                           )}
@@ -443,12 +479,12 @@ export default function AILogViewerPage() {
                             </Badge>
                           )}
                           {log.data?.workflowName && (
-                            <Badge variant="outline" className="text-xs">
+                            <Badge variant="outline" className="border-blue-600 text-blue-600 text-xs">
                               {log.data.workflowName}
                             </Badge>
                           )}
                           {log.data?.stageName && (
-                            <Badge variant="secondary" className="text-xs">
+                            <Badge variant="secondary" className="text-gray-700 text-xs">
                               {log.data.stageName}
                             </Badge>
                           )}

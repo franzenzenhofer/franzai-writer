@@ -79,3 +79,7 @@ All steps are *non-breaking*; legacy workflows load unchanged.
 ---
 **Estimated Effort**: 6-8 hours (parser tweaks + documentation)  
 **Impact**: Medium-High – boosts maintainability & scalability across all future workflows. 
+
+
+
+MAKE SURE THE STANDARD e2E poem test still works after that!!! 
