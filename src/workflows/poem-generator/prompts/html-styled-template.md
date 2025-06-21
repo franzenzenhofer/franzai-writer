@@ -102,18 +102,22 @@ Image Aspect Ratio: {{stages.image-briefing.aspectRatio}}
   - Or alongside the poem with proper spacing
   - Ensure the image enhances, not distracts from the poem
 
-### Interactive Elements
-- Smooth fade-in on load
-- Gentle hover effects
+### Allowed Enhancements (CSS Only)
+- Simple fade-in on load using CSS animations
+- Basic hover effects on links
 - Print-optimized styles with proper page breaks
-- Share buttons styled to match theme
-- Optional: reading time estimate
+- NO share buttons (let users share naturally)
+- NO reading time or other unnecessary UI elements
 
-### Meta & SEO
-- Complete meta tags with poem title and author
-- Open Graph tags for social sharing
-- Twitter Card tags
-- Structured data for creative work
+### Meta Tags Requirements (COMPLETE)
+Include ALL social media platforms EXCEPT Twitter:
+- Facebook Open Graph tags (og:title, og:description, og:image, etc.)
+- LinkedIn sharing tags
+- Pinterest rich pins
+- WhatsApp sharing metadata
+- General social sharing tags
+- SEO optimization tags (description, keywords)
+- Mobile viewport optimization
 - Proper semantic HTML5 structure
 
 ## HTML Structure Requirements
@@ -122,9 +126,10 @@ Generate a complete, self-contained HTML document with:
 2. All styles embedded in <style> tags (no external CSS)
 3. Semantic HTML5 elements (article, header, etc.)
 4. No external dependencies
-5. Smooth animations and transitions
-6. Dark mode support with CSS variables
+5. Simple CSS animations (fade-in only)
+6. NO dark mode - single beautiful theme only
 7. Print media queries
+8. NO JavaScript whatsoever
 
 ## Special Considerations for Poetry
 - Respect the poem's visual structure
@@ -133,4 +138,11 @@ Generate a complete, self-contained HTML document with:
 - Consider the poem's rhythm in your design
 - Make it feel like a poetry book page, but digital
 
-Remember: This poem deserves a beautiful digital home. Make it memorable, shareable, and a joy to read.
+## OUTPUT INSTRUCTIONS
+- Return ONLY the complete HTML document
+- NO markdown code fences (no ```html)
+- NO explanatory text
+- Start directly with `<!DOCTYPE html>`
+- End directly with `</html>`
+
+Remember: This poem deserves a beautiful digital home. Make it memorable, shareable, and a joy to read - but without any unnecessary complexity.

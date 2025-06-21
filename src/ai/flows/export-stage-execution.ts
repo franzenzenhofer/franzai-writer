@@ -3,6 +3,7 @@
 import type { Stage, StageState, ExportStageState, Workflow } from '@/types';
 import { generateExportHtml } from '@/lib/export/ai-html-generator';
 import { processExportFormats } from '@/lib/export/format-converters';
+import { validateContent, sanitizeHtml } from '@/lib/content-moderation';
 
 export interface ExportStageExecutionParams {
   stage: Stage;
@@ -24,10 +25,26 @@ export async function executeExportStage({
     
     // Report initial progress
     if (progressCallback) {
-      progressCallback({ styledHtml: 10, currentFormat: 'Preparing export...' });
+      progressCallback({ styledHtml: 5, currentFormat: 'Validating content...' });
     }
     
-    // Step 1: Generate HTML with dual AI passes
+    // Step 1: Content Moderation - Validate content before export
+    const contentToValidate = Object.values(allStageStates)
+      .map(state => state.output)
+      .filter(output => output && typeof output === 'string')
+      .join('\n');
+    
+    const validation = await validateContent(contentToValidate);
+    if (!validation.passed) {
+      console.error('[Export Stage Execution] Content validation failed:', validation.violations);
+      throw new Error(`Content validation failed: ${validation.violations.join(', ')}`);
+    }
+    
+    if (progressCallback) {
+      progressCallback({ styledHtml: 10, currentFormat: 'Generating HTML...' });
+    }
+    
+    // Step 2: Generate HTML with dual AI passes
     const htmlResult = await generateExportHtml({
       stages: workflow.stages,
       stageStates: allStageStates,
@@ -55,12 +72,16 @@ export async function executeExportStage({
       progressCallback({ styledHtml: 50, cleanHtml: 50, currentFormat: 'Processing formats...' });
     }
     
-    // Step 2: Process all export formats
+    // Step 3: Sanitize HTML output for security
+    const sanitizedHtmlStyled = sanitizeHtml(htmlResult.htmlStyled);
+    const sanitizedHtmlClean = sanitizeHtml(htmlResult.htmlClean);
+    
+    // Step 4: Process all export formats
     console.log('[Export Stage Execution] Processing export formats');
     
     const formats = await processExportFormats(
-      htmlResult.htmlStyled,
-      htmlResult.htmlClean,
+      sanitizedHtmlStyled,
+      sanitizedHtmlClean,
       stage.exportConfig
     );
     
@@ -72,10 +93,10 @@ export async function executeExportStage({
       progressCallback({ styledHtml: 100, cleanHtml: 100, currentFormat: 'Export complete!' });
     }
     
-    // Return the complete export output
+    // Return the complete export output with sanitized HTML
     const result = {
-      htmlStyled: htmlResult.htmlStyled,
-      htmlClean: htmlResult.htmlClean,
+      htmlStyled: sanitizedHtmlStyled,
+      htmlClean: sanitizedHtmlClean,
       markdown: formats.markdown?.content,
       formats,
     };
