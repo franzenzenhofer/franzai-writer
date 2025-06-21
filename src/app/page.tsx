@@ -45,35 +45,42 @@ export default function HomePage() {
             <span className="text-blue-600">AI Guidance</span>
           </h1>
           
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed">
             Create professional documents through intelligent workflows. 
             From SEO articles to recipes, let AI help you craft perfect content every time.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <Button asChild>
-              <Link 
-                href="/dashboard"
-                id="home-get-started-button"
-                data-testid="home-get-started-button"
-              >
-                Get Started
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-            <Button variant="outline" asChild>
-              <Link 
-                href="/login"
-                id="home-login-button"
-                data-testid="home-login-button"
-              >
-                Sign In
-              </Link>
-            </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+            <div className="flex flex-col items-center gap-1">
+              <Button asChild>
+                <Link 
+                  href="/dashboard"
+                  id="home-get-started-button"
+                  data-testid="home-get-started-button"
+                >
+                  Get Started
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <span className="text-xs text-gray-700">Free Account</span>
+            </div>
+            <span className="text-sm text-gray-700">- or -</span>
+            <div className="flex flex-col items-center gap-1">
+              <Button variant="outline" asChild>
+                <Link 
+                  href="/dashboard"
+                  id="home-try-it-out-button"
+                  data-testid="home-try-it-out-button"
+                >
+                  Try it out
+                </Link>
+              </Button>
+              <span className="text-xs text-gray-700">No Login needed</span>
+            </div>
           </div>
 
           {/* Trust indicators */}
-          <div className="flex items-center justify-center gap-8 pt-8 text-sm text-muted-foreground">
+          <div className="flex items-center justify-center gap-8 pt-8 text-sm text-gray-700">
             <div className="flex items-center gap-2">
               <CheckCircle className="h-4 w-4 text-green-600" />
               <span>Free to start</span>
@@ -91,7 +98,7 @@ export default function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="border-t bg-muted/30 px-4 py-12 md:py-16">
+      <section className="border-t bg-gray-50 px-4 py-12 md:py-16">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
             Everything you need to write professionally
@@ -110,7 +117,7 @@ export default function HomePage() {
                   <feature.icon className="h-6 w-6 text-blue-600" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-sm text-gray-700 leading-relaxed">
                   {feature.description}
                 </p>
               </div>
@@ -135,7 +142,7 @@ export default function HomePage() {
           <h2 className="text-2xl md:text-3xl font-bold">
             Ready to transform your writing?
           </h2>
-          <p className="text-muted-foreground">
+          <p className="text-gray-700">
             Join writers who are creating better content with AI assistance.
           </p>
           <Button asChild>
