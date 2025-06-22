@@ -19,6 +19,10 @@ export const siteConfig = {
       href: "/documents",
     },
     {
+      title: "Assets",
+      href: "/assets",
+    },
+    {
       title: "AI Logs",
       href: "/admin/debug/ai-log-viewer",
     },
