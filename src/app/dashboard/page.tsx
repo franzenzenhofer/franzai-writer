@@ -212,7 +212,7 @@ export default function DashboardPage() {
       {/* Recent Documents - Compact Table */}
       <div>
         <h2 className="text-xl md:text-2xl font-bold font-headline mb-4">Recent documents</h2>
-        {!authLoading && !user ? (
+        {!authLoading && !effectiveUser ? (
           <Card className="py-8">
             <CardContent className="text-center space-y-4">
               <User className="mx-auto h-10 w-10 text-muted-foreground" />
