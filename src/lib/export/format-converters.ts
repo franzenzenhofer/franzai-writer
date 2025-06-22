@@ -178,10 +178,16 @@ export async function htmlToDocx(html: string, options?: any): Promise<ArrayBuff
       
       // --- Handle images ---------------------------------------------------
       if (trimmedElement.startsWith('<img')) {
+        console.log('[DOCX] Processing image element:', trimmedElement.substring(0, 200) + '...');
+        
         // Enhanced regex to capture aspect ratio from data attribute
         const imgMatch = /<img[^>]+src="([^"]+)"[^>]*(?:data-aspect-ratio="([^"]*)"[^>]*)?alt="?([^">]*)"?[^>]*>/i.exec(trimmedElement);
+        console.log('[DOCX] Image regex match result:', imgMatch);
+        
         if (imgMatch) {
           const [, src, aspectRatio, alt] = imgMatch;
+          console.log('[DOCX] Extracted image data:', { src: src.substring(0, 50) + '...', aspectRatio, alt });
+          
           try {
             const fetch = (await import('node-fetch')).default as any;
             const response = await fetch(src);
@@ -192,10 +198,14 @@ export async function htmlToDocx(html: string, options?: any): Promise<ArrayBuff
             let transformation: { width: number; height: number };
             
             if (aspectRatio) {
+              console.log('[DOCX] Processing aspect ratio:', aspectRatio);
               // Parse aspect ratio (e.g., "16:9", "3:4", "1:1")
               const [widthRatio, heightRatio] = aspectRatio.split(':').map(Number);
+              console.log('[DOCX] Parsed ratio components:', { widthRatio, heightRatio });
+              
               if (widthRatio && heightRatio) {
                 const ratio = widthRatio / heightRatio;
+                console.log('[DOCX] Calculated ratio:', ratio);
                 
                 // Calculate dimensions maintaining aspect ratio
                 // Portrait images get height-constrained, landscape get width-constrained
@@ -206,23 +216,25 @@ export async function htmlToDocx(html: string, options?: any): Promise<ArrayBuff
                   // Portrait image (taller than wide)
                   height = 600;
                   width = Math.round(height * ratio);
+                  console.log('[DOCX] Portrait mode calculation');
                 } else {
                   // Landscape or square image
                   width = 600;
                   height = Math.round(width / ratio);
+                  console.log('[DOCX] Landscape/square mode calculation');
                 }
                 
                 transformation = { width, height };
-                console.log(`[DOCX] Using aspect ratio ${aspectRatio} → ${width}x${height}`);
+                console.log(`[DOCX] Final transformation: ${width}x${height} (ratio: ${aspectRatio})`);
               } else {
                 // Invalid aspect ratio format, use fallback
                 transformation = { width: 600, height: 400 };
-                console.warn(`[DOCX] Invalid aspect ratio format: ${aspectRatio}`);
+                console.warn(`[DOCX] Invalid aspect ratio format: ${aspectRatio} - using fallback 600x400`);
               }
             } else {
               // No aspect ratio available, use default
               transformation = { width: 600, height: 400 };
-              console.warn('[DOCX] No aspect ratio data attribute found, using default dimensions');
+              console.warn('[DOCX] No aspect ratio data attribute found, using default dimensions 600x400');
             }
             
             paragraphs.push(
@@ -419,6 +431,19 @@ export async function processExportFormats(
   // Generate DOCX from styled HTML (with aspect ratio data) using modern docx library (server-side only)
   try {
     console.log('[Format Converters] Generating DOCX with aspect ratio:', aspectRatio);
+    console.log('[Format Converters] DOCX HTML preview (first 500 chars):', processedHtmlStyled.substring(0, 500));
+    
+    // Check if images have data-aspect-ratio attributes
+    const imgTags = processedHtmlStyled.match(/<img[^>]*>/gi);
+    if (imgTags) {
+      console.log('[Format Converters] Found img tags in DOCX HTML:', imgTags.length);
+      imgTags.forEach((tag, index) => {
+        console.log(`[Format Converters] Img tag ${index + 1}:`, tag);
+      });
+    } else {
+      console.log('[Format Converters] No img tags found in DOCX HTML');
+    }
+    
     const docxBuffer = await htmlToDocx(processedHtmlStyled);
     const docxBase64 = Buffer.from(docxBuffer).toString('base64');
     formats['docx'] = {
