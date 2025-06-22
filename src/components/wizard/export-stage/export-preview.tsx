@@ -57,8 +57,7 @@ export function ExportPreview({ htmlStyled, htmlClean, htmlStyledUrl, htmlCleanU
   const [loadedHtmlStyled, setLoadedHtmlStyled] = useState<string | undefined>(htmlStyled);
   const [loadedHtmlClean, setLoadedHtmlClean] = useState<string | undefined>(htmlClean);
   const [isLoading, setIsLoading] = useState(false);
-  const shadowRef = useRef<HTMLDivElement>(null);
-  const shadowRootRef = useRef<ShadowRoot | null>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
   
   // Smart defaultView logic: use the requested default only if content is available
   const getInitialViewMode = (): "styled" | "clean" => {
@@ -136,49 +135,26 @@ useEffect(() => {
   }
 }, [htmlStyled, htmlClean, htmlStyledUrl, htmlCleanUrl, defaultView]);
   
-  const currentHtml = viewMode === "styled" ? loadedHtmlStyled : loadedHtmlClean;
-  
+  // Whenever currentHtml changes (inline) -> push to iframe using srcDoc
   useEffect(() => {
-    console.log('[ExportPreview] Rendering content into shadow DOM', { viewMode, hasHtml: !!currentHtml });
-    if (!shadowRef.current || !currentHtml) return;
-    
-    // Clean the HTML content to remove code fences and formatting
-    const cleanedHtml = cleanHtmlContent(currentHtml);
-    
-    if (!shadowRootRef.current) {
-      shadowRootRef.current = shadowRef.current.attachShadow({ mode: 'closed' });
-    }
-    
-    // Add scrollable styles to the shadow DOM content
-    const wrappedHtml = `
-      <style>
-        :host {
-          display: block;
-          width: 100%;
-          height: 100%;
-          overflow: auto;
-          scroll-behavior: smooth;
-        }
-        body {
-          margin: 0;
-          padding: 16px;
-          width: calc(100% - 32px);
-          box-sizing: border-box;
-        }
-      </style>
-      ${cleanedHtml}`;
-    
-    shadowRootRef.current.innerHTML = wrappedHtml;
-    console.log('[ExportPreview] Shadow DOM updated', { charCount: cleanedHtml.length });
-    
-    return () => {
-      if (shadowRootRef.current) {
-        shadowRootRef.current.innerHTML = '';
+    if (!iframeRef.current) return;
+
+    if (viewMode === 'styled') {
+      if (htmlStyledUrl) {
+        iframeRef.current.src = htmlStyledUrl;
+      } else if (loadedHtmlStyled) {
+        iframeRef.current.srcdoc = cleanHtmlContent(loadedHtmlStyled);
       }
-    };
-  }, [currentHtml]);
+    } else {
+      if (htmlCleanUrl) {
+        iframeRef.current.src = htmlCleanUrl;
+      } else if (loadedHtmlClean) {
+        iframeRef.current.srcdoc = cleanHtmlContent(loadedHtmlClean);
+      }
+    }
+  }, [viewMode, loadedHtmlStyled, loadedHtmlClean, htmlStyledUrl, htmlCleanUrl]);
   
-  if (!loadedHtmlStyled && !loadedHtmlClean && !isLoading) {
+  if (!loadedHtmlStyled && !loadedHtmlClean && !htmlStyledUrl && !htmlCleanUrl && !isLoading) {
     return null;
   }
   
@@ -219,19 +195,13 @@ useEffect(() => {
       <Card className="overflow-hidden">
         <div className="relative">
           {viewMode === "styled" && (
-            <Badge 
-              variant="secondary" 
-              className="absolute top-2 right-2 z-10"
-            >
-              Styled Preview
-            </Badge>
+            <Badge variant="secondary" className="absolute top-2 right-2 z-10">Styled Preview</Badge>
           )}
-          
-          <div
-            ref={shadowRef}
-            className="w-full h-[400px] border-0 bg-white overflow-auto"
+          <iframe
+            ref={iframeRef}
             title={`${viewMode} HTML preview`}
-            style={{ scrollBehavior: 'smooth' }}
+            sandbox="allow-same-origin"
+            className="w-full h-[400px] border-0 bg-white"
           />
         </div>
       </Card>
