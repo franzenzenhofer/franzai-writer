@@ -13,6 +13,8 @@ import { useDocumentPersistence } from '@/hooks/use-document-persistence';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/components/layout/app-providers';
 import { cn } from '@/lib/utils';
+// Import server action for export stage execution
+import { executeExportStage as serverExecuteExportStage } from '@/ai/flows/export-stage-execution';
 
 // Lazy load the AI stage runner to prevent Turbopack static analysis
 let runAiStage: any = null;
@@ -727,30 +729,16 @@ Still having issues? Check the browser console for detailed logs.`;
     // Handle export stage type
     console.log('🚨🚨🚨 [handleRunStage] EXPORT STAGE CHECK - stageType:', stage.stageType, 'stageId:', stageId);
     if (stage.stageType === 'export') {
-      console.log('🚨🚨🚨 [handleRunStage] DETECTED EXPORT STAGE - USING DEDICATED EXPORT FLOW 🚨🚨🚨');
+      console.log('🚨🚨🚨 [handleRunStage] DETECTED EXPORT STAGE - EXECUTING VIA SERVER ACTION 🚨🚨🚨');
       console.log('[handleRunStage] Starting export stage execution');
       try {
-        const { executeExportStage } = await import('@/ai/flows/export-stage-execution');
-        
-        console.log('[handleRunStage] executeExportStage imported successfully');
-        
-        // Set a timeout for export generation (30 seconds)
-        const exportPromise = executeExportStage({
+        const result = await serverExecuteExportStage({
           stage,
           workflow: instance.workflow,
           allStageStates: instance.stageStates,
           documentId: instance.documentId || 'temp-export',
           userId: effectiveUser?.uid || 'anonymous',
-          // NOTE: Progress updates are now handled server-side and persisted;
-          // we no longer pass a client callback to avoid the RSC boundary issue.
         });
-        
-        const timeoutPromise = new Promise((_, reject) => {
-          setTimeout(() => reject(new Error('Export generation timed out after 30 seconds')), 30000);
-        });
-        
-        console.log('[handleRunStage] Waiting for export to complete...');
-        const result = await Promise.race([exportPromise, timeoutPromise]) as any;
         
         console.log('[handleRunStage] Export completed successfully');
         console.log('[handleRunStage] Export result keys:', Object.keys(result || {}));

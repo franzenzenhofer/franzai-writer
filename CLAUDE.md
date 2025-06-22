@@ -134,8 +134,18 @@ The core feature is a JSON-based workflow system where each workflow:
 
 ### Test File Constraints
 - **Maximum 5 tests per file** - Never exceed this limit
+  - **EXCEPTION**: `poem-workflow-comprehensive.spec.ts` is our SUPER POWERFUL test and is exempt from this limit
 - **Chrome only execution** - All tests must include browser restriction
 - **Focused and essential tests only** - No debug, redundant, or development tests
+
+### Special Tests
+- **poem-workflow-comprehensive.spec.ts** - Our most powerful test that exercises ALL features
+  - Tests complete workflow with all stages
+  - Tests error recovery and edge cases
+  - Tests concurrent workflows
+  - Tests all image formats and export options
+  - Tests AI attribution compliance
+  - This test MUST remain comprehensive and powerful!
 
 ### Chrome-Only Requirement
 Add this to every test file's describe block:

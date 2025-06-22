@@ -37,9 +37,19 @@ function cleanHtmlContent(content: string): string {
   // Remove standalone language markers
   cleaned = cleaned.replace(/^\s*(html|json|markdown|md)\s*$/gm, '');
   
-  // Clean up DOCTYPE formatting
-  cleaned = cleaned.replace(/^[\s]*<!DOCTYPE html>/gm, '<!DOCTYPE html>');
+  // Remove full-document wrappers that break shadow rendering
+  cleaned = cleaned.replace(/<!DOCTYPE[^>]*>/gi, '')
+                 // Remove opening & closing html tag but keep inner content
+                 .replace(/<html[^>]*>/gi, '')
+                 .replace(/<\/html>/gi, '')
+                 // Strip <head> wrapper but KEEP its inner styles/scripts
+                 .replace(/<head[^>]*>/gi, '')
+                 .replace(/<\/head>/gi, '')
+                 // Strip body tag (attributes can break in shadow) but keep content
+                 .replace(/<body[^>]*>/gi, '')
+                 .replace(/<\/body>/gi, '');
   
+  // Trim leading/trailing whitespace once more
   return cleaned.trim();
 }
 
@@ -129,6 +139,7 @@ useEffect(() => {
   const currentHtml = viewMode === "styled" ? loadedHtmlStyled : loadedHtmlClean;
   
   useEffect(() => {
+    console.log('[ExportPreview] Rendering content into shadow DOM', { viewMode, hasHtml: !!currentHtml });
     if (!shadowRef.current || !currentHtml) return;
     
     // Clean the HTML content to remove code fences and formatting
@@ -158,6 +169,7 @@ useEffect(() => {
       ${cleanedHtml}`;
     
     shadowRootRef.current.innerHTML = wrappedHtml;
+    console.log('[ExportPreview] Shadow DOM updated', { charCount: cleanedHtml.length });
     
     return () => {
       if (shadowRootRef.current) {
