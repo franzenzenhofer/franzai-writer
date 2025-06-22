@@ -15,6 +15,10 @@ export const siteConfig = {
       href: "/dashboard",
     },
     {
+      title: "Documents",
+      href: "/documents",
+    },
+    {
       title: "AI Logs",
       href: "/admin/debug/ai-log-viewer",
     },
