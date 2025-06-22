@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useAuth } from "@/components/layout/app-providers";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
@@ -17,18 +17,17 @@ import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useTheme } from "next-themes";
+import { PageHeader } from "@/components/ui/page-header";
 
 export default function SettingsPage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
   const { toast } = useToast();
-  const { theme, setTheme } = useTheme();
   
   const [deleteAccountOpen, setDeleteAccountOpen] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
-  const [isUpdating, setIsUpdating] = useState(false);
+  const [selectedTheme, setSelectedTheme] = useState<"light" | "dark" | "system">("system");
   
   // User preferences state
   const [preferences, setPreferences] = useState({
@@ -71,17 +70,11 @@ export default function SettingsPage() {
     setIsDeleting(true);
     try {
       // TODO: Implement actual account deletion logic
-      // This should:
-      // 1. Delete all user documents
-      // 2. Delete user data from Firestore
-      // 3. Delete the Firebase Auth account
-      
       toast({
         title: "Account deletion initiated",
-        description: "Your account deletion request has been received. This action cannot be undone.",
+        description: "Your account deletion request has been received.",
       });
       
-      // For now, just log out
       await handleLogout();
     } catch (error) {
       toast({
@@ -98,7 +91,6 @@ export default function SettingsPage() {
   // Handle preference updates
   const updatePreference = (key: string, value: any) => {
     setPreferences(prev => ({ ...prev, [key]: value }));
-    // TODO: Save preferences to Firestore
     toast({
       title: "Preference updated",
       description: "Your preference has been saved.",
@@ -130,12 +122,10 @@ export default function SettingsPage() {
 
   return (
     <div className="container mx-auto py-8 px-4 max-w-4xl">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Settings</h1>
-        <p className="text-muted-foreground">
-          Manage your account settings and preferences.
-        </p>
-      </div>
+      <PageHeader 
+        title="Settings"
+        description="Manage your account settings and preferences."
+      />
 
       <Tabs defaultValue="account" className="space-y-6">
         <TabsList className="grid w-full grid-cols-3">
@@ -364,29 +354,45 @@ export default function SettingsPage() {
                 <Label>Color theme</Label>
                 <div className="grid grid-cols-3 gap-2">
                   <Button
-                    variant={theme === "light" ? "default" : "outline"}
+                    variant={selectedTheme === "light" ? "default" : "outline"}
                     className="w-full"
-                    onClick={() => setTheme("light")}
+                    onClick={() => setSelectedTheme("light")}
                   >
                     <Sun className="mr-2 h-4 w-4" />
                     Light
                   </Button>
                   <Button
-                    variant={theme === "dark" ? "default" : "outline"}
+                    variant={selectedTheme === "dark" ? "default" : "outline"}
                     className="w-full"
-                    onClick={() => setTheme("dark")}
+                    onClick={() => setSelectedTheme("dark")}
                   >
                     <Moon className="mr-2 h-4 w-4" />
                     Dark
                   </Button>
                   <Button
-                    variant={theme === "system" ? "default" : "outline"}
+                    variant={selectedTheme === "system" ? "default" : "outline"}
                     className="w-full"
-                    onClick={() => setTheme("system")}
+                    onClick={() => setSelectedTheme("system")}
                   >
                     <Settings className="mr-2 h-4 w-4" />
                     System
                   </Button>
+                </div>
+              </div>
+              
+              {/* Theme Preview */}
+              <div className="space-y-2">
+                <Label>Preview</Label>
+                <div className={cn(
+                  "p-6 rounded-lg border transition-colors",
+                  selectedTheme === "dark" ? "bg-gray-900 text-white" : 
+                  selectedTheme === "light" ? "bg-white text-gray-900" :
+                  "bg-gradient-to-r from-white to-gray-900"
+                )}>
+                  <p className="font-medium mb-2">Theme Preview</p>
+                  <p className="text-sm opacity-70">
+                    This is how your interface will look with the {selectedTheme} theme.
+                  </p>
                 </div>
               </div>
             </CardContent>
