@@ -133,19 +133,52 @@ The core feature is a JSON-based workflow system where each workflow:
 **CRITICAL**: All Playwright tests MUST follow these strict guidelines to maintain performance and reliability.
 
 ### Test File Constraints
-- **Maximum 5 tests per file** - Never exceed this limit
-  - **EXCEPTION**: `poem-workflow-comprehensive.spec.ts` is our SUPER POWERFUL test and is exempt from this limit
+- **Maximum 5 tests per file** - Never exceed this limit (except for critical workflow tests listed below)
 - **Chrome only execution** - All tests must include browser restriction
 - **Focused and essential tests only** - No debug, redundant, or development tests
 
-### Special Tests
-- **poem-workflow-comprehensive.spec.ts** - Our most powerful test that exercises ALL features
-  - Tests complete workflow with all stages
-  - Tests error recovery and edge cases
-  - Tests concurrent workflows
-  - Tests all image formats and export options
-  - Tests AI attribution compliance
-  - This test MUST remain comprehensive and powerful!
+### EXEMPTED Test Files (Critical Workflows)
+These test files are EXEMPTED from the 5-test limit due to their critical nature and complex workflow coverage:
+
+1. **poem-workflow-comprehensive.spec.ts** (10 tests) - Our SUPER POWERFUL test
+   - Complete workflow with all stages
+   - Error recovery and edge cases
+   - Concurrent workflows
+   - All image formats and export options
+   - AI attribution compliance
+   - Document persistence and reload
+   - Special characters and long content
+   - This test MUST remain comprehensive and powerful!
+
+2. **export-stage-comprehensive.spec.ts** (8 tests) - Critical export functionality
+   - Multiple image selection in export
+   - Export data persistence after reload
+   - Concurrent export handling
+   - Export with skipped optional stages
+   - AI attribution validation
+   - Large document export efficiency
+   - Export stage URL navigation
+
+3. **press-release-workflow.spec.ts** (10 tests) - Complex multi-stage workflow
+   - File upload functionality for tone examples
+   - Web search verification in research stage
+   - Multiple quotes and special formatting
+   - International content and special characters
+   - Press photo selection with multiple images
+   - Boilerplate and distribution options
+   - Error recovery and validation
+   - Comprehensive export with all features
+
+4. **recipe-workflow-complete.spec.ts** (10 tests) - Advanced recipe features
+   - Complex ingredient format parsing (metric, imperial, fractions, ranges)
+   - Recipe scaling for different serving sizes
+   - Nutritional information generation
+   - Dietary restrictions and substitutions
+   - Step-by-step image generation
+   - Multi-format recipe export
+   - Cooking time calculations and equipment listing
+   - Recipe difficulty assessment
+   - Print-friendly recipe card generation
 
 ### Chrome-Only Requirement
 Add this to every test file's describe block:
