@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Workflow Details Page E2E Tests', () => {
+test.describe('Workflow Details Page E2E Tests (Chrome Only)', () => {
+  test.skip(({ browserName }) => browserName !== 'chromium', 'Chrome only per CLAUDE.md guidelines');
   test.beforeEach(async ({ page }) => {
     // Navigate directly to a workflow details page (poem workflow)
     await page.goto('/workflow-details/poem');

@@ -1,7 +1,12 @@
 import { test, expect } from '@playwright/test';
-import { testUser } from '../test-constants';
 
-test.describe('Assets Page E2E Tests', () => {
+const testUser = {
+  email: 'test@example.com',
+  password: 'testpassword123'
+};
+
+test.describe('Assets Page E2E Tests (Chrome Only)', () => {
+  test.skip(({ browserName }) => browserName !== 'chromium', 'Chrome only per CLAUDE.md guidelines');
   test.beforeEach(async ({ page }) => {
     // Login and navigate to assets
     await page.goto('/login');
