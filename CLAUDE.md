@@ -128,10 +128,40 @@ The core feature is a JSON-based workflow system where each workflow:
 - AI logs confirm successful Imagen API calls and image generation
 - Basic Playwright tests demonstrate end-to-end workflow functionality
 
-⚠️ **PENDING**: Fine-tune Playwright test selectors for UI form components
-- Need to update form interaction tests for shadcn/ui components
-- Update stage completion detection selectors
-- Tests timeout due to selector issues, not functionality problems
+## E2E Testing Guidelines
+
+**CRITICAL**: All Playwright tests MUST follow these strict guidelines to maintain performance and reliability.
+
+### Test File Constraints
+- **Maximum 5 tests per file** - Never exceed this limit
+- **Chrome only execution** - All tests must include browser restriction
+- **Focused and essential tests only** - No debug, redundant, or development tests
+
+### Chrome-Only Requirement
+Add this to every test file's describe block:
+```typescript
+test.describe('Test Suite Name (Chrome Only)', () => {
+  test.skip(({ browserName }) => browserName !== 'chromium', 'Chrome only per CLAUDE.md guidelines');
+  // ... tests
+});
+```
+
+### Specific Element Selectors
+- Use `#process-stage-{stage-id}` for stage action buttons
+- Use `[data-testid="stage-card-{stage-id}"]` for stage cards  
+- **NEVER** use generic selectors like `button:has-text("Continue")`
+- For shadcn/ui components, use specific data-testid approaches
+
+### Test Organization
+- **Core workflows**: poem, press-release, recipe, article (1 file each)
+- **Export functionality**: comprehensive export testing (1-2 files max)
+- **Utility functions**: auth, dashboard, admin (1 file each)
+- **No cross-browser testing** - Chrome coverage is sufficient
+
+### Performance Impact
+- Reduced from 49 → 17 test files (65% reduction)
+- Each test runs only on Chrome to save execution time
+- Essential test coverage maintained while eliminating redundancy
 
 ## Ticket Management System
 
