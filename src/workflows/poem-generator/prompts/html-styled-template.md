@@ -53,6 +53,21 @@ Image Aspect Ratio: {{stages.image-briefing.aspectRatio}}
 - For wide images (16:9, 4:3): Use as hero banner
 - For square images (1:1): Place beside or above poem with proper spacing
 - For tall images (9:16, 3:4): Consider sidebar or before/after poem placement
+
+### Image Attribution Requirements
+{{#if imageAttribution}}
+**CRITICAL**: Include attribution for AI-generated image:
+- Attribution Text: "{{imageAttribution.text}}"
+- Style it unobtrusively with small font (0.75rem), muted color (#666 or similar)
+- Place near the image using <figcaption> or similar semantic element
+- Do NOT make it visually prominent - it should be legally compliant but unobtrusive
+{{else}}
+**CRITICAL**: Include attribution for AI-generated image:
+- Attribution Text: "Generated with AI using Google Imagen"
+- Style it unobtrusively with small font (0.75rem), muted color (#666 or similar)
+- Place near the image using <figcaption> or similar semantic element
+- Do NOT make it visually prominent - it should be legally compliant but unobtrusive
+{{/if}}
 {{/if}}
 
 ## Design Requirements

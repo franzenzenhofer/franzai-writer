@@ -214,6 +214,16 @@ function getDefaultStyledHtmlPrompt(): string {
 {{this}}
 {{/each}}
 
+{{#if imageAttribution}}
+## Image Attribution Requirements
+- Provider: {{imageAttribution.provider}}
+- Attribution Text: "{{imageAttribution.text}}"
+- Placement: {{imageAttribution.placement}}
+- Style: {{imageAttribution.style}}
+
+**CRITICAL**: Include this attribution text near any images in the document. Style it unobtrusively with small font size (0.75rem), muted color, and proper spacing. Use a <figcaption> element or similar semantic markup.
+{{/if}}
+
 ## CRITICAL OUTPUT INSTRUCTIONS
 - Return ONLY the complete HTML document
 - DO NOT wrap in code fences (no \`\`\`html or \`\`\`)
@@ -230,6 +240,7 @@ function getDefaultStyledHtmlPrompt(): string {
 6. Add subtle animations
 7. Ensure high contrast and accessibility
 8. Include proper meta tags and SEO
+{{#if imageAttribution}}9. Include image attribution as specified above{{/if}}
 
 Generate the complete HTML document now. Return ONLY HTML, no markdown.`;
 }
@@ -244,6 +255,15 @@ function getDefaultCleanHtmlPrompt(): string {
 {{#each stages}}
 {{this}}
 {{/each}}
+
+{{#if imageAttribution}}
+## Image Attribution Requirements
+- Provider: {{imageAttribution.provider}}
+- Attribution Text: "{{imageAttribution.text}}"
+- Placement: {{imageAttribution.placement}}
+
+**CRITICAL**: Include this attribution text near any images using semantic HTML like <figcaption> or <footer>. Use plain text only (no styling since this is clean HTML).
+{{/if}}
 
 ## CRITICAL OUTPUT INSTRUCTIONS
 - **Return a COMPLETE HTML document with proper DOCTYPE, html, head, and body tags.**

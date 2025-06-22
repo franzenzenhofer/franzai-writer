@@ -1,5 +1,12 @@
 import type { Workflow, StageState } from '@/types';
 
+export type ImageAttribution = {
+  provider: string;
+  text: string;
+  placement: 'below_image' | 'footer' | 'caption';
+  style: 'muted' | 'normal' | 'hidden';
+};
+
 export type TemplateContext = {
   workflow: {
     id: string;
@@ -7,6 +14,7 @@ export type TemplateContext = {
     title?: string;
   };
   stages: Record<string, any>;
+  imageAttribution?: ImageAttribution;
 };
 
 /**
@@ -17,7 +25,7 @@ export function buildContext(
   workflow: Workflow,
   stageStates: Record<string, StageState>
 ): TemplateContext {
-  return {
+  const context: TemplateContext = {
     workflow: {
       id: workflow.id,
       type: workflow.id, // Use id as type since there's no type property
@@ -30,6 +38,41 @@ export function buildContext(
       ])
     ),
   };
+
+  // Check if any stages use Imagen for image generation
+  const imagenAttribution = detectImagenUsage(workflow, stageStates);
+  if (imagenAttribution) {
+    context.imageAttribution = imagenAttribution;
+  }
+
+  return context;
+}
+
+/**
+ * Detects if any workflow stages use Imagen for image generation
+ * and returns appropriate attribution information
+ */
+function detectImagenUsage(
+  workflow: Workflow,
+  stageStates: Record<string, StageState>
+): ImageAttribution | null {
+  // Check all workflow stages for Imagen usage
+  for (const stage of workflow.stages) {
+    if (stage.outputType === 'image' && stage.imageGenerationSettings?.provider === 'imagen') {
+      // Found an Imagen stage - check if it has actually generated images
+      const stageOutput = stageStates[stage.id]?.output;
+      if (stageOutput && stageOutput.images && Array.isArray(stageOutput.images) && stageOutput.images.length > 0) {
+        return {
+          provider: 'Imagen',
+          text: 'Generated with AI using Google Imagen',
+          placement: 'below_image',
+          style: 'muted'
+        };
+      }
+    }
+  }
+  
+  return null;
 }
 
 /**

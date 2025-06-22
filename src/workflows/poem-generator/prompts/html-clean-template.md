@@ -24,15 +24,27 @@ Poem: {{stages.generate-poem-with-title.poem}}
 {{#if stages.generate-poem-image.images}}
 Poem Illustration URL: {{stages.generate-poem-image.images.[0].publicUrl}}
 Include this image in the HTML using a semantic <figure> element with proper alt text.
+
+### Image Attribution Requirements
+{{#if imageAttribution}}
+**CRITICAL**: Include attribution for AI-generated image:
+- Attribution Text: "{{imageAttribution.text}}"
+- Place in a simple <figcaption> element after the <img> tag
+- Use plain text only - no styling attributes
+{{else}}
+**CRITICAL**: Include attribution for AI-generated image:
+- Attribution Text: "Generated with AI using Google Imagen"
+- Place in a simple <figcaption> element after the <img> tag  
+- Use plain text only - no styling attributes
+{{/if}}
 {{/if}}
 
 ## CRITICAL: WHAT NOT TO INCLUDE
-- **NO figcaption elements** - images should not have captions
 - **NO author information** unless explicitly provided in the content
 - **NO publication dates or metadata** unless explicitly provided
 - **NO "Illustration for the poem" or similar generic text**
 - **NO footer elements** unless there's actual footer content
-- **NO explanatory text about the image**
+- **NO explanatory text about the image** (except required attribution)
 - **NO extra descriptive text** - only include the poem title, image, and poem content
 
 ## CRITICAL OUTPUT INSTRUCTIONS
@@ -75,7 +87,7 @@ Generate a complete HTML document like this:
    - <h2> for the author name or subtitle
    - <figure> for the poem illustration (if available)
    - <img> for the actual image with proper alt text
-   - **DO NOT use <figcaption> - the image should speak for itself**
+   - <figcaption> for required AI image attribution only
    - <section> for major poem divisions
    - <div> for stanzas (when logical grouping is needed)
    - <p> for each line of poetry
@@ -90,6 +102,7 @@ Generate a complete HTML document like this:
      
      <figure>
        <img src="[image-url]" alt="[Descriptive alt text based on the poem's visual theme]" style="max-width: 100%; height: auto;">
+       <figcaption>Generated with AI using Google Imagen</figcaption>
      </figure>
      
      <div>

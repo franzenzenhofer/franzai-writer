@@ -5,7 +5,7 @@ import type { ExportFormat } from '@/types';
 /**
  * Convert HTML to Markdown using Turndown library
  */
-export async function htmlToMarkdown(html: string): Promise<string> {
+export async function htmlToMarkdown(html: string, options?: { imageAttribution?: string }): Promise<string> {
   // Dynamic import to avoid bundling in client code
   const TurndownService = (await import('turndown')).default;
   
@@ -57,10 +57,12 @@ export async function htmlToMarkdown(html: string): Promise<string> {
     }
   });
   
-  // Remove any figure captions (we don't want them in markdown)
-  turndownService.addRule('removeFigcaption', {
+  // Keep figcaptions for attribution (override previous rule)
+  turndownService.addRule('keepFigcaption', {
     filter: 'figcaption',
-    replacement: () => ''
+    replacement: function (content: string) {
+      return '\n\n*' + content.trim() + '*\n\n';
+    }
   });
   
   // Convert the HTML to Markdown
@@ -73,6 +75,11 @@ export async function htmlToMarkdown(html: string): Promise<string> {
     .replace(/^```\s*$/gm, '')
     .replace(/^\s*html\s*$/gm, '')
     .trim();
+  
+  // Add image attribution as a footnote if provided and not already present
+  if (options?.imageAttribution && !markdown.includes(options.imageAttribution)) {
+    markdown += '\n\n---\n\n*' + options.imageAttribution + '*';
+  }
   
   return markdown;
 }
@@ -345,6 +352,23 @@ export async function processExportFormats(
   // Extract aspect ratio from context if available
   const aspectRatio = exportConfig?.contextVars?.['image-briefing']?.output?.aspectRatio;
   
+  // Extract image attribution from context if available (detect Imagen usage)
+  let imageAttribution: string | undefined;
+  if (exportConfig?.contextVars) {
+    // Check for any stage with Imagen images
+    for (const [stageId, stageOutput] of Object.entries(exportConfig.contextVars)) {
+      if (stageOutput && typeof stageOutput === 'object' && 
+          'output' in stageOutput && stageOutput.output && 
+          typeof stageOutput.output === 'object' && 'images' in stageOutput.output &&
+          Array.isArray(stageOutput.output.images) && 
+          stageOutput.output.images.length > 0) {
+        // Found images - assume they're from Imagen (we could be more specific by checking the stage config)
+        imageAttribution = 'Generated with AI using Google Imagen';
+        break;
+      }
+    }
+  }
+  
   // Post-process HTML to include aspect ratio data attributes
   const processedHtmlStyled = postProcessHtml(htmlStyled, aspectRatio);
   const processedHtmlClean = postProcessHtml(htmlClean, aspectRatio);
@@ -362,7 +386,7 @@ export async function processExportFormats(
   
   // Generate Markdown from clean HTML
   try {
-    const markdown = await htmlToMarkdown(processedHtmlClean);
+    const markdown = await htmlToMarkdown(processedHtmlClean, { imageAttribution });
     formats['markdown'] = {
       ready: true,
       content: markdown,
