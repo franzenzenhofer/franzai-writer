@@ -2,30 +2,20 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/components/layout/app-providers";
-import { WizardDocument } from "@/types/wizard-types";
-import { listUserDocuments, copyDocument as copyDocumentAction, deleteDocument as deleteDocumentAction, deleteDocuments as deleteDocumentsAction } from "@/lib/document-actions";
+import { WizardDocument } from "@/types";
+import { listUserDocuments, deleteDocuments as deleteDocumentsAction } from "@/lib/document-actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { AlertCircle, FileText, Clock, ChevronDown, Search, Filter, Grid, List, Copy, Trash2, Download, ExternalLink } from "lucide-react";
+import { AlertCircle, FileText, ChevronDown, Search, Filter, Trash2, Download } from "lucide-react";
 import Link from "next/link";
-import { formatDistanceToNow } from "date-fns";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
+import { DocumentTable } from "@/components/documents/document-table";
 
-type ViewMode = "grid" | "list";
 type SortOption = "recent" | "oldest" | "title" | "workflow";
 
 export default function DocumentsPage() {
@@ -38,7 +28,6 @@ export default function DocumentsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedWorkflow, setSelectedWorkflow] = useState<string>("all");
   const [sortBy, setSortBy] = useState<SortOption>("recent");
-  const [viewMode, setViewMode] = useState<ViewMode>("grid");
   const [selectedDocs, setSelectedDocs] = useState<Set<string>>(new Set());
   const [showBulkActions, setShowBulkActions] = useState(false);
 
@@ -49,8 +38,18 @@ export default function DocumentsPage() {
         setLoading(true);
         setError(null);
         const docs = await listUserDocuments();
-        setDocuments(docs);
-        setFilteredDocuments(docs);
+        
+        // Remove duplicates based on document ID
+        const uniqueDocs = Array.from(
+          new Map(docs.map(doc => [doc.id, doc])).values()
+        );
+        
+        if (uniqueDocs.length !== docs.length) {
+          console.warn(`[Documents] Found duplicate documents: ${docs.length - uniqueDocs.length} duplicates removed`);
+        }
+        
+        setDocuments(uniqueDocs);
+        setFilteredDocuments(uniqueDocs);
       } catch (err) {
         console.error("Error loading documents:", err);
         setError("Failed to load documents. Please try again.");
@@ -106,50 +105,6 @@ export default function DocumentsPage() {
   // Get unique workflows
   const workflows = Array.from(new Set(documents.map(doc => doc.workflowId)));
 
-  // Toggle document selection
-  const toggleDocSelection = (docId: string) => {
-    const newSelection = new Set(selectedDocs);
-    if (newSelection.has(docId)) {
-      newSelection.delete(docId);
-    } else {
-      newSelection.add(docId);
-    }
-    setSelectedDocs(newSelection);
-  };
-
-  // Select all documents
-  const selectAll = () => {
-    if (selectedDocs.size === filteredDocuments.length) {
-      setSelectedDocs(new Set());
-    } else {
-      setSelectedDocs(new Set(filteredDocuments.map(doc => doc.id)));
-    }
-  };
-
-  // Copy document
-  const copyDocument = async (doc: WizardDocument) => {
-    try {
-      const result = await copyDocumentAction(doc.id);
-      if (result.success) {
-        toast({
-          title: "Document copied",
-          description: "The document has been successfully copied.",
-        });
-        // Reload documents
-        const docs = await listUserDocuments();
-        setDocuments(docs);
-        setFilteredDocuments(docs);
-      } else {
-        throw new Error(result.error?.message || "Copy failed");
-      }
-    } catch (err: any) {
-      toast({
-        title: "Error",
-        description: err.message || "Failed to copy document.",
-        variant: "destructive",
-      });
-    }
-  };
 
   // Delete documents
   const deleteDocuments = async (docIds: string[]) => {
@@ -164,8 +119,11 @@ export default function DocumentsPage() {
         setSelectedDocs(new Set());
         // Reload documents
         const docs = await listUserDocuments();
-        setDocuments(docs);
-        setFilteredDocuments(docs);
+        const uniqueDocs = Array.from(
+          new Map(docs.map(doc => [doc.id, doc])).values()
+        );
+        setDocuments(uniqueDocs);
+        setFilteredDocuments(uniqueDocs);
       } else {
         throw new Error("Delete failed");
       }
@@ -205,13 +163,21 @@ export default function DocumentsPage() {
     return workflowNames[workflowId] || workflowId;
   };
 
+  const reloadDocuments = async () => {
+    const docs = await listUserDocuments();
+    // Deduplicate documents
+    const uniqueDocs = Array.from(new Map(docs.map(doc => [doc.id, doc])).values());
+    setDocuments(uniqueDocs);
+    setFilteredDocuments(uniqueDocs);
+  };
+
   if (loading) {
     return (
       <div className="container mx-auto py-8 px-4 max-w-7xl">
         <Skeleton className="h-10 w-48 mb-8" />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="space-y-2">
           {[1, 2, 3, 4, 5, 6].map((i) => (
-            <Skeleton key={i} className="h-48" />
+            <Skeleton key={i} className="h-16" />
           ))}
         </div>
       </div>
@@ -283,23 +249,6 @@ export default function DocumentsPage() {
             </SelectContent>
           </Select>
 
-          {/* View Mode */}
-          <div className="flex gap-2">
-            <Button
-              variant={viewMode === "grid" ? "default" : "outline"}
-              size="icon"
-              onClick={() => setViewMode("grid")}
-            >
-              <Grid className="h-4 w-4" />
-            </Button>
-            <Button
-              variant={viewMode === "list" ? "default" : "outline"}
-              size="icon"
-              onClick={() => setViewMode("list")}
-            >
-              <List className="h-4 w-4" />
-            </Button>
-          </div>
         </div>
 
         {/* Bulk Actions */}
@@ -307,7 +256,13 @@ export default function DocumentsPage() {
           <div className="flex items-center gap-4 p-4 bg-muted rounded-lg">
             <Checkbox
               checked={selectedDocs.size === filteredDocuments.length}
-              onCheckedChange={selectAll}
+              onCheckedChange={() => {
+                if (selectedDocs.size === filteredDocuments.length) {
+                  setSelectedDocs(new Set());
+                } else {
+                  setSelectedDocs(new Set(filteredDocuments.map(doc => doc.id)));
+                }
+              }}
             />
             <span className="text-sm font-medium">
               {selectedDocs.size} document{selectedDocs.size !== 1 ? "s" : ""} selected
@@ -348,7 +303,7 @@ export default function DocumentsPage() {
 
       {/* Empty State */}
       {filteredDocuments.length === 0 ? (
-        <Card className="p-12 text-center">
+        <div className="text-center py-12">
           <FileText className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
           <h3 className="text-lg font-semibold mb-2">No documents found</h3>
           <p className="text-muted-foreground mb-4">
@@ -359,115 +314,15 @@ export default function DocumentsPage() {
           <Button asChild>
             <Link href="/dashboard">Go to Dashboard</Link>
           </Button>
-        </Card>
-      ) : (
-        /* Document Grid/List */
-        <div
-          className={cn(
-            viewMode === "grid"
-              ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-              : "space-y-4"
-          )}
-        >
-          {filteredDocuments.map((doc) => (
-            <Card
-              key={doc.id}
-              className={cn(
-                "group relative transition-shadow hover:shadow-lg",
-                viewMode === "list" && "flex"
-              )}
-            >
-              {/* Selection Checkbox */}
-              <div className="absolute top-4 left-4 z-10">
-                <Checkbox
-                  checked={selectedDocs.has(doc.id)}
-                  onCheckedChange={() => toggleDocSelection(doc.id)}
-                  className="bg-background"
-                />
-              </div>
-
-              <CardHeader className={cn(viewMode === "list" && "flex-1")}>
-                <div className="flex items-start justify-between">
-                  <div className="flex-1 pr-8">
-                    <CardTitle className="line-clamp-2">{doc.title}</CardTitle>
-                    <CardDescription className="mt-1">
-                      <Badge variant="secondary" className="mb-2">
-                        {getWorkflowDisplayName(doc.workflowId)}
-                      </Badge>
-                      <div className="flex items-center gap-2 text-xs">
-                        <Clock className="h-3 w-3" />
-                        {formatDistanceToNow(new Date(doc.updatedAt), { addSuffix: true })}
-                      </div>
-                    </CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-
-              {viewMode === "grid" && (
-                <CardContent>
-                  <p className="text-sm text-muted-foreground line-clamp-3">
-                    {doc.completedStages?.length || 0} stages completed
-                  </p>
-                </CardContent>
-              )}
-
-              <CardFooter className={cn("pt-4", viewMode === "list" && "ml-auto")}>
-                <div className="flex gap-2 w-full">
-                  <Button variant="outline" size="sm" asChild className="flex-1">
-                    <Link href={`/w/${doc.workflowId.replace("-generator", "")}/${doc.id}`}>
-                      <ExternalLink className="mr-2 h-4 w-4" />
-                      Open
-                    </Link>
-                  </Button>
-                  
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="sm">
-                        <ChevronDown className="h-4 w-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem onClick={() => copyDocument(doc)}>
-                        <Copy className="mr-2 h-4 w-4" />
-                        Make a copy
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Download className="mr-2 h-4 w-4" />
-                        Export
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem
-                        className="text-destructive"
-                        onClick={async () => {
-                          const result = await deleteDocumentAction(doc.id);
-                          if (result.success) {
-                            toast({
-                              title: "Document deleted",
-                              description: "The document has been deleted.",
-                            });
-                            // Reload documents
-                            const docs = await listUserDocuments();
-                            setDocuments(docs);
-                            setFilteredDocuments(docs);
-                          } else {
-                            toast({
-                              title: "Error",
-                              description: "Failed to delete document.",
-                              variant: "destructive",
-                            });
-                          }
-                        }}
-                      >
-                        <Trash2 className="mr-2 h-4 w-4" />
-                        Delete
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-              </CardFooter>
-            </Card>
-          ))}
         </div>
+      ) : (
+        <DocumentTable 
+          documents={filteredDocuments}
+          showCheckboxes={true}
+          onDocumentsChange={reloadDocuments}
+          selectedDocs={selectedDocs}
+          onSelectedDocsChange={setSelectedDocs}
+        />
       )}
     </div>
   );

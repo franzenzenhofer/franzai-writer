@@ -2,27 +2,17 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { allWorkflows } from "@/lib/workflow-loader";
 import type { WizardDocument, Workflow } from "@/types";
-import { FileText, ArrowRight, AlertCircle, PlusCircle, Info, LogIn, User, Loader2, Trash2, Edit, Clock, ChevronRight } from "lucide-react";
+import { FileText, ArrowRight, AlertCircle, PlusCircle, Info, LogIn, User, Loader2, ChevronRight } from "lucide-react";
 import { useAuth } from "@/components/layout/app-providers";
 import { clientDocumentPersistence } from '@/lib/document-persistence-client';
 import { useToast } from "@/hooks/use-toast";
-import { 
-  AlertDialog, 
-  AlertDialogAction, 
-  AlertDialogCancel, 
-  AlertDialogContent, 
-  AlertDialogDescription, 
-  AlertDialogFooter, 
-  AlertDialogHeader, 
-  AlertDialogTitle 
-} from "@/components/ui/alert-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Badge } from "@/components/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { DocumentTable } from "@/components/documents/document-table";
 import { cn } from "@/lib/utils";
 
 function getWorkflowName(workflowId: string) {
@@ -35,8 +25,6 @@ export default function DashboardPage() {
   const { toast } = useToast();
   const [documents, setDocuments] = useState<WizardDocument[]>([]);
   const [documentsLoading, setDocumentsLoading] = useState(false);
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [documentToDelete, setDocumentToDelete] = useState<string | null>(null);
 
   const log = (operation: string, data?: any) => {
     console.log(`[Dashboard] ${operation}`, data || '');
@@ -57,8 +45,17 @@ export default function DashboardPage() {
         throw new Error('FATAL: Invalid documents data received');
       }
       
-      setDocuments(userDocs);
-      log('Documents loaded successfully', { count: userDocs.length });
+      // Remove duplicates based on document ID
+      const uniqueDocs = Array.from(
+        new Map(userDocs.map(doc => [doc.id, doc])).values()
+      );
+      
+      if (uniqueDocs.length !== userDocs.length) {
+        console.warn(`[Dashboard] Found duplicate documents: ${userDocs.length - uniqueDocs.length} duplicates removed`);
+      }
+      
+      setDocuments(uniqueDocs);
+      log('Documents loaded successfully', { count: uniqueDocs.length });
       
     } catch (error: any) {
       logError('loadDocuments', error);
@@ -82,51 +79,6 @@ export default function DashboardPage() {
     loadDocuments();
   }, [loadDocuments]);
 
-  const handleDeleteDocument = async (documentId: string) => {
-    setDocumentToDelete(documentId);
-    setDeleteDialogOpen(true);
-  };
-
-  const confirmDelete = async () => {
-    if (!documentToDelete?.trim()) {
-      toast({
-        title: 'Delete failed',
-        description: 'Invalid document ID',
-        variant: 'destructive',
-      });
-      return;
-    }
-
-    try {
-      log('Deleting document', { documentId: documentToDelete });
-      
-      const success = await clientDocumentPersistence.deleteDocument(documentToDelete);
-      
-      if (!success) {
-        throw new Error('Delete operation returned false');
-      }
-      
-      toast({
-        title: 'Document deleted',
-        description: 'Your document has been deleted successfully.',
-      });
-      
-      // Reload documents to reflect changes
-      await loadDocuments();
-      
-    } catch (error: any) {
-      logError('confirmDelete', error);
-      
-      toast({
-        title: 'Delete failed',
-        description: error.message || 'Unable to delete the document. Please try again.',
-        variant: 'destructive',
-      });
-    } finally {
-      setDeleteDialogOpen(false);
-      setDocumentToDelete(null);
-    }
-  };
 
   return (
     <div className="container max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8 space-y-8">
@@ -258,97 +210,12 @@ export default function DashboardPage() {
             </p>
           </div>
         ) : (
-          <div className="border rounded-lg overflow-hidden">
-            <Table>
-              <TableHeader>
-                <TableRow className="bg-muted/50">
-                  <TableHead className="font-medium">Title</TableHead>
-                  <TableHead className="hidden sm:table-cell font-medium">Workflow</TableHead>
-                  <TableHead className="hidden md:table-cell font-medium">Status</TableHead>
-                  <TableHead className="hidden lg:table-cell font-medium">Updated</TableHead>
-                  <TableHead className="text-right font-medium">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {documents.map((doc, index) => {
-                  const workflow = allWorkflows.find(w => w.id === doc.workflowId);
-                  const documentUrl = workflow?.shortName 
-                    ? `/w/${workflow.shortName}/${doc.id}` 
-                    : `/w/${doc.id}`;
-
-                  return (
-                    <TableRow 
-                      key={doc.id}
-                      className={cn(
-                        "hover:bg-muted/50 transition-colors",
-                        index !== documents.length - 1 && "border-b"
-                      )}
-                    >
-                      <TableCell className="font-medium max-w-[300px]">
-                        <div className="truncate">{doc.title}</div>
-                      </TableCell>
-                      <TableCell className="hidden sm:table-cell text-sm text-muted-foreground">
-                        {getWorkflowName(doc.workflowId)}
-                      </TableCell>
-                      <TableCell className="hidden md:table-cell">
-                        <Badge 
-                          variant={doc.status === 'completed' ? 'default' : 'secondary'}
-                          className="text-xs"
-                        >
-                          {doc.status}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="hidden lg:table-cell text-sm text-muted-foreground">
-                        <div className="flex items-center gap-1">
-                          <Clock className="h-3 w-3" />
-                          {new Date(doc.updatedAt).toLocaleDateString()}
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex items-center justify-end gap-1">
-                          <Button variant="ghost" size="sm" asChild>
-                            <Link href={documentUrl}>
-                              <Edit className="h-4 w-4" />
-                              <span className="hidden sm:inline ml-1">Continue</span>
-                            </Link>
-                          </Button>
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            onClick={() => handleDeleteDocument(doc.id)}
-                          >
-                            <Trash2 className="h-4 w-4 text-destructive" />
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </div>
+          <DocumentTable 
+            documents={documents} 
+            onDocumentsChange={loadDocuments}
+          />
         )}
       </div>
-      
-      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Delete document?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your document.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction 
-              onClick={confirmDelete} 
-              className={cn(buttonVariants({ variant: "destructive" }))}
-            >
-              Delete
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </div>
   );
 }

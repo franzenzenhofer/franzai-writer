@@ -479,26 +479,6 @@ class DocumentPersistenceManager {
     }
   }
 
-  /**
-   * Delete a document - FAIL HARD on any error
-   */
-  async deleteDocument(documentId: string): Promise<boolean> {
-    try {
-      this.log('Deleting document', { documentId });
-
-      if (!documentId?.trim()) {
-        throw new Error('FATAL: Document ID is required');
-      }
-
-      await firestoreAdapter.deleteDocument(this.COLLECTION_NAME, documentId);
-      this.log('Document deleted successfully', { documentId });
-
-      return true;
-    } catch (error: any) {
-      this.logError('deleteDocument', error);
-      throw new Error(`FATAL: Failed to delete document: ${error.message}`);
-    }
-  }
 
   /**
    * Clean specific stage state properties that might cause Firestore nested entity errors
@@ -1056,29 +1036,24 @@ class DocumentPersistenceManager {
 
       // Load the original document
       const originalDoc = await this.loadDocument(documentId);
-      if (!originalDoc.success || !originalDoc.data) {
+      if (!originalDoc.success || !originalDoc.document || !originalDoc.stageStates) {
         throw new Error('Original document not found');
       }
 
       // Create a copy of the document data
       const copiedData = {
-        ...originalDoc.data,
-        title: newTitle || `Copy of ${originalDoc.data.title}`,
+        ...originalDoc.document,
+        title: newTitle || `Copy of ${originalDoc.document.title}`,
         createdAt: new Date(),
-        updatedAt: new Date(),
-        metadata: {
-          ...originalDoc.data.metadata,
-          copiedFrom: documentId,
-          copiedAt: new Date().toISOString()
-        }
+        updatedAt: new Date()
       };
 
       // Create the new document
       const result = await this.saveDocument(
-        undefined, // New document ID will be generated
+        null, // New document ID will be generated
         copiedData.title,
         copiedData.workflowId,
-        copiedData.stageStates
+        originalDoc.stageStates
       );
 
       if (result.success) {
