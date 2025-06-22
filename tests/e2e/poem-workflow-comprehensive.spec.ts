@@ -1,13 +1,12 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * Comprehensive E2E test for poem generation workflow
- * Tests ALL possible variations and edge cases
+ * Essential E2E tests for poem generation workflow
+ * Chrome only, max 5 tests per CLAUDE.md guidelines
  */
 
-// ONLY RUN 2 TESTS MAXIMUM TO SAVE MONEY
-test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
-  test.skip(({ browserName }) => browserName !== 'chromium', 'Only run on chromium to save costs');
+test.describe('Poem Workflow - Essential E2E Tests', () => {
+  test.skip(({ browserName }) => browserName !== 'chromium', 'Chrome only per CLAUDE.md guidelines');
   // Test configuration
   const BASE_URL = 'http://localhost:9002';
   
@@ -300,134 +299,4 @@ test.describe('Poem Workflow - Comprehensive E2E Tests', () => {
     console.log('✅ Long content handled correctly');
   });
 
-  test('Test error recovery and resilience', async ({ page }) => {
-    console.log('🧪 Testing error recovery...');
-    
-    // Test with minimal input
-    await page.click('a[href*="/workflow-details/poem-generator"]');
-    await page.waitForLoadState('networkidle');
-    await page.click('a[href*="/w/poem/new"]');
-    await page.waitForSelector('textarea');
-    
-    // Try with very short input
-    await page.fill('textarea', 'x');
-    await page.click('#process-stage-poem-topic');
-    
-    // Should still work or show appropriate error
-    try {
-      await page.waitForSelector('text=Poem Title', { timeout: 30000 });
-      console.log('✅ Minimal input handled successfully');
-    } catch (e) {
-      console.log('✅ Minimal input properly rejected with error handling');
-    }
-    
-    // Test with empty input
-    await page.goto(`${BASE_URL}/dashboard`);
-    await page.click('a[href*="/workflow-details/poem-generator"]');
-    await page.waitForLoadState('networkidle');
-    await page.click('a[href*="/w/poem/new"]');
-    await page.waitForSelector('textarea');
-    
-    // Try to continue with empty textarea
-    await page.click('#process-stage-poem-topic');
-    // Should either prevent continuation or handle gracefully
-    console.log('✅ Empty input handling tested');
-  });
-
-  test('Test multiple workflows simultaneously', async ({ browser }) => {
-    console.log('🧪 Testing multiple concurrent workflows...');
-    
-    // Create multiple browser contexts to simulate different users
-    const context1 = await browser.newContext();
-    const context2 = await browser.newContext();
-    
-    const page1 = await context1.newPage();
-    const page2 = await context2.newPage();
-    
-    try {
-      // Start two workflows simultaneously
-      await Promise.all([
-        page1.goto(`${BASE_URL}/dashboard`),
-        page2.goto(`${BASE_URL}/dashboard`)
-      ]);
-      
-      // Start poem generators on both
-      await Promise.all([
-        page1.click('a[href*="poem-generator"]').then(() => page1.click('a:has-text("Start Poem Generator")')),
-        page2.click('a[href*="poem-generator"]').then(() => page2.click('a:has-text("Start Poem Generator")'))
-      ]);
-      
-      await Promise.all([
-        page1.waitForSelector('textarea'),
-        page2.waitForSelector('textarea')
-      ]);
-      
-      // Fill different topics
-      await Promise.all([
-        page1.fill('textarea', 'Workflow 1 topic'),
-        page2.fill('textarea', 'Workflow 2 topic')
-      ]);
-      
-      // Continue both
-      await Promise.all([
-        page1.click('button:has-text("Continue")'),
-        page2.click('button:has-text("Continue")')
-      ]);
-      
-      // Wait for both to complete
-      await Promise.all([
-        page1.waitForSelector('text=Poem Title', { timeout: 30000 }),
-        page2.waitForSelector('text=Poem Title', { timeout: 30000 })
-      ]);
-      
-      console.log('✅ Multiple concurrent workflows handled successfully');
-      
-    } finally {
-      await context1.close();
-      await context2.close();
-    }
-  });
-
-  test('Check for console errors and warnings', async ({ page }) => {
-    console.log('🧪 Checking for console errors...');
-    
-    const errors: string[] = [];
-    const warnings: string[] = [];
-    
-    page.on('console', msg => {
-      if (msg.type() === 'error') {
-        errors.push(msg.text());
-      } else if (msg.type() === 'warning') {
-        warnings.push(msg.text());
-      }
-    });
-    
-    // Run a complete workflow while monitoring console
-    await page.click('a[href*="/workflow-details/poem-generator"]');
-    await page.waitForLoadState('networkidle');
-    await page.click('a[href*="/w/poem/new"]');
-    await page.waitForSelector('textarea');
-    
-    await page.fill('textarea', 'Console error test');
-    await page.click('#process-stage-poem-topic');
-    await page.waitForSelector('text=Poem Title', { timeout: 30000 });
-    
-    await page.click('div:has-text("Image Customization") button:has-text("Continue")');
-    await page.waitForSelector('text=Download', { timeout: 60000 });
-    
-    // Check for critical errors (ignore known acceptable warnings)
-    const criticalErrors = errors.filter(error => 
-      !error.includes('Failed to load resource') && // 404s are expected in some cases
-      !error.includes('params.shortName') && // Next.js migration warning
-      !error.includes('A param property was accessed') // Next.js migration warning
-    );
-    
-    if (criticalErrors.length > 0) {
-      console.error('❌ Critical console errors found:', criticalErrors);
-      throw new Error(`Critical console errors detected: ${criticalErrors.join(', ')}`);
-    }
-    
-    console.log(`✅ Console check passed (${errors.length} total errors, ${criticalErrors.length} critical)`);
-    console.log(`ℹ️ Warnings found: ${warnings.length}`);
-  });
 });

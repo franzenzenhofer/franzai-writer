@@ -2,7 +2,8 @@ import { test, expect, Page } from '@playwright/test';
 import fs from 'fs';
 import path from 'path';
 
-test.describe('Export Stage - Comprehensive Testing', () => {
+test.describe('Export Stage - Comprehensive Testing (Chrome Only)', () => {
+  test.skip(({ browserName }) => browserName !== 'chromium', 'Chrome only per CLAUDE.md guidelines');
   let page: Page;
   let documentId: string;
 
