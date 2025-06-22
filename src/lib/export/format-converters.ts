@@ -180,80 +180,95 @@ export async function htmlToDocx(html: string, options?: any): Promise<ArrayBuff
       if (trimmedElement.startsWith('<img')) {
         console.log('[DOCX] Processing image element:', trimmedElement.substring(0, 200) + '...');
         
-        // Enhanced regex to capture aspect ratio from data attribute
-        const imgMatch = /<img[^>]+src="([^"]+)"[^>]*(?:data-aspect-ratio="([^"]*)"[^>]*)?alt="?([^">]*)"?[^>]*>/i.exec(trimmedElement);
-        console.log('[DOCX] Image regex match result:', imgMatch);
+        // Enhanced regex to capture aspect ratio from data attribute  
+        // More flexible regex that handles various attribute orders
+        const imgMatch = /<img([^>]*)>/i.exec(trimmedElement);
         
-        if (imgMatch) {
-          const [, src, aspectRatio, alt] = imgMatch;
-          console.log('[DOCX] Extracted image data:', { src: src.substring(0, 50) + '...', aspectRatio, alt });
+        if (!imgMatch) continue;
+        
+        const imgTag = imgMatch[1];
+        const srcMatch = /src="([^"]+)"/i.exec(imgTag);
+        const altMatch = /alt="?([^">]*)"?/i.exec(imgTag);
+        const aspectRatioMatch = /data-aspect-ratio="([^"]+)"/i.exec(imgTag);
+        
+        if (!srcMatch) continue;
+        
+        const src = srcMatch[1];
+        const alt = altMatch ? altMatch[1] : '';
+        const aspectRatio = aspectRatioMatch ? aspectRatioMatch[1] : null;
+        
+        console.log('[DOCX] Extracted image data:', { 
+          src: src.substring(0, 50) + '...', 
+          aspectRatio, 
+          alt,
+          fullImgTag: imgTag
+        });
           
-          try {
-            const fetch = (await import('node-fetch')).default as any;
-            const response = await fetch(src);
-            const arrayBuffer = await response.arrayBuffer();
-            const ImageRun = (await import('docx')).ImageRun;
+        try {
+          const fetch = (await import('node-fetch')).default as any;
+          const response = await fetch(src);
+          const arrayBuffer = await response.arrayBuffer();
+          const ImageRun = (await import('docx')).ImageRun;
+          
+          // Calculate dimensions based on aspect ratio
+          let transformation: { width: number; height: number };
+          
+          if (aspectRatio) {
+            console.log('[DOCX] Processing aspect ratio:', aspectRatio);
+            // Parse aspect ratio (e.g., "16:9", "3:4", "1:1")
+            const [widthRatio, heightRatio] = aspectRatio.split(':').map(Number);
+            console.log('[DOCX] Parsed ratio components:', { widthRatio, heightRatio });
             
-            // Calculate dimensions based on aspect ratio
-            let transformation: { width: number; height: number };
-            
-            if (aspectRatio) {
-              console.log('[DOCX] Processing aspect ratio:', aspectRatio);
-              // Parse aspect ratio (e.g., "16:9", "3:4", "1:1")
-              const [widthRatio, heightRatio] = aspectRatio.split(':').map(Number);
-              console.log('[DOCX] Parsed ratio components:', { widthRatio, heightRatio });
+            if (widthRatio && heightRatio) {
+              const ratio = widthRatio / heightRatio;
+              console.log('[DOCX] Calculated ratio:', ratio);
               
-              if (widthRatio && heightRatio) {
-                const ratio = widthRatio / heightRatio;
-                console.log('[DOCX] Calculated ratio:', ratio);
-                
-                // Calculate dimensions maintaining aspect ratio
-                // Portrait images get height-constrained, landscape get width-constrained
-                let width: number;
-                let height: number;
-                
-                if (ratio < 1) {
-                  // Portrait image (taller than wide)
-                  height = 600;
-                  width = Math.round(height * ratio);
-                  console.log('[DOCX] Portrait mode calculation');
-                } else {
-                  // Landscape or square image
-                  width = 600;
-                  height = Math.round(width / ratio);
-                  console.log('[DOCX] Landscape/square mode calculation');
-                }
-                
-                transformation = { width, height };
-                console.log(`[DOCX] Final transformation: ${width}x${height} (ratio: ${aspectRatio})`);
+              // Calculate dimensions maintaining aspect ratio
+              // Portrait images get height-constrained, landscape get width-constrained
+              let width: number;
+              let height: number;
+              
+              if (ratio < 1) {
+                // Portrait image (taller than wide)
+                height = 600;
+                width = Math.round(height * ratio);
+                console.log('[DOCX] Portrait mode calculation');
               } else {
-                // Invalid aspect ratio format, use fallback
-                transformation = { width: 600, height: 400 };
-                console.warn(`[DOCX] Invalid aspect ratio format: ${aspectRatio} - using fallback 600x400`);
+                // Landscape or square image
+                width = 600;
+                height = Math.round(width / ratio);
+                console.log('[DOCX] Landscape/square mode calculation');
               }
+              
+              transformation = { width, height };
+              console.log(`[DOCX] Final transformation: ${width}x${height} (ratio: ${aspectRatio})`);
             } else {
-              // No aspect ratio available, use default
+              // Invalid aspect ratio format, use fallback
               transformation = { width: 600, height: 400 };
-              console.warn('[DOCX] No aspect ratio data attribute found, using default dimensions 600x400');
+              console.warn(`[DOCX] Invalid aspect ratio format: ${aspectRatio} - using fallback 600x400`);
             }
-            
-            paragraphs.push(
-              new Paragraph({
-                children: [
-                  new ImageRun({
-                    type: 'png',
-                    data: Buffer.from(arrayBuffer),
-                    transformation
-                  } as any),
-                ],
-                spacing: { after: 200 },
-              })
-            );
-            continue;
-          } catch (err) {
-            console.warn('[DOCX Generator] Failed to embed image, skipping', src, err);
-            // fall through to treat as text alt
+          } else {
+            // No aspect ratio available, use default
+            transformation = { width: 600, height: 400 };
+            console.warn('[DOCX] No aspect ratio data attribute found, using default dimensions 600x400');
           }
+          
+          paragraphs.push(
+            new Paragraph({
+              children: [
+                new ImageRun({
+                  type: 'png',
+                  data: Buffer.from(arrayBuffer),
+                  transformation
+                } as any),
+              ],
+              spacing: { after: 200 },
+            })
+          );
+          continue;
+        } catch (err) {
+          console.warn('[DOCX Generator] Failed to embed image, skipping', src, err);
+          // fall through to treat as text alt
         }
       }
       
