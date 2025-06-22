@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import { Menu } from "lucide-react"
+import { Menu, Settings } from "lucide-react"
 
 interface MobileMenuProps {
   items?: {
@@ -77,16 +77,29 @@ export function MobileMenu({ items, isAuthenticated, onSignOut }: MobileMenuProp
           ) : null}
           <div className="mt-auto pt-4 border-t">
             {isAuthenticated ? (
-              <Button
-                variant="outline"
-                className="w-full"
-                onClick={() => {
-                  onSignOut()
-                  setOpen(false)
-                }}
-              >
-                Sign Out
-              </Button>
+              <div className="flex flex-col gap-2">
+                <Button
+                  asChild
+                  variant="ghost"
+                  className="w-full justify-start"
+                  onClick={() => setOpen(false)}
+                >
+                  <Link href="/settings">
+                    <Settings className="mr-2 h-4 w-4" />
+                    Settings
+                  </Link>
+                </Button>
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => {
+                    onSignOut()
+                    setOpen(false)
+                  }}
+                >
+                  Sign Out
+                </Button>
+              </div>
             ) : (
               <div className="flex flex-col gap-2">
                 <Button

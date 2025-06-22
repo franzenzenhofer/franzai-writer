@@ -77,9 +77,11 @@ export function SiteHeader() {
                     <UserIcon className="mr-2 h-4 w-4" />
                     <span>Profile</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem disabled>
-                    <Settings className="mr-2 h-4 w-4" />
-                    <span>Settings</span>
+                  <DropdownMenuItem asChild>
+                    <Link href="/settings" className="flex w-full items-center">
+                      <Settings className="mr-2 h-4 w-4" />
+                      <span>Settings</span>
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem 
