@@ -1043,6 +1043,130 @@ class DocumentPersistenceManager {
   }
 
   /**
+   * Copy an existing document to create a new document
+   */
+  async copyDocument(documentId: string, newTitle?: string): Promise<{ success: boolean; documentId?: string; error?: any }> {
+    try {
+      const userId = await this.getEffectiveUserId();
+      if (!userId) {
+        throw new Error('User not authenticated');
+      }
+
+      this.log('Copying document', { documentId, userId });
+
+      // Load the original document
+      const originalDoc = await this.loadDocument(documentId);
+      if (!originalDoc.success || !originalDoc.data) {
+        throw new Error('Original document not found');
+      }
+
+      // Create a copy of the document data
+      const copiedData = {
+        ...originalDoc.data,
+        title: newTitle || `Copy of ${originalDoc.data.title}`,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        metadata: {
+          ...originalDoc.data.metadata,
+          copiedFrom: documentId,
+          copiedAt: new Date().toISOString()
+        }
+      };
+
+      // Create the new document
+      const result = await this.saveDocument(
+        undefined, // New document ID will be generated
+        copiedData.title,
+        copiedData.workflowId,
+        copiedData.stageStates
+      );
+
+      if (result.success) {
+        this.log('Document copied successfully', { 
+          originalId: documentId, 
+          newId: result.documentId 
+        });
+      }
+
+      return result;
+    } catch (error: any) {
+      this.logError('copyDocument', error);
+      return { success: false, error };
+    }
+  }
+
+  /**
+   * Delete a document
+   */
+  async deleteDocument(documentId: string): Promise<{ success: boolean; error?: any }> {
+    try {
+      const userId = await this.getEffectiveUserId();
+      if (!userId) {
+        throw new Error('User not authenticated');
+      }
+
+      this.log('Deleting document', { documentId, userId });
+
+      // Verify ownership before deletion
+      const doc = await firestoreAdapter.getDocument(this.COLLECTION_NAME, documentId);
+      if (!doc || doc.userId !== userId) {
+        throw new Error('Document not found or access denied');
+      }
+
+      // Delete the document
+      await firestoreAdapter.deleteDocument(this.COLLECTION_NAME, documentId);
+
+      this.log('Document deleted successfully', { documentId });
+      return { success: true };
+    } catch (error: any) {
+      this.logError('deleteDocument', error);
+      return { success: false, error };
+    }
+  }
+
+  /**
+   * Delete multiple documents
+   */
+  async deleteDocuments(documentIds: string[]): Promise<{ success: boolean; deleted: string[]; failed: string[]; error?: any }> {
+    try {
+      const userId = await this.getEffectiveUserId();
+      if (!userId) {
+        throw new Error('User not authenticated');
+      }
+
+      this.log('Deleting multiple documents', { count: documentIds.length, userId });
+
+      const deleted: string[] = [];
+      const failed: string[] = [];
+
+      // Delete each document
+      for (const docId of documentIds) {
+        const result = await this.deleteDocument(docId);
+        if (result.success) {
+          deleted.push(docId);
+        } else {
+          failed.push(docId);
+        }
+      }
+
+      this.log('Bulk delete completed', { deleted: deleted.length, failed: failed.length });
+      return { 
+        success: failed.length === 0, 
+        deleted, 
+        failed 
+      };
+    } catch (error: any) {
+      this.logError('deleteDocuments', error);
+      return { 
+        success: false, 
+        deleted: [], 
+        failed: documentIds,
+        error 
+      };
+    }
+  }
+
+  /**
    * Reconstruct export stage data from flattened Firestore format
    */
   private reconstructExportStages(stageStates: Record<string, StageState>): Record<string, StageState> {

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/components/layout/app-providers";
 import { WizardDocument } from "@/types/wizard-types";
-import { listUserDocuments } from "@/lib/document-actions";
+import { listUserDocuments, copyDocument as copyDocumentAction, deleteDocument as deleteDocumentAction, deleteDocuments as deleteDocumentsAction } from "@/lib/document-actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -129,15 +129,23 @@ export default function DocumentsPage() {
   // Copy document
   const copyDocument = async (doc: WizardDocument) => {
     try {
-      // TODO: Implement document copy functionality
-      toast({
-        title: "Coming soon",
-        description: "Document copy functionality will be available soon.",
-      });
-    } catch (err) {
+      const result = await copyDocumentAction(doc.id);
+      if (result.success) {
+        toast({
+          title: "Document copied",
+          description: "The document has been successfully copied.",
+        });
+        // Reload documents
+        const docs = await listUserDocuments();
+        setDocuments(docs);
+        setFilteredDocuments(docs);
+      } else {
+        throw new Error(result.error?.message || "Copy failed");
+      }
+    } catch (err: any) {
       toast({
         title: "Error",
-        description: "Failed to copy document.",
+        description: err.message || "Failed to copy document.",
         variant: "destructive",
       });
     }
@@ -146,15 +154,25 @@ export default function DocumentsPage() {
   // Delete documents
   const deleteDocuments = async (docIds: string[]) => {
     try {
-      // TODO: Implement document deletion
-      toast({
-        title: "Coming soon",
-        description: "Document deletion functionality will be available soon.",
-      });
-    } catch (err) {
+      const result = await deleteDocumentsAction(docIds);
+      if (result.success || result.deleted.length > 0) {
+        toast({
+          title: "Documents deleted",
+          description: `${result.deleted.length} document(s) deleted successfully.`,
+        });
+        // Clear selection
+        setSelectedDocs(new Set());
+        // Reload documents
+        const docs = await listUserDocuments();
+        setDocuments(docs);
+        setFilteredDocuments(docs);
+      } else {
+        throw new Error("Delete failed");
+      }
+    } catch (err: any) {
       toast({
         title: "Error",
-        description: "Failed to delete documents.",
+        description: err.message || "Failed to delete documents.",
         variant: "destructive",
       });
     }
@@ -420,7 +438,25 @@ export default function DocumentsPage() {
                       <DropdownMenuSeparator />
                       <DropdownMenuItem
                         className="text-destructive"
-                        onClick={() => deleteDocuments([doc.id])}
+                        onClick={async () => {
+                          const result = await deleteDocumentAction(doc.id);
+                          if (result.success) {
+                            toast({
+                              title: "Document deleted",
+                              description: "The document has been deleted.",
+                            });
+                            // Reload documents
+                            const docs = await listUserDocuments();
+                            setDocuments(docs);
+                            setFilteredDocuments(docs);
+                          } else {
+                            toast({
+                              title: "Error",
+                              description: "Failed to delete document.",
+                              variant: "destructive",
+                            });
+                          }
+                        }}
                       >
                         <Trash2 className="mr-2 h-4 w-4" />
                         Delete
