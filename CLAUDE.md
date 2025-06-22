@@ -132,53 +132,50 @@ The core feature is a JSON-based workflow system where each workflow:
 
 **CRITICAL**: All Playwright tests MUST follow these strict guidelines to maintain performance and reliability.
 
-### Test File Constraints
-- **Maximum 5 tests per file** - Never exceed this limit (except for critical workflow tests listed below)
-- **Chrome only execution** - All tests must include browser restriction
-- **Focused and essential tests only** - No debug, redundant, or development tests
+### Workflow Testing Requirements
 
-### EXEMPTED Test Files (Critical Workflows)
-These test files are EXEMPTED from the 5-test limit due to their critical nature and complex workflow coverage:
+**MANDATORY**: Each workflow MUST have ONE comprehensive master test that:
+- Tests the COMPLETE workflow from start to finish
+- Tests ALL stages and features of the workflow
+- Includes a **page reload test** to verify persistence
+- Verifies data is preserved after browser refresh
+- Tests export functionality if applicable
+- Uses Chrome only for performance
 
-1. **poem-workflow-comprehensive.spec.ts** (10 tests) - Our SUPER POWERFUL test
-   - Complete workflow with all stages
-   - Error recovery and edge cases
-   - Concurrent workflows
-   - All image formats and export options
+### Master Workflow Tests
+
+1. **poem-workflow-comprehensive.spec.ts** - Poem workflow master test
+   - Complete workflow: topic → poem → image → HTML → export
+   - Multiple image formats and artistic styles
+   - Document persistence after reload
+   - Export in all formats
    - AI attribution compliance
-   - Document persistence and reload
-   - Special characters and long content
-   - This test MUST remain comprehensive and powerful!
 
-2. **export-stage-comprehensive.spec.ts** (8 tests) - Critical export functionality
-   - Multiple image selection in export
-   - Export data persistence after reload
-   - Concurrent export handling
-   - Export with skipped optional stages
-   - AI attribution validation
-   - Large document export efficiency
-   - Export stage URL navigation
+2. **press-release-workflow.spec.ts** - Press release master test
+   - Complete workflow: basic info → tone → research → key facts → contact → final → photo → export
+   - File uploads and web search
+   - Multiple quotes and international content
+   - Persistence after reload
+   - Comprehensive export
 
-3. **press-release-workflow.spec.ts** (10 tests) - Complex multi-stage workflow
-   - File upload functionality for tone examples
-   - Web search verification in research stage
-   - Multiple quotes and special formatting
-   - International content and special characters
-   - Press photo selection with multiple images
-   - Boilerplate and distribution options
-   - Error recovery and validation
-   - Comprehensive export with all features
-
-4. **recipe-workflow-complete.spec.ts** (10 tests) - Advanced recipe features
-   - Complex ingredient format parsing (metric, imperial, fractions, ranges)
-   - Recipe scaling for different serving sizes
-   - Nutritional information generation
+3. **recipe-workflow-complete.spec.ts** - Recipe workflow master test
+   - Complete workflow: dish → ingredients → instructions → details → compilation
+   - Complex ingredient parsing
    - Dietary restrictions and substitutions
-   - Step-by-step image generation
-   - Multi-format recipe export
-   - Cooking time calculations and equipment listing
-   - Recipe difficulty assessment
-   - Print-friendly recipe card generation
+   - Persistence after reload
+   - Recipe export formats
+
+4. **article-workflow.spec.ts** - Article workflow master test
+   - Complete workflow with all stages
+   - Research integration
+   - Persistence after reload
+   - Article export
+
+### Additional Test Guidelines
+- **Chrome only execution** - All tests must skip non-Chrome browsers
+- **No redundant tests** - One comprehensive test per workflow is better than many partial tests
+- **Focus on critical paths** - Test what users actually do
+- **Always test persistence** - Every master test MUST include reload verification
 
 ### Chrome-Only Requirement
 Add this to every test file's describe block:
@@ -196,15 +193,28 @@ test.describe('Test Suite Name (Chrome Only)', () => {
 - For shadcn/ui components, use specific data-testid approaches
 
 ### Test Organization
-- **Core workflows**: poem, press-release, recipe, article (1 file each)
-- **Export functionality**: comprehensive export testing (1-2 files max)
-- **Utility functions**: auth, dashboard, admin (1 file each)
-- **No cross-browser testing** - Chrome coverage is sufficient
+- **One master test per workflow** - Comprehensive end-to-end coverage
+- **Utility tests** - Dashboard, auth, admin (focused, specific tests)
+- **Export tests** - Comprehensive export functionality coverage
+- **Image generation tests** - Critical Imagen 3 integration
 
-### Performance Impact
-- Reduced from 49 → 17 test files (65% reduction)
-- Each test runs only on Chrome to save execution time
-- Essential test coverage maintained while eliminating redundancy
+### Reload Testing Pattern
+Every workflow master test MUST include this pattern:
+```typescript
+// Complete the workflow
+await completeFullWorkflow(page);
+
+// Get current URL or document ID
+const currentUrl = page.url();
+
+// Reload the page
+await page.reload();
+await page.waitForLoadState('networkidle');
+
+// Verify all data persisted
+await verifyWorkflowDataPersisted(page);
+await verifyExportDataPersisted(page);
+```
 
 ## Ticket Management System
 
