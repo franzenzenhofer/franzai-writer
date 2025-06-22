@@ -76,7 +76,18 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
     model: request.model,
     hasPrompt: !!request.prompt,
     enableGoogleSearch: request.enableGoogleSearch,
-    temperature: request.temperature
+    temperature: request.temperature,
+    workflowName: request.workflowName,
+    stageName: request.stageName,
+    stageId: request.stageId
+  });
+  
+  // Log critical model information
+  console.log('🔍 [Direct Gemini] Model validation:', {
+    requestedModel: request.model,
+    modelParts: request.model?.split('/'),
+    isGoogleAIModel: request.model?.startsWith('googleai/'),
+    modelWithoutPrefix: request.model?.replace('googleai/', '')
   });
 
   // Build the request
@@ -146,7 +157,8 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
   }
 
   const directRequestLog = {
-    model: request.model,
+    originalModel: request.model,
+    actualModel: request.model?.startsWith('googleai/') ? request.model.replace('googleai/', '') : request.model,
     contentsCount: contents.length,
     configKeys: Object.keys(config),
     toolsCount: tools.length,
@@ -168,9 +180,18 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
   });
 
   try {
+    // CRITICAL: Fix the model name for Direct Gemini API
+    // The Direct Gemini API expects model names without the 'googleai/' prefix
+    let modelName = request.model;
+    if (modelName?.startsWith('googleai/')) {
+      modelName = modelName.replace('googleai/', '');
+      console.log('🔧 [Direct Gemini] Stripped googleai/ prefix, using model:', modelName);
+    }
+    
     // Make the API call
+    console.log('📡 [Direct Gemini] Calling generateContent with model:', modelName);
     const response = await client.models.generateContent({
-      model: request.model,
+      model: modelName,
       contents,
       config
     });

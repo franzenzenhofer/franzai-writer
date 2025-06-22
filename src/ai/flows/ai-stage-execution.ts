@@ -180,6 +180,10 @@ export async function aiStageExecutionFlow(
       // CRITICAL: Debug groundingSettings in detail
       groundingSettings: groundingSettings,
       googleSearchSettings: groundingSettings?.googleSearch,
+      workflowInfo: workflow,
+      stageInfo: stage,
+      stageId: stageId,
+      stageOutputType: stageOutputType
     });
 
     // 🚨 CRITICAL GROUNDING DEBUG 🚨
@@ -289,6 +293,13 @@ export async function aiStageExecutionFlow(
 
     // Determine the model to use
     let modelToUse = model || 'googleai/gemini-2.0-flash';
+    console.log('🎯 [AI Stage Flow Enhanced] Model selection:', {
+      providedModel: model,
+      defaultModel: 'googleai/gemini-2.0-flash',
+      selectedModel: modelToUse,
+      stageId: stageId || stage?.id,
+      stageName: stage?.name
+    });
     
     // Use thinking model if thinking is enabled.
     // As per the guide, only 2.5 models support thinking.
@@ -297,8 +308,8 @@ export async function aiStageExecutionFlow(
       const isThinkingModel = modelToUse.includes('gemini-2.5-flash') || modelToUse.includes('gemini-2.5-pro');
       
       if (!isThinkingModel) {
-         console.log(`[AI Stage Flow Enhanced] Model ${modelToUse} does not support thinking. Switching to googleai/gemini-2.5-flash-preview as requested for thinking jobs.`);
-         modelToUse = 'googleai/gemini-2.5-flash-preview';
+         console.log(`[AI Stage Flow Enhanced] Model ${modelToUse} does not support thinking. Switching to googleai/gemini-2.5-flash-thinking as requested for thinking jobs.`);
+         modelToUse = 'googleai/gemini-2.5-flash-thinking-002';
       }
       console.log('[AI Stage Flow Enhanced] Using thinking model:', modelToUse);
     }
@@ -445,6 +456,13 @@ async function executeWithDirectGeminiAPI(
   originalInput?: AiStageExecutionInput
 ): Promise<AiStageOutputSchema> {
   console.log('[Direct Gemini API] Starting execution');
+  console.log('🎯 [Direct Gemini API] Execution context:', {
+    model: request.model,
+    stageId: originalInput?.stageId,
+    stageName: originalInput?.stage?.name,
+    workflowName: originalInput?.workflow?.name,
+    outputType: originalInput?.stageOutputType
+  });
   
   // LOG FULL REQUEST TO DIRECT GEMINI API
   logToAiLog('[DIRECT GEMINI API REQUEST - FULL]', {

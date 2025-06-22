@@ -196,7 +196,7 @@
       "temperature": 0.3,
       "outputType": "html",
       "dependencies": ["generate-poem-with-title", "generate-poem-image", "image-briefing"],
-      "autorunDependsOn": ["generate-poem-with-title", "generate-poem-image", "html-briefing"],
+      "autorunDependsOn": ["generate-poem-with-title", "generate-poem-image"],
       "autoRun": true,
       "aiRedoEnabled": true
     },

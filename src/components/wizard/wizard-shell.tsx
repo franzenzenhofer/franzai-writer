@@ -414,9 +414,24 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       let autorunDepsMet = true;
       if (stage.autorunDependsOn && stage.autorunDependsOn.length > 0) {
         // Use explicit autorun dependencies
+        const autorunDepsStatus = stage.autorunDependsOn.map(depId => ({
+          depId,
+          status: newStageStates[depId]?.status,
+          isCompleted: newStageStates[depId]?.status === 'completed'
+        }));
+        
         autorunDepsMet = stage.autorunDependsOn.every(depId => 
           newStageStates[depId]?.status === 'completed'
         );
+        
+        // Debug logging for autorun dependencies
+        if (stage.autoRun && !autorunDepsMet) {
+          console.log(`🔍 [Autorun Deps] Stage ${stage.id} autorun blocked:`, {
+            autorunDependsOn: stage.autorunDependsOn,
+            depsStatus: autorunDepsStatus,
+            autorunDepsMet
+          });
+        }
       } else {
         // Fall back to regular dependencies (backward compatibility)
         autorunDepsMet = depsMet;
@@ -431,6 +446,20 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         } else {
           // Use simple dependency logic - stage must be active (depsMet) AND autorun deps met
           shouldAutoRun = depsMet && autorunDepsMet;
+        }
+        
+        // Debug logging for autorun decision
+        if (stage.autoRun && stage.id === 'generate-html-preview') {
+          console.log(`🎯 [Autorun Decision] ${stage.id}:`, {
+            autoRun: stage.autoRun,
+            status: currentState.status,
+            isEditingOutput: currentState.isEditingOutput,
+            depsMet,
+            autorunDepsMet,
+            shouldAutoRun,
+            dependencies: stage.dependencies,
+            autorunDependsOn: stage.autorunDependsOn
+          });
         }
       }
 
@@ -803,7 +832,7 @@ Still having issues? Check the browser console for detailed logs.`;
 
       console.log('[handleRunStage] About to call runAiStage with:', {
         hasPromptTemplate: !!enhancedPromptTemplate,
-        model: stage.model || "googleai/gemini-2.5-flash-preview-05-20",
+        model: stage.model || instance.workflow.defaultModel || "googleai/gemini-2.0-flash",
         temperature: stage.temperature || 0.7,
         contextVarsKeys: Object.keys(contextVars),
         currentStageInput: stageInputForRun,
@@ -825,9 +854,18 @@ Still having issues? Check the browser console for detailed logs.`;
         console.log('🔧 Stage configuration groundingSettings:', stage.groundingSettings);
       }
       
+      console.log('🚀 [handleRunStage] Calling runAiStage for stage:', {
+        stageId: stageId,
+        stageTitle: stage.title,
+        stageOutputType: stage.outputType,
+        model: stage.model || instance.workflow.defaultModel || "googleai/gemini-2.0-flash",
+        hasPromptTemplate: !!enhancedPromptTemplate,
+        promptTemplatePreview: enhancedPromptTemplate?.substring(0, 200) + '...'
+      });
+      
       const result = await runAiStage({
         promptTemplate: enhancedPromptTemplate,
-        model: stage.model || "googleai/gemini-2.5-flash-preview-05-20",
+        model: stage.model || instance.workflow.defaultModel || "googleai/gemini-2.0-flash",
         temperature: stage.temperature || 0.7,
         thinkingSettings: stage.thinkingSettings,
         toolNames: stage.toolNames,
@@ -857,12 +895,26 @@ Still having issues? Check the browser console for detailed logs.`;
         stageId: stageId,
       });
 
+      console.log('🎉 [handleRunStage] AI stage result received:', {
+        stageId: stageId,
+        hasContent: !!result.content,
+        hasError: !!result.error,
+        contentType: typeof result.content,
+        contentLength: typeof result.content === 'string' ? result.content.length : 'N/A'
+      });
+
       if (result.error) {
         // Preserve chat history on error, but clear current stream
         updateStageState(stageId, { status: "error", error: result.error, currentStreamOutput: "" });
         toast({ title: "AI Stage Error", description: result.error, variant: "destructive" });
         return; // Stop further processing on error
       }
+      
+      console.log('✅ [handleRunStage] Marking stage as completed:', {
+        stageId: stageId,
+        outputType: typeof result.content,
+        outputLength: typeof result.content === 'string' ? result.content.length : 'N/A'
+      });
       
       updateStageState(stageId, {
         status: "completed",
@@ -900,12 +952,15 @@ Still having issues? Check the browser console for detailed logs.`;
       }
 
     } catch (error: any) {
-      console.error("Error running AI stage:", error);
-      console.error("Error details:", {
+      console.error("🚨 [handleRunStage] Error running AI stage:", error);
+      console.error("🚨 [handleRunStage] Error details:", {
         message: error.message,
         stack: error.stack,
         stageId,
-        promptTemplate: stage.promptTemplate
+        stageTitle: stage?.title,
+        stageOutputType: stage?.outputType,
+        model: stage?.model,
+        promptTemplate: stage?.promptTemplate?.substring(0, 200) + '...'
       });
       updateStageState(stageId, { status: "error", error: error.message || "AI processing failed." });
       toast({ title: "AI Stage Error", description: error.message || "An error occurred.", variant: "destructive" });
