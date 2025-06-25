@@ -103,7 +103,7 @@ export default async function WorkflowDetailsPage({ params }: { params: Promise<
                   {workflow.stages.some(s => s.outputType === 'image') && (
                     <div className="flex items-start gap-3">
                       <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-950">
-                        <Image className="h-5 w-5 text-blue-600" alt="Image generation" />
+                        <Image className="h-5 w-5 text-blue-600" />
                       </div>
                       <div>
                         <h4 className="font-medium">Image Generation</h4>

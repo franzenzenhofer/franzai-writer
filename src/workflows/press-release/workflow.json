@@ -6,8 +6,16 @@
   "config": {
     "setTitleFromStageOutput": "basic-info",
     "finalOutputStageId": "final-press-release",
-    "autoScroll": true,
-    "progressAnimation": true
+    "autoScroll": {
+      "enabled": true,
+      "scrollToAutorun": true,
+      "scrollToManual": true
+    },
+    "progressAnimation": {
+      "dynamicSpeed": true,
+      "singleCycle": false
+    },
+    "showThinking": false
   },
   "stages": [
     {
@@ -94,7 +102,7 @@
       "autoRun": true,
       "aiRedoEnabled": true,
       "editEnabled": true,
-      "promptTemplate": "You are a tone of voice analyst specializing in corporate communications. Your task is to analyze the provided press release examples or company communications to extract tone and style guidelines.\n\nCompany Information:\n- Company: {{basic-info.output.company}}\n- Topic: {{basic-info.output.topic}}\n- Website: {{basic-info.output.website}}\n\nBased on the uploaded examples (or if no examples provided, based on the company website and industry standards), analyze and provide:\n\n1. **tone**: Describe the overall tone of voice (e.g., \"Professional yet approachable\", \"Formal and authoritative\", \"Innovative and forward-thinking\")\n\n2. **style_guidelines**: List specific style guidelines observed, such as:\n   - Sentence structure preferences\n   - Use of active vs passive voice\n   - Technical language level\n   - Paragraph length preferences\n\n3. **key_phrases**: Identify recurring phrases, terminology, or expressions that are characteristic of this company's communications\n\n4. **formatting_notes**: Note any specific formatting preferences such as:\n   - How quotes are introduced\n   - Use of bullet points or numbered lists\n   - Boilerplate structure\n   - How data/statistics are presented\n\nIf no examples are provided, research the company's industry and provide standard press release guidelines for that sector.\n\nIMPORTANT: Return ONLY a valid JSON object with no additional text, explanations, or markdown formatting. The response must start with { and end with }.\n\nExample format:\n{\n  \"tone\": \"Professional and innovative\",\n  \"style_guidelines\": \"Clear, concise sentences...\",\n  \"key_phrases\": \"Leading innovation, transformative solutions...\",\n  \"formatting_notes\": \"Quotes introduced with title first...\"\n}",
+      "promptTemplate": "You are a senior communications strategist and tone of voice expert with 15+ years of experience analyzing corporate messaging for Fortune 500 companies. Your expertise encompasses AP style, business journalism, and strategic communications.\n\nCompany Information:\n- Company: {{basic-info.output.company}}\n- Topic: {{basic-info.output.topic}}\n- Website: {{basic-info.output.website}}\n\nPERFORM COMPREHENSIVE TONE ANALYSIS:\n\n**Research Phase:**\n1. Analyze company website content, About Us page, mission statements\n2. Examine industry sector communication standards\n3. Identify company size, target audience, and market positioning\n4. Research recent news mentions or existing press materials\n\n**Analysis Requirements:**\n\n**tone**: Provide nuanced tone description including:\n- Primary voice characteristics (authoritative, approachable, innovative, conservative)\n- Secondary emotional undertones (confident, humble, urgent, measured)\n- Industry-appropriate professionalism level\n- Target audience considerations (technical vs. general public)\n\n**style_guidelines**: Detailed style analysis covering:\n- Sentence structure: length, complexity, rhythm\n- Voice preference: active vs. passive usage patterns\n- Technical depth: jargon level, explanation requirements\n- Paragraph structure: length, flow, logical progression\n- Clarity standards: readability level, accessibility considerations\n\n**key_phrases**: Industry and company-specific language including:\n- Core value propositions and differentiators\n- Technical terminology and preferred definitions\n- Brand-specific language and positioning statements\n- Action-oriented language patterns\n- Compliance or regulatory language if applicable\n\n**formatting_notes**: Professional formatting standards:\n- Quote attribution format and executive title usage\n- Data presentation: percentages, metrics, financial figures\n- List formatting: bullets vs. numbers, hierarchy\n- Legal and disclaimer language positioning\n- Contact information and boilerplate placement\n\nIMPORTANT: Deliver publication-ready guidance. Return ONLY a valid JSON object with no markdown, explanations, or additional text.\n\n{\n  \"tone\": \"[Detailed professional tone description]\",\n  \"style_guidelines\": \"[Comprehensive style requirements]\",\n  \"key_phrases\": \"[Strategic messaging elements]\",\n  \"formatting_notes\": \"[Professional formatting standards]\"\n}",
       "outputFields": [
         {
           "id": "tone",
@@ -118,8 +126,8 @@
     {
       "id": "research",
       "name": "Company & Industry Research",
-      "description": "Research company background and industry context",
-      "inputType": "none",
+      "description": "Research company background and industry context with optional URL analysis",
+      "inputType": "form",
       "outputType": "json",
       "model": "gemini-2.0-flash",
       "temperature": 0.3,
@@ -127,14 +135,65 @@
         "basic-info",
         "tone-briefing"
       ],
-      "autoRun": true,
+      "autoRun": false,
       "aiRedoEnabled": true,
       "editEnabled": true,
       "grounding": {
-        "googleSearch": true
+        "googleSearch": true,
+        "urlContext": true
       },
-      "promptTemplate": "You are a research analyst preparing background information for a press release. Use web search to gather current, accurate information.\n\nCompany and Topic Information:\n- Company: {{basic-info.output.company}}\n- Website: {{basic-info.output.website}}\n- Topic: {{basic-info.output.topic}}\n- Message: {{basic-info.output.message}}\n\nTone Guidelines from Analysis:\n{{tone-briefing.output.tone}}\n\nConduct thorough research and provide comprehensive information about the company and industry.\n\nIMPORTANT: Return ONLY a valid JSON object with no additional text, explanations, or markdown formatting. The response must start with { and end with }.\n\nRequired JSON structure:\n{\n  \"company_background\": \"Brief company history, mission, key products/services, recent achievements, size and locations\",\n  \"industry_context\": \"Current trends, market size, growth projections, challenges and opportunities\",\n  \"recent_developments\": \"Recent news, product launches, partnerships, relevant context for announcement\",\n  \"competitive_landscape\": \"Main competitors, market position, unique value propositions, differentiation\"\n}\n\nEnsure each field contains substantial, well-researched information based on web search results.",
+      "formFields": [
+        {
+          "name": "additional_urls",
+          "label": "Additional Research URLs (Optional)",
+          "type": "textarea",
+          "placeholder": "Enter URLs for deeper research (one per line):\n- Company investor pages\n- Recent press releases\n- Industry reports\n- Competitor analysis\n- News articles",
+          "validation": {
+            "required": false
+          }
+        },
+        {
+          "name": "research_focus",
+          "label": "Research Focus Areas",
+          "type": "select",
+          "defaultValue": "comprehensive",
+          "options": [
+            {
+              "value": "comprehensive",
+              "label": "Comprehensive Analysis (All Areas)"
+            },
+            {
+              "value": "financial",
+              "label": "Financial Performance Focus"
+            },
+            {
+              "value": "competitive",
+              "label": "Competitive Intelligence Focus"
+            },
+            {
+              "value": "technical",
+              "label": "Technical Innovation Focus"
+            },
+            {
+              "value": "market",
+              "label": "Market Trends Focus"
+            }
+          ],
+          "validation": {
+            "required": true
+          }
+        }
+      ],
+      "promptTemplate": "You are a senior business intelligence analyst and investigative journalist with expertise in corporate research, market analysis, and press release fact-finding. Your research powers strategic communications for major news outlets and PR agencies.\n\n**TARGET RESEARCH PROFILE:**\n- Company: {{basic-info.output.company}}\n- Primary Website: {{basic-info.output.website}}\n- Announcement Topic: {{basic-info.output.topic}}\n- Core Message: {{basic-info.output.message}}\n\n**RESEARCH PARAMETERS:**\n- Research Focus: {{research_focus}}\n- Additional URLs for Analysis: {{additional_urls}}\n\n**COMMUNICATIONS STRATEGY CONTEXT:**\n{{tone-briefing.output.tone}}\n\n**MULTI-SOURCE RESEARCH METHODOLOGY:**\n\n1. **Google Search Intelligence**: Comprehensive web search for current information\n2. **URL Context Analysis**: Deep analysis of provided URLs and company website\n3. **Cross-Reference Validation**: Multiple source verification for accuracy\n4. **Focused Research Approach**: Specialized analysis based on research focus area\n\n**RESEARCH EXECUTION BASED ON FOCUS:**\n\n**If Research Focus = \"comprehensive\":** Cover all areas with equal depth\n**If Research Focus = \"financial\":** Emphasize financial performance, funding, revenue, growth metrics\n**If Research Focus = \"competitive\":** Deep-dive into competitive analysis, market positioning, differentiation\n**If Research Focus = \"technical\":** Focus on product innovation, technology trends, R&D capabilities\n**If Research Focus = \"market\":** Emphasize market trends, industry analysis, macro-environment\n\n**ENHANCED RESEARCH DELIVERABLES:**\n\n**company_background**: Corporate intelligence profile incorporating:\n- Company founding, evolution, and strategic milestones\n- Leadership team, organizational structure, and corporate governance\n- Product/service portfolio, core competencies, and intellectual property\n- Business model, revenue streams, and operational scale\n- Geographic footprint, market presence, and expansion strategy\n- Corporate culture, values, and strategic positioning\n- Recent achievements, industry recognition, and thought leadership\n- Strategic partnerships, alliances, and ecosystem relationships\n- URL-specific insights from provided company resources\n\n**industry_context**: Market landscape analysis featuring:\n- Industry classification, scope, and value chain dynamics\n- Market size, growth trajectories, and revenue projections\n- Technology trends, innovation drivers, and disruption factors\n- Regulatory landscape, compliance requirements, and policy impacts\n- Economic indicators, investment flows, and capital market activity\n- Sustainability trends, ESG considerations, and social impact\n- Geographic market variations and emerging opportunities\n- Industry-specific insights from URL analysis\n\n**recent_developments**: Current business intelligence covering:\n- Product launches, feature updates, and innovation announcements\n- Strategic acquisitions, mergers, and partnership formations\n- Executive changes, organizational restructuring, and strategic pivots\n- Funding rounds, financial milestones, and investor relations\n- Market expansion, geographic growth, and customer acquisition\n- Technology breakthroughs, patent filings, and R&D investments\n- Awards, certifications, and industry recognition\n- Relevant insights from additional URL analysis\n\n**competitive_landscape**: Strategic positioning analysis including:\n- Direct competitors, market leaders, and emerging challengers\n- Market share distribution, competitive dynamics, and positioning maps\n- Unique value propositions, competitive advantages, and differentiation\n- Pricing strategies, business models, and go-to-market approaches\n- Innovation capabilities, product roadmaps, and strategic initiatives\n- Partnership ecosystems, channel strategies, and market access\n- Competitive threats, market opportunities, and strategic responses\n- Competitive intelligence from URL-based research\n\n**URL CONTEXT INTEGRATION:**\nWhen additional URLs are provided, conduct deep analysis of each URL to extract:\n- Specific insights relevant to the press release topic\n- Financial data, performance metrics, and growth indicators\n- Strategic announcements, future plans, and market positioning\n- Technical specifications, product details, and innovation highlights\n- Customer testimonials, case studies, and market validation\n\n**QUALITY ASSURANCE:**\n- Verify information across multiple authoritative sources\n- Cross-reference data points for consistency and accuracy\n- Flag any conflicting information or data gaps\n- Ensure currency of information (prioritize recent sources)\n- Maintain objective, fact-based analysis free from speculation\n\nProvide comprehensive, accurate intelligence optimized for press release development. Return ONLY a valid JSON object.\n\n{\n  \"company_background\": \"[Enhanced corporate intelligence with URL insights]\",\n  \"industry_context\": \"[Comprehensive market analysis with trend focus]\",\n  \"recent_developments\": \"[Current business intelligence with URL validation]\",\n  \"competitive_landscape\": \"[Strategic positioning with competitive intelligence]\"\n}",
       "outputFields": [
+        {
+          "id": "additional_urls",
+          "type": "string"
+        },
+        {
+          "id": "research_focus",
+          "type": "string"
+        },
         {
           "id": "company_background",
           "type": "string"
@@ -165,8 +224,8 @@
       "dependencies": [
         "research"
       ],
-      "promptTemplate": "You are a press release editor. Generate key facts for a press release based on the research findings.\n\nCurrent Information:\n- Topic: {{basic-info.output.topic}}\n- Message: {{basic-info.output.message}}\n- Company: {{basic-info.output.company}}\n\nResearch Findings:\n{{research.output.company_background}}\n{{research.output.recent_developments}}\n{{research.output.competitive_landscape}}\n\nGenerate the following for the press release:\n1. A compelling, newsworthy headline\n2. A supporting subheadline that adds context\n3. Key points as clear, concise bullet points (5-7 points)\n4. 2-3 quotes from company executives that sound authentic and add value\n5. Relevant statistics and data points that strengthen the announcement\n\nIMPORTANT: Return ONLY a valid JSON object with no additional text. The response must start with { and end with }.\n\nExample format:\n{\n  \"headline\": \"Company Announces Major Innovation\",\n  \"subheadline\": \"New solution transforms industry landscape\",\n  \"key_points\": \"• First key point\\n• Second key point\\n• Third key point\",\n  \"quotes\": \"\\\"Quote from CEO...\\\" - Name, Title\\n\\n\\\"Quote from CTO...\\\" - Name, Title\",\n  \"statistics\": \"• 50% improvement in efficiency\\n• $2M in cost savings\\n• 100+ customers\"\n}",
-      "autoRun": true,
+      "promptTemplate": "You are a senior press release editor and strategic communications expert with 20+ years of experience crafting compelling narratives for major corporations, startups, and industry leaders. Your expertise includes AP style, newsworthiness criteria, and persuasive business writing.\n\nAnnouncement Details:\n- Topic: {{basic-info.output.topic}}\n- Core Message: {{basic-info.output.message}}\n- Company: {{basic-info.output.company}}\n\nComprehensive Research Intelligence:\n**Company Profile:** {{research.output.company_background}}\n**Market Context:** {{research.output.industry_context}}\n**Recent Business Developments:** {{research.output.recent_developments}}\n**Competitive Positioning:** {{research.output.competitive_landscape}}\n\nCREATE PUBLICATION-READY PRESS RELEASE ELEMENTS:\n\n**headline**: Craft a compelling, newsworthy headline that:\n- Leads with the most newsworthy element (WHO did WHAT)\n- Uses active voice and strong action verbs\n- Contains 8-12 words for optimal impact\n- Includes company name for brand recognition\n- Communicates clear value proposition or significance\n- Avoids marketing hyperbole; focuses on factual impact\n- Appeals to target media outlets and their audiences\n\n**subheadline**: Develop supporting context that:\n- Expands on the headline with additional crucial details\n- Provides market context or significance\n- Includes specific benefits or implications\n- Maintains journalistic objectivity\n- Answers the \"why this matters now\" question\n\n**key_points**: Structure 5-7 strategic bullet points covering:\n- Primary business impact and significance\n- Specific features, capabilities, or improvements\n- Market opportunity or problem being addressed\n- Customer benefits and value proposition\n- Competitive advantages or differentiation\n- Implementation timeline or availability\n- Strategic partnerships or collaborations (if applicable)\n\n**quotes**: Create 2-3 authentic executive quotes that:\n- Sound natural and conversational, not marketing-speak\n- Provide executive perspective and strategic vision\n- Include specific details that add credibility\n- Balance confidence with appropriate humility\n- Reflect company culture and leadership style\n- Attribution format: \"Quote content\" - Full Name, Exact Title, Company\n- Vary quote purposes: vision, technical insight, market impact\n\n**statistics**: Compile compelling data points including:\n- Performance metrics and improvements\n- Market size, growth rates, or penetration\n- Customer adoption, usage, or satisfaction metrics\n- Financial impact, cost savings, or revenue growth\n- Operational efficiency or productivity gains\n- Time-to-market or competitive advantages\n- Research findings or third-party validations\n\nEnsure all elements work together to tell a cohesive, newsworthy story. Return ONLY a valid JSON object.\n\n{\n  \"headline\": \"[Newsworthy, action-driven headline]\",\n  \"subheadline\": \"[Supporting context and significance]\",\n  \"key_points\": \"[Strategic bullet points with specific benefits]\",\n  \"quotes\": \"[Authentic executive perspectives with full attribution]\",\n  \"statistics\": \"[Compelling metrics and data points]\"\n}",
+      "autoRun": false,
       "formFields": [
         {
           "name": "headline",
@@ -250,7 +309,7 @@
       "dependencies": [
         "key-facts"
       ],
-      "promptTemplate": "You are formatting contact information for a press release. Generate professional contact details for media inquiries.\n\nCompany: {{basic-info.output.company}}\n\nGenerate appropriate contact information for this press release:\n1. A professional contact name\n2. An appropriate title (e.g., Director of Communications, PR Manager)\n3. A professional email address\n4. A properly formatted phone number\n5. Additional contacts if relevant (optional)\n\nIMPORTANT: Return ONLY a valid JSON object with no additional text. The response must start with { and end with }.\n\nExample format:\n{\n  \"contact_name\": \"Jane Smith\",\n  \"contact_title\": \"Director of Communications\",\n  \"contact_email\": \"press@company.com\",\n  \"contact_phone\": \"+1 (555) 123-4567\",\n  \"additional_contacts\": \"PR Agency: agency@pr.com\"\n}",
+      "promptTemplate": "You are a corporate communications specialist responsible for establishing professional media contact protocols for press releases. Your expertise ensures journalists can easily reach appropriate spokespersons for follow-up interviews and clarifications.\n\nCompany Information:\n- Company: {{basic-info.output.company}}\n- Topic: {{basic-info.output.topic}}\n\nCompany Profile for Context:\n{{research.output.company_background}}\n\nGENERATE PROFESSIONAL MEDIA CONTACT INFORMATION:\n\n**contact_name**: Create realistic, professional contact name that:\n- Reflects company culture and geographic presence\n- Sounds credible for media inquiries\n- Appropriate for company size and industry\n- Gender-neutral or industry-appropriate\n\n**contact_title**: Assign appropriate title based on:\n- Company size (startup vs. enterprise considerations)\n- Industry standards (Director of Communications, VP Marketing, PR Manager)\n- Topic complexity (technical vs. business announcement)\n- Media relations hierarchy (Chief Communications Officer for major announcements)\n\n**contact_email**: Format professional email address:\n- Use standard press/media prefix (press@, media@, pr@)\n- Incorporate company domain from website if provided\n- Follow corporate email formatting conventions\n- Ensure accessibility for international journalists\n\n**contact_phone**: Provide properly formatted phone number:\n- Use international format with country code\n- Include appropriate area code for company location\n- Format: +[country] ([area]) [number]\n- Consider time zone implications for media outreach\n\n**additional_contacts**: Include relevant secondary contacts:\n- PR agency contact if company likely uses external PR\n- Investor relations for financial announcements\n- Technical spokesperson for complex product launches\n- Regional contacts for international companies\n- Format: \"Role: Contact Name - email@domain.com\"\n\nEnsure contact information facilitates professional media follow-up and maintains company credibility. Return ONLY a valid JSON object.\n\n{\n  \"contact_name\": \"[Professional contact name]\",\n  \"contact_title\": \"[Appropriate industry title]\",\n  \"contact_email\": \"[Professional media email]\",\n  \"contact_phone\": \"[International format phone]\",\n  \"additional_contacts\": \"[Relevant secondary contacts]\"\n}",
       "autoRun": true,
       "formFields": [
         {
@@ -325,6 +384,139 @@
       "copyable": true
     },
     {
+      "id": "fact-check",
+      "name": "Fact-Checking & Verification",
+      "description": "Verify all claims, statistics, and statements for accuracy before publication",
+      "inputType": "form",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.1,
+      "dependencies": [
+        "key-facts",
+        "contact-info",
+        "research"
+      ],
+      "autoRun": true,
+      "aiRedoEnabled": true,
+      "editEnabled": true,
+      "grounding": {
+        "googleSearch": true
+      },
+      "promptTemplate": "You are a senior fact-checker and editorial compliance specialist with expertise in corporate communications, financial disclosures, and media law. Your verification standards meet requirements for major news outlets, SEC compliance, and international press distribution.\n\nPRESS RELEASE VERIFICATION TARGET:\n- Company: {{basic-info.output.company}}\n- Announcement Topic: {{basic-info.output.topic}}\n- Core Message: {{basic-info.output.message}}\n\nCLAIMS TO VERIFY:\n**Key Business Claims:** {{key-facts.output.key_points}}\n**Statistical Data:** {{key-facts.output.statistics}}\n**Executive Quotes:** {{key-facts.output.quotes}}\n**Headline Claims:** {{key-facts.output.headline}}\n\nRESEARCH FOUNDATION:\n**Company Intelligence:** {{research.output.company_background}}\n**Market Context:** {{research.output.industry_context}}\n**Recent Business Activity:** {{research.output.recent_developments}}\n**Competitive Landscape:** {{research.output.competitive_landscape}}\n\nCONDUCT COMPREHENSIVE FACT-CHECKING USING WEB SEARCH:\n\n**Verification Protocol:**\n\n1. **Corporate Claims Verification:**\n   - Cross-reference against official company websites, SEC filings, annual reports\n   - Verify executive names, titles, and current employment status\n   - Confirm company size, locations, founding dates, and ownership structure\n   - Validate business model, revenue claims, and operational scope\n\n2. **Financial and Statistical Validation:**\n   - Verify all numerical claims against official financial disclosures\n   - Cross-check growth percentages, market share, and performance metrics\n   - Confirm funding amounts, investment rounds, and valuation claims\n   - Validate customer numbers, user adoption, and market penetration\n\n3. **Product and Service Claims Assessment:**\n   - Verify product features, capabilities, and performance specifications\n   - Confirm availability dates, pricing, and deployment timelines\n   - Validate technology claims and competitive comparisons\n   - Check intellectual property, patents, and certification claims\n\n4. **Partnership and Relationship Verification:**\n   - Confirm all mentioned partnerships, alliances, and collaborations\n   - Verify customer relationships, case studies, and testimonials\n   - Check vendor relationships, technology integrations, and certifications\n   - Validate industry affiliations and membership claims\n\n5. **Industry and Market Data Validation:**\n   - Cross-reference market size, growth rates, and trend claims\n   - Verify competitive positioning and market share assertions\n   - Confirm industry statistics and third-party research citations\n   - Validate regulatory compliance and certification status\n\n6. **Legal and Compliance Review:**\n   - Ensure no misleading, deceptive, or unsubstantiated claims\n   - Check for potential SEC disclosure violations\n   - Verify compliance with advertising standards and truth-in-advertising laws\n   - Identify potential liability risks or legal challenges\n\n**Risk Assessment Criteria:**\n- **Low Risk:** All claims verified through multiple authoritative sources\n- **Medium Risk:** Minor unverifiable claims or unclear statements requiring clarification\n- **High Risk:** Material unverifiable claims, potential legal issues, or contradictory evidence\n\n**Approval Standards:**\n- **APPROVED:** All material claims verified, minimal risk for publication\n- **NEEDS_REVISION:** Specific claims require modification or additional verification\n- **REJECTED:** Significant unverifiable claims or legal/compliance concerns\n\nProvide detailed fact-checking results suitable for editorial review and legal compliance. Return ONLY a valid JSON object.\n\n{\n  \"verified_facts\": \"[Detailed list of confirmed accurate statements with verification sources]\",\n  \"questionable_claims\": \"[Specific claims requiring revision with reasoning]\",\n  \"suggested_corrections\": \"[Precise recommendations for improving accuracy and compliance]\",\n  \"risk_assessment\": \"[Low/Medium/High with detailed justification]\",\n  \"approval_status\": \"[APPROVED/NEEDS_REVISION/REJECTED with editorial reasoning]\",\n  \"fact_checker_notes\": \"[Professional recommendations for editorial team and legal considerations]\"\n}",
+      "formFields": [
+        {
+          "name": "verified_facts",
+          "label": "Verified Facts",
+          "type": "textarea",
+          "placeholder": "List all statements that have been verified as accurate",
+          "validation": {
+            "required": true
+          }
+        },
+        {
+          "name": "questionable_claims",
+          "label": "Questionable Claims",
+          "type": "textarea",
+          "placeholder": "Claims that need revision or cannot be verified",
+          "validation": {
+            "required": false
+          }
+        },
+        {
+          "name": "suggested_corrections",
+          "label": "Suggested Corrections",
+          "type": "textarea",
+          "placeholder": "Recommended changes to improve accuracy",
+          "validation": {
+            "required": false
+          }
+        },
+        {
+          "name": "risk_assessment",
+          "label": "Risk Assessment",
+          "type": "select",
+          "defaultValue": "medium",
+          "options": [
+            {
+              "value": "low",
+              "label": "Low Risk - All facts verified"
+            },
+            {
+              "value": "medium",
+              "label": "Medium Risk - Minor concerns"
+            },
+            {
+              "value": "high",
+              "label": "High Risk - Major fact-checking issues"
+            }
+          ],
+          "validation": {
+            "required": true
+          }
+        },
+        {
+          "name": "approval_status",
+          "label": "Approval Status",
+          "type": "select",
+          "defaultValue": "approved",
+          "options": [
+            {
+              "value": "approved",
+              "label": "APPROVED - Ready for publication"
+            },
+            {
+              "value": "needs_revision",
+              "label": "NEEDS REVISION - Requires changes"
+            },
+            {
+              "value": "rejected",
+              "label": "REJECTED - Major factual issues"
+            }
+          ],
+          "validation": {
+            "required": true
+          }
+        },
+        {
+          "name": "fact_checker_notes",
+          "label": "Fact-Checker Notes",
+          "type": "textarea",
+          "placeholder": "Additional notes and recommendations for the editorial team",
+          "validation": {
+            "required": false
+          }
+        }
+      ],
+      "outputFields": [
+        {
+          "id": "verified_facts",
+          "type": "string"
+        },
+        {
+          "id": "questionable_claims",
+          "type": "string"
+        },
+        {
+          "id": "suggested_corrections",
+          "type": "string"
+        },
+        {
+          "id": "risk_assessment",
+          "type": "string"
+        },
+        {
+          "id": "approval_status",
+          "type": "string"
+        },
+        {
+          "id": "fact_checker_notes",
+          "type": "string"
+        }
+      ],
+      "editEnabled": true,
+      "copyable": true
+    },
+    {
       "id": "final-press-release",
       "name": "Generate Press Release",
       "description": "Create the final press release following official standards",
@@ -335,13 +527,14 @@
       "dependencies": [
         "key-facts",
         "contact-info",
-        "tone-briefing"
+        "tone-briefing",
+        "fact-check"
       ],
       "autoRun": true,
       "aiRedoEnabled": true,
       "editEnabled": true,
       "copyable": true,
-      "promptTemplate": "You are a professional press release writer. Create a complete, publication-ready press release following AP style and industry standards.\n\nUse the following information:\n\n**Basic Information:**\n- Company: {{basic-info.output.company}}\n- Topic: {{basic-info.output.topic}}\n- Message: {{basic-info.output.message}}\n\n**Tone Guidelines:**\n- Tone: {{tone-briefing.output.tone}}\n- Style Guidelines: {{tone-briefing.output.style_guidelines}}\n- Key Phrases: {{tone-briefing.output.key_phrases}}\n- Formatting Notes: {{tone-briefing.output.formatting_notes}}\n\n**Key Facts:**\n- Headline: {{key-facts.output.headline}}\n- Subheadline: {{key-facts.output.subheadline}}\n- Key Points: {{key-facts.output.key_points}}\n- Quotes: {{key-facts.output.quotes}}\n- Statistics: {{key-facts.output.statistics}}\n\n**Research Context:**\n- Company Background: {{research.output.company_background}}\n- Industry Context: {{research.output.industry_context}}\n- Recent Developments: {{research.output.recent_developments}}\n\n**Contact Information:**\n- {{contact-info.output.contact_name}}, {{contact-info.output.contact_title}}\n- Email: {{contact-info.output.contact_email}}\n- Phone: {{contact-info.output.contact_phone}}\n- Additional: {{contact-info.output.additional_contacts}}\n\nCreate a professional press release that includes:\n\n1. **Header**: Include \"FOR IMMEDIATE RELEASE\" and date\n2. **Headline**: Bold, compelling headline (use the provided headline)\n3. **Subheadline**: Supporting subheadline if provided\n4. **Dateline**: City, State/Country - Date\n5. **Lead Paragraph**: Answer who, what, when, where, why in first paragraph\n6. **Body Paragraphs**: \n   - Expand on the announcement with context and details\n   - Include relevant statistics and data points\n   - Incorporate quotes naturally\n   - Provide industry context where appropriate\n7. **Boilerplate**: \"About [Company Name]\" section with company background\n8. **Contact Information**: Media contact details\n9. **End Notation**: ### or -30-\n\nFormat in Markdown with proper structure. Ensure the release:\n- Follows inverted pyramid structure\n- Uses third person\n- Maintains objective, journalistic tone\n- Is between 400-600 words\n- Includes all key points\n- Flows naturally and tells a compelling story\n\nReady for distribution to major news outlets like Reuters, DPA, or News Aktuell."
+      "promptTemplate": "You are a senior press release writer and strategic communications expert with 25+ years of experience crafting award-winning press releases for Fortune 500 companies, high-growth startups, and industry leaders. Your work has been distributed through major wire services and featured in top-tier business publications.\n\n**ANNOUNCEMENT FOUNDATION:**\n- Company: {{basic-info.output.company}}\n- Topic: {{basic-info.output.topic}}\n- Core Message: {{basic-info.output.message}}\n\n**STRATEGIC COMMUNICATIONS FRAMEWORK:**\n- Brand Voice: {{tone-briefing.output.tone}}\n- Style Requirements: {{tone-briefing.output.style_guidelines}}\n- Brand Language: {{tone-briefing.output.key_phrases}}\n- Format Standards: {{tone-briefing.output.formatting_notes}}\n\n**VERIFIED CONTENT ELEMENTS:**\n- Primary Headline: {{key-facts.output.headline}}\n- Supporting Headline: {{key-facts.output.subheadline}}\n- Key Messages: {{key-facts.output.key_points}}\n- Executive Perspectives: {{key-facts.output.quotes}}\n- Supporting Data: {{key-facts.output.statistics}}\n\n**COMPREHENSIVE RESEARCH INTELLIGENCE:**\n- Corporate Profile: {{research.output.company_background}}\n- Market Landscape: {{research.output.industry_context}}\n- Current Business Context: {{research.output.recent_developments}}\n- Competitive Positioning: {{research.output.competitive_landscape}}\n\n**MEDIA CONTACT PROTOCOL:**\n- Primary Contact: {{contact-info.output.contact_name}}, {{contact-info.output.contact_title}}\n- Media Email: {{contact-info.output.contact_email}}\n- Direct Phone: {{contact-info.output.contact_phone}}\n- Additional Resources: {{contact-info.output.additional_contacts}}\n\n**EDITORIAL COMPLIANCE VERIFICATION:**\n- Fact-Check Status: {{fact-check.output.approval_status}}\n- Publication Risk Level: {{fact-check.output.risk_assessment}}\n- Verified Information: {{fact-check.output.verified_facts}}\n- Applied Corrections: {{fact-check.output.suggested_corrections}}\n- Editorial Notes: {{fact-check.output.fact_checker_notes}}\n\n**CRITICAL COMPLIANCE CHECK:**\nOnly proceed with press release generation if fact-check approval_status is \"APPROVED\". For \"NEEDS_REVISION\" or \"REJECTED\" status, incorporate all suggested corrections and address questionable claims before proceeding.\n\n**CREATE PUBLICATION-READY PRESS RELEASE:**\n\n**Structure Requirements:**\n1. **Release Header**: \"FOR IMMEDIATE RELEASE\" with current date\n2. **Primary Headline**: Bold, newsworthy headline optimized for media pickup\n3. **Supporting Headline**: Contextual subheadline (if provided)\n4. **Dateline**: [Company Location] - [Current Date]\n5. **Lead Paragraph**: Comprehensive opener answering 5 W's + H (Who, What, When, Where, Why, How)\n6. **Development Paragraphs**: \n   - Strategic context and business significance\n   - Market opportunity and competitive advantages\n   - Specific features, benefits, and customer impact\n   - Supporting statistics and performance metrics\n   - Industry expert perspectives and market validation\n7. **Executive Commentary**: Naturally integrated quotes providing strategic vision\n8. **Company Boilerplate**: Professional \"About [Company]\" section\n9. **Media Contact Block**: Complete journalist contact information\n10. **End Mark**: Professional closing (### or -30-)\n\n**Editorial Standards:**\n- **AP Style Compliance**: Follow Associated Press stylebook guidelines\n- **Inverted Pyramid**: Most newsworthy information first, supporting details following\n- **Objective Tone**: Third-person, journalistic style avoiding marketing hyperbole\n- **Word Count**: 450-600 words for optimal media consumption\n- **Paragraph Structure**: 2-4 sentences per paragraph for readability\n- **Quote Integration**: Natural flow with proper attribution and punctuation\n- **Data Presentation**: Clear, specific, and contextually relevant\n\n**Distribution Readiness:**\n- Format for major wire services (Reuters, Bloomberg, PR Newswire)\n- Optimize for search engine indexing and social media sharing\n- Ensure compatibility with international news distribution\n- Include strategic keywords for industry relevance\n\n**Quality Assurance:**\n- Fact-checked content only\n- Legal compliance verified\n- Brand voice consistency maintained\n- Journalistic credibility standards met\n- Media pickup optimization applied\n\nDeliver a press release that commands media attention and drives business results. Format in clean Markdown for professional presentation."
     },
     {
       "id": "press-photo",
@@ -449,9 +642,40 @@
           "seo": true,
           "themes": [
             "professional",
-            "minimal",
-            "modern"
+            "minimal", 
+            "modern",
+            "newspaper"
           ]
+        },
+        "themeConfig": {
+          "professional": {
+            "name": "Professional",
+            "description": "Clean, traditional business style suitable for corporate communications",
+            "features": ["AP Style Compliant", "Print Optimized", "Corporate Branding"]
+          },
+          "minimal": {
+            "name": "Minimal",
+            "description": "Clean, modern design with minimal styling for digital distribution",
+            "features": ["Mobile Responsive", "Digital First", "Social Media Ready"]
+          },
+          "modern": {
+            "name": "Modern",
+            "description": "Contemporary design with bold typography and modern layout",
+            "features": ["Bold Typography", "Gradient Styling", "Modern Aesthetics"]
+          },
+          "newspaper": {
+            "name": "Newspaper",
+            "description": "Traditional newspaper style with classic typography and layout",
+            "features": ["Classic Layout", "Print Ready", "Traditional Styling"]
+          }
+        },
+        "exportOptions": {
+          "includeMetadata": true,
+          "optimizeForSEO": true,
+          "socialMediaPreviews": true,
+          "downloadFormats": ["html", "pdf", "docx", "txt"],
+          "emailTemplates": true,
+          "wireServiceReady": true
         }
       }
     }
