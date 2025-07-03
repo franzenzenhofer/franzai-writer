@@ -15,7 +15,7 @@
       "description": "Enter a title for this test session",
       "inputType": "textarea",
       "outputType": "text",
-      "dependencies": [],
+      "activationDependencies": [],
       "autoRun": false,
       "showThinking": false
     },
@@ -27,7 +27,7 @@
       "outputType": "text",
       "model": "gemini-2.0-flash",
       "temperature": 0.0,
-      "dependencies": ["test-title"],
+      "activationDependencies": ["test-title"],
       "groundingSettings": {
         "googleSearch": {
           "enabled": true,
@@ -51,7 +51,7 @@
       ],
       "outputType": "text",
       "model": "gemini-2.0-flash-exp",
-      "dependencies": ["test-title"],
+      "activationDependencies": ["test-title"],
       "groundingSettings": {
         "urlContext": {
           "enabled": true,
@@ -70,7 +70,7 @@
       "outputType": "text",
       "model": "gemini-2.0-flash-exp",
       "temperature": 0.1,
-      "dependencies": ["test-title"],
+      "activationDependencies": ["test-title"],
       "groundingSettings": {
         "urlContext": {
           "enabled": true,
@@ -89,7 +89,7 @@
       "inputType": "textarea",
       "outputType": "text",
       "model": "gemini-2.5-pro-preview-03-25",
-      "dependencies": ["test-title"],
+      "activationDependencies": ["test-title"],
       "thinkingSettings": {
         "enabled": true,
         "thinkingBudget": 8192
@@ -105,7 +105,7 @@
       "inputType": "textarea",
       "outputType": "text",
       "model": "gemini-2.0-flash-exp",
-      "dependencies": ["test-title"],
+      "activationDependencies": ["test-title"],
       "toolNames": ["simpleCalculator"],
       "functionCallingMode": "AUTO",
       "promptTemplate": "{{userInput}}\n\nUse the calculator tool to solve any mathematical operations needed.",
@@ -119,7 +119,7 @@
       "inputType": "textarea",
       "outputType": "text",
       "model": "gemini-2.0-flash-exp",
-      "dependencies": ["test-title"],
+      "activationDependencies": ["test-title"],
       "toolNames": ["weatherTool"],
       "functionCallingMode": "AUTO",
       "promptTemplate": "{{userInput}}\n\nUse the weather tool to get weather information for any locations mentioned.",
@@ -133,7 +133,7 @@
       "inputType": "textarea",
       "outputType": "text",
       "model": "gemini-2.0-flash-exp",
-      "dependencies": ["test-title"],
+      "activationDependencies": ["test-title"],
       "toolNames": ["unitConverter"],
       "functionCallingMode": "AUTO",
       "promptTemplate": "{{userInput}}\n\nUse the unit converter tool for any unit conversions needed.",
@@ -147,7 +147,7 @@
       "inputType": "textarea",
       "outputType": "text",
       "model": "gemini-2.0-flash",
-      "dependencies": ["test-title"],
+      "activationDependencies": ["test-title"],
       "toolNames": ["codeInterpreter"],
       "codeExecutionSettings": {
         "enabled": true,
@@ -164,7 +164,7 @@
       "inputType": "image",
       "outputType": "json",
       "model": "gemini-2.0-flash-exp",
-      "dependencies": ["test-title"],
+      "activationDependencies": ["test-title"],
       "imageSettings": {
         "maxDimension": 2048,
         "supportedFormats": ["image/jpeg", "image/png", "image/webp", "image/gif"]
@@ -180,7 +180,7 @@
       "inputType": "document",
       "outputType": "json",
       "model": "gemini-2.0-flash-exp",
-      "dependencies": ["test-title"],
+      "activationDependencies": ["test-title"],
       "documentSettings": {
         "maxSizeMB": 20,
         "supportedFormats": ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "text/plain"]
@@ -197,7 +197,7 @@
       "outputType": "text",
       "model": "gemini-2.5-flash-preview",
       "temperature": 0.0,
-      "dependencies": ["test-title"],
+      "activationDependencies": ["test-title"],
       "groundingSettings": {
         "googleSearch": {
           "enabled": true,
@@ -221,7 +221,7 @@
       "inputType": "none",
       "outputType": "markdown",
       "model": "gemini-2.0-flash-exp",
-      "dependencies": [
+      "activationDependencies": [
         "test-title",
         "grounding-google-search",
         "grounding-url-context",

@@ -26,7 +26,7 @@
       "placeholder": "Compose a heartfelt poem about the sun and moon's timeless dance—describe the scene, emotions it evokes, and why this celestial love story matters to you.",
       "inputType": "textarea",
       "outputType": "text",
-      "dependencies": [],
+      "activationDependencies": [],
       "autoRun": false
     },
     {
@@ -51,7 +51,7 @@
           "displayOrder": 2
         }
       ],
-      "dependencies": ["poem-topic"],
+      "activationDependencies": ["poem-topic"],
       "autoRun": true,
       "aiRedoEnabled": true,
       "copyable": true
@@ -62,7 +62,7 @@
       "description": "Customize how your poem should be illustrated",
       "inputType": "form",
       "outputType": "json",
-      "dependencies": ["generate-poem-with-title"],
+      "activationDependencies": ["generate-poem-with-title"],
       "autoRun": false,
       "isOptional": true,
       "formFields": [
@@ -135,7 +135,7 @@
       "description": "AI will create optimized imagen prompts and unique filenames for your poem illustrations.",
       "inputType": "none",
       "outputType": "json",
-      "dependencies": ["generate-poem-with-title", "image-briefing"],
+      "activationDependencies": ["generate-poem-with-title", "image-briefing"],
       "autoRun": true,
       "temperature": 0.7,
       "promptTemplate": "Based on the poem and image customization settings, create optimized imagen prompts and unique filenames.\n\nPoem Title: {{generate-poem-with-title.output.title}}\nPoem Content:\n{{generate-poem-with-title.output.poem}}\n\nImage Customization:\n- Style: {{image-briefing.output.style}}\n- Aspect Ratio: {{image-briefing.output.aspectRatio}}\n- Number of Images: {{image-briefing.output.numberOfImages}}\n{{#if image-briefing.output.additionalPrompt}}- Additional Instructions: {{image-briefing.output.additionalPrompt}}{{/if}}\n\nCreate a response with:\n1. An optimized imagen prompt that captures the poem's essence and mood while incorporating the specified style\n2. Generate EXACTLY {{image-briefing.output.numberOfImages}} unique filenames (3-4 words each, highly unique)\n\nFormat as JSON:\n{\n  \"imagenPrompt\": \"Your optimized prompt here\",\n  \"filenames\": [\"unique-filename-one\", \"unique-filename-two\", \"etc...\"]\n}\n\nIMPORTANT:\n- The imagen prompt should be detailed and evocative, capturing the poem's themes and emotions\n- Include the specified artistic style in the prompt\n- You MUST generate exactly {{image-briefing.output.numberOfImages}} filenames in the array\n- Each filename must be 3-4 words, descriptive, and highly unique (avoid generic terms)\n- Do NOT include any text, words, letters, or writing in the image prompt description\n- Make the prompt visually focused and artistic\n- If numberOfImages is 2, provide exactly 2 filenames. If 3, provide exactly 3 filenames, etc.",
@@ -161,7 +161,7 @@
       "description": "AI will create an image that complements your poem.",
       "inputType": "none",
       "outputType": "image",
-      "dependencies": ["create-image-prompt"],
+      "activationDependencies": ["create-image-prompt"],
       "autoRun": true,
       "model": "imagen-3.0-generate-002",
       "promptTemplate": "{{create-image-prompt.output.imagenPrompt}}",
@@ -182,7 +182,7 @@
       "description": "Special instructions for HTML formatting (optional)",
       "inputType": "textarea",
       "outputType": "text",
-      "dependencies": ["generate-poem-with-title"],
+      "activationDependencies": ["generate-poem-with-title"],
       "autoRun": false,
       "isOptional": true
     },
@@ -207,7 +207,7 @@
       "stageType": "export",
       "inputType": "none",
       "outputType": "export-interface",
-      "dependencies": ["generate-html-preview"],
+      "activationDependencies": ["generate-html-preview"],
       "autoRun": false,
       "showAsHero": true,
       "triggerButton": {
