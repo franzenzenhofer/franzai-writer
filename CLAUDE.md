@@ -44,6 +44,23 @@ The core feature is a JSON-based workflow system where each workflow:
 - **AI Stage Execution** (`src/ai/flows/ai-stage-execution.ts`): Core AI processing logic using Genkit
 - **Workflow Loader** (`src/lib/workflow-loader.ts`): Dynamic workflow loading system
 
+### Workflow Dependency System
+Workflows use a sophisticated dependency system for stage activation and autorun:
+- **`dependencies`**: Legacy field (backward compatible) - controls both activation and autorun
+- **`activationDependencies`**: When a stage becomes active/enabled for manual processing
+- **`autorunDependencies`**: When an active stage automatically runs (if `autoRun: true`)
+
+Example from poem workflow (our baseline test workflow):
+```json
+{
+  "id": "generate-html-preview",
+  "activationDependencies": ["generate-poem-with-title", "generate-poem-image", "image-briefing"],
+  "autorunDependencies": ["generate-poem-with-title", "generate-poem-image"],
+  "autoRun": true
+}
+```
+This means HTML preview becomes active when all 3 deps are met, but autoruns when just poem+image are done.
+
 ### Frontend Stack
 - Next.js 15 with App Router
 - TypeScript with path alias `@/*` for src imports
@@ -104,6 +121,8 @@ The core feature is a JSON-based workflow system where each workflow:
 - NEVER use generic selectors like `button:has-text("Continue")` or `button:has-text("Continue").nth(1)`
 - For form controls (Radix UI/shadcn components), use specific approaches for dropdowns and selects
 - This ensures tests click the correct buttons and don't fail due to multiple matches
+
+**BASELINE WORKFLOW**: The poem workflow (`src/workflows/poem-generator/workflow.json`) is our baseline test workflow demonstrating all features including the dependency system.
 
 **MAIN TEST**: Use `tests/e2e/export-simple-test.spec.ts` as the primary test for the poem workflow. This test verifies:
 - Complete workflow execution from poem topic to export
