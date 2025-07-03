@@ -144,21 +144,21 @@ export function StageInfoOverlay({
           )}
 
           {/* Dependencies for Active */}
-          {stage.dependencies && stage.dependencies.length > 0 && (
+          {stage.activationDependencies && stage.activationDependencies.length > 0 && (
             <div className="grid grid-cols-[auto_1fr] gap-x-1 gap-y-0.5 text-xs">
               <span className="font-medium text-muted-foreground">Deps:</span>
               <span className="break-words">
-                {stage.dependencies.map(getStageTitle).join(', ')}
+                {stage.activationDependencies.map(getStageTitle).join(', ')}
               </span>
             </div>
           )}
 
           {/* Dependencies for Auto-run */}
-          {stage.autorunDependsOn && stage.autorunDependsOn.length > 0 && (
+          {stage.autorunDependencies && stage.autorunDependencies.length > 0 && (
             <div className="grid grid-cols-[auto_1fr] gap-x-1 gap-y-0.5 text-xs">
               <span className="font-medium text-muted-foreground">Auto deps:</span>
               <span className="break-words">
-                {stage.autorunDependsOn.map(getStageTitle).join(', ')}
+                {stage.autorunDependencies.map(getStageTitle).join(', ')}
               </span>
             </div>
           )}

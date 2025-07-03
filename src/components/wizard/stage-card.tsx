@@ -200,8 +200,8 @@ export function StageCard({
   };
 
   const getDependencyMessage = () => {
-    if (stageState.depsAreMet === false && stage.dependencies && stage.dependencies.length > 0) {
-      const incompleteDeps = stage.dependencies
+    if (stageState.depsAreMet === false && stage.activationDependencies && stage.activationDependencies.length > 0) {
+      const incompleteDeps = stage.activationDependencies
         .filter(depId => allStageStates[depId]?.status !== 'completed')
         .map(depId => workflow.stages.find(s => s.id === depId)?.title || depId);
       

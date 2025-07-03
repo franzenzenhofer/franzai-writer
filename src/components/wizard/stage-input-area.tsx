@@ -266,7 +266,7 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
 
   const getSelectOptions = (field: FormField): FormFieldOption[] => {
     if (field.options && field.options.length > 0) return field.options;
-    const dependencyStageId = stage.dependencies?.find(depId => {
+    const dependencyStageId = stage.activationDependencies?.find(depId => {
         if (field.name === 'chosenAngle' && depId === 'content-angle') return true;
         if (field.name === 'chosenTitle' && depId === 'page-title-generation') return true;
         return false;
