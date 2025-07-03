@@ -810,15 +810,15 @@ export function applyTheme(
   
   // Handle conditional sections
   if (content.subheadline) {
-    html = html.replace(/{{#if subheadline}}(.*?){{\/if}}/gs, '$1');
+    html = html.replace(/{{#if subheadline}}([\s\S]*?){{\/if}}/g, '$1');
   } else {
-    html = html.replace(/{{#if subheadline}}(.*?){{\/if}}/gs, '');
+    html = html.replace(/{{#if subheadline}}([\s\S]*?){{\/if}}/g, '');
   }
   
   if (content.boilerplate) {
-    html = html.replace(/{{#if boilerplate}}(.*?){{\/if}}/gs, '$1');
+    html = html.replace(/{{#if boilerplate}}([\s\S]*?){{\/if}}/g, '$1');
   } else {
-    html = html.replace(/{{#if boilerplate}}(.*?){{\/if}}/gs, '');
+    html = html.replace(/{{#if boilerplate}}([\s\S]*?){{\/if}}/g, '');
   }
   
   return html;
