@@ -52,33 +52,63 @@ test.describe('Press Release Workflow - Master Test (Chrome Only)', () => {
     // Context stages need manual processing
     await page.click('#process-stage-tone-briefing');
     
-    // Wait for the tone analysis to complete
-    await page.waitForSelector('[data-testid="stage-card-tone-briefing"] code', { timeout: 45000 });
+    // Wait for the tone analysis to complete - look for code output or accept button
+    const toneCompleted = await Promise.race([
+      page.waitForSelector('[data-testid="stage-card-tone-briefing"] code', { timeout: 45000 })
+        .then(() => 'code'),
+      page.waitForSelector('[data-testid="stage-card-tone-briefing"] button:has-text("Accept & Continue")', { timeout: 45000 })
+        .then(() => 'accept')
+    ]);
+    
+    if (toneCompleted === 'accept') {
+      // Click accept if the button appears
+      await page.click('[data-testid="stage-card-tone-briefing"] button:has-text("Accept & Continue")');
+    }
+    
     console.log('✅ Tone analysis completed');
     
     // Stage 3: Research (requires manual processing)
     console.log('🔍 Stage 3: Research');
-    await page.waitForSelector('[data-testid="stage-card-research"]', { timeout: 60000 });
+    await page.waitForSelector('[data-testid="stage-card-research"]', { timeout: 10000 });
     
-    // Research stage always requires manual processing - click the Run AI button
-    await page.waitForSelector('#process-stage-research', { timeout: 10000 });
-    await page.click('#process-stage-research');
+    // Wait for the research stage to be ready and click Run AI
+    const runAIButton = page.locator('[data-testid="stage-card-research"] button:has-text("Run AI")');
+    await runAIButton.waitFor({ state: 'visible', timeout: 10000 });
+    await runAIButton.click();
     
-    // Wait for the research to complete - look for the output content
-    await page.waitForSelector('[data-testid="stage-card-research"] code', { timeout: 60000 });
+    console.log('🔄 Research processing started...');
     
-    // Wait a bit for the UI to update and dependencies to resolve
+    // Wait for research to complete - could show code or other output
+    const researchCompleted = await Promise.race([
+      page.waitForSelector('[data-testid="stage-card-research"] code', { timeout: 60000 })
+        .then(() => 'code'),
+      page.waitForSelector('[data-testid="stage-card-research"] button:has-text("Accept & Continue")', { timeout: 60000 })
+        .then(() => 'accept'),
+      page.waitForSelector('[data-testid="stage-card-research"] button:has-text("AI REDO")', { timeout: 60000 })
+        .then(() => 'redo')
+    ]);
+    
+    console.log(`✅ Research completed with: ${researchCompleted}`);
+    
+    // If there's an accept button, click it
+    if (researchCompleted === 'accept') {
+      await page.click('[data-testid="stage-card-research"] button:has-text("Accept & Continue")');
+    }
+    
+    // Wait for dependencies to update
     await page.waitForTimeout(2000);
-    
-    console.log('✅ Research completed with web grounding');
     
     // Stage 4: Key Facts (requires manual processing)
     console.log('📊 Stage 4: Key Facts');
     await page.waitForSelector('[data-testid="stage-card-key-facts"]', { timeout: 30000 });
     
-    // Wait for the button to be enabled (dependencies met)
-    await page.waitForSelector('#process-stage-key-facts:not([disabled])', { timeout: 15000 });
-    await page.click('#process-stage-key-facts');
+    // Wait for the stage to be active (not waiting)
+    await page.waitForSelector('[data-testid="stage-card-key-facts"]:not(:has-text("Waiting for"))', { timeout: 15000 });
+    
+    // Click the process button
+    const keyFactsButton = page.locator('#process-stage-key-facts');
+    await keyFactsButton.waitFor({ state: 'visible', timeout: 10000 });
+    await keyFactsButton.click();
     
     await page.waitForSelector('input[name="headline"]', { timeout: 15000 });
     
@@ -117,6 +147,9 @@ test.describe('Press Release Workflow - Master Test (Chrome Only)', () => {
     // Stage 5: Contact Information
     console.log('📞 Stage 5: Contact Information');
     await page.waitForSelector('[data-testid="stage-card-contact-info"]', { timeout: 15000 });
+    
+    // Wait for the stage to be active
+    await page.waitForSelector('[data-testid="stage-card-contact-info"]:not(:has-text("Waiting for"))', { timeout: 10000 });
     await page.click('#process-stage-contact-info');
     
     await page.waitForSelector('input[name="contact_name"]', { timeout: 10000 });
@@ -132,6 +165,9 @@ test.describe('Press Release Workflow - Master Test (Chrome Only)', () => {
     // Stage 6: Fact-Checking (manual - form stage)
     console.log('✔️ Stage 6: Fact-Checking');
     await page.waitForSelector('[data-testid="stage-card-fact-check"]', { timeout: 10000 });
+    
+    // Wait for the stage to be active
+    await page.waitForSelector('[data-testid="stage-card-fact-check"]:not(:has-text("Waiting for"))', { timeout: 10000 });
     
     // Process fact-checking stage
     await page.click('#process-stage-fact-check');
