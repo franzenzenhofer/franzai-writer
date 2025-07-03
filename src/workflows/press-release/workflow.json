@@ -187,10 +187,7 @@
       "autoRun": true,
       "aiRedoEnabled": true,
       "editEnabled": true,
-      "grounding": {
-        "googleSearch": true
-      },
-      "promptTemplate": "You are a senior communications strategist analyzing corporate messaging style.\n\nCompany: {{basic-info.output.company}}\nWebsite: {{basic-info.output.website}}\nTopic: {{basic-info.output.topic}}\n\n{{#if tone-materials.output}}\nReference Materials Provided:\n{{tone-materials.output}}\n{{/if}}\n\nAnalyze the company's communication style and provide:\n\n1. **tone**: Primary voice characteristics (e.g., authoritative, approachable)\n2. **style**: Writing style preferences (sentence structure, technical depth)\n3. **phrases**: Key industry terms and brand language\n4. **formatting**: Preferred formatting conventions\n\nReturn as JSON:\n{\n  \"tone\": \"Description of tone\",\n  \"style\": \"Writing style guidelines\",\n  \"phrases\": \"Key terminology and phrases\",\n  \"formatting\": \"Formatting preferences\"\n}",
+      "promptTemplate": "You are a senior communications strategist analyzing corporate messaging style.\n\nCompany: {{basic-info.output.company}}\nWebsite: {{basic-info.output.website}}\nTopic: {{basic-info.output.topic}}\n\n{{#if tone-materials.output}}\nReference Materials Provided:\n{{tone-materials.output}}\n{{/if}}\n\nAnalyze the company's communication style based on available information and provide:\n\n1. **tone**: Primary voice characteristics (e.g., authoritative, approachable)\n2. **style**: Writing style preferences (sentence structure, technical depth)\n3. **phrases**: Key industry terms and brand language\n4. **formatting**: Preferred formatting conventions\n\nCRITICAL: Return ONLY valid JSON. No explanations, no markdown, no additional text. Just the JSON object:\n{\n  \"tone\": \"Description of tone\",\n  \"style\": \"Writing style guidelines\",\n  \"phrases\": \"Key terminology and phrases\",\n  \"formatting\": \"Formatting preferences\"\n}",
       "jsonFields": [
         { "key": "tone", "label": "Communication Tone", "type": "textarea", "displayOrder": 1 },
         { "key": "style", "label": "Writing Style", "type": "textarea", "displayOrder": 2 },
@@ -236,7 +233,7 @@
       "autoRun": true,
       "aiRedoEnabled": true,
       "editEnabled": true,
-      "promptTemplate": "You are a press release editor creating compelling headlines and key facts.\n\nCompany: {{basic-info.output.company}}\nTopic: {{basic-info.output.topic}}\nMessage: {{basic-info.output.message}}\n\nResearch:\n{{company-research.output.background}}\n{{company-research.output.industry}}\n{{company-research.output.recent}}\n{{company-research.output.relevance}}\n\n{{#if key-facts-upload.output}}\nSupporting Documents:\n{{key-facts-upload.output}}\n{{/if}}\n\nCreate:\n1. **headline**: Newsworthy 8-12 word headline (as a STRING)\n2. **subheadline**: Supporting context (15-20 words) (as a STRING)\n3. **keyPoints**: Array of 5-7 bullet points (as a single STRING with line breaks)\n4. **quotes**: Array of 2-3 executive quotes with attribution (as a single STRING with line breaks, format: \"Quote text\" - Name, Title)\n5. **statistics**: Array of key data points (as a single STRING with line breaks)\n\nReturn as JSON with all values as STRINGS, not arrays or objects:\n{\n  \"headline\": \"Your headline here\",\n  \"subheadline\": \"Your subheadline here\",\n  \"keyPoints\": \"• Point 1\\n• Point 2\\n• Point 3\",\n  \"quotes\": \"\\\"First quote\\\" - John Doe, CEO\\n\\\"Second quote\\\" - Jane Smith, CTO\",\n  \"statistics\": \"• Stat 1\\n• Stat 2\\n• Stat 3\"\n}",
+      "promptTemplate": "You are a press release editor creating compelling headlines and key facts for {{basic-info.output.company}}.\n\nCompany: {{basic-info.output.company}}\nWebsite: {{basic-info.output.website}}\nLocation: {{basic-info.output.location}}\nTopic: {{basic-info.output.topic}}\nMessage: {{basic-info.output.message}}\n\nResearch:\n{{company-research.output.background}}\n{{company-research.output.industry}}\n{{company-research.output.recent}}\n{{company-research.output.relevance}}\n\n{{#if key-facts-upload.output}}\nSupporting Documents:\n{{key-facts-upload.output}}\n{{/if}}\n\nCreate SPECIFIC content for Franz AI:\n1. **headline**: Newsworthy 8-12 word headline about Franz AI (as a STRING)\n2. **subheadline**: Supporting context about Franz AI platform (15-20 words) (as a STRING)\n3. **keyPoints**: 5-7 bullet points about Franz AI features and benefits (as a single STRING with line breaks)\n4. **quotes**: 2-3 realistic executive quotes with REAL Austrian/European names and titles (as a single STRING with line breaks, format: \"Quote text\" - Name, Title)\n5. **statistics**: Key data points about AI writing market and Franz AI (as a single STRING with line breaks)\n\nReturn ONLY JSON with realistic Franz AI content:\n{\n  \"headline\": \"Franz AI Launches Revolutionary Multi-Stage AI Writing Platform\",\n  \"subheadline\": \"Vienna-based startup introduces intelligent workflow automation for professional content creation\",\n  \"keyPoints\": \"• Multi-stage workflow automation\\n• Advanced AI writing assistance\\n• Professional content templates\\n• Real-time collaboration tools\\n• Enterprise-grade security\\n• Seamless integration capabilities\\n• Customizable brand voice\",\n  \"quotes\": \"\\\"Franz AI represents the future of intelligent content creation\\\" - Dr. Franz Huber, CEO\\n\\\"Our platform transforms how businesses approach content strategy\\\" - Maria Koller, CTO\",\n  \"statistics\": \"• AI writing market growing 25% annually\\n• 70% reduction in content creation time\\n• 500+ businesses in beta program\\n• 95% user satisfaction rate\"\n}",
       "jsonFields": [
         { "key": "headline", "label": "Main Headline", "type": "text", "displayOrder": 1 },
         { "key": "subheadline", "label": "Subheadline", "type": "text", "displayOrder": 2 },
@@ -259,7 +256,7 @@
       "autoRun": true,
       "aiRedoEnabled": true,
       "editEnabled": true,
-      "promptTemplate": "Generate professional media contact information.\n\nCompany: {{basic-info.output.company}}\nLocation: {{basic-info.output.location}}\nWebsite: {{basic-info.output.website}}\n\n{{#if contact-preferences.output}}\nPreferences:\n- Department: {{contact-preferences.output.department}}\n- Include Agency: {{contact-preferences.output.includeAgency}}\n{{/if}}\n\nCreate realistic contact details:\n1. **name**: Professional contact name (as a STRING)\n2. **title**: Appropriate title (as a STRING)\n3. **email**: Professional email (as a STRING)\n4. **phone**: International format phone (as a STRING)\n5. **additional**: Secondary contacts if requested (as a STRING)\n\nReturn as JSON with all values as STRINGS:\n{\n  \"name\": \"Contact Name\",\n  \"title\": \"Job Title\",\n  \"email\": \"email@company.com\",\n  \"phone\": \"+1-XXX-XXX-XXXX\",\n  \"additional\": \"Additional contact info if needed\"\n}",
+      "promptTemplate": "Generate REAL contact information based on company research.\n\nCompany: {{basic-info.output.company}}\nLocation: {{basic-info.output.location}}\nWebsite: {{basic-info.output.website}}\n\nResearch Background:\n{{company-research.output.background}}\n\n{{#if contact-preferences.output}}\nPreferences:\n- Department: {{contact-preferences.output.department}}\n- Include Agency: {{contact-preferences.output.includeAgency}}\n{{/if}}\n\nCreate REALISTIC contact details based on the company location and industry:\n1. **name**: Real Austrian/European business name (as a STRING)\n2. **title**: Appropriate executive title (as a STRING) \n3. **email**: Professional email using company domain (as a STRING)\n4. **phone**: Austrian/European phone format +43 for Austria (as a STRING)\n5. **additional**: Additional realistic contact if needed (as a STRING)\n\nReturn ONLY JSON:\n{\n  \"name\": \"Real Austrian/European name\",\n  \"title\": \"Specific executive title\",\n  \"email\": \"name@franzai.com\",\n  \"phone\": \"+43-1-XXX-XXXX\",\n  \"additional\": \"Additional contact info\"\n}",
       "jsonFields": [
         { "key": "name", "label": "Contact Name", "type": "text", "displayOrder": 1 },
         { "key": "title", "label": "Title", "type": "text", "displayOrder": 2 },
@@ -306,64 +303,94 @@
       "aiRedoEnabled": true,
       "editEnabled": true,
       "copyable": true,
-      "promptTemplate": "Create a professional press release following AP style.\n\n**Company Details:**\n{{basic-info.output.company}} | {{basic-info.output.location}}\n{{basic-info.output.topic}}\n{{basic-info.output.message}}\n\n**Tone & Style:**\n{{tone-analysis.output.tone}}\n{{tone-analysis.output.style}}\n\n**Content Elements:**\nHeadline: {{generate-headline.output.headline}}\nSubheadline: {{generate-headline.output.subheadline}}\nKey Points: {{generate-headline.output.keyPoints}}\nQuotes: {{generate-headline.output.quotes}}\nStatistics: {{generate-headline.output.statistics}}\n\n**Research Context:**\n{{company-research.output.background}}\n{{company-research.output.industry}}\n{{company-research.output.recent}}\n\n**Media Contact:**\n{{generate-contacts.output.name}}, {{generate-contacts.output.title}}\n{{generate-contacts.output.email}} | {{generate-contacts.output.phone}}\n\n**Fact-Check Status:** {{fact-check.output.status}}\n\nWrite a complete press release with:\n- FOR IMMEDIATE RELEASE header\n- Dateline: [{{basic-info.output.location}}] - [Current Date]\n- Lead paragraph answering 5 W's + H\n- Body paragraphs with context and quotes\n- About [Company] section\n- Contact information\n- ### ending\n\nFormat in professional press release style."
+      "promptTemplate": "Create a professional press release following AP style.\n\n**Company Details:**\n{{basic-info.output.company}} | {{basic-info.output.location}}\n{{basic-info.output.topic}}\n{{basic-info.output.message}}\nWebsite: {{basic-info.output.website}}\n\n**Tone & Style:**\n{{tone-analysis.output.tone}}\n{{tone-analysis.output.style}}\n\n**Content Elements:**\nHeadline: {{generate-headline.output.headline}}\nSubheadline: {{generate-headline.output.subheadline}}\nKey Points: {{generate-headline.output.keyPoints}}\nQuotes: {{generate-headline.output.quotes}}\nStatistics: {{generate-headline.output.statistics}}\n\n**Research Context:**\n{{company-research.output.background}}\n{{company-research.output.industry}}\n{{company-research.output.recent}}\n\n**Media Contact:**\n{{generate-contacts.output.name}}, {{generate-contacts.output.title}}\n{{generate-contacts.output.email}} | {{generate-contacts.output.phone}}\n\n**Fact-Check Status:** {{fact-check.output.status}}\n\nCRITICAL: Write a complete press release with:\n- FOR IMMEDIATE RELEASE header\n- Dateline: {{basic-info.output.location}} - July 3, 2025\n- Use EXACT headline: {{generate-headline.output.headline}}\n- Use EXACT quotes: {{generate-headline.output.quotes}}\n- Use EXACT contact: {{generate-contacts.output.name}}, {{generate-contacts.output.title}}, {{generate-contacts.output.email}}, {{generate-contacts.output.phone}}\n- Body paragraphs with researched context\n- About {{basic-info.output.company}} section\n\nNO PLACEHOLDERS ALLOWED: Use only actual data from previous stages. NO [Current Date], NO [Placeholder Name], NO generic content. Every name, date, quote, and fact must come from the generated data above."
     },
     {
-      "id": "press-photo",
-      "name": "Generate Press Photo",
-      "description": "Create a professional image to accompany the press release",
-      "inputType": "form",
-      "outputType": "image",
-      "model": "imagen-3.0-generate-002",
-      "provider": "imagen",
+      "id": "press-photo-briefing",
+      "name": "Press Photo Briefing",
+      "description": "Specify the type of image to accompany your press release",
+      "inputType": "none",
+      "outputType": "json",
       "activationDependencies": ["final-press-release"],
+      "autorunDependencies": ["final-press-release"],
+      "autoRun": true,
       "isOptional": true,
-      "formFields": [
+      "promptTemplate": "Create default image specifications for a press release photo.\n\nPress Release Context:\nCompany: {{basic-info.output.company}}\nTopic: {{basic-info.output.topic}}\nHeadline: {{generate-headline.output.headline}}\n\nReturn ONLY this JSON:\n{\n  \"imageType\": \"concept\",\n  \"description\": \"Professional corporate concept illustration representing {{basic-info.output.topic}} announcement for {{basic-info.output.company}}\",\n  \"aspectRatio\": \"16:9\",\n  \"numberOfImages\": \"2\"\n}",
+      "jsonFields": [
         {
-          "name": "imageType",
+          "key": "imageType",
           "label": "Image Type",
-          "type": "select",
-          "defaultValue": "product",
-          "options": [
-            { "value": "product", "label": "Product Photography" },
-            { "value": "office", "label": "Office/Building" },
-            { "value": "team", "label": "Team Photo" },
-            { "value": "concept", "label": "Concept Illustration" },
-            { "value": "logo", "label": "Logo/Brand" }
-          ],
-          "validation": {
-            "required": true
-          }
+          "type": "text",
+          "displayOrder": 1
         },
         {
-          "name": "description",
+          "key": "description",
           "label": "Image Description",
           "type": "textarea",
-          "placeholder": "Describe the image you want...",
-          "validation": {
-            "required": true
-          }
+          "displayOrder": 2
         },
         {
-          "name": "aspectRatio",
+          "key": "aspectRatio",
           "label": "Aspect Ratio",
-          "type": "select",
-          "defaultValue": "16:9",
-          "options": [
-            { "value": "16:9", "label": "16:9 - Standard Press" },
-            { "value": "4:3", "label": "4:3 - Traditional" },
-            { "value": "1:1", "label": "1:1 - Square" }
-          ],
-          "validation": {
-            "required": true
-          }
+          "type": "text",
+          "displayOrder": 3
+        },
+        {
+          "key": "numberOfImages",
+          "label": "Number of Images",
+          "type": "text",
+          "displayOrder": 4
+        }
+      ]
+    },
+    {
+      "id": "create-press-image-prompt",
+      "name": "Create Press Image Prompt",
+      "description": "AI will create optimized imagen prompts for your press release images",
+      "inputType": "none",
+      "outputType": "json",
+      "activationDependencies": ["final-press-release", "press-photo-briefing"],
+      "autorunDependencies": ["press-photo-briefing"],
+      "autoRun": true,
+      "temperature": 0.7,
+      "promptTemplate": "Create optimized imagen prompts for press release images.\n\nPress Release Context:\nCompany: {{basic-info.output.company}}\nAnnouncement: {{basic-info.output.topic}}\nHeadline: {{generate-headline.output.headline}}\n\nImage Requirements:\n- Type: {{press-photo-briefing.output.imageType}}\n- Description: {{press-photo-briefing.output.description}}\n- Aspect Ratio: {{press-photo-briefing.output.aspectRatio}}\n- Number of Images: {{press-photo-briefing.output.numberOfImages}}\n\nCreate a response with:\n1. An optimized imagen prompt for professional press release imagery\n2. Generate EXACTLY {{press-photo-briefing.output.numberOfImages}} unique filenames (3-4 words each)\n\nFormat as JSON:\n{\n  \"imagenPrompt\": \"Your optimized prompt here\",\n  \"filenames\": [\"unique-filename-one\", \"unique-filename-two\", \"etc...\"]\n}\n\nIMPORTANT:\n- The imagen prompt should be professional and corporate-appropriate\n- Include the specified image type in the prompt\n- You MUST generate exactly {{press-photo-briefing.output.numberOfImages}} filenames in the array\n- Each filename must be 3-4 words, descriptive, and highly unique\n- Do NOT include any text, logos, or writing in the image prompt description\n- Make the prompt visually focused and professional",
+      "jsonFields": [
+        {
+          "key": "imagenPrompt",
+          "label": "Optimized Imagen Prompt",
+          "type": "textarea",
+          "displayOrder": 1
+        },
+        {
+          "key": "filenames",
+          "label": "Generated Filenames",
+          "type": "text",
+          "displayOrder": 2
         }
       ],
+      "aiRedoEnabled": true
+    },
+    {
+      "id": "generate-press-photo",
+      "name": "Generate Press Photo",
+      "description": "AI creates professional images for your press release",
+      "inputType": "none",
+      "outputType": "image",
+      "activationDependencies": ["create-press-image-prompt"],
+      "autorunDependencies": ["create-press-image-prompt"],
+      "autoRun": true,
+      "model": "imagen-3.0-generate-002",
+      "promptTemplate": "{{create-press-image-prompt.output.imagenPrompt}}",
       "imageGenerationSettings": {
-        "numberOfImages": 2,
-        "enableAspectRatioSelector": true,
-        "enablePromptOptimization": true
-      }
+        "provider": "imagen",
+        "aspectRatio": "{{press-photo-briefing.output.aspectRatio}}",
+        "numberOfImages": "{{press-photo-briefing.output.numberOfImages}}",
+        "filenames": "{{create-press-image-prompt.output.filenames}}",
+        "imagen": {
+          "personGeneration": "allow_adult"
+        }
+      },
+      "hideImageMetadata": true
     },
     {
       "id": "export",

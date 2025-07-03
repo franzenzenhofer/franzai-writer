@@ -56,7 +56,7 @@ export class AIStageExecution {
         temperature: stage.temperature ?? workflow.temperature ?? 0.7,
         maxOutputTokens: stage.maxTokens || 8192,
         systemInstruction: stage.systemInstructions || stage.systemInstruction,
-        enableGoogleSearch: stage.groundingSettings?.googleSearch?.enabled === true,
+        enableGoogleSearch: stage.grounding?.googleSearch === true || stage.groundingSettings?.googleSearch?.enabled === true,
         // Add workflow/stage context for logging
         workflowName: workflow.name,
         stageName: stage.title, // Use title instead of name
@@ -70,12 +70,16 @@ export class AIStageExecution {
       // Handle different output types
       switch (stage.outputType) {
         case 'json':
-          // Use structured output for JSON
+          // Use structured output for JSON (note: grounding not supported with structured output)
           const schema = this.buildJsonSchema(stage);
+          const jsonModelConfig = {
+            ...modelConfig,
+            enableGoogleSearch: false  // Force disable grounding for JSON structured output
+          };
           result = await StructuredOutputModule.generateJSON(
             prompt,
             schema,
-            modelConfig
+            jsonModelConfig
           );
           break;
 
