@@ -338,10 +338,11 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       const currentState = newStageStates[stage.id];
       if (!currentState) return; // Should not happen if initialized correctly
 
-      // Evaluate basic dependencies
+      // Evaluate activation dependencies
       let depsMet = true;
-      if (stage.dependencies && stage.dependencies.length > 0) {
-        depsMet = stage.dependencies.every(depId => 
+      const activationDeps = stage.activationDependencies || stage.dependencies || [];
+      if (activationDeps.length > 0) {
+        depsMet = activationDeps.every(depId => 
           newStageStates[depId]?.status === 'completed'
         );
       }
@@ -397,8 +398,9 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         }
         
         // Also check staleness based on autorun dependencies
-        if (!isStale && stage.autorunDependsOn && stage.autorunDependsOn.length > 0) {
-          isStale = stage.autorunDependsOn.some(depId => {
+        const autorunDepsForStale = stage.autorunDependencies || stage.autorunDependsOn || [];
+        if (!isStale && autorunDepsForStale.length > 0) {
+          isStale = autorunDepsForStale.some(depId => {
             const depState = newStageStates[depId];
             // Only consider a dependency if it has been completed
             if (depState?.status === 'completed' && depState?.completedAt) {
@@ -414,29 +416,28 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
 
       // Evaluate autorun dependencies (separate from activation dependencies)
       let autorunDepsMet = true;
-      if (stage.autorunDependsOn && stage.autorunDependsOn.length > 0) {
-        // Use explicit autorun dependencies
-        const autorunDepsStatus = stage.autorunDependsOn.map(depId => ({
+      // Support both old and new naming for backward compatibility
+      const autorunDeps = stage.autorunDependencies || stage.autorunDependsOn || stage.dependencies || [];
+      
+      if (autorunDeps.length > 0) {
+        const autorunDepsStatus = autorunDeps.map(depId => ({
           depId,
           status: newStageStates[depId]?.status,
           isCompleted: newStageStates[depId]?.status === 'completed'
         }));
         
-        autorunDepsMet = stage.autorunDependsOn.every(depId => 
+        autorunDepsMet = autorunDeps.every(depId => 
           newStageStates[depId]?.status === 'completed'
         );
         
         // Debug logging for autorun dependencies
         if (stage.autoRun && !autorunDepsMet) {
           console.log(`🔍 [Autorun Deps] Stage ${stage.id} autorun blocked:`, {
-            autorunDependsOn: stage.autorunDependsOn,
+            autorunDependencies: autorunDeps,
             depsStatus: autorunDepsStatus,
             autorunDepsMet
           });
         }
-      } else {
-        // Fall back to regular dependencies (backward compatibility)
-        autorunDepsMet = depsMet;
       }
 
       // Determine if stage should auto-run
