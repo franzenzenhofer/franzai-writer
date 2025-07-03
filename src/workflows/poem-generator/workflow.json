@@ -195,8 +195,8 @@
       "model": "gemini-2.0-flash",
       "temperature": 0.3,
       "outputType": "html",
-      "activationDependencies": ["generate-poem-with-title", "generate-poem-image", "image-briefing"],
-      "autorunDependencies": ["generate-poem-with-title", "generate-poem-image"],
+      "activationDependencies": ["generate-poem-with-title", "generate-poem-image"],
+      "autorunDependencies": ["generate-poem-with-title", "generate-poem-image", "html-briefing"],
       "autoRun": true,
       "aiRedoEnabled": true
     },
