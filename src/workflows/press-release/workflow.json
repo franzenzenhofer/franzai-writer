@@ -89,9 +89,9 @@
       "copyable": true
     },
     {
-      "id": "tone-briefing",
-      "name": "Tone of Voice Analysis",
-      "description": "Analyze company's existing press releases to match their tone and style",
+      "id": "tone-context",
+      "name": "Upload Tone Reference Materials",
+      "description": "Upload existing press releases or company communications for tone analysis (optional)",
       "inputType": "context",
       "outputType": "json",
       "model": "gemini-2.0-flash",
@@ -100,9 +100,34 @@
         "basic-info"
       ],
       "autoRun": false,
+      "isOptional": true,
+      "outputFields": [
+        {
+          "id": "uploaded_materials",
+          "type": "string"
+        }
+      ],
+      "copyable": true
+    },
+    {
+      "id": "tone-briefing",
+      "name": "Tone of Voice Analysis",
+      "description": "AI analyzes company's tone and style for the press release",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.4,
+      "activationDependencies": [
+        "basic-info"
+      ],
+      "autorunDependencies": [
+        "basic-info",
+        "tone-context"
+      ],
+      "autoRun": true,
       "aiRedoEnabled": true,
       "editEnabled": true,
-      "promptTemplate": "You are a senior communications strategist and tone of voice expert with 15+ years of experience analyzing corporate messaging for Fortune 500 companies. Your expertise encompasses AP style, business journalism, and strategic communications.\n\nCompany Information:\n- Company: {{basic-info.output.company}}\n- Topic: {{basic-info.output.topic}}\n- Website: {{basic-info.output.website}}\n\nPERFORM COMPREHENSIVE TONE ANALYSIS:\n\n**Research Phase:**\n1. Analyze company website content, About Us page, mission statements\n2. Examine industry sector communication standards\n3. Identify company size, target audience, and market positioning\n4. Research recent news mentions or existing press materials\n\n**Analysis Requirements:**\n\n**tone**: Provide nuanced tone description including:\n- Primary voice characteristics (authoritative, approachable, innovative, conservative)\n- Secondary emotional undertones (confident, humble, urgent, measured)\n- Industry-appropriate professionalism level\n- Target audience considerations (technical vs. general public)\n\n**style_guidelines**: Detailed style analysis covering:\n- Sentence structure: length, complexity, rhythm\n- Voice preference: active vs. passive usage patterns\n- Technical depth: jargon level, explanation requirements\n- Paragraph structure: length, flow, logical progression\n- Clarity standards: readability level, accessibility considerations\n\n**key_phrases**: Industry and company-specific language including:\n- Core value propositions and differentiators\n- Technical terminology and preferred definitions\n- Brand-specific language and positioning statements\n- Action-oriented language patterns\n- Compliance or regulatory language if applicable\n\n**formatting_notes**: Professional formatting standards:\n- Quote attribution format and executive title usage\n- Data presentation: percentages, metrics, financial figures\n- List formatting: bullets vs. numbers, hierarchy\n- Legal and disclaimer language positioning\n- Contact information and boilerplate placement\n\nIMPORTANT: Deliver publication-ready guidance. Return ONLY a valid JSON object with no markdown, explanations, or additional text.\n\n{\n  \"tone\": \"[Detailed professional tone description]\",\n  \"style_guidelines\": \"[Comprehensive style requirements]\",\n  \"key_phrases\": \"[Strategic messaging elements]\",\n  \"formatting_notes\": \"[Professional formatting standards]\"\n}",
+      "promptTemplate": "You are a senior communications strategist and tone of voice expert with 15+ years of experience analyzing corporate messaging for Fortune 500 companies. Your expertise encompasses AP style, business journalism, and strategic communications.\n\nCompany Information:\n- Company: {{basic-info.output.company}}\n- Topic: {{basic-info.output.topic}}\n- Website: {{basic-info.output.website}}\n\n{{#if tone-context.output}}\nUploaded Reference Materials:\n{{tone-context.output}}\n{{/if}}\n\nPERFORM COMPREHENSIVE TONE ANALYSIS:\n\n**Research Phase:**\n1. Analyze company website content, About Us page, mission statements\n2. Examine industry sector communication standards\n3. Identify company size, target audience, and market positioning\n4. Research recent news mentions or existing press materials\n5. If reference materials provided, analyze them for tone patterns\n\n**Analysis Requirements:**\n\n**tone**: Provide nuanced tone description including:\n- Primary voice characteristics (authoritative, approachable, innovative, conservative)\n- Secondary emotional undertones (confident, humble, urgent, measured)\n- Industry-appropriate professionalism level\n- Target audience considerations (technical vs. general public)\n\n**style_guidelines**: Detailed style analysis covering:\n- Sentence structure: length, complexity, rhythm\n- Voice preference: active vs. passive usage patterns\n- Technical depth: jargon level, explanation requirements\n- Paragraph structure: length, flow, logical progression\n- Clarity standards: readability level, accessibility considerations\n\n**key_phrases**: Industry and company-specific language including:\n- Core value propositions and differentiators\n- Technical terminology and preferred definitions\n- Brand-specific language and positioning statements\n- Action-oriented language patterns\n- Compliance or regulatory language if applicable\n\n**formatting_notes**: Professional formatting standards:\n- Quote attribution format and executive title usage\n- Data presentation: percentages, metrics, financial figures\n- List formatting: bullets vs. numbers, hierarchy\n- Legal and disclaimer language positioning\n- Contact information and boilerplate placement\n\nIMPORTANT: Deliver publication-ready guidance. Return ONLY a valid JSON object with no markdown, explanations, or additional text.\n\n{\n  \"tone\": \"[Detailed professional tone description]\",\n  \"style_guidelines\": \"[Comprehensive style requirements]\",\n  \"key_phrases\": \"[Strategic messaging elements]\",\n  \"formatting_notes\": \"[Professional formatting standards]\"\n}",
       "outputFields": [
         {
           "id": "tone",
@@ -380,17 +405,57 @@
       "copyable": true
     },
     {
+      "id": "contact-info-ai",
+      "name": "Generate Contact Information",
+      "description": "AI generates professional contact details for media inquiries",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.1,
+      "activationDependencies": [
+        "key-facts",
+        "research"
+      ],
+      "autorunDependencies": [
+        "key-facts"
+      ],
+      "autoRun": true,
+      "promptTemplate": "You are a corporate communications specialist responsible for establishing professional media contact protocols for press releases. Your expertise ensures journalists can easily reach appropriate spokespersons for follow-up interviews and clarifications.\n\nCompany Information:\n- Company: {{basic-info.output.company}}\n- Topic: {{basic-info.output.topic}}\n\nCompany Profile for Context:\n{{research.output.company_background}}\n\nGENERATE PROFESSIONAL MEDIA CONTACT INFORMATION:\n\n**contact_name**: Create realistic, professional contact name that:\n- Reflects company culture and geographic presence\n- Sounds credible for media inquiries\n- Appropriate for company size and industry\n- Gender-neutral or industry-appropriate\n\n**contact_title**: Assign appropriate title based on:\n- Company size (startup vs. enterprise considerations)\n- Industry standards (Director of Communications, VP Marketing, PR Manager)\n- Topic complexity (technical vs. business announcement)\n- Media relations hierarchy (Chief Communications Officer for major announcements)\n\n**contact_email**: Format professional email address:\n- Use standard press/media prefix (press@, media@, pr@)\n- Incorporate company domain from website if provided\n- Follow corporate email formatting conventions\n- Ensure accessibility for international journalists\n\n**contact_phone**: Provide properly formatted phone number:\n- Use international format with country code\n- Include appropriate area code for company location\n- Format: +[country] ([area]) [number]\n- Consider time zone implications for media outreach\n\n**additional_contacts**: Include relevant secondary contacts:\n- PR agency contact if company likely uses external PR\n- Investor relations for financial announcements\n- Technical spokesperson for complex product launches\n- Regional contacts for international companies\n- Format: \"Role: Contact Name - email@domain.com\"\n\nEnsure contact information facilitates professional media follow-up and maintains company credibility. Return ONLY a valid JSON object.\n\n{\n  \"contact_name\": \"[Professional contact name]\",\n  \"contact_title\": \"[Appropriate industry title]\",\n  \"contact_email\": \"[Professional media email]\",\n  \"contact_phone\": \"[International format phone]\",\n  \"additional_contacts\": \"[Relevant secondary contacts]\"\n}",
+      "outputFields": [
+        {
+          "id": "contact_name",
+          "type": "string"
+        },
+        {
+          "id": "contact_title",
+          "type": "string"
+        },
+        {
+          "id": "contact_email",
+          "type": "string"
+        },
+        {
+          "id": "contact_phone",
+          "type": "string"
+        },
+        {
+          "id": "additional_contacts",
+          "type": "string"
+        }
+      ],
+      "copyable": true
+    },
+    {
       "id": "contact-info",
       "name": "Edit Contact Information",
-      "description": "Provide contact details for media inquiries",
+      "description": "Review and edit the contact details for media inquiries",
       "inputType": "form",
       "outputType": "json",
       "model": "gemini-2.0-flash",
       "temperature": 0.1,
       "activationDependencies": [
-        "key-facts"
+        "contact-info-ai"
       ],
-      "promptTemplate": "You are a corporate communications specialist responsible for establishing professional media contact protocols for press releases. Your expertise ensures journalists can easily reach appropriate spokespersons for follow-up interviews and clarifications.\n\nCompany Information:\n- Company: {{basic-info.output.company}}\n- Topic: {{basic-info.output.topic}}\n\nCompany Profile for Context:\n{{research.output.company_background}}\n\nGENERATE PROFESSIONAL MEDIA CONTACT INFORMATION:\n\n**contact_name**: Create realistic, professional contact name that:\n- Reflects company culture and geographic presence\n- Sounds credible for media inquiries\n- Appropriate for company size and industry\n- Gender-neutral or industry-appropriate\n\n**contact_title**: Assign appropriate title based on:\n- Company size (startup vs. enterprise considerations)\n- Industry standards (Director of Communications, VP Marketing, PR Manager)\n- Topic complexity (technical vs. business announcement)\n- Media relations hierarchy (Chief Communications Officer for major announcements)\n\n**contact_email**: Format professional email address:\n- Use standard press/media prefix (press@, media@, pr@)\n- Incorporate company domain from website if provided\n- Follow corporate email formatting conventions\n- Ensure accessibility for international journalists\n\n**contact_phone**: Provide properly formatted phone number:\n- Use international format with country code\n- Include appropriate area code for company location\n- Format: +[country] ([area]) [number]\n- Consider time zone implications for media outreach\n\n**additional_contacts**: Include relevant secondary contacts:\n- PR agency contact if company likely uses external PR\n- Investor relations for financial announcements\n- Technical spokesperson for complex product launches\n- Regional contacts for international companies\n- Format: \"Role: Contact Name - email@domain.com\"\n\nEnsure contact information facilitates professional media follow-up and maintains company credibility. Return ONLY a valid JSON object.\n\n{\n  \"contact_name\": \"[Professional contact name]\",\n  \"contact_title\": \"[Appropriate industry title]\",\n  \"contact_email\": \"[Professional media email]\",\n  \"contact_phone\": \"[International format phone]\",\n  \"additional_contacts\": \"[Relevant secondary contacts]\"\n}",
       "autoRun": false,
       "formFields": [
         {
