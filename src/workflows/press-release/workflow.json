@@ -236,7 +236,7 @@
       "autoRun": true,
       "aiRedoEnabled": true,
       "editEnabled": true,
-      "promptTemplate": "You are a press release editor creating compelling headlines and key facts.\n\nCompany: {{basic-info.output.company}}\nTopic: {{basic-info.output.topic}}\nMessage: {{basic-info.output.message}}\n\nResearch:\n{{company-research.output.background}}\n{{company-research.output.industry}}\n{{company-research.output.recent}}\n{{company-research.output.relevance}}\n\n{{#if key-facts-upload.output}}\nSupporting Documents:\n{{key-facts-upload.output}}\n{{/if}}\n\nCreate:\n1. **headline**: Newsworthy 8-12 word headline\n2. **subheadline**: Supporting context (15-20 words)\n3. **keyPoints**: Array of 5-7 bullet points\n4. **quotes**: Array of 2-3 executive quotes with attribution\n5. **statistics**: Array of key data points\n\nReturn as JSON.",
+      "promptTemplate": "You are a press release editor creating compelling headlines and key facts.\n\nCompany: {{basic-info.output.company}}\nTopic: {{basic-info.output.topic}}\nMessage: {{basic-info.output.message}}\n\nResearch:\n{{company-research.output.background}}\n{{company-research.output.industry}}\n{{company-research.output.recent}}\n{{company-research.output.relevance}}\n\n{{#if key-facts-upload.output}}\nSupporting Documents:\n{{key-facts-upload.output}}\n{{/if}}\n\nCreate:\n1. **headline**: Newsworthy 8-12 word headline (as a STRING)\n2. **subheadline**: Supporting context (15-20 words) (as a STRING)\n3. **keyPoints**: Array of 5-7 bullet points (as a single STRING with line breaks)\n4. **quotes**: Array of 2-3 executive quotes with attribution (as a single STRING with line breaks, format: \"Quote text\" - Name, Title)\n5. **statistics**: Array of key data points (as a single STRING with line breaks)\n\nReturn as JSON with all values as STRINGS, not arrays or objects:\n{\n  \"headline\": \"Your headline here\",\n  \"subheadline\": \"Your subheadline here\",\n  \"keyPoints\": \"• Point 1\\n• Point 2\\n• Point 3\",\n  \"quotes\": \"\\\"First quote\\\" - John Doe, CEO\\n\\\"Second quote\\\" - Jane Smith, CTO\",\n  \"statistics\": \"• Stat 1\\n• Stat 2\\n• Stat 3\"\n}",
       "jsonFields": [
         { "key": "headline", "label": "Main Headline", "type": "text", "displayOrder": 1 },
         { "key": "subheadline", "label": "Subheadline", "type": "text", "displayOrder": 2 },
@@ -310,7 +310,7 @@
     },
     {
       "id": "press-photo",
-      "name": "Generate Press Photo (Optional)",
+      "name": "Generate Press Photo",
       "description": "Create a professional image to accompany the press release",
       "inputType": "form",
       "outputType": "image",
