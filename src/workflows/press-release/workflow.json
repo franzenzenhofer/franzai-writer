@@ -96,7 +96,7 @@
       "outputType": "json",
       "model": "gemini-2.0-flash",
       "temperature": 0.4,
-      "dependencies": [
+      "activationDependencies": [
         "basic-info"
       ],
       "autoRun": false,
@@ -131,7 +131,7 @@
       "outputType": "json",
       "model": "gemini-2.0-flash",
       "temperature": 0.3,
-      "dependencies": [
+      "activationDependencies": [
         "basic-info",
         "tone-briefing"
       ],
@@ -214,17 +214,57 @@
       "copyable": true
     },
     {
-      "id": "key-facts",
-      "name": "Edit Key Facts",
-      "description": "Review and edit the key facts for your press release",
-      "inputType": "form",
+      "id": "key-facts-generation",
+      "name": "Generate Key Facts",
+      "description": "AI generates initial key facts for your press release",
+      "inputType": "context",
       "outputType": "json",
       "model": "gemini-2.0-flash",
       "temperature": 0.2,
-      "dependencies": [
+      "activationDependencies": [
         "research"
       ],
+      "autorunDependencies": [
+        "research"
+      ],
+      "autoRun": true,
       "promptTemplate": "You are a senior press release editor and strategic communications expert with 20+ years of experience crafting compelling narratives for major corporations, startups, and industry leaders. Your expertise includes AP style, newsworthiness criteria, and persuasive business writing.\n\nAnnouncement Details:\n- Topic: {{basic-info.output.topic}}\n- Core Message: {{basic-info.output.message}}\n- Company: {{basic-info.output.company}}\n\nComprehensive Research Intelligence:\n**Company Profile:** {{research.output.company_background}}\n**Market Context:** {{research.output.industry_context}}\n**Recent Business Developments:** {{research.output.recent_developments}}\n**Competitive Positioning:** {{research.output.competitive_landscape}}\n\nCREATE PUBLICATION-READY PRESS RELEASE ELEMENTS:\n\n**headline**: Craft a compelling, newsworthy headline that:\n- Leads with the most newsworthy element (WHO did WHAT)\n- Uses active voice and strong action verbs\n- Contains 8-12 words for optimal impact\n- Includes company name for brand recognition\n- Communicates clear value proposition or significance\n- Avoids marketing hyperbole; focuses on factual impact\n- Appeals to target media outlets and their audiences\n\n**subheadline**: Develop supporting context that:\n- Expands on the headline with additional crucial details\n- Provides market context or significance\n- Includes specific benefits or implications\n- Maintains journalistic objectivity\n- Answers the \"why this matters now\" question\n\n**key_points**: Structure 5-7 strategic bullet points covering:\n- Primary business impact and significance\n- Specific features, capabilities, or improvements\n- Market opportunity or problem being addressed\n- Customer benefits and value proposition\n- Competitive advantages or differentiation\n- Implementation timeline or availability\n- Strategic partnerships or collaborations (if applicable)\n\n**quotes**: Create 2-3 authentic executive quotes that:\n- Sound natural and conversational, not marketing-speak\n- Provide executive perspective and strategic vision\n- Include specific details that add credibility\n- Balance confidence with appropriate humility\n- Reflect company culture and leadership style\n- Attribution format: \"Quote content\" - Full Name, Exact Title, Company\n- Vary quote purposes: vision, technical insight, market impact\n\n**statistics**: Compile compelling data points including:\n- Performance metrics and improvements\n- Market size, growth rates, or penetration\n- Customer adoption, usage, or satisfaction metrics\n- Financial impact, cost savings, or revenue growth\n- Operational efficiency or productivity gains\n- Time-to-market or competitive advantages\n- Research findings or third-party validations\n\nEnsure all elements work together to tell a cohesive, newsworthy story. Return ONLY a valid JSON object.\n\n{\n  \"headline\": \"[Newsworthy, action-driven headline]\",\n  \"subheadline\": \"[Supporting context and significance]\",\n  \"key_points\": \"[Strategic bullet points with specific benefits]\",\n  \"quotes\": \"[Authentic executive perspectives with full attribution]\",\n  \"statistics\": \"[Compelling metrics and data points]\"\n}",
+      "outputFields": [
+        {
+          "id": "headline",
+          "type": "string"
+        },
+        {
+          "id": "subheadline",
+          "type": "string"
+        },
+        {
+          "id": "key_points",
+          "type": "string"
+        },
+        {
+          "id": "quotes",
+          "type": "string"
+        },
+        {
+          "id": "statistics",
+          "type": "string"
+        }
+      ],
+      "editEnabled": true,
+      "copyable": true
+    },
+    {
+      "id": "key-facts",
+      "name": "Edit Key Facts",
+      "description": "Review and edit the AI-generated key facts for your press release",
+      "inputType": "form",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.1,
+      "activationDependencies": [
+        "key-facts-generation"
+      ],
       "autoRun": false,
       "formFields": [
         {
@@ -307,9 +347,6 @@
       "model": "gemini-2.0-flash",
       "temperature": 0.1,
       "activationDependencies": [
-        "key-facts"
-      ],
-      "dependencies": [
         "key-facts"
       ],
       "promptTemplate": "You are a corporate communications specialist responsible for establishing professional media contact protocols for press releases. Your expertise ensures journalists can easily reach appropriate spokespersons for follow-up interviews and clarifications.\n\nCompany Information:\n- Company: {{basic-info.output.company}}\n- Topic: {{basic-info.output.topic}}\n\nCompany Profile for Context:\n{{research.output.company_background}}\n\nGENERATE PROFESSIONAL MEDIA CONTACT INFORMATION:\n\n**contact_name**: Create realistic, professional contact name that:\n- Reflects company culture and geographic presence\n- Sounds credible for media inquiries\n- Appropriate for company size and industry\n- Gender-neutral or industry-appropriate\n\n**contact_title**: Assign appropriate title based on:\n- Company size (startup vs. enterprise considerations)\n- Industry standards (Director of Communications, VP Marketing, PR Manager)\n- Topic complexity (technical vs. business announcement)\n- Media relations hierarchy (Chief Communications Officer for major announcements)\n\n**contact_email**: Format professional email address:\n- Use standard press/media prefix (press@, media@, pr@)\n- Incorporate company domain from website if provided\n- Follow corporate email formatting conventions\n- Ensure accessibility for international journalists\n\n**contact_phone**: Provide properly formatted phone number:\n- Use international format with country code\n- Include appropriate area code for company location\n- Format: +[country] ([area]) [number]\n- Consider time zone implications for media outreach\n\n**additional_contacts**: Include relevant secondary contacts:\n- PR agency contact if company likely uses external PR\n- Investor relations for financial announcements\n- Technical spokesperson for complex product launches\n- Regional contacts for international companies\n- Format: \"Role: Contact Name - email@domain.com\"\n\nEnsure contact information facilitates professional media follow-up and maintains company credibility. Return ONLY a valid JSON object.\n\n{\n  \"contact_name\": \"[Professional contact name]\",\n  \"contact_title\": \"[Appropriate industry title]\",\n  \"contact_email\": \"[Professional media email]\",\n  \"contact_phone\": \"[International format phone]\",\n  \"additional_contacts\": \"[Relevant secondary contacts]\"\n}",
@@ -403,7 +440,7 @@
         "key-facts",
         "contact-info"
       ],
-      "dependencies": [
+      "activationDependencies": [
         "key-facts",
         "contact-info",
         "research"
@@ -545,7 +582,7 @@
       "autorunDependencies": [
         "fact-check"
       ],
-      "dependencies": [
+      "activationDependencies": [
         "key-facts",
         "contact-info",
         "tone-briefing",
@@ -565,7 +602,7 @@
       "outputType": "image",
       "model": "imagen-3.0-generate-002",
       "provider": "imagen",
-      "dependencies": [
+      "activationDependencies": [
         "final-press-release"
       ],
       "isOptional": true,
@@ -647,7 +684,7 @@
       "stageType": "export",
       "inputType": "none",
       "outputType": "export-interface",
-      "dependencies": [
+      "activationDependencies": [
         "final-press-release"
       ],
       "exportConfig": {

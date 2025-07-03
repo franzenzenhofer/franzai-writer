@@ -6,6 +6,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Franz AI Writer is a Next.js application that provides AI-powered multi-stage document generation workflows. It uses Google Genkit with Gemini 2.0 Flash to process workflow templates and generate content through an interactive wizard interface.
 
+## ABSOLUTE FINAL GOAL
+
+**CRITICAL**: The ultimate goal is to successfully generate and publish a complete FranzAI Writer press release using the press release workflow, with:
+- All workflow stages working correctly
+- Perfect HTML, clean HTML, and Markdown exports
+- Fully functional published URLs that display flawlessly
+- This demonstrates the platform's capabilities with real-world content
+
 ## Common Development Commands
 
 ```bash

@@ -340,7 +340,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
 
       // Evaluate activation dependencies
       let depsMet = true;
-      const activationDeps = stage.activationDependencies || stage.dependencies || [];
+      const activationDeps = stage.activationDependencies || [];
       if (activationDeps.length > 0) {
         depsMet = activationDeps.every(depId => 
           newStageStates[depId]?.status === 'completed'
@@ -367,9 +367,9 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         // ONLY check staleness for truly completed stages
         const stageCompletedAt = new Date(currentState.completedAt).getTime();
         
-        // Check staleness based on basic dependencies
-        if (stage.dependencies && stage.dependencies.length > 0) {
-          isStale = stage.dependencies.some(depId => {
+        // Check staleness based on activation dependencies
+        if (stage.activationDependencies && stage.activationDependencies.length > 0) {
+          isStale = stage.activationDependencies.some(depId => {
             const depState = newStageStates[depId];
             // Only consider a dependency if it has been completed
             if (depState?.status === 'completed' && depState?.completedAt) {
@@ -398,7 +398,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         }
         
         // Also check staleness based on autorun dependencies
-        const autorunDepsForStale = stage.autorunDependencies || stage.autorunDependsOn || [];
+        const autorunDepsForStale = stage.autorunDependencies || [];
         if (!isStale && autorunDepsForStale.length > 0) {
           isStale = autorunDepsForStale.some(depId => {
             const depState = newStageStates[depId];
@@ -416,8 +416,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
 
       // Evaluate autorun dependencies (separate from activation dependencies)
       let autorunDepsMet = true;
-      // Support both old and new naming for backward compatibility
-      const autorunDeps = stage.autorunDependencies || stage.autorunDependsOn || stage.dependencies || [];
+      const autorunDeps = stage.autorunDependencies || [];
       
       if (autorunDeps.length > 0) {
         const autorunDepsStatus = autorunDeps.map(depId => ({
@@ -460,8 +459,8 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
             depsMet,
             autorunDepsMet,
             shouldAutoRun,
-            dependencies: stage.dependencies,
-            autorunDependsOn: stage.autorunDependsOn
+            activationDependencies: stage.activationDependencies,
+            autorunDependencies: stage.autorunDependencies
           });
         }
       }
