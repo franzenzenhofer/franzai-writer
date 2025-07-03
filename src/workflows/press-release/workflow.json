@@ -399,7 +399,7 @@
       "stageType": "export",
       "inputType": "none",
       "outputType": "export-interface",
-      "activationDependencies": ["final-press-release"],
+      "activationDependencies": ["final-press-release", "generate-press-photo"],
       "autoRun": false,
       "showAsHero": true,
       "triggerButton": {
