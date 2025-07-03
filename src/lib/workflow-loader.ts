@@ -37,6 +37,40 @@ export const allWorkflows: Workflow[] = [
 ];
 
 /**
+ * Validates that stages don't violate the input/output separation rule.
+ * A stage cannot be both human input AND AI output (except for export stages).
+ * @param workflow The workflow to validate.
+ */
+function validateStageInputOutputSeparation(workflow: Workflow): void {
+  if (!workflow || !workflow.stages) {
+    return;
+  }
+
+  workflow.stages.forEach((stage: Stage) => {
+    // Skip export stages as they are exceptions
+    if (stage.stageType === 'export') {
+      return;
+    }
+
+    // Check if stage has both human input and AI generation
+    const hasHumanInput = stage.inputType && stage.inputType !== 'none';
+    const hasAIGeneration = !!stage.promptTemplate;
+
+    if (hasHumanInput && hasAIGeneration) {
+      console.error(
+        `❌ WORKFLOW VALIDATION ERROR: Stage '${stage.id}' in workflow '${workflow.id}' ` +
+        `violates input/output separation rule!\n` +
+        `   Stage has inputType='${stage.inputType}' AND promptTemplate defined.\n` +
+        `   A stage must be EITHER human input OR AI generation, not both.\n` +
+        `   Fix: Split this into two stages:\n` +
+        `   1. Human input stage (inputType: '${stage.inputType}', no promptTemplate)\n` +
+        `   2. AI generation stage (inputType: 'none', with promptTemplate)`
+      );
+    }
+  });
+}
+
+/**
  * Verifies that the models specified in the workflow stages support the requested abilities.
  * Logs a warning for any discrepancies found.
  * @param workflow The workflow to verify.
@@ -92,6 +126,7 @@ export function verifyWorkflowModels(workflow: Workflow): void {
 export function getWorkflowById(id: string): Workflow | undefined {
   const workflow = allWorkflows.find(wf => wf.id === id);
   if (workflow) {
+    validateStageInputOutputSeparation(workflow);
     verifyWorkflowModels(workflow);
   }
   return workflow;
@@ -100,6 +135,7 @@ export function getWorkflowById(id: string): Workflow | undefined {
 export function getWorkflowByShortName(shortName: string): Workflow | undefined {
   const workflow = allWorkflows.find(wf => wf.shortName === shortName);
   if (workflow) {
+    validateStageInputOutputSeparation(workflow);
     verifyWorkflowModels(workflow);
   }
   return workflow;

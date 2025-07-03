@@ -233,9 +233,9 @@
       "copyable": true
     },
     {
-      "id": "key-facts-generation",
-      "name": "Generate Key Facts",
-      "description": "AI generates initial key facts for your press release",
+      "id": "key-facts-context",
+      "name": "Additional Context for Key Facts",
+      "description": "Upload supporting materials for press release key facts (optional)",
       "inputType": "context",
       "outputType": "json",
       "model": "gemini-2.0-flash",
@@ -243,11 +243,33 @@
       "activationDependencies": [
         "research"
       ],
-      "autorunDependencies": [
+      "autoRun": false,
+      "isOptional": true,
+      "outputFields": [
+        {
+          "id": "uploaded_files",
+          "type": "string"
+        }
+      ],
+      "copyable": true
+    },
+    {
+      "id": "key-facts-generation",
+      "name": "Generate Key Facts",
+      "description": "AI generates initial key facts for your press release",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.2,
+      "activationDependencies": [
         "research"
       ],
+      "autorunDependencies": [
+        "research",
+        "key-facts-context"
+      ],
       "autoRun": true,
-      "promptTemplate": "You are a senior press release editor and strategic communications expert with 20+ years of experience crafting compelling narratives for major corporations, startups, and industry leaders. Your expertise includes AP style, newsworthiness criteria, and persuasive business writing.\n\nAnnouncement Details:\n- Topic: {{basic-info.output.topic}}\n- Core Message: {{basic-info.output.message}}\n- Company: {{basic-info.output.company}}\n\nComprehensive Research Intelligence:\n**Company Profile:** {{research.output.company_background}}\n**Market Context:** {{research.output.industry_context}}\n**Recent Business Developments:** {{research.output.recent_developments}}\n**Competitive Positioning:** {{research.output.competitive_landscape}}\n\nCREATE PUBLICATION-READY PRESS RELEASE ELEMENTS:\n\n**headline**: Craft a compelling, newsworthy headline that:\n- Leads with the most newsworthy element (WHO did WHAT)\n- Uses active voice and strong action verbs\n- Contains 8-12 words for optimal impact\n- Includes company name for brand recognition\n- Communicates clear value proposition or significance\n- Avoids marketing hyperbole; focuses on factual impact\n- Appeals to target media outlets and their audiences\n\n**subheadline**: Develop supporting context that:\n- Expands on the headline with additional crucial details\n- Provides market context or significance\n- Includes specific benefits or implications\n- Maintains journalistic objectivity\n- Answers the \"why this matters now\" question\n\n**key_points**: Structure 5-7 strategic bullet points covering:\n- Primary business impact and significance\n- Specific features, capabilities, or improvements\n- Market opportunity or problem being addressed\n- Customer benefits and value proposition\n- Competitive advantages or differentiation\n- Implementation timeline or availability\n- Strategic partnerships or collaborations (if applicable)\n\n**quotes**: Create 2-3 authentic executive quotes that:\n- Sound natural and conversational, not marketing-speak\n- Provide executive perspective and strategic vision\n- Include specific details that add credibility\n- Balance confidence with appropriate humility\n- Reflect company culture and leadership style\n- Attribution format: \"Quote content\" - Full Name, Exact Title, Company\n- Vary quote purposes: vision, technical insight, market impact\n\n**statistics**: Compile compelling data points including:\n- Performance metrics and improvements\n- Market size, growth rates, or penetration\n- Customer adoption, usage, or satisfaction metrics\n- Financial impact, cost savings, or revenue growth\n- Operational efficiency or productivity gains\n- Time-to-market or competitive advantages\n- Research findings or third-party validations\n\nEnsure all elements work together to tell a cohesive, newsworthy story. Return ONLY a valid JSON object.\n\n{\n  \"headline\": \"[Newsworthy, action-driven headline]\",\n  \"subheadline\": \"[Supporting context and significance]\",\n  \"key_points\": \"[Strategic bullet points with specific benefits]\",\n  \"quotes\": \"[Authentic executive perspectives with full attribution]\",\n  \"statistics\": \"[Compelling metrics and data points]\"\n}",
+      "promptTemplate": "You are a senior press release editor and strategic communications expert with 20+ years of experience crafting compelling narratives for major corporations, startups, and industry leaders. Your expertise includes AP style, newsworthiness criteria, and persuasive business writing.\n\nAnnouncement Details:\n- Topic: {{basic-info.output.topic}}\n- Core Message: {{basic-info.output.message}}\n- Company: {{basic-info.output.company}}\n\nComprehensive Research Intelligence:\n**Company Profile:** {{research.output.company_background}}\n**Market Context:** {{research.output.industry_context}}\n**Recent Business Developments:** {{research.output.recent_developments}}\n**Competitive Positioning:** {{research.output.competitive_landscape}}\n\n{{#if key-facts-context.output}}\nAdditional Context Materials Provided:\n{{key-facts-context.output}}\n{{/if}}\n\nCREATE PUBLICATION-READY PRESS RELEASE ELEMENTS:\n\n**headline**: Craft a compelling, newsworthy headline that:\n- Leads with the most newsworthy element (WHO did WHAT)\n- Uses active voice and strong action verbs\n- Contains 8-12 words for optimal impact\n- Includes company name for brand recognition\n- Communicates clear value proposition or significance\n- Avoids marketing hyperbole; focuses on factual impact\n- Appeals to target media outlets and their audiences\n\n**subheadline**: Develop supporting context that:\n- Expands on the headline with additional crucial details\n- Provides market context or significance\n- Includes specific benefits or implications\n- Maintains journalistic objectivity\n- Answers the \"why this matters now\" question\n\n**key_points**: Structure 5-7 strategic bullet points covering:\n- Primary business impact and significance\n- Specific features, capabilities, or improvements\n- Market opportunity or problem being addressed\n- Customer benefits and value proposition\n- Competitive advantages or differentiation\n- Implementation timeline or availability\n- Strategic partnerships or collaborations (if applicable)\n\n**quotes**: Create 2-3 authentic executive quotes that:\n- Sound natural and conversational, not marketing-speak\n- Provide executive perspective and strategic vision\n- Include specific details that add credibility\n- Balance confidence with appropriate humility\n- Reflect company culture and leadership style\n- Attribution format: \"Quote content\" - Full Name, Exact Title, Company\n- Vary quote purposes: vision, technical insight, market impact\n\n**statistics**: Compile compelling data points including:\n- Performance metrics and improvements\n- Market size, growth rates, or penetration\n- Customer adoption, usage, or satisfaction metrics\n- Financial impact, cost savings, or revenue growth\n- Operational efficiency or productivity gains\n- Time-to-market or competitive advantages\n- Research findings or third-party validations\n\nEnsure all elements work together to tell a cohesive, newsworthy story. Return ONLY a valid JSON object.\n\n{\n  \"headline\": \"[Newsworthy, action-driven headline]\",\n  \"subheadline\": \"[Supporting context and significance]\",\n  \"key_points\": \"[Strategic bullet points with specific benefits]\",\n  \"quotes\": \"[Authentic executive perspectives with full attribution]\",\n  \"statistics\": \"[Compelling metrics and data points]\"\n}",
       "outputFields": [
         {
           "id": "headline",
@@ -443,10 +465,10 @@
       "copyable": true
     },
     {
-      "id": "fact-check",
-      "name": "Fact-Checking & Verification",
-      "description": "Verify all claims, statistics, and statements for accuracy before publication",
-      "inputType": "form",
+      "id": "fact-check-ai",
+      "name": "AI Fact-Checking Analysis",
+      "description": "AI verifies all claims and statistics for accuracy",
+      "inputType": "none",
       "outputType": "json",
       "model": "gemini-2.0-flash",
       "temperature": 0.1,
@@ -459,18 +481,53 @@
         "key-facts",
         "contact-info"
       ],
-      "activationDependencies": [
-        "key-facts",
-        "contact-info",
-        "research"
-      ],
-      "autoRun": false,
+      "autoRun": true,
       "aiRedoEnabled": true,
       "editEnabled": true,
       "grounding": {
         "googleSearch": true
       },
       "promptTemplate": "You are a senior fact-checker and editorial compliance specialist with expertise in corporate communications, financial disclosures, and media law. Your verification standards meet requirements for major news outlets, SEC compliance, and international press distribution.\n\nPRESS RELEASE VERIFICATION TARGET:\n- Company: {{basic-info.output.company}}\n- Announcement Topic: {{basic-info.output.topic}}\n- Core Message: {{basic-info.output.message}}\n\nCLAIMS TO VERIFY:\n**Key Business Claims:** {{key-facts.output.key_points}}\n**Statistical Data:** {{key-facts.output.statistics}}\n**Executive Quotes:** {{key-facts.output.quotes}}\n**Headline Claims:** {{key-facts.output.headline}}\n\nRESEARCH FOUNDATION:\n**Company Intelligence:** {{research.output.company_background}}\n**Market Context:** {{research.output.industry_context}}\n**Recent Business Activity:** {{research.output.recent_developments}}\n**Competitive Landscape:** {{research.output.competitive_landscape}}\n\nCONDUCT COMPREHENSIVE FACT-CHECKING USING WEB SEARCH:\n\n**Verification Protocol:**\n\n1. **Corporate Claims Verification:**\n   - Cross-reference against official company websites, SEC filings, annual reports\n   - Verify executive names, titles, and current employment status\n   - Confirm company size, locations, founding dates, and ownership structure\n   - Validate business model, revenue claims, and operational scope\n\n2. **Financial and Statistical Validation:**\n   - Verify all numerical claims against official financial disclosures\n   - Cross-check growth percentages, market share, and performance metrics\n   - Confirm funding amounts, investment rounds, and valuation claims\n   - Validate customer numbers, user adoption, and market penetration\n\n3. **Product and Service Claims Assessment:**\n   - Verify product features, capabilities, and performance specifications\n   - Confirm availability dates, pricing, and deployment timelines\n   - Validate technology claims and competitive comparisons\n   - Check intellectual property, patents, and certification claims\n\n4. **Partnership and Relationship Verification:**\n   - Confirm all mentioned partnerships, alliances, and collaborations\n   - Verify customer relationships, case studies, and testimonials\n   - Check vendor relationships, technology integrations, and certifications\n   - Validate industry affiliations and membership claims\n\n5. **Industry and Market Data Validation:**\n   - Cross-reference market size, growth rates, and trend claims\n   - Verify competitive positioning and market share assertions\n   - Confirm industry statistics and third-party research citations\n   - Validate regulatory compliance and certification status\n\n6. **Legal and Compliance Review:**\n   - Ensure no misleading, deceptive, or unsubstantiated claims\n   - Check for potential SEC disclosure violations\n   - Verify compliance with advertising standards and truth-in-advertising laws\n   - Identify potential liability risks or legal challenges\n\n**Risk Assessment Criteria:**\n- **Low Risk:** All claims verified through multiple authoritative sources\n- **Medium Risk:** Minor unverifiable claims or unclear statements requiring clarification\n- **High Risk:** Material unverifiable claims, potential legal issues, or contradictory evidence\n\n**Approval Standards:**\n- **APPROVED:** All material claims verified, minimal risk for publication\n- **NEEDS_REVISION:** Specific claims require modification or additional verification\n- **REJECTED:** Significant unverifiable claims or legal/compliance concerns\n\nProvide detailed fact-checking results suitable for editorial review and legal compliance. Return ONLY a valid JSON object.\n\n{\n  \"verified_facts\": \"[Detailed list of confirmed accurate statements with verification sources]\",\n  \"questionable_claims\": \"[Specific claims requiring revision with reasoning]\",\n  \"suggested_corrections\": \"[Precise recommendations for improving accuracy and compliance]\",\n  \"risk_assessment\": \"[Low/Medium/High with detailed justification]\",\n  \"approval_status\": \"[APPROVED/NEEDS_REVISION/REJECTED with editorial reasoning]\",\n  \"fact_checker_notes\": \"[Professional recommendations for editorial team and legal considerations]\"\n}",
+      "outputFields": [
+        {
+          "id": "verified_facts",
+          "type": "string"
+        },
+        {
+          "id": "questionable_claims",
+          "type": "string"
+        },
+        {
+          "id": "suggested_corrections",
+          "type": "string"
+        },
+        {
+          "id": "risk_assessment",
+          "type": "string"
+        },
+        {
+          "id": "approval_status",
+          "type": "string"
+        },
+        {
+          "id": "fact_checker_notes",
+          "type": "string"
+        }
+      ],
+      "copyable": true
+    },
+    {
+      "id": "fact-check",
+      "name": "Review & Approve Fact-Check",
+      "description": "Review the AI fact-checking results and make final approval decision",
+      "inputType": "form",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.1,
+      "activationDependencies": [
+        "fact-check-ai"
+      ],
+      "autoRun": false,
       "formFields": [
         {
           "name": "verified_facts",
