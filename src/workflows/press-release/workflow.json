@@ -394,39 +394,118 @@
     },
     {
       "id": "export",
-      "name": "Export Options",
-      "description": "Export your press release in various formats",
-      "inputType": "none",
-      "outputType": "export",
+      "title": "Export & Publish",
+      "description": "Transform your press release into professional formats and publish instantly",
       "stageType": "export",
+      "inputType": "none",
+      "outputType": "export-interface",
       "activationDependencies": ["final-press-release"],
-      "exportFormats": ["pdf", "docx", "markdown", "html-styled", "html-clean"],
-      "exportSettings": {
-        "defaultFormat": "pdf",
-        "enableLivePreview": true,
-        "enablePublishing": true,
-        "includeImages": true,
-        "htmlTemplate": "press-release",
-        "publishSettings": {
-          "allowedFormats": ["html-styled", "html-clean", "markdown"],
-          "defaultFormat": "html-styled",
-          "requireAuthentication": false
-        },
-        "formatSettings": {
+      "autoRun": false,
+      "showAsHero": true,
+      "triggerButton": {
+        "label": "Export & Publish Press Release",
+        "variant": "hero",
+        "size": "large",
+        "description": "Create professional exports and shareable links"
+      },
+      "exportConfig": {
+        "aiModel": "gemini-2.0-flash",
+        "temperature": 0.3,
+        "formats": {
+          "html-styled": {
+            "enabled": true,
+            "label": "Professional Press Release",
+            "description": "Beautiful HTML presentation with press release formatting and images",
+            "aiTemplate": "prompts/html-styled-template.md",
+            "features": [
+              "Professional press layout",
+              "Embedded press images",
+              "Responsive design",
+              "Print optimized",
+              "Corporate typography"
+            ]
+          },
+          "html-clean": {
+            "enabled": true,
+            "label": "Clean HTML",
+            "description": "Semantic HTML perfect for websites and CMS with images",
+            "aiTemplate": "prompts/html-clean-template.md",
+            "features": [
+              "Perfect press structure",
+              "Embedded press images", 
+              "CMS-friendly markup",
+              "Accessibility compliant",
+              "SEO optimized"
+            ]
+          },
+          "markdown": {
+            "enabled": true,
+            "label": "Markdown",
+            "description": "Formatted markdown for GitHub, Notion, and more",
+            "deriveFrom": "html-clean",
+            "options": {
+              "flavor": "github",
+              "preserveHtml": false
+            }
+          },
           "pdf": {
-            "pageSize": "letter",
-            "margins": "normal",
-            "includeHeaders": true,
-            "includePageNumbers": false
+            "enabled": true,
+            "label": "PDF Press Release",
+            "description": "Professional PDF with corporate formatting and images",
+            "deriveFrom": "html-styled"
           },
           "docx": {
-            "template": "press-release",
-            "includeStyles": true
+            "enabled": true,
+            "label": "Word Document", 
+            "description": "Microsoft Word format with styles and images",
+            "deriveFrom": "html-styled"
+          }
+        },
+        "publishing": {
+          "enabled": true,
+          "instant": true,
+          "baseUrl": "/published",
+          "formats": ["html-styled", "html-clean"],
+          "features": {
+            "seo": {
+              "noindex": true,
+              "openGraph": true,
+              "twitterCard": true,
+              "structuredData": true
+            },
+            "sharing": {
+              "shortUrls": true,
+              "qrCode": true,
+              "socialButtons": true
+            },
+            "protection": {
+              "public": true,
+              "expiration": {
+                "default": "never"
+              }
+            },
+            "branding": {
+              "showLogo": true,
+              "poweredBy": "Created with Franz AI Writer"
+            }
+          }
+        },
+        "styling": {
+          "defaultView": "styled",
+          "themes": {
+            "default": "professional",
+            "options": ["professional", "corporate", "modern", "classic"]
           },
-          "html-styled": {
-            "template": "press-release",
-            "includeCSS": true,
-            "responsive": true
+          "customization": {
+            "fonts": {
+              "heading": "Inter",
+              "body": "Inter"
+            },
+            "colors": {
+              "primary": "#2563eb",
+              "background": "#ffffff",
+              "text": "#1f2937"
+            }
           }
         }
       }
