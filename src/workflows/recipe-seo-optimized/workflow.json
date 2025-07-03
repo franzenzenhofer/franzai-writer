@@ -15,7 +15,7 @@
       "description": "What is the name of your delicious dish?",
       "inputType": "textarea",
       "outputType": "text",
-      "dependencies": [],
+      "activationDependencies": [],
       "autoRun": false,
       "showThinking": false
     },
@@ -25,7 +25,7 @@
       "description": "Upload an image of your dish. AI will analyze it to understand its appearance, ingredients, and presentation. This can help refine the recipe details.",
       "inputType": "image",
       "outputType": "json",
-      "dependencies": ["dish-name"],
+      "activationDependencies": ["dish-name"],
       "promptTemplate": "Analyze the provided image of '{{dish-name.output}}'. Describe the dish's appearance, visible ingredients, and overall presentation. If possible, identify key components and their arrangement. Output as a JSON object with a key 'imageDescription' (string) and 'identifiedObjects' (array of strings).",
       "model": "gemini-2.0-flash",
       "autoRun": false,
@@ -37,7 +37,7 @@
       "description": "Upload a document (e.g., PDF, DOCX) containing supplementary information, like a base recipe, nutritional information, or cooking techniques. AI will extract relevant text.",
       "inputType": "document",
       "outputType": "json",
-      "dependencies": ["dish-name"],
+      "activationDependencies": ["dish-name"],
       "promptTemplate": "The user has uploaded a document named '{{document-analysis.userInput.documentName}}' (MIME type: {{document-analysis.userInput.documentType}}) related to '{{dish-name.output}}'. Please analyze this document (available via the provided file URI) and extract key information such as ingredients, instructions, or nutritional facts. Summarize your findings. Output as a JSON object with keys 'extractedTextSummary' (string) and 'detailedAnalysis' (string).",
       "model": "gemini-2.0-flash",
       "autoRun": false,
@@ -49,7 +49,7 @@
       "description": "E.g., Italian, Vegan, Chicken and Broccoli, etc.",
       "inputType": "textarea",
       "outputType": "text",
-      "dependencies": ["dish-name", "image-analysis", "document-analysis"],
+      "activationDependencies": ["dish-name", "image-analysis", "document-analysis"],
       "showThinking": false
     },
     {
@@ -62,7 +62,7 @@
         { "name": "dietaryRestrictions", "label": "Specific Dietary Notes", "type": "textarea", "placeholder": "e.g., Nut-free, dairy-free option available" }
       ],
       "outputType": "json",
-      "dependencies": ["dish-name"],
+      "activationDependencies": ["dish-name"],
       "showThinking": false
     },
     {
@@ -74,7 +74,7 @@
       "model": "gemini-2.0-flash",
       "temperature": 0.7,
       "outputType": "json",
-      "dependencies": ["dish-name", "cuisine-type"],
+      "activationDependencies": ["dish-name", "cuisine-type"],
       "autoRun": true,
       "thinkingSettings": {
         "enabled": true
@@ -101,7 +101,7 @@
         }
       ],
       "outputType": "json",
-      "dependencies": ["dish-name"],
+      "activationDependencies": ["dish-name"],
       "showThinking": false
     },
     {
@@ -112,7 +112,7 @@
       "promptTemplate": "Write a captivating and SEO-friendly introduction (around 100-150 words) for a recipe blog post.\nDish Name: '{{dish-name.output}}'\nCuisine/Main Ingredients: '{{cuisine-type.output}}'\nTarget Audience: {{target-audience-recipe.userInput.audienceDescription}} (Dietary notes: {{target-audience-recipe.userInput.dietaryRestrictions}})\nRecipe Tone: '{{recipe-tone-selection.userInput.tone}}'\nKey SEO Keywords to consider: {{seo-keywords-recipe.output.keywords}}\n{{#if image-analysis.output.imageDescription}}\nImage Analysis Insights: {{image-analysis.output.imageDescription}}\nIdentified Objects in Image: {{join image-analysis.output.identifiedObjects \", \"}}\nUse these insights to enrich the description.\n{{/if}}\n{{#if document-analysis.output.extractedTextSummary}}\nDocument Insights: {{document-analysis.output.extractedTextSummary}}\nIncorporate these insights as well.\n{{/if}}\nThe description should be engaging, make the reader want to try the recipe, and subtly incorporate some of the provided SEO keywords.\nOutput the description in Markdown format. Do not include a title.",
       "temperature": 0.8,
       "outputType": "markdown",
-      "dependencies": ["dish-name", "cuisine-type", "target-audience-recipe", "seo-keywords-recipe", "recipe-tone-selection", "image-analysis", "document-analysis"],
+      "activationDependencies": ["dish-name", "cuisine-type", "target-audience-recipe", "seo-keywords-recipe", "recipe-tone-selection", "image-analysis", "document-analysis"],
       "autoRun": true,
       "showThinking": false
     },
@@ -122,7 +122,7 @@
       "description": "List all ingredients, one per line. E.g., '1 cup flour', '2 large eggs'.",
       "inputType": "textarea",
       "outputType": "text",
-      "dependencies": ["dish-name"],
+      "activationDependencies": ["dish-name"],
       "showThinking": false
     },
     {
@@ -131,7 +131,7 @@
       "description": "Provide clear, step-by-step cooking instructions, one step per line.",
       "inputType": "textarea",
       "outputType": "text",
-      "dependencies": ["ingredients-input"],
+      "activationDependencies": ["ingredients-input"],
       "showThinking": false
     },
     {
@@ -143,7 +143,7 @@
       "model": "gemini-2.0-flash",
       "temperature": 0.5,
       "outputType": "json",
-      "dependencies": ["dish-name", "ingredients-input", "instructions-input"],
+      "activationDependencies": ["dish-name", "ingredients-input", "instructions-input"],
       "autoRun": true,
       "showThinking": false
     },
@@ -154,7 +154,7 @@
       "inputType": "none",
       "promptTemplate": "Compile a full recipe blog post in Markdown format for '{{dish-name.output}}'.\n\nUse the following components:\n1.  **Title**: Use '{{dish-name.output}}' as the main H1 title.\n2.  **Introduction**:\n{{recipe-description-generation.output}}\n3.  **Preparation & Cook Time, Servings**:\n    *   Prep Time: {{preparation-details.output.prepTime}}\n    *   Cook Time: {{preparation-details.output.cookTime}}\n    *   Servings: {{preparation-details.output.servings}}\n4.  **Ingredients**: List the ingredients clearly. Format them as a Markdown list, based on this input:\n{{ingredients-input.output}}\n5.  **Instructions**: Provide clear, step-by-step instructions. Format them as a Markdown numbered list, based on this input:\n{{instructions-input.output}}\n6.  **SEO Keywords (for context, do not list explicitly unless natural):**\n{{seo-keywords-recipe.output.keywords}}\n7.  **Recipe Tone (for context):** {{recipe-tone-selection.userInput.tone}}\n8.  **Target Audience (for context):** {{target-audience-recipe.userInput.audienceDescription}}, Dietary: {{target-audience-recipe.userInput.dietaryRestrictions}}\n{{#if image-analysis.output.imageDescription}}\n9. **Image Analysis Insights (for context, integrate naturally where appropriate):**\n    *   Description: {{image-analysis.output.imageDescription}}\n    *   Identified Objects: {{join image-analysis.output.identifiedObjects \", \"}}\n{{/if}}\n{{#if document-analysis.output.extractedTextSummary}}\n10. **Additional Document Insights (for context, integrate naturally where appropriate):**\n    *   Summary: {{document-analysis.output.extractedTextSummary}}\n{{/if}}\n\nStructure the output as a complete Markdown document. Start with the H1 title. \nEnsure ingredients are formatted as a bulleted list (e.g., * 1 cup flour) and instructions as a numbered list (e.g., 1. Mix flour...). \nDo not include any preamble like \"Here is the recipe:\". Output only the Markdown content for the recipe post.",
       "outputType": "markdown",
-      "dependencies": [
+      "activationDependencies": [
         "dish-name",
         "recipe-description-generation",
         "preparation-details",
