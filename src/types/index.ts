@@ -137,9 +137,11 @@ export interface Stage {
   model?: string; // Optional: Specific AI model for this stage
   temperature?: number; // Optional: Specific temperature for this stage
   outputType: "text" | "json" | "markdown" | "html" | "export-interface" | "image"; // Added export-interface and image
-  dependencies?: string[]; 
+  dependencies?: string[]; // Backward compatible: applies to both activation and autorun
+  activationDependencies?: string[]; // Dependencies required for stage to become active/enabled
+  autorunDependencies?: string[]; // Dependencies required for stage to autorun (replaces autorunDependsOn)
   autoRun?: boolean; 
-  autorunDependsOn?: string[]; // Optional: Separate dependencies for autorun behavior
+  autorunDependsOn?: string[]; // DEPRECATED: Use autorunDependencies instead
   groundingRequested?: boolean; 
   isOptional?: boolean;
   tokenEstimate?: number; // Estimated token count for this stage
