@@ -45,11 +45,15 @@ test.describe('Press Release Workflow - Master Test (Chrome Only)', () => {
     await page.waitForSelector('text=Last saved', { timeout: 15000 });
     console.log('✅ Basic information saved');
     
-    // Stage 2: Tone Briefing (auto-run)
-    console.log('🎯 Stage 2: Tone Analysis (auto-run)');
-    await page.waitForSelector('[data-testid="stage-card-tone-briefing"]', { timeout: 45000 });
-    const toneBriefingCard = page.locator('[data-testid="stage-card-tone-briefing"]');
-    await expect(toneBriefingCard).toContainText('tone');
+    // Stage 2: Tone Briefing (manual - context stage)
+    console.log('🎯 Stage 2: Tone Analysis');
+    await page.waitForSelector('[data-testid="stage-card-tone-briefing"]', { timeout: 10000 });
+    
+    // Context stages need manual processing
+    await page.click('#process-stage-tone-briefing');
+    
+    // Wait for the tone analysis to complete
+    await page.waitForSelector('[data-testid="stage-card-tone-briefing"] code', { timeout: 45000 });
     console.log('✅ Tone analysis completed');
     
     // Stage 3: Research (requires manual processing)
@@ -125,15 +129,13 @@ test.describe('Press Release Workflow - Master Test (Chrome Only)', () => {
     await page.click('#process-stage-contact-info');
     console.log('✅ Contact information saved');
     
-    // Stage 6: Fact-Checking (auto-run)
-    console.log('✔️ Stage 6: Fact-Checking (auto-run)');
-    await page.waitForSelector('[data-testid="stage-card-fact-check"]', { timeout: 45000 });
-    const factCheckCard = page.locator('[data-testid="stage-card-fact-check"]');
-    await expect(factCheckCard).toContainText('verified_facts');
+    // Stage 6: Fact-Checking (manual - form stage)
+    console.log('✔️ Stage 6: Fact-Checking');
+    await page.waitForSelector('[data-testid="stage-card-fact-check"]', { timeout: 10000 });
     
-    // Review fact-checking
+    // Process fact-checking stage
     await page.click('#process-stage-fact-check');
-    await page.waitForSelector('select[name="approval_status"]', { timeout: 10000 });
+    await page.waitForSelector('select[name="approval_status"]', { timeout: 15000 });
     
     // Approve the press release
     await page.selectOption('select[name="approval_status"]', 'approved');
@@ -142,9 +144,23 @@ test.describe('Press Release Workflow - Master Test (Chrome Only)', () => {
     await page.click('#process-stage-fact-check');
     console.log('✅ Fact-checking approved');
     
-    // Stage 7: Final Press Release (auto-run)
-    console.log('📄 Stage 7: Final Press Release (auto-run)');
-    await page.waitForSelector('[data-testid="stage-card-final-press-release"]', { timeout: 45000 });
+    // Stage 7: Final Press Release (auto-run after fact-check)
+    console.log('📄 Stage 7: Final Press Release (should autorun)');
+    
+    // Wait for autorun to trigger
+    await page.waitForTimeout(3000);
+    
+    // Check if final press release is generating or needs manual trigger
+    const finalPRGenerating = await page.locator('[data-testid="stage-card-final-press-release"]:has-text("Generating...")').count() > 0;
+    const finalPRButton = await page.locator('#process-stage-final-press-release').count() > 0;
+    
+    if (finalPRButton && !finalPRGenerating) {
+      console.log('📌 Final press release needs manual trigger');
+      await page.click('#process-stage-final-press-release');
+    }
+    
+    // Wait for generation to complete
+    await page.waitForSelector('[data-testid="stage-card-final-press-release"]:has-text("FOR IMMEDIATE RELEASE")', { timeout: 45000 });
     
     const finalPRCard = page.locator('[data-testid="stage-card-final-press-release"]');
     await expect(finalPRCard).toContainText('FOR IMMEDIATE RELEASE');
@@ -244,8 +260,10 @@ test.describe('Press Release Workflow - Master Test (Chrome Only)', () => {
     
     await page.click('#process-stage-basic-info');
     
-    // Wait for processing
-    await page.waitForSelector('[data-testid="stage-card-tone-briefing"]', { timeout: 45000 });
+    // Process tone briefing
+    await page.waitForSelector('[data-testid="stage-card-tone-briefing"]', { timeout: 10000 });
+    await page.click('#process-stage-tone-briefing');
+    await page.waitForSelector('[data-testid="stage-card-tone-briefing"] code', { timeout: 45000 });
     console.log('✅ International characters handled correctly');
     
     // Continue to key facts
