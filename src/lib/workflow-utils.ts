@@ -13,7 +13,7 @@ export function initializeStageStates(workflow: Workflow): Record<string, StageS
     stageStates[stage.id] = {
       stageId: stage.id,
       status: 'idle',
-      depsAreMet: !(stage.dependencies && stage.dependencies.length > 0), // true if no dependencies
+      depsAreMet: !(stage.activationDependencies && stage.activationDependencies.length > 0), // true if no dependencies
       isEditingOutput: false,
       shouldAutoRun: false, // Will be properly calculated by evaluateDependenciesLogic
       isStale: false,

@@ -707,7 +707,7 @@ Still having issues? Check the browser console for detailed logs.`;
     console.log('[handleRunStage] Stage input for run:', stageInputForRun);
 
 
-    if (currentStageState.depsAreMet === false && stage.dependencies && stage.dependencies.length > 0) {
+    if (currentStageState.depsAreMet === false && stage.activationDependencies && stage.activationDependencies.length > 0) {
       toast({ title: "Dependencies Not Met", description: `Please complete previous stages before running "${stage.title}".`, variant: "default" });
       return;
     }
@@ -1085,7 +1085,7 @@ Still having issues? Check the browser console for detailed logs.`;
             stageState={instance.stageStates[stage.id] || { 
               stageId: stage.id, 
               status: 'idle', 
-              depsAreMet: !(stage.dependencies && stage.dependencies.length > 0), 
+              depsAreMet: !(stage.activationDependencies && stage.activationDependencies.length > 0), 
               isEditingOutput: false,
               shouldAutoRun: false,
               isStale: false,
