@@ -344,3 +344,33 @@ Multiple Claude sessions may be working on different features simultaneously.
 3. **Completion Trigger**: When ALL todos are "completed"
    - This triggers the MANDATORY branch review
    - No exceptions - completed todos = cleanup time
+
+## Development Guidelines - ALWAYS CHECK LOGS AND TAKE SCREENSHOTS
+
+**CRITICAL**: During development and debugging, Claude MUST:
+
+1. **Always take screenshots** using BOTH:
+   - Playwright screenshot tools (`mcp__playwright__playwright_screenshot`) for browser-specific content
+   - Desktop screenshot via visual feedback MCP (`mcp__visual-desktop-control__vision`) when content should be visible on desktop
+2. **Always check logs** (ai.log, nextjs-dev.log) when something doesn't work as expected
+3. **State what you see** in the screenshot/logs briefly
+4. **State your next step** to provide full context
+
+**IMPORTANT**: Use desktop screenshots to double-check when:
+- Playwright might be showing cached/old content
+- Errors or popups might be visible on desktop but not captured by Playwright
+- You need to see the full desktop context (multiple windows, system dialogs, etc.)
+- Browser window might be minimized or hidden
+
+This is MANDATORY for:
+- When errors occur (especially red error screens)
+- When testing workflows
+- When UI behavior seems unexpected
+- Before and after making changes
+- When autorun or cascade behavior needs verification
+
+Example workflow:
+1. Take Playwright screenshot → "Shows workflow at stage 5"
+2. Take desktop screenshot → "Actually see red error overlay on desktop"
+3. Check logs → "AI returned nested objects instead of strings"
+4. Next step → "I'll fix the prompt to ensure flat string output"
