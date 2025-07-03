@@ -124,9 +124,9 @@
       "copyable": true
     },
     {
-      "id": "research",
-      "name": "Company & Industry Research",
-      "description": "Research company background and industry context with optional URL analysis",
+      "id": "research-config",
+      "name": "Research Configuration",
+      "description": "Configure research parameters and optional URL analysis",
       "inputType": "form",
       "outputType": "json",
       "model": "gemini-2.0-flash",
@@ -136,12 +136,6 @@
         "tone-briefing"
       ],
       "autoRun": false,
-      "aiRedoEnabled": true,
-      "editEnabled": true,
-      "grounding": {
-        "googleSearch": true,
-        "urlContext": true
-      },
       "formFields": [
         {
           "name": "additional_urls",
@@ -184,7 +178,6 @@
           }
         }
       ],
-      "promptTemplate": "You are a senior business intelligence analyst and investigative journalist with expertise in corporate research, market analysis, and press release fact-finding. Your research powers strategic communications for major news outlets and PR agencies.\n\n**TARGET RESEARCH PROFILE:**\n- Company: {{basic-info.output.company}}\n- Primary Website: {{basic-info.output.website}}\n- Announcement Topic: {{basic-info.output.topic}}\n- Core Message: {{basic-info.output.message}}\n\n**RESEARCH PARAMETERS:**\n- Research Focus: {{research_focus}}\n- Additional URLs for Analysis: {{additional_urls}}\n\n**COMMUNICATIONS STRATEGY CONTEXT:**\n{{tone-briefing.output.tone}}\n\n**MULTI-SOURCE RESEARCH METHODOLOGY:**\n\n1. **Google Search Intelligence**: Comprehensive web search for current information\n2. **URL Context Analysis**: Deep analysis of provided URLs and company website\n3. **Cross-Reference Validation**: Multiple source verification for accuracy\n4. **Focused Research Approach**: Specialized analysis based on research focus area\n\n**RESEARCH EXECUTION BASED ON FOCUS:**\n\n**If Research Focus = \"comprehensive\":** Cover all areas with equal depth\n**If Research Focus = \"financial\":** Emphasize financial performance, funding, revenue, growth metrics\n**If Research Focus = \"competitive\":** Deep-dive into competitive analysis, market positioning, differentiation\n**If Research Focus = \"technical\":** Focus on product innovation, technology trends, R&D capabilities\n**If Research Focus = \"market\":** Emphasize market trends, industry analysis, macro-environment\n\n**ENHANCED RESEARCH DELIVERABLES:**\n\n**company_background**: Corporate intelligence profile incorporating:\n- Company founding, evolution, and strategic milestones\n- Leadership team, organizational structure, and corporate governance\n- Product/service portfolio, core competencies, and intellectual property\n- Business model, revenue streams, and operational scale\n- Geographic footprint, market presence, and expansion strategy\n- Corporate culture, values, and strategic positioning\n- Recent achievements, industry recognition, and thought leadership\n- Strategic partnerships, alliances, and ecosystem relationships\n- URL-specific insights from provided company resources\n\n**industry_context**: Market landscape analysis featuring:\n- Industry classification, scope, and value chain dynamics\n- Market size, growth trajectories, and revenue projections\n- Technology trends, innovation drivers, and disruption factors\n- Regulatory landscape, compliance requirements, and policy impacts\n- Economic indicators, investment flows, and capital market activity\n- Sustainability trends, ESG considerations, and social impact\n- Geographic market variations and emerging opportunities\n- Industry-specific insights from URL analysis\n\n**recent_developments**: Current business intelligence covering:\n- Product launches, feature updates, and innovation announcements\n- Strategic acquisitions, mergers, and partnership formations\n- Executive changes, organizational restructuring, and strategic pivots\n- Funding rounds, financial milestones, and investor relations\n- Market expansion, geographic growth, and customer acquisition\n- Technology breakthroughs, patent filings, and R&D investments\n- Awards, certifications, and industry recognition\n- Relevant insights from additional URL analysis\n\n**competitive_landscape**: Strategic positioning analysis including:\n- Direct competitors, market leaders, and emerging challengers\n- Market share distribution, competitive dynamics, and positioning maps\n- Unique value propositions, competitive advantages, and differentiation\n- Pricing strategies, business models, and go-to-market approaches\n- Innovation capabilities, product roadmaps, and strategic initiatives\n- Partnership ecosystems, channel strategies, and market access\n- Competitive threats, market opportunities, and strategic responses\n- Competitive intelligence from URL-based research\n\n**URL CONTEXT INTEGRATION:**\nWhen additional URLs are provided, conduct deep analysis of each URL to extract:\n- Specific insights relevant to the press release topic\n- Financial data, performance metrics, and growth indicators\n- Strategic announcements, future plans, and market positioning\n- Technical specifications, product details, and innovation highlights\n- Customer testimonials, case studies, and market validation\n\n**QUALITY ASSURANCE:**\n- Verify information across multiple authoritative sources\n- Cross-reference data points for consistency and accuracy\n- Flag any conflicting information or data gaps\n- Ensure currency of information (prioritize recent sources)\n- Maintain objective, fact-based analysis free from speculation\n\nProvide comprehensive, accurate intelligence optimized for press release development. Return ONLY a valid JSON object.\n\n{\n  \"company_background\": \"[Enhanced corporate intelligence with URL insights]\",\n  \"industry_context\": \"[Comprehensive market analysis with trend focus]\",\n  \"recent_developments\": \"[Current business intelligence with URL validation]\",\n  \"competitive_landscape\": \"[Strategic positioning with competitive intelligence]\"\n}",
       "outputFields": [
         {
           "id": "additional_urls",
@@ -193,7 +186,33 @@
         {
           "id": "research_focus",
           "type": "string"
-        },
+        }
+      ],
+      "copyable": true
+    },
+    {
+      "id": "research",
+      "name": "Company & Industry Research",
+      "description": "AI researches company background and industry context",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.3,
+      "activationDependencies": [
+        "research-config"
+      ],
+      "autorunDependencies": [
+        "research-config"
+      ],
+      "autoRun": true,
+      "aiRedoEnabled": true,
+      "editEnabled": true,
+      "grounding": {
+        "googleSearch": true,
+        "urlContext": true
+      },
+      "promptTemplate": "You are a senior business intelligence analyst and investigative journalist with expertise in corporate research, market analysis, and press release fact-finding. Your research powers strategic communications for major news outlets and PR agencies.\n\n**TARGET RESEARCH PROFILE:**\n- Company: {{basic-info.output.company}}\n- Primary Website: {{basic-info.output.website}}\n- Announcement Topic: {{basic-info.output.topic}}\n- Core Message: {{basic-info.output.message}}\n\n**RESEARCH PARAMETERS:**\n- Research Focus: {{research-config.output.research_focus}}\n- Additional URLs for Analysis: {{research-config.output.additional_urls}}\n\n**COMMUNICATIONS STRATEGY CONTEXT:**\n{{tone-briefing.output.tone}}\n\n**MULTI-SOURCE RESEARCH METHODOLOGY:**\n\n1. **Google Search Intelligence**: Comprehensive web search for current information\n2. **URL Context Analysis**: Deep analysis of provided URLs and company website\n3. **Cross-Reference Validation**: Multiple source verification for accuracy\n4. **Focused Research Approach**: Specialized analysis based on research focus area\n\n**RESEARCH EXECUTION BASED ON FOCUS:**\n\n**If Research Focus = \"comprehensive\":** Cover all areas with equal depth\n**If Research Focus = \"financial\":** Emphasize financial performance, funding, revenue, growth metrics\n**If Research Focus = \"competitive\":** Deep-dive into competitive analysis, market positioning, differentiation\n**If Research Focus = \"technical\":** Focus on product innovation, technology trends, R&D capabilities\n**If Research Focus = \"market\":** Emphasize market trends, industry analysis, macro-environment\n\n**ENHANCED RESEARCH DELIVERABLES:**\n\n**company_background**: Corporate intelligence profile incorporating:\n- Company founding, evolution, and strategic milestones\n- Leadership team, organizational structure, and corporate governance\n- Product/service portfolio, core competencies, and intellectual property\n- Business model, revenue streams, and operational scale\n- Geographic footprint, market presence, and expansion strategy\n- Corporate culture, values, and strategic positioning\n- Recent achievements, industry recognition, and thought leadership\n- Strategic partnerships, alliances, and ecosystem relationships\n- URL-specific insights from provided company resources\n\n**industry_context**: Market landscape analysis featuring:\n- Industry classification, scope, and value chain dynamics\n- Market size, growth trajectories, and revenue projections\n- Technology trends, innovation drivers, and disruption factors\n- Regulatory landscape, compliance requirements, and policy impacts\n- Economic indicators, investment flows, and capital market activity\n- Sustainability trends, ESG considerations, and social impact\n- Geographic market variations and emerging opportunities\n- Industry-specific insights from URL analysis\n\n**recent_developments**: Current business intelligence covering:\n- Product launches, feature updates, and innovation announcements\n- Strategic acquisitions, mergers, and partnership formations\n- Executive changes, organizational restructuring, and strategic pivots\n- Funding rounds, financial milestones, and investor relations\n- Market expansion, geographic growth, and customer acquisition\n- Technology breakthroughs, patent filings, and R&D investments\n- Awards, certifications, and industry recognition\n- Relevant insights from additional URL analysis\n\n**competitive_landscape**: Strategic positioning analysis including:\n- Direct competitors, market leaders, and emerging challengers\n- Market share distribution, competitive dynamics, and positioning maps\n- Unique value propositions, competitive advantages, and differentiation\n- Pricing strategies, business models, and go-to-market approaches\n- Innovation capabilities, product roadmaps, and strategic initiatives\n- Partnership ecosystems, channel strategies, and market access\n- Competitive threats, market opportunities, and strategic responses\n- Competitive intelligence from URL-based research\n\n**URL CONTEXT INTEGRATION:**\nWhen additional URLs are provided, conduct deep analysis of each URL to extract:\n- Specific insights relevant to the press release topic\n- Financial data, performance metrics, and growth indicators\n- Strategic announcements, future plans, and market positioning\n- Technical specifications, product details, and innovation highlights\n- Customer testimonials, case studies, and market validation\n\n**QUALITY ASSURANCE:**\n- Verify information across multiple authoritative sources\n- Cross-reference data points for consistency and accuracy\n- Flag any conflicting information or data gaps\n- Ensure currency of information (prioritize recent sources)\n- Maintain objective, fact-based analysis free from speculation\n\nProvide comprehensive, accurate intelligence optimized for press release development. Return ONLY a valid JSON object.\n\n{\n  \"company_background\": \"[Enhanced corporate intelligence with URL insights]\",\n  \"industry_context\": \"[Comprehensive market analysis with trend focus]\",\n  \"recent_developments\": \"[Current business intelligence with URL validation]\",\n  \"competitive_landscape\": \"[Strategic positioning with competitive intelligence]\"\n}",
+      "outputFields": [
         {
           "id": "company_background",
           "type": "string"

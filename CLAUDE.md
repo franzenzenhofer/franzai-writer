@@ -54,6 +54,21 @@ The core feature is a JSON-based workflow system where each workflow:
 - **AI Stage Execution** (`src/ai/flows/ai-stage-execution.ts`): Core AI processing logic using Genkit
 - **Workflow Loader** (`src/lib/workflow-loader.ts`): Dynamic workflow loading system
 
+### Stage Structure Rules
+**CRITICAL**: A stage can NEVER be both Human Input AND AI Output at the same time!
+- ✅ **Allowed**: AI Output stage followed by Edit capability with AI Redo
+- ✅ **Allowed**: Human Input stage followed by Edit capability
+- ❌ **FORBIDDEN**: Human Input stage that also generates AI output
+- **Exception**: Export stages are special cases and may combine input/output functionality
+
+**Pattern to Follow**:
+1. For AI-generated content that needs human review:
+   - First stage: AI generation (`inputType: "none"`, `outputType: "json/text/etc"`)
+   - Second stage: Human edit form (`inputType: "form"`, `outputType: "json"`)
+2. For human input that needs AI processing:
+   - First stage: Human input form (`inputType: "form"`, `outputType: "json"`)
+   - Second stage: AI processing (`inputType: "none"`, `outputType: "json/text/etc"`)
+
 ### Workflow Dependency System
 Workflows use a sophisticated dependency system for stage activation and autorun:
 - **`dependencies`**: Legacy field (backward compatible) - controls both activation and autorun
@@ -132,7 +147,7 @@ This means HTML preview becomes active when all 3 deps are met, but autoruns whe
 - For form controls (Radix UI/shadcn components), use specific approaches for dropdowns and selects
 - This ensures tests click the correct buttons and don't fail due to multiple matches
 
-**BASELINE WORKFLOW**: The poem workflow (`src/workflows/poem-generator/workflow.json`) is our baseline test workflow demonstrating all features including the dependency system.
+**BASELINE WORKFLOW**: The poem workflow (`src/workflows/poem-generator/workflow.json`) is our baseline test workflow demonstrating all features including the dependency system and proper stage separation (input vs output).
 
 **MAIN TEST**: Use `tests/e2e/export-simple-test.spec.ts` as the primary test for the poem workflow. This test verifies:
 - Complete workflow execution from poem topic to export
