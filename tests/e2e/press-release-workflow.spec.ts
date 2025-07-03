@@ -52,23 +52,28 @@ test.describe('Press Release Workflow - Master Test (Chrome Only)', () => {
     await expect(toneBriefingCard).toContainText('tone');
     console.log('✅ Tone analysis completed');
     
-    // Stage 3: Research (may need manual processing)
+    // Stage 3: Research (requires manual processing)
     console.log('🔍 Stage 3: Research');
     await page.waitForSelector('[data-testid="stage-card-research"]', { timeout: 60000 });
     
-    // Check if research needs manual processing
-    const researchButton = page.locator('#process-stage-research');
-    if (await researchButton.isVisible()) {
-      // Process with default settings
-      await researchButton.click();
-      await page.waitForSelector('[data-testid="stage-card-research"]:has-text("company_background")', { timeout: 60000 });
-    }
+    // Research stage always requires manual processing - click the Run AI button
+    await page.waitForSelector('#process-stage-research', { timeout: 10000 });
+    await page.click('#process-stage-research');
+    
+    // Wait for the research to complete - look for the output content
+    await page.waitForSelector('[data-testid="stage-card-research"] code', { timeout: 60000 });
+    
+    // Wait a bit for the UI to update and dependencies to resolve
+    await page.waitForTimeout(2000);
     
     console.log('✅ Research completed with web grounding');
     
-    // Stage 4: Key Facts
+    // Stage 4: Key Facts (requires manual processing)
     console.log('📊 Stage 4: Key Facts');
     await page.waitForSelector('[data-testid="stage-card-key-facts"]', { timeout: 30000 });
+    
+    // Wait for the button to be enabled (dependencies met)
+    await page.waitForSelector('#process-stage-key-facts:not([disabled])', { timeout: 15000 });
     await page.click('#process-stage-key-facts');
     
     await page.waitForSelector('input[name="headline"]', { timeout: 15000 });
