@@ -39,6 +39,8 @@ The core feature is a JSON-based workflow system where each workflow:
 - Each stage can specify its own AI model, temperature, and input/output types
 - Stages can depend on other stages and auto-run based on dependencies
 
+**IMPORTANT**: The poem-generator workflow is our baseline test workflow. All dependency system features should be tested against it first.
+
 ### Key Components
 - **Wizard Shell** (`src/components/wizard/wizard-shell.tsx`): Main UI for workflow execution
 - **AI Stage Execution** (`src/ai/flows/ai-stage-execution.ts`): Core AI processing logic using Genkit
@@ -50,7 +52,7 @@ Workflows use a sophisticated dependency system for stage activation and autorun
 - **`activationDependencies`**: When a stage becomes active/enabled for manual processing
 - **`autorunDependencies`**: When an active stage automatically runs (if `autoRun: true`)
 
-Example from poem workflow (our baseline test workflow):
+Example from poem workflow (our BASELINE test workflow - all features must work here):
 ```json
 {
   "id": "generate-html-preview",
