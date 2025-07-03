@@ -1,18 +1,22 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * Focused test to debug autorunDependsOn feature in poem workflow
+ * Focused test to debug autorunDependencies feature in poem workflow
  * Tests that HTML preview autoruns when poem and image are done,
  * but NOT waiting for optional html-briefing
+ * 
+ * This tests the new dependency naming:
+ * - activationDependencies: when stage becomes active (all 3 deps)
+ * - autorunDependencies: when stage autoruns (only poem + image)
  */
 
-test.describe('Poem Workflow - AutorunDependsOn Debug Test', () => {
+test.describe('Poem Workflow - AutorunDependencies Debug Test', () => {
   test.skip(({ browserName }) => browserName !== 'chromium', 'Chrome only for debugging');
   
   const BASE_URL = 'http://localhost:9002';
   
-  test('autorunDependsOn should trigger HTML preview without html-briefing', async ({ page }) => {
-    console.log('🔍 Starting autorunDependsOn debug test...');
+  test('autorunDependencies should trigger HTML preview without html-briefing', async ({ page }) => {
+    console.log('🔍 Starting autorunDependencies debug test...');
     
     // Enable console logging to see debug messages
     page.on('console', msg => {
@@ -107,7 +111,7 @@ test.describe('Poem Workflow - AutorunDependsOn Debug Test', () => {
         console.error(`❌ Manual process button visible: ${buttonVisible}`);
       }
       
-      throw new Error('HTML preview did not autorun as expected with autorunDependsOn');
+      throw new Error('HTML preview did not autorun as expected with autorunDependencies');
     }
     
     // Verify the workflow completion
@@ -124,6 +128,6 @@ test.describe('Poem Workflow - AutorunDependsOn Debug Test', () => {
     // Export button should be visible
     await expect(page.locator('text=Export & Publish Poem')).toBeVisible();
     
-    console.log('🎉 autorunDependsOn test completed successfully!');
+    console.log('🎉 autorunDependencies test completed successfully!');
   });
 });
