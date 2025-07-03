@@ -259,7 +259,7 @@
       "autoRun": true,
       "aiRedoEnabled": true,
       "editEnabled": true,
-      "promptTemplate": "Generate professional media contact information.\n\nCompany: {{basic-info.output.company}}\nLocation: {{basic-info.output.location}}\nWebsite: {{basic-info.output.website}}\n\n{{#if contact-preferences.output}}\nPreferences:\n- Department: {{contact-preferences.output.department}}\n- Include Agency: {{contact-preferences.output.includeAgency}}\n{{/if}}\n\nCreate realistic contact details:\n1. **name**: Professional contact name\n2. **title**: Appropriate title\n3. **email**: Professional email\n4. **phone**: International format phone\n5. **additional**: Secondary contacts if requested\n\nReturn as JSON.",
+      "promptTemplate": "Generate professional media contact information.\n\nCompany: {{basic-info.output.company}}\nLocation: {{basic-info.output.location}}\nWebsite: {{basic-info.output.website}}\n\n{{#if contact-preferences.output}}\nPreferences:\n- Department: {{contact-preferences.output.department}}\n- Include Agency: {{contact-preferences.output.includeAgency}}\n{{/if}}\n\nCreate realistic contact details:\n1. **name**: Professional contact name (as a STRING)\n2. **title**: Appropriate title (as a STRING)\n3. **email**: Professional email (as a STRING)\n4. **phone**: International format phone (as a STRING)\n5. **additional**: Secondary contacts if requested (as a STRING)\n\nReturn as JSON with all values as STRINGS:\n{\n  \"name\": \"Contact Name\",\n  \"title\": \"Job Title\",\n  \"email\": \"email@company.com\",\n  \"phone\": \"+1-XXX-XXX-XXXX\",\n  \"additional\": \"Additional contact info if needed\"\n}",
       "jsonFields": [
         { "key": "name", "label": "Contact Name", "type": "text", "displayOrder": 1 },
         { "key": "title", "label": "Title", "type": "text", "displayOrder": 2 },
@@ -284,7 +284,7 @@
       "grounding": {
         "googleSearch": true
       },
-      "promptTemplate": "You are a fact-checker verifying press release claims.\n\nCompany: {{basic-info.output.company}}\nHeadline: {{generate-headline.output.headline}}\nKey Points: {{generate-headline.output.keyPoints}}\nStatistics: {{generate-headline.output.statistics}}\n\nVerify all claims and provide:\n1. **verified**: List of verified facts\n2. **concerns**: Any questionable claims\n3. **suggestions**: Recommended corrections\n4. **status**: APPROVED, NEEDS_REVISION, or REJECTED\n\nReturn as JSON.",
+      "promptTemplate": "You are a fact-checker verifying press release claims.\n\nCompany: {{basic-info.output.company}}\nHeadline: {{generate-headline.output.headline}}\nKey Points: {{generate-headline.output.keyPoints}}\nStatistics: {{generate-headline.output.statistics}}\n\nVerify all claims and provide:\n1. **verified**: List of verified facts (as a single STRING with line breaks)\n2. **concerns**: Any questionable claims (as a single STRING with line breaks)\n3. **suggestions**: Recommended corrections (as a single STRING with line breaks)\n4. **status**: APPROVED, NEEDS_REVISION, or REJECTED (as a STRING)\n\nReturn as JSON with all values as STRINGS:\n{\n  \"verified\": \"• Verified fact 1\\n• Verified fact 2\\n• Verified fact 3\",\n  \"concerns\": \"• Concern 1\\n• Concern 2\",\n  \"suggestions\": \"• Suggestion 1\\n• Suggestion 2\",\n  \"status\": \"APPROVED\"\n}",
       "jsonFields": [
         { "key": "verified", "label": "Verified Facts", "type": "textarea", "displayOrder": 1 },
         { "key": "concerns", "label": "Concerns", "type": "textarea", "displayOrder": 2 },

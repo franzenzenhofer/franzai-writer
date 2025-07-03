@@ -362,12 +362,21 @@ Multiple Claude sessions may be working on different features simultaneously.
 - You need to see the full desktop context (multiple windows, system dialogs, etc.)
 - Browser window might be minimized or hidden
 
+**MANDATORY SCREENSHOT PATTERN**: At least every third screenshot MUST be a desktop screenshot via visual feedback MCP (`mcp__visual-desktop-control__vision`) IF the browser/application we're working on should be visible on the desktop. This ensures you're seeing the actual state of the application, not cached Playwright views, and prevents missing critical errors that Playwright might not capture.
+
 This is MANDATORY for:
 - When errors occur (especially red error screens)
 - When testing workflows
 - When UI behavior seems unexpected
 - Before and after making changes
 - When autorun or cascade behavior needs verification
+
+**PLAYWRIGHT TESTING REQUIREMENTS**: During all Playwright tests, you MUST:
+1. Take regular screenshots (both Playwright and desktop)
+2. **CHECK LOGS CONTINUOUSLY** - Monitor ai.log and nextjs-dev.log throughout the test
+3. Look for errors, warnings, or unexpected behavior in logs
+4. Cross-reference what you see in screenshots with what's happening in logs
+5. If logs show errors but screenshots look fine, investigate further - Playwright might be showing cached state
 
 Example workflow:
 1. Take Playwright screenshot → "Shows workflow at stage 5"
