@@ -36,7 +36,7 @@ const getStageIcon = (stage: any) => {
   if (stage.outputType === 'html') return Code;
   if (stage.inputType === 'form') return FormInput;
   if (stage.inputType === 'textarea') return FileText;
-  if (stage.inputType === 'none' && stage.promptTemplate) return Sparkles;
+      if (stage.inputType === 'none' && (stage.promptTemplate || stage.promptFile)) return Sparkles;
   return FileText;
 };
 

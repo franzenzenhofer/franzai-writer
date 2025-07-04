@@ -177,9 +177,9 @@ describe('Press Release Template Validation', () => {
 
       stageOutputOrder.forEach((stageId, index) => {
         const stage = workflow.stages.find(s => s.id === stageId);
-        if (!stage?.promptTemplate) return;
+        if (!stage?.promptTemplate && !stage?.promptFile) return;
 
-        const variables = extractTemplateVariables(stage.promptTemplate);
+        const variables = extractTemplateVariables(stage.promptTemplate || '');
         const referencedStages = new Set(
           variables
             .map(v => v.split('.')[0])
@@ -200,13 +200,14 @@ describe('Press Release Template Validation', () => {
 
     it('should have JSON-only instructions for all JSON stages', () => {
       jsonStages.forEach(stage => {
-        if (stage.promptTemplate) {
-          expect(stage.promptTemplate).toContain('JSON');
+        if (stage.promptTemplate || stage.promptFile) {
+          const template = stage.promptTemplate || '';
+          expect(template).toContain('JSON');
           // Should have either explicit JSON instruction or example
           const hasJsonInstruction = 
-            stage.promptTemplate.includes('Return ONLY a valid JSON') ||
-            stage.promptTemplate.includes('Return a JSON') ||
-            stage.promptTemplate.includes('format:');
+            template.includes('Return ONLY a valid JSON') ||
+            template.includes('Return a JSON') ||
+            template.includes('format:');
           expect(hasJsonInstruction).toBe(true);
         }
       });

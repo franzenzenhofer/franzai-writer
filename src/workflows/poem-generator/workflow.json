@@ -34,7 +34,7 @@
       "title": "Generate Poem & Title",
       "description": "AI will generate a poem and title based on your topic.",
       "inputType": "none",
-      "promptTemplate": "Write a poem about '{{poem-topic.output}}'.\nMake it about 4 stanzas long.\n\nAlso create a compelling title for this poem.\n\nFormat your response as a JSON object with two keys:\n- 'title': A creative, engaging title for the poem (this will be used as the document title)\n- 'poem': The full poem content\n\nExample:\n{\n  \"title\": \"Whispers of the Morning\",\n  \"poem\": \"Lines of the poem here...\"\n}\n\nEnsure the output is valid JSON.",
+      "promptFile": "prompts/generate-poem-with-title.md",
       "temperature": 0.8,
       "outputType": "json",
       "jsonFields": [
@@ -138,7 +138,7 @@
       "activationDependencies": ["generate-poem-with-title", "image-briefing"],
       "autoRun": true,
       "temperature": 0.7,
-      "promptTemplate": "Based on the poem and image customization settings, create optimized imagen prompts and unique filenames.\n\nPoem Title: {{generate-poem-with-title.output.title}}\nPoem Content:\n{{generate-poem-with-title.output.poem}}\n\nImage Customization:\n- Style: {{image-briefing.output.style}}\n- Aspect Ratio: {{image-briefing.output.aspectRatio}}\n- Number of Images: {{image-briefing.output.numberOfImages}}\n{{#if image-briefing.output.additionalPrompt}}- Additional Instructions: {{image-briefing.output.additionalPrompt}}{{/if}}\n\nCreate a response with:\n1. An optimized imagen prompt that captures the poem's essence and mood while incorporating the specified style\n2. Generate EXACTLY {{image-briefing.output.numberOfImages}} unique filenames (3-4 words each, highly unique)\n\nFormat as JSON:\n{\n  \"imagenPrompt\": \"Your optimized prompt here\",\n  \"filenames\": [\"unique-filename-one\", \"unique-filename-two\", \"etc...\"]\n}\n\nIMPORTANT:\n- The imagen prompt should be detailed and evocative, capturing the poem's themes and emotions\n- Include the specified artistic style in the prompt\n- You MUST generate exactly {{image-briefing.output.numberOfImages}} filenames in the array\n- Each filename must be 3-4 words, descriptive, and highly unique (avoid generic terms)\n- Do NOT include any text, words, letters, or writing in the image prompt description\n- Make the prompt visually focused and artistic\n- If numberOfImages is 2, provide exactly 2 filenames. If 3, provide exactly 3 filenames, etc.",
+      "promptFile": "prompts/create-image-prompt.md",
       "jsonFields": [
         {
           "key": "imagenPrompt",
@@ -191,7 +191,7 @@
       "title": "Generate HTML Preview",
       "description": "AI will convert your poem into beautiful HTML based on your briefing.",
       "inputType": "none",
-      "promptTemplate": "You are a world-class mobile-first web designer creating a minimal, beautiful HTML document for a poem with an embedded image.\n\n## Content to Format\n**Poem Title**: {{generate-poem-with-title.output.title}}\n**Poem Content**:\n{{generate-poem-with-title.output.poem}}\n\n**Image Details**:\n- Image URL: {{generate-poem-image.output.images.0.publicUrl}}\n- Aspect Ratio: {{image-briefing.output.aspectRatio}}\n- Style: {{image-briefing.output.style}}\n\n**Special Instructions**: {{html-briefing.output}}\n\n## CRITICAL OUTPUT REQUIREMENTS\n\n### Document Structure\n1. **Complete HTML5 document** with proper DOCTYPE and semantic structure\n2. **Mobile-first responsive design** - starts with mobile styles, scales up\n3. **No external dependencies** - all styles inline, no CDNs, no external fonts\n4. **No JavaScript** - pure HTML and CSS only\n5. **Super semantic** - use proper HTML5 semantic elements throughout\n\n### Image Requirements\n**CRITICAL**: The image MUST be embedded with the correct aspect ratio:\n- Use CSS aspect-ratio property: `aspect-ratio: {{image-briefing.output.aspectRatio}}`\n- Implement responsive image with proper sizing\n- Add proper alt text describing the poem's visual theme\n- Use modern `object-fit: cover` for optimal display\n\n### Content Focus\n**ONLY include**:\n- The poem title (as H1)\n- The poem content (properly structured)\n- The single generated image\n- NO extra information, NO metadata, NO author bio, NO publication dates\n\n### Modern CSS Requirements\n1. **CSS Custom Properties** for theming and dark mode support\n2. **CSS Grid or Flexbox** for layout (no floats or absolute positioning)\n3. **Modern typography** using system font stack\n4. **Perfect mobile experience** - touch-friendly, readable on small screens\n5. **Accessibility compliant** - proper contrast ratios, focus states\n\n### OUTPUT INSTRUCTIONS\n- Return ONLY the complete HTML document\n- NO markdown code fences (no ```html)\n- NO explanatory text\n- Start directly with `<!DOCTYPE html>`\n- End directly with `</html>`",
+      "promptFile": "prompts/generate-html-preview.md",
       "model": "gemini-2.0-flash",
       "temperature": 0.3,
       "outputType": "html",
@@ -224,7 +224,7 @@
             "enabled": true,
             "label": "Beautiful Poem",
             "description": "Stunning HTML presentation with poetry-focused typography",
-            "aiTemplate": "prompts/html-styled-template.md",
+            "promptFile": "prompts/html-styled-template.md",
             "features": [
               "Poetry-focused design",
               "Responsive layout",
@@ -236,7 +236,7 @@
             "enabled": true,
             "label": "Clean HTML",
             "description": "Semantic HTML perfect for poetry blogs and CMS",
-            "aiTemplate": "prompts/html-clean-template.md",
+            "promptFile": "prompts/html-clean-template.md",
             "features": [
               "Perfect poem structure",
               "CMS-friendly markup",

@@ -442,7 +442,12 @@ export async function aiStageExecutionFlow(
         systemInstruction: systemInstructions,
         tools: availableTools,
         enableGoogleSearch: false,
-        enableUrlContext: false
+        enableUrlContext: false,
+        // Add workflow/stage context for logging
+        workflowName: workflow?.name,
+        stageName: stage?.name,
+        stageId: stage?.id || stageId,
+        contextVars: input.contextVars
       },
       currentThinkingSteps,
       input

@@ -44,7 +44,7 @@ export interface ExportFormat {
   label: string;
   description: string;
   icon?: string;
-  aiTemplate?: string;
+  promptFile?: string;
   deriveFrom?: string;
   features?: string[];
   options?: Record<string, any>;
@@ -133,6 +133,7 @@ export interface Stage {
   formFields?: FormField[]; // Only if inputType is 'form'
   jsonFields?: JsonField[]; // Only if outputType is 'json' - defines how to render JSON fields
   promptTemplate?: string; 
+  promptFile?: string; // Path to markdown file containing prompt template (mutually exclusive with promptTemplate)
   prompt?: string; // Resolved prompt after template substitution
   model?: string; // Optional: Specific AI model for this stage
   temperature?: number; // Optional: Specific temperature for this stage

@@ -13,7 +13,8 @@ import { cleanAiResponse } from '@/lib/ai-content-cleaner';
 import { logAIGeneral } from '@/lib/ai-logger';
 
 interface RunAiStageParams {
-  promptTemplate: string;
+  promptTemplate?: string;
+  promptFile?: string; // Server-side prompt file path
   model?: string;
   temperature?: number;
   thinkingSettings?: Stage['thinkingSettings'];
@@ -232,6 +233,44 @@ function escapeRegExp(string: string): string {
 }
 
 /**
+ * Resolve a single template variable
+ */
+function resolveTemplateVariable(value: any, context: Record<string, any>): any {
+  if (typeof value !== 'string') {
+    return value;
+  }
+  
+  // Check if the value contains template variables
+  const templateVarRegex = /\{\{([\w.-]+)\}\}/g;
+  const matches = value.match(templateVarRegex);
+  
+  if (!matches) {
+    return value;
+  }
+  
+  console.log(`[Template Variable Resolution] Resolving template variables in: ${value}`);
+  
+  let resolvedValue = value;
+  for (const match of matches) {
+    const varPath = match.replace(/[{}]/g, '');
+    const result = resolveVariablePath(varPath, context);
+    
+    if (result.found) {
+      const replacement = (typeof result.value === 'object' && result.value !== null) 
+        ? JSON.stringify(result.value, null, 2) 
+        : String(result.value);
+      resolvedValue = resolvedValue.replace(new RegExp(escapeRegExp(match), 'g'), replacement);
+      console.log(`[Template Variable Resolution] ✅ Resolved ${match} -> ${replacement}`);
+    } else {
+      console.error(`[Template Variable Resolution] ❌ FATAL: Template variable '${match}' could not be resolved. AI-generated filenames not available.`);
+      throw new Error(`FATAL: Template variable '${match}' could not be resolved. AI-generated filenames not available.`);
+    }
+  }
+  
+  return resolvedValue;
+}
+
+/**
  * Resolve a variable path with support for special image selectors
  */
 function resolveVariablePath(varPath: string, context: Record<string, any>): { found: boolean; value: any } {
@@ -424,6 +463,54 @@ function diagnoseContextForTemplate(template: string, context: Record<string, an
 export async function runAiStage(params: RunAiStageParams): Promise<AiActionResult> {
     console.log('[runAiStage] Starting with new SDK');
     
+    // CRITICAL: Load prompt content server-side if promptFile is provided
+    let promptTemplate = params.promptTemplate;
+    
+    if (params.promptFile && params.workflow?.id) {
+        console.log('[runAiStage] Loading prompt file server-side:', params.promptFile);
+        
+        try {
+            // Import fs dynamically to avoid bundling issues
+            const fs = await import('fs/promises');
+            const path = await import('path');
+            
+            // Construct the full file path
+            const workflowId = params.workflow.id;
+            const fullPath = path.join(process.cwd(), 'src/workflows', workflowId, params.promptFile);
+            
+            // Security check: ensure the path is within the workflows directory
+            const workflowsDir = path.join(process.cwd(), 'src/workflows');
+            const resolvedPath = path.resolve(fullPath);
+            const resolvedWorkflowsDir = path.resolve(workflowsDir);
+            
+            if (!resolvedPath.startsWith(resolvedWorkflowsDir)) {
+                throw new Error(`Invalid path: ${params.promptFile} is outside workflows directory`);
+            }
+            
+            // Load prompt file content
+            promptTemplate = await fs.readFile(fullPath, 'utf-8');
+            
+            console.log('[runAiStage] Successfully loaded prompt file:', {
+                workflowId,
+                promptFile: params.promptFile,
+                contentLength: promptTemplate.length,
+                contentPreview: promptTemplate.substring(0, 100) + '...'
+            });
+            
+        } catch (error) {
+            console.error('[runAiStage] Error loading prompt file:', error);
+            return {
+                content: null,
+                error: `Failed to load prompt file: ${params.promptFile}. ${error instanceof Error ? error.message : 'Unknown error'}`
+            };
+        }
+    } else if (!promptTemplate) {
+        return {
+            content: null,
+            error: 'No prompt template or prompt file provided'
+        };
+    }
+    
     // Check if this is an export stage and handle it differently
     console.log('🚨 [runAiStage] Checking stage type:', params.stage?.stageType, 'Stage ID:', params.stage?.id);
     if (params.stage?.stageType === 'export') {
@@ -461,7 +548,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
         ...params,
         // Don't log sensitive data but log structure
         systemInstructions: params.systemInstructions ? params.systemInstructions.substring(0, 100) + '...' : undefined,
-        promptTemplate: params.promptTemplate?.substring(0, 200) + (params.promptTemplate?.length > 200 ? '...' : ''),
+        promptTemplate: promptTemplate?.substring(0, 200) + (promptTemplate?.length > 200 ? '...' : ''),
         // Log full grounding settings
         groundingSettings: params.groundingSettings,
         model: params.model,
@@ -472,7 +559,9 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
 
     try {
         console.log("[runAiStage] Starting with params:", {
-            hasPromptTemplate: !!params.promptTemplate,
+            hasPromptTemplate: !!promptTemplate,
+            promptSource: params.promptFile ? 'file' : 'inline',
+            promptFile: params.promptFile,
             model: params.model,
             temperature: params.temperature,
             stageOutputType: params.stageOutputType,
@@ -492,9 +581,9 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
         };
 
         // DIAGNOSTIC: Analyze context before template substitution
-        diagnoseContextForTemplate(params.promptTemplate, enhancedContext);
+        diagnoseContextForTemplate(promptTemplate, enhancedContext);
 
-        let filledPrompt = substitutePromptVars(params.promptTemplate, enhancedContext);
+        let filledPrompt = substitutePromptVars(promptTemplate, enhancedContext);
         
         // If AI Redo notes are provided, enhance the prompt with context about the previous attempt
         if (params.aiRedoNotes !== undefined) {
@@ -545,6 +634,41 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
             return { content: null, error: "AI service not configured. Please check API keys." };
         }
 
+        // CRITICAL: Resolve template variables in imageGenerationSettings
+        let resolvedImageGenerationSettings = params.imageGenerationSettings;
+        if (params.imageGenerationSettings) {
+            console.log("[runAiStage] Resolving template variables in imageGenerationSettings");
+            resolvedImageGenerationSettings = {
+                ...params.imageGenerationSettings,
+                aspectRatio: params.imageGenerationSettings.aspectRatio 
+                    ? resolveTemplateVariable(params.imageGenerationSettings.aspectRatio, enhancedContext)
+                    : params.imageGenerationSettings.aspectRatio,
+                numberOfImages: params.imageGenerationSettings.numberOfImages 
+                    ? (() => {
+                        const resolved = resolveTemplateVariable(params.imageGenerationSettings.numberOfImages, enhancedContext);
+                        // Convert to number if it's a string
+                        return typeof resolved === 'string' ? parseInt(resolved, 10) : resolved;
+                    })()
+                    : params.imageGenerationSettings.numberOfImages,
+                            filenames: params.imageGenerationSettings.filenames 
+                ? (() => {
+                    const resolved = resolveTemplateVariable(params.imageGenerationSettings.filenames, enhancedContext);
+                    // If resolved is a JSON string array, parse it
+                    if (typeof resolved === 'string' && resolved.startsWith('[') && resolved.endsWith(']')) {
+                        try {
+                            return JSON.parse(resolved);
+                        } catch (e) {
+                            console.warn("[runAiStage] Could not parse filenames as JSON array, using as-is:", resolved);
+                            return resolved;
+                        }
+                    }
+                    return resolved;
+                })()
+                : params.imageGenerationSettings.filenames,
+            };
+            console.log("[runAiStage] Resolved imageGenerationSettings:", resolvedImageGenerationSettings);
+        }
+
         // Pass model and temperature directly (can be undefined)
         // The aiStageExecutionFlow will handle using Genkit defaults if they are undefined.
         const aiInput: AiStageExecutionInput = {
@@ -563,7 +687,7 @@ export async function runAiStage(params: RunAiStageParams): Promise<AiActionResu
       // jsonSchema: params.jsonSchema, // Not supported in this version
             // jsonFields: params.jsonFields, // Not supported in this version
             // Add image generation settings
-            imageGenerationSettings: params.imageGenerationSettings,
+            imageGenerationSettings: resolvedImageGenerationSettings,
             stageOutputType: params.stageOutputType,
             // CRITICAL: Pass user/document context for asset management
             userId: params.userId,

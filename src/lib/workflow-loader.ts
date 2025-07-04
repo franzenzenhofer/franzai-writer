@@ -54,17 +54,33 @@ function validateStageInputOutputSeparation(workflow: Workflow): void {
 
     // Check if stage has both human input and AI generation
     const hasHumanInput = stage.inputType && stage.inputType !== 'none';
-    const hasAIGeneration = !!stage.promptTemplate;
+    const hasPromptTemplate = !!stage.promptTemplate;
+    const hasPromptFile = !!stage.promptFile;
+    const hasAIGeneration = hasPromptTemplate || hasPromptFile;
 
+    // Validate mutual exclusivity of promptTemplate and promptFile
+    if (hasPromptTemplate && hasPromptFile) {
+      console.error(
+        `❌ WORKFLOW VALIDATION ERROR: Stage '${stage.id}' in workflow '${workflow.id}' ` +
+        `has both promptTemplate AND promptFile defined!\n` +
+        `   These are mutually exclusive. Use either:\n` +
+        `   - promptTemplate: for inline prompt strings\n` +
+        `   - promptFile: for external markdown files\n` +
+        `   Fix: Remove one of these properties.`
+      );
+    }
+
+    // Check input/output separation rule
     if (hasHumanInput && hasAIGeneration) {
+      const promptType = hasPromptTemplate ? 'promptTemplate' : 'promptFile';
       console.error(
         `❌ WORKFLOW VALIDATION ERROR: Stage '${stage.id}' in workflow '${workflow.id}' ` +
         `violates input/output separation rule!\n` +
-        `   Stage has inputType='${stage.inputType}' AND promptTemplate defined.\n` +
+        `   Stage has inputType='${stage.inputType}' AND ${promptType} defined.\n` +
         `   A stage must be EITHER human input OR AI generation, not both.\n` +
         `   Fix: Split this into two stages:\n` +
-        `   1. Human input stage (inputType: '${stage.inputType}', no promptTemplate)\n` +
-        `   2. AI generation stage (inputType: 'none', with promptTemplate)`
+        `   1. Human input stage (inputType: '${stage.inputType}', no ${promptType})\n` +
+        `   2. AI generation stage (inputType: 'none', with ${promptType})`
       );
     }
   });

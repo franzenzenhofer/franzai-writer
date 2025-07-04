@@ -10,7 +10,7 @@ interface HtmlPreviewProps {
 }
 
 /**
- * Client-side content cleaner to avoid server/client boundary issues
+ * Clean HTML content by removing code fences but preserving full HTML structure
  */
 function cleanHtmlContent(content: string): string {
   if (!content || typeof content !== 'string') {
@@ -38,53 +38,54 @@ function cleanHtmlContent(content: string): string {
 }
 
 /**
- * Universal HTML Preview Component with Shadow DOM Isolation
+ * Simple HTML Preview Component using Iframe
  * 
- * This component ensures ALL HTML content from external sources 
- * (AI, user input, etc.) is rendered in a Shadow DOM to prevent 
- * CSS spillover and security issues.
- * 
- * Follows DRY and KISS principles by being the single source 
- * for HTML rendering across the application.
+ * KISS approach: Use iframe with srcdoc for perfect HTML isolation
+ * - No Shadow DOM complications
+ * - No CSS variable conversion needed
+ * - All CSS works exactly as written
+ * - Full HTML document support including DOCTYPE
  */
 export function HtmlPreview({ content, removeBorder = false, className = "" }: HtmlPreviewProps) {
-  const shadowRef = useRef<HTMLDivElement>(null);
-  const shadowRootRef = useRef<ShadowRoot | null>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
-    if (!shadowRef.current) return;
+    if (!iframeRef.current) return;
 
     // Clean the content to remove any code fences
     const cleanedContent = cleanHtmlContent(content);
     
-    if (!cleanedContent) return;
-
-    // Create shadow root if not exists
-    if (!shadowRootRef.current) {
-      shadowRootRef.current = shadowRef.current.attachShadow({ mode: 'closed' });
+    if (!cleanedContent) {
+      iframeRef.current.srcdoc = '';
+      return;
     }
 
-    // Set the cleaned HTML content in the shadow DOM
-    shadowRootRef.current.innerHTML = cleanedContent;
+    // Set the HTML content directly in iframe using srcdoc
+    iframeRef.current.srcdoc = cleanedContent;
 
-    // Clean up function
-    return () => {
-      if (shadowRootRef.current) {
-        shadowRootRef.current.innerHTML = '';
-      }
-    };
+    console.log('[HtmlPreview] Iframe content updated:', {
+      contentLength: cleanedContent.length,
+      hasDoctype: cleanedContent.includes('<!DOCTYPE'),
+      hasStyle: cleanedContent.includes('<style'),
+      hasCssVariables: cleanedContent.includes('--'),
+      preview: cleanedContent.substring(0, 200) + '...'
+    });
+
   }, [content]);
 
   return (
-    <div
-      ref={shadowRef}
-      className={`html-preview ${removeBorder ? '' : 'border rounded-lg'} ${className}`}
+    <iframe
+      ref={iframeRef}
+      title="HTML Preview"
+      sandbox="allow-same-origin"
+      className={cn(
+        "w-full h-[400px] bg-white",
+        !removeBorder && "border rounded-lg",
+        className
+      )}
       style={{
         minHeight: '200px',
-        width: '100%',
-        backgroundColor: 'white',
       }}
-      title="HTML Preview (isolated in Shadow DOM)"
     />
   );
 } 

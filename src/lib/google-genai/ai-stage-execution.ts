@@ -13,6 +13,8 @@ import type {
   StageOutput,
   StageContext 
 } from '@/types';
+import fs from 'fs/promises';
+import path from 'path';
 
 // Define SchemaType enum for @google/genai
 enum SchemaType {
@@ -38,6 +40,32 @@ export interface ExecutionResult {
 
 export class AIStageExecution {
   /**
+   * Load prompt content from a file
+   */
+  private static async loadPromptFile(workflow: Workflow, stage: Stage): Promise<string> {
+    if (!stage.promptFile) {
+      throw new Error(`Stage '${stage.id}' has no promptFile specified`);
+    }
+
+    const promptFilePath = path.join(
+      process.cwd(), 
+      'src/workflows', 
+      workflow.id, 
+      stage.promptFile
+    );
+
+    try {
+      const promptContent = await fs.readFile(promptFilePath, 'utf-8');
+      console.log(`[AI Stage Execution] Loaded promptFile for stage '${stage.id}': ${promptFilePath}`);
+      return promptContent;
+    } catch (error) {
+      const errorMessage = `Failed to load promptFile '${stage.promptFile}' for stage '${stage.id}' in workflow '${workflow.id}': ${error instanceof Error ? error.message : 'Unknown error'}`;
+      console.error(`[AI Stage Execution] ${errorMessage}`);
+      throw new Error(errorMessage);
+    }
+  }
+
+  /**
    * Execute a workflow stage
    */
   static async execute(
@@ -48,7 +76,7 @@ export class AIStageExecution {
   ): Promise<ExecutionResult> {
     try {
       // Prepare the prompt
-      const prompt = this.buildPrompt(stage, input, context);
+      const prompt = await this.buildPrompt(workflow, stage, input, context);
       
       // Configure model with workflow/stage context
       const modelConfig = {
@@ -142,12 +170,25 @@ export class AIStageExecution {
   /**
    * Build prompt from stage configuration
    */
-  private static buildPrompt(
+  private static async buildPrompt(
+    workflow: Workflow,
     stage: Stage,
     input: StageInput,
     context: StageContext
-  ): string {
-    let prompt = stage.prompt || stage.promptTemplate || '';
+  ): Promise<string> {
+    // Get prompt content from either promptTemplate or promptFile
+    let prompt: string;
+    
+    if (stage.promptTemplate) {
+      prompt = stage.promptTemplate;
+    } else if (stage.promptFile) {
+      prompt = await this.loadPromptFile(workflow, stage);
+    } else if (stage.prompt) {
+      // Fallback to legacy prompt field
+      prompt = stage.prompt;
+    } else {
+      prompt = '';
+    }
 
     // Replace placeholders
     if (context) {
@@ -289,7 +330,7 @@ export class AIStageExecution {
     input: StageInput,
     context: StageContext
   ): AsyncGenerator<string, void, unknown> {
-    const prompt = this.buildPrompt(stage, input, context);
+    const prompt = await this.buildPrompt(workflow, stage, input, context);
     
     const modelConfig = {
       model: stage.model || workflow.defaultModel || 'gemini-2.0-flash',

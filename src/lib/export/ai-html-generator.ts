@@ -96,17 +96,24 @@ async function generateStyledHtml(
   workflow?: Workflow
 ): Promise<string> {
   
-  // Load the styled HTML template
-  const templatePath = path.join(process.cwd(), 'src/workflows', workflow?.id || 'default', 'prompts/html-styled-template.md');
+  // Get styled HTML prompt from export config or fallback to default
   let promptTemplate: string;
+  const styledHtmlFormat = exportConfig?.formats?.['html-styled'];
   
-  try {
-    promptTemplate = await fs.readFile(templatePath, 'utf-8');
-    console.log('[AI HTML Generator] Loaded workflow-specific styled template from:', templatePath);
-  } catch {
-    // Use default template if workflow-specific template doesn't exist
+  if (styledHtmlFormat?.promptFile && workflow?.id) {
+    // Load from configured promptFile
+    const templatePath = path.join(process.cwd(), 'src/workflows', workflow.id, styledHtmlFormat.promptFile);
+    try {
+      promptTemplate = await fs.readFile(templatePath, 'utf-8');
+      console.log('[AI HTML Generator] Loaded styled template from configured promptFile:', templatePath);
+    } catch (error) {
+      console.error('[AI HTML Generator] Failed to load configured promptFile, falling back to default:', error);
+      promptTemplate = getDefaultStyledHtmlPrompt();
+    }
+  } else {
+    // Use default template
     promptTemplate = getDefaultStyledHtmlPrompt();
-    console.log('[AI HTML Generator] Using default styled template');
+    console.log('[AI HTML Generator] Using default styled template (no promptFile configured)');
   }
   
   // Process the template with proper handlebars rendering
@@ -121,6 +128,10 @@ async function generateStyledHtml(
     temperature: exportConfig?.temperature ?? 0.3,
     prompt,
     systemInstruction: 'You are an expert web designer creating beautiful HTML documents.',
+    // Add workflow context for logging
+    workflowName: workflow?.name || 'export',
+    stageName: 'styled-html-generation',
+    stageId: 'export-styled-html',
   });
   
   if (!result.content) {
@@ -140,17 +151,24 @@ async function generateCleanHtml(
   workflow?: Workflow
 ): Promise<string> {
   
-  // Load the clean HTML template
-  const templatePath = path.join(process.cwd(), 'src/workflows', workflow?.id || 'default', 'prompts/html-clean-template.md');
+  // Get clean HTML prompt from export config or fallback to default
   let promptTemplate: string;
+  const cleanHtmlFormat = exportConfig?.formats?.['html-clean'];
   
-  try {
-    promptTemplate = await fs.readFile(templatePath, 'utf-8');
-    console.log('[AI HTML Generator] Loaded workflow-specific clean template from:', templatePath);
-  } catch {
-    // Use default template if workflow-specific template doesn't exist
+  if (cleanHtmlFormat?.promptFile && workflow?.id) {
+    // Load from configured promptFile
+    const templatePath = path.join(process.cwd(), 'src/workflows', workflow.id, cleanHtmlFormat.promptFile);
+    try {
+      promptTemplate = await fs.readFile(templatePath, 'utf-8');
+      console.log('[AI HTML Generator] Loaded clean template from configured promptFile:', templatePath);
+    } catch (error) {
+      console.error('[AI HTML Generator] Failed to load configured promptFile, falling back to default:', error);
+      promptTemplate = getDefaultCleanHtmlPrompt();
+    }
+  } else {
+    // Use default template
     promptTemplate = getDefaultCleanHtmlPrompt();
-    console.log('[AI HTML Generator] Using default clean template');
+    console.log('[AI HTML Generator] Using default clean template (no promptFile configured)');
   }
   
   // Process the template with proper handlebars rendering
@@ -165,6 +183,10 @@ async function generateCleanHtml(
     temperature: exportConfig?.temperature ?? 0.3,
     prompt,
     systemInstruction: 'You are an expert in semantic HTML and document structure.',
+    // Add workflow context for logging
+    workflowName: workflow?.name || 'export',
+    stageName: 'clean-html-generation',
+    stageId: 'export-clean-html',
   });
   
   if (!result.content) {

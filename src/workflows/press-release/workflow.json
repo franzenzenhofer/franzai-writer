@@ -416,7 +416,7 @@
             "enabled": true,
             "label": "Professional Press Release",
             "description": "Beautiful HTML presentation with press release formatting and images",
-            "aiTemplate": "prompts/html-styled-template.md",
+            "promptFile": "prompts/html-styled-template.md",
             "features": [
               "Professional press layout",
               "Embedded press images",
@@ -429,7 +429,7 @@
             "enabled": true,
             "label": "Clean HTML",
             "description": "Semantic HTML perfect for websites and CMS with images",
-            "aiTemplate": "prompts/html-clean-template.md",
+            "promptFile": "prompts/html-clean-template.md",
             "features": [
               "Perfect press structure",
               "Embedded press images", 

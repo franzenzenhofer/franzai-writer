@@ -233,9 +233,10 @@ describe('Press Release Workflow Configuration', () => {
   describe('Template Variables', () => {
     it('should use correct variable format in prompts', () => {
       workflow.stages.forEach(stage => {
-        if (stage.promptTemplate) {
+        if (stage.promptTemplate || stage.promptFile) {
           // Check for correct variable format
-          const variables = stage.promptTemplate.match(/\{\{[\w.-]+\}\}/g) || [];
+          const template = stage.promptTemplate || '';
+          const variables = template.match(/\{\{[\w.-]+\}\}/g) || [];
           variables.forEach(variable => {
             // Should be in format {{stage-id.output.field}}
             expect(variable).toMatch(/\{\{[\w-]+\.output\.[\w_]+\}\}/);
@@ -248,8 +249,9 @@ describe('Press Release Workflow Configuration', () => {
       const stageIds = new Set(workflow.stages.map(s => s.id));
       
       workflow.stages.forEach(stage => {
-        if (stage.promptTemplate) {
-          const variables = stage.promptTemplate.match(/\{\{([\w-]+)\.output\.[\w_]+\}\}/g) || [];
+        if (stage.promptTemplate || stage.promptFile) {
+          const template = stage.promptTemplate || '';
+          const variables = template.match(/\{\{([\w-]+)\.output\.[\w_]+\}\}/g) || [];
           variables.forEach(variable => {
             const match = variable.match(/\{\{([\w-]+)\.output\.[\w_]+\}\}/);
             if (match) {

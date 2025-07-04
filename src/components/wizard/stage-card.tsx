@@ -213,12 +213,13 @@ export function StageCard({
   };
   const dependencyMessage = getDependencyMessage();
 
-  const canRun = stageState.depsAreMet !== false && (stageState.status === "idle" || stageState.status === "error" || (stageState.status === "completed" && stage.promptTemplate != null));
+  const isAiStage = !!(stage.promptTemplate || stage.promptFile);
+  const canRun = stageState.depsAreMet !== false && (stageState.status === "idle" || stageState.status === "error" || (stageState.status === "completed" && isAiStage));
   
   // Button display logic based on stage type
-  const isAutoRunAiStage = stage.promptTemplate && stage.autoRun && stage.inputType === 'none';
-  const isManualAiStage = stage.promptTemplate && (!stage.autoRun || stage.inputType !== 'none');
-  const isNonAiStage = !stage.promptTemplate;
+  const isAutoRunAiStage = isAiStage && stage.autoRun && stage.inputType === 'none';
+  const isManualAiStage = isAiStage && (!stage.autoRun || stage.inputType !== 'none');
+  const isNonAiStage = !isAiStage;
   
   // Primary Action Button (Run AI / Continue): For manual stages and active autorun stages
   const showPrimaryActionButton = 
@@ -233,7 +234,7 @@ export function StageCard({
     // - AI stages: can edit output (true)
     // - Non-AI stages with input: can edit input (true)  
     // - Stages with no input/output: no edit needed (false)
-    if (stage.promptTemplate) return true; // AI stages default to editable
+    if (isAiStage) return true; // AI stages default to editable
     if (stage.inputType !== 'none') return true; // Input stages default to editable
     return false; // No input/output stages default to non-editable
   };
@@ -243,7 +244,7 @@ export function StageCard({
   // Edit Button: For stages with inputs after completion OR AI stages with output
   const showEditButton = editEnabled && stageState.status === 'completed' && !isEditingInput && !stageState.isEditingOutput && (
     (stage.inputType !== 'none') || // Has input to edit
-    (stage.promptTemplate && stageState.output !== undefined) // AI stage with output to edit
+    (isAiStage && stageState.output !== undefined) // AI stage with output to edit
   );
   
   // Accept Continue: Only for manual AI stages that need user confirmation
@@ -405,7 +406,7 @@ export function StageCard({
         {showEditButton && !dependencyMessage && (
           <StageActionButton
             variant="secondary"
-            onClick={stage.promptTemplate && stageState.output ? handleEditOutputClick : handleEditInputClick}
+            onClick={isAiStage && stageState.output ? handleEditOutputClick : handleEditInputClick}
             id={`edit-${stage.id}`}
             datatestid={`edit-${stage.id}`}
             icon={Edit}
@@ -455,7 +456,7 @@ export function StageCard({
               data-testid={`process-stage-${stage.id}`}
             >
               <ArrowRight className="mr-2 h-4 w-4" />
-              {stageState.status === "running" ? "Processing..." : (stage.promptTemplate ? "Run AI" : "Continue")}
+              {stageState.status === "running" ? "Processing..." : (isAiStage ? "Run AI" : "Continue")}
             </Button>
           </>
         )}

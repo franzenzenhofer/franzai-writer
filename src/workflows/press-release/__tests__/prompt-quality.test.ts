@@ -5,7 +5,7 @@ describe('Press Release Prompt Quality', () => {
   const workflow = workflowData as Workflow;
 
   describe('Prompt Structure', () => {
-    const stagesWithPrompts = workflow.stages.filter(s => s.promptTemplate);
+    const stagesWithPrompts = workflow.stages.filter(s => s.promptTemplate || s.promptFile);
 
     it('should have clear role definitions', () => {
       stagesWithPrompts.forEach(stage => {
@@ -195,7 +195,7 @@ describe('Press Release Prompt Quality', () => {
 
   describe('Form Field AI Generation', () => {
     const formStagesWithAI = workflow.stages.filter(s => 
-      s.inputType === 'form' && s.promptTemplate && s.autoRun
+      s.inputType === 'form' && (s.promptTemplate || s.promptFile) && s.autoRun
     );
 
     it('should generate content for form fields', () => {
@@ -217,10 +217,11 @@ describe('Press Release Prompt Quality', () => {
   describe('Error Prevention', () => {
     it('should not have circular template references', () => {
       workflow.stages.forEach(stage => {
-        if (!stage.promptTemplate) return;
+        if (!stage.promptTemplate && !stage.promptFile) return;
         
         // Extract referenced stages
-        const matches = stage.promptTemplate.match(/\{\{([\w-]+)\.output/g) || [];
+        const template = stage.promptTemplate || '';
+        const matches = template.match(/\{\{([\w-]+)\.output/g) || [];
         const referencedStages = matches.map(m => {
           const match = m.match(/\{\{([\w-]+)\.output/);
           return match ? match[1] : null;
@@ -235,8 +236,9 @@ describe('Press Release Prompt Quality', () => {
       const allVariables: string[] = [];
       
       workflow.stages.forEach(stage => {
-        if (stage.promptTemplate) {
-          const matches = stage.promptTemplate.match(/\{\{[\w.-]+\}\}/g) || [];
+        if (stage.promptTemplate || stage.promptFile) {
+          const template = stage.promptTemplate || '';
+          const matches = template.match(/\{\{[\w.-]+\}\}/g) || [];
           allVariables.push(...matches);
         }
       });

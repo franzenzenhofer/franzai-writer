@@ -54,6 +54,21 @@ const nextConfig: NextConfig = {
         ignored: ignoredPaths,
       };
     }
+    
+    // Fix handlebars require.extensions warnings
+    config.ignoreWarnings = [
+      ...(config.ignoreWarnings || []),
+      /require\.extensions is not supported by webpack/,
+    ];
+    
+    // Add resolve fallbacks for Node.js modules
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      path: false,
+      util: false,
+    };
+    
     return config;
   },
 };

@@ -560,8 +560,8 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     const stage = instance.workflow.stages.find(s => s.id === stageId);
     if (!stage) return;
 
-    // For form stages without a promptTemplate, immediately mark as completed with the form data as output
-    if (stage.inputType === 'form' && !stage.promptTemplate) {
+    // For form stages without a prompt (neither promptTemplate nor promptFile), immediately mark as completed with the form data as output
+    if (stage.inputType === 'form' && !stage.promptTemplate && !stage.promptFile) {
       updateStageState(stageId, { 
         userInput: data,
         output: data, // Form data becomes the output
@@ -776,7 +776,7 @@ Still having issues? Check the browser console for detailed logs.`;
       return;
     }
 
-    if (!stage.promptTemplate) { 
+    if (!stage.promptTemplate && !stage.promptFile) { 
       updateStageState(stageId, { 
         status: "completed", 
         output: stage.inputType === 'form' 
@@ -811,15 +811,34 @@ Still having issues? Check the browser console for detailed logs.`;
     }
     
     try {
-      // Enhance prompt template with AI REDO notes if provided
-      let enhancedPromptTemplate = stage.promptTemplate;
-      if (aiRedoNotes && stage.promptTemplate) {
-        enhancedPromptTemplate = `${stage.promptTemplate}\n\nAdditional instructions: ${aiRedoNotes}`;
-        console.log('[handleRunStage] Enhanced prompt with AI REDO notes:', aiRedoNotes);
+      // Determine prompt source - no need to load prompt files client-side anymore!
+      let promptTemplate: string | undefined = undefined;
+      let promptFile: string | undefined = undefined;
+      
+      if (stage.promptTemplate) {
+        promptTemplate = stage.promptTemplate;
+        console.log('[handleRunStage] Using inline promptTemplate');
+      } else if (stage.promptFile) {
+        promptFile = stage.promptFile;
+        console.log('[handleRunStage] Will load promptFile server-side:', stage.promptFile);
+      } else {
+        console.error('[handleRunStage] Stage has neither promptTemplate nor promptFile');
+        updateStageState(stageId, { 
+          status: "error", 
+          error: "Stage configuration error: no prompt defined" 
+        });
+        return;
+      }
+      
+      // Enhance prompt with AI REDO notes if provided (will be handled server-side)
+      if (aiRedoNotes) {
+        console.log('[handleRunStage] AI REDO notes will be handled server-side:', aiRedoNotes);
       }
 
       console.log('[handleRunStage] About to call runAiStage with:', {
-        hasPromptTemplate: !!enhancedPromptTemplate,
+        hasPromptTemplate: !!promptTemplate,
+        hasPromptFile: !!promptFile,
+        promptSource: promptFile ? 'server-side-file' : 'inline-template',
         model: stage.model || instance.workflow.defaultModel || "googleai/gemini-2.0-flash",
         temperature: stage.temperature || 0.7,
         contextVarsKeys: Object.keys(contextVars),
@@ -847,12 +866,15 @@ Still having issues? Check the browser console for detailed logs.`;
         stageTitle: stage.title,
         stageOutputType: stage.outputType,
         model: stage.model || instance.workflow.defaultModel || "googleai/gemini-2.0-flash",
-        hasPromptTemplate: !!enhancedPromptTemplate,
-        promptTemplatePreview: enhancedPromptTemplate?.substring(0, 200) + '...'
+        hasPromptTemplate: !!promptTemplate,
+        hasPromptFile: !!promptFile,
+        promptTemplatePreview: promptTemplate?.substring(0, 200) + '...',
+        promptFile: promptFile
       });
       
       const result = await runAiStage({
-        promptTemplate: enhancedPromptTemplate,
+        promptTemplate: promptTemplate,
+        promptFile: promptFile,
         model: stage.model || instance.workflow.defaultModel || "googleai/gemini-2.0-flash",
         temperature: stage.temperature || 0.7,
         thinkingSettings: stage.thinkingSettings,

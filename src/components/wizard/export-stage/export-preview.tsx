@@ -16,7 +16,7 @@ interface ExportPreviewProps {
 }
 
 /**
- * Client-side content cleaner to avoid server/client boundary issues
+ * Clean HTML content by removing code fences but preserving full HTML structure for iframe rendering
  */
 function cleanHtmlContent(content: string): string {
   if (!content || typeof content !== 'string') {
@@ -37,17 +37,8 @@ function cleanHtmlContent(content: string): string {
   // Remove standalone language markers
   cleaned = cleaned.replace(/^\s*(html|json|markdown|md)\s*$/gm, '');
   
-  // Remove full-document wrappers that break shadow rendering
-  cleaned = cleaned.replace(/<!DOCTYPE[^>]*>/gi, '')
-                 // Remove opening & closing html tag but keep inner content
-                 .replace(/<html[^>]*>/gi, '')
-                 .replace(/<\/html>/gi, '')
-                 // Strip <head> wrapper but KEEP its inner styles/scripts
-                 .replace(/<head[^>]*>/gi, '')
-                 .replace(/<\/head>/gi, '')
-                 // Strip body tag (attributes can break in shadow) but keep content
-                 .replace(/<body[^>]*>/gi, '')
-                 .replace(/<\/body>/gi, '');
+  // Clean up DOCTYPE formatting for iframe rendering
+  cleaned = cleaned.replace(/^[\s]*<!DOCTYPE html>/gm, '<!DOCTYPE html>');
   
   // Trim leading/trailing whitespace once more
   return cleaned.trim();

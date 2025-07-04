@@ -197,6 +197,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         workflow: instance.workflow,
         stage: stage,
         promptTemplate: stage.promptTemplate,
+        promptFile: stage.promptFile, // Server-side loading
         model: stage.model,
         temperature: stage.temperature,
         thinkingSettings: stage.thinkingSettings,

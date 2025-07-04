@@ -82,28 +82,28 @@ A revolutionary stage type (`"stageType": "export"`) that transforms raw AI outp
     "formats": {
       "html-styled": {
         "enabled": true,
-        "label": "🎨 Styled HTML",
+        "label": "Beautiful HTML",
         "description": "Beautiful, ready-to-publish HTML with embedded styles",
         "icon": "palette",
-        "aiTemplate": "prompts/html-styled-template.md",
+        "promptFile": "prompts/html-styled-template.md",
         "features": [
           "Professional typography",
           "Responsive design",
           "Print optimized",
-          "Dark mode support"
+          "Embedded styles"
         ]
       },
       "html-clean": {
         "enabled": true,
-        "label": "📝 Clean HTML",
+        "label": "Clean HTML",
         "description": "AI-optimized semantic HTML - perfect for any CMS or platform",
         "icon": "code",
-        "aiTemplate": "prompts/html-clean-template.md",
+        "promptFile": "prompts/html-clean-template.md",
         "features": [
           "Perfect semantic structure",
-          "Optimized for markdown conversion",
           "CMS-friendly markup",
-          "Accessibility compliant"
+          "Accessibility compliant",
+          "Framework-agnostic"
         ]
       },
       "markdown": {

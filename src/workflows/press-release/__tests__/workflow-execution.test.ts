@@ -91,7 +91,7 @@ describe('Press Release Workflow Execution', () => {
 
   describe('Model Configuration', () => {
     it('should use appropriate models for each stage', () => {
-      const aiStages = workflow.stages.filter(s => s.promptTemplate || s.provider === 'imagen');
+      const aiStages = workflow.stages.filter(s => s.promptTemplate || s.promptFile || s.provider === 'imagen');
       
       aiStages.forEach(stage => {
         expect(stage.model).toBeDefined();
@@ -106,7 +106,7 @@ describe('Press Release Workflow Execution', () => {
     });
 
     it('should have appropriate temperature settings', () => {
-      const aiStages = workflow.stages.filter(s => s.promptTemplate);
+      const aiStages = workflow.stages.filter(s => s.promptTemplate || s.promptFile);
       
       aiStages.forEach(stage => {
         expect(stage.temperature).toBeDefined();

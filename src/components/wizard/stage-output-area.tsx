@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Info, Copy, Check } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { WysiwygEditor } from "./wysiwyg-editor";
+
 import { HtmlPreview } from "./html-preview";
 import { GroundingSourcesDisplay } from "./grounding-sources-display";
 import { FunctionCallsDisplay } from "./function-calls-display";
@@ -377,9 +377,12 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
           );
         case "html":
           return (
-            <WysiwygEditor
-              content={String(stageState.output)}
-              onChange={onOutputChange}
+            <Textarea
+              value={String(stageState.output)}
+              onChange={handleTextChange}
+              rows={15}
+              className="font-mono text-sm bg-background"
+              placeholder="Enter HTML content..."
             />
           );
         case "image":
