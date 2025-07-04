@@ -5,6 +5,7 @@ Brief:
 - Target Audience: {{brief.output.audience}}
 - Author: {{brief.output.author}}
 - Language: {{brief.output.language}}
+- Content Angle: {{brief.output.angleType}} / {{brief.output.customAngle}}
 - Context Links: {{brief.output.links}}
 
 Task: Find **1-3 fresh statistics (<12 months old)**, **1-2 real examples or mini-case studies**, and **actionable insights** relevant to the topic & audience. Focus on data that will make the LinkedIn post more credible and engaging.

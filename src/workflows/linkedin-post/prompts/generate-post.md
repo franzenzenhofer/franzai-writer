@@ -4,7 +4,8 @@ Inputs:
 - Hook: {{generate-outline.output.hook}}
 - Story: {{generate-outline.output.story}}
 - CTA: {{generate-outline.output.cta}}
-- Data: {{generate-outline.output.data}}
+- Data / Angle Detail: {{generate-outline.output.data}}
+- Angle Type: {{brief.output.angleType}} / {{brief.output.customAngle}}
 - Hashtags: {{hashtags.output.hashtags}}
 - Language: {{brief.output.language}}
 - Author: {{brief.output.author}}

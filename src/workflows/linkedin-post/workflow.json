@@ -92,6 +92,37 @@
           }
         },
         {
+          "name": "angleType",
+          "label": "Content Angle (optional)",
+          "type": "select",
+          "defaultValue": "statistics",
+          "options": [
+            { "value": "statistics", "label": "Statistics / Data-driven" },
+            { "value": "story", "label": "Storytelling" },
+            { "value": "question", "label": "Question" },
+            { "value": "trend", "label": "Trend Analysis" },
+            { "value": "quote", "label": "Quote" },
+            { "value": "how-to", "label": "How-To / Tutorial" },
+            { "value": "myth-busting", "label": "Myth Busting" },
+            { "value": "prediction", "label": "Prediction / Forecast" },
+            { "value": "case-study", "label": "Case Study" },
+            { "value": "personal-experience", "label": "Personal Experience" },
+            { "value": "tip", "label": "Quick Tip" },
+            { "value": "challenge", "label": "Challenge / Call-out" },
+            { "value": "poll", "label": "Poll" },
+            { "value": "inspiration", "label": "Inspiration / Motivational" },
+            { "value": "data-driven", "label": "Data Angle (General)" }
+          ],
+          "validation": { "required": false }
+        },
+        {
+          "name": "customAngle",
+          "label": "Custom Angle (optional)",
+          "type": "textarea",
+          "placeholder": "Describe a unique angle you want to use...",
+          "validation": { "required": false, "maxLength": 200 }
+        },
+        {
           "name": "links",
           "label": "Optional Links for Context",
           "type": "textarea",

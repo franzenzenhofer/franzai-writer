@@ -11,6 +11,8 @@ Inputs:
 - Statistics: {{research.output.stats}}
 - Examples: {{research.output.examples}}
 - Insights: {{research.output.insights}}
+- Angle Type: {{brief.output.angleType}}
+- Custom Angle: {{brief.output.customAngle}}
 
 Create a LinkedIn post outline with these components:
 
