@@ -63,6 +63,12 @@ Include this image in the HTML using a semantic <figure> element with proper alt
 - **DO NOT wrap the output in code fences (e.g., ```html).**
 - **Start the body content with <article> as the main wrapper.**
 
+### 🎨 **CSS Requirements for Iframe Compatibility**
+- **Use `body` or `html` selectors**: NOT `:host` (that's for Shadow DOM)
+- **Complete HTML document structure**: Must include DOCTYPE, html, head, and body
+- **Responsive images**: All `<img>` tags MUST include: `style="max-width: 100%; height: auto;"`
+- **No external dependencies**: Everything must be self-contained
+
 ## HTML Document Structure Required
 Generate a complete HTML document like this:
 ```

@@ -1,0 +1,1 @@
+{{create-press-image-prompt.output.imagenPrompt}} 

@@ -428,4 +428,72 @@ This session successfully achieved:
 
 ---
 
-**End of Session**: The FranzAI Writer HTML preview system is now more robust, simpler, and developer-friendly. The architecture follows KISS principles while maintaining full functionality. 
+## 🔄 **Press Release Workflow Migration to Prompt Files**
+
+### **Applied Session Learnings**
+
+Following the successful HTML preview architecture fix, the press release workflow has been updated to:
+
+1. **Server-Side Prompt Loading**: All inline `promptTemplate` fields converted to `promptFile` references
+2. **CSS Iframe Compatibility**: HTML templates updated with proper CSS requirements
+3. **Responsive Image Support**: All image generation prompts include responsive CSS requirements
+4. **Context Propagation**: Proper workflow/stage context maintained throughout execution
+
+### **Files Created**
+- `prompts/tone-analysis.md` - Communication style analysis
+- `prompts/company-research.md` - Business intelligence research
+- `prompts/generate-headline.md` - Headline and key facts creation
+- `prompts/generate-contacts.md` - Contact information generation
+- `prompts/fact-check.md` - Fact verification and validation
+- `prompts/final-press-release-complete.md` - Complete press release generation
+- `prompts/press-photo-briefing.md` - Image specifications
+- `prompts/create-press-image-prompt.md` - Imagen prompt optimization
+- `prompts/generate-press-photo.md` - Image generation
+- `prompts/generate-html-preview.md` - HTML preview with image integration (NEW)
+
+### **Files Updated**
+- `src/workflows/press-release/workflow.json` - All stages now use `promptFile` references + HTML preview stage + enhanced export config
+- `prompts/html-styled-template.md` - Updated with iframe CSS requirements
+- `prompts/html-clean-template.md` - Updated with responsive image requirements
+
+### **Benefits Achieved**
+- ✅ **Eliminated client-side prompt loading** - No more caching issues
+- ✅ **Improved developer experience** - Prompt changes appear immediately
+- ✅ **Better maintainability** - Separate files for each stage prompt
+- ✅ **Enhanced security** - No prompt exposure to client-side
+- ✅ **Iframe compatibility** - HTML previews work correctly with CSS
+- ✅ **Responsive images** - All generated images scale properly
+
+## 🎨 **Applied Poem Generator Best Practices**
+
+### **Added HTML Preview Stage**
+Following the poem generator's successful pattern, added a dedicated HTML preview stage:
+- **Stage ID**: `generate-html-preview`
+- **Purpose**: Creates beautiful HTML with embedded press images
+- **Output**: Complete HTML document with iframe compatibility
+- **Auto-run**: Automatically triggers after press release and image generation
+
+### **Enhanced Export Configuration**
+Applied poem generator's export best practices:
+- **Multiple Themes**: Added `news` and `executive` themes for press releases
+- **Professional Fonts**: System fonts for consistent rendering
+- **Corporate Colors**: Professional color scheme for press releases
+- **Publishing Features**: Instant publishing with SEO, sharing, and branding
+- **Format Options**: HTML styled, HTML clean, Markdown, PDF, and Word
+
+### **Improved Workflow Structure**
+- **Updated finalOutputStageId**: Now points to HTML preview stage
+- **Better Dependencies**: Export stage depends on HTML preview
+- **Enhanced Image Integration**: Images seamlessly embedded in HTML
+- **Professional Presentation**: Press release formatted for media distribution
+
+### **HTML Preview Prompt Features**
+- **Complete HTML Document**: Proper DOCTYPE, head, and body structure
+- **Responsive Design**: Mobile-first approach with responsive images
+- **Press Release Structure**: FOR IMMEDIATE RELEASE header, headlines, contact info
+- **Professional Styling**: Corporate typography and clean layout
+- **Image Integration**: Strategic placement of press photos
+
+---
+
+**End of Session**: The FranzAI Writer HTML preview system is now more robust, simpler, and developer-friendly. The architecture follows KISS principles while maintaining full functionality. The press release workflow has been successfully migrated to use prompt files, applying all the learnings from this session. 

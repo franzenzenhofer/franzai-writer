@@ -141,6 +141,32 @@ Generate a complete, self-contained HTML document with:
 7. Print media queries
 8. NO JavaScript whatsoever
 
+### 🎨 **CSS Requirements for Iframe Compatibility**
+- **Use `body` or `html` selectors**: NOT `:host` (that's for Shadow DOM)
+- **Use CSS custom properties**: Define them in `:root` or `body`
+- **Example CSS structure**:
+```css
+:root {
+  --bg-color: #your-color;
+  --text-color: #your-color;
+  --font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  margin: 0;
+  padding: 20px;
+}
+```
+
+### 📱 **Responsive Image Requirements**
+- **MANDATORY**: All `<img>` tags MUST include: `style="max-width: 100%; height: auto;"`
+- **Example**: `<img src="image.jpg" alt="Description" style="max-width: 100%; height: auto;">`
+- **For press photos**: Ensure images scale properly on mobile devices
+- **Image containers**: Use responsive CSS for proper image display
+
 ## Special Considerations for Press Releases
 - Maintain journalistic structure and flow
 - Preserve quote formatting and attribution

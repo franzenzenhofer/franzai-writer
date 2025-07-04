@@ -5,7 +5,7 @@
   "description": "Create professional press releases with AI-powered research, tone analysis, and fact-checking",
   "config": {
     "setTitleFromStageOutput": "generate-headline",
-    "finalOutputStageId": "final-press-release",
+    "finalOutputStageId": "generate-html-preview",
     "autoScroll": {
       "enabled": true,
       "scrollToAutorun": true,
@@ -187,7 +187,7 @@
       "autoRun": true,
       "aiRedoEnabled": true,
       "editEnabled": true,
-      "promptTemplate": "You are a senior communications strategist analyzing corporate messaging style.\n\nCompany: {{basic-info.output.company}}\nWebsite: {{basic-info.output.website}}\nTopic: {{basic-info.output.topic}}\n\n{{#if tone-materials.output}}\nReference Materials Provided:\n{{tone-materials.output}}\n{{/if}}\n\nAnalyze the company's communication style based on available information and provide:\n\n1. **tone**: Primary voice characteristics (e.g., authoritative, approachable)\n2. **style**: Writing style preferences (sentence structure, technical depth)\n3. **phrases**: Key industry terms and brand language\n4. **formatting**: Preferred formatting conventions\n\nCRITICAL: Return ONLY valid JSON. No explanations, no markdown, no additional text. Just the JSON object:\n{\n  \"tone\": \"Description of tone\",\n  \"style\": \"Writing style guidelines\",\n  \"phrases\": \"Key terminology and phrases\",\n  \"formatting\": \"Formatting preferences\"\n}",
+      "promptFile": "prompts/tone-analysis.md",
       "jsonFields": [
         { "key": "tone", "label": "Communication Tone", "type": "textarea", "displayOrder": 1 },
         { "key": "style", "label": "Writing Style", "type": "textarea", "displayOrder": 2 },
@@ -212,7 +212,7 @@
         "googleSearch": true,
         "urlContext": true
       },
-      "promptTemplate": "You are a business intelligence analyst researching for a press release.\n\nCompany: {{basic-info.output.company}}\nWebsite: {{basic-info.output.website}}\nTopic: {{basic-info.output.topic}}\nMessage: {{basic-info.output.message}}\n\n{{#if research-urls.output.urls}}\nResearch URLs:\n{{research-urls.output.urls}}\nFocus: {{research-urls.output.focus}}\n{{/if}}\n\nProvide comprehensive research covering:\n\n1. **background**: Company history, size, market position (as a single paragraph)\n2. **industry**: Market trends, competitive landscape (as a single paragraph)\n3. **recent**: Recent developments, announcements (as a single paragraph)\n4. **relevance**: Why this announcement matters now (as a single paragraph)\n\nReturn as JSON with these four keys. Each value must be a STRING, not an object or nested structure:\n{\n  \"background\": \"Single paragraph about company background...\",\n  \"industry\": \"Single paragraph about industry context...\",\n  \"recent\": \"Single paragraph about recent developments...\",\n  \"relevance\": \"Single paragraph about why this matters now...\"\n}",
+      "promptFile": "prompts/company-research.md",
       "jsonFields": [
         { "key": "background", "label": "Company Background", "type": "textarea", "displayOrder": 1 },
         { "key": "industry", "label": "Industry Context", "type": "textarea", "displayOrder": 2 },
@@ -233,7 +233,7 @@
       "autoRun": true,
       "aiRedoEnabled": true,
       "editEnabled": true,
-      "promptTemplate": "You are a press release editor creating compelling headlines and key facts for {{basic-info.output.company}}.\n\nCompany: {{basic-info.output.company}}\nWebsite: {{basic-info.output.website}}\nLocation: {{basic-info.output.location}}\nTopic: {{basic-info.output.topic}}\nMessage: {{basic-info.output.message}}\n\nResearch:\n{{company-research.output.background}}\n{{company-research.output.industry}}\n{{company-research.output.recent}}\n{{company-research.output.relevance}}\n\n{{#if key-facts-upload.output}}\nSupporting Documents:\n{{key-facts-upload.output}}\n{{/if}}\n\nCreate SPECIFIC content for Franz AI:\n1. **headline**: Newsworthy 8-12 word headline about Franz AI (as a STRING)\n2. **subheadline**: Supporting context about Franz AI platform (15-20 words) (as a STRING)\n3. **keyPoints**: 5-7 bullet points about Franz AI features and benefits (as a single STRING with line breaks)\n4. **quotes**: 2-3 realistic executive quotes with REAL Austrian/European names and titles (as a single STRING with line breaks, format: \"Quote text\" - Name, Title)\n5. **statistics**: Key data points about AI writing market and Franz AI (as a single STRING with line breaks)\n\nReturn ONLY JSON with realistic Franz AI content:\n{\n  \"headline\": \"Franz AI Launches Revolutionary Multi-Stage AI Writing Platform\",\n  \"subheadline\": \"Vienna-based startup introduces intelligent workflow automation for professional content creation\",\n  \"keyPoints\": \"• Multi-stage workflow automation\\n• Advanced AI writing assistance\\n• Professional content templates\\n• Real-time collaboration tools\\n• Enterprise-grade security\\n• Seamless integration capabilities\\n• Customizable brand voice\",\n  \"quotes\": \"\\\"Franz AI represents the future of intelligent content creation\\\" - Dr. Franz Huber, CEO\\n\\\"Our platform transforms how businesses approach content strategy\\\" - Maria Koller, CTO\",\n  \"statistics\": \"• AI writing market growing 25% annually\\n• 70% reduction in content creation time\\n• 500+ businesses in beta program\\n• 95% user satisfaction rate\"\n}",
+      "promptFile": "prompts/generate-headline.md",
       "jsonFields": [
         { "key": "headline", "label": "Main Headline", "type": "text", "displayOrder": 1 },
         { "key": "subheadline", "label": "Subheadline", "type": "text", "displayOrder": 2 },
@@ -256,7 +256,7 @@
       "autoRun": true,
       "aiRedoEnabled": true,
       "editEnabled": true,
-      "promptTemplate": "Generate REAL contact information based on company research.\n\nCompany: {{basic-info.output.company}}\nLocation: {{basic-info.output.location}}\nWebsite: {{basic-info.output.website}}\n\nResearch Background:\n{{company-research.output.background}}\n\n{{#if contact-preferences.output}}\nPreferences:\n- Department: {{contact-preferences.output.department}}\n- Include Agency: {{contact-preferences.output.includeAgency}}\n{{/if}}\n\nCreate REALISTIC contact details based on the company location and industry:\n1. **name**: Real Austrian/European business name (as a STRING)\n2. **title**: Appropriate executive title (as a STRING) \n3. **email**: Professional email using company domain (as a STRING)\n4. **phone**: Austrian/European phone format +43 for Austria (as a STRING)\n5. **additional**: Additional realistic contact if needed (as a STRING)\n\nReturn ONLY JSON:\n{\n  \"name\": \"Real Austrian/European name\",\n  \"title\": \"Specific executive title\",\n  \"email\": \"name@franzai.com\",\n  \"phone\": \"+43-1-XXX-XXXX\",\n  \"additional\": \"Additional contact info\"\n}",
+      "promptFile": "prompts/generate-contacts.md",
       "jsonFields": [
         { "key": "name", "label": "Contact Name", "type": "text", "displayOrder": 1 },
         { "key": "title", "label": "Title", "type": "text", "displayOrder": 2 },
@@ -281,7 +281,7 @@
       "grounding": {
         "googleSearch": true
       },
-      "promptTemplate": "You are a fact-checker verifying press release claims.\n\nCompany: {{basic-info.output.company}}\nHeadline: {{generate-headline.output.headline}}\nKey Points: {{generate-headline.output.keyPoints}}\nStatistics: {{generate-headline.output.statistics}}\n\nVerify all claims and provide:\n1. **verified**: List of verified facts (as a single STRING with line breaks)\n2. **concerns**: Any questionable claims (as a single STRING with line breaks)\n3. **suggestions**: Recommended corrections (as a single STRING with line breaks)\n4. **status**: APPROVED, NEEDS_REVISION, or REJECTED (as a STRING)\n\nIMPORTANT: Return ONLY the JSON object, no explanation or markdown:\n{\n  \"verified\": \"• Verified fact 1\\n• Verified fact 2\\n• Verified fact 3\",\n  \"concerns\": \"• Concern 1\\n• Concern 2\",\n  \"suggestions\": \"• Suggestion 1\\n• Suggestion 2\",\n  \"status\": \"APPROVED\"\n}",
+      "promptFile": "prompts/fact-check.md",
       "jsonFields": [
         { "key": "verified", "label": "Verified Facts", "type": "textarea", "displayOrder": 1 },
         { "key": "concerns", "label": "Concerns", "type": "textarea", "displayOrder": 2 },
@@ -303,7 +303,7 @@
       "aiRedoEnabled": true,
       "editEnabled": true,
       "copyable": true,
-      "promptTemplate": "Create a professional press release following AP style.\n\n**Company Details:**\n{{basic-info.output.company}} | {{basic-info.output.location}}\n{{basic-info.output.topic}}\n{{basic-info.output.message}}\nWebsite: {{basic-info.output.website}}\n\n**Tone & Style:**\n{{tone-analysis.output.tone}}\n{{tone-analysis.output.style}}\n\n**Content Elements:**\nHeadline: {{generate-headline.output.headline}}\nSubheadline: {{generate-headline.output.subheadline}}\nKey Points: {{generate-headline.output.keyPoints}}\nQuotes: {{generate-headline.output.quotes}}\nStatistics: {{generate-headline.output.statistics}}\n\n**Research Context:**\n{{company-research.output.background}}\n{{company-research.output.industry}}\n{{company-research.output.recent}}\n\n**Media Contact:**\n{{generate-contacts.output.name}}, {{generate-contacts.output.title}}\n{{generate-contacts.output.email}} | {{generate-contacts.output.phone}}\n\n**Fact-Check Status:** {{fact-check.output.status}}\n\nCRITICAL: Write a complete press release with:\n- FOR IMMEDIATE RELEASE header\n- Dateline: {{basic-info.output.location}} - July 3, 2025\n- Use EXACT headline: {{generate-headline.output.headline}}\n- Use EXACT quotes: {{generate-headline.output.quotes}}\n- Use EXACT contact: {{generate-contacts.output.name}}, {{generate-contacts.output.title}}, {{generate-contacts.output.email}}, {{generate-contacts.output.phone}}\n- Body paragraphs with researched context\n- About {{basic-info.output.company}} section\n\nNO PLACEHOLDERS ALLOWED: Use only actual data from previous stages. NO [Current Date], NO [Placeholder Name], NO generic content. Every name, date, quote, and fact must come from the generated data above."
+      "promptFile": "prompts/final-press-release-complete.md"
     },
     {
       "id": "press-photo-briefing",
@@ -315,7 +315,7 @@
       "autorunDependencies": ["final-press-release"],
       "autoRun": true,
       "isOptional": true,
-      "promptTemplate": "Create default image specifications for a press release photo.\n\nPress Release Context:\nCompany: {{basic-info.output.company}}\nTopic: {{basic-info.output.topic}}\nHeadline: {{generate-headline.output.headline}}\n\nReturn ONLY this JSON:\n{\n  \"imageType\": \"concept\",\n  \"description\": \"Professional corporate concept illustration representing {{basic-info.output.topic}} announcement for {{basic-info.output.company}}\",\n  \"aspectRatio\": \"16:9\",\n  \"numberOfImages\": \"2\"\n}",
+      "promptFile": "prompts/press-photo-briefing.md",
       "jsonFields": [
         {
           "key": "imageType",
@@ -353,7 +353,7 @@
       "autorunDependencies": ["press-photo-briefing"],
       "autoRun": true,
       "temperature": 0.7,
-      "promptTemplate": "Create optimized imagen prompts for press release images.\n\nPress Release Context:\nCompany: {{basic-info.output.company}}\nAnnouncement: {{basic-info.output.topic}}\nHeadline: {{generate-headline.output.headline}}\n\nImage Requirements:\n- Type: {{press-photo-briefing.output.imageType}}\n- Description: {{press-photo-briefing.output.description}}\n- Aspect Ratio: {{press-photo-briefing.output.aspectRatio}}\n- Number of Images: {{press-photo-briefing.output.numberOfImages}}\n\nCreate a response with:\n1. An optimized imagen prompt for professional press release imagery\n2. Generate EXACTLY {{press-photo-briefing.output.numberOfImages}} unique filenames (3-4 words each)\n\nFormat as JSON:\n{\n  \"imagenPrompt\": \"Your optimized prompt here\",\n  \"filenames\": [\"unique-filename-one\", \"unique-filename-two\", \"etc...\"]\n}\n\nIMPORTANT:\n- The imagen prompt should be professional and corporate-appropriate\n- Include the specified image type in the prompt\n- You MUST generate exactly {{press-photo-briefing.output.numberOfImages}} filenames in the array\n- Each filename must be 3-4 words, descriptive, and highly unique\n- Do NOT include any text, logos, or writing in the image prompt description\n- Make the prompt visually focused and professional",
+      "promptFile": "prompts/create-press-image-prompt.md",
       "jsonFields": [
         {
           "key": "imagenPrompt",
@@ -380,7 +380,7 @@
       "autorunDependencies": ["create-press-image-prompt"],
       "autoRun": true,
       "model": "imagen-3.0-generate-002",
-      "promptTemplate": "{{create-press-image-prompt.output.imagenPrompt}}",
+      "promptFile": "prompts/generate-press-photo.md",
       "imageGenerationSettings": {
         "provider": "imagen",
         "aspectRatio": "{{press-photo-briefing.output.aspectRatio}}",
@@ -393,13 +393,27 @@
       "hideImageMetadata": true
     },
     {
+      "id": "generate-html-preview",
+      "name": "Generate HTML Preview",
+      "description": "Create a beautiful HTML preview of your press release with embedded images",
+      "inputType": "none",
+      "outputType": "html",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.3,
+      "activationDependencies": ["final-press-release", "generate-press-photo"],
+      "autorunDependencies": ["final-press-release", "generate-press-photo"],
+      "autoRun": true,
+      "aiRedoEnabled": true,
+      "promptFile": "prompts/generate-html-preview.md"
+    },
+    {
       "id": "export",
       "title": "Export & Publish",
       "description": "Transform your press release into professional formats and publish instantly",
       "stageType": "export",
       "inputType": "none",
       "outputType": "export-interface",
-      "activationDependencies": ["final-press-release", "generate-press-photo"],
+      "activationDependencies": ["generate-html-preview"],
       "autoRun": false,
       "showAsHero": true,
       "triggerButton": {
@@ -494,17 +508,18 @@
           "defaultView": "styled",
           "themes": {
             "default": "professional",
-            "options": ["professional", "corporate", "modern", "classic"]
+            "options": ["professional", "corporate", "modern", "classic", "news", "executive"]
           },
           "customization": {
             "fonts": {
-              "heading": "Inter",
-              "body": "Inter"
+              "heading": "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+              "body": "system-ui, -apple-system, BlinkMacSystemFont, sans-serif"
             },
             "colors": {
-              "primary": "#2563eb",
+              "primary": "#0066cc",
               "background": "#ffffff",
-              "text": "#1f2937"
+              "text": "#1a1a1a",
+              "accent": "#f8f9fa"
             }
           }
         }
