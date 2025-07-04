@@ -1,0 +1,251 @@
+{
+  "id": "press-release-perfect",
+  "shortName": "press-release",
+  "name": "Press Release Generator (Perfect)",
+  "description": "One‑form, auto‑cascade workflow that outputs a newsroom‑ready press release with brand‑matched tone, fact‑check, hero image and multi‑format exports.",
+  "config": {
+    "setTitleFromStageOutput": "headline-facts",
+    "finalOutputStageId": "html-preview",
+    "showThinking": false,
+    "autoScroll": { "enabled": true, "scrollToAutorun": true },
+    "progressAnimation": { "dynamicSpeed": true, "singleCycle": false }
+  },
+
+  "stages": [
+    {
+      "id": "brief",
+      "name": "Press‑Release Brief",
+      "inputType": "form",
+      "outputType": "json",
+      "autoRun": false,
+      "formFields": [
+        { "name": "company", "label": "Company Name", "type": "text", "validation": { "required": true } },
+        { "name": "website", "label": "Company Website", "type": "text", "placeholder": "https://…", "validation": { "required": false } },
+        { "name": "announcement", "label": "Announcement (What)", "type": "textarea", "validation": { "required": true, "minLength": 20 } },
+        { "name": "why", "label": "Why It Matters", "type": "textarea", "validation": { "required": true, "minLength": 30 } },
+        { "name": "location", "label": "Dateline Location", "type": "text", "placeholder": "Vienna, Austria", "validation": { "required": true } },
+        { "name": "releaseDate", "label": "Release / Embargo", "type": "text", "placeholder": "YYYY‑MM‑DD or \"immediate\"", "validation": { "required": true } },
+        { "name": "language", "label": "Language", "type": "select", "defaultValue": "en", "options": [
+          { "value": "en", "label": "English" },
+          { "value": "de", "label": "Deutsch" },
+          { "value": "fr", "label": "Français" }
+        ] }
+      ]
+    },
+
+    {
+      "id": "style-corpus",
+      "name": "Collect Past Releases",
+      "description": "Grabs recent press releases from the company site (if available).",
+      "inputType": "none",
+      "outputType": "context",
+      "model": "gemini-2.5-flash",
+      "grounding": { "urlContext": true },
+      "autoRun": true,
+      "activationDependencies": ["brief"],
+      "promptFile": "prompts/01_style_corpus.md"
+    },
+
+    {
+      "id": "style-profile",
+      "name": "Derive Tone & Boilerplate",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.25,
+      "autoRun": true,
+      "activationDependencies": ["style-corpus"],
+      "promptFile": "prompts/02_style_profile.md",
+      "jsonFields": [
+        { "key": "tone", "label": "Tone", "type": "text" },
+        { "key": "style_rules", "label": "Style Rules", "type": "textarea" },
+        { "key": "boilerplate", "label": "Boilerplate", "type": "textarea" }
+      ]
+    },
+
+    {
+      "id": "research",
+      "name": "Company & Market Research",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.3,
+      "grounding": { "googleSearch": true, "urlContext": true },
+      "autoRun": true,
+      "activationDependencies": ["brief"],
+      "promptFile": "prompts/03_research.md",
+      "jsonFields": [
+        { "key": "background", "label": "Background", "type": "textarea" },
+        { "key": "industry", "label": "Industry", "type": "textarea" },
+        { "key": "recent", "label": "Recent", "type": "textarea" },
+        { "key": "stats", "label": "Stats", "type": "textarea" }
+      ]
+    },
+
+    {
+      "id": "headline-facts",
+      "name": "Headline & Key Facts",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.3,
+      "autoRun": true,
+      "activationDependencies": ["research", "style-profile"],
+      "promptFile": "prompts/04_headline_facts.md",
+      "jsonFields": [
+        { "key": "headline", "label": "Headline", "type": "text" },
+        { "key": "subheadline", "label": "Subheadline", "type": "text" },
+        { "key": "bullets", "label": "Key Points", "type": "textarea" },
+        { "key": "quotes", "label": "Quotes", "type": "textarea" },
+        { "key": "metrics", "label": "Statistics", "type": "textarea" }
+      ],
+      "aiRedoEnabled": true,
+      "editEnabled": true,
+      "copyable": true
+    },
+
+    {
+      "id": "contacts",
+      "name": "Media Contact",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.15,
+      "autoRun": true,
+      "activationDependencies": ["brief"],
+      "promptFile": "prompts/05_contacts.md",
+      "jsonFields": [
+        { "key": "name", "label": "Name", "type": "text" },
+        { "key": "title", "label": "Title", "type": "text" },
+        { "key": "email", "label": "Email", "type": "text" },
+        { "key": "phone", "label": "Phone", "type": "text" }
+      ],
+      "editEnabled": true
+    },
+
+    {
+      "id": "fact-check",
+      "name": "Automated Fact‑Check",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.1,
+      "grounding": { "googleSearch": true },
+      "autoRun": true,
+      "activationDependencies": ["headline-facts"],
+      "promptFile": "prompts/06_fact_check.md",
+      "jsonFields": [
+        { "key": "verdict", "label": "Verdict", "type": "text" },
+        { "key": "fixes", "label": "Fixes Needed", "type": "textarea" }
+      ]
+    },
+
+    {
+      "id": "draft-release",
+      "name": "Draft Press Release",
+      "inputType": "none",
+      "outputType": "markdown",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.35,
+      "autoRun": true,
+      "activationDependencies": ["style-profile", "headline-facts", "contacts", "fact-check"],
+      "promptFile": "prompts/07_draft_release.md",
+      "aiRedoEnabled": true,
+      "editEnabled": true,
+      "copyable": true
+    },
+
+    {
+      "id": "press-photo-briefing",
+      "name": "Press Photo Briefing",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.3,
+      "autoRun": true,
+      "activationDependencies": ["draft-release"],
+      "promptFile": "prompts/08_press_photo_briefing.md",
+      "jsonFields": [
+        { "key": "description", "label": "Description", "type": "textarea" },
+        { "key": "aspect", "label": "Aspect Ratio", "type": "text" },
+        { "key": "numImages", "label": "Number", "type": "text" }
+      ]
+    },
+
+    {
+      "id": "create-press-image-prompt",
+      "name": "Create Imagen Prompt",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.7,
+      "autoRun": true,
+      "activationDependencies": ["press-photo-briefing"],
+      "promptFile": "prompts/09_create_press_image_prompt.md",
+      "jsonFields": [
+        { "key": "prompt", "label": "Imagen Prompt", "type": "textarea" },
+        { "key": "filenames", "label": "Filenames", "type": "text" }
+      ]
+    },
+
+    {
+      "id": "generate-press-photo",
+      "name": "Generate Press Photo",
+      "inputType": "none",
+      "outputType": "image",
+      "model": "imagen-3.0-generate-002",
+      "provider": "imagen",
+      "autoRun": true,
+      "activationDependencies": ["create-press-image-prompt"],
+      "promptTemplate": "{{create-press-image-prompt.output.prompt}}",
+      "imageGenerationSettings": {
+        "provider": "imagen",
+        "aspectRatio": "{{press-photo-briefing.output.aspect}}",
+        "numberOfImages": "{{press-photo-briefing.output.numImages}}",
+        "filenames": "{{create-press-image-prompt.output.filenames}}",
+        "imagen": { "personGeneration": "allow_adult" }
+      },
+      "hideImageMetadata": true
+    },
+
+    {
+      "id": "html-preview",
+      "name": "Generate HTML Preview",
+      "inputType": "none",
+      "outputType": "html",
+      "model": "gemini-2.5-flash",
+      "temperature": 0.25,
+      "autoRun": true,
+      "activationDependencies": ["draft-release", "generate-press-photo"],
+      "promptFile": "prompts/11_html_preview.md",
+      "aiRedoEnabled": true,
+      "editEnabled": true
+    },
+
+    {
+      "id": "export",
+      "stageType": "export",
+      "title": "Export & Publish",
+      "inputType": "none",
+      "outputType": "export-interface",
+      "activationDependencies": ["html-preview"],
+      "triggerButton": { "label": "Export & Publish", "variant": "hero", "size": "large" },
+      "exportConfig": {
+        "aiModel": "gemini-2.5-flash",
+        "formats": {
+          "html-styled": { "enabled": true, "promptFile": "prompts/12_html_styled_template.md" },
+          "html-clean": { "enabled": true, "promptFile": "prompts/12_html_clean_template.md" },
+          "markdown": { "enabled": true, "deriveFrom": "html-clean" },
+          "pdf": { "enabled": true, "deriveFrom": "html-styled" },
+          "docx": { "enabled": true, "deriveFrom": "html-styled" }
+        },
+        "publishing": {
+          "enabled": true,
+          "instant": true,
+          "formats": ["html-styled", "html-clean"],
+          "features": { "seo": { "openGraph": true, "structuredData": true } }
+        }
+      }
+    }
+  ]
+}

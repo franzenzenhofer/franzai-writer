@@ -1,0 +1,530 @@
+{
+  "id": "linkedin-post",
+  "shortName": "linkedin",
+  "name": "LinkedIn Post Generator",
+  "description": "Craft scroll-stopping, data-anchored LinkedIn posts with AI-powered research, tone matching, image generation, and single language output",
+  "config": {
+    "setTitleFromStageOutput": "generate-post",
+    "finalOutputStageId": "generate-html-preview",
+    "showThinking": false,
+    "autoScroll": {
+      "enabled": true,
+      "scrollToAutorun": true,
+      "scrollToManual": false
+    },
+    "progressAnimation": {
+      "dynamicSpeed": true,
+      "singleCycle": true
+    }
+  },
+  "stages": [
+    {
+      "id": "brief",
+      "name": "Brief",
+      "description": "Provide the core information for your LinkedIn post",
+      "inputType": "form",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.2,
+      "formFields": [
+        {
+          "name": "message",
+          "label": "Product / Service / Message",
+          "type": "textarea",
+          "placeholder": "Describe what you want to communicate…",
+          "validation": {
+            "required": true,
+            "minLength": 30
+          }
+        },
+        {
+          "name": "audience",
+          "label": "Target Audience",
+          "type": "text",
+          "placeholder": "e.g., SaaS founders, HR professionals",
+          "validation": {
+            "required": true
+          }
+        },
+        {
+          "name": "tone",
+          "label": "Desired Tone & Voice (3–5 words)",
+          "type": "text",
+          "placeholder": "authoritative, data-driven, optimistic",
+          "validation": {
+            "required": true
+          }
+        },
+        {
+          "name": "language",
+          "label": "Language",
+          "type": "text",
+          "placeholder": "English, German, French, Spanish, etc.",
+          "validation": {
+            "required": true
+          }
+        },
+        {
+          "name": "author",
+          "label": "Who wrote this / Author",
+          "type": "text",
+          "placeholder": "Your name or company name",
+          "validation": {
+            "required": true
+          }
+        },
+        {
+          "name": "linkedinUrl",
+          "label": "LinkedIn Profile or Company Page (optional)",
+          "type": "text",
+          "placeholder": "https://linkedin.com/in/yourprofile or company page",
+          "validation": {
+            "required": false
+          }
+        },
+        {
+          "name": "website",
+          "label": "Website (optional)",
+          "type": "text",
+          "placeholder": "https://yourwebsite.com (for tone analysis)",
+          "validation": {
+            "required": false
+          }
+        },
+        {
+          "name": "links",
+          "label": "Optional Links for Context",
+          "type": "textarea",
+          "placeholder": "https://example.com/feature",
+          "validation": {
+            "required": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "tone-materials",
+      "name": "Reference Posts (optional)",
+      "description": "Paste previous LinkedIn posts or brand guidelines to match tone",
+      "inputType": "context",
+      "outputType": "json",
+      "isOptional": true,
+      "autoRun": false,
+      "editEnabled": true
+    },
+    {
+      "id": "grounding-research",
+      "name": "LinkedIn Posts & Website Analysis",
+      "description": "AI finds reference LinkedIn posts and analyzes website for tone",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.3,
+      "grounding": {
+        "googleSearch": true,
+        "urlContext": true
+      },
+      "promptFile": "prompts/grounding-research.md",
+      "activationDependencies": ["brief"],
+      "autorunDependencies": ["brief"],
+      "autoRun": true,
+      "aiRedoEnabled": true,
+      "editEnabled": true,
+      "jsonFields": [
+        {
+          "key": "linkedinPosts",
+          "label": "Reference LinkedIn Posts Found",
+          "type": "textarea",
+          "displayOrder": 1
+        },
+        {
+          "key": "websiteAnalysis",
+          "label": "Website Tone Analysis",
+          "type": "textarea",
+          "displayOrder": 2
+        },
+        {
+          "key": "brandVoice",
+          "label": "Brand Voice Insights",
+          "type": "textarea",
+          "displayOrder": 3
+        },
+        {
+          "key": "recommendations",
+          "label": "Tone Recommendations",
+          "type": "textarea",
+          "displayOrder": 4
+        }
+      ]
+    },
+    {
+      "id": "tone-analysis",
+      "name": "Tone & Voice Analysis",
+      "description": "AI extracts tone, style, phrases from supplied material",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.3,
+      "promptFile": "prompts/tone-analysis.md",
+      "activationDependencies": ["brief"],
+      "autorunDependencies": ["brief", "tone-materials", "grounding-research"],
+      "autoRun": true,
+      "aiRedoEnabled": true,
+      "editEnabled": true,
+      "jsonFields": [
+        {
+          "key": "tone",
+          "label": "Tone",
+          "type": "textarea",
+          "displayOrder": 1
+        },
+        {
+          "key": "style",
+          "label": "Style Guidelines",
+          "type": "textarea",
+          "displayOrder": 2
+        },
+        {
+          "key": "phrases",
+          "label": "Key Phrases",
+          "type": "textarea",
+          "displayOrder": 3
+        },
+        {
+          "key": "formatting",
+          "label": "Formatting Notes",
+          "type": "textarea",
+          "displayOrder": 4
+        }
+      ]
+    },
+    {
+      "id": "research",
+      "name": "Live Research",
+      "description": "AI finds fresh data points & examples",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.3,
+      "grounding": {
+        "googleSearch": true,
+        "urlContext": true
+      },
+      "promptFile": "prompts/research.md",
+      "activationDependencies": ["brief"],
+      "autorunDependencies": ["brief"],
+      "autoRun": true,
+      "aiRedoEnabled": true,
+      "editEnabled": true,
+      "jsonFields": [
+        {
+          "key": "stats",
+          "label": "Validated Statistics",
+          "type": "textarea",
+          "displayOrder": 1
+        },
+        {
+          "key": "examples",
+          "label": "Mini Case Studies",
+          "type": "textarea",
+          "displayOrder": 2
+        },
+        {
+          "key": "insights",
+          "label": "Actionable Insights",
+          "type": "textarea",
+          "displayOrder": 3
+        },
+        {
+          "key": "sources",
+          "label": "Cited Sources",
+          "type": "textarea",
+          "displayOrder": 4
+        }
+      ]
+    },
+    {
+      "id": "generate-outline",
+      "name": "Hook, Story, CTA",
+      "description": "AI drafts hook, narrative bullets, CTA, and one data point",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.35,
+      "promptFile": "prompts/generate-outline.md",
+      "activationDependencies": ["tone-analysis", "research"],
+      "autorunDependencies": ["tone-analysis", "research"],
+      "autoRun": true,
+      "aiRedoEnabled": true,
+      "jsonFields": [
+        {
+          "key": "hook",
+          "label": "Scroll-Stopping Hook",
+          "type": "text",
+          "displayOrder": 1
+        },
+        {
+          "key": "story",
+          "label": "Value Story (≤120 words)",
+          "type": "textarea",
+          "displayOrder": 2
+        },
+        {
+          "key": "cta",
+          "label": "Call To Action",
+          "type": "text",
+          "displayOrder": 3
+        },
+        {
+          "key": "data",
+          "label": "Data Point w/ Citation",
+          "type": "text",
+          "displayOrder": 4
+        }
+      ]
+    },
+    {
+      "id": "hashtags",
+      "name": "Hashtag Optimization",
+      "description": "AI suggests 5-8 smart hashtags",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.25,
+      "promptFile": "prompts/hashtags.md",
+      "activationDependencies": ["generate-outline"],
+      "autorunDependencies": ["generate-outline"],
+      "autoRun": true,
+      "jsonFields": [
+        {
+          "key": "hashtags",
+          "label": "Hashtags",
+          "type": "text",
+          "displayOrder": 1
+        }
+      ]
+    },
+    {
+      "id": "generate-post",
+      "name": "Generate LinkedIn Post",
+      "description": "AI produces final post in specified language",
+      "inputType": "none",
+      "outputType": "markdown",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.35,
+      "promptFile": "prompts/generate-post.md",
+      "activationDependencies": ["generate-outline", "hashtags"],
+      "autorunDependencies": ["generate-outline", "hashtags"],
+      "autoRun": true,
+      "aiRedoEnabled": true,
+      "editEnabled": true,
+      "copyable": true
+    },
+    {
+      "id": "image-briefing",
+      "name": "Image Briefing (optional)",
+      "description": "Define style & ratio for the LinkedIn visual",
+      "inputType": "form",
+      "outputType": "json",
+      "isOptional": true,
+      "activationDependencies": ["generate-post"],
+      "autoRun": false,
+      "formFields": [
+        {
+          "name": "style",
+          "label": "Visual Style",
+          "type": "select",
+          "defaultValue": "minimalist",
+          "options": [
+            {
+              "value": "minimalist",
+              "label": "Minimalist Illustration"
+            },
+            {
+              "value": "photorealistic",
+              "label": "Photorealistic"
+            },
+            {
+              "value": "flat",
+              "label": "Flat Iconic"
+            },
+            {
+              "value": "isometric",
+              "label": "Isometric"
+            }
+          ],
+          "validation": {
+            "required": true
+          }
+        },
+        {
+          "name": "aspectRatio",
+          "label": "Aspect Ratio",
+          "type": "select",
+          "defaultValue": "1:1",
+          "options": [
+            {
+              "value": "1:1",
+              "label": "Square (1:1)"
+            },
+            {
+              "value": "4:5",
+              "label": "Portrait (4:5) – Feed"
+            },
+            {
+              "value": "16:9",
+              "label": "Wide (16:9) – Link"
+            }
+          ],
+          "validation": {
+            "required": true
+          }
+        },
+        {
+          "name": "additionalPrompt",
+          "label": "Extra Instructions",
+          "type": "textarea",
+          "placeholder": "e.g., corporate blue palette",
+          "validation": {
+            "required": false,
+            "maxLength": 300
+          }
+        }
+      ]
+    },
+    {
+      "id": "create-image-prompt",
+      "name": "Create Image Prompt",
+      "description": "AI writes Imagen prompt + filenames",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.7,
+      "promptFile": "prompts/create-image-prompt.md",
+      "activationDependencies": ["generate-post", "image-briefing"],
+      "autorunDependencies": ["image-briefing"],
+      "autoRun": true,
+      "aiRedoEnabled": true,
+      "jsonFields": [
+        {
+          "key": "imagenPrompt",
+          "label": "Optimized Imagen Prompt",
+          "type": "textarea",
+          "displayOrder": 1
+        },
+        {
+          "key": "filenames",
+          "label": "Filenames",
+          "type": "text",
+          "displayOrder": 2
+        }
+      ]
+    },
+    {
+      "id": "generate-image",
+      "name": "Generate LinkedIn Visual",
+      "description": "AI generates post image",
+      "inputType": "none",
+      "outputType": "image",
+      "model": "imagen-3.0-generate-002",
+      "promptTemplate": "{{create-image-prompt.output.imagenPrompt}}",
+      "imageGenerationSettings": {
+        "provider": "imagen",
+        "aspectRatio": "{{image-briefing.output.aspectRatio}}",
+        "numberOfImages": "1",
+        "filenames": "{{create-image-prompt.output.filenames}}",
+        "imagen": {
+          "personGeneration": "allow_adult"
+        }
+      },
+      "activationDependencies": ["create-image-prompt"],
+      "autorunDependencies": ["create-image-prompt"],
+      "autoRun": true,
+      "hideImageMetadata": true
+    },
+    {
+      "id": "generate-html-preview",
+      "name": "Generate HTML Preview",
+      "description": "Create a shareable HTML preview of the LinkedIn post",
+      "inputType": "none",
+      "outputType": "html",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.25,
+      "promptFile": "prompts/generate-html-preview.md",
+      "activationDependencies": ["generate-post"],
+      "autorunDependencies": ["generate-post", "generate-image"],
+      "autoRun": true,
+      "aiRedoEnabled": true
+    },
+    {
+      "id": "export",
+      "title": "Export & Publish",
+      "description": "Export the LinkedIn post in different formats",
+      "stageType": "export",
+      "inputType": "none",
+      "outputType": "export-interface",
+      "activationDependencies": ["generate-html-preview"],
+      "autoRun": false,
+      "showAsHero": true,
+      "triggerButton": {
+        "label": "Export LinkedIn Post",
+        "variant": "hero",
+        "size": "large",
+        "description": "Create exports & share links"
+      },
+      "exportConfig": {
+        "aiModel": "gemini-2.0-flash",
+        "temperature": 0.25,
+        "formats": {
+          "html-styled": {
+            "enabled": true,
+            "label": "Styled HTML",
+            "description": "Beautiful post mock-up for approvals",
+            "promptFile": "prompts/html-styled-template.md"
+          },
+          "html-clean": {
+            "enabled": true,
+            "label": "Clean HTML",
+            "description": "Semantic HTML (CMS-ready)",
+            "promptFile": "prompts/html-clean-template.md"
+          },
+          "markdown": {
+            "enabled": true,
+            "label": "Markdown",
+            "description": "Copy-friendly markdown",
+            "deriveFrom": "html-clean"
+          },
+          "pdf": {
+            "enabled": true,
+            "label": "PDF",
+            "description": "Proof PDF",
+            "deriveFrom": "html-styled"
+          }
+        },
+        "publishing": {
+          "enabled": true,
+          "instant": true,
+          "baseUrl": "/published",
+          "formats": ["html-styled", "html-clean"],
+          "features": {
+            "seo": {
+              "noindex": true,
+              "openGraph": true
+            },
+            "sharing": {
+              "shortUrls": true,
+              "socialButtons": true
+            }
+          }
+        },
+        "styling": {
+          "defaultView": "styled",
+          "themes": {
+            "default": "social",
+            "options": ["social", "minimal", "corporate"]
+          }
+        }
+      }
+    }
+  ]
+} 

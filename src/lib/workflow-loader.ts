@@ -8,6 +8,8 @@ import recipeSeoOptimizedWorkflowData from "@/workflows/recipe-seo-optimized/wor
 import poemGeneratorWorkflowData from "@/workflows/poem-generator/workflow.json";
 import geminiToolsTestWorkflowData from "@/workflows/gemini-tools-test/workflow.json";
 import pressReleaseWorkflowData from "@/workflows/press-release/workflow.json";
+import linkedinPostWorkflowData from "@/workflows/linkedin-post/workflow.json";
+import recipeGeneratorWorkflowData from "@/workflows/recipe-generator/workflow.json";
 
 // Helper function to map workflow JSON to Workflow type
 function mapWorkflowData(data: any): Workflow {
@@ -26,6 +28,8 @@ const recipeSeoOptimizedWorkflow: Workflow = mapWorkflowData(recipeSeoOptimizedW
 const poemGeneratorWorkflow: Workflow = mapWorkflowData(poemGeneratorWorkflowData);
 const geminiToolsTestWorkflow: Workflow = mapWorkflowData(geminiToolsTestWorkflowData);
 const pressReleaseWorkflow: Workflow = mapWorkflowData(pressReleaseWorkflowData);
+const linkedinPostWorkflow: Workflow = mapWorkflowData(linkedinPostWorkflowData);
+const recipeGeneratorWorkflow: Workflow = mapWorkflowData(recipeGeneratorWorkflowData);
 
 export const allWorkflows: Workflow[] = [
   targetedPageSeoOptimizedV3Workflow,
@@ -33,6 +37,8 @@ export const allWorkflows: Workflow[] = [
   poemGeneratorWorkflow,
   geminiToolsTestWorkflow,
   pressReleaseWorkflow,
+  linkedinPostWorkflow,
+  recipeGeneratorWorkflow,
   // Add other imported workflows here
 ];
 

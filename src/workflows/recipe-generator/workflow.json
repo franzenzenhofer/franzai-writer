@@ -1,0 +1,383 @@
+{
+  "id": "recipe-generator",
+  "shortName": "recipe-v2",
+  "name": "Recipe Generator",
+  "description": "Create flawless, brand‑consistent recipes with AI‑powered research, validation and image generation.",
+  "defaultModel": "gemini-2.5-flash",
+  "config": {
+    "setTitleFromStageOutput": "generate-recipe-structure",
+    "finalOutputStageId": "generate-html-preview",
+    "showThinking": false,
+    "autoScroll": {
+      "enabled": true,
+      "scrollToAutorun": true,
+      "scrollToManual": false
+    },
+    "progressAnimation": {
+      "dynamicSpeed": true,
+      "singleCycle": true
+    }
+  },
+  "stages": [
+    {
+      "id": "recipe-brief",
+      "title": "Recipe Brief",
+      "description": "Enter the minimum details for the recipe.",
+      "inputType": "form",
+      "outputType": "json",
+      "formFields": [
+        { "name": "dish",            "label": "Dish Name",          "type": "text",     "placeholder": "e.g., Creamy Lemon Risotto", "validation": { "required": true } },
+        { "name": "servings",        "label": "Servings",           "type": "text",     "placeholder": "e.g., 4",                     "validation": { "required": true } },
+        { "name": "diet",            "label": "Dietary Style",      "type": "text",     "placeholder": "e.g., vegetarian, nut‑free",  "validation": { "required": false } },
+        { "name": "heroIngredients", "label": "Hero Ingredients",   "type": "text",     "placeholder": "e.g., arborio rice; lemon",   "validation": { "required": true } },
+        { "name": "language",        "label": "Target Language",    "type": "select",
+          "defaultValue": "en-US",
+          "options": [
+            { "value": "en-US", "label": "English (US)" },
+            { "value": "en-GB", "label": "English (UK)" },
+            { "value": "de-DE", "label": "Deutsch (DE)" },
+            { "value": "fr-FR", "label": "Français (FR)" },
+            { "value": "es-ES", "label": "Español (ES)" }
+          ],
+          "validation": { "required": true }
+        },
+        { "name": "tone",            "label": "Brand Tone ID",      "type": "text",     "placeholder": "e.g., SunnyKitchen™",         "validation": { "required": true } }
+      ],
+      "autoRun": false
+    },
+
+    {
+      "id": "reference-urls",
+      "title": "Reference URLs (Optional)",
+      "description": "Paste brand recipe URLs for tone & formatting extraction.",
+      "inputType": "form",
+      "outputType": "json",
+      "isOptional": true,
+      "formFields": [
+        { "name": "urls", "label": "URLs (one per line)", "type": "textarea", "validation": { "required": false } }
+      ],
+      "autoRun": false
+    },
+
+    {
+      "id": "brand-style-analysis",
+      "title": "Brand Style Analysis",
+      "description": "AI analyses brand tone, language and formatting quirks.",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.4,
+      "promptFile": "prompts/brand-style-analysis.md",
+      "jsonFields": [
+        { "key": "voice",          "label": "Voice Characteristics", "type": "textarea", "displayOrder": 1 },
+        { "key": "formatting",     "label": "Formatting Rules",      "type": "textarea", "displayOrder": 2 },
+        { "key": "phraseLibrary",  "label": "Signature Phrases",     "type": "textarea", "displayOrder": 3 },
+        { "key": "imageStyle",     "label": "Image Style Cues",      "type": "textarea", "displayOrder": 4 }
+      ],
+      "activationDependencies": ["recipe-brief"],
+      "autorunDependencies": ["recipe-brief", "reference-urls"],
+      "autoRun": true,
+      "aiRedoEnabled": true,
+      "editEnabled": true
+    },
+
+    {
+      "id": "culinary-research",
+      "title": "Culinary Research & Validation",
+      "description": "AI validates ingredient ratios & techniques via authoritative sources.",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.2,
+      "grounding": { "googleSearch": true, "urlContext": true },
+      "promptFile": "prompts/culinary-research.md",
+      "jsonFields": [
+        { "key": "ratioGuidelines", "label": "Key Ratios",       "type": "textarea", "displayOrder": 1 },
+        { "key": "techniques",      "label": "Recommended Steps", "type": "textarea", "displayOrder": 2 },
+        { "key": "sourceList",      "label": "References",        "type": "textarea", "displayOrder": 3 }
+      ],
+      "activationDependencies": ["recipe-brief"],
+      "autorunDependencies": ["recipe-brief"],
+      "autoRun": true,
+      "aiRedoEnabled": true,
+      "editEnabled": true
+    },
+
+    {
+      "id": "generate-ingredients",
+      "title": "Draft Ingredients",
+      "description": "AI drafts scaled, fact‑checked ingredient list.",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.3,
+      "promptFile": "prompts/generate-ingredients.md",
+      "jsonFields": [
+        { "key": "ingredients", "label": "Ingredient List", "type": "textarea", "displayOrder": 1 },
+        { "key": "allergens",   "label": "Allergen Flags",  "type": "text",     "displayOrder": 2 }
+      ],
+      "activationDependencies": ["culinary-research"],
+      "autorunDependencies": ["culinary-research"],
+      "autoRun": true,
+      "aiRedoEnabled": true,
+      "copyable": true
+    },
+
+    {
+      "id": "generate-method",
+      "title": "Draft Method & Timing",
+      "description": "AI generates step‑by‑step instructions with sensory cues and times.",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.35,
+      "promptFile": "prompts/generate-method.md",
+      "jsonFields": [
+        { "key": "steps",        "label": "Method Steps",  "type": "textarea", "displayOrder": 1 },
+        { "key": "totalTime",    "label": "Total Time",    "type": "text",     "displayOrder": 2 },
+        { "key": "stepTimes",    "label": "Step Times",    "type": "textarea", "displayOrder": 3 },
+        { "key": "sensoryCues",  "label": "Sensory Cues",  "type": "textarea", "displayOrder": 4 }
+      ],
+      "activationDependencies": ["generate-ingredients"],
+      "autorunDependencies": ["generate-ingredients", "brand-style-analysis"],
+      "autoRun": true,
+      "aiRedoEnabled": true,
+      "copyable": true
+    },
+
+    {
+      "id": "consistency-audit",
+      "title": "Internal Consistency Audit",
+      "description": "Rule‑based check for times, yields, allergens & claims.",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.1,
+      "promptFile": "prompts/consistency-audit.md",
+      "jsonFields": [
+        { "key": "issues",   "label": "Detected Issues",   "type": "textarea", "displayOrder": 1 },
+        { "key": "status",   "label": "Approval Status",  "type": "text",     "displayOrder": 2 }
+      ],
+      "activationDependencies": ["generate-method"],
+      "autorunDependencies": ["generate-method"],
+      "autoRun": true
+    },
+
+    {
+      "id": "nutrition-panel",
+      "title": "Nutrition Panel",
+      "description": "AI calculates per‑serving nutrition data.",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.2,
+      "promptFile": "prompts/nutrition-panel.md",
+      "jsonFields": [
+        { "key": "calories",   "label": "Calories",        "type": "text",     "displayOrder": 1 },
+        { "key": "macros",     "label": "Macros",          "type": "textarea", "displayOrder": 2 },
+        { "key": "allergens",  "label": "Allergens",       "type": "text",     "displayOrder": 3 }
+      ],
+      "activationDependencies": ["generate-ingredients"],
+      "autorunDependencies": ["generate-ingredients"],
+      "autoRun": true
+    },
+
+    {
+      "id": "image-briefing",
+      "title": "Image Customization",
+      "description": "Optional settings for recipe images.",
+      "inputType": "form",
+      "outputType": "json",
+      "isOptional": true,
+      "formFields": [
+        { "name": "style",           "label": "Artistic Style",   "type": "select",
+          "defaultValue": "photorealistic",
+          "options": [
+            { "value": "photorealistic", "label": "Photorealistic" },
+            { "value": "minimalist",     "label": "Minimalist Food" },
+            { "value": "rustic",         "label": "Rustic & Cozy" },
+            { "value": "bright",         "label": "Bright & Airy" }
+          ],
+          "validation": { "required": true }
+        },
+        { "name": "aspectRatio",     "label": "Aspect Ratio",     "type": "select",
+          "defaultValue": "4:3",
+          "options": [
+            { "value": "1:1", "label": "Square 1:1" },
+            { "value": "4:3", "label": "Classic 4:3" },
+            { "value": "3:4", "label": "Portrait 3:4" },
+            { "value": "16:9", "label": "Wide 16:9" }
+          ],
+          "validation": { "required": true }
+        },
+        { "name": "numberOfImages",  "label": "Variations",       "type": "select",
+          "defaultValue": "2",
+          "options": [
+            { "value": "1", "label": "1" },
+            { "value": "2", "label": "2" },
+            { "value": "3", "label": "3" }
+          ],
+          "validation": { "required": true }
+        },
+        { "name": "additionalPrompt","label": "Extra Instructions","type": "textarea", "validation": { "required": false } }
+      ],
+      "activationDependencies": ["generate-method"],
+      "autoRun": false
+    },
+
+    {
+      "id": "create-image-prompt",
+      "title": "Create Image Prompt",
+      "description": "AI crafts Imagen prompt & filenames.",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.7,
+      "promptFile": "prompts/create-image-prompt.md",
+      "jsonFields": [
+        { "key": "imagenPrompt", "label": "Imagen Prompt", "type": "textarea", "displayOrder": 1 },
+        { "key": "filenames",    "label": "Filenames",     "type": "text",     "displayOrder": 2 }
+      ],
+      "activationDependencies": ["generate-method", "image-briefing"],
+      "autorunDependencies": ["generate-method", "image-briefing"],
+      "autoRun": true,
+      "aiRedoEnabled": true
+    },
+
+    {
+      "id": "generate-recipe-image",
+      "title": "Generate Recipe Image",
+      "description": "Imagen model generates hero & process shots.",
+      "inputType": "none",
+      "outputType": "image",
+      "model": "imagen-3.0-generate-002",
+      "promptTemplate": "{{create-image-prompt.output.imagenPrompt}}",
+      "imageGenerationSettings": {
+        "provider": "imagen",
+        "aspectRatio": "{{image-briefing.output.aspectRatio}}",
+        "numberOfImages": "{{image-briefing.output.numberOfImages}}",
+        "filenames": "{{create-image-prompt.output.filenames}}",
+        "imagen": { "personGeneration": "allow_adult" }
+      },
+      "activationDependencies": ["create-image-prompt"],
+      "autoRun": true,
+      "hideImageMetadata": true
+    },
+
+    {
+      "id": "generate-recipe-structure",
+      "title": "Generate Recipe JSON",
+      "description": "Compile final, localised recipe object.",
+      "inputType": "none",
+      "outputType": "json",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.25,
+      "promptFile": "prompts/generate-recipe-structure.md",
+      "jsonFields": [
+        { "key": "title",        "label": "Recipe Title",         "type": "text",     "displayOrder": 1 },
+        { "key": "servings",     "label": "Servings",             "type": "text",     "displayOrder": 2 },
+        { "key": "ingredients",  "label": "Ingredients",          "type": "textarea", "displayOrder": 3 },
+        { "key": "method",       "label": "Method",               "type": "textarea", "displayOrder": 4 },
+        { "key": "nutrition",    "label": "Nutrition",            "type": "textarea", "displayOrder": 5 },
+        { "key": "totalTime",    "label": "Total Time",           "type": "text",     "displayOrder": 6 },
+        { "key": "language",     "label": "Language",             "type": "text",     "displayOrder": 7 }
+      ],
+      "activationDependencies": ["consistency-audit", "nutrition-panel"],
+      "autorunDependencies": ["consistency-audit", "nutrition-panel"],
+      "autoRun": true,
+      "aiRedoEnabled": true,
+      "copyable": true
+    },
+
+    {
+      "id": "generate-html-preview",
+      "title": "Generate HTML Preview",
+      "description": "AI converts recipe into responsive HTML.",
+      "inputType": "none",
+      "outputType": "html",
+      "model": "gemini-2.0-flash",
+      "temperature": 0.3,
+      "promptFile": "prompts/generate-html-preview.md",
+      "activationDependencies": ["generate-recipe-structure", "generate-recipe-image"],
+      "autorunDependencies": ["generate-recipe-structure", "generate-recipe-image"],
+      "autoRun": true,
+      "aiRedoEnabled": true
+    },
+
+    {
+      "id": "export-publish",
+      "title": "Export & Publish",
+      "description": "Create professional exports and publish recipes.",
+      "stageType": "export",
+      "inputType": "none",
+      "outputType": "export-interface",
+      "activationDependencies": ["generate-html-preview"],
+      "autoRun": false,
+      "showAsHero": true,
+      "triggerButton": {
+        "label": "Export & Publish Recipe",
+        "variant": "hero",
+        "size": "large",
+        "description": "Generate beautiful exports and shareable links"
+      },
+      "exportConfig": {
+        "aiModel": "gemini-2.0-flash",
+        "temperature": 0.3,
+        "formats": {
+          "html-styled": {
+            "enabled": true,
+            "label": "Beautiful Recipe",
+            "description": "Styled HTML with food‑friendly typography",
+            "promptFile": "prompts/html-styled-template.md",
+            "features": ["Responsive layout", "Print‑ready", "Accessible markup"]
+          },
+          "html-clean": {
+            "enabled": true,
+            "label": "Clean HTML",
+            "description": "Semantic HTML ready for any CMS",
+            "promptFile": "prompts/html-clean-template.md",
+            "features": ["CMS‑friendly", "SEO‑optimised", "Accessibility compliant"]
+          },
+          "markdown": {
+            "enabled": true,
+            "label": "Markdown",
+            "description": "GitHub‑flavoured markdown",
+            "deriveFrom": "html-clean",
+            "options": { "flavor": "github", "preserveHtml": false }
+          },
+          "pdf": {
+            "enabled": true,
+            "label": "PDF",
+            "description": "Print‑perfect recipe PDF",
+            "deriveFrom": "html-styled"
+          },
+          "docx": {
+            "enabled": true,
+            "label": "Word Doc",
+            "description": "Recipe in DOCX format",
+            "deriveFrom": "html-styled"
+          }
+        },
+        "publishing": {
+          "enabled": true,
+          "instant": true,
+          "baseUrl": "/published",
+          "formats": ["html-styled", "html-clean"],
+          "features": {
+            "seo": { "noindex": false, "openGraph": true, "twitterCard": true, "structuredData": true },
+            "sharing": { "shortUrls": true, "qrCode": true, "socialButtons": true },
+            "branding": { "showLogo": true, "poweredBy": "Created with Franz AI Writer" }
+          }
+        },
+        "styling": {
+          "defaultView": "styled",
+          "themes": { "default": "culinary", "options": ["culinary", "minimal", "rustic", "modern"] },
+          "customization": {
+            "fonts": { "heading": "Playfair Display", "body": "Source Sans Pro" },
+            "colors": { "primary": "#d97706", "background": "#fffdfa", "text": "#1a1a1a" }
+          }
+        }
+      }
+    }
+  ]
+} 
