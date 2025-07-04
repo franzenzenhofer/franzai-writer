@@ -334,27 +334,15 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     const newStageStates = { ...currentStageStates };
     let changed = false;
 
-    stages.forEach((stage, idx) => {
+    stages.forEach(stage => {
       const currentState = newStageStates[stage.id];
       if (!currentState) return; // Should not happen if initialized correctly
 
-      // Determine activation dependencies:
-      // 1. Use explicit activationDependencies if provided (legacy behaviour)
-      // 2. Otherwise, default to *all previous NON-OPTIONAL* stages in the workflow order
-      let activationDeps: string[] = [];
+      // Evaluate activation dependencies
       let depsMet = true;
-      if (stage.activationDependencies && stage.activationDependencies.length > 0) {
-        activationDeps = stage.activationDependencies;
-      } else {
-        // No explicit dependencies – build implicit list of prior non-optional stages
-        activationDeps = stages
-          .slice(0, idx) // all stages above current one
-          .filter(s => !s.isOptional) // only non-optional stages
-          .map(s => s.id);
-      }
-
+      const activationDeps = stage.activationDependencies || [];
       if (activationDeps.length > 0) {
-        depsMet = activationDeps.every(depId =>
+        depsMet = activationDeps.every(depId => 
           newStageStates[depId]?.status === 'completed'
         );
       }
@@ -454,17 +442,12 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
       // Determine if stage should auto-run
       let shouldAutoRun = false;
       if (stage.autoRun && currentState.status === 'idle' && !currentState.isEditingOutput) {
-        // Additional autorun rule: *all* previous stages (optional or not) must be completed
-        const allPrevStagesCompleted = stages
-          .slice(0, idx)
-          .every(prevStage => newStageStates[prevStage.id]?.status === 'completed');
-
         if (stage.autoRunConditions) {
           // Use complex autorun conditions AND autorun dependencies
-          shouldAutoRun = depsMet && autoRunConditionsMet && autorunDepsMet && allPrevStagesCompleted;
+          shouldAutoRun = depsMet && autoRunConditionsMet && autorunDepsMet;
         } else {
           // Use simple dependency logic - stage must be active (depsMet) AND autorun deps met
-          shouldAutoRun = depsMet && autorunDepsMet && allPrevStagesCompleted;
+          shouldAutoRun = depsMet && autorunDepsMet;
         }
         
         // Debug logging for autorun decision

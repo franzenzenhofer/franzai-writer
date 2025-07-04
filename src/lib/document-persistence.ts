@@ -858,11 +858,9 @@ class DocumentPersistenceManager {
         return issues;
       };
       
-      let nestedIssues = checkForNestedObjects(cleaned);
-      // Ignore first-level stage objects (e.g., root.stageId) – we only care about DEEP nesting
-      nestedIssues = nestedIssues.filter(path => path.split('.').length > 2);
+      const nestedIssues = checkForNestedObjects(cleaned);
       if (nestedIssues.length > 0) {
-        console.error('[DocumentPersistence] CRITICAL: Found deeply nested objects after cleaning:', nestedIssues);
+        console.error('[DocumentPersistence] CRITICAL: Found nested objects after cleaning:', nestedIssues);
         // Log sample of problematic data
         nestedIssues.slice(0, 5).forEach(path => {
           console.error(`[DocumentPersistence] Nested object at ${path}`);
