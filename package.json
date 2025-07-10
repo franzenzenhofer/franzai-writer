@@ -18,6 +18,7 @@
     "emulators:docker": "docker-compose up firebase-emulators",
     "emulators:docker:build": "docker-compose build firebase-emulators",
     "build": "next build",
+    "build:analyze": "ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
@@ -33,7 +34,12 @@
     "logs:errors": "grep ERROR logs/nextjs-dev.log || echo 'No errors found'",
     "kill": "pkill -f 'next-server' || true; pkill -f 'genkit' || true; pkill -f 'firebase-tools' || true; pkill -f 'java.*firestore' || true; lsof -ti:9002,4000,9099,8080,5001,5002,4400,4500,9150 | xargs kill -9 2>/dev/null || true; echo '✅ All servers and emulators killed'",
     "status": "curl -s http://localhost:9099 > /dev/null && echo '🔥 Auth Emulator: ✅ Running' || echo '🔥 Auth Emulator: ❌ Not Running'; curl -s http://localhost:8080 > /dev/null && echo '🔥 Firestore Emulator: ✅ Running' || echo '🔥 Firestore Emulator: ❌ Not Running'; curl -s http://localhost:4000 > /dev/null && echo '🔥 Emulator UI: ✅ Running' || echo '🔥 Emulator UI: ❌ Not Running'; curl -s http://localhost:9002 > /dev/null && echo '⚡ Next.js Dev: ✅ Running' || echo '⚡ Next.js Dev: ❌ Not Running'",
-    "logs:emulators": "tail -f logs/firebase-emulators.log"
+    "logs:emulators": "tail -f logs/firebase-emulators.log",
+    "bundle:analyze": "npm run build:analyze && npx webpack-bundle-analyzer .next/static/webpack/report.json",
+    "bundle:size": "npm run build && npx bundlesize",
+    "bundle:report": "node scripts/bundle-analysis.js",
+    "deps:analyze": "madge --circular --extensions ts,tsx,js,jsx src/",
+    "deps:unused": "knip --reporter json > .knip-report.json && cat .knip-report.json"
   },
   "dependencies": {
     "@google/genai": "^1.5.0",
@@ -96,6 +102,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "^15.3.3",
     "@playwright/test": "^1.52.0",
+    "bundlesize": "^0.18.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
@@ -118,5 +125,15 @@
     "ts-jest": "^29.4.0",
     "typescript": "^5",
     "webpack-bundle-analyzer": "^4.10.2"
-  }
+  },
+  "bundlesize": [
+    {
+      "path": ".next/static/js/**/*.js",
+      "maxSize": "500kb"
+    },
+    {
+      "path": ".next/static/css/**/*.css",
+      "maxSize": "50kb"
+    }
+  ]
 }
