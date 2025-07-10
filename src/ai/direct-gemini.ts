@@ -1,5 +1,7 @@
 import { GoogleGenAI } from '@google/genai';
 import { logAI } from '@/lib/ai-logger';
+import { z } from 'zod';
+import { validateAiResponseOrThrow } from '@/lib/ai-validation';
 
 // Direct Gemini API client for Google Search grounding
 let genAI: GoogleGenAI | null = null;
@@ -37,6 +39,43 @@ export interface DirectGeminiRequest {
   contextVars?: any;
 }
 
+// Zod schema for strict runtime validation of DirectGeminiResponse
+const DirectGeminiResponseSchema = z.object({
+  content: z.string(),
+  groundingMetadata: z.object({
+    searchEntryPoint: z.any().optional(),
+    groundingChunks: z.array(z.any()).optional(),
+    groundingSupports: z.array(z.any()).optional(),
+    retrievalMetadata: z.any().optional(),
+    webSearchQueries: z.array(z.string()).optional(),
+  }).optional(),
+  urlContextMetadata: z.object({
+    urlMetadata: z.array(z.object({
+      retrievedUrl: z.string(),
+      urlRetrievalStatus: z.string(),
+    })).optional(),
+  }).optional(),
+  groundingSources: z.array(z.object({
+    title: z.string(),
+    uri: z.string(),
+    snippet: z.string().optional(),
+  })).optional(),
+  thinkingSteps: z.array(z.object({
+    type: z.enum(['thought', 'textLog']),
+    text: z.string().optional(),
+    content: z.string().optional(),
+    thought: z.boolean().optional(),
+  })).optional(),
+  usageMetadata: z.object({
+    thoughtsTokenCount: z.number().optional(),
+    candidatesTokenCount: z.number().optional(),
+    totalTokenCount: z.number().optional(),
+    promptTokenCount: z.number().optional(),
+  }).optional(),
+  candidates: z.array(z.any()).optional(),
+  modelVersion: z.string().optional(),
+});
+
 export interface DirectGeminiResponse {
   content: string;
   groundingMetadata?: {
@@ -68,6 +107,8 @@ export interface DirectGeminiResponse {
   candidates?: any[];
   modelVersion?: string;
 }
+
+export type DirectGeminiResponseType = z.infer<typeof DirectGeminiResponseSchema>;
 
 export async function generateWithDirectGemini(request: DirectGeminiRequest): Promise<DirectGeminiResponse> {
   const client = initializeGenAI();
@@ -297,6 +338,31 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
       modelVersion: response.modelVersion
     };
 
+    // 🔒 RUNTIME VALIDATION: Validate AI response against Zod schema
+    console.log('🔒 [Direct Gemini] Validating AI response structure...');
+    const validatedResult = validateAiResponseOrThrow(
+      DirectGeminiResponseSchema,
+      result,
+      {
+        type: 'DirectGeminiResponse',
+        workflowName: request.workflowName,
+        stageName: request.stageName,
+        stageId: request.stageId,
+      }
+    );
+    
+    // Log validation success
+    logAI('VALIDATION_SUCCESS', { 
+      type: 'DirectGeminiResponse',
+      hasGroundingMetadata: !!validatedResult.groundingMetadata,
+      hasUrlContextMetadata: !!validatedResult.urlContextMetadata,
+      hasThinkingSteps: !!validatedResult.thinkingSteps,
+      contentLength: validatedResult.content.length,
+      workflowName: request.workflowName,
+      stageName: request.stageName,
+      stageId: request.stageId,
+    });
+    
     console.log('✅ [Direct Gemini] Generation completed successfully');
     logAI('RESPONSE', { 
       type: 'Direct Gemini API', 
@@ -427,7 +493,7 @@ export async function generateStreamWithDirectGemini(request: DirectGeminiReques
           }
         }
 
-        yield {
+        const streamResult = {
           content: accumulatedContent,
           groundingMetadata: finalGroundingMetadata,
           groundingSources: finalGroundingSources,
@@ -435,6 +501,20 @@ export async function generateStreamWithDirectGemini(request: DirectGeminiReques
           candidates: chunk.candidates,
           modelVersion: chunk.modelVersion
         };
+
+        // 🔒 RUNTIME VALIDATION: Validate streaming AI response against Zod schema
+        const validatedStreamResult = validateAiResponseOrThrow(
+          DirectGeminiResponseSchema,
+          streamResult,
+          {
+            type: 'DirectGeminiStreamResponse',
+            workflowName: request.workflowName,
+            stageName: request.stageName,
+            stageId: request.stageId,
+          }
+        );
+        
+        yield validatedStreamResult;
       }
     }
 

@@ -6,6 +6,7 @@ import { generateWithDirectGemini, type DirectGeminiRequest } from '@/ai/direct-
 import { appendFileSync } from 'fs';
 import { join } from 'path';
 import { cleanAiResponse } from '@/lib/ai-content-cleaner';
+import { validateAiResponseOrThrow } from '@/lib/ai-validation';
 
 // Input Schema including all Gemini features with proper grounding implementation
 const AiStageExecutionInputSchema = z.object({
@@ -158,6 +159,34 @@ export type AiStageOutputSchema = z.infer<typeof AiStageOutputSchema>;
 export async function aiStageExecutionFlow(
   input: AiStageExecutionInput
 ): Promise<AiStageOutputSchema> {
+    // 🔒 RUNTIME VALIDATION: Validate input parameters against Zod schema
+    console.log('🔒 [AI Stage Execution] Validating input parameters...');
+    const validatedInput = validateAiResponseOrThrow(
+      AiStageExecutionInputSchema,
+      input,
+      {
+        type: 'AiStageExecutionInput',
+        workflowName: (input as any).workflow?.name,
+        stageName: (input as any).stage?.name,
+        stageId: (input as any).stage?.id || (input as any).stageId,
+      }
+    );
+    
+    // Log validation success
+    logToAiLog('[AI STAGE INPUT VALIDATION SUCCESS]', {
+      hasPromptTemplate: !!validatedInput.promptTemplate,
+      model: validatedInput.model,
+      stageOutputType: validatedInput.stageOutputType,
+      hasGroundingSettings: !!validatedInput.groundingSettings,
+      hasThinkingSettings: !!validatedInput.thinkingSettings,
+      workflowName: validatedInput.workflow?.name,
+      stageName: validatedInput.stage?.name,
+      stageId: validatedInput.stage?.id || validatedInput.stageId,
+    });
+    
+    // Use validated input for destructuring
+    input = validatedInput;
+
     let {
       promptTemplate, model, temperature, imageData,
       thinkingSettings, toolNames, fileInputs,
@@ -208,11 +237,35 @@ export async function aiStageExecutionFlow(
           stageId
         });
         
-        // Return the image data as content
-        return {
+        // Create result object for image generation
+        const imageStageResult = {
           content: imageResult,
           thinkingSteps: []
         };
+        
+        // 🔒 RUNTIME VALIDATION: Validate image generation stage output against Zod schema
+        console.log('🔒 [AI Stage Execution] Validating image generation stage output...');
+        const validatedImageResult = validateAiResponseOrThrow(
+          AiStageOutputSchema,
+          imageStageResult,
+          {
+            type: 'AiStageImageOutput',
+            workflowName: workflow?.name,
+            stageName: stage?.name,
+            stageId: stage?.id || stageId,
+          }
+        );
+        
+        // Log validation success
+        logToAiLog('[AI STAGE IMAGE VALIDATION SUCCESS]', {
+          hasContent: !!validatedImageResult.content,
+          contentType: typeof validatedImageResult.content,
+          workflowName: workflow?.name,
+          stageName: stage?.name,
+          stageId: stage?.id || stageId,
+        });
+        
+        return validatedImageResult;
       } catch (error: any) {
         console.error('[AI Stage Flow Enhanced] Image generation failed:', error);
         throw new Error(`Image generation failed: ${error.message}`);
@@ -550,16 +603,40 @@ async function executeWithDirectGeminiAPI(
       usageMetadata: result.usageMetadata,
     };
     
-    // LOG PROCESSED RESULT BEING RETURNED
-    logToAiLog('[DIRECT GEMINI PROCESSED RESULT - NON-STREAMING]', {
-      hasContent: !!processedResult.content,
-      hasGroundingMetadata: !!processedResult.groundingMetadata,
-      hasGroundingSources: !!processedResult.groundingSources,
-      groundingSourcesCount: processedResult.groundingSources?.length || 0,
-      allProcessedKeys: Object.keys(processedResult)
+    // 🔒 RUNTIME VALIDATION: Validate final AI stage output against Zod schema
+    console.log('🔒 [AI Stage Execution] Validating final stage output...');
+    const validatedResult = validateAiResponseOrThrow(
+      AiStageOutputSchema,
+      processedResult,
+      {
+        type: 'AiStageOutput',
+        workflowName: originalInput?.workflow?.name,
+        stageName: originalInput?.stage?.name,
+        stageId: originalInput?.stage?.id || originalInput?.stageId,
+      }
+    );
+    
+    // Log validation success
+    logToAiLog('[AI STAGE VALIDATION SUCCESS]', {
+      hasContent: !!validatedResult.content,
+      hasGroundingMetadata: !!validatedResult.groundingMetadata,
+      hasGroundingSources: !!validatedResult.groundingSources,
+      groundingSourcesCount: validatedResult.groundingSources?.length || 0,
+      workflowName: originalInput?.workflow?.name,
+      stageName: originalInput?.stage?.name,
+      stageId: originalInput?.stage?.id || originalInput?.stageId,
     });
     
-    return processedResult;
+    // LOG PROCESSED RESULT BEING RETURNED
+    logToAiLog('[DIRECT GEMINI PROCESSED RESULT - NON-STREAMING]', {
+      hasContent: !!validatedResult.content,
+      hasGroundingMetadata: !!validatedResult.groundingMetadata,
+      hasGroundingSources: !!validatedResult.groundingSources,
+      groundingSourcesCount: validatedResult.groundingSources?.length || 0,
+      allProcessedKeys: Object.keys(validatedResult)
+    });
+    
+    return validatedResult;
     
   } catch (error: unknown) {
     // LOG DIRECT GEMINI ERROR
