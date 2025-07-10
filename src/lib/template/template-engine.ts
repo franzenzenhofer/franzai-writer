@@ -1,5 +1,6 @@
 import Handlebars from 'handlebars';
 import type { TemplateContext } from './template-context';
+import { sanitizeTemplateVariable } from '@/lib/security/sanitization';
 
 // Register custom helpers for common template operations
 Handlebars.registerHelper('json', (value) => {
@@ -27,12 +28,32 @@ const templateCache = new Map<string, HandlebarsTemplateDelegate>();
 function compileTemplate(source: string): HandlebarsTemplateDelegate {
   if (!templateCache.has(source)) {
     const template = Handlebars.compile(source, { 
-      noEscape: true,
+      noEscape: false, // Enable HTML escaping for security
       strict: false // Allow undefined properties to be null instead of throwing
     });
     templateCache.set(source, template);
   }
   return templateCache.get(source)!;
+}
+
+/**
+ * Sanitizes template context to prevent injection attacks
+ */
+function sanitizeTemplateContext(context: TemplateContext): TemplateContext {
+  const sanitized: TemplateContext = {};
+  
+  for (const [key, value] of Object.entries(context)) {
+    if (typeof value === 'string') {
+      sanitized[key] = sanitizeTemplateVariable(value);
+    } else if (typeof value === 'object' && value !== null) {
+      // Recursively sanitize nested objects
+      sanitized[key] = sanitizeTemplateContext(value as TemplateContext);
+    } else {
+      sanitized[key] = value;
+    }
+  }
+  
+  return sanitized;
 }
 
 /**
@@ -42,7 +63,8 @@ function compileTemplate(source: string): HandlebarsTemplateDelegate {
 export function renderTemplate(source: string, context: TemplateContext): string {
   try {
     const template = compileTemplate(source);
-    const rendered = template(context);
+    const sanitizedContext = sanitizeTemplateContext(context);
+    const rendered = template(sanitizedContext);
     
     // Clean up any remaining handlebars expressions that didn't resolve
     // This prevents template syntax from being sent to AI models

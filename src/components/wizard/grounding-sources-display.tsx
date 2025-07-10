@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { useState } from 'react';
+import { createSafeHtml } from '@/lib/security/sanitization';
 
 interface GroundingSource {
   type: 'search' | 'url';
@@ -232,9 +233,9 @@ export function GroundingSourcesDisplay({ sources, groundingMetadata, functionCa
               </h5>
               <div 
                 className="grounding-search-suggestions text-xs border rounded p-2 bg-gray-50"
-                dangerouslySetInnerHTML={{ 
-                  __html: groundingMetadata.searchEntryPoint.renderedContent 
-                }}
+                dangerouslySetInnerHTML={createSafeHtml(
+                  groundingMetadata.searchEntryPoint.renderedContent
+                )}
               />
             </div>
           </>

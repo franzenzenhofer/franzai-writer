@@ -6,6 +6,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { cleanAiResponse } from '@/lib/ai-content-cleaner';
 import { buildContext, renderTemplate } from '@/lib/template';
+import { sanitizeAiContent } from '@/lib/security/sanitization';
 
 export interface HtmlGenerationOptions {
   stages: Stage[];
@@ -128,7 +129,10 @@ async function generateStyledHtml(
   }
   
   // Clean HTML output - remove code fences and markdown formatting
-  return cleanAiResponse(result.content, 'html');
+  const cleanedContent = cleanAiResponse(result.content, 'html');
+  
+  // Sanitize AI-generated content to prevent XSS attacks
+  return sanitizeAiContent(cleanedContent);
 }
 
 /**
@@ -172,7 +176,10 @@ async function generateCleanHtml(
   }
   
   // Clean HTML output - remove code fences and markdown formatting
-  return cleanAiResponse(result.content, 'html');
+  const cleanedContent = cleanAiResponse(result.content, 'html');
+  
+  // Sanitize AI-generated content to prevent XSS attacks
+  return sanitizeAiContent(cleanedContent);
 }
 
 /**

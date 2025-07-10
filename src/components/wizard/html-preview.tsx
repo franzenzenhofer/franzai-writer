@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect } from 'react';
 import { cn } from "@/lib/utils";
+import { sanitizeHtml } from "@/lib/security/sanitization";
 
 interface HtmlPreviewProps {
   content: string;
@@ -64,8 +65,8 @@ export function HtmlPreview({ content, removeBorder = false, className = "" }: H
       shadowRootRef.current = shadowRef.current.attachShadow({ mode: 'closed' });
     }
 
-    // Set the cleaned HTML content in the shadow DOM
-    shadowRootRef.current.innerHTML = cleanedContent;
+    // Set the cleaned and sanitized HTML content in the shadow DOM
+    shadowRootRef.current.innerHTML = sanitizeHtml(cleanedContent);
 
     // Clean up function
     return () => {

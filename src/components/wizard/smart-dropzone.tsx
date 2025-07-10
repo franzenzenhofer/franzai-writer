@@ -6,6 +6,7 @@ import { UploadCloud, FileText as FileTextIcon, AlertTriangle } from "lucide-rea
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { sanitizeFileContent } from "@/lib/security/sanitization";
 
 interface SmartDropzoneProps {
   onTextExtracted: (text: string) => void;
@@ -27,13 +28,14 @@ export function SmartDropzone({ onTextExtracted, className, label = "Drag 'n' dr
         switch (extension) {
           case "txt":
           case "md":
-            resolve(fileContent);
+            resolve(sanitizeFileContent(fileContent, extension));
             break;
           case "html":
             try {
               const parser = new DOMParser();
               const doc = parser.parseFromString(fileContent, "text/html");
-              resolve(doc.body.textContent || "");
+              const textContent = doc.body.textContent || "";
+              resolve(sanitizeFileContent(textContent, extension));
             } catch (e) {
               reject("Failed to parse HTML file.");
             }

@@ -19,6 +19,7 @@ import { ImageOutputDisplay } from "./image-output-display";
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { useToast } from "@/hooks/use-toast";
+import { createSafeHtml } from "@/lib/security/sanitization";
 
 
 interface StageOutputAreaProps {
@@ -461,9 +462,9 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
           <h4 className="text-sm font-medium mb-2 text-muted-foreground">Google Search Suggestions</h4>
           <div 
             className="grounding-search-suggestions"
-            dangerouslySetInnerHTML={{ 
-              __html: stageState.groundingMetadata.searchEntryPoint.renderedContent 
-            }}
+            dangerouslySetInnerHTML={createSafeHtml(
+              stageState.groundingMetadata.searchEntryPoint.renderedContent
+            )}
           />
         </div>
       )}

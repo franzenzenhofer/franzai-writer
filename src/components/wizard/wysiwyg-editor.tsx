@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Eye, Code, Save } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { createSafeWysiwygHtml } from "@/lib/security/sanitization";
 
 interface WysiwygEditorProps {
   content: string;
@@ -31,20 +32,11 @@ export function WysiwygEditor({
     onChange(newContent);
   };
 
-  const sanitizeHtml = (html: string) => {
-    // Basic HTML sanitization - in production, consider using DOMPurify
-    return html
-      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-      .replace(/javascript:/gi, '')
-      .replace(/on\w+\s*=/gi, '');
-  };
-
   const renderPreview = () => {
-    const sanitizedContent = sanitizeHtml(localContent);
     return (
       <div 
         className="prose prose-sm max-w-none p-4 border rounded-md bg-background min-h-[200px]"
-        dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+        dangerouslySetInnerHTML={createSafeWysiwygHtml(localContent)}
       />
     );
   };

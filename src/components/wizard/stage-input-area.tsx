@@ -17,6 +17,7 @@ import * as z from "zod";
 // Save icon removed as button is removed
 import { FileText } from "lucide-react";
 import { isSubmitShortcut } from "@/lib/platform-utils";
+import { sanitizeTextInput } from "@/lib/security/sanitization";
 
 export interface StageInputAreaProps {
   stage: Stage;
@@ -260,8 +261,10 @@ export const StageInputArea = forwardRef<StageInputAreaRef, StageInputAreaProps>
   };
 
   const handleContextDroppedText = (text: string) => {
-    setContextDroppedInput(text);
-    onInputChange(stage.id, "userInput", { manual: contextManualInput, dropped: text });
+    // Sanitize file content before processing
+    const sanitizedText = sanitizeTextInput(text);
+    setContextDroppedInput(sanitizedText);
+    onInputChange(stage.id, "userInput", { manual: contextManualInput, dropped: sanitizedText });
   };
 
   const getSelectOptions = (field: FormField): FormFieldOption[] => {

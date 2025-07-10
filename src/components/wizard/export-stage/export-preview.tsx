@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Eye, Code } from "lucide-react";
+import { sanitizeHtml } from "@/lib/security/sanitization";
 
 interface ExportPreviewProps {
   htmlStyled?: string;
@@ -134,7 +135,7 @@ export function ExportPreview({ htmlStyled, htmlClean, htmlStyledUrl, htmlCleanU
       </style>
       ${cleanedHtml}`;
     
-    shadowRootRef.current.innerHTML = wrappedHtml;
+    shadowRootRef.current.innerHTML = sanitizeHtml(wrappedHtml);
     
     return () => {
       if (shadowRootRef.current) {
