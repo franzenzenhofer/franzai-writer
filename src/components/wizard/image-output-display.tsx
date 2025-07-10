@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { Download, Loader2, AlertCircle, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { OptimizedImage } from "@/components/ui/optimized-image";
+import { AIImageDisplay } from "@/components/ui/ai-image-display";
 import { cn } from "@/lib/utils";
 import type { ImageOutputData } from "@/types";
 
@@ -131,124 +132,38 @@ export function ImageOutputDisplay({
     imageUrl = '';
   }
 
+  // Convert ImageOutputData to AIImageData format for the new component
+  const aiImageData = output.images.map(image => ({
+    assetId: image.assetId,
+    publicUrl: image.publicUrl,
+    storageUrl: image.storageUrl,
+    dataUrl: image.dataUrl,
+    promptUsed: image.promptUsed,
+    mimeType: image.mimeType,
+    width: image.width,
+    height: image.height,
+    aspectRatio: image.aspectRatio,
+  }));
+
   return (
     <div className="space-y-4">
-      {/* Main image display */}
-      <Card>
-        <CardContent className="p-4">
-          <div className="relative">
-            {imageUrl ? (
-              <Image
-                src={imageUrl}
-                alt={`Generated image: ${selectedImage?.promptUsed || 'Generated image'}`}
-                width={selectedImage?.width || 800}
-                height={selectedImage?.height || 600}
-                className="w-full h-auto rounded-lg"
-                data-aspect-ratio={selectedImage?.aspectRatio}
-              />
-            ) : (
-              <div className="w-full h-48 bg-muted rounded-lg flex items-center justify-center">
-                <div className="text-center text-muted-foreground">
-                  <AlertCircle className="h-8 w-8 mx-auto mb-2" />
-                  <p className="text-sm">Image URL not available</p>
-                </div>
-              </div>
-            )}
-            
-            {/* Aspect ratio badge */}
-            {selectedImage?.aspectRatio && (
-              <Badge 
-                variant="secondary" 
-                className="absolute top-2 left-2"
-              >
-                {selectedImage.aspectRatio}
-              </Badge>
-            )}
-            
-            {/* Action buttons */}
-            {imageUrl && selectedImage && (
-              <div className="absolute top-2 right-2 flex gap-1">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => handleDownload(selectedImage, selectedIndex)}
-                  id="image-download-btn"
-                >
-                  <Download className="h-4 w-4 mr-1" />
-                  Download
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="px-2"
-                  onClick={() => handleOpenInNewTab(imageUrl)}
-                  title="Open image in new tab"
-                  id="image-open-new-tab-btn"
-                  aria-label="Open image in new tab"
-                >
-                  <ExternalLink className="h-4 w-4" />
-                </Button>
-              </div>
-            )}
-          </div>
-
-          {/* Image metadata */}
-          {!hideMetadata && selectedImage && (
-            <div className="mt-4 space-y-2">
-              {selectedImage.promptUsed && (
-                <p className="text-sm text-muted-foreground">
-                  <span className="font-medium">Prompt:</span> {selectedImage.promptUsed}
-                </p>
-              )}
-              {selectedImage.width && selectedImage.height && (
-                <p className="text-sm text-muted-foreground">
-                  <span className="font-medium">Dimensions:</span> {selectedImage.width} × {selectedImage.height}
-                </p>
-              )}
-              {output?.provider && (
-                <p className="text-sm text-muted-foreground">
-                  <span className="font-medium">Provider:</span> {output.provider}
-                </p>
-              )}
-            </div>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Thumbnail gallery for multiple images */}
-      {output.images.length > 1 && (
-        <div className="grid grid-cols-4 gap-2">
-          {output.images.map((image, index) => {
-            const thumbUrl = image.publicUrl || image.storageUrl || image.dataUrl;
-            return (
-              <Button
-                key={index}
-                variant="ghost"
-                size="sm"
-                onClick={() => {
-                  setSelectedIndex(index);
-                  onImageSelection?.(index);
-                }}
-                className={cn(
-                  "relative rounded-lg overflow-hidden p-0 h-auto",
-                  selectedIndex === index
-                    ? "ring-2 ring-primary ring-offset-2"
-                    : ""
-                )}
-              >
-                <Image
-                  src={thumbUrl || '/placeholder-image.png'}
-                  alt={`Thumbnail ${index + 1}`}
-                  width={200}
-                  height={150}
-                  className="w-full h-auto"
-                />
-                <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-colors" />
-              </Button>
-            );
-          })}
-        </div>
-      )}
+      {/* Use new AI Image Display component */}
+      <AIImageDisplay
+        images={aiImageData}
+        selectedIndex={selectedIndex}
+        onSelectionChange={(index) => {
+          setSelectedIndex(index);
+          onImageSelection?.(index);
+        }}
+        showMetadata={!hideMetadata}
+        showDownload={true}
+        showQualitySelector={true}
+        showFormatSelector={true}
+        enableComparison={output.images.length > 1}
+        displayMode={output.images.length > 1 ? 'single' : 'single'}
+        sizePreset="large"
+        className="space-y-4"
+      />
 
       {/* Accompanying text from Gemini if present */}
       {output.accompanyingText && (

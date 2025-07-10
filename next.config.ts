@@ -23,6 +23,21 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
+    // Enable modern image formats (WebP, AVIF)
+    formats: ['image/avif', 'image/webp'],
+    // Default quality for optimized images
+    quality: 80,
+    // Enable responsive image sizes
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Optimize images for better loading performance
+    minimumCacheTTL: 86400, // 24 hours
+    dangerouslyAllowSVG: false,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Enable placeholder blur for better UX
+    placeholder: 'blur',
+    // Lazy loading by default
+    loading: 'lazy',
   },
   // Turbopack configuration (stable in Next.js 15.3+)
   turbopack: {
