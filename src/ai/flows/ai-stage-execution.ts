@@ -6,6 +6,7 @@ import { generateWithDirectGemini, type DirectGeminiRequest } from '@/ai/direct-
 import { appendFileSync } from 'fs';
 import { join } from 'path';
 import { cleanAiResponse } from '@/lib/ai-content-cleaner';
+import { determineRetryConfig, getRetryConfigWithFeedback } from '@/config/ai-retry-config';
 
 // Input Schema including all Gemini features with proper grounding implementation
 const AiStageExecutionInputSchema = z.object({
@@ -78,6 +79,10 @@ const AiStageExecutionInputSchema = z.object({
   }).optional(),
   // Add context variables for template resolution
   contextVars: z.record(z.any()).optional(),
+  // Retry configuration
+  retryConfig: z.enum(['CONSERVATIVE', 'STANDARD', 'AGGRESSIVE', 'RATE_LIMIT', 'FAST', 'NONE']).optional(),
+  // User feedback callback for retries
+  onRetryFeedback: z.function().optional(),
 });
 export type AiStageExecutionInput = z.infer<typeof AiStageExecutionInputSchema>;
 
@@ -165,7 +170,7 @@ export async function aiStageExecutionFlow(
       functionCallingMode, forceGoogleSearchGrounding,
       imageGenerationSettings, stageOutputType,
       userId, documentId, stageId,
-      workflow, stage
+      workflow, stage, retryConfig, onRetryFeedback
     } = input;
 
     console.log('[AI Stage Flow Enhanced] Starting with input:', {
@@ -199,14 +204,54 @@ export async function aiStageExecutionFlow(
       
       const { generateImages } = await import('@/lib/ai-image-generator');
       
+      // Get retry configuration for image generation
+      const { retryConfig: imageRetryConfig, onRetryFeedback: imageOnRetryFeedback } = getRetryConfigWithFeedback(
+        'imageGeneration',
+        workflow?.id,
+        stage?.id || stageId,
+        onRetryFeedback
+      );
+      
       try {
-        const imageResult = await generateImages({
-          prompt: promptTemplate, // This is already the resolved prompt from aiActions-new.ts
-          settings: imageGenerationSettings,
-          userId,
-          documentId,
-          stageId
-        });
+        // Import retry utility
+        const { withAIRetryAndFeedback, withAIRetry } = await import('@/lib/ai-retry');
+        
+        let imageResult;
+        if (imageRetryConfig === 'NONE') {
+          // No retry logic
+          imageResult = await generateImages({
+            prompt: promptTemplate, // This is already the resolved prompt from aiActions-new.ts
+            settings: imageGenerationSettings,
+            userId,
+            documentId,
+            stageId
+          });
+        } else if (imageOnRetryFeedback) {
+          // Use retry with user feedback
+          imageResult = await withAIRetryAndFeedback(
+            () => generateImages({
+              prompt: promptTemplate,
+              settings: imageGenerationSettings,
+              userId,
+              documentId,
+              stageId
+            }),
+            imageOnRetryFeedback,
+            imageRetryConfig
+          );
+        } else {
+          // Use standard retry
+          imageResult = await withAIRetry(
+            () => generateImages({
+              prompt: promptTemplate,
+              settings: imageGenerationSettings,
+              userId,
+              documentId,
+              stageId
+            }),
+            imageRetryConfig
+          );
+        }
         
         // Return the image data as content
         return {
@@ -381,6 +426,24 @@ export async function aiStageExecutionFlow(
         }
       }
       
+      // Determine retry configuration based on context
+      const contextualRetryConfig = retryConfig || determineRetryConfig({
+        hasGrounding: true,
+        hasThinking: thinkingSettings?.enabled,
+        hasFunctionCalling: availableTools.length > 0,
+        isImageGeneration: stageOutputType === 'image',
+        workflowId: workflow?.id,
+        stageId: stage?.id || stageId
+      });
+      
+      // Get retry configuration with feedback
+      const { retryConfig: finalRetryConfig, onRetryFeedback: finalOnRetryFeedback } = getRetryConfigWithFeedback(
+        'grounding',
+        workflow?.id,
+        stage?.id || stageId,
+        onRetryFeedback
+      );
+      
       // Use direct API path for grounding
       return await executeWithDirectGeminiAPI(
         {
@@ -401,7 +464,10 @@ export async function aiStageExecutionFlow(
           workflowName: workflow?.name,
           stageName: stage?.name,
           stageId: stage?.id || stageId,
-          contextVars: input.contextVars
+          contextVars: input.contextVars,
+          // Retry configuration
+          retryConfig: finalRetryConfig,
+          onRetryFeedback: finalOnRetryFeedback
         },
         currentThinkingSteps,
         input
@@ -422,6 +488,34 @@ export async function aiStageExecutionFlow(
       }
     }
 
+    // Determine retry configuration based on context
+    const contextualRetryConfig = retryConfig || determineRetryConfig({
+      hasGrounding: false,
+      hasThinking: thinkingSettings?.enabled,
+      hasFunctionCalling: availableTools.length > 0,
+      isImageGeneration: stageOutputType === 'image',
+      workflowId: workflow?.id,
+      stageId: stage?.id || stageId
+    });
+    
+    // Determine operation type for retry config
+    let operationType: 'textGeneration' | 'imageGeneration' | 'grounding' | 'thinking' | 'functionCalling' = 'textGeneration';
+    if (stageOutputType === 'image') {
+      operationType = 'imageGeneration';
+    } else if (thinkingSettings?.enabled) {
+      operationType = 'thinking';
+    } else if (availableTools.length > 0) {
+      operationType = 'functionCalling';
+    }
+    
+    // Get retry configuration with feedback
+    const { retryConfig: finalRetryConfig, onRetryFeedback: finalOnRetryFeedback } = getRetryConfigWithFeedback(
+      operationType,
+      workflow?.id,
+      stage?.id || stageId,
+      onRetryFeedback
+    );
+    
     // Always use direct Gemini API
     return await executeWithDirectGeminiAPI(
       {
@@ -431,7 +525,10 @@ export async function aiStageExecutionFlow(
         systemInstruction: systemInstructions,
         tools: availableTools,
         enableGoogleSearch: false,
-        enableUrlContext: false
+        enableUrlContext: false,
+        // Retry configuration
+        retryConfig: finalRetryConfig,
+        onRetryFeedback: finalOnRetryFeedback
       },
       currentThinkingSteps,
       input

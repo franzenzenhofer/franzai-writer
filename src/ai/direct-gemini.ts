@@ -1,5 +1,6 @@
 import { GoogleGenAI } from '@google/genai';
 import { logAI } from '@/lib/ai-logger';
+import { withAIRetry, withAIRetryAndFeedback, RETRY_CONFIGS } from '@/lib/ai-retry';
 
 // Direct Gemini API client for Google Search grounding
 let genAI: GoogleGenAI | null = null;
@@ -35,6 +36,10 @@ export interface DirectGeminiRequest {
   stageName?: string;
   stageId?: string;
   contextVars?: any;
+  // Retry configuration
+  retryConfig?: keyof typeof RETRY_CONFIGS | 'NONE';
+  // User feedback callback for retries
+  onRetryFeedback?: (attempt: number, reason: string, delay: number) => void;
 }
 
 export interface DirectGeminiResponse {
@@ -168,12 +173,39 @@ export async function generateWithDirectGemini(request: DirectGeminiRequest): Pr
   });
 
   try {
-    // Make the API call
-    const response = await client.models.generateContent({
-      model: request.model,
-      contents,
-      config
-    });
+    // Make the API call with retry logic
+    const retryConfig = request.retryConfig || 'STANDARD';
+    
+    let response;
+    if (retryConfig === 'NONE') {
+      // No retry logic
+      response = await client.models.generateContent({
+        model: request.model,
+        contents,
+        config
+      });
+    } else if (request.onRetryFeedback) {
+      // Use retry with user feedback
+      response = await withAIRetryAndFeedback(
+        () => client.models.generateContent({
+          model: request.model,
+          contents,
+          config
+        }),
+        request.onRetryFeedback,
+        retryConfig
+      );
+    } else {
+      // Use standard retry
+      response = await withAIRetry(
+        () => client.models.generateContent({
+          model: request.model,
+          contents,
+          config
+        }),
+        retryConfig
+      );
+    }
 
     console.log('📥 [Direct Gemini] Raw response keys:', Object.keys(response));
     
@@ -393,11 +425,38 @@ export async function generateStreamWithDirectGemini(request: DirectGeminiReques
   }
 
   try {
-    const streamPromise = client.models.generateContentStream({
-      model: request.model,
-      contents,
-      config
-    });
+    const retryConfig = request.retryConfig || 'STANDARD';
+    
+    let streamPromise;
+    if (retryConfig === 'NONE') {
+      // No retry logic
+      streamPromise = client.models.generateContentStream({
+        model: request.model,
+        contents,
+        config
+      });
+    } else if (request.onRetryFeedback) {
+      // Use retry with user feedback
+      streamPromise = withAIRetryAndFeedback(
+        () => client.models.generateContentStream({
+          model: request.model,
+          contents,
+          config
+        }),
+        request.onRetryFeedback,
+        retryConfig
+      );
+    } else {
+      // Use standard retry
+      streamPromise = withAIRetry(
+        () => client.models.generateContentStream({
+          model: request.model,
+          contents,
+          config
+        }),
+        retryConfig
+      );
+    }
 
     async function* processStream() {
       let accumulatedContent = '';
