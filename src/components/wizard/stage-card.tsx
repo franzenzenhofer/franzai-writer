@@ -18,25 +18,76 @@ import { StageInfoTrigger } from "./stage-info-overlay";
 import { useToast } from "@/hooks/use-toast";
 import { KeyboardHint } from "@/components/ui/keyboard-hint";
 
+/**
+ * Props for the StageCard component.
+ * 
+ * This interface defines all the props required for rendering and interacting with a single stage
+ * in the workflow. It includes stage configuration, state management, and event handlers.
+ * 
+ * @interface StageCardProps
+ */
 interface StageCardProps {
+  /** The stage configuration object containing all stage metadata and settings */
   stage: Stage;
-  workflow: Workflow; // Added to get stage titles for dependency messages
+  /** The complete workflow definition used for dependency resolution and titles */
+  workflow: Workflow;
+  /** Current state of this specific stage including status, inputs, outputs, and flags */
   stageState: StageState;
+  /** Whether this stage is currently the active/focused stage in the workflow */
   isCurrentStage: boolean;
+  /** Callback to execute/run the stage with optional input and AI redo notes */
   onRunStage: (stageId: string, userInput?: any, aiRedoNotes?: string) => void;
-  onInputChange: (stageId: string, fieldName: string, value: any) => void; // Still needed for non-form simple inputs
-  onFormSubmit: (stageId: string, data: any) => void; // Will be called by StageCard before onRunStage for forms
-
+  /** Callback for handling simple input changes (textarea, context inputs) */
+  onInputChange: (stageId: string, fieldName: string, value: any) => void;
+  /** Callback for handling form submission data before stage execution */
+  onFormSubmit: (stageId: string, data: any) => void;
+  /** Callback to request editing of stage input (resets stage to input mode) */
   onEditInputRequest: (stageId: string) => void;
+  /** Callback to save edited output content */
   onOutputEdit: (stageId: string, newOutput: any) => void;
+  /** Callback to toggle output editing mode */
   onSetEditingOutput: (stageId: string, isEditing: boolean) => void;
-  onDismissStaleWarning: (stageId: string) => void; // New handler for dismissing stale warning
+  /** Callback to dismiss stale content warnings */
+  onDismissStaleWarning: (stageId: string) => void;
+  /** All stage states in the workflow for dependency and context resolution */
   allStageStates: Record<string, StageState>;
+  /** Optional document ID for persistence and export operations */
   documentId?: string;
+  /** Optional callback for updating stage state (primarily for export stages) */
   onUpdateStageState?: (stageId: string, updates: Partial<ExportStageState>) => void;
 }
 
-// Enhanced error display component with copy functionality
+/**
+ * Enhanced error display component with copy functionality and user-friendly error messages.
+ * 
+ * This component provides a comprehensive error display interface for stage execution errors,
+ * including intelligent error message interpretation, copy functionality, and actionable user guidance.
+ * 
+ * @param props - Component props
+ * @param props.error - The raw error message from stage execution
+ * @param props.stageTitle - The display title of the stage that encountered the error
+ * @returns JSX.Element - A styled error display with copy functionality
+ * 
+ * ## Features
+ * - **Smart Error Interpretation**: Converts technical errors into user-friendly messages
+ * - **Copy Functionality**: Allows users to copy detailed error reports for support
+ * - **Contextual Tips**: Provides specific guidance based on error type
+ * - **Visual Feedback**: Clear visual indicators for error state and copy actions
+ * 
+ * ## Error Types Handled
+ * - **Template Errors**: Missing or invalid template variables
+ * - **AI Service Errors**: Configuration and initialization issues
+ * - **Network Errors**: Connectivity and timeout problems
+ * - **Processing Errors**: General AI processing failures
+ * 
+ * @example
+ * ```typescript
+ * <StageErrorDisplay 
+ *   error="Template variable '{{topic}}' not found in context" 
+ *   stageTitle="Poem Generation"
+ * />
+ * ```
+ */
 function StageErrorDisplay({ error, stageTitle }: { error: string; stageTitle: string }) {
   const { toast } = useToast();
   const [copied, setCopied] = useState(false);
@@ -128,6 +179,65 @@ Technical Details:
   );
 }
 
+/**
+ * StageCard - Individual stage component with comprehensive state management and user interaction.
+ * 
+ * This component represents a single stage in the workflow, handling all aspects of stage
+ * interaction including input collection, execution, output display, and state management.
+ * It provides a complete interface for users to interact with each stage of the workflow.
+ * 
+ * ## Core Responsibilities
+ * - **Input Management**: Handles different input types (form, textarea, context, none)
+ * - **Execution Control**: Manages stage execution with progress tracking and error handling
+ * - **Output Display**: Renders stage outputs with editing capabilities
+ * - **State Visualization**: Shows stage status, dependencies, and progress
+ * - **User Interaction**: Provides intuitive controls for stage operations
+ * - **Error Handling**: Displays comprehensive error information with recovery options
+ * 
+ * ## Stage States
+ * - **Idle**: Stage is ready for input or execution
+ * - **Running**: Stage is currently executing (shows progress indicators)
+ * - **Completed**: Stage has finished successfully (shows output)
+ * - **Error**: Stage encountered an error (shows error details)
+ * - **Editing**: User is editing input or output content
+ * 
+ * ## Input Types Supported
+ * - **Form**: Structured forms with multiple fields and validation
+ * - **Textarea**: Simple text input for prompts or content
+ * - **Context**: File or URL context input with processing
+ * - **None**: Stages that don't require user input (auto-run stages)
+ * 
+ * ## Advanced Features
+ * - **AI Redo**: Allows users to regenerate AI content with feedback
+ * - **Output Editing**: Direct editing of AI-generated content
+ * - **Dependency Tracking**: Visual indication of stage dependencies
+ * - **Staleness Detection**: Warns when stage content may be outdated
+ * - **Export Integration**: Specialized handling for export stages
+ * - **Progress Tracking**: Real-time progress for long-running operations
+ * 
+ * ## Accessibility
+ * - **Keyboard Navigation**: Full keyboard support for all interactions
+ * - **Screen Reader**: Proper ARIA labels and descriptions
+ * - **Focus Management**: Logical focus flow and visual indicators
+ * - **Error Announcements**: Screen reader announcements for errors
+ * 
+ * @param props - Component props containing stage configuration and event handlers
+ * @returns JSX.Element - A complete stage interface with all interactive elements
+ * 
+ * @example
+ * ```typescript
+ * <StageCard
+ *   stage={{ id: 'topic', title: 'Choose Topic', inputType: 'textarea' }}
+ *   workflow={workflow}
+ *   stageState={{ status: 'idle', userInput: '', depsAreMet: true }}
+ *   isCurrentStage={true}
+ *   onRunStage={handleRunStage}
+ *   onInputChange={handleInputChange}
+ *   onFormSubmit={handleFormSubmit}
+ *   // ... other props
+ * />
+ * ```
+ */
 export function StageCard({
   stage,
   workflow,

@@ -17,7 +17,36 @@ import { cn } from '@/lib/utils';
 // Lazy load the AI stage runner to prevent Turbopack static analysis
 let runAiStage: any = null;
 
-// Template variable resolution utility for image generation settings
+/**
+ * Resolves template variables in image generation settings using context from completed stages.
+ * 
+ * This utility function processes image generation settings that contain template variables
+ * (e.g., `{{image-briefing.output}}`) and replaces them with actual values from the stage context.
+ * 
+ * @param settings - The image generation settings object containing potential template variables
+ * @param contextVars - Context variables from all completed stages in the workflow
+ * @returns Resolved settings object with template variables replaced by actual values
+ * 
+ * @throws {Error} When required context for template variables is missing or invalid
+ * @throws {Error} When resolved aspect ratio is not one of the supported values
+ * @throws {Error} When resolved numberOfImages is not between 1 and 4
+ * 
+ * @example
+ * ```typescript
+ * const settings = {
+ *   aspectRatio: "{{image-briefing.output}}",
+ *   numberOfImages: "{{image-briefing.numberOfImages}}"
+ * };
+ * const contextVars = {
+ *   "image-briefing": {
+ *     output: "16:9",
+ *     numberOfImages: 2
+ *   }
+ * };
+ * const resolved = resolveImageGenerationSettings(settings, contextVars);
+ * // Returns: { aspectRatio: "16:9", numberOfImages: 2 }
+ * ```
+ */
 function resolveImageGenerationSettings(settings: any, contextVars: Record<string, any>): any {
   if (!settings) return settings;
   
@@ -133,10 +162,78 @@ function resolveImageGenerationSettings(settings: any, contextVars: Record<strin
   return resolvedSettings;
 }
 
+/**
+ * Props for the WizardShell component.
+ * 
+ * @interface WizardShellProps
+ */
 interface WizardShellProps {
+  /** 
+   * Initial wizard instance containing the workflow definition, stage states, and document metadata.
+   * This represents the complete state of a workflow execution including all stage configurations,
+   * user inputs, AI outputs, and progress tracking.
+   */
   initialInstance: WizardInstance;
 }
 
+/**
+ * WizardShell - The main orchestration component for AI-powered workflow execution.
+ * 
+ * This component manages the complete lifecycle of a multi-stage document generation workflow,
+ * coordinating user inputs, AI processing, dependency management, and progress tracking.
+ * 
+ * ## Core Responsibilities
+ * - **Workflow Orchestration**: Manages the execution flow of multi-stage AI workflows
+ * - **State Management**: Handles complex state synchronization between stages
+ * - **AI Integration**: Dynamically loads and coordinates AI processing modules
+ * - **Dependency Management**: Evaluates stage dependencies and autorun conditions
+ * - **Progress Tracking**: Provides real-time progress updates and completion status
+ * - **Error Handling**: Implements comprehensive error handling with recovery mechanisms
+ * - **Auto-persistence**: Automatically saves document state and progress
+ * 
+ * ## Key Features
+ * - **Dynamic AI Loading**: Lazy-loads AI modules with retry logic and error recovery
+ * - **Template Resolution**: Resolves template variables across stages for dynamic content
+ * - **Autorun Logic**: Automatically executes stages based on complex dependency conditions
+ * - **Real-time Updates**: Provides live progress feedback and stage state synchronization
+ * - **Export Integration**: Handles specialized export stage processing
+ * - **Image Generation**: Supports AI image generation with template variable resolution
+ * 
+ * ## Workflow Architecture
+ * The wizard supports various workflow patterns:
+ * - **Sequential Stages**: Linear progression through defined stages
+ * - **Conditional Branching**: Stages with complex dependency requirements
+ * - **Parallel Execution**: Independent stages that can run simultaneously
+ * - **Autorun Chains**: Automatic execution of dependent stages
+ * 
+ * ## State Management
+ * - **Stage States**: Tracks completion, errors, and outputs for each stage
+ * - **User Inputs**: Manages form data and user interactions
+ * - **AI Outputs**: Stores generated content and metadata
+ * - **Progress Tracking**: Maintains completion percentages and status
+ * 
+ * @param props - Component props containing the initial workflow instance
+ * @returns JSX.Element - The complete wizard interface with stage cards and progress tracking
+ * 
+ * @example
+ * ```typescript
+ * const wizardInstance = {
+ *   documentId: "doc-123",
+ *   workflow: {
+ *     id: "poem-generator",
+ *     name: "AI Poem Generator",
+ *     stages: [
+ *       { id: "topic", title: "Choose Topic", inputType: "textarea" },
+ *       { id: "generate", title: "Generate Poem", inputType: "none", autoRun: true }
+ *     ]
+ *   },
+ *   stageStates: {},
+ *   document: { title: "My Poem", content: "" }
+ * };
+ * 
+ * <WizardShell initialInstance={wizardInstance} />
+ * ```
+ */
 export function WizardShell({ initialInstance }: WizardShellProps) {
   const [instance, setInstance] = useState<WizardInstance>(initialInstance);
   const { toast } = useToast();
@@ -147,7 +244,30 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   const [aiLoadAttempts, setAiLoadAttempts] = useState(0);
   const [aiLoadStartTime, setAiLoadStartTime] = useState<number>(Date.now());
 
-  // Enhanced AI stage runner loading with detailed error tracking
+  /**
+   * Dynamically loads the AI stage runner module with comprehensive error handling and retry logic.
+   * 
+   * This function implements a robust loading mechanism for the AI processing module,
+   * including exponential backoff retry logic and detailed error diagnostics.
+   * 
+   * @param retryAttempt - Current retry attempt number (0-indexed)
+   * @returns Promise<void> - Resolves when AI module is successfully loaded
+   * 
+   * @throws {Error} When AI module fails to load after maximum retry attempts
+   * 
+   * ## Features
+   * - **Exponential Backoff**: Implements 1s, 2s, 4s retry delays
+   * - **Detailed Diagnostics**: Captures network, browser, and timing information
+   * - **User Feedback**: Provides actionable error messages and solutions
+   * - **Automatic Retry**: Silently retries up to 3 times before showing error
+   * - **Function Validation**: Verifies the loaded module has required functions
+   * 
+   * ## Error Handling
+   * - **Network Issues**: Detects and reports connectivity problems
+   * - **Module Corruption**: Validates loaded module integrity
+   * - **Browser Compatibility**: Checks for browser-specific loading issues
+   * - **Timeout Detection**: Identifies slow loading scenarios
+   */
   const loadAiStageRunner = useCallback(async (retryAttempt: number = 0) => {
     const startTime = Date.now();
     setAiLoadStartTime(startTime);
@@ -327,7 +447,42 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     }
   }, [saveDocument]);
 
-  // Enhanced dependency evaluation logic with support for autoRunConditions
+  /**
+   * Evaluates stage dependencies and autorun conditions to determine stage availability and execution readiness.
+   * 
+   * This function implements the core dependency resolution logic for the workflow system,
+   * handling complex dependency relationships, staleness detection, and autorun conditions.
+   * 
+   * @param currentStageStates - Current state of all stages in the workflow
+   * @param stages - Array of stage definitions from the workflow
+   * @returns Updated stage states with resolved dependency and autorun flags
+   * 
+   * ## Dependency Types
+   * - **Basic Dependencies**: Simple completion-based dependencies
+   * - **AutoRun Conditions**: Complex conditional logic for automatic execution
+   * - **AutoRun Dependencies**: Specialized dependencies for automatic stage execution
+   * - **Staleness Detection**: Identifies when stages need to be re-run due to upstream changes
+   * 
+   * ## Logic Flow
+   * 1. **Dependency Resolution**: Checks if all required stages are completed
+   * 2. **Staleness Detection**: Compares completion timestamps to detect stale content
+   * 3. **AutoRun Evaluation**: Determines if stages should execute automatically
+   * 4. **State Updates**: Updates stage states with new flags and conditions
+   * 
+   * ## Performance Optimization
+   * - **Change Detection**: Only returns new state object if changes detected
+   * - **Minimal Re-renders**: Prevents unnecessary React re-renders
+   * - **Efficient Lookups**: Uses Record<string, StageState> for O(1) lookups
+   * 
+   * @example
+   * ```typescript
+   * const updatedStates = evaluateDependenciesLogic(
+   *   { stage1: { status: 'completed' }, stage2: { status: 'idle' } },
+   *   [{ id: 'stage2', dependencies: ['stage1'], autoRun: true }]
+   * );
+   * // Returns: { stage1: {...}, stage2: { shouldAutoRun: true, depsAreMet: true } }
+   * ```
+   */
   const evaluateDependenciesLogic = (currentStageStates: Record<string, StageState>, stages: Stage[]): Record<string, StageState> => {
     const newStageStates = { ...currentStageStates };
     let changed = false;
@@ -528,6 +683,59 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     }
   };
 
+  /**
+   * Executes a stage with comprehensive AI processing, error handling, and progress tracking.
+   * 
+   * This is the core function that orchestrates stage execution, handling different stage types,
+   * AI processing, template resolution, and result management. It implements the complete
+   * stage execution lifecycle from input validation to output storage.
+   * 
+   * @param stageId - Unique identifier of the stage to execute
+   * @param currentInput - Optional input data for the stage (defaults to stage state input)
+   * @param aiRedoNotes - Optional notes for AI regeneration requests
+   * @returns Promise<void> - Resolves when stage execution completes
+   * 
+   * ## Stage Types Supported
+   * - **AI Stages**: Stages with prompt templates that require AI processing
+   * - **Form Stages**: Stages that collect user input through forms
+   * - **Export Stages**: Specialized stages for document export and publishing
+   * - **Context Stages**: Stages that process contextual information
+   * - **Image Generation**: Stages that generate AI images with template resolution
+   * 
+   * ## Processing Pipeline
+   * 1. **Readiness Check**: Verifies AI system is loaded and ready
+   * 2. **Dependency Validation**: Ensures all required stages are completed
+   * 3. **Context Building**: Assembles context variables from completed stages
+   * 4. **Template Resolution**: Resolves template variables in prompts and settings
+   * 5. **AI Processing**: Executes AI generation with monitoring and error handling
+   * 6. **Result Processing**: Stores outputs and updates stage state
+   * 7. **Auto-scroll**: Optionally scrolls to next stage based on configuration
+   * 
+   * ## Error Handling
+   * - **AI System Errors**: Comprehensive diagnostics and recovery suggestions
+   * - **Template Errors**: Detailed information about missing variables
+   * - **Network Errors**: Connectivity and timeout handling
+   * - **Processing Errors**: AI service and generation failures
+   * 
+   * ## Advanced Features
+   * - **AI Redo Support**: Enhanced prompts with user feedback for regeneration
+   * - **Google Search Grounding**: Automatic grounding for AI Redo operations
+   * - **Image Generation**: Template-based image generation with context resolution
+   * - **Progress Tracking**: Real-time progress updates for long-running operations
+   * - **Export Integration**: Specialized handling for export stage processing
+   * 
+   * @example
+   * ```typescript
+   * // Basic stage execution
+   * await handleRunStage('topic-input', 'Write about cats');
+   * 
+   * // AI Redo with user feedback
+   * await handleRunStage('poem-generation', undefined, 'Make it more cheerful');
+   * 
+   * // Export stage execution
+   * await handleRunStage('export-stage');
+   * ```
+   */
   const handleRunStage = useCallback(async (stageId: string, currentInput?: any, aiRedoNotes?: string) => {
     const stage = instance.workflow.stages.find(s => s.id === stageId);
     const stageTitle = stage?.title || stageId;
