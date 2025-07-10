@@ -18,6 +18,7 @@ import {
   arrayRemove
 } from 'firebase/firestore';
 import type { Asset } from '@/types';
+import { FirebaseErrorHandler } from './firebase-error-handler';
 
 /**
  * Asset Manager - Centralized system for managing all generated and uploaded assets
@@ -97,7 +98,9 @@ export class AssetManager {
           
           if (uploadAttempts >= 3) {
             // NO FALLBACKS! Storage MUST work!
-            throw new Error(`FATAL: Firebase Storage upload failed after ${uploadAttempts} attempts: ${uploadError.code || 'unknown'} - ${uploadError.message || 'No error message'}`);
+            const errorInfo = FirebaseErrorHandler.handleFirebaseError(uploadError, 'File upload');
+            FirebaseErrorHandler.logError(`Storage upload after ${uploadAttempts} attempts`, errorInfo, uploadError);
+            throw FirebaseErrorHandler.createDetailedError(errorInfo, uploadError);
           }
           
           // Wait before retry
@@ -144,7 +147,14 @@ export class AssetManager {
     } catch (error) {
       console.error('[ASSET MANAGER] ❌ FATAL: Failed to create asset:', error);
       // NO FALLBACKS! Fail hard and propagate the full error
-      throw error instanceof Error ? error : new Error(`FATAL: Failed to create asset: ${String(error)}`);
+      // Check if this is already a handled Firebase error
+      if (error instanceof Error && (error as any).technicalMessage) {
+        throw error; // Already processed by FirebaseErrorHandler
+      }
+      
+      const errorInfo = FirebaseErrorHandler.handleFirebaseError(error, 'Asset creation');
+      FirebaseErrorHandler.logError('createAsset', errorInfo, error);
+      throw FirebaseErrorHandler.createDetailedError(errorInfo, error);
     }
   }
   
@@ -168,7 +178,9 @@ export class AssetManager {
       console.log('[ASSET MANAGER] ✅ Asset added to document');
     } catch (error) {
       console.error('[ASSET MANAGER] ❌ Failed to add asset to document:', error);
-      throw error;
+      const errorInfo = FirebaseErrorHandler.handleFirebaseError(error, 'Add asset to document');
+      FirebaseErrorHandler.logError('addAssetToDocument', errorInfo, error);
+      throw FirebaseErrorHandler.createDetailedError(errorInfo, error);
     }
   }
   
@@ -203,7 +215,9 @@ export class AssetManager {
       console.log('[ASSET MANAGER] ✅ Asset removed from document');
     } catch (error) {
       console.error('[ASSET MANAGER] ❌ Failed to remove asset from document:', error);
-      throw error;
+      const errorInfo = FirebaseErrorHandler.handleFirebaseError(error, 'Remove asset from document');
+      FirebaseErrorHandler.logError('removeAssetFromDocument', errorInfo, error);
+      throw FirebaseErrorHandler.createDetailedError(errorInfo, error);
     }
   }
   
@@ -305,7 +319,9 @@ export class AssetManager {
       console.log('[ASSET MANAGER] ✅ Asset soft deleted');
     } catch (error) {
       console.error('[ASSET MANAGER] ❌ Failed to soft delete asset:', error);
-      throw error;
+      const errorInfo = FirebaseErrorHandler.handleFirebaseError(error, 'Soft delete asset');
+      FirebaseErrorHandler.logError('softDeleteAsset', errorInfo, error);
+      throw FirebaseErrorHandler.createDetailedError(errorInfo, error);
     }
   }
   
@@ -340,7 +356,9 @@ export class AssetManager {
       console.log('[ASSET MANAGER] ✅ Asset permanently deleted');
     } catch (error) {
       console.error('[ASSET MANAGER] ❌ Failed to permanently delete asset:', error);
-      throw error;
+      const errorInfo = FirebaseErrorHandler.handleFirebaseError(error, 'Permanently delete asset');
+      FirebaseErrorHandler.logError('permanentlyDeleteAsset', errorInfo, error);
+      throw FirebaseErrorHandler.createDetailedError(errorInfo, error);
     }
   }
   

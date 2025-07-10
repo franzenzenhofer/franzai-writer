@@ -16,6 +16,7 @@ import {
   QuerySnapshot,
   DocumentSnapshot
 } from 'firebase/firestore';
+import { FirebaseErrorHandler } from './firebase-error-handler';
 
 /**
  * CRITICAL: This adapter implements FAIL-HARD semantics
@@ -102,8 +103,9 @@ export class FirestoreAdapter {
         errorStack: error instanceof Error ? error.stack : undefined
       });
       
-      this.logError(`createDocument in ${collectionName}`, error);
-      throw new Error(`FATAL: Failed to create document in ${collectionName}: ${error}`);
+      const errorInfo = FirebaseErrorHandler.handleFirebaseError(error, 'Document creation');
+      FirebaseErrorHandler.logError(`createDocument in ${collectionName}`, errorInfo, error);
+      throw FirebaseErrorHandler.createDetailedError(errorInfo, error);
     }
   }
 
@@ -149,8 +151,9 @@ export class FirestoreAdapter {
       await updateDoc(docRef, updateData);
       this.log('Document updated', { collection: collectionName, id: documentId });
     } catch (error) {
-      this.logError(`updateDocument ${documentId} in ${collectionName}`, error);
-      throw new Error(`FATAL: Failed to update document ${documentId} in ${collectionName}: ${error}`);
+      const errorInfo = FirebaseErrorHandler.handleFirebaseError(error, 'Document update');
+      FirebaseErrorHandler.logError(`updateDocument ${documentId} in ${collectionName}`, errorInfo, error);
+      throw FirebaseErrorHandler.createDetailedError(errorInfo, error);
     }
   }
 
@@ -173,8 +176,9 @@ export class FirestoreAdapter {
       this.log('Document retrieved', { collection: collectionName, id: documentId });
       return data;
     } catch (error) {
-      this.logError(`getDocument ${documentId} in ${collectionName}`, error);
-      throw new Error(`FATAL: Failed to get document ${documentId} in ${collectionName}: ${error}`);
+      const errorInfo = FirebaseErrorHandler.handleFirebaseError(error, 'Document retrieval');
+      FirebaseErrorHandler.logError(`getDocument ${documentId} in ${collectionName}`, errorInfo, error);
+      throw FirebaseErrorHandler.createDetailedError(errorInfo, error);
     }
   }
 
@@ -219,8 +223,9 @@ export class FirestoreAdapter {
       
       return documents;
     } catch (error) {
-      this.logError(`queryDocuments in ${collectionName}`, error);
-      throw new Error(`FATAL: Failed to query documents in ${collectionName}: ${error}`);
+      const errorInfo = FirebaseErrorHandler.handleFirebaseError(error, 'Document query');
+      FirebaseErrorHandler.logError(`queryDocuments in ${collectionName}`, errorInfo, error);
+      throw FirebaseErrorHandler.createDetailedError(errorInfo, error);
     }
   }
 
@@ -235,8 +240,9 @@ export class FirestoreAdapter {
       await deleteDoc(docRef);
       this.log('Document deleted', { collection: collectionName, id: documentId });
     } catch (error) {
-      this.logError(`deleteDocument ${documentId} in ${collectionName}`, error);
-      throw new Error(`FATAL: Failed to delete document ${documentId} in ${collectionName}: ${error}`);
+      const errorInfo = FirebaseErrorHandler.handleFirebaseError(error, 'Document deletion');
+      FirebaseErrorHandler.logError(`deleteDocument ${documentId} in ${collectionName}`, errorInfo, error);
+      throw FirebaseErrorHandler.createDetailedError(errorInfo, error);
     }
   }
 
@@ -262,8 +268,9 @@ export class FirestoreAdapter {
       
       return documents;
     } catch (error) {
-      this.logError(`getAllDocuments in ${collectionName}`, error);
-      throw new Error(`FATAL: Failed to get all documents in ${collectionName}: ${error}`);
+      const errorInfo = FirebaseErrorHandler.handleFirebaseError(error, 'Get all documents');
+      FirebaseErrorHandler.logError(`getAllDocuments in ${collectionName}`, errorInfo, error);
+      throw FirebaseErrorHandler.createDetailedError(errorInfo, error);
     }
   }
 
@@ -286,8 +293,9 @@ export class FirestoreAdapter {
       
       return exists;
     } catch (error) {
-      this.logError(`documentExists ${documentId} in ${collectionName}`, error);
-      throw new Error(`FATAL: Failed to check document existence ${documentId} in ${collectionName}: ${error}`);
+      const errorInfo = FirebaseErrorHandler.handleFirebaseError(error, 'Document existence check');
+      FirebaseErrorHandler.logError(`documentExists ${documentId} in ${collectionName}`, errorInfo, error);
+      throw FirebaseErrorHandler.createDetailedError(errorInfo, error);
     }
   }
 

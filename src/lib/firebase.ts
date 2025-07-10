@@ -12,6 +12,7 @@ import {
   onAuthStateChanged,
   User
 } from "firebase/auth";
+import { FirebaseErrorHandler } from './firebase-error-handler';
 // Removed: import * as firebaseui from "firebaseui";
 // Removed compat imports to avoid bundling issues
 
@@ -112,7 +113,9 @@ const signUp = async (email: string, password: string) => {
     
     return user;
   } catch (error) {
-    throw error;
+    const errorInfo = FirebaseErrorHandler.handleFirebaseError(error, 'Account creation');
+    FirebaseErrorHandler.logError('signUp', errorInfo, error);
+    throw FirebaseErrorHandler.createDetailedError(errorInfo, error);
   }
 };
 
@@ -125,7 +128,9 @@ const signIn = async (email: string, password: string) => {
     const user = userCredential.user;
     return user;
   } catch (error) {
-    throw error;
+    const errorInfo = FirebaseErrorHandler.handleFirebaseError(error, 'Sign in');
+    FirebaseErrorHandler.logError('signIn', errorInfo, error);
+    throw FirebaseErrorHandler.createDetailedError(errorInfo, error);
   }
 };
 
@@ -142,7 +147,9 @@ const signInWithGoogle = async () => {
     
     return user;
   } catch (error) {
-    throw error;
+    const errorInfo = FirebaseErrorHandler.handleFirebaseError(error, 'Google sign in');
+    FirebaseErrorHandler.logError('signInWithGoogle', errorInfo, error);
+    throw FirebaseErrorHandler.createDetailedError(errorInfo, error);
   }
 };
 
@@ -151,7 +158,9 @@ const resetPassword = async (email: string) => {
   try {
     await sendPasswordResetEmail(auth, email);
   } catch (error) {
-    throw error;
+    const errorInfo = FirebaseErrorHandler.handleFirebaseError(error, 'Password reset');
+    FirebaseErrorHandler.logError('resetPassword', errorInfo, error);
+    throw FirebaseErrorHandler.createDetailedError(errorInfo, error);
   }
 };
 
@@ -160,7 +169,9 @@ const logOut = async () => {
   try {
     await signOut(auth);
   } catch (error) {
-    throw error;
+    const errorInfo = FirebaseErrorHandler.handleFirebaseError(error, 'Sign out');
+    FirebaseErrorHandler.logError('logOut', errorInfo, error);
+    throw FirebaseErrorHandler.createDetailedError(errorInfo, error);
   }
 };
 
