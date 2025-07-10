@@ -22,6 +22,10 @@ npm run start        # Start production server
 npm run lint         # Run Next.js linter
 npm run typecheck    # Run TypeScript type checking
 
+# Testing
+npm run test:e2e     # Run all Playwright tests
+npm run test:a11y    # Run accessibility tests only
+
 # Firebase CLI (preferred for Firebase operations)
 firebase login       # Authenticate with Firebase
 firebase init        # Initialize Firebase services
@@ -132,6 +136,39 @@ The core feature is a JSON-based workflow system where each workflow:
 - Need to update form interaction tests for shadcn/ui components
 - Update stage completion detection selectors
 - Tests timeout due to selector issues, not functionality problems
+
+## Accessibility Testing
+
+✅ **COMPLETED**: Comprehensive accessibility testing suite with axe-core
+- **WCAG 2.1 AA compliance** testing across all major components
+- **Keyboard navigation** testing for all interactive elements
+- **Screen reader compatibility** with proper ARIA attributes
+- **Form accessibility** validation with label associations
+- **Color contrast** and visual accessibility checks
+- **Focus management** and visible focus indicators
+- **Semantic HTML** structure validation
+
+### Running Accessibility Tests
+
+```bash
+npm run test:a11y          # Run all accessibility tests
+npm run test:e2e:debug     # Debug accessibility issues
+```
+
+### Test Coverage
+
+- **General accessibility**: Homepage, dashboard, auth forms
+- **Wizard workflows**: Multi-stage form accessibility
+- **Export functionality**: Preview and publishing accessibility
+- **Responsive design**: Mobile and desktop viewport testing
+
+### Key Files
+
+- `tests/e2e/accessibility-*.spec.ts` - Accessibility test suites
+- `tests/utils/accessibility-helpers.ts` - Reusable testing utilities
+- `tests/README-accessibility.md` - Detailed testing documentation
+
+**CRITICAL**: All new components MUST pass accessibility tests before deployment.
 
 ## Ticket Management System
 

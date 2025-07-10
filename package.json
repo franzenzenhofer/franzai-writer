@@ -29,6 +29,7 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:debug": "playwright test --debug",
+    "test:a11y": "playwright test --grep 'accessibility'",
     "logs:tail": "tail -f logs/nextjs-dev.log",
     "logs:errors": "grep ERROR logs/nextjs-dev.log || echo 'No errors found'",
     "kill": "pkill -f 'next-server' || true; pkill -f 'genkit' || true; pkill -f 'firebase-tools' || true; pkill -f 'java.*firestore' || true; lsof -ti:9002,4000,9099,8080,5001,5002,4400,4500,9150 | xargs kill -9 2>/dev/null || true; echo '✅ All servers and emulators killed'",
@@ -94,6 +95,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
     "@next/bundle-analyzer": "^15.3.3",
     "@playwright/test": "^1.52.0",
     "@testing-library/dom": "^10.4.0",
