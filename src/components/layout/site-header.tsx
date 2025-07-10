@@ -18,6 +18,7 @@ import {
 import { LogOut, Settings, User as UserIcon } from "lucide-react";
 import { useAuth } from "./app-providers";
 import { auth } from "@/lib/firebase";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function SiteHeader() {
   const { user, loading } = useAuth();
@@ -44,6 +45,7 @@ export function SiteHeader() {
         <MainNav items={siteConfig.mainNav} className="hidden md:flex" />
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-1">
+            <ThemeToggle />
             {loading ? (
               <div className="h-8 w-8 bg-muted rounded-full animate-pulse"></div>
             ) : user ? (

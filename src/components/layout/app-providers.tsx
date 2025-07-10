@@ -5,6 +5,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "@/lib/firebase"; // Adjust the import path as needed
 import { getOrCreateTemporarySession, clearTemporarySession, TemporaryUser } from "@/lib/auth/temporary-session";
+import { ThemeProvider } from "@/contexts/theme-context";
 
 interface AuthContextType {
   user: User | null;
@@ -44,7 +45,9 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
   const effectiveUser = user ? { uid: user.uid } : tempUser ? { uid: tempUser.uid, isTemporary: true } : null;
 
   return (
-    <AuthContext.Provider value={{ user, tempUser, loading, effectiveUser }}>{children}</AuthContext.Provider>
+    <ThemeProvider>
+      <AuthContext.Provider value={{ user, tempUser, loading, effectiveUser }}>{children}</AuthContext.Provider>
+    </ThemeProvider>
   );
 }
 
