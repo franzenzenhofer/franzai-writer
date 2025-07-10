@@ -2,6 +2,17 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * Base card component for creating card-based layouts
+ * 
+ * This is the foundation component for all card-based UI elements in the application.
+ * It provides consistent styling, spacing, and theming for card containers.
+ * 
+ * @param props - Standard div HTML attributes
+ * @param props.className - Additional CSS classes to apply
+ * @param ref - React ref for the div element
+ * @returns Card container with consistent styling
+ */
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -17,6 +28,18 @@ const Card = React.forwardRef<
 ))
 Card.displayName = "Card"
 
+/**
+ * Card header component for displaying titles and descriptions
+ * 
+ * This component provides the header section of a card, typically containing
+ * the card title and optional description. It includes consistent padding and
+ * spacing for optimal layout.
+ * 
+ * @param props - Standard div HTML attributes
+ * @param props.className - Additional CSS classes to apply
+ * @param ref - React ref for the div element
+ * @returns Card header with flex layout and consistent spacing
+ */
 const CardHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -29,6 +52,18 @@ const CardHeader = React.forwardRef<
 ))
 CardHeader.displayName = "CardHeader"
 
+/**
+ * Card title component for prominent card headings
+ * 
+ * This component renders the main title of a card with consistent typography
+ * and styling. It uses large, semibold text with optimized letter spacing
+ * for readability and visual hierarchy.
+ * 
+ * @param props - Standard div HTML attributes
+ * @param props.className - Additional CSS classes to apply
+ * @param ref - React ref for the div element
+ * @returns Card title with large, semibold typography
+ */
 const CardTitle = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -44,6 +79,18 @@ const CardTitle = React.forwardRef<
 ))
 CardTitle.displayName = "CardTitle"
 
+/**
+ * Card description component for supplementary card text
+ * 
+ * This component provides descriptive text that supports the card title.
+ * It uses muted foreground colors and smaller text size to create proper
+ * visual hierarchy while maintaining readability.
+ * 
+ * @param props - Standard div HTML attributes
+ * @param props.className - Additional CSS classes to apply
+ * @param ref - React ref for the div element
+ * @returns Card description with muted, smaller text styling
+ */
 const CardDescription = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -56,6 +103,18 @@ const CardDescription = React.forwardRef<
 ))
 CardDescription.displayName = "CardDescription"
 
+/**
+ * Card content component for the main card body
+ * 
+ * This component provides the main content area of a card with consistent
+ * horizontal and bottom padding. It's designed to contain the primary
+ * information or interactive elements of the card.
+ * 
+ * @param props - Standard div HTML attributes
+ * @param props.className - Additional CSS classes to apply
+ * @param ref - React ref for the div element
+ * @returns Card content area with consistent padding
+ */
 const CardContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -64,6 +123,18 @@ const CardContent = React.forwardRef<
 ))
 CardContent.displayName = "CardContent"
 
+/**
+ * Card footer component for actions and secondary information
+ * 
+ * This component provides the footer area of a card, typically containing
+ * action buttons, links, or secondary information. It uses flex layout
+ * for easy alignment of footer elements.
+ * 
+ * @param props - Standard div HTML attributes
+ * @param props.className - Additional CSS classes to apply
+ * @param ref - React ref for the div element
+ * @returns Card footer with flex layout and consistent padding
+ */
 const CardFooter = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>

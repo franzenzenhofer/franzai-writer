@@ -1,0 +1,180 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Introduction" />
+
+# Franz AI Writer Component Documentation
+
+Welcome to the comprehensive component documentation for Franz AI Writer - an AI-powered multi-stage document generation platform.
+
+## 🎯 What is Franz AI Writer?
+
+Franz AI Writer is a Next.js application that provides AI-powered multi-stage document generation workflows. It uses Google Gemini 2.0 Flash to process workflow templates and generate content through an interactive wizard interface.
+
+## 📚 Documentation System
+
+This Storybook documentation provides:
+
+- **Interactive Component Library**: View and test components in isolation
+- **Comprehensive Documentation**: Auto-generated docs from JSDoc comments  
+- **Design System Integration**: Follows project's Tailwind CSS and shadcn/ui patterns
+- **Real-world Examples**: See how components work together in actual workflows
+- **TypeScript Support**: Full type safety and IntelliSense
+
+## 🏗️ Architecture Overview
+
+### Component Categories
+
+**UI Components** (`src/components/ui/`)
+- Foundation design system components
+- Button, Card, Badge, Form controls
+- Consistent styling and behavior patterns
+
+**Wizard Components** (`src/components/wizard/`)
+- Complex workflow execution components
+- Stage management and AI integration
+- Interactive workflow interfaces
+
+**Layout Components** (`src/components/layout/`)
+- Page structure and navigation
+- Headers, footers, and navigation components
+
+### Design System
+
+- **Framework**: Next.js 15 with App Router
+- **Styling**: Tailwind CSS with shadcn/ui components (Radix UI primitives)
+- **Typography**: Space Grotesk for headlines, system fonts for body text
+- **Color Scheme**: Blue-based design system with high contrast
+- **Responsive**: Mobile-first design approach
+
+## 🚀 Key Features
+
+### AI Integration
+- **Google Gemini 2.0 Flash**: Primary AI model for content generation
+- **Multi-modal Support**: Text, image, and document understanding
+- **Advanced Features**: Google Search grounding, URL context, thinking mode
+- **Streaming**: Real-time AI response streaming
+
+### Workflow System
+- **JSON-based Configuration**: Flexible workflow definitions
+- **Multi-stage Processing**: Sequential and parallel stage execution
+- **Dependency Management**: Complex stage dependency resolution
+- **Auto-run Capabilities**: Automatic stage progression
+
+### User Experience
+- **Interactive Wizard**: Step-by-step workflow guidance
+- **Real-time Feedback**: Live progress tracking and updates
+- **Error Handling**: Comprehensive error recovery and reporting
+- **Mobile Optimized**: Touch-friendly interface design
+
+## 🛠️ Development Guidelines
+
+### Component Standards
+
+1. **TypeScript First**: All components use TypeScript with comprehensive interfaces
+2. **JSDoc Documentation**: Comprehensive function and prop documentation
+3. **Accessible Design**: WCAG 2.1 AA compliance
+4. **Performance Optimized**: Lazy loading and code splitting
+5. **Testing**: Unit tests and E2E test coverage
+
+### Design Principles
+
+- **Consistency**: Uniform patterns across all components
+- **Clarity**: Clear visual hierarchy and information architecture
+- **Efficiency**: Minimal clicks and cognitive load
+- **Reliability**: Robust error handling and recovery
+- **Scalability**: Component reusability and maintainability
+
+## 📖 How to Use This Documentation
+
+### Finding Components
+Use the sidebar navigation to explore component categories:
+- Start with **UI Components** for basic building blocks
+- Explore **Wizard Components** for complex interactions
+- Review **Layout Components** for page structure
+
+### Interactive Examples
+Each component story includes:
+- **Controls**: Adjust props and see live changes
+- **Documentation**: Auto-generated prop tables and usage examples
+- **Source Code**: View implementation details
+- **Accessibility**: Screen reader and keyboard navigation info
+
+### Code Examples
+Copy-paste ready code examples for quick implementation:
+
+```typescript
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+
+export function MyComponent() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Example Card</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Button variant="default">Action Button</Button>
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+## 🎨 Design Tokens
+
+### Colors
+- **Primary**: Royal Blue (#2563eb)
+- **Secondary**: Light Gray (#f1f5f9)
+- **Success**: Green (#22c55e)
+- **Warning**: Orange (#f59e0b)
+- **Destructive**: Red (#ef4444)
+- **Accent**: Violet (#8b5cf6)
+
+### Typography
+- **Headlines**: Space Grotesk (font-headline)
+- **Body**: System font stack
+- **Code**: Monospace font stack
+
+### Spacing
+- **Base Unit**: 4px (0.25rem)
+- **Component Padding**: 16px-20px (4-5)
+- **Section Spacing**: 24px-32px (6-8)
+
+## 🔧 Technical Implementation
+
+### Stack Overview
+- **Frontend**: Next.js 15, React 18, TypeScript
+- **Styling**: Tailwind CSS, Radix UI, CVA (Class Variance Authority)
+- **AI Integration**: Google Genai SDK
+- **State Management**: React hooks and context
+- **Forms**: React Hook Form with Zod validation
+- **Testing**: Jest, React Testing Library, Playwright
+
+### Performance Features
+- **Code Splitting**: Dynamic imports for AI modules
+- **Image Optimization**: Next.js image optimization
+- **Caching**: Intelligent caching strategies
+- **Bundle Analysis**: Webpack bundle analyzer integration
+
+## 🤝 Contributing
+
+When adding new components:
+
+1. **Create JSDoc Comments**: Document all props and functions
+2. **Add TypeScript Interfaces**: Comprehensive type definitions
+3. **Create Storybook Stories**: Cover all variants and use cases
+4. **Include Real-world Examples**: Show practical usage patterns
+5. **Test Accessibility**: Verify keyboard and screen reader support
+
+## 📚 Additional Resources
+
+- [Project Repository](https://github.com/franzenzenhofer/franzai-writer)
+- [CLAUDE.md](../CLAUDE.md) - Development guidelines
+- [Design Guidelines](../DESIGN-GUIDELINES.md) - UI/UX standards
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Tailwind CSS](https://tailwindcss.com/docs)
+- [Radix UI](https://www.radix-ui.com/docs)
+
+---
+
+*This documentation is automatically generated from JSDoc comments and maintained alongside the codebase to ensure accuracy and completeness.*

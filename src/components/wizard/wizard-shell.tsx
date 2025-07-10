@@ -17,7 +17,27 @@ import { cn } from '@/lib/utils';
 // Lazy load the AI stage runner to prevent Turbopack static analysis
 let runAiStage: any = null;
 
-// Template variable resolution utility for image generation settings
+/**
+ * Resolves template variables in image generation settings
+ * 
+ * Validates and substitutes template variables like {{image-briefing.output.aspectRatio}}
+ * with actual values from the workflow context. Performs strict validation to ensure
+ * the AI system has all required data before attempting image generation.
+ * 
+ * @param settings - Image generation settings with potential template variables
+ * @param contextVars - Context variables from previous workflow stages
+ * @returns Resolved settings with template variables replaced by actual values
+ * @throws Error if template variables cannot be resolved or validation fails
+ * 
+ * @example
+ * ```typescript
+ * const settings = {
+ *   aspectRatio: '{{image-briefing.output.aspectRatio}}',
+ *   numberOfImages: '{{image-briefing.output.numberOfImages}}'
+ * };
+ * const resolved = resolveImageGenerationSettings(settings, contextVars);
+ * ```
+ */
 function resolveImageGenerationSettings(settings: any, contextVars: Record<string, any>): any {
   if (!settings) return settings;
   
@@ -133,10 +153,41 @@ function resolveImageGenerationSettings(settings: any, contextVars: Record<strin
   return resolvedSettings;
 }
 
+/**
+ * Props for the WizardShell component
+ * 
+ * @interface WizardShellProps
+ */
 interface WizardShellProps {
+  /** Initial wizard instance containing workflow definition and document state */
   initialInstance: WizardInstance;
 }
 
+/**
+ * Main wizard shell component that orchestrates the entire workflow execution
+ * 
+ * This component manages the complete lifecycle of a multi-stage AI workflow,
+ * including stage execution, dependency evaluation, state persistence, and UI rendering.
+ * It handles both AI-powered stages and form-based stages with automatic dependency
+ * resolution and autorun capabilities.
+ * 
+ * Key responsibilities:
+ * - Manages workflow state and stage execution
+ * - Handles AI system initialization and retry logic
+ * - Evaluates stage dependencies and autorun conditions
+ * - Persists document state and manages autosave
+ * - Provides comprehensive error handling and recovery
+ * - Renders the complete wizard UI with progress tracking
+ * 
+ * @param props - Component props
+ * @param props.initialInstance - Initial wizard instance with workflow and document data
+ * @returns JSX element representing the complete wizard interface
+ * 
+ * @example
+ * ```typescript
+ * <WizardShell initialInstance={wizardInstance} />
+ * ```
+ */
 export function WizardShell({ initialInstance }: WizardShellProps) {
   const [instance, setInstance] = useState<WizardInstance>(initialInstance);
   const { toast } = useToast();
@@ -147,7 +198,25 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   const [aiLoadAttempts, setAiLoadAttempts] = useState(0);
   const [aiLoadStartTime, setAiLoadStartTime] = useState<number>(Date.now());
 
-  // Enhanced AI stage runner loading with detailed error tracking
+  /**
+   * Loads the AI stage runner module with comprehensive error handling and retry logic
+   * 
+   * This function dynamically imports the AI stage runner module and validates its functionality.
+   * It includes detailed error tracking, retry logic, and comprehensive diagnostics for
+   * troubleshooting AI system initialization issues.
+   * 
+   * @param retryAttempt - Current retry attempt number (0-based)
+   * @returns Promise that resolves when AI stage runner is successfully loaded
+   * 
+   * @throws Error if AI module fails to load after all retry attempts
+   * 
+   * Features:
+   * - Dynamic module loading to prevent static analysis issues
+   * - Detailed error logging with diagnostics
+   * - Automatic retry logic with exponential backoff
+   * - Function validation to ensure proper module structure
+   * - Performance monitoring and load time tracking
+   */
   const loadAiStageRunner = useCallback(async (retryAttempt: number = 0) => {
     const startTime = Date.now();
     setAiLoadStartTime(startTime);
@@ -280,7 +349,14 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     }
   }, []);
 
-  // Callback to sync instance changes from persistence layer
+  /**
+   * Callback to sync instance changes from the persistence layer
+   * 
+   * This function is used by the document persistence hook to update the local
+   * instance state when changes are made from external sources (like autosave).
+   * 
+   * @param updates - Partial wizard instance updates to apply
+   */
   const updateInstanceForPersistence = useCallback((updates: Partial<WizardInstance>) => {
     setInstance(prev => ({ ...prev, ...updates }));
   }, []);
@@ -297,6 +373,33 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     updateInstance: updateInstanceForPersistence,
   });
 
+  /**
+   * Updates the state of a specific workflow stage and triggers dependency evaluation
+   * 
+   * This is the central function for managing stage state changes. It updates the stage
+   * state, evaluates dependencies for autorun stages, and handles document persistence.
+   * The function ensures that all dependent stages are properly evaluated whenever a
+   * stage state changes.
+   * 
+   * @param stageId - Unique identifier of the stage to update
+   * @param updates - Partial stage state updates to apply
+   * 
+   * Key behaviors:
+   * - Updates stage state with provided changes
+   * - Evaluates all stage dependencies after state change
+   * - Triggers autorun for eligible dependent stages
+   * - Handles immediate document saving for critical state changes
+   * - Maintains workflow consistency and data integrity
+   * 
+   * @example
+   * ```typescript
+   * updateStageState('poem-topic', {
+   *   status: 'completed',
+   *   output: 'Nature poetry about mountains',
+   *   completedAt: new Date().toISOString()
+   * });
+   * ```
+   */
   const updateStageState = useCallback((stageId: string, updates: Partial<StageState>) => {
     let needsImmediateSave = false;
     const resultState = setInstance(prevInstance => {
@@ -327,7 +430,34 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     }
   }, [saveDocument]);
 
-  // Enhanced dependency evaluation logic with support for autoRunConditions
+  /**
+   * Evaluates stage dependencies and autorun conditions for the workflow
+   * 
+   * This function implements the core dependency evaluation logic that determines which
+   * stages should be automatically executed based on their dependencies and autorun conditions.
+   * It processes all stages in the workflow and updates their readiness status.
+   * 
+   * @param currentStageStates - Current state of all workflow stages
+   * @param stages - Array of stage definitions from the workflow
+   * @returns Updated stage states with dependency and autorun evaluation results
+   * 
+   * Key functionality:
+   * - Evaluates basic dependencies (dependsOn relationships)
+   * - Processes autorun conditions with configurable logic
+   * - Handles complex dependency chains and circular dependency detection
+   * - Automatically marks stages as ready when dependencies are met
+   * - Manages autorun flags for stages that should execute immediately
+   * 
+   * Autorun conditions supported:
+   * - 'always': Always autorun when dependencies are met
+   * - 'never': Never autorun, requires manual execution
+   * - 'conditional': Autorun based on custom logic
+   * 
+   * @example
+   * ```typescript
+   * const evaluatedStates = evaluateDependenciesLogic(stageStates, workflowStages);
+   * ```
+   */
   const evaluateDependenciesLogic = (currentStageStates: Record<string, StageState>, stages: Stage[]): Record<string, StageState> => {
     const newStageStates = { ...currentStageStates };
     let changed = false;
@@ -494,6 +624,22 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   }, [instance.stageStates, instance.workflow.config?.setTitleFromStageOutput]);
 
 
+  /**
+   * Handles input changes for simple input types (textarea, context)
+   * 
+   * This function is used primarily for simple input types like textarea or context inputs.
+   * Form inputs are handled separately by handleFormSubmit. When input changes, it updates
+   * the stage state and marks the stage as requiring reprocessing.
+   * 
+   * @param stageId - Unique identifier of the stage
+   * @param fieldName - Name of the input field being changed
+   * @param value - New value for the input field
+   * 
+   * @example
+   * ```typescript
+   * handleInputChange('poem-topic', 'userInput', 'Write about nature');
+   * ```
+   */
   const handleInputChange = (stageId: string, fieldName: string, value: any) => {
     // This is primarily for simple input types like 'textarea' or 'context' now.
     // Form inputs are handled by onFormSubmit.
@@ -502,6 +648,29 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     }
   };
 
+  /**
+   * Handles form submissions and updates stage state accordingly
+   * 
+   * This function is called when form field values change in the StageInputArea component.
+   * It updates the central state with the latest form data and handles special cases for
+   * form stages without prompt templates (which are immediately marked as completed).
+   * 
+   * @param stageId - Unique identifier of the stage
+   * @param data - Form data object containing all form field values
+   * 
+   * Behavior:
+   * - For form stages without promptTemplate: Immediately marks as completed with form data as output
+   * - For other stages: Updates userInput and marks as requiring processing
+   * - Triggers dependency evaluation and autorun for dependent stages
+   * 
+   * @example
+   * ```typescript
+   * handleFormSubmit('audience-analysis', {
+   *   targetAudience: 'Developers',
+   *   contentType: 'Technical'
+   * });
+   * ```
+   */
   const handleFormSubmit = (stageId: string, data: any) => {
     // This function is called from StageInputArea when form field values change.
     // It updates the central state with the latest form data.
@@ -528,6 +697,48 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     }
   };
 
+  /**
+   * Executes a workflow stage with comprehensive error handling and AI system integration
+   * 
+   * This is the core stage execution function that handles both AI-powered stages and
+   * non-AI stages (like export stages). It manages the complete execution lifecycle
+   * including input validation, AI system readiness checks, error handling, and
+   * state management.
+   * 
+   * @param stageId - Unique identifier of the stage to execute
+   * @param currentInput - Optional input data for the stage (overrides stage state)
+   * @param aiRedoNotes - Optional notes for AI regeneration requests
+   * @returns Promise that resolves when stage execution completes
+   * 
+   * Stage execution process:
+   * 1. **Pre-execution validation**: Checks AI system readiness and stage configuration
+   * 2. **Input preparation**: Resolves template variables and prepares stage input
+   * 3. **Execution routing**: Routes to appropriate handler (AI vs non-AI stages)
+   * 4. **Result processing**: Validates and processes stage output
+   * 5. **State management**: Updates stage state and triggers dependency evaluation
+   * 6. **Error handling**: Comprehensive error catching and user feedback
+   * 
+   * Special stage types:
+   * - **AI stages**: Executed via AI stage runner with model-specific handling
+   * - **Export stages**: Handled by specialized export stage execution
+   * - **Form stages**: Process form data and trigger dependent stages
+   * - **Template stages**: Resolve template variables from workflow context
+   * 
+   * Error handling:
+   * - AI system not ready errors with actionable solutions
+   * - Template variable resolution errors with context information
+   * - Network and API errors with retry suggestions
+   * - Validation errors with clear user feedback
+   * 
+   * @example
+   * ```typescript
+   * // Execute a stage with user input
+   * await handleRunStage('poem-generation', userInput);
+   * 
+   * // Execute with AI redo notes
+   * await handleRunStage('poem-generation', undefined, 'Make it more romantic');
+   * ```
+   */
   const handleRunStage = useCallback(async (stageId: string, currentInput?: any, aiRedoNotes?: string) => {
     const stage = instance.workflow.stages.find(s => s.id === stageId);
     const stageTitle = stage?.title || stageId;
@@ -893,19 +1104,76 @@ Still having issues? Check the browser console for detailed logs.`;
 
 
   
+  /**
+   * Handles requests to edit stage input by resetting the stage state
+   * 
+   * This function is called when a user wants to edit the input of a previously
+   * completed stage. It resets the stage to idle status and clears any existing
+   * output, allowing the user to modify the input and re-run the stage.
+   * 
+   * @param stageId - Unique identifier of the stage to edit
+   * 
+   * @example
+   * ```typescript
+   * handleEditInputRequest('poem-topic');
+   * ```
+   */
   const handleEditInputRequest = (stageId: string) => {
     updateStageState(stageId, { status: "idle", output: undefined, completedAt: undefined, isEditingOutput: false });
     // Silent - UI already shows editing state
   };
 
+  /**
+   * Toggles the editing state for stage output
+   * 
+   * This function controls whether a stage's output is currently being edited.
+   * It's used to manage the UI state for inline output editing functionality.
+   * 
+   * @param stageId - Unique identifier of the stage
+   * @param isEditing - Whether the stage output is being edited
+   * 
+   * @example
+   * ```typescript
+   * handleSetEditingOutput('poem-generation', true);
+   * ```
+   */
   const handleSetEditingOutput = (stageId: string, isEditing: boolean) => {
     updateStageState(stageId, { isEditingOutput: isEditing });
   };
 
+  /**
+   * Handles manual editing of stage output
+   * 
+   * This function updates the stage output with manually edited content.
+   * It marks the stage as completed with the new output and resets the
+   * stale flag since the content has been freshly updated.
+   * 
+   * @param stageId - Unique identifier of the stage
+   * @param newOutput - New output content for the stage
+   * 
+   * @example
+   * ```typescript
+   * handleOutputEdit('poem-generation', 'Edited poem content...');
+   * ```
+   */
   const handleOutputEdit = (stageId: string, newOutput: any) => {
     updateStageState(stageId, { output: newOutput, completedAt: new Date().toISOString(), isStale: false });
   };
 
+  /**
+   * Dismisses the stale data warning for a stage
+   * 
+   * This function is called when a user dismisses the warning that indicates
+   * a stage's output may be stale due to changes in dependent stages. It marks
+   * the warning as dismissed without changing the actual stale status.
+   * 
+   * @param stageId - Unique identifier of the stage
+   * 
+   * @example
+   * ```typescript
+   * handleDismissStaleWarning('poem-generation');
+   * ```
+   */
   const handleDismissStaleWarning = (stageId: string) => {
     updateStageState(stageId, { staleDismissed: true });
     // Silent - dismissal is visible in UI
