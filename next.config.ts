@@ -24,6 +24,33 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://www.googleapis.com https://apis.google.com https://firebasestorage.googleapis.com https://www.google.com https://js.stripe.com https://checkout.stripe.com https://maps.googleapis.com",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "img-src 'self' blob: data: https://placehold.co https://firebasestorage.googleapis.com https://www.google.com https://maps.googleapis.com https://maps.gstatic.com",
+              "font-src 'self' https://fonts.gstatic.com data:",
+              "connect-src 'self' https://api.openai.com https://generativelanguage.googleapis.com https://firebasestorage.googleapis.com https://www.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firebaseinstallations.googleapis.com https://fcmregistrations.googleapis.com https://content-firebaseappcheck.googleapis.com https://firebaseremoteconfig.googleapis.com https://firebaselogging.googleapis.com https://firebase-settings.googleusercontent.com https://firestore.googleapis.com https://vitals.vercel-insights.com wss://localhost:* ws://localhost:* http://localhost:* https://localhost:*",
+              "frame-src 'self' https://www.google.com https://checkout.stripe.com https://js.stripe.com",
+              "object-src 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+              "frame-ancestors 'self'",
+              "block-all-mixed-content",
+              "upgrade-insecure-requests"
+            ].join('; ')
+          }
+        ]
+      }
+    ]
+  },
   // Turbopack configuration (stable in Next.js 15.3+)
   turbopack: {
     resolveAlias: {
