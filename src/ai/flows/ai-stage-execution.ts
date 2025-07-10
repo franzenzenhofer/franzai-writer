@@ -158,6 +158,16 @@ export type AiStageOutputSchema = z.infer<typeof AiStageOutputSchema>;
 export async function aiStageExecutionFlow(
   input: AiStageExecutionInput
 ): Promise<AiStageOutputSchema> {
+    // Input validation - fail fast if essential data is missing
+    if (!input) {
+      const error = new Error('AI Stage Execution: No input provided');
+      logToAiLog('[AI STAGE EXECUTION ERROR]', {
+        error: error.message,
+        stack: error.stack
+      });
+      throw error;
+    }
+
     let {
       promptTemplate, model, temperature, imageData,
       thinkingSettings, toolNames, fileInputs,
@@ -167,6 +177,16 @@ export async function aiStageExecutionFlow(
       userId, documentId, stageId,
       workflow, stage
     } = input;
+
+    // Create context string for error messages
+    const contextInfo = {
+      workflowName: workflow?.name || 'unknown',
+      stageName: stage?.name || 'unknown',
+      stageId: stage?.id || stageId || 'unknown',
+      model: model || 'default'
+    };
+
+    try {
 
     console.log('[AI Stage Flow Enhanced] Starting with input:', {
       model: model || 'default',
@@ -197,9 +217,21 @@ export async function aiStageExecutionFlow(
         hasStageId: !!stageId
       });
       
-      const { generateImages } = await import('@/lib/ai-image-generator');
-      
       try {
+        const { generateImages } = await import('@/lib/ai-image-generator');
+        
+        // Validate required parameters for image generation
+        if (!promptTemplate) {
+          const error = new Error(`Image generation failed: No prompt template provided for stage '${contextInfo.stageName}' in workflow '${contextInfo.workflowName}'`);
+          logToAiLog('[AI STAGE EXECUTION ERROR - IMAGE GENERATION]', {
+            error: error.message,
+            stack: error.stack,
+            context: contextInfo,
+            issue: 'missing_prompt_template'
+          });
+          throw error;
+        }
+        
         const imageResult = await generateImages({
           prompt: promptTemplate, // This is already the resolved prompt from aiActions-new.ts
           settings: imageGenerationSettings,
@@ -214,8 +246,21 @@ export async function aiStageExecutionFlow(
           thinkingSteps: []
         };
       } catch (error: any) {
-        console.error('[AI Stage Flow Enhanced] Image generation failed:', error);
-        throw new Error(`Image generation failed: ${error.message}`);
+        const enhancedError = new Error(
+          `Image generation failed for stage '${contextInfo.stageName}' in workflow '${contextInfo.workflowName}': ${error.message}`
+        );
+        
+        logToAiLog('[AI STAGE EXECUTION ERROR - IMAGE GENERATION]', {
+          error: enhancedError.message,
+          originalError: error.message,
+          stack: error.stack,
+          context: contextInfo,
+          settings: imageGenerationSettings,
+          hasPrompt: !!promptTemplate
+        });
+        
+        console.error('[AI Stage Flow Enhanced] Image generation failed:', enhancedError);
+        throw enhancedError;
       }
     }
 
@@ -231,6 +276,28 @@ export async function aiStageExecutionFlow(
         
         // Filter and prepare tools for Gemini
         const requestedTools = toolDefinitions.filter(def => toolNames.includes(def.name));
+        
+        // Validate that requested tools were found
+        const foundToolNames = requestedTools.map(def => def.name);
+        const missingTools = toolNames.filter(name => !foundToolNames.includes(name) && name !== 'codeInterpreter');
+        
+        if (missingTools.length > 0) {
+          const error = new Error(
+            `Tools not found for stage '${contextInfo.stageName}' in workflow '${contextInfo.workflowName}': ${missingTools.join(', ')}. Available tools: ${toolDefinitions.map(def => def.name).join(', ')}`
+          );
+          
+          logToAiLog('[AI STAGE EXECUTION ERROR - TOOL LOADING]', {
+            error: error.message,
+            stack: error.stack,
+            context: contextInfo,
+            requestedTools: toolNames,
+            foundTools: foundToolNames,
+            missingTools: missingTools,
+            availableTools: toolDefinitions.map(def => def.name)
+          });
+          
+          throw error;
+        }
         
         // Convert to format expected by Gemini
         availableTools = requestedTools.map(def => ({
@@ -252,55 +319,168 @@ export async function aiStageExecutionFlow(
         
         console.log(`[AI Stage Flow Enhanced] Prepared ${availableTools.length} tools:`, availableTools.map(t => t.name));
       } catch (error: unknown) {
-        console.error('[AI Stage Flow Enhanced] Failed to prepare tools:', error);
+        const enhancedError = new Error(
+          `Failed to load tools for stage '${contextInfo.stageName}' in workflow '${contextInfo.workflowName}': ${error instanceof Error ? error.message : String(error)}`
+        );
+        
+        logToAiLog('[AI STAGE EXECUTION ERROR - TOOL LOADING]', {
+          error: enhancedError.message,
+          originalError: error instanceof Error ? error.message : String(error),
+          stack: error instanceof Error ? error.stack : undefined,
+          context: contextInfo,
+          requestedTools: toolNames
+        });
+        
+        console.error('[AI Stage Flow Enhanced] Failed to prepare tools:', enhancedError);
+        throw enhancedError;
       }
     }
 
     // OLD URL grounding approach removed - now using native Gemini API urlContext tool
     // The native approach is handled in the direct API calls above
 
-    // Build prompt parts
-    const currentPromptMessageParts: any[] = [];
-    if (promptTemplate) currentPromptMessageParts.push({ text: promptTemplate });
-    if (imageData?.data) currentPromptMessageParts.push({ inlineData: { mimeType: imageData.mimeType, data: imageData.data } });
-    if (fileInputs?.length) fileInputs.forEach((file: any) => currentPromptMessageParts.push({ fileData: { uri: file.uri, mimeType: file.mimeType } }));
-
-    // Build chat history
-    let callHistory = chatHistory ? [...chatHistory] : [];
-    if (currentPromptMessageParts.length > 0) {
-      callHistory.push({ role: 'user', parts: currentPromptMessageParts });
-    }
+    // Build prompt parts - with error handling
+    let currentPromptMessageParts: any[];
+    let callHistory: any[];
     
-    console.log('[AI Stage Flow Enhanced] Chat history built:', {
-      hasExistingHistory: !!chatHistory,
-      currentPromptParts: currentPromptMessageParts.length,
-      callHistoryLength: callHistory.length,
-      promptTemplateLength: promptTemplate?.length || 0
-    });
+    try {
+      currentPromptMessageParts = [];
+      
+      if (promptTemplate) {
+        currentPromptMessageParts.push({ text: promptTemplate });
+      }
+      
+      if (imageData?.data) {
+        // Validate image data format
+        if (!imageData.mimeType || !imageData.data) {
+          const error = new Error(
+            `Invalid image data format for stage '${contextInfo.stageName}' in workflow '${contextInfo.workflowName}': missing mimeType or data`
+          );
+          
+          logToAiLog('[AI STAGE EXECUTION ERROR - PROMPT BUILDING]', {
+            error: error.message,
+            stack: error.stack,
+            context: contextInfo,
+            imageData: { hasMimeType: !!imageData.mimeType, hasData: !!imageData.data }
+          });
+          
+          throw error;
+        }
+        
+        currentPromptMessageParts.push({ inlineData: { mimeType: imageData.mimeType, data: imageData.data } });
+      }
+      
+      if (fileInputs?.length) {
+        for (const file of fileInputs) {
+          if (!file.uri || !file.mimeType) {
+            const error = new Error(
+              `Invalid file input format for stage '${contextInfo.stageName}' in workflow '${contextInfo.workflowName}': missing uri or mimeType`
+            );
+            
+            logToAiLog('[AI STAGE EXECUTION ERROR - PROMPT BUILDING]', {
+              error: error.message,
+              stack: error.stack,
+              context: contextInfo,
+              fileInput: { hasUri: !!file.uri, hasMimeType: !!file.mimeType }
+            });
+            
+            throw error;
+          }
+          
+          currentPromptMessageParts.push({ fileData: { uri: file.uri, mimeType: file.mimeType } });
+        }
+      }
+
+      // Build chat history
+      callHistory = chatHistory ? [...chatHistory] : [];
+      if (currentPromptMessageParts.length > 0) {
+        callHistory.push({ role: 'user', parts: currentPromptMessageParts });
+      }
+      
+      console.log('[AI Stage Flow Enhanced] Chat history built:', {
+        hasExistingHistory: !!chatHistory,
+        currentPromptParts: currentPromptMessageParts.length,
+        callHistoryLength: callHistory.length,
+        promptTemplateLength: promptTemplate?.length || 0
+      });
+    } catch (error: any) {
+      const enhancedError = new Error(
+        `Failed to build prompt for stage '${contextInfo.stageName}' in workflow '${contextInfo.workflowName}': ${error.message}`
+      );
+      
+      logToAiLog('[AI STAGE EXECUTION ERROR - PROMPT BUILDING]', {
+        error: enhancedError.message,
+        originalError: error.message,
+        stack: error.stack,
+        context: contextInfo,
+        inputs: {
+          hasPromptTemplate: !!promptTemplate,
+          hasImageData: !!imageData,
+          hasFileInputs: !!fileInputs?.length,
+          hasChatHistory: !!chatHistory
+        }
+      });
+      
+      throw enhancedError;
+    }
 
     // Handle system instructions
-    if (systemInstructions) {
-      if (callHistory.length > 0 && callHistory[0].role === 'system') {
-        callHistory[0] = { role: 'system', parts: [{ text: systemInstructions }] };
-      } else {
-        callHistory.unshift({ role: 'system', parts: [{ text: systemInstructions }] });
+    try {
+      if (systemInstructions) {
+        if (callHistory.length > 0 && callHistory[0].role === 'system') {
+          callHistory[0] = { role: 'system', parts: [{ text: systemInstructions }] };
+        } else {
+          callHistory.unshift({ role: 'system', parts: [{ text: systemInstructions }] });
+        }
       }
+    } catch (error: any) {
+      const enhancedError = new Error(
+        `Failed to process system instructions for stage '${contextInfo.stageName}' in workflow '${contextInfo.workflowName}': ${error.message}`
+      );
+      
+      logToAiLog('[AI STAGE EXECUTION ERROR - SYSTEM INSTRUCTIONS]', {
+        error: enhancedError.message,
+        originalError: error.message,
+        stack: error.stack,
+        context: contextInfo,
+        hasSystemInstructions: !!systemInstructions
+      });
+      
+      throw enhancedError;
     }
 
     // Determine the model to use
-    let modelToUse = model || 'googleai/gemini-2.0-flash';
-    
-    // Use thinking model if thinking is enabled.
-    // As per the guide, only 2.5 models support thinking.
-    // We will automatically switch to a thinking-capable model if needed.
-    if (thinkingSettings?.enabled) {
-      const isThinkingModel = modelToUse.includes('gemini-2.5-flash') || modelToUse.includes('gemini-2.5-pro');
+    let modelToUse: string;
+    try {
+      modelToUse = model || 'googleai/gemini-2.0-flash';
       
-      if (!isThinkingModel) {
-         console.log(`[AI Stage Flow Enhanced] Model ${modelToUse} does not support thinking. Switching to googleai/gemini-2.5-flash-preview as requested for thinking jobs.`);
-         modelToUse = 'googleai/gemini-2.5-flash-preview';
+      // Use thinking model if thinking is enabled.
+      // As per the guide, only 2.5 models support thinking.
+      // We will automatically switch to a thinking-capable model if needed.
+      if (thinkingSettings?.enabled) {
+        const isThinkingModel = modelToUse.includes('gemini-2.5-flash') || modelToUse.includes('gemini-2.5-pro');
+        
+        if (!isThinkingModel) {
+           console.log(`[AI Stage Flow Enhanced] Model ${modelToUse} does not support thinking. Switching to googleai/gemini-2.5-flash-preview as requested for thinking jobs.`);
+           modelToUse = 'googleai/gemini-2.5-flash-preview';
+        }
+        console.log('[AI Stage Flow Enhanced] Using thinking model:', modelToUse);
       }
-      console.log('[AI Stage Flow Enhanced] Using thinking model:', modelToUse);
+    } catch (error: any) {
+      const enhancedError = new Error(
+        `Failed to configure model for stage '${contextInfo.stageName}' in workflow '${contextInfo.workflowName}': ${error.message}`
+      );
+      
+      logToAiLog('[AI STAGE EXECUTION ERROR - MODEL CONFIGURATION]', {
+        error: enhancedError.message,
+        originalError: error.message,
+        stack: error.stack,
+        context: contextInfo,
+        requestedModel: model,
+        thinkingEnabled: thinkingSettings?.enabled
+      });
+      
+      throw enhancedError;
     }
 
     // CRITICAL: Implement proper Google Search grounding using direct API
@@ -311,17 +491,63 @@ export async function aiStageExecutionFlow(
     // CRITICAL: Implement proper URL Context grounding using direct API
     let urlsToProcess: string[] = [];
     
-    if (groundingSettings?.urlContext?.enabled) {
-      if (groundingSettings.urlContext.extractUrlsFromInput && promptTemplate) {
-        // Extract URLs from the input text using regex
-        const urlRegex = /(https?:\/\/[^\s]+)/g;
-        const extractedUrls = promptTemplate.match(urlRegex) || [];
-        urlsToProcess = [...new Set(extractedUrls)]; // Remove duplicates
-        console.log('[AI Stage Flow Enhanced] Extracted URLs from input:', urlsToProcess);
-      } else if (groundingSettings.urlContext.urls && groundingSettings.urlContext.urls.length > 0) {
-        urlsToProcess = groundingSettings.urlContext.urls;
-        console.log('[AI Stage Flow Enhanced] Using predefined URLs:', urlsToProcess);
+    try {
+      if (groundingSettings?.urlContext?.enabled) {
+        if (groundingSettings.urlContext.extractUrlsFromInput && promptTemplate) {
+          // Extract URLs from the input text using regex
+          const urlRegex = /(https?:\/\/[^\s]+)/g;
+          const extractedUrls = promptTemplate.match(urlRegex) || [];
+          urlsToProcess = [...new Set(extractedUrls)]; // Remove duplicates
+          console.log('[AI Stage Flow Enhanced] Extracted URLs from input:', urlsToProcess);
+        } else if (groundingSettings.urlContext.urls && groundingSettings.urlContext.urls.length > 0) {
+          urlsToProcess = groundingSettings.urlContext.urls;
+          console.log('[AI Stage Flow Enhanced] Using predefined URLs:', urlsToProcess);
+        }
+        
+        // Validate extracted URLs
+        const invalidUrls = urlsToProcess.filter(url => {
+          try {
+            new URL(url);
+            return false;
+          } catch {
+            return true;
+          }
+        });
+        
+        if (invalidUrls.length > 0) {
+          const error = new Error(
+            `Invalid URLs found for URL Context grounding in stage '${contextInfo.stageName}' in workflow '${contextInfo.workflowName}': ${invalidUrls.join(', ')}`
+          );
+          
+          logToAiLog('[AI STAGE EXECUTION ERROR - URL CONTEXT]', {
+            error: error.message,
+            stack: error.stack,
+            context: contextInfo,
+            invalidUrls: invalidUrls,
+            allUrls: urlsToProcess
+          });
+          
+          throw error;
+        }
       }
+    } catch (error: any) {
+      if (error.message.includes('Invalid URLs found')) {
+        throw error; // Re-throw our own validation errors
+      }
+      
+      const enhancedError = new Error(
+        `Failed to process URL Context grounding for stage '${contextInfo.stageName}' in workflow '${contextInfo.workflowName}': ${error.message}`
+      );
+      
+      logToAiLog('[AI STAGE EXECUTION ERROR - URL CONTEXT]', {
+        error: enhancedError.message,
+        originalError: error.message,
+        stack: error.stack,
+        context: contextInfo,
+        groundingSettings: groundingSettings?.urlContext
+      });
+      
+      throw enhancedError;
     }
     
     const shouldEnableUrlContext = 
@@ -423,20 +649,60 @@ export async function aiStageExecutionFlow(
     }
 
     // Always use direct Gemini API
-    return await executeWithDirectGeminiAPI(
-      {
+    try {
+      return await executeWithDirectGeminiAPI(
+        {
+          model: modelToUse,
+          prompt: promptTemplate,
+          temperature: temperature ?? 0.7,
+          systemInstruction: systemInstructions,
+          tools: availableTools,
+          enableGoogleSearch: false,
+          enableUrlContext: false
+        },
+        currentThinkingSteps,
+        input
+      );
+    } catch (error: any) {
+      const enhancedError = new Error(
+        `Direct Gemini API execution failed for stage '${contextInfo.stageName}' in workflow '${contextInfo.workflowName}': ${error.message}`
+      );
+      
+      logToAiLog('[AI STAGE EXECUTION ERROR - DIRECT GEMINI API]', {
+        error: enhancedError.message,
+        originalError: error.message,
+        stack: error.stack,
+        context: contextInfo,
         model: modelToUse,
-        prompt: promptTemplate,
-        temperature: temperature ?? 0.7,
-        systemInstruction: systemInstructions,
-        tools: availableTools,
-        enableGoogleSearch: false,
-        enableUrlContext: false
-      },
-      currentThinkingSteps,
-      input
+        hasPrompt: !!promptTemplate,
+        hasTools: availableTools.length > 0
+      });
+      
+      throw enhancedError;
+    }
+  } catch (error: any) {
+    // Top-level error handler for the entire function
+    const enhancedError = new Error(
+      `AI Stage Execution failed for stage '${contextInfo.stageName}' in workflow '${contextInfo.workflowName}': ${error.message}`
     );
+    
+    logToAiLog('[AI STAGE EXECUTION ERROR - TOP LEVEL]', {
+      error: enhancedError.message,
+      originalError: error.message,
+      stack: error.stack,
+      context: contextInfo,
+      inputSummary: {
+        hasPromptTemplate: !!promptTemplate,
+        hasImageData: !!imageData,
+        hasTools: !!(toolNames?.length),
+        hasGrounding: !!(groundingSettings?.googleSearch?.enabled || groundingSettings?.urlContext?.enabled),
+        isImageGeneration: stageOutputType === 'image'
+      }
+    });
+    
+    throw enhancedError;
   }
+}
 
 // Direct Gemini API execution for all generation cases
 async function executeWithDirectGeminiAPI(
@@ -444,6 +710,37 @@ async function executeWithDirectGeminiAPI(
   thinkingSteps: ThinkingStep[],
   originalInput?: AiStageExecutionInput
 ): Promise<AiStageOutputSchema> {
+  // Validate inputs
+  if (!request) {
+    const error = new Error('Direct Gemini API: No request provided');
+    logToAiLog('[DIRECT GEMINI API ERROR - VALIDATION]', {
+      error: error.message,
+      stack: error.stack
+    });
+    throw error;
+  }
+  
+  if (!request.prompt && !request.systemInstruction) {
+    const error = new Error('Direct Gemini API: No prompt or system instruction provided');
+    logToAiLog('[DIRECT GEMINI API ERROR - VALIDATION]', {
+      error: error.message,
+      stack: error.stack,
+      request: {
+        model: request.model,
+        hasPrompt: !!request.prompt,
+        hasSystemInstruction: !!request.systemInstruction
+      }
+    });
+    throw error;
+  }
+  
+  const contextInfo = {
+    workflowName: request.workflowName || originalInput?.workflow?.name || 'unknown',
+    stageName: request.stageName || originalInput?.stage?.name || 'unknown',
+    stageId: request.stageId || originalInput?.stage?.id || originalInput?.stageId || 'unknown',
+    model: request.model || 'unknown'
+  };
+  
   console.log('[Direct Gemini API] Starting execution');
   
   // LOG FULL REQUEST TO DIRECT GEMINI API
@@ -462,7 +759,8 @@ async function executeWithDirectGeminiAPI(
       model: originalInput.model,
       hasGroundingSettings: !!originalInput.groundingSettings,
       groundingSettings: originalInput.groundingSettings
-    } : undefined
+    } : undefined,
+    context: contextInfo
   });
   
   try {
@@ -470,106 +768,186 @@ async function executeWithDirectGeminiAPI(
     
     const result = await generateWithDirectGemini(request);
     
-    // LOG FULL NON-STREAMING RESULT
-    logToAiLog('[DIRECT GEMINI NON-STREAMING RESULT]', {
-      hasContent: !!result.content,
-      contentLength: result.content?.length || 0,
-      contentPreview: result.content?.substring(0, 200) + '...' || '',
-      hasGroundingMetadata: !!result.groundingMetadata,
-      groundingMetadataKeys: result.groundingMetadata ? Object.keys(result.groundingMetadata) : [],
-      hasGroundingSources: !!result.groundingSources,
-      groundingSourcesCount: result.groundingSources?.length || 0,
-      groundingSourcesPreview: result.groundingSources?.slice(0, 2),
-      allResultKeys: Object.keys(result)
-    });
-    
-    // LOG FULL GROUNDING METADATA IF PRESENT
-    if (result.groundingMetadata) {
-      logToAiLog('[DIRECT GEMINI GROUNDING METADATA - FULL]', result.groundingMetadata);
-
-      // Use enhanced grounding metadata logging
-      const { logGroundingMetadata } = await import('@/lib/ai-logger');
-      logGroundingMetadata(result.groundingMetadata);
+    // Validate result
+    if (!result) {
+      const error = new Error(
+        `Direct Gemini API returned null/undefined result for stage '${contextInfo.stageName}' in workflow '${contextInfo.workflowName}'`
+      );
+      
+      logToAiLog('[DIRECT GEMINI API ERROR - INVALID RESULT]', {
+        error: error.message,
+        stack: error.stack,
+        context: contextInfo,
+        request: {
+          model: request.model,
+          hasPrompt: !!request.prompt,
+          temperature: request.temperature
+        }
+      });
+      
+      throw error;
     }
     
-    // LOG FULL GROUNDING SOURCES IF PRESENT
-    if (result.groundingSources) {
-      logToAiLog('[DIRECT GEMINI GROUNDING SOURCES - FULL]', result.groundingSources);
+    try {
+      // LOG FULL NON-STREAMING RESULT
+      logToAiLog('[DIRECT GEMINI NON-STREAMING RESULT]', {
+        hasContent: !!result.content,
+        contentLength: result.content?.length || 0,
+        contentPreview: result.content?.substring(0, 200) + '...' || '',
+        hasGroundingMetadata: !!result.groundingMetadata,
+        groundingMetadataKeys: result.groundingMetadata ? Object.keys(result.groundingMetadata) : [],
+        hasGroundingSources: !!result.groundingSources,
+        groundingSourcesCount: result.groundingSources?.length || 0,
+        groundingSourcesPreview: result.groundingSources?.slice(0, 2),
+        allResultKeys: Object.keys(result),
+        context: contextInfo
+      });
       
-      // Use enhanced grounding sources logging
-      const { logGroundingSources } = await import('@/lib/ai-logger');
-      logGroundingSources(result.groundingSources);
-    }
+      // LOG FULL GROUNDING METADATA IF PRESENT
+      if (result.groundingMetadata) {
+        try {
+          logToAiLog('[DIRECT GEMINI GROUNDING METADATA - FULL]', result.groundingMetadata);
 
-    // LOG FULL URL CONTEXT METADATA IF PRESENT  
-    if (result.urlContextMetadata) {
-      logToAiLog('[DIRECT GEMINI URL CONTEXT METADATA - FULL]', result.urlContextMetadata);
-      
-      // Use enhanced URL context metadata logging
-      const { logUrlContextMetadata } = await import('@/lib/ai-logger');
-      logUrlContextMetadata(result.urlContextMetadata);
-    }
-
-    // LOG FULL THINKING METADATA IF PRESENT
-    if (result.thinkingSteps && result.thinkingSteps.length > 0) {
-      logToAiLog('[DIRECT GEMINI THINKING STEPS - FULL]', result.thinkingSteps);
-      
-      // Use enhanced thinking metadata logging
-      const { logThinkingMetadata } = await import('@/lib/ai-logger');
-      logThinkingMetadata(result.thinkingSteps, result.usageMetadata);
-      
-      // Convert Direct Gemini thinking steps to our internal format
-      for (const thinkingStep of result.thinkingSteps) {
-        if (thinkingStep.type === 'thought' && thinkingStep.text) {
-          thinkingSteps.push({
-            type: 'textLog',
-            message: `Thought Summary: ${thinkingStep.text}`
-          });
+          // Use enhanced grounding metadata logging
+          const { logGroundingMetadata } = await import('@/lib/ai-logger');
+          logGroundingMetadata(result.groundingMetadata);
+        } catch (error: any) {
+          console.error('[Direct Gemini API] Failed to log grounding metadata:', error);
+          // Continue processing - logging failures should not break the flow
         }
       }
+      
+      // LOG FULL GROUNDING SOURCES IF PRESENT
+      if (result.groundingSources) {
+        try {
+          logToAiLog('[DIRECT GEMINI GROUNDING SOURCES - FULL]', result.groundingSources);
+          
+          // Use enhanced grounding sources logging
+          const { logGroundingSources } = await import('@/lib/ai-logger');
+          logGroundingSources(result.groundingSources);
+        } catch (error: any) {
+          console.error('[Direct Gemini API] Failed to log grounding sources:', error);
+          // Continue processing - logging failures should not break the flow
+        }
+      }
+
+      // LOG FULL URL CONTEXT METADATA IF PRESENT  
+      if (result.urlContextMetadata) {
+        try {
+          logToAiLog('[DIRECT GEMINI URL CONTEXT METADATA - FULL]', result.urlContextMetadata);
+          
+          // Use enhanced URL context metadata logging
+          const { logUrlContextMetadata } = await import('@/lib/ai-logger');
+          logUrlContextMetadata(result.urlContextMetadata);
+        } catch (error: any) {
+          console.error('[Direct Gemini API] Failed to log URL context metadata:', error);
+          // Continue processing - logging failures should not break the flow
+        }
+      }
+
+      // LOG FULL THINKING METADATA IF PRESENT
+      if (result.thinkingSteps && result.thinkingSteps.length > 0) {
+        try {
+          logToAiLog('[DIRECT GEMINI THINKING STEPS - FULL]', result.thinkingSteps);
+          
+          // Use enhanced thinking metadata logging
+          const { logThinkingMetadata } = await import('@/lib/ai-logger');
+          logThinkingMetadata(result.thinkingSteps, result.usageMetadata);
+          
+          // Convert Direct Gemini thinking steps to our internal format
+          for (const thinkingStep of result.thinkingSteps) {
+            if (thinkingStep.type === 'thought' && thinkingStep.text) {
+              thinkingSteps.push({
+                type: 'textLog',
+                message: `Thought Summary: ${thinkingStep.text}`
+              });
+            }
+          }
+        } catch (error: any) {
+          console.error('[Direct Gemini API] Failed to process thinking steps:', error);
+          // Continue processing - thinking step failures should not break the flow
+        }
+      }
+      
+      console.log('[Direct Gemini API] Generation completed successfully');
+      
+      // Clean the AI response content to remove code fences and formatting
+      let cleanedContent;
+      try {
+        cleanedContent = result.content ? 
+          cleanAiResponse(result.content, (originalInput as any)?.stageOutputType || 'text') : 
+          result.content;
+      } catch (error: any) {
+        console.error('[Direct Gemini API] Failed to clean AI response content:', error);
+        // Use original content if cleaning fails
+        cleanedContent = result.content;
+      }
+      
+      const processedResult = {
+        content: cleanedContent,
+        thinkingSteps: thinkingSteps.length > 0 ? thinkingSteps : undefined,
+        groundingMetadata: result.groundingMetadata,
+        urlContextMetadata: result.urlContextMetadata,
+        groundingSources: result.groundingSources?.map(source => ({
+          type: 'search' as const,
+          title: source.title,
+          url: source.uri,
+          snippet: source.snippet
+        })),
+        usageMetadata: result.usageMetadata,
+      };
+      
+      // LOG PROCESSED RESULT BEING RETURNED
+      logToAiLog('[DIRECT GEMINI PROCESSED RESULT - NON-STREAMING]', {
+        hasContent: !!processedResult.content,
+        hasGroundingMetadata: !!processedResult.groundingMetadata,
+        hasGroundingSources: !!processedResult.groundingSources,
+        groundingSourcesCount: processedResult.groundingSources?.length || 0,
+        allProcessedKeys: Object.keys(processedResult),
+        context: contextInfo
+      });
+      
+      return processedResult;
+    } catch (error: any) {
+      // Enhanced error for result processing failures
+      const enhancedError = new Error(
+        `Failed to process Direct Gemini API result for stage '${contextInfo.stageName}' in workflow '${contextInfo.workflowName}': ${error.message}`
+      );
+      
+      logToAiLog('[DIRECT GEMINI API ERROR - RESULT PROCESSING]', {
+        error: enhancedError.message,
+        originalError: error.message,
+        stack: error.stack,
+        context: contextInfo,
+        resultStructure: result ? Object.keys(result) : 'no result'
+      });
+      
+      throw enhancedError;
     }
     
-    console.log('[Direct Gemini API] Generation completed successfully');
-    
-    // Clean the AI response content to remove code fences and formatting
-    const cleanedContent = result.content ? 
-      cleanAiResponse(result.content, (originalInput as any)?.stageOutputType || 'text') : 
-      result.content;
-    
-    const processedResult = {
-      content: cleanedContent,
-      thinkingSteps: thinkingSteps.length > 0 ? thinkingSteps : undefined,
-      groundingMetadata: result.groundingMetadata,
-      urlContextMetadata: result.urlContextMetadata,
-      groundingSources: result.groundingSources?.map(source => ({
-        type: 'search' as const,
-        title: source.title,
-        url: source.uri,
-        snippet: source.snippet
-      })),
-      usageMetadata: result.usageMetadata,
-    };
-    
-    // LOG PROCESSED RESULT BEING RETURNED
-    logToAiLog('[DIRECT GEMINI PROCESSED RESULT - NON-STREAMING]', {
-      hasContent: !!processedResult.content,
-      hasGroundingMetadata: !!processedResult.groundingMetadata,
-      hasGroundingSources: !!processedResult.groundingSources,
-      groundingSourcesCount: processedResult.groundingSources?.length || 0,
-      allProcessedKeys: Object.keys(processedResult)
-    });
-    
-    return processedResult;
-    
   } catch (error: unknown) {
-    // LOG DIRECT GEMINI ERROR
-    logToAiLog('[DIRECT GEMINI API ERROR]', {
-      error: error instanceof Error ? error.message : String(error),
-      stack: error instanceof Error ? error.stack : undefined
+    // Enhanced error for API call failures
+    const enhancedError = new Error(
+      `Direct Gemini API call failed for stage '${contextInfo.stageName}' in workflow '${contextInfo.workflowName}': ${error instanceof Error ? error.message : String(error)}`
+    );
+    
+    logToAiLog('[DIRECT GEMINI API ERROR - API CALL]', {
+      error: enhancedError.message,
+      originalError: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+      context: contextInfo,
+      request: {
+        model: request.model,
+        hasPrompt: !!request.prompt,
+        hasSystemInstruction: !!request.systemInstruction,
+        temperature: request.temperature,
+        enableGoogleSearch: request.enableGoogleSearch,
+        enableUrlContext: request.enableUrlContext
+      }
     });
     
-    console.error('[Direct Gemini API] Execution failed:', error);
-    throw error;
+    console.error('[Direct Gemini API] Execution failed:', enhancedError);
+    throw enhancedError;
   }
 }
 
@@ -583,7 +961,13 @@ function logToAiLog(message: string, data?: any) {
     const logPath = join(process.cwd(), 'logs', 'ai.log');
     appendFileSync(logPath, logEntry);
   } catch (error) {
-    console.error('Failed to write to ai.log:', error);
+    // FAIL FAST: Log writing errors should not break the flow, but should be reported
+    console.error('CRITICAL: Failed to write to ai.log - logging system failure:', error);
+    console.error('Log entry that failed to write:', logEntry);
+    
+    // Don't throw - logging failures should not break AI execution
+    // This follows the principle of failing fast on core functionality
+    // while allowing auxiliary systems (like logging) to fail gracefully
   }
 }
 
