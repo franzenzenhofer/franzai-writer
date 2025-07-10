@@ -43,3 +43,11 @@ export function findLastEditedStage(stageStates: Record<string, StageState>): st
 
   return lastStage;
 }
+
+// Helper function to truncate strings to a specified length and add ellipsis if truncated
+export function truncateString(str: string, maxLength: number): string {
+  if (str.length <= maxLength) {
+    return str;
+  }
+  return str.substring(0, maxLength) + '...';
+}
