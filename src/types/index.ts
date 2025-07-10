@@ -455,4 +455,45 @@ export interface Asset {
   description?: string;           // User-provided description
 }
 
+// Export type guard functions for runtime validation
+export {
+  isStageState,
+  isWorkflow,
+  isWizardInstance,
+  isStage,
+  isFormField,
+  isJsonField,
+  isExportFormat,
+  isExportConfig,
+  isImageGenerationSettings,
+  isImageOutputData,
+  isAsset,
+  validateStageStateRuntime,
+  validateWorkflowRuntime,
+  validateWizardInstanceRuntime,
+  castToStageState,
+  castToWorkflow,
+  castToWizardInstance,
+  validateStageStatesCollection,
+  validateWorkflowsArray
+} from '@/lib/type-guards';
+
+// Export runtime validation utilities
+export {
+  validateStageStateComprehensive,
+  validateWorkflowComprehensive,
+  validateWizardInstanceComprehensive,
+  validateExternalData,
+  validateApiResponse,
+  validateLocalStorageData,
+  validateFirestoreData,
+  validateWorkflowsBatch,
+  DynamicContentValidator,
+  createValidator,
+  quickValidators,
+  handleValidationFailure,
+  createValidationMiddleware,
+  type ValidationResult,
+  type ValidationContext
+} from '@/lib/runtime-validation';
 
