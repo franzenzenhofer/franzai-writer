@@ -1,0 +1,220 @@
+/* Keyboard Navigation Styles */
+
+/* Only show focus indicators when using keyboard navigation */
+.keyboard-navigation *:focus {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Enhanced focus indicators for interactive elements */
+.keyboard-navigation button:focus,
+.keyboard-navigation input:focus,
+.keyboard-navigation textarea:focus,
+.keyboard-navigation select:focus,
+.keyboard-navigation [role="button"]:focus,
+.keyboard-navigation [role="tab"]:focus,
+.keyboard-navigation [role="menuitem"]:focus {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px hsl(var(--primary) / 0.1);
+}
+
+/* Focus indicators for cards and containers */
+.keyboard-navigation .stage-card:focus,
+.keyboard-navigation [data-testid^="stage-card"]:focus {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px hsl(var(--primary) / 0.1);
+}
+
+/* Focus indicators for form elements */
+.keyboard-navigation .form-control:focus,
+.keyboard-navigation [role="combobox"]:focus,
+.keyboard-navigation [role="listbox"]:focus {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px hsl(var(--primary) / 0.1);
+}
+
+/* Focus indicators for links */
+.keyboard-navigation a:focus {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  text-decoration: underline;
+}
+
+/* Focus indicators for checkboxes and radio buttons */
+.keyboard-navigation input[type="checkbox"]:focus,
+.keyboard-navigation input[type="radio"]:focus {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px hsl(var(--primary) / 0.1);
+}
+
+/* High contrast focus indicators for buttons */
+.keyboard-navigation button[data-variant="default"]:focus {
+  outline: 2px solid hsl(var(--primary-foreground));
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px hsl(var(--primary) / 0.2);
+}
+
+.keyboard-navigation button[data-variant="destructive"]:focus {
+  outline: 2px solid hsl(var(--destructive-foreground));
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px hsl(var(--destructive) / 0.2);
+}
+
+.keyboard-navigation button[data-variant="outline"]:focus {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px hsl(var(--primary) / 0.1);
+}
+
+/* Focus indicators for disabled elements */
+.keyboard-navigation button:disabled:focus,
+.keyboard-navigation input:disabled:focus,
+.keyboard-navigation textarea:disabled:focus,
+.keyboard-navigation select:disabled:focus {
+  outline: 2px solid hsl(var(--muted-foreground));
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px hsl(var(--muted) / 0.1);
+}
+
+/* Skip to content link */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  z-index: 100;
+  transition: top 0.3s ease;
+}
+
+.skip-to-content:focus {
+  top: 6px;
+}
+
+/* Keyboard navigation hints */
+.keyboard-hints {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 12px;
+  color: hsl(var(--muted-foreground));
+  box-shadow: 0 4px 12px hsl(var(--shadow));
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.keyboard-navigation .keyboard-hints {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.keyboard-hints h4 {
+  margin: 0 0 8px 0;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.keyboard-hints ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.keyboard-hints li {
+  margin: 4px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.keyboard-hints kbd {
+  background: hsl(var(--muted));
+  border: 1px solid hsl(var(--border));
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: hsl(var(--muted-foreground));
+}
+
+/* Stage navigation indicators */
+.stage-navigation-indicator {
+  position: sticky;
+  top: 80px;
+  right: 16px;
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 12px;
+  color: hsl(var(--muted-foreground));
+  box-shadow: 0 2px 8px hsl(var(--shadow));
+  z-index: 40;
+  max-width: 200px;
+}
+
+.stage-navigation-indicator.active {
+  border-color: hsl(var(--primary));
+  color: hsl(var(--primary));
+}
+
+/* Smooth scrolling for stage navigation */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .keyboard-navigation *:focus {
+    outline: 3px solid currentColor;
+    outline-offset: 3px;
+  }
+  
+  .keyboard-navigation button:focus,
+  .keyboard-navigation input:focus,
+  .keyboard-navigation textarea:focus,
+  .keyboard-navigation select:focus {
+    outline: 3px solid currentColor;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px currentColor;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .keyboard-navigation *:focus {
+    transition: none;
+  }
+  
+  .skip-to-content {
+    transition: none;
+  }
+  
+  .keyboard-hints {
+    transition: none;
+  }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .keyboard-navigation *:focus {
+    outline-color: hsl(var(--primary));
+    box-shadow: 0 0 0 4px hsl(var(--primary) / 0.2);
+  }
+}

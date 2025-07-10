@@ -310,6 +310,9 @@ export function StageCard({
       id={`stage-${stage.id}`} 
       data-testid={`stage-card-${stage.id}`}
       className={cardClasses}
+      tabIndex={0}
+      role="region"
+      aria-label={`Stage: ${stage.title}`}
     >
       {dependencyMessage && (
         <div className="px-6 pt-4 pb-2 text-center">

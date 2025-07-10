@@ -13,6 +13,9 @@ import { useDocumentPersistence } from '@/hooks/use-document-persistence';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/components/layout/app-providers';
 import { cn } from '@/lib/utils';
+import { useKeyboardNavigation, useVisualFocusIndicators } from '@/hooks/use-keyboard-navigation';
+import { SkipToContent, SkipNavigation } from '@/components/ui/skip-to-content';
+import { KeyboardNavigationHelp, KeyboardNavigationIndicator } from '@/components/ui/keyboard-navigation-help';
 
 // Lazy load the AI stage runner to prevent Turbopack static analysis
 let runAiStage: any = null;
@@ -147,6 +150,9 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   const [aiLoadAttempts, setAiLoadAttempts] = useState(0);
   const [aiLoadStartTime, setAiLoadStartTime] = useState<number>(Date.now());
 
+  // Initialize visual focus indicators
+  useVisualFocusIndicators();
+
   // Enhanced AI stage runner loading with detailed error tracking
   const loadAiStageRunner = useCallback(async (retryAttempt: number = 0) => {
     const startTime = Date.now();
@@ -277,8 +283,45 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         top: elementTop - headerOffset,
         behavior: 'smooth'
       });
+      
+      // Focus the stage element for keyboard navigation
+      stageElement.focus();
     }
   }, []);
+
+  // Keyboard navigation functions
+  const navigateToNextStage = useCallback(() => {
+    const currentStageIndex = instance.workflow.stages.findIndex(stage => stage.id === currentStageId);
+    if (currentStageIndex < instance.workflow.stages.length - 1) {
+      const nextStage = instance.workflow.stages[currentStageIndex + 1];
+      scrollToStageById(nextStage.id);
+    }
+  }, [instance.workflow.stages, currentStageId, scrollToStageById]);
+
+  const navigateToPreviousStage = useCallback(() => {
+    const currentStageIndex = instance.workflow.stages.findIndex(stage => stage.id === currentStageId);
+    if (currentStageIndex > 0) {
+      const previousStage = instance.workflow.stages[currentStageIndex - 1];
+      scrollToStageById(previousStage.id);
+    }
+  }, [instance.workflow.stages, currentStageId, scrollToStageById]);
+
+  const triggerPrimaryAction = useCallback(() => {
+    const currentStage = instance.workflow.stages.find(stage => stage.id === currentStageId);
+    if (currentStage) {
+      const primaryButton = document.getElementById(`process-stage-${currentStageId}`);
+      if (primaryButton) {
+        primaryButton.click();
+      }
+    }
+  }, [currentStageId, instance.workflow.stages]);
+
+  const triggerEditAction = useCallback(() => {
+    const editButton = document.getElementById(`edit-${currentStageId}`);
+    if (editButton) {
+      editButton.click();
+    }
+  }, [currentStageId]);
 
   // Callback to sync instance changes from persistence layer
   const updateInstanceForPersistence = useCallback((updates: Partial<WizardInstance>) => {
@@ -930,10 +973,47 @@ Still having issues? Check the browser console for detailed logs.`;
 
   const currentStageId = currentFocusStage?.id || instance.workflow.stages[0].id;
 
+  // Initialize keyboard navigation
+  useKeyboardNavigation({
+    enableGlobalShortcuts: true,
+    enableArrowKeys: true,
+    onNextStage: navigateToNextStage,
+    onPreviousStage: navigateToPreviousStage,
+    onPrimaryAction: triggerPrimaryAction,
+    onSecondaryAction: triggerEditAction,
+    onEscape: () => {
+      // Clear any active editing states
+      instance.workflow.stages.forEach(stage => {
+        if (instance.stageStates[stage.id]?.isEditingOutput) {
+          updateStageState(stage.id, { isEditingOutput: false });
+        }
+      });
+    },
+  });
 
   return (
     <>
-      <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+      {/* Skip to content for accessibility */}
+      <SkipToContent targetId="main-content" />
+      
+      {/* Skip navigation for stages */}
+      <SkipNavigation 
+        stages={instance.workflow.stages.map(stage => ({
+          id: stage.id,
+          title: stage.title,
+          completed: instance.stageStates[stage.id]?.status === 'completed'
+        }))}
+        currentStageId={currentStageId}
+        onStageClick={scrollToStageById}
+      />
+
+      {/* Keyboard navigation help */}
+      <KeyboardNavigationHelp showAsPopup autoShow />
+      
+      {/* Keyboard navigation indicator */}
+      <KeyboardNavigationIndicator />
+
+      <div id="main-content" className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-8" tabIndex={-1}>
         <h1 
           className="text-2xl md:text-3xl font-bold font-headline mb-2"
           data-testid="wizard-page-title"
