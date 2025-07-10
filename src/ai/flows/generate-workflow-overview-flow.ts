@@ -8,7 +8,7 @@
  */
 
 import { StructuredOutputModule } from '@/lib/google-genai';
-import {z} from 'zod';
+import { z } from 'zod';
 
 const StageInfoSchema = z.object({
   title: z.string().describe('The title of the stage.'),

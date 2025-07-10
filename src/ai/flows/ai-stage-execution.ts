@@ -1,7 +1,7 @@
 'use server';
 import 'server-only';
 
-import {z} from 'zod';
+import { z } from 'zod';
 import { generateWithDirectGemini, type DirectGeminiRequest } from '@/ai/direct-gemini';
 import { appendFileSync } from 'fs';
 import { join } from 'path';
@@ -158,8 +158,8 @@ export type AiStageOutputSchema = z.infer<typeof AiStageOutputSchema>;
 export async function aiStageExecutionFlow(
   input: AiStageExecutionInput
 ): Promise<AiStageOutputSchema> {
-    let {
-      promptTemplate, model, temperature, imageData,
+    const {
+      promptTemplate: inputPromptTemplate, model, temperature, imageData,
       thinkingSettings, toolNames, fileInputs,
       systemInstructions, chatHistory, groundingSettings,
       functionCallingMode, forceGoogleSearchGrounding,
@@ -167,6 +167,8 @@ export async function aiStageExecutionFlow(
       userId, documentId, stageId,
       workflow, stage
     } = input;
+
+    let promptTemplate = inputPromptTemplate;
 
     console.log('[AI Stage Flow Enhanced] Starting with input:', {
       model: model || 'default',
@@ -220,7 +222,7 @@ export async function aiStageExecutionFlow(
     }
 
     // Initialize response tracking
-    let currentThinkingSteps: ThinkingStep[] = [];
+    const currentThinkingSteps: ThinkingStep[] = [];
 
     // Load tools if requested
     let availableTools: any[] = [];
