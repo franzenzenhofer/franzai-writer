@@ -17,7 +17,14 @@ import { cn } from '@/lib/utils';
 // Lazy load the AI stage runner to prevent Turbopack static analysis
 let runAiStage: any = null;
 
-// Template variable resolution utility for image generation settings
+/**
+ * Resolves template variables in image generation settings using context from completed stages.
+ * 
+ * @param settings - The image generation settings object that may contain template variables
+ * @param contextVars - Record of completed stage outputs and inputs for template resolution
+ * @returns The resolved settings object with template variables replaced
+ * @throws Error if required template variables cannot be resolved or are invalid
+ */
 function resolveImageGenerationSettings(settings: any, contextVars: Record<string, any>): any {
   if (!settings) return settings;
   
@@ -133,10 +140,30 @@ function resolveImageGenerationSettings(settings: any, contextVars: Record<strin
   return resolvedSettings;
 }
 
+/**
+ * Props for the WizardShell component.
+ */
 interface WizardShellProps {
+  /** The initial wizard instance containing workflow, document, and stage states */
   initialInstance: WizardInstance;
 }
 
+/**
+ * The main wizard shell component that orchestrates the entire document generation workflow.
+ * 
+ * This component manages:
+ * - Stage execution and state management
+ * - AI stage runner loading and error handling
+ * - Template variable resolution for image generation
+ * - Document persistence and auto-saving
+ * - Dependency evaluation and auto-run logic
+ * - Progress tracking and navigation
+ * - Error handling and user feedback
+ * 
+ * @param props - The component props
+ * @param props.initialInstance - The initial wizard instance with workflow configuration and stage states
+ * @returns The rendered wizard shell with all stages and controls
+ */
 export function WizardShell({ initialInstance }: WizardShellProps) {
   const [instance, setInstance] = useState<WizardInstance>(initialInstance);
   const { toast } = useToast();
@@ -147,7 +174,12 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   const [aiLoadAttempts, setAiLoadAttempts] = useState(0);
   const [aiLoadStartTime, setAiLoadStartTime] = useState<number>(Date.now());
 
-  // Enhanced AI stage runner loading with detailed error tracking
+  /**
+   * Loads the AI stage runner module with retry logic and comprehensive error tracking.
+   * 
+   * @param retryAttempt - The current retry attempt number (0-based)
+   * @returns Promise that resolves when the AI stage runner is loaded successfully
+   */
   const loadAiStageRunner = useCallback(async (retryAttempt: number = 0) => {
     const startTime = Date.now();
     setAiLoadStartTime(startTime);
@@ -327,7 +359,19 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     }
   }, [saveDocument]);
 
-  // Enhanced dependency evaluation logic with support for autoRunConditions
+  /**
+   * Evaluates stage dependencies and determines which stages should auto-run.
+   * 
+   * This function handles:
+   * - Basic stage dependencies
+   * - Auto-run conditions with complex logic
+   * - Staleness detection based on dependency changes
+   * - Auto-run dependency evaluation
+   * 
+   * @param currentStageStates - Current state of all stages
+   * @param stages - Array of stage configurations from the workflow
+   * @returns Updated stage states with dependency evaluation results
+   */
   const evaluateDependenciesLogic = (currentStageStates: Record<string, StageState>, stages: Stage[]): Record<string, StageState> => {
     const newStageStates = { ...currentStageStates };
     let changed = false;
@@ -494,6 +538,13 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   }, [instance.stageStates, instance.workflow.config?.setTitleFromStageOutput]);
 
 
+  /**
+   * Handles input changes for simple input types (textarea, context).
+   * 
+   * @param stageId - The ID of the stage being updated
+   * @param fieldName - The name of the field being changed
+   * @param value - The new value for the field
+   */
   const handleInputChange = (stageId: string, fieldName: string, value: any) => {
     // This is primarily for simple input types like 'textarea' or 'context' now.
     // Form inputs are handled by onFormSubmit.
@@ -502,6 +553,15 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     }
   };
 
+  /**
+   * Handles form submission for stages with form input types.
+   * 
+   * For stages without prompt templates, form data becomes the output directly.
+   * For stages with prompt templates, form data is used as input for AI processing.
+   * 
+   * @param stageId - The ID of the stage receiving the form data
+   * @param data - The form data to be processed
+   */
   const handleFormSubmit = (stageId: string, data: any) => {
     // This function is called from StageInputArea when form field values change.
     // It updates the central state with the latest form data.
@@ -528,6 +588,22 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     }
   };
 
+  /**
+   * Executes a workflow stage with comprehensive error handling and progress tracking.
+   * 
+   * This function handles:
+   * - AI system readiness validation
+   * - Export stage execution
+   * - AI stage execution with streaming
+   * - Template variable resolution
+   * - Error handling and user feedback
+   * - Auto-scrolling to next stage
+   * 
+   * @param stageId - The ID of the stage to execute
+   * @param currentInput - Optional input data for the stage
+   * @param aiRedoNotes - Optional AI redo notes for enhanced prompting
+   * @returns Promise that resolves when stage execution is complete
+   */
   const handleRunStage = useCallback(async (stageId: string, currentInput?: any, aiRedoNotes?: string) => {
     const stage = instance.workflow.stages.find(s => s.id === stageId);
     const stageTitle = stage?.title || stageId;

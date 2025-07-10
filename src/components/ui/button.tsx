@@ -11,11 +11,20 @@ import {
   ButtonSize 
 } from '@/lib/design-system/button-config';
 
+/**
+ * Props for the Button component.
+ * Extends all standard HTML button attributes.
+ */
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  /** The visual variant of the button (default, secondary, outline, ghost, destructive, success, warning, accent) */
   variant?: ButtonVariant;
+  /** The size of the button (default, sm, lg, icon) */
   size?: ButtonSize;
+  /** Whether the button is in a loading state with spinner */
   loading?: boolean;
+  /** Whether to render as a child component (uses Radix Slot) */
   asChild?: boolean;
+  /** The content to display inside the button */
   children: React.ReactNode;
 }
 

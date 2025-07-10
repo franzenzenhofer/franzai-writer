@@ -18,25 +18,48 @@ import { StageInfoTrigger } from "./stage-info-overlay";
 import { useToast } from "@/hooks/use-toast";
 import { KeyboardHint } from "@/components/ui/keyboard-hint";
 
+/**
+ * Props for the StageCard component.
+ */
 interface StageCardProps {
+  /** The stage configuration object containing title, description, and execution settings */
   stage: Stage;
-  workflow: Workflow; // Added to get stage titles for dependency messages
+  /** The workflow configuration containing all stages and their relationships */
+  workflow: Workflow;
+  /** The current state of this stage (status, input, output, error, etc.) */
   stageState: StageState;
+  /** Whether this stage is currently the active/focused stage */
   isCurrentStage: boolean;
+  /** Handler for executing/running a stage */
   onRunStage: (stageId: string, userInput?: any, aiRedoNotes?: string) => void;
-  onInputChange: (stageId: string, fieldName: string, value: any) => void; // Still needed for non-form simple inputs
-  onFormSubmit: (stageId: string, data: any) => void; // Will be called by StageCard before onRunStage for forms
-
+  /** Handler for simple input changes (textarea, context input types) */
+  onInputChange: (stageId: string, fieldName: string, value: any) => void;
+  /** Handler for form submission in stages with form input types */
+  onFormSubmit: (stageId: string, data: any) => void;
+  /** Handler for requesting to edit stage input */
   onEditInputRequest: (stageId: string) => void;
+  /** Handler for editing stage output */
   onOutputEdit: (stageId: string, newOutput: any) => void;
+  /** Handler for toggling output editing mode */
   onSetEditingOutput: (stageId: string, isEditing: boolean) => void;
-  onDismissStaleWarning: (stageId: string) => void; // New handler for dismissing stale warning
+  /** Handler for dismissing stale warning badge */
+  onDismissStaleWarning: (stageId: string) => void;
+  /** All stage states for dependency evaluation */
   allStageStates: Record<string, StageState>;
+  /** Optional document ID for export functionality */
   documentId?: string;
+  /** Optional handler for updating export stage state */
   onUpdateStageState?: (stageId: string, updates: Partial<ExportStageState>) => void;
 }
 
-// Enhanced error display component with copy functionality
+/**
+ * Enhanced error display component with copy functionality for stage errors.
+ * 
+ * @param props - The component props
+ * @param props.error - The error message to display
+ * @param props.stageTitle - The title of the stage that encountered the error
+ * @returns A formatted error display with copy functionality
+ */
 function StageErrorDisplay({ error, stageTitle }: { error: string; stageTitle: string }) {
   const { toast } = useToast();
   const [copied, setCopied] = useState(false);
@@ -128,6 +151,22 @@ Technical Details:
   );
 }
 
+/**
+ * Individual stage card component that displays and controls a single workflow stage.
+ * 
+ * This component handles:
+ * - Stage status visualization and progress indication
+ * - Input/output rendering and editing
+ * - Action button management (Run AI, Edit, Accept & Continue, etc.)
+ * - Dependency checking and warning displays
+ * - Error handling and display
+ * - AI Redo functionality
+ * - Export stage delegation
+ * - Keyboard shortcuts (Cmd+Enter for primary actions)
+ * 
+ * @param props - The component props
+ * @returns A card component representing a single workflow stage
+ */
 export function StageCard({
   stage,
   workflow,
