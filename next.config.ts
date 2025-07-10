@@ -8,6 +8,34 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // Content Security Policy headers for enhanced security
+  headers: async () => {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://www.google.com https://apis.google.com https://firebasestorage.googleapis.com https://www.googletagmanager.com",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "font-src 'self' https://fonts.gstatic.com data:",
+              "img-src 'self' blob: data: https://placehold.co https://firebasestorage.googleapis.com https://www.google.com https://lh3.googleusercontent.com",
+              "connect-src 'self' https://generativelanguage.googleapis.com https://firestore.googleapis.com https://firebase.googleapis.com https://securetoken.googleapis.com https://identitytoolkit.googleapis.com https://firebasestorage.googleapis.com https://www.googleapis.com https://oauth2.googleapis.com https://accounts.google.com ws://localhost:* http://localhost:*",
+              "frame-src 'self' https://accounts.google.com https://www.google.com",
+              "object-src 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+              "frame-ancestors 'self'",
+              "block-all-mixed-content",
+              "upgrade-insecure-requests"
+            ].join('; ')
+          }
+        ]
+      }
+    ]
+  },
   images: {
     remotePatterns: [
       {
