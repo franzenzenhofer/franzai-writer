@@ -15,6 +15,15 @@ import { FunctionCallsDisplay } from "./function-calls-display";
 import { CodeExecutionDisplay } from "./code-execution-display";
 import { ThinkingDisplay } from "./thinking-display";
 import { ImageOutputDisplay } from "./image-output-display";
+import { 
+  HtmlPreviewLazy, 
+  WysiwygEditorLazy, 
+  ThinkingDisplayLazy, 
+  GroundingSourcesDisplayLazy, 
+  ImageOutputDisplayLazy, 
+  FunctionCallsDisplayLazy, 
+  CodeExecutionDisplayLazy 
+} from "./display-components-lazy";
 // Button and Save icon removed as they are now handled by StageCard
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
@@ -377,7 +386,7 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
           );
         case "html":
           return (
-            <WysiwygEditor
+            <WysiwygEditorLazy
               content={String(stageState.output)}
               onChange={onOutputChange}
             />
@@ -409,21 +418,12 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
         case "markdown":
           return <MarkdownRenderer content={String(stageState.output)} />;
         case "html":
-          return <HtmlPreview content={String(stageState.output)} removeBorder={true} />;
+          return <HtmlPreviewLazy content={String(stageState.output)} removeBorder={true} />;
         case "image":
           return (
-            <ImageOutputDisplay 
-              output={stageState.output}
-              hideMetadata={stage.hideImageMetadata || false}
-              onImageSelection={(selectedIndex) => {
-                if (onOutputChange && stageState.output) {
-                  const updatedOutput = {
-                    ...stageState.output,
-                    selectedImageIndex: selectedIndex
-                  };
-                  onOutputChange(updatedOutput);
-                }
-              }}
+            <ImageOutputDisplayLazy 
+              images={stageState.output?.images || []}
+              className=""
             />
           );
         default:
@@ -470,21 +470,19 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
 
           {/* Display grounding sources if available */}
     {stageState.groundingSources && stageState.groundingSources.length > 0 && (
-      <GroundingSourcesDisplay 
-        sources={stageState.groundingSources} 
-        groundingMetadata={stageState.groundingMetadata}
-        functionCalls={stageState.functionCalls}
+      <GroundingSourcesDisplayLazy 
+        groundingSources={stageState.groundingSources}
       />
       )}
       
       {/* Display Function Calls */}
       {stageState.functionCalls && stageState.functionCalls.length > 0 && !isEditingOutput && (
-        <FunctionCallsDisplay functionCalls={stageState.functionCalls} />
+        <FunctionCallsDisplayLazy functionCalls={stageState.functionCalls} />
       )}
       
       {/* Display Code Execution Results */}
       {stageState.codeExecutionResults && !isEditingOutput && (
-        <CodeExecutionDisplay results={stageState.codeExecutionResults} />
+        <CodeExecutionDisplayLazy codeExecution={stageState.codeExecutionResults} />
       )}
       
       {/* Legacy grounding display */}
@@ -495,7 +493,7 @@ export function StageOutputArea({ stage, stageState, workflow, isEditingOutput, 
       )}
       {/* Display Thinking Process */}
       {stageState.thinkingSteps && stageState.thinkingSteps.length > 0 && !isEditingOutput && shouldShowThinking() && (
-        <ThinkingDisplay 
+        <ThinkingDisplayLazy 
           thinkingSteps={stageState.thinkingSteps}
           usageMetadata={stageState.usageMetadata}
         />

@@ -17,6 +17,9 @@ import { cn } from '@/lib/utils';
 // Lazy load the AI stage runner to prevent Turbopack static analysis
 let runAiStage: any = null;
 
+// Import the lazy loading utilities
+import { loadAiStageRunner, loadExportStageExecution } from '@/lib/ai-modules-lazy';
+
 // Template variable resolution utility for image generation settings
 function resolveImageGenerationSettings(settings: any, contextVars: Record<string, any>): any {
   if (!settings) return settings;
@@ -148,7 +151,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   const [aiLoadStartTime, setAiLoadStartTime] = useState<number>(Date.now());
 
   // Enhanced AI stage runner loading with detailed error tracking
-  const loadAiStageRunner = useCallback(async (retryAttempt: number = 0) => {
+  const loadAiStageRunnerWithRetry = useCallback(async (retryAttempt: number = 0) => {
     const startTime = Date.now();
     setAiLoadStartTime(startTime);
     
@@ -164,7 +167,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     });
     
     try {
-      const aiModule = await import('@/lib/ai-stage-runner');
+      const aiModule = await loadAiStageRunner();
       const loadTime = Date.now() - startTime;
       
       console.log('[WizardShell] ✅ AI stage runner loaded successfully!', {
@@ -214,7 +217,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
         // Silent retry - no need to show toast for automatic retries
         
         setTimeout(() => {
-          loadAiStageRunner(retryAttempt + 1);
+          loadAiStageRunnerWithRetry(retryAttempt + 1);
         }, retryDelay);
       } else {
         // Final failure - show comprehensive error toast
@@ -250,7 +253,7 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
                 setAiStageLoaded(false);
                 setAiLoadError(null);
                 setAiLoadAttempts(0);
-                loadAiStageRunner();
+                loadAiStageRunnerWithRetry();
               }}
               size="sm"
             >
@@ -264,8 +267,8 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
 
   // Load the AI stage runner dynamically with retries
   useEffect(() => {
-    loadAiStageRunner();
-  }, [loadAiStageRunner]);
+    loadAiStageRunnerWithRetry();
+  }, [loadAiStageRunnerWithRetry]);
 
   // Auto-scroll utility
   const scrollToStageById = useCallback((stageId: string) => {
@@ -632,7 +635,7 @@ Still having issues? Check the browser console for detailed logs.`;
               setAiStageLoaded(false);
               setAiLoadError(null);
               setAiLoadAttempts(0);
-              loadAiStageRunner();
+              loadAiStageRunnerWithRetry();
             }}
             size="sm"
           >
@@ -680,7 +683,7 @@ Still having issues? Check the browser console for detailed logs.`;
       console.log('🚨🚨🚨 [handleRunStage] DETECTED EXPORT STAGE - USING DEDICATED EXPORT FLOW 🚨🚨🚨');
       console.log('[handleRunStage] Starting export stage execution');
       try {
-        const { executeExportStage } = await import('@/ai/flows/export-stage-execution');
+        const { executeExportStage } = await loadExportStageExecution();
         
         console.log('[handleRunStage] executeExportStage imported successfully');
         

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"; // Keep for the primary action 
 import { Badge } from "@/components/ui/badge"; // Keep for non-dismissible badges
 import { StageInputArea, type StageInputAreaRef } from "./stage-input-area";
 import { StageOutputArea } from "./stage-output-area";
+import { StageInputAreaLazy, StageOutputAreaLazy } from "./stage-io-lazy";
 import { CheckCircle2, AlertCircle, ArrowRight, RotateCcw, Loader2, Edit, Save, Check, Clock, X, Send, Copy, CheckCheck } from "lucide-react"; // X is for DismissibleWarningBadge, others for StageActionButton or status
 import { cn } from "@/lib/utils";
 import React, { useState, useRef, useEffect } from "react";
@@ -14,6 +15,7 @@ import { StageActionButton } from "./StageActionButton";
 import { AiRedoSection } from "./ai-redo-section";
 import { DynamicProgressBar } from "./dynamic-progress-bar";
 import { ExportStageCard } from "./export-stage/export-stage-card";
+import { ExportStageCardLazy } from "./export-stage/export-stage-card-lazy";
 import { StageInfoTrigger } from "./stage-info-overlay";
 import { useToast } from "@/hooks/use-toast";
 import { KeyboardHint } from "@/components/ui/keyboard-hint";
@@ -291,7 +293,7 @@ export function StageCard({
   // Handle export stage type separately
   if (stage.stageType === 'export') {
     return (
-      <ExportStageCard
+      <ExportStageCardLazy
         stage={stage}
         workflow={workflow}
         stageState={stageState as ExportStageState}
@@ -341,15 +343,27 @@ export function StageCard({
       <CardContent className="space-y-2">
         {isEditingInput && stage.inputType !== 'none' && stageState.status !== 'running' && (
           <div>
-            <StageInputArea
-              ref={stageInputAreaRef}
-              stage={stage}
-              stageState={stageState}
-              onInputChange={onInputChange}
-              onFormSubmit={onFormSubmit} 
-              allStageStates={allStageStates}
-              onSubmit={handlePrimaryAction}
-            />
+            {/* Use lazy component for better performance, but keep ref for form stages */}
+            {stage.inputType === 'form' ? (
+              <StageInputArea
+                ref={stageInputAreaRef}
+                stage={stage}
+                stageState={stageState}
+                onInputChange={onInputChange}
+                onFormSubmit={onFormSubmit} 
+                allStageStates={allStageStates}
+                onSubmit={handlePrimaryAction}
+              />
+            ) : (
+              <StageInputAreaLazy
+                stage={stage}
+                stageState={stageState}
+                onInputChange={onInputChange}
+                onFormSubmit={onFormSubmit} 
+                allStageStates={allStageStates}
+                onSubmit={handlePrimaryAction}
+              />
+            )}
           </div>
         )}
 
@@ -372,7 +386,7 @@ export function StageCard({
         
         {(stageState.status === "completed" || stageState.status === 'error') && stageState.output !== undefined && (
            <div>
-            <StageOutputArea 
+            <StageOutputAreaLazy 
                 stage={stage} 
                 stageState={stageState} 
                 workflow={workflow}
