@@ -9,7 +9,7 @@ import { AlertTriangle, Check, Info, Lightbulb, FileWarning, Save } from 'lucide
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
 import { siteConfig } from '@/config/site';
-import { useDocumentPersistence } from '@/hooks/use-document-persistence';
+import { useDocumentPersistenceQuery } from '@/hooks/use-document-persistence-query';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/components/layout/app-providers';
 import { cn } from '@/lib/utils';
@@ -285,14 +285,14 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     setInstance(prev => ({ ...prev, ...updates }));
   }, []);
 
-  // Document persistence
+  // Document persistence with React Query
   const { 
     isSaving, 
     lastSaved, 
     saveError, 
     documentId,
     saveDocument 
-  } = useDocumentPersistence({
+  } = useDocumentPersistenceQuery({
     instance,
     updateInstance: updateInstanceForPersistence,
   });

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,8 +8,8 @@ import { allWorkflows } from "@/lib/workflow-loader";
 import type { WizardDocument, Workflow } from "@/types";
 import { FileText, ArrowRight, AlertCircle, PlusCircle, Info, LogIn, User, Loader2, Trash2, Edit, Clock, ChevronRight } from "lucide-react";
 import { useAuth } from "@/components/layout/app-providers";
-import { clientDocumentPersistence } from '@/lib/document-persistence-client';
 import { useToast } from "@/hooks/use-toast";
+import { useDocuments, useDeleteDocument } from "@/hooks/use-document-queries";
 import { 
   AlertDialog, 
   AlertDialogAction, 
@@ -33,54 +33,21 @@ function getWorkflowName(workflowId: string) {
 export default function DashboardPage() {
   const { user, effectiveUser, loading: authLoading } = useAuth(); 
   const { toast } = useToast();
-  const [documents, setDocuments] = useState<WizardDocument[]>([]);
-  const [documentsLoading, setDocumentsLoading] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [documentToDelete, setDocumentToDelete] = useState<string | null>(null);
 
-  const log = (operation: string, data?: any) => {
-    console.log(`[Dashboard] ${operation}`, data || '');
-  };
+  // Use React Query hooks
+  const { data: documents = [], isLoading: documentsLoading, error: documentsError } = useDocuments();
+  const deleteDocumentMutation = useDeleteDocument();
 
-  const logError = (operation: string, error: any) => {
-    console.error(`[Dashboard] FAILED: ${operation}`, error);
-  };
-
-  const loadDocuments = useCallback(async () => {
-    setDocumentsLoading(true);
-    try {
-      log('Loading documents', { hasUser: !!effectiveUser, isTemp: effectiveUser?.isTemporary });
-      
-      const userDocs = await clientDocumentPersistence.listUserDocuments(effectiveUser?.uid);
-      
-      if (!Array.isArray(userDocs)) {
-        throw new Error('FATAL: Invalid documents data received');
-      }
-      
-      setDocuments(userDocs);
-      log('Documents loaded successfully', { count: userDocs.length });
-      
-    } catch (error: any) {
-      logError('loadDocuments', error);
-      
-      // FAIL HARD - show error to user
-      toast({
-        title: 'Failed to load documents',
-        description: error.message || 'Unable to load your documents. Please try again.',
-        variant: 'destructive',
-      });
-      
-      // Set empty array on failure
-      setDocuments([]);
-    } finally {
-      setDocumentsLoading(false);
-    }
-  }, [effectiveUser, toast]);
-
-  // Load documents on mount - FAIL HARD if error
-  useEffect(() => {
-    loadDocuments();
-  }, [loadDocuments]);
+  // Handle errors from React Query
+  if (documentsError) {
+    toast({
+      title: 'Failed to load documents',
+      description: documentsError.message || 'Unable to load your documents. Please try again.',
+      variant: 'destructive',
+    });
+  }
 
   const handleDeleteDocument = async (documentId: string) => {
     setDocumentToDelete(documentId);
@@ -98,25 +65,14 @@ export default function DashboardPage() {
     }
 
     try {
-      log('Deleting document', { documentId: documentToDelete });
-      
-      const success = await clientDocumentPersistence.deleteDocument(documentToDelete);
-      
-      if (!success) {
-        throw new Error('Delete operation returned false');
-      }
+      await deleteDocumentMutation.mutateAsync(documentToDelete);
       
       toast({
         title: 'Document deleted',
         description: 'Your document has been deleted successfully.',
       });
       
-      // Reload documents to reflect changes
-      await loadDocuments();
-      
     } catch (error: any) {
-      logError('confirmDelete', error);
-      
       toast({
         title: 'Delete failed',
         description: error.message || 'Unable to delete the document. Please try again.',
