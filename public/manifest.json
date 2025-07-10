@@ -1,0 +1,37 @@
+{
+  "name": "Franz AI Writer",
+  "short_name": "Franz AI",
+  "description": "AI-powered multi-stage document generation workflows",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#007bff",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["productivity", "writing", "ai"],
+  "lang": "en",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "New Document",
+      "short_name": "New Doc",
+      "description": "Create a new document",
+      "url": "/dashboard",
+      "icons": [
+        {
+          "src": "/favicon.ico",
+          "sizes": "48x48",
+          "type": "image/x-icon"
+        }
+      ]
+    }
+  ]
+}
