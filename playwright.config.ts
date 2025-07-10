@@ -13,6 +13,24 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     headless: true,
   },
+  
+  // Visual regression testing configuration
+  expect: {
+    // Threshold for visual differences (0.0 = exact match, 1.0 = completely different)
+    threshold: 0.5,
+    // Pixel threshold for visual differences
+    toHaveScreenshot: {
+      threshold: 0.3,
+      mode: 'actual',
+      // Enable animations for visual tests to be consistent
+      animations: 'disabled',
+    },
+    // Match screenshot options
+    toMatchSnapshot: {
+      threshold: 0.3,
+      mode: 'actual',
+    },
+  },
 
   projects: [
     {
@@ -34,6 +52,29 @@ export default defineConfig({
     {
       name: 'Mobile Safari',
       use: { ...devices['iPhone 12'] },
+    },
+    
+    // Visual regression testing project - Chrome only for consistency
+    {
+      name: 'visual-regression',
+      testMatch: '**/wizard-visual-regression.spec.ts',
+      use: {
+        ...devices['Desktop Chrome'],
+        // Consistent viewport for visual tests
+        viewport: { width: 1280, height: 720 },
+        // Disable animations for consistent screenshots
+        actionTimeout: 10000,
+        // Ensure consistent font rendering
+        launchOptions: {
+          args: [
+            '--disable-web-security',
+            '--disable-features=TranslateUI',
+            '--disable-ipc-flooding-protection',
+            '--font-render-hinting=none',
+            '--disable-font-subpixel-positioning',
+          ],
+        },
+      },
     },
   ],
 
