@@ -11,6 +11,20 @@ export interface FormFieldOption {
   value: string;
   label: string;
 }
+
+// React Hook Form validation rules with proper typing
+export interface FormFieldValidation {
+  required?: boolean;
+  optional?: boolean; // Legacy support
+  minLength?: number;
+  maxLength?: number;
+  min?: number;
+  max?: number;
+  pattern?: string | RegExp;
+  validate?: (value: any) => boolean | string;
+  [key: string]: any; // Allow additional validation rules
+}
+
 export interface FormField {
   name: string;
   label: string;
@@ -18,7 +32,7 @@ export interface FormField {
   defaultValue?: string | boolean | number;
   placeholder?: string;
   options?: FormFieldOption[]; // For select type
-  validation?: Record<string, any>; // react-hook-form validation rules
+  validation?: FormFieldValidation;
 }
 
 export interface JsonField {
@@ -39,6 +53,16 @@ export interface ExportTriggerButton {
   description?: string;
 }
 
+// Export format options with proper typing
+export interface ExportFormatOptions {
+  flavor?: 'github' | 'commonmark' | 'gfm';
+  preserveHtml?: boolean;
+  stripHtml?: boolean;
+  includeImages?: boolean;
+  includeMetadata?: boolean;
+  [key: string]: any; // Allow additional format-specific options
+}
+
 export interface ExportFormat {
   enabled: boolean;
   label: string;
@@ -47,7 +71,7 @@ export interface ExportFormat {
   aiTemplate?: string;
   deriveFrom?: string;
   features?: string[];
-  options?: Record<string, any>;
+  options?: ExportFormatOptions;
   stripElements?: string[];
   preserveStructure?: boolean;
 }
@@ -153,7 +177,7 @@ export interface Stage {
     thinkingBudget?: number; // Token budget for thinking mode (128-32768)
   };
   toolNames?: string[]; // List of tools available for this stage
-  tools?: any[]; // Tool definitions for this stage
+  tools?: ToolDefinition[]; // Tool definitions for this stage
   functionCallingMode?: "AUTO" | "ANY" | "NONE"; // How function calling should work
   systemInstructions?: string;
   groundingSettings?: {
@@ -188,7 +212,7 @@ export interface Stage {
   showThinking?: boolean; // Show thinking process for this stage (defaults to false)
   copyable?: boolean; // Enable copy button for text/markdown output (defaults to false)
   hideImageMetadata?: boolean; // Hide prompt and provider metadata for image outputs (defaults to false)
-  jsonSchema?: any; // JSON schema for structured output
+  jsonSchema?: JsonSchema; // JSON schema for structured output
   maxTokens?: number; // Maximum tokens for output
   systemInstruction?: string; // Alias for systemInstructions
   showAsHero?: boolean; // Show stage with hero UI treatment
@@ -225,8 +249,8 @@ export interface Workflow {
 export interface StageState {
   stageId?: string; // Stage ID for compatibility
   status: "idle" | "running" | "completed" | "error";
-  userInput?: any;
-  output?: any;
+  userInput?: StageUserInput;
+  output?: StageOutput;
   error?: string;
   depsAreMet?: boolean;
   completedAt?: string;
@@ -266,8 +290,8 @@ export interface StageState {
   }>;
   functionCalls?: Array<{
     toolName: string;
-    input: any;
-    output: any;
+    input: ToolInput;
+    output: ToolOutput;
     timestamp?: string;
   }>;
   codeExecutionResults?: {
@@ -354,18 +378,25 @@ export interface WizardInstance {
 
 export interface StageInput {
   inputType: StageInputType;
-  userInput?: any;
+  userInput?: StageUserInput;
   formFields?: FormField[];
   text?: string; // Text input for the stage
-  files?: any[]; // File inputs if any
+  files?: FileInput[]; // File inputs if any
 }
 
 export interface StageContext {
-  contextVars: Record<string, any>;
+  contextVars: ContextVariables;
   stageStates: Record<string, StageState>;
 }
 
-export type StageOutput = any; // Can be text, JSON, markdown, HTML etc based on outputType
+// Union type for all possible stage output types
+export type StageOutput = 
+  | string // text, markdown, html
+  | Record<string, any> // json objects
+  | ImageOutputData // image generation output
+  | ExportInterfaceOutput // export stage output
+  | null
+  | undefined;
 
 export interface ImageGenerationSettings {
   provider?: "gemini" | "imagen";
@@ -408,10 +439,39 @@ export interface AiStageExecutionParams {
   promptTemplate: string;
   model: string; // model will be resolved before passing to AiStageExecutionInput
   temperature: number; // temperature will be resolved before passing
-  contextVars?: Record<string, any>; 
+  contextVars?: ContextVariables; 
 }
 
 // Asset Management System
+// Additional type definitions for better type safety
+export type FirestoreTimestamp = any; // Firestore Timestamp type
+export type ContextVariables = Record<string, any>;
+export type StageUserInput = string | Record<string, any> | null;
+export type ToolInput = Record<string, any>;
+export type ToolOutput = any; // Tool outputs can be various types
+export type JsonSchema = Record<string, any>; // JSON Schema object
+export type ExportInterfaceOutput = Record<string, any>; // Export interface output
+
+// File input type for uploads
+export interface FileInput {
+  name: string;
+  type: string;
+  size: number;
+  content?: string | ArrayBuffer;
+  url?: string;
+  lastModified?: number;
+}
+
+// Tool definition interface
+export interface ToolDefinition {
+  name: string;
+  description: string;
+  inputSchema?: JsonSchema;
+  outputSchema?: JsonSchema;
+  fn?: (input: ToolInput) => Promise<ToolOutput> | ToolOutput;
+  [key: string]: any; // Allow additional tool properties
+}
+
 export interface Asset {
   id: string;                     // Auto-generated asset ID
   userId: string;                 // Owner of the asset
@@ -432,7 +492,7 @@ export interface Asset {
   };
   
   // Creation details
-  createdAt: any;                 // Firestore Timestamp
+  createdAt: FirestoreTimestamp;
   source: 'generated' | 'uploaded';
   generationPrompt?: string;      // If AI-generated
   generationModel?: string;       // e.g., "imagen-3.0-generate-002"
@@ -442,13 +502,13 @@ export interface Asset {
   stageReferences: Array<{        // Detailed usage tracking
     documentId: string;
     stageId: string;
-    addedAt: any;                 // Firestore Timestamp
+    addedAt: FirestoreTimestamp;
   }>;
   
   // Lifecycle
-  lastAccessedAt: any;            // Firestore Timestamp
+  lastAccessedAt: FirestoreTimestamp;
   isDeleted: boolean;             // Soft delete flag
-  deletedAt?: any;                // Firestore Timestamp
+  deletedAt?: FirestoreTimestamp;
   
   // Optional metadata
   tags?: string[];                // User-defined tags
