@@ -13,6 +13,7 @@ import { useDocumentPersistence } from '@/hooks/use-document-persistence';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/components/layout/app-providers';
 import { cn } from '@/lib/utils';
+import { RateLimitStatusDisplay, useRateLimitStatus } from '@/components/ui/rate-limit-status';
 
 // Lazy load the AI stage runner to prevent Turbopack static analysis
 let runAiStage: any = null;
@@ -146,6 +147,9 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
   const [aiLoadError, setAiLoadError] = useState<string | null>(null);
   const [aiLoadAttempts, setAiLoadAttempts] = useState(0);
   const [aiLoadStartTime, setAiLoadStartTime] = useState<number>(Date.now());
+  
+  // Rate limiting
+  const { status: rateLimitStatus, formatTimeUntilReset, resetRequests } = useRateLimitStatus();
 
   // Enhanced AI stage runner loading with detailed error tracking
   const loadAiStageRunner = useCallback(async (retryAttempt: number = 0) => {
@@ -660,6 +664,18 @@ Still having issues? Check the browser console for detailed logs.`;
       return;
     }
 
+    // Check rate limits before starting AI stage
+    if (rateLimitStatus.isLimited) {
+      const timeUntilReset = formatTimeUntilReset();
+      toast({ 
+        title: "Rate Limit Exceeded", 
+        description: `You have reached the maximum number of AI requests. ${timeUntilReset ? `Try again in ${timeUntilReset}.` : 'Please wait before trying again.'}`,
+        variant: "destructive",
+        duration: 8000
+      });
+      return;
+    }
+
     updateStageState(stageId, { status: "running", error: undefined, isEditingOutput: false });
     
     const contextVars: Record<string, any> = {};
@@ -886,8 +902,23 @@ Still having issues? Check the browser console for detailed logs.`;
         stageId,
         promptTemplate: stage.promptTemplate
       });
-      updateStageState(stageId, { status: "error", error: error.message || "AI processing failed." });
-      toast({ title: "AI Stage Error", description: error.message || "An error occurred.", variant: "destructive" });
+      
+      // Handle rate limit errors specially
+      if (error.name === 'RateLimitError') {
+        console.warn('[WizardShell] Rate limit exceeded for stage:', stageId);
+        updateStageState(stageId, { status: "error", error: error.message });
+        
+        // Show detailed rate limit error with retry information
+        toast({ 
+          title: "Rate Limit Exceeded", 
+          description: error.message,
+          variant: "destructive",
+          duration: 10000, // Show longer for rate limit errors
+        });
+      } else {
+        updateStageState(stageId, { status: "error", error: error.message || "AI processing failed." });
+        toast({ title: "AI Stage Error", description: error.message || "An error occurred.", variant: "destructive" });
+      }
     }
   }, [aiStageLoaded, aiLoadAttempts, aiLoadError, aiLoadStartTime, loadAiStageRunner, instance.workflow, instance.stageStates, updateStageState, toast, scrollToStageById, documentId, user?.uid]);
 
@@ -982,6 +1013,15 @@ Still having issues? Check the browser console for detailed logs.`;
             )}
           </div>
         </div>
+
+        {/* Rate limiting status */}
+        <RateLimitStatusDisplay 
+          status={rateLimitStatus}
+          formatTimeUntilReset={formatTimeUntilReset}
+          className="mb-4"
+          showResetButton={process.env.NODE_ENV === 'development'}
+          onReset={resetRequests}
+        />
 
         {isWizardCompleted && (
           <Alert className="mb-6 border-green-500 bg-green-50 dark:bg-green-900/30">
