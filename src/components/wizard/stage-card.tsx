@@ -12,7 +12,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { UpdateRecommendedButton } from "./update-recommended-button";
 import { StageActionButton } from "./StageActionButton";
 import { AiRedoSection } from "./ai-redo-section";
-import { DynamicProgressBar } from "./dynamic-progress-bar";
+import { EnhancedProgressIndicator } from "./enhanced-progress-indicator";
 import { ExportStageCard } from "./export-stage/export-stage-card";
 import { StageInfoTrigger } from "./stage-info-overlay";
 import { useToast } from "@/hooks/use-toast";
@@ -364,9 +364,17 @@ export function StageCard({
         {stageState.status === "running" && (
           <div className="space-y-3">
             <h4 className="text-sm font-medium mb-2 text-muted-foreground">Generating...</h4>
-            <div className="bg-muted/30 rounded-lg p-4">
-              <DynamicProgressBar isRunning={true} />
-            </div>
+            <EnhancedProgressIndicator
+              isRunning={true}
+              currentStep={stageState.aiProgress?.currentStep}
+              totalSteps={stageState.aiProgress?.totalSteps}
+              completedSteps={stageState.aiProgress?.completedSteps}
+              progressPercentage={stageState.aiProgress?.progressPercentage}
+              estimatedTimeRemaining={stageState.aiProgress?.estimatedTimeRemaining}
+              elapsedTime={stageState.aiProgress?.elapsedTime}
+              stepDetails={stageState.aiProgress?.stepDetails}
+              stageHistory={stageState.aiProgress?.stageHistory}
+            />
           </div>
         )}
         

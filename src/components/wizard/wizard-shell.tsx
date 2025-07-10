@@ -13,6 +13,7 @@ import { useDocumentPersistence } from '@/hooks/use-document-persistence';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/components/layout/app-providers';
 import { cn } from '@/lib/utils';
+import { ProgressManager } from '@/lib/progress-manager';
 
 // Lazy load the AI stage runner to prevent Turbopack static analysis
 let runAiStage: any = null;
@@ -534,6 +535,18 @@ export function WizardShell({ initialInstance }: WizardShellProps) {
     const currentTime = Date.now();
     const timeSinceLoad = currentTime - aiLoadStartTime;
     
+    // Initialize progress tracking
+    const operationType = ProgressManager.getOperationType(stage);
+    const stageHistory = ProgressManager.loadStageHistory(stageId);
+    const progressManager = new ProgressManager(
+      stageId,
+      operationType,
+      stageHistory,
+      (progress) => {
+        updateStageState(stageId, { aiProgress: progress });
+      }
+    );
+    
     console.log('[handleRunStage] AI readiness check:', {
       stageId,
       stageTitle,
@@ -662,6 +675,9 @@ Still having issues? Check the browser console for detailed logs.`;
 
     updateStageState(stageId, { status: "running", error: undefined, isEditingOutput: false });
     
+    // Start progress tracking
+    progressManager.start();
+    
     const contextVars: Record<string, any> = {};
     instance.workflow.stages.forEach(s => {
         const sState = instance.stageStates[s.id];
@@ -680,9 +696,11 @@ Still having issues? Check the browser console for detailed logs.`;
       console.log('🚨🚨🚨 [handleRunStage] DETECTED EXPORT STAGE - USING DEDICATED EXPORT FLOW 🚨🚨🚨');
       console.log('[handleRunStage] Starting export stage execution');
       try {
+        progressManager.nextStep('Loading export module');
         const { executeExportStage } = await import('@/ai/flows/export-stage-execution');
         
         console.log('[handleRunStage] executeExportStage imported successfully');
+        progressManager.nextStep('Collecting stage data');
         
         // Set a timeout for export generation (30 seconds)
         const exportPromise = executeExportStage({
@@ -706,12 +724,16 @@ Still having issues? Check the browser console for detailed logs.`;
         console.log('[handleRunStage] Export result keys:', Object.keys(result || {}));
         console.log('[handleRunStage] Export formats:', Object.keys(result?.formats || {}));
         
+        progressManager.complete(true);
+        ProgressManager.saveStageHistory(stageId, progressManager.getStageHistory());
+        
         updateStageState(stageId, {
           status: "completed",
           output: result,
           completedAt: new Date().toISOString(),
           isStale: false,
           generationProgress: undefined, // Clear progress
+          aiProgress: undefined, // Clear AI progress
         });
         
         toast({ 
@@ -723,10 +745,14 @@ Still having issues? Check the browser console for detailed logs.`;
         console.error('[handleRunStage] Export error:', error);
         console.error('[handleRunStage] Export error stack:', error instanceof Error ? error.stack : 'No stack');
         
+        progressManager.complete(false, error instanceof Error ? error.message : "Export failed");
+        ProgressManager.saveStageHistory(stageId, progressManager.getStageHistory());
+        
         updateStageState(stageId, { 
           status: "error", 
           error: error instanceof Error ? error.message : "Export failed",
           generationProgress: undefined, // Clear progress
+          aiProgress: undefined, // Clear AI progress
         });
         
         toast({ 
@@ -739,6 +765,9 @@ Still having issues? Check the browser console for detailed logs.`;
     }
 
     if (!stage.promptTemplate) { 
+      progressManager.complete(true);
+      ProgressManager.saveStageHistory(stageId, progressManager.getStageHistory());
+      
       updateStageState(stageId, { 
         status: "completed", 
         output: stage.inputType === 'form' 
@@ -748,6 +777,7 @@ Still having issues? Check the browser console for detailed logs.`;
                 : undefined),
         completedAt: new Date().toISOString(),
         isStale: false,
+        aiProgress: undefined, // Clear AI progress
       });
       // Silent completion for non-AI stages
       
@@ -773,6 +803,8 @@ Still having issues? Check the browser console for detailed logs.`;
     }
     
     try {
+      progressManager.nextStep('Preparing AI request');
+      
       // Enhance prompt template with AI REDO notes if provided
       let enhancedPromptTemplate = stage.promptTemplate;
       if (aiRedoNotes && stage.promptTemplate) {
@@ -803,6 +835,8 @@ Still having issues? Check the browser console for detailed logs.`;
         console.log('🔴🔴🔴 WORKFLOW SAYS: NO GOOGLE SEARCH GROUNDING CONFIGURED 🔴🔴🔴');
         console.log('🔧 Stage configuration groundingSettings:', stage.groundingSettings);
       }
+      
+      progressManager.nextStep('Generating AI response');
       
       const result = await runAiStage({
         promptTemplate: enhancedPromptTemplate,
@@ -838,10 +872,21 @@ Still having issues? Check the browser console for detailed logs.`;
 
       if (result.error) {
         // Preserve chat history on error, but clear current stream
-        updateStageState(stageId, { status: "error", error: result.error, currentStreamOutput: "" });
+        progressManager.complete(false, result.error);
+        ProgressManager.saveStageHistory(stageId, progressManager.getStageHistory());
+        
+        updateStageState(stageId, { 
+          status: "error", 
+          error: result.error, 
+          currentStreamOutput: "",
+          aiProgress: undefined, // Clear AI progress
+        });
         toast({ title: "AI Stage Error", description: result.error, variant: "destructive" });
         return; // Stop further processing on error
       }
+      
+      progressManager.complete(true);
+      ProgressManager.saveStageHistory(stageId, progressManager.getStageHistory());
       
       updateStageState(stageId, {
         status: "completed",
@@ -856,6 +901,7 @@ Still having issues? Check the browser console for detailed logs.`;
         completedAt: new Date().toISOString(),
         isStale: false,
         usageMetadata: result.usageMetadata, // Store usage metadata for thinking display
+        aiProgress: undefined, // Clear AI progress
       });
       
       // Silent completion for AI stages - users can see the output
@@ -886,7 +932,15 @@ Still having issues? Check the browser console for detailed logs.`;
         stageId,
         promptTemplate: stage.promptTemplate
       });
-      updateStageState(stageId, { status: "error", error: error.message || "AI processing failed." });
+      
+      progressManager.complete(false, error.message || "AI processing failed.");
+      ProgressManager.saveStageHistory(stageId, progressManager.getStageHistory());
+      
+      updateStageState(stageId, { 
+        status: "error", 
+        error: error.message || "AI processing failed.",
+        aiProgress: undefined, // Clear AI progress
+      });
       toast({ title: "AI Stage Error", description: error.message || "An error occurred.", variant: "destructive" });
     }
   }, [aiStageLoaded, aiLoadAttempts, aiLoadError, aiLoadStartTime, loadAiStageRunner, instance.workflow, instance.stageStates, updateStageState, toast, scrollToStageById, documentId, user?.uid]);

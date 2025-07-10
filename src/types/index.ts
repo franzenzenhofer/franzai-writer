@@ -298,7 +298,83 @@ export interface StageState {
     cleanHtml?: number;
     currentFormat?: string;
   };
+  // Enhanced progress tracking for AI operations
+  aiProgress?: {
+    currentStep: AIProgressStep;
+    totalSteps: number;
+    completedSteps: number;
+    progressPercentage: number;
+    estimatedTimeRemaining?: number; // milliseconds
+    startTime?: number; // timestamp
+    stepStartTime?: number; // timestamp for current step
+    stepDetails?: string; // detailed description of current step
+    elapsedTime?: number; // milliseconds since stage started
+    stageHistory?: AIStageExecution[]; // historical timing data
+  };
 }
+
+// Enhanced AI Progress Tracking Types
+export interface AIProgressStep {
+  id: string;
+  name: string;
+  description: string;
+  estimatedDuration?: number; // milliseconds
+  weight?: number; // relative weight for progress calculation (0-1)
+}
+
+export interface AIStageExecution {
+  stageId: string;
+  executionId: string;
+  startTime: number;
+  endTime?: number;
+  duration?: number; // milliseconds
+  success: boolean;
+  model?: string;
+  promptLength?: number;
+  outputLength?: number;
+  steps: AIStepExecution[];
+  error?: string;
+}
+
+export interface AIStepExecution {
+  stepId: string;
+  startTime: number;
+  endTime?: number;
+  duration?: number; // milliseconds
+  success: boolean;
+  details?: string;
+  error?: string;
+}
+
+// Predefined AI processing steps for different operation types
+export const AI_PROGRESS_STEPS = {
+  TEXT_GENERATION: [
+    { id: 'init', name: 'Initializing', description: 'Preparing AI request', estimatedDuration: 500, weight: 0.1 },
+    { id: 'process', name: 'Processing', description: 'AI is analyzing your request', estimatedDuration: 2000, weight: 0.3 },
+    { id: 'generate', name: 'Generating', description: 'Creating content', estimatedDuration: 4000, weight: 0.5 },
+    { id: 'finalize', name: 'Finalizing', description: 'Completing response', estimatedDuration: 1000, weight: 0.1 }
+  ],
+  IMAGE_GENERATION: [
+    { id: 'init', name: 'Initializing', description: 'Preparing image generation', estimatedDuration: 500, weight: 0.1 },
+    { id: 'prompt', name: 'Processing Prompt', description: 'Analyzing image requirements', estimatedDuration: 1000, weight: 0.2 },
+    { id: 'generate', name: 'Generating Images', description: 'Creating images with AI', estimatedDuration: 8000, weight: 0.6 },
+    { id: 'finalize', name: 'Finalizing', description: 'Processing and storing images', estimatedDuration: 1500, weight: 0.1 }
+  ],
+  EXPORT_GENERATION: [
+    { id: 'init', name: 'Initializing', description: 'Starting export process', estimatedDuration: 500, weight: 0.1 },
+    { id: 'collect', name: 'Collecting Data', description: 'Gathering content from stages', estimatedDuration: 1000, weight: 0.2 },
+    { id: 'generate', name: 'Generating Formats', description: 'Creating export formats', estimatedDuration: 5000, weight: 0.6 },
+    { id: 'finalize', name: 'Finalizing', description: 'Completing export', estimatedDuration: 1000, weight: 0.1 }
+  ],
+  THINKING_GENERATION: [
+    { id: 'init', name: 'Initializing', description: 'Preparing thinking mode', estimatedDuration: 500, weight: 0.1 },
+    { id: 'thinking', name: 'Thinking', description: 'AI is reasoning about your request', estimatedDuration: 6000, weight: 0.4 },
+    { id: 'generate', name: 'Generating', description: 'Creating final response', estimatedDuration: 4000, weight: 0.4 },
+    { id: 'finalize', name: 'Finalizing', description: 'Completing response', estimatedDuration: 1000, weight: 0.1 }
+  ]
+} as const;
+
+export type AIOperationType = keyof typeof AI_PROGRESS_STEPS;
 
 export interface ExportStageState extends StageState {
   output: {
