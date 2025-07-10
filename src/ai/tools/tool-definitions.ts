@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { ToolFunctionInput, ToolFunctionOutput } from '@/types/ai-interfaces';
 
 // Tool definitions without using ai.defineTool
 // These will be converted to proper tools when needed
@@ -15,7 +16,7 @@ export const simpleCalculatorDefinition = {
     result: z.number().optional(),
     error: z.string().optional(),
   }),
-  fn: async (input: any) => {
+  fn: async (input: ToolFunctionInput) => {
     console.log('[simpleCalculator] Received input:', input);
     let result: number | undefined;
     let error: string | undefined;
@@ -63,11 +64,16 @@ export const weatherToolDefinition = {
     windSpeed: z.number(),
     unit: z.string(),
   }),
-  fn: async (input: any) => {
+  fn: async (input: ToolFunctionInput) => {
     console.log('[weatherTool] Getting weather for:', input.location);
     
     // Demo weather data
-    const weatherData: Record<string, any> = {
+    const weatherData: Record<string, {
+      temperature: number;
+      conditions: string;
+      humidity: number;
+      windSpeed: number;
+    }> = {
       'new york': { temperature: 72, conditions: 'Partly Cloudy', humidity: 65, windSpeed: 10 },
       'london': { temperature: 59, conditions: 'Rainy', humidity: 80, windSpeed: 15 },
       'tokyo': { temperature: 77, conditions: 'Sunny', humidity: 55, windSpeed: 5 },
@@ -102,7 +108,7 @@ export const unitConverterDefinition = {
     result: z.number().optional(),
     error: z.string().optional(),
   }),
-  fn: async (input: any) => {
+  fn: async (input: ToolFunctionInput) => {
     console.log('[unitConverter] Converting:', input);
     
     const conversions: Record<string, Record<string, number | ((x: number) => number)>> = {

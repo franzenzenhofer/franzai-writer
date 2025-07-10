@@ -8,7 +8,7 @@ function writeStructuredLog(entry: {
   level: 'info' | 'warning' | 'error' | 'debug';
   category: string;
   message: string;
-  data?: any;
+  data?: Record<string, any>;
   model?: string;
   tokenCount?: number;
   duration?: number;
@@ -31,7 +31,7 @@ function writeStructuredLog(entry: {
 }
 
 // Export for error logging
-export function logAIError(message: string, error: any, category: string = 'general') {
+export function logAIError(message: string, error: unknown, category: string = 'general') {
   writeStructuredLog({
     level: 'error',
     category,

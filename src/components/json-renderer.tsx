@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 
 interface JsonRendererProps {
-  data: any;
+  data: Record<string, any> | any[]; // Keep as any for JSON flexibility
   className?: string;
 }
 

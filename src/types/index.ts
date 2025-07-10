@@ -1,3 +1,32 @@
+import type { 
+  ContextVariables,
+  ToolDefinition,
+  GroundingMetadata,
+  GroundingSource,
+  FunctionCallMetadata,
+  CodeExecutionResult,
+  UsageMetadata,
+  ThinkingStep,
+  JsonSchema
+} from './ai-interfaces';
+
+// Re-export AI interfaces for easier access
+export type {
+  ContextVariables,
+  ToolDefinition,
+  GroundingMetadata,
+  GroundingSource,
+  FunctionCallMetadata,
+  CodeExecutionResult,
+  UsageMetadata,
+  ThinkingStep,
+  JsonSchema,
+  MessagePart,
+  ChatHistoryMessage,
+  AIResponse,
+  FormData as TypedFormData
+} from './ai-interfaces';
+
 export type NavItem = {
   title: string;
   href?: string;
@@ -18,7 +47,7 @@ export interface FormField {
   defaultValue?: string | boolean | number;
   placeholder?: string;
   options?: FormFieldOption[]; // For select type
-  validation?: Record<string, any>; // react-hook-form validation rules
+  validation?: Record<string, any>; // react-hook-form validation rules - Keep as any for RHF flexibility
 }
 
 export interface JsonField {
@@ -47,7 +76,7 @@ export interface ExportFormat {
   aiTemplate?: string;
   deriveFrom?: string;
   features?: string[];
-  options?: Record<string, any>;
+  options?: Record<string, any>; // Keep as any for export format flexibility
   stripElements?: string[];
   preserveStructure?: boolean;
 }
@@ -153,7 +182,7 @@ export interface Stage {
     thinkingBudget?: number; // Token budget for thinking mode (128-32768)
   };
   toolNames?: string[]; // List of tools available for this stage
-  tools?: any[]; // Tool definitions for this stage
+  tools?: ToolDefinition[]; // Tool definitions for this stage
   functionCallingMode?: "AUTO" | "ANY" | "NONE"; // How function calling should work
   systemInstructions?: string;
   groundingSettings?: {
@@ -188,7 +217,7 @@ export interface Stage {
   showThinking?: boolean; // Show thinking process for this stage (defaults to false)
   copyable?: boolean; // Enable copy button for text/markdown output (defaults to false)
   hideImageMetadata?: boolean; // Hide prompt and provider metadata for image outputs (defaults to false)
-  jsonSchema?: any; // JSON schema for structured output
+  jsonSchema?: JsonSchema; // JSON schema for structured output
   maxTokens?: number; // Maximum tokens for output
   systemInstruction?: string; // Alias for systemInstructions
   showAsHero?: boolean; // Show stage with hero UI treatment
@@ -225,8 +254,8 @@ export interface Workflow {
 export interface StageState {
   stageId?: string; // Stage ID for compatibility
   status: "idle" | "running" | "completed" | "error";
-  userInput?: any;
-  output?: any;
+  userInput?: string | Record<string, any>;
+  output?: string | Record<string, any>;
   error?: string;
   depsAreMet?: boolean;
   completedAt?: string;
@@ -235,63 +264,19 @@ export interface StageState {
   isStale?: boolean; // Marks content as potentially outdated
   staleDismissed?: boolean; // User dismissed the stale warning
   shouldAutoRun?: boolean;
-  groundingInfo?: any; // Legacy grounding information
+  groundingInfo?: Record<string, any>; // Legacy grounding information
   // Proper grounding metadata structure as per Google documentation
-  groundingMetadata?: {
-    searchEntryPoint?: {
-      renderedContent: string;
-    };
-    groundingChunks?: Array<{
-      web: {
-        uri: string;
-        title: string;
-      };
-    }>;
-    groundingSupports?: Array<{
-      segment: {
-        startIndex?: number;
-        endIndex: number;
-        text: string;
-      };
-      groundingChunkIndices: number[];
-      confidenceScores: number[];
-    }>;
-    webSearchQueries?: string[];
-  };
-  groundingSources?: Array<{
-    type: 'search' | 'url';
-    title: string;
-    url?: string;
-    snippet?: string;
-  }>;
-  functionCalls?: Array<{
-    toolName: string;
-    input: any;
-    output: any;
-    timestamp?: string;
-  }>;
-  codeExecutionResults?: {
-    code: string;
-    stdout?: string;
-    stderr?: string;
-    images?: Array<{
-      name: string;
-      base64Data: string;
-      mimeType: string;
-    }>;
-  };
-  thinkingSteps?: import('@/ai/flows/ai-stage-execution').ThinkingStep[];
+  groundingMetadata?: GroundingMetadata;
+  groundingSources?: GroundingSource[];
+  functionCalls?: FunctionCallMetadata[];
+  codeExecutionResults?: CodeExecutionResult;
+  thinkingSteps?: ThinkingStep[];
   outputImages?: Array<{
     name?: string;
     base64Data: string;
     mimeType: string;
   }>;
-  usageMetadata?: {
-    thoughtsTokenCount?: number;
-    candidatesTokenCount?: number;
-    totalTokenCount?: number;
-    promptTokenCount?: number;
-  };
+  usageMetadata?: UsageMetadata;
   currentStreamOutput?: string; // Streaming output for real-time display
   generationProgress?: {
     styledHtml?: number;
@@ -354,18 +339,23 @@ export interface WizardInstance {
 
 export interface StageInput {
   inputType: StageInputType;
-  userInput?: any;
+  userInput?: string | Record<string, any>;
   formFields?: FormField[];
   text?: string; // Text input for the stage
-  files?: any[]; // File inputs if any
+  files?: Array<{
+    name: string;
+    type: string;
+    size: number;
+    content?: string | ArrayBuffer;
+  }>; // File inputs if any
 }
 
 export interface StageContext {
-  contextVars: Record<string, any>;
+  contextVars: ContextVariables;
   stageStates: Record<string, StageState>;
 }
 
-export type StageOutput = any; // Can be text, JSON, markdown, HTML etc based on outputType
+export type StageOutput = string | Record<string, any>; // Can be text, JSON, markdown, HTML etc based on outputType
 
 export interface ImageGenerationSettings {
   provider?: "gemini" | "imagen";
@@ -408,7 +398,7 @@ export interface AiStageExecutionParams {
   promptTemplate: string;
   model: string; // model will be resolved before passing to AiStageExecutionInput
   temperature: number; // temperature will be resolved before passing
-  contextVars?: Record<string, any>; 
+  contextVars?: ContextVariables; 
 }
 
 // Asset Management System

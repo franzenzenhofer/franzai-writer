@@ -13,6 +13,7 @@ import type {
   StageOutput,
   StageContext 
 } from '@/types';
+import type { ToolDefinition, GroundingMetadata, GroundingSource, JsonSchema } from '@/types/ai-interfaces';
 
 // Define SchemaType enum for @google/genai
 enum SchemaType {
@@ -32,8 +33,8 @@ export interface ExecutionResult {
     completionTokens: number;
     totalTokens: number;
   };
-  groundingMetadata?: any;
-  groundingSources?: any[];
+  groundingMetadata?: GroundingMetadata;
+  groundingSources?: GroundingSource[];
 }
 
 export class AIStageExecution {
@@ -64,14 +65,23 @@ export class AIStageExecution {
         contextVars: context
       };
 
-      let result: any;
-      let usage: any;
+      let result: {
+        text?: string;
+        groundingMetadata?: GroundingMetadata;
+        groundingSources?: GroundingSource[];
+      };
+      let usage: {
+        promptTokenCount?: number;
+        candidatesTokenCount?: number;
+        totalTokenCount?: number;
+        thoughtsTokenCount?: number;
+      } | undefined;
 
       // Handle different output types
       switch (stage.outputType) {
         case 'json':
           // Use structured output for JSON
-          const schema = this.buildJsonSchema(stage);
+          const schema: JsonSchema = this.buildJsonSchema(stage);
           result = await StructuredOutputModule.generateJSON(
             prompt,
             schema,
@@ -174,7 +184,7 @@ export class AIStageExecution {
   /**
    * Build JSON schema from stage configuration
    */
-  private static buildJsonSchema(stage: Stage): any {
+  private static buildJsonSchema(stage: Stage): JsonSchema {
     // If stage has explicit schema, use it
     if (stage.jsonSchema) {
       return stage.jsonSchema;
@@ -182,7 +192,7 @@ export class AIStageExecution {
 
     // If stage has jsonFields, build schema from them
     if (stage.jsonFields && Array.isArray(stage.jsonFields)) {
-      const properties: Record<string, any> = {};
+      const properties: Record<string, JsonSchema> = {};
       const required: string[] = [];
 
       stage.jsonFields.forEach(field => {
@@ -230,9 +240,19 @@ export class AIStageExecution {
    */
   private static async executeWithTools(
     prompt: string,
-    tools: any[],
-    modelConfig: any
-  ): Promise<any> {
+    tools: ToolDefinition[],
+    modelConfig: Record<string, any>
+  ): Promise<{
+    text?: string;
+    groundingMetadata?: GroundingMetadata;
+    groundingSources?: GroundingSource[];
+    usageMetadata?: {
+      promptTokenCount?: number;
+      candidatesTokenCount?: number;
+      totalTokenCount?: number;
+      thoughtsTokenCount?: number;
+    };
+  }> {
     // Convert tools to proper format
     const toolDefinitions = tools.map(tool => ({
       name: tool.name,
@@ -253,7 +273,7 @@ export class AIStageExecution {
    * Process output based on type
    */
   private static processOutput(
-    result: any,
+    result: string | Record<string, any>,
     outputType: string = 'text'
   ): StageOutput {
     switch (outputType) {

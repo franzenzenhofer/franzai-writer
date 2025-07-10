@@ -6,6 +6,8 @@
 // For @google/genai package, we need to define our own types
 // since the API is different from @google/generative-ai
 
+import type { JsonSchema } from '@/types/ai-interfaces';
+
 export interface Content {
   role: 'user' | 'model' | 'system';
   parts: Part[];
@@ -26,7 +28,7 @@ export interface Part {
 export interface FunctionDeclaration {
   name: string;
   description?: string;
-  parameters?: any;
+  parameters?: JsonSchema;
 }
 
 export interface Tool {
@@ -43,7 +45,7 @@ export interface GenerationConfig {
   stopSequences?: string[];
   candidateCount?: number;
   responseMimeType?: string;
-  responseSchema?: any;
+  responseSchema?: JsonSchema;
 }
 
 export interface SafetySetting {
@@ -53,8 +55,21 @@ export interface SafetySetting {
 
 export interface GenerateContentResponse {
   text: () => string;
-  candidates?: any[];
-  usageMetadata?: any;
+  candidates?: Array<{
+    content: Content;
+    finishReason?: string;
+    index?: number;
+    safetyRatings?: Array<{
+      category: string;
+      probability: string;
+    }>;
+  }>;
+  usageMetadata?: {
+    promptTokenCount: number;
+    candidatesTokenCount: number;
+    totalTokenCount: number;
+    thoughtsTokenCount?: number;
+  };
 }
 
 export interface GenerateContentRequest {
@@ -86,7 +101,7 @@ export interface StreamOptions {
 // Structured output types
 export interface JsonSchemaConfig {
   responseMimeType: 'application/json';
-  responseSchema: any; // JSON Schema object
+  responseSchema: JsonSchema; // JSON Schema object
 }
 
 // Tool calling types
@@ -162,8 +177,31 @@ export interface GenerationRequest {
 // Response types
 export interface GenerationResponse {
   text: string;
-  functionCalls?: any[];
-  groundingMetadata?: any;
+  functionCalls?: Array<{
+    name: string;
+    args: Record<string, any>;
+  }>;
+  groundingMetadata?: {
+    searchEntryPoint?: {
+      renderedContent: string;
+    };
+    groundingChunks?: Array<{
+      web: {
+        uri: string;
+        title: string;
+      };
+    }>;
+    groundingSupports?: Array<{
+      segment: {
+        startIndex?: number;
+        endIndex: number;
+        text: string;
+      };
+      groundingChunkIndices: number[];
+      confidenceScores: number[];
+    }>;
+    webSearchQueries?: string[];
+  };
   groundingSources?: Array<{
     title: string;
     uri: string;
@@ -176,14 +214,18 @@ export interface GenerationResponse {
     thoughtsTokenCount?: number;
   };
   finishReason?: string;
-  safetyRatings?: any[];
+  safetyRatings?: Array<{
+    category: string;
+    probability: string;
+    blocked?: boolean;
+  }>;
 }
 
 // Error types
 export interface GenAIError extends Error {
   code?: string;
   status?: number;
-  details?: any;
+  details?: Record<string, any>;
 }
 
 // Feature flags for 2.0+ models

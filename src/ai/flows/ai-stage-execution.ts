@@ -6,6 +6,19 @@ import { generateWithDirectGemini, type DirectGeminiRequest } from '@/ai/direct-
 import { appendFileSync } from 'fs';
 import { join } from 'path';
 import { cleanAiResponse } from '@/lib/ai-content-cleaner';
+import type { 
+  ChatHistoryMessage, 
+  MessagePart, 
+  ThinkingStep, 
+  ContextVariables, 
+  ToolDefinition, 
+  GroundingMetadata, 
+  GroundingSource, 
+  UrlContextMetadata, 
+  FunctionCallMetadata, 
+  CodeExecutionResult, 
+  UsageMetadata
+} from '@/types/ai-interfaces';
 
 // Input Schema including all Gemini features with proper grounding implementation
 const AiStageExecutionInputSchema = z.object({
@@ -29,7 +42,17 @@ const AiStageExecutionInputSchema = z.object({
   systemInstructions: z.string().optional(),
   chatHistory: z.array(z.object({
     role: z.enum(['user', 'model', 'system']),
-    parts: z.array(z.any()),
+    parts: z.array(z.object({
+      text: z.string().optional(),
+      inlineData: z.object({
+        mimeType: z.string(),
+        data: z.string()
+      }).optional(),
+      fileData: z.object({
+        uri: z.string(),
+        mimeType: z.string()
+      }).optional()
+    })),
   })).optional(),
   groundingSettings: z.object({
     googleSearch: z.object({
@@ -77,20 +100,20 @@ const AiStageExecutionInputSchema = z.object({
     description: z.string().optional(),
   }).optional(),
   // Add context variables for template resolution
-  contextVars: z.record(z.any()).optional(),
+  contextVars: z.record(z.union([z.string(), z.number(), z.boolean(), z.object({}), z.null()])).optional(),
 });
 export type AiStageExecutionInput = z.infer<typeof AiStageExecutionInputSchema>;
 
 // Structured Thinking Steps
-const ToolCallRequestSchema = z.object({ type: z.literal('toolRequest'), toolName: z.string(), input: z.any() });
-const ToolCallResponseSchema = z.object({ type: z.literal('toolResponse'), toolName: z.string(), output: z.any() });
+const ToolCallRequestSchema = z.object({ type: z.literal('toolRequest'), toolName: z.string(), input: z.record(z.union([z.string(), z.number(), z.boolean(), z.object({}), z.null()])) });
+const ToolCallResponseSchema = z.object({ type: z.literal('toolResponse'), toolName: z.string(), output: z.record(z.union([z.string(), z.number(), z.boolean(), z.object({}), z.null()])) });
 const TextLogSchema = z.object({ type: z.literal('textLog'), message: z.string() });
 const ThinkingStepSchema = z.union([ToolCallRequestSchema, ToolCallResponseSchema, TextLogSchema]);
 export type ThinkingStep = z.infer<typeof ThinkingStepSchema>;
 
 // Output Schema including proper grounding metadata structure
 const AiStageOutputSchema = z.object({
-  content: z.any().describe('Final accumulated response if streaming, or direct response. Can be string or ImageOutputData.'),
+  content: z.union([z.string(), z.object({})]).describe('Final accumulated response if streaming, or direct response. Can be string or ImageOutputData.'),
   thinkingSteps: z.array(ThinkingStepSchema).optional(),
   outputImages: z.array(z.object({ name: z.string().optional(), base64Data: z.string(), mimeType: z.string() })).optional(),
 
@@ -131,8 +154,8 @@ const AiStageOutputSchema = z.object({
   }).optional(),
   functionCalls: z.array(z.object({
     toolName: z.string(),
-    input: z.any(),
-    output: z.any(),
+    input: z.record(z.union([z.string(), z.number(), z.boolean(), z.object({}), z.null()])),
+    output: z.record(z.union([z.string(), z.number(), z.boolean(), z.object({}), z.null()])),
     timestamp: z.string().optional(),
   })).optional(),
   codeExecutionResults: z.object({
@@ -223,7 +246,7 @@ export async function aiStageExecutionFlow(
     let currentThinkingSteps: ThinkingStep[] = [];
 
     // Load tools if requested
-    let availableTools: any[] = [];
+    let availableTools: ToolDefinition[] = [];
     if (toolNames && toolNames.length > 0) {
       try {
         // Import tool definitions (not actual tools)
@@ -260,13 +283,13 @@ export async function aiStageExecutionFlow(
     // The native approach is handled in the direct API calls above
 
     // Build prompt parts
-    const currentPromptMessageParts: any[] = [];
+    const currentPromptMessageParts: MessagePart[] = [];
     if (promptTemplate) currentPromptMessageParts.push({ text: promptTemplate });
     if (imageData?.data) currentPromptMessageParts.push({ inlineData: { mimeType: imageData.mimeType, data: imageData.data } });
-    if (fileInputs?.length) fileInputs.forEach((file: any) => currentPromptMessageParts.push({ fileData: { uri: file.uri, mimeType: file.mimeType } }));
+    if (fileInputs?.length) fileInputs.forEach((file) => currentPromptMessageParts.push({ fileData: { uri: file.uri, mimeType: file.mimeType } }));
 
     // Build chat history
-    let callHistory = chatHistory ? [...chatHistory] : [];
+    let callHistory: ChatHistoryMessage[] = chatHistory ? [...chatHistory] : [];
     if (currentPromptMessageParts.length > 0) {
       callHistory.push({ role: 'user', parts: currentPromptMessageParts });
     }
@@ -340,7 +363,7 @@ export async function aiStageExecutionFlow(
           }
         })
       },
-      tools: [] as any[],
+      tools: [] as ToolDefinition[],
       // CRITICAL: Pass grounding settings through to generateOptions for fallback paths
       enableGoogleSearch: shouldEnableGoogleSearch,
       forceGoogleSearchGrounding: forceGoogleSearchGrounding,
@@ -418,7 +441,7 @@ export async function aiStageExecutionFlow(
       
       if (functionCallingMode) {
         // Store functionCallingMode for later use in direct API
-        (generateOptions as any).functionCallingMode = functionCallingMode;
+        (generateOptions as { functionCallingMode?: string }).functionCallingMode = functionCallingMode;
       }
     }
 
@@ -533,7 +556,7 @@ async function executeWithDirectGeminiAPI(
     
     // Clean the AI response content to remove code fences and formatting
     const cleanedContent = result.content ? 
-      cleanAiResponse(result.content, (originalInput as any)?.stageOutputType || 'text') : 
+      cleanAiResponse(result.content, originalInput?.stageOutputType || 'text') : 
       result.content;
     
     const processedResult = {

@@ -10,10 +10,19 @@ import geminiToolsTestWorkflowData from "@/workflows/gemini-tools-test/workflow.
 import pressReleaseWorkflowData from "@/workflows/press-release/workflow.json";
 
 // Helper function to map workflow JSON to Workflow type
-function mapWorkflowData(data: any): Workflow {
+function mapWorkflowData(data: {
+  id: string;
+  shortName?: string;
+  name: string;
+  description: string;
+  stages: Array<Record<string, any>>;
+  config?: Record<string, any>;
+  defaultModel?: string;
+  temperature?: number;
+}): Workflow {
   return {
     ...data,
-    stages: data.stages.map((stage: any) => ({
+    stages: data.stages.map((stage: Record<string, any>) => ({
       ...stage,
       title: stage.title || stage.name, // Handle both title and name properties
     }))

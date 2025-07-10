@@ -1,4 +1,5 @@
 import type { Workflow, StageState } from '@/types';
+import type { ContextVariables } from '@/types/ai-interfaces';
 
 export type TemplateContext = {
   workflow: {
@@ -6,7 +7,7 @@ export type TemplateContext = {
     type: string;
     title?: string;
   };
-  stages: Record<string, any>;
+  stages: Record<string, string | Record<string, any> | null>;
 };
 
 /**
@@ -35,7 +36,7 @@ export function buildContext(
 /**
  * Helper to safely extract nested values from stage outputs
  */
-export function safeGet(obj: any, path: string): any {
+export function safeGet(obj: Record<string, any> | null | undefined, path: string): any {
   if (!obj || !path) return null;
   
   return path.split('.').reduce((current, key) => {
